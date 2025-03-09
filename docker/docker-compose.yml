@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  php:
+    container_name: ${PHP_CONTAINER_NAME}
+    build:
+      context: ./infrastructure/php
+      dockerfile: Dockerfile
+    volumes:
+      - ../app:/var/www/src
+      - ./volumes/logs/php/:/var/www/symfony/var/logs
+    networks:
+      - symerce
+
+  nginx:
+    container_name: ${NGINX_CONTAINER_NAME}
+    image: nginx:latest
+    volumes:
+      - ./infrastructure/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ../app:/var/www/src
+      - ./volumes/logs/nginx:/var/log/nginx
+    ports:
+      - "81:80"
+    depends_on:
+      - php
+    networks:
+      - symerce
+
+  database:
+    container_name: ${DATABASE_CONTAINER_NAME}
+    image: mariadb:11.4.3
+    ports:
+      - "3336:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    networks:
+      - symerce
+    volumes:
+      - ./volumes/db:/var/lib/mysql:delegated
+
+networks:
+  symerce:
+    driver: bridge

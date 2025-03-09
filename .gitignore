@@ -1,1 +1,6 @@
 /.idea/
+/docker/volumes/
+/src/vendor/
+/src/node_modules/
+
+.env
