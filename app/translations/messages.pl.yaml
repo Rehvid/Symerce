@@ -1,0 +1,5 @@
+base:
+  validation:
+    unique_email: 'Podany adres e-mail jest już zarejestrowany.'
+    strong_password: 'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.'
+    repeat_password: 'Hasła muszą być identyczne.'

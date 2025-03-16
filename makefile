@@ -11,6 +11,9 @@ print-env:
 start:
 	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) up -d
 
+up:
+	$(DOCKER_COMPOSE) up -d
+
 build:
 	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) build
 
@@ -31,6 +34,9 @@ bash:
 
 create-migration:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console make:migration"
+
+migrate:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console doctrine:migrations:migrate"
 
 composer-install:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "composer install"
