@@ -66,3 +66,6 @@ phpcsfixer:
 phpunit:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "vendor/bin/phpunit"
 
+# Js TOOLS
+prettier-format:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run prettier-format"

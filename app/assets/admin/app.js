@@ -1,9 +1,9 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AuthProvider} from "./context/AuthContext";
-import PrivateRoute from "./components/PrivateRoute";
-import RegisterPage from "./pages/Auth/RegisterPage";
-import LoginPage from "./pages/Auth/LoginPage";
-import DashboardPage from "./pages/DashboardPage";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
+import RegisterPage from './pages/Auth/RegisterPage';
+import LoginPage from './pages/Auth/LoginPage';
+import DashboardPage from './pages/DashboardPage';
 
 function App() {
     return (
@@ -13,21 +13,27 @@ function App() {
                     <Routes>
                         <Route
                             path="/admin/register"
-                            element={<PrivateRoute component={<RegisterPage />} redirectOnAuthSuccess="/admin/dashboard" />}
+                            element={
+                                <PrivateRoute component={<RegisterPage />} redirectOnAuthSuccess="/admin/dashboard" />
+                            }
                         />
                         <Route
                             path="/admin/login"
-                            element={<PrivateRoute component={<LoginPage />} redirectOnAuthSuccess="/admin/dashboard" />}
+                            element={
+                                <PrivateRoute component={<LoginPage />} redirectOnAuthSuccess="/admin/dashboard" />
+                            }
                         />
                         <Route
                             path="/admin/dashboard"
-                            element={<PrivateRoute component={<DashboardPage />} redirectOnAuthFailure="/admin/login" />}
+                            element={
+                                <PrivateRoute component={<DashboardPage />} redirectOnAuthFailure="/admin/login" />
+                            }
                         />
                     </Routes>
                 </BrowserRouter>
             </section>
         </AuthProvider>
-    )
+    );
 }
 
-export default App
+export default App;

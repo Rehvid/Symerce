@@ -25,7 +25,7 @@
     "dev": "encore dev",
     "watch": "encore dev --watch",
     "build": "encore production --progress",
-    "format": "prettier --write  assets/**/*.{js,jsx}"
+    "prettier-format": "prettier --write  assets/**/*.{js,jsx}"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.12",

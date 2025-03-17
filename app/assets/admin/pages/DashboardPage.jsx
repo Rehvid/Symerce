@@ -1,7 +1,7 @@
-import {useAuth} from "../context/AuthContext";
-import {useNavigate} from "react-router-dom";
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-function DashboardPage () {
+function DashboardPage() {
     const { logout } = useAuth();
     const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function DashboardPage () {
             <h1>Dashboard</h1>
             <button onClick={handleLogout}>Wyloguj sie</button>
         </>
-    )
+    );
 }
 
 export default DashboardPage;

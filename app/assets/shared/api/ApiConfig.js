@@ -1,15 +1,10 @@
 export class ApiConfig {
-    constructor(
-        endpoint,
-        method,
-        headers = {},
-        queryParams = {}
-    ) {
+    constructor(endpoint, method, headers = {}, queryParams = {}) {
         if (!endpoint) {
-            throw new Error("Endpoint is required");
+            throw new Error('Endpoint is required');
         }
         if (!method) {
-            throw new Error("Method is required!");
+            throw new Error('Method is required!');
         }
 
         this.endpoint = endpoint;

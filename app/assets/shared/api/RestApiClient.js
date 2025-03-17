@@ -1,4 +1,4 @@
-import {ApiConfig} from "./ApiConfig";
+import { ApiConfig } from './ApiConfig';
 
 const RestApiClient = () => {
     const baseUrl = process.env.REACT_APP_API_URL;
@@ -9,7 +9,7 @@ const RestApiClient = () => {
 
     const sendRequest = async (config, data = {}) => {
         if (!(config instanceof ApiConfig)) {
-            throw new Error("Invalid config. Use createConfig to generate a valid configuration.");
+            throw new Error('Invalid config. Use createConfig to generate a valid configuration.');
         }
 
         const { endpoint, method, queryParams, headers } = config;
@@ -17,12 +17,12 @@ const RestApiClient = () => {
 
         const requestOptions = {
             method: method,
-            headers: {...getDefaultHeaders(), ...headers},
+            headers: { ...getDefaultHeaders(), ...headers },
             body: method !== 'GET' && method !== 'HEAD' ? JSON.stringify(data) : null,
         };
 
-        return  (await fetch(url, requestOptions)).json();
-    }
+        return (await fetch(url, requestOptions)).json();
+    };
 
     const buildUrl = (baseUrl, endpoint, queryParams) => {
         let url = `${baseUrl}/${endpoint}`;
@@ -35,14 +35,14 @@ const RestApiClient = () => {
 
     const getDefaultHeaders = () => {
         return {
-            'Content-Type': 'application/json'
-        }
-    }
+            'Content-Type': 'application/json',
+        };
+    };
 
     return {
         createConfig,
-        sendRequest
+        sendRequest,
     };
-}
+};
 
 export default RestApiClient;
