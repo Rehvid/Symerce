@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
-use DateInterval;
-use DateTime;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Events;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -42,7 +40,7 @@ final readonly class JWTListener implements EventSubscriberInterface
         }
 
         try {
-            $jwtTokenExpiry = (new DateTime())->add(new DateInterval('PT'.$this->tokenTtl.'S'));
+            $jwtTokenExpiry = (new \DateTime())->add(new \DateInterval('PT'.$this->tokenTtl.'S'));
         } catch (\Throwable) {
             return;
         }

@@ -2,14 +2,13 @@
 
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
-    ->exclude('var')
+    ->exclude(['var', 'vendor'])
 ;
 
 return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
         '@PHP83Migration' => true,
-        'no_unused_imports' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
         'method_chaining_indentation' => true,
@@ -18,5 +17,6 @@ return (new PhpCsFixer\Config())
         'compact_nullable_type_declaration' => true,
         '@PSR12' => true,
     ])
+    ->setUsingCache(false)
     ->setFinder($finder)
 ;
