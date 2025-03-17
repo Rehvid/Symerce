@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RepeatPasswordValidator extends ConstraintValidator
 {
-
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof RepeatPassword) {
@@ -18,7 +17,7 @@ class RepeatPasswordValidator extends ConstraintValidator
         }
 
         $object = $this->context->getObject();
-        if (!$value || $object === null || !property_exists($object, 'password') || !$object->password) {
+        if (!$value || null === $object || !property_exists($object, 'password') || !$object->password) {
             return;
         }
 

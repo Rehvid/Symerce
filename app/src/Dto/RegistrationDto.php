@@ -15,5 +15,6 @@ final readonly class RegistrationDto
         #[Assert\NotBlank] #[Assert\Email] #[CustomAssertUniqueEmail]  public string $email,
         #[Assert\NotBlank] #[CustomAssertStrongPassword] public string $password,
         #[Assert\NotBlank] #[CustomAssertRepeatPassword] public string $passwordConfirmation,
-    ) {}
+    ) {
+    }
 }

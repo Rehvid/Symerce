@@ -13,7 +13,9 @@ use Symfony\Component\Validator\Exception\ValidationFailedException;
 
 final readonly class ExceptionListener
 {
-    public function __construct(private LoggerInterface $logger) {}
+    public function __construct(private LoggerInterface $logger)
+    {
+    }
 
     public function onKernelException(ExceptionEvent $event): void
     {
@@ -30,13 +32,14 @@ final readonly class ExceptionListener
         $previousException = $exception->getPrevious();
         if ($previousException instanceof ValidationFailedException) {
             $this->handleValidationException($event, $previousException);
+
             return;
         }
 
         $this->logger->warning('UnprocessableEntityHttpException without ValidationFailedException.', ['exception' => $exception]);
         $this->setEventResponse(
             $event,
-            ['message' => $exception->getMessage()],
+            ['errors' => $exception->getMessage(), 'success' => false],
             $exception->getStatusCode()
         );
     }
@@ -51,6 +54,7 @@ final readonly class ExceptionListener
         );
     }
 
+    /** @param array{errors:mixed, success: bool} $responseData */
     private function setEventResponse(ExceptionEvent $event, array $responseData, int $statusCode): void
     {
         $response = new JsonResponse($responseData, $statusCode);
@@ -58,7 +62,7 @@ final readonly class ExceptionListener
     }
 
     /**
-     *  @return array<int<0, max>, array{property: string, message: string}>
+     * @return array{errors: array<string, array{message: string|\Stringable}>, success: bool}
      */
     private function prepareResponseDataForValidationException(ValidationFailedException $exception): array
     {

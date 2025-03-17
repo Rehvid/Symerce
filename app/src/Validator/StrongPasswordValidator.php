@@ -22,6 +22,7 @@ class StrongPasswordValidator extends ConstraintValidator
 
         $pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};\'":|,.<>\/?]).{8,}$/';
 
+        /** @var string $value */
         if (!preg_match($pattern, $value)) {
             $this->context
                 ->buildViolation($constraint->message)

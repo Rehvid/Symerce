@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Traits\CreatedAtTrait;
+use DateTime;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,39 +19,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "bigint")]
+    #[ORM\Column(type: 'bigint')]
     private int $id;
 
-    #[ORM\Column(type: "string", unique: true)]
+    #[ORM\Column(type: 'string', unique: true)]
     private string $email;
 
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $password;
 
-    #[ORM\Column(type: "boolean", nullable: false, options: ['default' => false])]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isActive = false;
 
-    #[ORM\Column(type: "json")]
+    /** @var array<int|string> */
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
     }
-
-    private string $plainPassword;
 
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
+    /** @return array<int|string>  */
     public function getRoles(): array
     {
         return $this->roles;
     }
 
-    public function eraseCredentials(): void { }
+    public function eraseCredentials(): void
+    {
+    }
 
     public function getUserIdentifier(): string
     {
@@ -72,13 +75,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isActive = $isActive;
     }
 
+    /** @param array<int|string> $roles */
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
-    }
-
-    public function setPlainPassword(string $plainPassword): void
-    {
-        $this->plainPassword = $plainPassword;
     }
 }

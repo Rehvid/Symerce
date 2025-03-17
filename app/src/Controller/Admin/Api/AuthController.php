@@ -17,21 +17,20 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
-#[Route("/api/auth", name: "api_auth_")]
+#[Route('/api/auth', name: 'api_auth_')]
 class AuthController extends AbstractController
 {
-    #[Route('/register', name: "register", methods: ["POST"], format: "json")]
+    #[Route('/register', name: 'register', methods: ['POST'], format: 'json')]
     public function register(
         #[MapRequestPayload] RegistrationDto $registrationDto,
         RegisterUserService $registerUserService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $registerUserService->register($registrationDto);
 
-        return $this->json(["success" => true], Response::HTTP_CREATED);
+        return $this->json(['success' => true], Response::HTTP_CREATED);
     }
 
-    #[Route("/logout", name: "logout", methods: ["POST"])]
+    #[Route('/logout', name: 'logout', methods: ['POST'])]
     public function logout(
         Request $request,
         EventDispatcherInterface $eventDispatcher,
@@ -48,7 +47,7 @@ class AuthController extends AbstractController
     #[Route('/check-auth', name: 'check_auth')]
     public function checkAuth(Request $request, JWTTokenManagerInterface $tokenManager): JsonResponse
     {
-        $token = $request->cookies->get('BEARER');
+        $token = (string) $request->cookies->get('BEARER');
 
         if (!$token) {
             return new JsonResponse(['authenticated' => false], Response::HTTP_UNAUTHORIZED);

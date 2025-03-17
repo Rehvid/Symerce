@@ -28,8 +28,9 @@ readonly class RegisterUserService
     {
         $user = new User();
         $user->setEmail($dto->email);
-        $user->setRoles([Roles::ROLE_USER]);
+        $user->setRoles([Roles::ROLE_USER->value]);
         $user->setPassword($this->passwordHasher->hashPassword($user, $dto->password));
+        $user->setIsActive(true);
 
         return $user;
     }

@@ -9,5 +9,5 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute]
 class RepeatPassword extends Constraint
 {
-    public string $message = "base.validation.repeat_password";
+    public string $message = 'base.validation.repeat_password';
 }
