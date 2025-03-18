@@ -4,6 +4,8 @@ import PrivateRoute from './components/PrivateRoute';
 import RegisterPage from './pages/Auth/RegisterPage';
 import LoginPage from './pages/Auth/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import AppLayout from './components/Layout/AppLayout';
+import ProductPage from './pages/Product/ProductPage';
 
 function App() {
     return (
@@ -24,11 +26,12 @@ function App() {
                             }
                         />
                         <Route
-                            path="/admin/dashboard"
-                            element={
-                                <PrivateRoute component={<DashboardPage />} redirectOnAuthFailure="/admin/login" />
-                            }
-                        />
+                            path="/admin"
+                            element={<PrivateRoute redirectOnAuthFailure="/admin/login" component={<AppLayout />} />}
+                        >
+                            <Route path="dashboard" element={<DashboardPage />} />
+                            <Route path="product" element={<ProductPage />} />
+                        </Route>
                     </Routes>
                 </BrowserRouter>
             </section>
