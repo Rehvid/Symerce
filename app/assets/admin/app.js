@@ -30,7 +30,7 @@ function App() {
                             element={<PrivateRoute redirectOnAuthFailure="/admin/login" component={<AppLayout />} />}
                         >
                             <Route path="dashboard" element={<DashboardPage />} />
-                            <Route path="product" element={<ProductPage />} />
+                            <Route path="products" element={<ProductPage />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>
