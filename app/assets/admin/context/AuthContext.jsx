@@ -5,9 +5,11 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState({});
 
-    const login = () => {
+    const login = user => {
         setIsAuthenticated(true);
+        setUser(user);
     };
 
     const logout = onLogoutSuccess => {
@@ -32,8 +34,8 @@ export const AuthProvider = ({ children }) => {
         const config = restApiClient().createConfig('auth/check-auth', 'GET', { credentials: 'include' });
 
         try {
-            const { authenticated } = await restApiClient().sendRequest(config);
-            authenticated ? login() : setIsAuthenticated(false);
+            const { authenticated, user } = await restApiClient().sendRequest(config);
+            authenticated ? login(user) : setIsAuthenticated(false);
             setLoading(false);
         } catch (e) {
             setIsAuthenticated(false);
@@ -47,7 +49,11 @@ export const AuthProvider = ({ children }) => {
         })();
     }, []);
 
-    return <AuthContext.Provider value={{ isAuthenticated, loading, login, logout }}>{children}</AuthContext.Provider>;
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, loading, login, logout, user }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export const useAuth = () => useContext(AuthContext);

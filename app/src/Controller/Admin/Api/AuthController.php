@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api;
 
 use App\Dto\RegistrationDto;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Service\Auth\RegisterUserService;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,7 +47,7 @@ class AuthController extends AbstractController
     }
 
     #[Route('/check-auth', name: 'check_auth')]
-    public function checkAuth(Request $request, JWTTokenManagerInterface $tokenManager): JsonResponse
+    public function checkAuth(Request $request, JWTTokenManagerInterface $tokenManager, UserRepository $userRepository): JsonResponse
     {
         $token = (string) $request->cookies->get('BEARER');
 
@@ -63,8 +65,18 @@ class AuthController extends AbstractController
                     return new JsonResponse(['authenticated' => false], Response::HTTP_UNAUTHORIZED);
                 }
             }
-            if (isset($decodedToken['username'])) {
-                return new JsonResponse(['authenticated' => true], Response::HTTP_OK);
+
+            /** @var ?User $user */
+            $user = $userRepository->loadUserByIdentifier($decodedToken['username']);
+            if ($user) {
+                return new JsonResponse([
+                    'authenticated' => true,
+                    'user' => [
+                        'email' => $user->getUserIdentifier(),
+                        'firstName' => 'Admin',
+                        'fullName' => 'Admin Admin', //TODO: Change entity
+                    ]
+                ], Response::HTTP_OK);
             }
         } catch (\Exception $e) {
             return new JsonResponse(['authenticated' => false], Response::HTTP_UNAUTHORIZED);
