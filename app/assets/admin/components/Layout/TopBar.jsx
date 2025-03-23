@@ -32,7 +32,7 @@ function TopBar() {
                             <UserIcon />
                         </span>
                         <div className="text-gray-700 font-medium flex gap-1">
-                            <span> {user.firstName} </span>
+                            <span> {user?.firstName} </span>
                             <ChevronIcon
                                 className={`${openDropdown ? 'rotate-180' : 'rotate-0'} transition-transform duration-300`}
                             />
@@ -40,8 +40,8 @@ function TopBar() {
                     </DropdownButton>
                     <DropdownContent containerClasses="w-[250px] mt-2 ">
                         <div className="mb-1">
-                            <span className="font-medium block text-gray-700">{user.fullName}</span>
-                            <small className="block text-gray-500">{user.email}</small>
+                            <span className="font-medium block text-gray-700">{user?.fullName}</span>
+                            <small className="block text-gray-500">{user?.email}</small>
                         </div>
                         <ul className="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200">
                             <li>
@@ -55,7 +55,7 @@ function TopBar() {
                                 </AppLink>
                             </li>
                         </ul>
-                        <AppButton variant="link" additionalClasses="w-full flex items-center gap-3 px-3 py-2 mt-3">
+                        <AppButton onClick={handleLogout} variant="link" additionalClasses="w-full flex items-center gap-3 px-3 py-2 mt-3">
                             <LogoutIcon />
                             <span>Wyloguj sie</span>
                         </AppButton>
