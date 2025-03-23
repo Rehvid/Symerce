@@ -5,7 +5,7 @@ function Breadcrumb() {
 
     return (
         <nav>
-            <ol className="flex gap-2">
+            <ol className="flex items-center justify-center gap-2">
                 {paths.map((path, index) => {
                     const isLast = index === paths.length - 1;
                     return <BreadcrumbItem key={index} paths={paths} path={path} index={index} isLast={isLast} />;

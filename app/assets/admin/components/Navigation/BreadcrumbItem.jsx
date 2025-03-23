@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom';
+import ChevronIcon from '../../../images/shared/chevron.svg';
+import AppLink from '../Common/AppLink';
 
 function BreadcrumbItem({ paths, path, index, isLast }) {
     const fullPath = path === 'admin' ? '/admin/dashboard' : `/${paths.slice(0, index + 1).join('/')}`;
@@ -13,9 +14,10 @@ function BreadcrumbItem({ paths, path, index, isLast }) {
                     {formattedLabel}
                 </span>
             ) : (
-                <NavLink to={fullPath} className="text-sm text-gray-500 hover:text-black">
+                <AppLink to={fullPath} additionalClasses="flex items-center gap-1">
                     {formattedLabel}
-                </NavLink>
+                    <ChevronIcon className="rotate-270 scale-75" />
+                </AppLink>
             )}
         </li>
     );
