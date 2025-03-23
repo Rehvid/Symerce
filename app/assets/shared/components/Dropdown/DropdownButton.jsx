@@ -1,5 +1,16 @@
-function DropdownButton({ children, toggleOpen }) {
-    return <button onClick={toggleOpen}>{children}</button>;
+function DropdownButton({ children, toggleDropdown, onClickExtra, className }) {
+    const handleClick = () => {
+        toggleDropdown();
+        if (onClickExtra) {
+            onClickExtra();
+        }
+    };
+
+    return (
+        <div className={className} onClick={handleClick}>
+            {children}
+        </div>
+    );
 }
 
 export default DropdownButton;

@@ -11,7 +11,7 @@ function Dropdown({ children }) {
         <div>
             {Children.map(children, child => {
                 if (child.type === DropdownButton) {
-                    return cloneElement(child, { toggleOpen: toggleOpen });
+                    return cloneElement(child, { toggleDropdown: toggleOpen, ...child.props });
                 }
                 return cloneElement(child, { isOpen: open });
             })}
