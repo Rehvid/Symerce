@@ -1,7 +1,7 @@
 import { ApiConfig } from './ApiConfig';
 
 const RestApiClient = () => {
-    const baseUrl = process.env.REACT_APP_API_URL;
+    const BASE_URL = process.env.REACT_APP_API_URL;
 
     const createConfig = (endpoint, method, headers = {}, queryParams = {}) => {
         return new ApiConfig(endpoint, method, headers, queryParams);
@@ -13,7 +13,7 @@ const RestApiClient = () => {
         }
 
         const { endpoint, method, queryParams, headers } = config;
-        const url = buildUrl(baseUrl, endpoint, queryParams);
+        const url = buildUrl(queryParams, endpoint, BASE_URL);
 
         const requestOptions = {
             method: method,
@@ -24,8 +24,8 @@ const RestApiClient = () => {
         return (await fetch(url, requestOptions)).json();
     };
 
-    const buildUrl = (baseUrl, endpoint, queryParams) => {
-        let url = `${baseUrl}/${endpoint}`;
+    const buildUrl = (queryParams, endpoint, baseUrl = '') => {
+        let url = `${baseUrl !== '' ? baseUrl + '/' : ''}${endpoint}`;
         const query = new URLSearchParams(queryParams).toString();
         if (query) {
             url += `?${query}`;
@@ -42,6 +42,7 @@ const RestApiClient = () => {
     return {
         createConfig,
         sendRequest,
+        buildUrl,
     };
 };
 
