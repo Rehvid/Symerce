@@ -6,11 +6,12 @@ import LoginPage from './pages/Auth/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import AppLayout from './components/Layout/AppLayout';
 import ProductPage from './pages/Product/ProductPage';
+import CategoryPage from './pages/Category/CategoryPage';
 
 function App() {
     return (
         <AuthProvider>
-            <section className="bg-gray-100 h-screen">
+            <section className="bg-slate-100 h-screen">
                 <BrowserRouter>
                     <Routes>
                         <Route
@@ -31,6 +32,7 @@ function App() {
                         >
                             <Route path="dashboard" element={<DashboardPage />} />
                             <Route path="products" element={<ProductPage />} />
+                            <Route path="categories" element={<CategoryPage />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>
