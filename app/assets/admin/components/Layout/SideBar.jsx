@@ -11,6 +11,7 @@ function SideBar() {
             <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
                 <ul className="flex flex-col gap-4">
                     <NavigationItem to={'dashboard'}>Dashboard</NavigationItem>
+                    <NavigationItem to={'categories'}>Categories</NavigationItem>
                     <NavigationItem to={'products'}>Products</NavigationItem>
                 </ul>
             </div>
