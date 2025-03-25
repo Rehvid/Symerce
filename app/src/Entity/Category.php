@@ -48,6 +48,7 @@ class Category implements ArrayableInterface
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->updateAt = new \DateTime();
         $this->products = new ArrayCollection();
         $this->children = new ArrayCollection();
     }

@@ -61,7 +61,7 @@ function CategoryPage() {
     }
 
     const actionsTable = (
-        <AppButton variant="primary" additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5">
+        <AppButton onClick={() => navigate('create')} variant="primary" additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5">
             <PlusIcon /> New Category
         </AppButton>
     );

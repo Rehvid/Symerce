@@ -7,6 +7,7 @@ import DashboardPage from './pages/DashboardPage';
 import AppLayout from './components/Layout/AppLayout';
 import ProductPage from './pages/Product/ProductPage';
 import CategoryPage from './pages/Category/CategoryPage';
+import CategoryFormPage from "./pages/Category/CategoryFormPage";
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                             <Route path="dashboard" element={<DashboardPage />} />
                             <Route path="products" element={<ProductPage />} />
                             <Route path="categories" element={<CategoryPage />} />
+                            <Route path="categories/create" element={<CategoryFormPage />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>
