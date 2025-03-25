@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
-use App\Dto\RegistrationDto;
+use App\Dto\Request\RegistrationDto;
 use App\Entity\User;
 use App\Enums\Roles;
 use Doctrine\ORM\EntityManagerInterface;
