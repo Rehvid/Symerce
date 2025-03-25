@@ -23,6 +23,14 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    _instanceof:
+        App\Service\DataPersister\Interface\DataPersisterInterface:
+            tags: ['app.data_persister']
+
     App\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    App\Service\DataPersister\Manager\DataPersisterManager:
+        arguments:
+            $persisters: !tagged_iterator app.data_persister
