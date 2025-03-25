@@ -1,4 +1,4 @@
-function AppButton({ children, id, variant, additionalClasses = 'bg-primary', type = 'button', ...props }) {
+function AppButton({ children, id, variant, additionalClasses = '', type = 'button', ...props }) {
     const variants = {
         primary: 'bg-primary text-white hover:bg-primary-stronger',
         secondary: 'bg-white hover:bg-gray-100 text-gray-700 border border-gray-300',
