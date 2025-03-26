@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Api;
 
-use App\Dto\Request\CreateCategoryDto;
+use App\Dto\Request\Category\SaveCategoryDto;
+use App\Dto\Response\Category\CategoryFormResponseDTO;
+use App\Dto\Response\Category\CategoryListDTO;
+use App\Entity\Category;
 use App\Service\CategoryTreeBuilder;
-use App\Service\DataPersister\Manager\DataPersisterManager;
-use App\Service\PaginatedListService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\Pagination\PaginationService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,29 +17,62 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/api/category', name: 'api_category_')]
-class CategoryController extends AbstractController
+class CategoryController extends AbstractApiController
 {
-
     #[Route('/list', name: 'list', methods: ['GET'])]
-    public function getList(Request $request, PaginatedListService $paginatedListService): JsonResponse
+    public function getList(Request $request, PaginationService $paginationService): JsonResponse
     {
-        return $this->json($paginatedListService->getListResponse($request));
+        $paginationResponse = $paginationService->createResponse($request);
+
+        return $this->prepareJsonResponse(
+            data: array_map(fn ($data) =>  CategoryListDTO::fromArray($data), $paginationResponse->data),
+            meta: $paginationResponse->paginationMeta->toArray()
+        );
     }
 
-    #[Route('/form-data', name: 'form_data', methods: ['GET'])]
-    public function getFormData(CategoryTreeBuilder $treeBuilder): JsonResponse
+    #[Route('/{id?}/form-data', name: 'form_data', methods: ['GET'])]
+    public function getFormData(?Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
     {
-        return $this->json($treeBuilder->generateTree());
+        $data = CategoryFormResponseDTO::fromArray([
+            'tree' => $treeBuilder->generateTree(),
+            'name' => $category?->getName(),
+            'parentCategoryId' => $category?->getParent()?->getId(),
+            'description' => $category?->getDescription(),
+            'isActive' => $category && $category->isActive(),
+        ]);
+
+        return $this->prepareJsonResponse($data);
     }
 
     #[Route('/create', name: 'create', methods: ['POST'], format: 'json')]
-    public function create(
-        DataPersisterManager $manager,
-        #[MapRequestPayload] CreateCategoryDto $dto,
-    ): JsonResponse {
-        $entity = $manager->persist($dto);
+    public function create(#[MapRequestPayload] SaveCategoryDto $dto): JsonResponse
+    {
+        $entity = $this->dataPersisterManager->persist($dto);
 
-        return new JsonResponse(['id' => $entity->getId()], Response::HTTP_CREATED);
+        return $this->prepareJsonResponse(
+            data: ['id' => $entity->getId()],
+            statusCode: Response::HTTP_CREATED
+        );
     }
 
+    #[Route('/{id}/update', name: 'update', methods: ['PUT'])]
+    public function update(
+        Category $category,
+        #[MapRequestPayload] SaveCategoryDto $dto,
+    ): JsonResponse
+    {
+        $entity = $this->dataPersisterManager->update($category, $dto);
+
+        return $this->prepareJsonResponse(
+            data: ['id' => $entity->getId()],
+        );
+    }
+
+    #[Route('/delete/{id}', name: 'delete', methods: ['DELETE'])]
+    public function delete(Category $category): JsonResponse
+    {
+        $this->dataPersisterManager->delete($category);
+
+        return $this->prepareJsonResponse();
+    }
 }
