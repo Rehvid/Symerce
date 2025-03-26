@@ -2,15 +2,16 @@ import Select from '../../../../shared/components/Select';
 
 function PaginationFilter({ filters, setFilters, overrideDefaultOptions = false, options = [{}] }) {
     const defaultOptions = [
-        { value: '2', label: '2' },
-        { value: '4', label: '4' },
-        { value: '6', label: '6' },
+        { value: '5', label: '5' },
+        { value: '10', label: '10' },
+        { value: '25', label: '25' },
+        { value: '50', label: '50' },
     ];
 
     const onChange = e => {
         setFilters({
             ...filters,
-            perPage: e.target.value,
+            limit: e.target.value,
             page: 1,
         });
     };
@@ -19,8 +20,8 @@ function PaginationFilter({ filters, setFilters, overrideDefaultOptions = false,
         <div className="flex items-center gap-3">
             <span className="text-gray-500">Show</span>
             <Select
-                name="perPage"
-                selected={filters.perPage || 2}
+                name="limit"
+                selected={filters.limit || 10}
                 onChange={onChange}
                 options={overrideDefaultOptions ? options : defaultOptions}
             />
