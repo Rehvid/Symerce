@@ -38,8 +38,8 @@ final readonly class SluggerService
         $count = $this->entityManager
             ->getRepository($entityClass)
             ->createQueryBuilder('c')
-            ->select('COUNT(c.' . $fieldName . ')')
-            ->where('c.' . $fieldName . ' = :value')
+            ->select('COUNT(c.'.$fieldName.')')
+            ->where('c.'.$fieldName.' = :value')
             ->setParameter('value', $value)
             ->getQuery()
             ->getSingleScalarResult();
@@ -50,7 +50,7 @@ final readonly class SluggerService
     private function tryToGenerateUniqueSlug(string $slug, string $entityClass, string $fieldName): string
     {
         $guid = Guid::uuid4()->toString();
-        $newSlug = $slug . self::LIMITER . $guid;
+        $newSlug = $slug.self::LIMITER.$guid;
 
         if (!$this->findExistingSlugs($newSlug, $entityClass, $fieldName)) {
             return $newSlug;
@@ -58,11 +58,11 @@ final readonly class SluggerService
 
         $attempts = 1;
         while ($this->findExistingSlugs($newSlug, $entityClass, $fieldName) && $attempts <= self::MAX_ATTEMPTS) {
-            $attempts++;
-            $newSlug = $slug . self::LIMITER . $attempts . self::LIMITER . Guid::uuid4()->toString();
+            ++$attempts;
+            $newSlug = $slug.self::LIMITER.$attempts.self::LIMITER.Guid::uuid4()->toString();
         }
 
-        if ($attempts === self::MAX_ATTEMPTS) {
+        if (self::MAX_ATTEMPTS === $attempts) {
             throw new \LogicException('Too many attempts to generate a unique slug');
         }
 

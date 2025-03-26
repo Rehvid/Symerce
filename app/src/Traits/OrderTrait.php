@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait OrderTrait
 {
-    #[ORM\Column(name: "`order`", type: "integer", nullable: false, options: ["default" => "0"])]
+    #[ORM\Column(name: '`order`', type: 'integer', nullable: false, options: ['default' => '0'])]
     private int $order = 0;
 
     public function getOrder(): int

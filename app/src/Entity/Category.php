@@ -18,31 +18,34 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
 class Category implements ArrayableInterface
 {
-    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait, OrderTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+    use ActiveTrait;
+    use OrderTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
     private int $id;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $name;
 
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $slug;
 
-    #[ORM\Column(type: "text", nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: "categories", cascade: ["persist", "remove"])]
-    #[ORM\JoinTable(name: "products_categories")]
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'categories', cascade: ['persist', 'remove'])]
+    #[ORM\JoinTable(name: 'products_categories')]
     private Collection $products;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: "children")]
-    #[ORM\JoinColumn(name: "parent_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Category $parent = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: "parent", cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     private Collection $children;
 
     public function __construct()
@@ -131,7 +134,6 @@ class Category implements ArrayableInterface
             $this->children->removeElement($category);
         }
     }
-
 
     public function toArray(array $additionalData = []): array
     {

@@ -9,7 +9,6 @@ use App\Repository\Base\BaseRepository;
 
 class CategoryRepository extends BaseRepository
 {
-
     protected function getEntityClass(): string
     {
         return Category::class;

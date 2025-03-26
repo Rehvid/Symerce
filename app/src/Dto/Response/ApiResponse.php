@@ -10,7 +10,8 @@ final readonly class ApiResponse
         public mixed $data,
         public ?array $meta = null,
         public ?array $errors = null,
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {

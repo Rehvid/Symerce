@@ -11,8 +11,9 @@ use Doctrine\Persistence\ManagerRegistry;
 
 abstract class BaseRepository extends ServiceEntityRepository implements BaseRepositoryInterface
 {
-    abstract protected function getEntityClass() : string;
-    abstract protected function getAlias() : string;
+    abstract protected function getEntityClass(): string;
+
+    abstract protected function getAlias(): string;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -30,7 +31,7 @@ abstract class BaseRepository extends ServiceEntityRepository implements BaseRep
             ->orderBy("$alias.order", 'ASC')
         ;
 
-        if ($search !== null) {
+        if (null !== $search) {
             $queryBuilder
                 ->andWhere("$alias.name LIKE :search")
                 ->setParameter('search', "%$search%")

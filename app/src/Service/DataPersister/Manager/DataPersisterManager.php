@@ -6,7 +6,6 @@ namespace App\Service\DataPersister\Manager;
 
 use App\Interfaces\PersistableInterface;
 use App\Service\DataPersister\Interface\DataPersisterInterface;
-use LogicException;
 
 class DataPersisterManager
 {
@@ -14,7 +13,6 @@ class DataPersisterManager
      * @var DataPersisterInterface[]
      */
     private array $persisters;
-
 
     public function __construct(iterable $persisters)
     {
@@ -29,7 +27,7 @@ class DataPersisterManager
     {
         $class = is_object($data) ? get_class($data) : $data;
 
-        return $this->persisters[$class] ?? throw new LogicException("No persister found for $class");
+        return $this->persisters[$class] ?? throw new \LogicException("No persister found for $class");
     }
 
     public function persist(PersistableInterface $data): object

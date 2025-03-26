@@ -13,7 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 class AbstractApiController extends AbstractController
 {
     public function __construct(protected readonly DataPersisterManager $dataPersisterManager)
-    {}
+    {
+    }
 
     protected function prepareJsonResponse(
         mixed $data = [],

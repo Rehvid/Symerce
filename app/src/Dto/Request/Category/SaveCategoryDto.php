@@ -10,10 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 final readonly class SaveCategoryDto implements PersistableInterface
 {
     public function __construct(
-        #[Assert\NotBlank] public readonly string $name,
-        public readonly ?int $parentId = null,
-        public readonly bool $isActive = false,
-        public readonly ?string $description = null,
+        #[Assert\NotBlank] public string $name,
+        public bool $isActive,
+        public ?int $parentId = null,
+        public ?string $description = null,
     ) {
     }
 }

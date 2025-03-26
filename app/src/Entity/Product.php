@@ -15,20 +15,23 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Product
 {
-    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait, OrderTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+    use ActiveTrait;
+    use OrderTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
     private int $id;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $name;
 
-    #[ORM\Column(type: "text", nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: "products")]
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'products')]
     private Collection $categories;
 
     public function __construct()
@@ -52,10 +55,21 @@ class Product
             $this->categories->add($category);
         }
     }
+
     public function removeCategory(Category $category): void
     {
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
         }
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
     }
 }

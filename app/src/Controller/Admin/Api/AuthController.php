@@ -74,8 +74,8 @@ class AuthController extends AbstractController
                     'user' => [
                         'email' => $user->getUserIdentifier(),
                         'firstName' => 'Admin',
-                        'fullName' => 'Admin Admin', //TODO: Change entity
-                    ]
+                        'fullName' => 'Admin Admin', // TODO: Change entity
+                    ],
                 ], Response::HTTP_OK);
             }
         } catch (\Exception $e) {

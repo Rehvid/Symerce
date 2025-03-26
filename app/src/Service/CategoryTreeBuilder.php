@@ -9,11 +9,10 @@ use App\Repository\CategoryRepository;
 
 class CategoryTreeBuilder
 {
-
     public function __construct(
         private readonly CategoryRepository $categoryRepository,
         private array $processedCategories = []
-    ){
+    ) {
 
     }
 
@@ -27,13 +26,13 @@ class CategoryTreeBuilder
                 continue;
             }
 
-            $tree[] = $this->buildTreeNode($category);
+            $tree[] = $this->buildTreeNode($category, false);
         }
 
         return $tree;
     }
 
-    private function buildTreeNode(Category $category, bool $isRecursive = false): array
+    private function buildTreeNode(Category $category, bool $isRecursive): array
     {
         if ($isRecursive) {
             $this->processedCategories[$category->getId()] = true;
@@ -42,7 +41,7 @@ class CategoryTreeBuilder
         return [
             'id' => $category->getId(),
             'name' => $category->getName(),
-            'children' => array_map(fn($child) => $this->buildTreeNode($child,true), $category->getChildren()->toArray()),
+            'children' => array_map(fn ($child) => $this->buildTreeNode($child, true), $category->getChildren()->toArray()),
         ];
     }
 }

@@ -47,6 +47,7 @@ class CategoryController extends AbstractApiController
     #[Route('/create', name: 'create', methods: ['POST'], format: 'json')]
     public function create(#[MapRequestPayload] SaveCategoryDto $dto): JsonResponse
     {
+        /** @var Category $entity */
         $entity = $this->dataPersisterManager->persist($dto);
 
         return $this->prepareJsonResponse(
@@ -59,8 +60,8 @@ class CategoryController extends AbstractApiController
     public function update(
         Category $category,
         #[MapRequestPayload] SaveCategoryDto $dto,
-    ): JsonResponse
-    {
+    ): JsonResponse {
+        /** @var Category $entity */
         $entity = $this->dataPersisterManager->update($category, $dto);
 
         return $this->prepareJsonResponse(

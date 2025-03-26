@@ -9,22 +9,22 @@ use App\Dto\Response\ResponseInterfaceData;
 final readonly class CategoryFormResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
-       public array $tree,
-       public ?string $name,
-       public ?int $parentCategoryId = null,
-       public ?string $description = null,
-       public bool $isActive,
-    ){}
-
+        public array $tree,
+        public ?string $name,
+        public ?int $parentCategoryId = null,
+        public ?string $description = null,
+        public bool $isActive,
+    ) {
+    }
 
     public static function fromArray(array $data): ResponseInterfaceData
     {
         return new self(
-          tree: $data['tree'] ?? [],
-          name: $data['name'] ?? null,
-          parentCategoryId: $data['parentId'] ?? null,
-          description: $data['description'] ?? null,
-          isActive: $data['isActive'] ?? false,
+            tree: $data['tree'] ?? [],
+            name: $data['name'] ?? null,
+            parentCategoryId: $data['parentId'] ?? null,
+            description: $data['description'] ?? null,
+            isActive: $data['isActive'] ?? false,
         );
     }
 }

@@ -17,8 +17,7 @@ final class CategoryPersister extends AbstractDataPersister
     public function __construct(
         private readonly SluggerService $sluggerService,
         EntityManagerInterface $entityManager
-    )
-    {
+    ) {
         parent::__construct($entityManager);
     }
 
@@ -30,19 +29,19 @@ final class CategoryPersister extends AbstractDataPersister
     protected function createEntityFromDto(PersistableInterface $persistable): object
     {
         /** @var SaveCategoryDto $persistable */
-       $category = new Category();
-       $category->setActive($persistable->isActive);
-       $category->setName($persistable->name);
-       $category->setDescription($persistable->description);
-       $category->setParent($this->getParentCategory($persistable->parentId));
-       $category->setSlug($this->generateSlug($persistable->name));
-       $category->setOrder($this->getRepository()->count());
+        $category = new Category();
+        $category->setActive($persistable->isActive);
+        $category->setName($persistable->name);
+        $category->setDescription($persistable->description);
+        $category->setParent($this->getParentCategory($persistable->parentId));
+        $category->setSlug($this->generateSlug($persistable->name));
+        $category->setOrder($this->getRepository()->count());
 
-       return $category;
+        return $category;
     }
 
     /**
-     * @param Category $entity
+     * @param Category        $entity
      * @param SaveCategoryDto $persistable
      */
     protected function updateEntityFromDto(object $entity, PersistableInterface $persistable): object
