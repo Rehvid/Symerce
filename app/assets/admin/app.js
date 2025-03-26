@@ -35,6 +35,7 @@ function App() {
                             <Route path="products" element={<ProductPage />} />
                             <Route path="categories" element={<CategoryPage />} />
                             <Route path="categories/create" element={<CategoryFormPage />} />
+                            <Route path="categories/:id/edit" element={<CategoryFormPage />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

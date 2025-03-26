@@ -14,16 +14,17 @@ import PaginationFilter from '../../components/Table/Filters/PaginationFilter';
 import TableRowDeleteAction from '../../components/Table/Partials/TableRow/TableRowDeleteAction';
 import TableRowEditAction from '../../components/Table/Partials/TableRow/TableRowEditAction';
 
+
 function CategoryPage() {
     const navigate = useNavigate();
     const location = useLocation();
 
     const [categories, setCategories] = useState([]);
-    const [total, setTotal] = useState(0);
+    const [pagination, setPagination] = useState(null);
     const [rendered, setRendered] = useState(0);
     const [didInit, setDidInit] = useState(false);
     const [filters, setFilters] = useState({
-        perPage: 2,
+        limit: 5,
         page: 1,
     });
 
@@ -46,17 +47,16 @@ function CategoryPage() {
     const getCategories = async () => {
         const config = RestApiClient().createConfig('category/list', 'GET', {}, filters);
         try {
-            const { data, total, rendered } = await RestApiClient().sendRequest(config);
+            const { data, meta } = await RestApiClient().sendRequest(config);
 
             setCategories(data);
-            setTotal(total);
-            setRendered(rendered);
+            setPagination(meta);
         } catch (e) {
             console.error(e);
         }
     };
 
-    if (categories.length === 0) {
+    if (!didInit) {
         return <>Loading...</>;
     }
 
@@ -66,10 +66,18 @@ function CategoryPage() {
         </AppButton>
     );
 
-    const itemActions = (
+    const removeCategory = async (id) => {
+        const deleteConfig = RestApiClient().createConfig(`category/delete/${id}`, 'DELETE')
+        const response = await RestApiClient().sendRequest(deleteConfig);
+        if (response.errors === null) {
+            await getCategories();
+        }
+    }
+
+    const itemActions = (category) => (
         <div className="flex gap-2 items-start">
-            <TableRowDeleteAction to={'#'} />
-            <TableRowEditAction to={'#'} />
+            <TableRowDeleteAction onClick={() => removeCategory(category.id)} />
+            <TableRowEditAction to={`${category.id}/edit`} />
         </div>
     );
 
@@ -89,15 +97,13 @@ function CategoryPage() {
                 additionalFilters={[PaginationFilter]}
                 columns={['Id', 'Name', 'Slug', 'Description', 'Actions']}
                 actions={actionsTable}
-                actionHeader={<TableActionHeader title="Your categories" total={total} />}
+                actionHeader={<TableActionHeader title="Your categories" total={pagination.totalItems} />}
                 data={data}
             >
                 <TablePagination
                     filters={filters}
                     setFilters={setFilters}
-                    total={total}
-                    rendered={rendered}
-                    perPage={filters.perPage}
+                    pagination={pagination}
                 />
             </Table>
         </>

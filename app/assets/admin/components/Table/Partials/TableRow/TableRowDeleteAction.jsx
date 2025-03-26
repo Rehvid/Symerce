@@ -1,11 +1,11 @@
-import AppLink from '../../../Common/AppLink';
 import TrashIcon from '../../../../../images/shared/trash.svg';
+import AppButton from "../../../Common/AppButton";
 
-function TableRowDeleteAction({ to }) {
+function TableRowDeleteAction({ onClick }) {
     return (
-        <AppLink to={to} additionalClasses="text-gray-500">
+        <AppButton onClick={onClick} additionalClasses="text-gray-500">
             <TrashIcon />
-        </AppLink>
+        </AppButton>
     );
 }
 
