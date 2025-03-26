@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository\Base;
 
 use App\Repository\Interface\BaseRepositoryInterface;
+use App\Service\Pagination\PaginationMeta;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,18 +19,14 @@ abstract class BaseRepository extends ServiceEntityRepository implements BaseRep
         parent::__construct($registry, $this->getEntityClass());
     }
 
-    public function findPaginated(array $queryParams)
+    public function findPaginated(PaginationMeta $paginationMeta, array $queryParams = []): array
     {
-        $perPage = $queryParams['perPage'] ?? 10;
-        $page = $queryParams['page'] ?? 1;
         $search = $queryParams['search'] ?? null;
 
-        $firstResult = ($page - 1) * $perPage;
         $alias = $this->getAlias();
-
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->setFirstResult($firstResult)
-            ->setMaxResults((int) $perPage)
+            ->setFirstResult($paginationMeta->offset)
+            ->setMaxResults($paginationMeta->limit)
             ->orderBy("$alias.order", 'ASC')
         ;
 
@@ -40,6 +37,6 @@ abstract class BaseRepository extends ServiceEntityRepository implements BaseRep
             ;
         }
 
-        return $queryBuilder->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getArrayResult();
     }
 }
