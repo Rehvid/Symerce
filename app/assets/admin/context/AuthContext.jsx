@@ -1,10 +1,11 @@
-import { createContext, useState, useContext, useEffect } from 'react';
-import restApiClient from '../../shared/api/RestApiClient';
+import { createContext, useState, useContext} from 'react';
+import restApiClient from "../../shared/api/RestApiClient";
+import {createApiConfig} from "../../shared/api/ApiConfig";
 
 const AuthContext = createContext({});
+
 export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
     const [user, setUser] = useState({});
 
     const login = user => {
@@ -12,45 +13,26 @@ export const AuthProvider = ({ children }) => {
         setUser(user);
     };
 
-    const logout = onLogoutSuccess => {
-        const config = restApiClient().createConfig('auth/logout', 'POST');
+    const logout = async (onLogoutSuccess) => {
+        const config = createApiConfig('auth/logout', 'POST', true);
+        const { data, errors} = await restApiClient().executeRequest(config);
 
-        restApiClient()
-            .sendRequest(config)
-            .then(response => {
-                const { success } = response;
-                if (!success) {
-                    return;
-                }
+        if (errors) {
+            console.error(result.errors.message);
+            return;
+        }
 
-                setIsAuthenticated(false);
-                if (onLogoutSuccess) {
-                    onLogoutSuccess();
-                }
-            });
-    };
-
-    const checkAuth = async () => {
-        const config = restApiClient().createConfig('auth/check-auth', 'GET', { credentials: 'include' });
-
-        try {
-            const { authenticated, user } = await restApiClient().sendRequest(config);
-            authenticated ? login(user) : setIsAuthenticated(false);
-            setLoading(false);
-        } catch (e) {
+        if (data.success) {
             setIsAuthenticated(false);
-            setLoading(false);
+            setUser({});
+            if (onLogoutSuccess) {
+                onLogoutSuccess();
+            }
         }
     };
 
-    useEffect(() => {
-        (async () => {
-            await checkAuth();
-        })();
-    }, []);
-
     return (
-        <AuthContext.Provider value={{ isAuthenticated, loading, login, logout, user }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
             {children}
         </AuthContext.Provider>
     );
