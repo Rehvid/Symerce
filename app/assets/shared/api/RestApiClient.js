@@ -1,18 +1,40 @@
-import { ApiConfig } from './ApiConfig';
 
 const RestApiClient = () => {
     const BASE_URL = process.env.REACT_APP_API_URL;
 
-    const createConfig = (endpoint, method, headers = {}, queryParams = {}) => {
-        return new ApiConfig(endpoint, method, headers, queryParams);
-    };
+    if (!BASE_URL) {
+        throw new Error('BASE_URL is not defined in environment variables');
+    }
 
-    const sendRequest = async (config, data = {}) => {
-        if (!(config instanceof ApiConfig)) {
-            throw new Error('Invalid config. Use createConfig to generate a valid configuration.');
+    const executeRequest = async (apiConfig, requestData = {}) => {
+        if (!apiConfig || !apiConfig.getConfig || typeof apiConfig.getConfig !== 'function') {
+            throw new Error('Invalid apiConfig. Must be created using createApiConfig.');
         }
 
-        const { endpoint, method, queryParams, headers } = config;
+        try {
+            const { data, meta, errors } = await sendRequest(apiConfig, requestData);
+
+            return {
+                data: data || {},
+                meta: meta || null,
+                errors: errors || null
+            };
+        } catch (error) {
+            console.error('Api request failed:', error);
+            return {
+                data: null,
+                meta: null,
+                errors: {
+                    message: error.message,
+                    code: error.code || 'unknown_error',
+                    status: error.status || null
+                }
+            };
+        }
+    }
+
+    const sendRequest = async (apiConfig, data = {}) => {
+        const { endpoint, method, queryParams, headers } = apiConfig.getConfig();
         const url = buildUrl(queryParams, endpoint, BASE_URL);
 
         const requestOptions = {
@@ -21,7 +43,21 @@ const RestApiClient = () => {
             body: method !== 'GET' && method !== 'HEAD' ? JSON.stringify(data) : null,
         };
 
-        return (await fetch(url, requestOptions)).json();
+        const response = await fetch(url, requestOptions);
+        const responseData = await response.json();
+
+        return {
+            data: responseData.data,
+            meta: responseData.meta,
+            errors: responseData.errors
+        };
+    };
+
+    const getDefaultHeaders = () => {
+        return {
+            'Content-Type': 'application/json',
+            'credentials': 'include'
+        };
     };
 
     const buildUrl = (queryParams, endpoint, baseUrl = '') => {
@@ -33,17 +69,11 @@ const RestApiClient = () => {
         return url;
     };
 
-    const getDefaultHeaders = () => {
-        return {
-            'Content-Type': 'application/json',
-        };
-    };
-
     return {
-        createConfig,
-        sendRequest,
         buildUrl,
-    };
-};
+        executeRequest
+    }
+}
+
 
 export default RestApiClient;
