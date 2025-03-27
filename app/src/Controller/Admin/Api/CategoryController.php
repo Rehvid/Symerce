@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Api;
 
+use App\Controller\AbstractApiController;
 use App\Dto\Request\Category\SaveCategoryDto;
 use App\Dto\Response\Category\CategoryFormResponseDTO;
 use App\Dto\Response\Category\CategoryListDTO;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/category', name: 'api_category_')]
+#[Route('/category', name: 'category_')]
 class CategoryController extends AbstractApiController
 {
     #[Route('/list', name: 'list', methods: ['GET'])]
@@ -29,6 +30,7 @@ class CategoryController extends AbstractApiController
             meta: $paginationResponse->paginationMeta->toArray()
         );
     }
+
 
     #[Route('/{id?}/form-data', name: 'form_data', methods: ['GET'])]
     public function getFormData(?Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse

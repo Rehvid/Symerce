@@ -4,6 +4,12 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+controllers_api_admin:
+    resource: ../src/Controller/Admin/Api
+    type: attribute
+    prefix: /api/admin
+    name_prefix: api_admin_
+
 api_login_check:
     path: /api/login_check
 
