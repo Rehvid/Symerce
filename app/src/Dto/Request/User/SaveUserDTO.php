@@ -16,6 +16,8 @@ final readonly class SaveUserDTO implements PersistableInterface
         #[Assert\NotBlank] #[Assert\Email] #[CustomAssertUniqueEmail]  public string $email,
         #[Assert\NotBlank] #[CustomAssertStrongPassword] public string $password,
         #[Assert\NotBlank] #[CustomAssertRepeatPassword] public string $passwordConfirmation,
+        #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $firstname,
+        #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $surname,
     ) {
     }
 }

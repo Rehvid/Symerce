@@ -30,6 +30,8 @@ final class UserPersister extends AbstractDataPersister
         $user->setRoles([Roles::ROLE_USER->value]);
         $user->setPassword($this->passwordHasher->hashPassword($user, $persistable->password));
         $user->setIsActive(true);
+        $user->setFirstname($persistable->firstname);
+        $user->setSurname($persistable->surname);
 
         return $user;
     }

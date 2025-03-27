@@ -21,8 +21,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'bigint')]
     private int $id;
 
-    #[ORM\Column(type: 'string', unique: true)]
+    #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $email;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $firstname;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $surname;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $password;
@@ -83,5 +89,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
+    }
+
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): void
+    {
+        $this->firstname = $firstname;
+    }
+
+    public function getSurname(): string
+    {
+        return $this->surname;
+    }
+
+    public function setSurname(string $surname): void
+    {
+        $this->surname = $surname;
     }
 }
