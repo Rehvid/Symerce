@@ -36,12 +36,14 @@ security:
         admin:
             pattern: ^/admin
             stateless: false
-            provider: app_user_provider
+            jwt: ~
 
         api_admin:
-            pattern: ^/api/admin
+            pattern: ^/api
             stateless: true
             jwt: ~
+            provider: app_user_provider
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -55,10 +57,8 @@ security:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin/register, roles: PUBLIC_ACCESS }
-        - { path: ^/auth/api/check-auth, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/admin, roles: PUBLIC_ACCESS }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/admin, roles: IS_AUTHENTICATED_FULLY }
+
 
 when@test:
     security:
