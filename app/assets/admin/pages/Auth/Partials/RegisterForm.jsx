@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form';
 import AppInput from '../../../../shared/components/Form/AppInput';
-import RouterLink from '../../../../shared/components/RouterLink';
-import React, { useEffect } from 'react';
+import React from 'react';
+import AppButton from "@/admin/components/Common/AppButton";
+import AppLink from "@/admin/components/Common/AppLink";
+import {useValidationErrors} from "@/admin/hooks/useValidationErrors";
+import {validationRules} from "@/admin/utilities/validationRules";
 
 const RegisterForm = ({ onSubmit, validationErrors }) => {
     const {
@@ -9,82 +12,64 @@ const RegisterForm = ({ onSubmit, validationErrors }) => {
         handleSubmit,
         setError,
         formState: { errors },
-    } = useForm();
-
-    useEffect(() => {
-        if (validationErrors) {
-            handleErrorResponse(validationErrors);
-        }
-    }, [validationErrors]);
-
-    const handleErrorResponse = errors => {
-        Object.keys(errors).forEach(key => {
-            setError(key, { type: 'custom', message: errors[key]['message'] });
-        });
-    };
+    } = useForm({
+        mode: "onChange",
+    });
+     useValidationErrors(validationErrors, setError);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[40px]">
             <AppInput
                 {...register('email', {
-                    required: 'Pole Email jest wymagane',
-                    minLength: {
-                        value: 3,
-                        message: 'Email musi mieć co najmniej 3 znaki',
-                    },
+                    ...validationRules.required(),
+                    ...validationRules.minLength(3),
                 })}
                 type="email"
                 id="email"
                 label="Adres e-mail"
                 hasError={errors.hasOwnProperty('email')}
                 errorMessage={errors?.email?.message}
+                isRequired
             />
             <AppInput
                 {...register('firstname', {
-                    required: 'Pole Imie jest wymagane',
-                    minLength: {
-                        value: 2,
-                        message: 'Imię musi mieć co najmniej 2 znaki',
-                    },
+                    ...validationRules.required(),
+                    ...validationRules.minLength(3),
                 })}
                 type="text"
                 id="firstname"
                 label="Imie"
                 hasError={errors.hasOwnProperty('firstname')}
                 errorMessage={errors?.firstname?.message}
+                isRequired
             />
             <AppInput
                 {...register('surname', {
-                    required: 'Pole Nazwisko jest wymagane',
-                    minLength: {
-                        value: 2,
-                        message: 'Nazwisko musi mieć co najmniej 3 znaki',
-                    },
+                    ...validationRules.required(),
+                    ...validationRules.minLength(2),
                 })}
                 type="text"
                 id="surname"
                 label="Nazwisko"
-                hasError={errors.hasOwnProperty('nazwisko')}
+                hasError={errors.hasOwnProperty('surname')}
                 errorMessage={errors?.surname?.message}
+                isRequired
             />
             <AppInput
                 {...register('password', {
-                    required: 'Pole hasło jest wymagane',
-                    pattern: {
-                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/,
-                        message:
-                            'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.',
-                    },
+                    ...validationRules.required(),
+                    ...validationRules.password(),
                 })}
                 type="password"
                 id="password"
                 label="Hasło"
                 hasError={errors.hasOwnProperty('password')}
                 errorMessage={errors?.password?.message}
+                isRequired
             />
             <AppInput
                 {...register('passwordConfirmation', {
-                    required: 'Pole powtórz hasło jest wymagane',
+                    ...validationRules.required(),
                     validate: function (passwordConfirmation, { password }) {
                         return passwordConfirmation === password || 'Hasła muszą być identyczne.';
                     },
@@ -94,16 +79,14 @@ const RegisterForm = ({ onSubmit, validationErrors }) => {
                 label="Powtórz hasło"
                 hasError={errors.hasOwnProperty('passwordConfirmation')}
                 errorMessage={errors?.passwordConfirmation?.message}
+                isRequired
             />
             <div>
-                <button
-                    className="cursor-pointer w-full bg-indigo-500 text-white text-sm font-bold py-3 px-4 rounded-md hover:bg-indigo-600 transition duration-300"
-                    type="submit"
-                >
-                    Zarejestruj się
-                </button>
+                <AppButton variant="primary" type="submit" additionalClasses="px-4 py-2 w-full">
+                    Zarejestruj sie
+                </AppButton>
             </div>
-            <RouterLink navigateTo="/admin/login" label="Masz konto? Zaloguj się!" />
+            <AppLink to="/admin/register" additionalClasses="w-full text-center">Masz konto? Zaloguj się!</AppLink>
         </form>
     );
 };

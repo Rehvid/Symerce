@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import RestApiClient from '../../../shared/api/RestApiClient';
 import { createApiConfig } from '../../../shared/api/ApiConfig';
 import RegisterForm from './Partials/RegisterForm';
+import Card from "@/admin/components/Card";
 
 const RegisterPage = () => {
     const [validationErrors, setValidationErrors] = useState({});
@@ -26,8 +27,10 @@ const RegisterPage = () => {
 
     return (
         <div className="container mx-auto py-8">
-            <h1 className="text-2xl font-bold mb-6 text-center">Zarejestruj się</h1>
-            <RegisterForm onSubmit={onSubmit} validationErrors={validationErrors} />
+            <Card additionalClasses="max-w-md mx-auto shadow-lg">
+                <h1 className="text-2xl font-bold py-5 mb-6 text-center ">Zarejestruj się</h1>
+                <RegisterForm onSubmit={onSubmit} validationErrors={validationErrors} />
+            </Card>
         </div>
     );
 };
