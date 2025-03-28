@@ -3,7 +3,7 @@ import Card from "../../../components/Card";
 import CategoryTree from "../../../components/CategoryTree/CategoryTree";
 import React from "react";
 
-function CategoryFormMainDetails({register, errors, setValue, categoryData, selectedCategory, setSelectedCategory}) {
+const CategoryFormMainDetails = ({register, errors, setValue, categoryData, selectedCategory, setSelectedCategory}) => {
     return (
         <Card>
             <h3 className="text-lg font-semibold">Basic information</h3>

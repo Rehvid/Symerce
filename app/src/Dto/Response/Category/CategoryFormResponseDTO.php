@@ -22,7 +22,7 @@ final readonly class CategoryFormResponseDTO implements ResponseInterfaceData
         return new self(
             tree: $data['tree'] ?? [],
             name: $data['name'] ?? null,
-            parentCategoryId: $data['parentId'] ?? null,
+            parentCategoryId: $data['parentCategoryId'] ?? null,
             description: $data['description'] ?? null,
             isActive: $data['isActive'] ?? false,
         );

@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import CategoryFormSideBar from "./CategoryFormSideBar";
 import CategoryFormMainDetails from "./CategoryFormMainDetails";
 
-function CategoryForm({onSubmit, categoryData, setSelectedCategory, selectedCategory }) {
+const CategoryForm = ({onSubmit, categoryData, setSelectedCategory, selectedCategory }) => {
     const {
         register,
         handleSubmit,

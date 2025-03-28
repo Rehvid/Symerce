@@ -1,7 +1,7 @@
 import Card from "../../../components/Card";
 import React from "react";
 
-function CategoryFormSideBar({register}) {
+const CategoryFormSideBar = ({register}) => {
     return (
         <Card additionalClasses="w-[500px] h-full">
             <div className="flex flex-col gap-4">

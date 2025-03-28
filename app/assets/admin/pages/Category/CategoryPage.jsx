@@ -13,16 +13,15 @@ import TableActionHeader from '../../components/Table/Partials/TableActionHeader
 import PaginationFilter from '../../components/Table/Filters/PaginationFilter';
 import TableRowDeleteAction from '../../components/Table/Partials/TableRow/TableRowDeleteAction';
 import TableRowEditAction from '../../components/Table/Partials/TableRow/TableRowEditAction';
+import {createApiConfig} from "../../../shared/api/ApiConfig";
 
-
-function CategoryPage() {
+const CategoryPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [categories, setCategories] = useState([]);
-    const [pagination, setPagination] = useState(null);
-    const [rendered, setRendered] = useState(0);
     const [didInit, setDidInit] = useState(false);
+    const [categories, setCategories] = useState([]);
+    const [pagination, setPagination] = useState({});
     const [filters, setFilters] = useState({
         limit: 5,
         page: 1,
@@ -45,31 +44,33 @@ function CategoryPage() {
     }, [filters]);
 
     const getCategories = async () => {
-        const config = RestApiClient().createConfig('category/list', 'GET', {}, filters);
+        const config = createApiConfig('category/list', 'GET', true).addQueryParams(filters);
         try {
-            const { data, meta } = await RestApiClient().sendRequest(config);
+            const { data, meta, errors } = await RestApiClient().executeRequest(config);
 
-            setCategories(data);
-            setPagination(meta);
+            if (!errors) {
+                setCategories(data);
+                setPagination(meta);
+            }
         } catch (e) {
             console.error(e);
         }
     };
 
-    if (!didInit) {
-        return <>Loading...</>;
-    }
-
     const actionsTable = (
-        <AppButton onClick={() => navigate('create')} variant="primary" additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5">
+        <AppButton
+            onClick={() => navigate('create')}
+               variant="primary"
+               additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5"
+        >
             <PlusIcon /> New Category
         </AppButton>
     );
 
     const removeCategory = async (id) => {
-        const deleteConfig = RestApiClient().createConfig(`category/delete/${id}`, 'DELETE')
-        const response = await RestApiClient().sendRequest(deleteConfig);
-        if (response.errors === null) {
+        const config = createApiConfig(`category/delete/${id}`, 'DELETE', true);
+        const {errors} = await RestApiClient().executeRequest(config);
+        if (errors === null) {
             await getCategories();
         }
     }
@@ -84,6 +85,10 @@ function CategoryPage() {
     const data = prepareDataForTable(categories, {
         actions: itemActions,
     });
+
+    if (!didInit) {
+        return (<div>Loading...</div>);
+    }
 
     return (
         <>

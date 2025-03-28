@@ -32,7 +32,7 @@ class CategoryController extends AbstractApiController
     }
 
 
-    #[Route('/{id?}/form-data', name: 'form_data', methods: ['GET'])]
+    #[Route('/form-data/{id?}', name: 'form_data', defaults: ['id' => null], methods: ['GET'])]
     public function getFormData(?Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
     {
         $data = CategoryFormResponseDTO::fromArray([
