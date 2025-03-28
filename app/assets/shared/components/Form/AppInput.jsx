@@ -10,6 +10,7 @@ const AppInput = React.forwardRef(({
     errorMessage,
     containerClassName,
     icon,
+    isRequired,
     ...register
 }, ref) => {
         const inputClasses = `peer w-full h-[46px] rounded-full border border-gray-300 bg-transparent py-2.5 pl-[40px] pr-[60px] text-sm text-gray-800 shadow-theme-xs transition-all placeholder:text-gray-400 focus:ring-4 ${
@@ -39,8 +40,14 @@ const AppInput = React.forwardRef(({
                     placeholder={' '}
                     {...register}
                 />
-                {label && <label htmlFor={id || 'input-id'} className={labelClasses}>{label}</label>}
-                {hasError && <p className="mt-2 text-sm text-red-600">{errorMessage}</p>}
+                {label &&
+                    <label htmlFor={id || 'input-id'} className={labelClasses}>
+                        {label}
+                        {isRequired && (
+                            <span className="pl-1 text-red-500">*</span>
+                        )}
+                    </label>}
+                {hasError && <p className="mt-2 pl-2 text-sm text-red-600">{errorMessage}</p>}
             </div>
         );
 });
