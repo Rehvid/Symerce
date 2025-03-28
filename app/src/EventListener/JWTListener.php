@@ -87,7 +87,7 @@ final readonly class JWTListener implements EventSubscriberInterface
     {
         if ($this->isApiRequest($request)) {
             $apiResponse = $this->createApiResponse(
-                errors: ['status' => false, 'message' => $message]
+                errors: ['status' => false, 'message' => $message, 'code' => Response::HTTP_UNAUTHORIZED],
             );
 
             $event->setResponse(
