@@ -1,4 +1,4 @@
-function TableHeader({ columns }) {
+const TableHeader = ({ columns }) => {
     return (
         <thead className="bg-gray-50 border-b border-gray-100">
             <tr>

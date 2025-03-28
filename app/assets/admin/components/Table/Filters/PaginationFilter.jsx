@@ -1,6 +1,6 @@
 import Select from '../../../../shared/components/Select';
 
-function PaginationFilter({ filters, setFilters, overrideDefaultOptions = false, options = [{}] }) {
+const PaginationFilter = ({ filters, setFilters, overrideDefaultOptions = false, options = [{}] }) => {
     const defaultOptions = [
         { value: '5', label: '5' },
         { value: '10', label: '10' },

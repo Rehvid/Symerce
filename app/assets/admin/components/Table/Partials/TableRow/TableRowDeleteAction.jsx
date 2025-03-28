@@ -1,7 +1,7 @@
 import TrashIcon from '../../../../../images/shared/trash.svg';
 import AppButton from "../../../Common/AppButton";
 
-function TableRowDeleteAction({ onClick }) {
+const TableRowDeleteAction = ({ onClick }) => {
     return (
         <AppButton onClick={onClick} additionalClasses="text-gray-500">
             <TrashIcon />

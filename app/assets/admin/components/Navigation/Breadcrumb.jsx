@@ -1,6 +1,6 @@
 import BreadcrumbItem from './BreadcrumbItem';
 
-function Breadcrumb() {
+const Breadcrumb = () => {
     const paths = location.pathname.split('/').filter(path => path);
 
     return (

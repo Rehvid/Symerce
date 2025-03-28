@@ -1,12 +1,8 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-function PrivateRoute({ component, redirectOnAuthFailure, redirectOnAuthSuccess }) {
-    const { isAuthenticated, loading } = useAuth();
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+const PrivateRoute = ({ component, redirectOnAuthFailure, redirectOnAuthSuccess }) => {
+    const { isAuthenticated } = useAuth();
 
     if (!isAuthenticated && redirectOnAuthFailure) {
         return <Navigate to={redirectOnAuthFailure} replace />;

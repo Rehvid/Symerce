@@ -1,7 +1,7 @@
 import ReactPaginate from 'react-paginate';
 
 
-function TablePagination({ filters, setFilters, pagination }) {
+const TablePagination = ({ filters, setFilters, pagination })  =>{
     const currentRendered = pagination.offset + 1;
     const currentShowingItems = pagination.limit * pagination.page;
     const showed = currentShowingItems > pagination.totalItems ? pagination.totalItems : currentShowingItems;

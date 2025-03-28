@@ -1,6 +1,6 @@
 import AppLink from '../Common/AppLink';
 
-function NavigationItem({ children, to }) {
+const  NavigationItem = ({ children, to }) => {
     return (
         <li>
             <AppLink to={to} variant="sidebar" additionalClasses="flex items-center py-2 px-5">

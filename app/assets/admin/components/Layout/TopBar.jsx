@@ -10,7 +10,7 @@ import { useState } from 'react';
 import AppLink from '../Common/AppLink';
 import AppButton from '../Common/AppButton';
 
-function TopBar() {
+const TopBar = () => {
     const { logout, user } = useAuth();
     const navigate = useNavigate();
     const [openDropdown, setOpenDropdown] = useState(false);

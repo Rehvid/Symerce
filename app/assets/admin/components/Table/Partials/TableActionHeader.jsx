@@ -1,4 +1,4 @@
-function TableActionHeader({ title, total }) {
+const TableActionHeader = ({ title, total }) => {
     return (
         <h2 className="text-xl font-semibold flex items-center justify-center gap-2">
             {title}

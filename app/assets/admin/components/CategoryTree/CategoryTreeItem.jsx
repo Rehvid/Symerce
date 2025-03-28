@@ -1,6 +1,6 @@
 import ChevronIcon from "../../../images/shared/chevron.svg";
 
-function CategoryTreeItem ({ category, selected, setSelected, toggleOpen, openCategories, disabledCategoryId }){
+const CategoryTreeItem = ({ category, selected, setSelected, toggleOpen, openCategories, disabledCategoryId }) => {
     const isOpen = openCategories.includes(category.id);
 
     const canOpen = isOpen && category.children.length > 0;

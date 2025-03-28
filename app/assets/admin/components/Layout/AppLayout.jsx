@@ -2,7 +2,7 @@ import SideBar from './SideBar';
 import TopBar from './TopBar';
 import { Outlet } from 'react-router-dom';
 
-function AppLayout() {
+const AppLayout = () => {
     return (
         <>
             <SideBar />

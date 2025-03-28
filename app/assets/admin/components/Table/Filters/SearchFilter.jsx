@@ -1,6 +1,6 @@
 import SearchIcon from '../../../../images/shared/search.svg';
 
-function SearchFilter({ filters, setFilters }) {
+const SearchFilter = ({ filters, setFilters }) => {
     const onBlur = e => {
         setFilters({
             ...filters,

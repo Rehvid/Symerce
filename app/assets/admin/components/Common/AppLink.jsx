@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function AppLink({ to, children, variant = 'default', additionalClasses = '' }) {
+const AppLink = ({ to, children, variant = 'default', additionalClasses = '' }) => {
     const variants = {
         sidebar: 'text-gray-700 rounded-full hover:bg-gray-100',
         default: 'text-sm text-gray-500 hover:text-primary',

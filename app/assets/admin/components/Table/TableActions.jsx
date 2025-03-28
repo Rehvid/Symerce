@@ -5,7 +5,7 @@ import FilterIcon from '../../../images/shared/filter.svg';
 import DropdownContent from '../../../shared/components/Dropdown/DropdownContent';
 import SearchFilter from './Filters/SearchFilter';
 
-function TableActions({ filters, setFilters, header, actions, additionalFilters = [] }) {
+const TableActions = ({ filters, setFilters, header, actions, additionalFilters = [] }) => {
     return (
         <div className="flex items-center gap-4 justify-between">
             {header}

@@ -1,4 +1,4 @@
-function TableRow({ row, rowIndex }) {
+const TableRow = ({ row, rowIndex }) => {
     return (
         <tr key={rowIndex} className="border-b border-gray-100 last:border-b-0">
             {row.map((cell, cellIndex) => (

@@ -1,6 +1,6 @@
 import TableRow from './TableRow';
 
-function TableBody({ data }) {
+const TableBody = ({ data }) => {
     return (
         <tbody>
             {data.map((row, rowIndex) => (

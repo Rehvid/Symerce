@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Submenu({ buttonLabel, children }) {
+const Submenu = ({ buttonLabel, children }) => {
     const [open, setOpen] = useState(false);
     const handleToggle = () => {
         setOpen(prev => !prev);

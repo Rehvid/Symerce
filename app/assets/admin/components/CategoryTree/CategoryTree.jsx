@@ -1,7 +1,7 @@
 import {useState} from "react";
 import CategoryTreeItem from "./CategoryTreeItem";
 
-function CategoryTree({ categories, selected, setSelected, disabledCategoryId }) {
+const CategoryTree = ({ categories, selected, setSelected, disabledCategoryId }) => {
     const [openCategories, setOpenCategories] = useState([]);
 
     const toggleOpen = (id) => {

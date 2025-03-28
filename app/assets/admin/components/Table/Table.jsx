@@ -2,7 +2,7 @@ import TableActions from './TableActions';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 
-function Table({
+const Table = ({
     filters,
     setFilters,
     columns = [],
@@ -11,7 +11,7 @@ function Table({
     actionHeader = null,
     additionalFilters = [],
     children,
-}) {
+}) => {
     return (
         <div className="py-5">
             <div className="rounded-xl border border-gray-200 bg-white">
