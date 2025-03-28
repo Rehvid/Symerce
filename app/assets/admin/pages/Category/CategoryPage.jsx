@@ -13,7 +13,7 @@ import TableActionHeader from '../../components/Table/Partials/TableActionHeader
 import PaginationFilter from '../../components/Table/Filters/PaginationFilter';
 import TableRowDeleteAction from '../../components/Table/Partials/TableRow/TableRowDeleteAction';
 import TableRowEditAction from '../../components/Table/Partials/TableRow/TableRowEditAction';
-import {createApiConfig} from "../../../shared/api/ApiConfig";
+import { createApiConfig } from '../../../shared/api/ApiConfig';
 
 const CategoryPage = () => {
     const navigate = useNavigate();
@@ -60,22 +60,22 @@ const CategoryPage = () => {
     const actionsTable = (
         <AppButton
             onClick={() => navigate('create')}
-               variant="primary"
-               additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5"
+            variant="primary"
+            additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5"
         >
             <PlusIcon /> New Category
         </AppButton>
     );
 
-    const removeCategory = async (id) => {
+    const removeCategory = async id => {
         const config = createApiConfig(`category/delete/${id}`, 'DELETE', true);
-        const {errors} = await RestApiClient().executeRequest(config);
+        const { errors } = await RestApiClient().executeRequest(config);
         if (errors === null) {
             await getCategories();
         }
-    }
+    };
 
-    const itemActions = (category) => (
+    const itemActions = category => (
         <div className="flex gap-2 items-start">
             <TableRowDeleteAction onClick={() => removeCategory(category.id)} />
             <TableRowEditAction to={`${category.id}/edit`} />
@@ -87,7 +87,7 @@ const CategoryPage = () => {
     });
 
     if (!didInit) {
-        return (<div>Loading...</div>);
+        return <div>Loading...</div>;
     }
 
     return (
@@ -105,14 +105,10 @@ const CategoryPage = () => {
                 actionHeader={<TableActionHeader title="Your categories" total={pagination.totalItems} />}
                 data={data}
             >
-                <TablePagination
-                    filters={filters}
-                    setFilters={setFilters}
-                    pagination={pagination}
-                />
+                <TablePagination filters={filters} setFilters={setFilters} pagination={pagination} />
             </Table>
         </>
     );
-}
+};
 
 export default CategoryPage;

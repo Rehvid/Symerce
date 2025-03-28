@@ -17,6 +17,6 @@ const SideBar = () => {
             </div>
         </aside>
     );
-}
+};
 
 export default SideBar;

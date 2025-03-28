@@ -8,5 +8,5 @@ const TableRow = ({ row, rowIndex }) => {
             ))}
         </tr>
     );
-}
+};
 export default TableRow;

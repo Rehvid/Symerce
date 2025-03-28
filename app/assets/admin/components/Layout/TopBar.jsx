@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+
 import Dropdown from '../../../shared/components/Dropdown/Dropdown';
 import DropdownButton from '../../../shared/components/Dropdown/DropdownButton';
 import DropdownContent from '../../../shared/components/Dropdown/DropdownContent';
@@ -9,6 +9,7 @@ import LogoutIcon from '../../../images/shared/logout.svg';
 import { useState } from 'react';
 import AppLink from '../Common/AppLink';
 import AppButton from '../Common/AppButton';
+import {useAuth} from "@/admin/hooks/useAuth";
 
 const TopBar = () => {
     const { logout, user } = useAuth();
@@ -55,7 +56,11 @@ const TopBar = () => {
                                 </AppLink>
                             </li>
                         </ul>
-                        <AppButton onClick={handleLogout} variant="link" additionalClasses="w-full flex items-center gap-3 px-3 py-2 mt-3">
+                        <AppButton
+                            onClick={handleLogout}
+                            variant="link"
+                            additionalClasses="w-full flex items-center gap-3 px-3 py-2 mt-3"
+                        >
                             <LogoutIcon />
                             <span>Wyloguj sie</span>
                         </AppButton>
@@ -64,6 +69,6 @@ const TopBar = () => {
             </div>
         </header>
     );
-}
+};
 
 export default TopBar;

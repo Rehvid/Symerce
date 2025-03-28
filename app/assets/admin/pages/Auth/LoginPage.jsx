@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 import RestApiClient from '../../../shared/api/RestApiClient';
-import LoginForm from "./Partials/LoginForm";
-import {createApiConfig} from "../../../shared/api/ApiConfig";
+import LoginForm from './Partials/LoginForm';
+import { createApiConfig } from '../../../shared/api/ApiConfig';
+import {useAuth} from "@/admin/hooks/useAuth";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const LoginPage = () => {
     const onSubmit = async values => {
         try {
             const result = await RestApiClient().executeRequest(apiConfig, values);
-            const {data} = result;
+            const { data } = result;
 
             if (data.user) {
                 login(data.user);
@@ -30,6 +30,6 @@ const LoginPage = () => {
             <LoginForm onSubmit={onSubmit} />
         </div>
     );
-}
+};
 
 export default LoginPage;

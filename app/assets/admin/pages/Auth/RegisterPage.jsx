@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RestApiClient from '../../../shared/api/RestApiClient';
-import {createApiConfig} from "../../../shared/api/ApiConfig";
-import RegisterForm from "./Partials/RegisterForm";
+import { createApiConfig } from '../../../shared/api/ApiConfig';
+import RegisterForm from './Partials/RegisterForm';
 
 const RegisterPage = () => {
     const [validationErrors, setValidationErrors] = useState({});
@@ -30,6 +30,6 @@ const RegisterPage = () => {
             <RegisterForm onSubmit={onSubmit} validationErrors={validationErrors} />
         </div>
     );
-}
+};
 
 export default RegisterPage;

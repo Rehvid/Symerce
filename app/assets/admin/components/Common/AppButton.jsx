@@ -17,6 +17,6 @@ const AppButton = ({ children, id, variant, additionalClasses = '', type = 'butt
             {children}
         </button>
     );
-}
+};
 
 export default AppButton;

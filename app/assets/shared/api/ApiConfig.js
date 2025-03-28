@@ -6,19 +6,19 @@ export const createApiConfig = (endpoint, method, isAdmin) => {
         endpoint: isAdmin ? `admin/${endpoint}` : `${endpoint}`,
         method,
         headers: {},
-        queryParams: {}
+        queryParams: {},
     };
 
-    const api =  {
-        setHeaders: (headers) => {
+    const api = {
+        setHeaders: headers => {
             config.headers = { ...config.headers, ...headers };
             return api;
         },
-        addQueryParams: (params) => {
+        addQueryParams: params => {
             config.queryParams = { ...config.queryParams, ...params };
             return api;
         },
-        getConfig: () => config
+        getConfig: () => config,
     };
 
     return api;

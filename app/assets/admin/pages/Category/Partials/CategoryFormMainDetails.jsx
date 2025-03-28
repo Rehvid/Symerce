@@ -1,14 +1,21 @@
-import Input from "../../../../shared/components/Input";
-import Card from "../../../components/Card";
-import CategoryTree from "../../../components/CategoryTree/CategoryTree";
-import React from "react";
+import AppInput from '../../../../shared/components/Form/AppInput';
+import Card from '../../../components/Card';
+import CategoryTree from '../../../components/CategoryTree/CategoryTree';
+import React from 'react';
 
-const CategoryFormMainDetails = ({register, errors, setValue, categoryData, selectedCategory, setSelectedCategory}) => {
+const CategoryFormMainDetails = ({
+    register,
+    errors,
+    setValue,
+    categoryData,
+    selectedCategory,
+    setSelectedCategory,
+}) => {
     return (
         <Card>
             <h3 className="text-lg font-semibold">Basic information</h3>
             <div className="flex flex-col gap-4 mt-5">
-                <Input
+                <AppInput
                     {...register('name', {
                         required: 'Pole nazwa jest wymagana',
                         minLength: {
@@ -22,7 +29,7 @@ const CategoryFormMainDetails = ({register, errors, setValue, categoryData, sele
                     hasError={errors.hasOwnProperty('name')}
                     errorMessage={errors?.name?.message}
                 />
-                <Input
+                <AppInput
                     {...register('description')}
                     type="text"
                     id="description"
@@ -47,6 +54,6 @@ const CategoryFormMainDetails = ({register, errors, setValue, categoryData, sele
             </div>
         </Card>
     );
-}
+};
 
 export default CategoryFormMainDetails;

@@ -23,6 +23,6 @@ const AppLink = ({ to, children, variant = 'default', additionalClasses = '' }) 
             {children}
         </NavLink>
     );
-}
+};
 
 export default AppLink;

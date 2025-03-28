@@ -23,6 +23,6 @@ const Submenu = ({ buttonLabel, children }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Submenu;

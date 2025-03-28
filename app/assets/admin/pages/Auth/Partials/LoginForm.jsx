@@ -1,9 +1,9 @@
-import Input from "../../../../shared/components/Input";
-import RouterLink from "../../../../shared/components/RouterLink";
-import React from "react";
-import {useForm} from "react-hook-form";
+import AppInput from '../../../../shared/components/Form/AppInput';
+import RouterLink from '../../../../shared/components/RouterLink';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 
-const LoginForm = ({onSubmit}) => {
+const LoginForm = ({ onSubmit }) => {
     const {
         register,
         handleSubmit,
@@ -11,11 +11,8 @@ const LoginForm = ({onSubmit}) => {
     } = useForm();
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md"
-        >
-            <Input
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+            <AppInput
                 {...register('email', {
                     required: 'Pole Email jest wymagane',
                     minLength: {
@@ -29,7 +26,7 @@ const LoginForm = ({onSubmit}) => {
                 hasError={errors.hasOwnProperty('email')}
                 errorMessage={errors?.email?.message}
             />
-            <Input
+            <AppInput
                 {...register('password', {
                     required: 'Pole hasło jest wymagane',
                     pattern: {
@@ -55,6 +52,6 @@ const LoginForm = ({onSubmit}) => {
             <RouterLink navigateTo="/admin/register" label="Nie masz konta? Zarejestruj się" />
         </form>
     );
-}
+};
 
 export default LoginForm;

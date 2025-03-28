@@ -7,5 +7,5 @@ const TableActionHeader = ({ title, total }) => {
             </span>
         </h2>
     );
-}
+};
 export default TableActionHeader;

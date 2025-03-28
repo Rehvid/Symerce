@@ -8,6 +8,6 @@ const TableBody = ({ data }) => {
             ))}
         </tbody>
     );
-}
+};
 
 export default TableBody;

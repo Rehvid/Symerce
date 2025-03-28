@@ -7,6 +7,6 @@ const TableRowEditAction = ({ to }) => {
             <PencilIcon />
         </AppLink>
     );
-}
+};
 
 export default TableRowEditAction;

@@ -1,9 +1,9 @@
-import {useForm} from "react-hook-form";
-import Input from "../../../../shared/components/Input";
-import RouterLink from "../../../../shared/components/RouterLink";
-import React, {useEffect} from "react";
+import { useForm } from 'react-hook-form';
+import AppInput from '../../../../shared/components/Form/AppInput';
+import RouterLink from '../../../../shared/components/RouterLink';
+import React, { useEffect } from 'react';
 
-const RegisterForm = ({onSubmit, validationErrors}) => {
+const RegisterForm = ({ onSubmit, validationErrors }) => {
     const {
         register,
         handleSubmit,
@@ -24,11 +24,8 @@ const RegisterForm = ({onSubmit, validationErrors}) => {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md"
-        >
-            <Input
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+            <AppInput
                 {...register('email', {
                     required: 'Pole Email jest wymagane',
                     minLength: {
@@ -42,7 +39,7 @@ const RegisterForm = ({onSubmit, validationErrors}) => {
                 hasError={errors.hasOwnProperty('email')}
                 errorMessage={errors?.email?.message}
             />
-            <Input
+            <AppInput
                 {...register('firstname', {
                     required: 'Pole Imie jest wymagane',
                     minLength: {
@@ -56,7 +53,7 @@ const RegisterForm = ({onSubmit, validationErrors}) => {
                 hasError={errors.hasOwnProperty('firstname')}
                 errorMessage={errors?.firstname?.message}
             />
-            <Input
+            <AppInput
                 {...register('surname', {
                     required: 'Pole Nazwisko jest wymagane',
                     minLength: {
@@ -70,7 +67,7 @@ const RegisterForm = ({onSubmit, validationErrors}) => {
                 hasError={errors.hasOwnProperty('nazwisko')}
                 errorMessage={errors?.surname?.message}
             />
-            <Input
+            <AppInput
                 {...register('password', {
                     required: 'Pole hasło jest wymagane',
                     pattern: {
@@ -85,7 +82,7 @@ const RegisterForm = ({onSubmit, validationErrors}) => {
                 hasError={errors.hasOwnProperty('password')}
                 errorMessage={errors?.password?.message}
             />
-            <Input
+            <AppInput
                 {...register('passwordConfirmation', {
                     required: 'Pole powtórz hasło jest wymagane',
                     validate: function (passwordConfirmation, { password }) {
@@ -108,7 +105,7 @@ const RegisterForm = ({onSubmit, validationErrors}) => {
             </div>
             <RouterLink navigateTo="/admin/login" label="Masz konto? Zaloguj się!" />
         </form>
-    )
-}
+    );
+};
 
 export default RegisterForm;

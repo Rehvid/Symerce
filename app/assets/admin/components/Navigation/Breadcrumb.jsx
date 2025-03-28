@@ -13,6 +13,6 @@ const Breadcrumb = () => {
             </ol>
         </nav>
     );
-}
+};
 
 export default Breadcrumb;

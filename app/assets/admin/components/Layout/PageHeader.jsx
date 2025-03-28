@@ -5,6 +5,6 @@ const PageHeader = ({ title, children }) => {
             <div>{children}</div>
         </div>
     );
-}
+};
 
 export default PageHeader;

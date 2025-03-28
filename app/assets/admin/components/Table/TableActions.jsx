@@ -33,6 +33,6 @@ const TableActions = ({ filters, setFilters, header, actions, additionalFilters 
             </div>
         </div>
     );
-}
+};
 
 export default TableActions;

@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import {useAuth} from "@/admin/hooks/useAuth";
 
 const PrivateRoute = ({ component, redirectOnAuthFailure, redirectOnAuthSuccess }) => {
     const { isAuthenticated } = useAuth();
@@ -13,6 +13,6 @@ const PrivateRoute = ({ component, redirectOnAuthFailure, redirectOnAuthSuccess 
     }
 
     return component;
-}
+};
 
 export default PrivateRoute;

@@ -12,6 +12,6 @@ const TableHeader = ({ columns }) => {
             </tr>
         </thead>
     );
-}
+};
 
 export default TableHeader;

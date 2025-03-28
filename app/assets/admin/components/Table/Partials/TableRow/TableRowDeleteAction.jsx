@@ -1,5 +1,5 @@
 import TrashIcon from '../../../../../images/shared/trash.svg';
-import AppButton from "../../../Common/AppButton";
+import AppButton from '../../../Common/AppButton';
 
 const TableRowDeleteAction = ({ onClick }) => {
     return (
@@ -7,6 +7,6 @@ const TableRowDeleteAction = ({ onClick }) => {
             <TrashIcon />
         </AppButton>
     );
-}
+};
 
 export default TableRowDeleteAction;

@@ -17,7 +17,7 @@ const RestApiClient = () => {
             return {
                 data: data || {},
                 meta: meta || null,
-                errors: errors || null
+                errors: errors || null,
             };
         } catch (error) {
             console.error('Api request failed:', error);
@@ -27,11 +27,11 @@ const RestApiClient = () => {
                 errors: {
                     message: error.message,
                     code: error.code || 'unknown_error',
-                    status: error.status || null
-                }
+                    status: error.status || null,
+                },
             };
         }
-    }
+    };
 
     const sendRequest = async (apiConfig, data = {}) => {
         const { endpoint, method, queryParams, headers } = apiConfig.getConfig();
@@ -49,14 +49,14 @@ const RestApiClient = () => {
         return {
             data: responseData.data,
             meta: responseData.meta,
-            errors: responseData.errors
+            errors: responseData.errors,
         };
     };
 
     const getDefaultHeaders = () => {
         return {
             'Content-Type': 'application/json',
-            'credentials': 'include'
+            credentials: 'include',
         };
     };
 
@@ -71,9 +71,8 @@ const RestApiClient = () => {
 
     return {
         buildUrl,
-        executeRequest
-    }
-}
-
+        executeRequest,
+    };
+};
 
 export default RestApiClient;

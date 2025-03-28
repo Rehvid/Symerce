@@ -27,6 +27,6 @@ const PaginationFilter = ({ filters, setFilters, overrideDefaultOptions = false,
             />
         </div>
     );
-}
+};
 
 export default PaginationFilter;

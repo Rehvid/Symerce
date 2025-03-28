@@ -1,22 +1,22 @@
-import AppButton from "../../../components/Common/AppButton";
-import React, {useEffect} from "react";
-import {useForm} from "react-hook-form";
-import CategoryFormSideBar from "./CategoryFormSideBar";
-import CategoryFormMainDetails from "./CategoryFormMainDetails";
+import AppButton from '../../../components/Common/AppButton';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import CategoryFormSideBar from './CategoryFormSideBar';
+import CategoryFormMainDetails from './CategoryFormMainDetails';
 
-const CategoryForm = ({onSubmit, categoryData, setSelectedCategory, selectedCategory }) => {
+const CategoryForm = ({ onSubmit, categoryData, setSelectedCategory, selectedCategory }) => {
     const {
         register,
         handleSubmit,
         setValue,
-        formState: {errors}
+        formState: { errors },
     } = useForm();
 
     useEffect(() => {
         if (categoryData) {
-            setValue("name", categoryData.name);
-            setValue("description", categoryData.description);
-            setValue("isActive", categoryData.isActive);
+            setValue('name', categoryData.name);
+            setValue('description', categoryData.description);
+            setValue('isActive', categoryData.isActive);
             setSelectedCategory(categoryData.parentCategoryId);
         }
     }, [categoryData]);
@@ -37,10 +37,12 @@ const CategoryForm = ({onSubmit, categoryData, setSelectedCategory, selectedCate
                 <CategoryFormSideBar register={register} />
             </div>
             <div className="sticky bottom-0 left-0 right-0 z-10 mt-8 bg-white  p-4 flex justify-end">
-                <AppButton variant="primary" type="submit" additionalClasses="px-4 py-2" >Zapisz </AppButton>
+                <AppButton variant="primary" type="submit" additionalClasses="px-4 py-2">
+                    Zapisz{' '}
+                </AppButton>
             </div>
         </form>
     );
-}
+};
 
 export default CategoryForm;

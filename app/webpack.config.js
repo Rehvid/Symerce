@@ -28,7 +28,9 @@ Encore
     .enableReactPreset()
     .enablePostCssLoader()
     .addPlugin(new Dotenv())
-
+    .addAliases({
+        '@': path.resolve(__dirname, 'assets'),
+    })
     .addRule({
         test: /\.svg$/,
         use: [
@@ -38,11 +40,6 @@ Encore
         ],
     })
 
-    // .addRule({
-    //     test: /\.svg$/,
-    //     issuer: /\.[jt]sx?$/,
-    //     use: ['@svgr/webpack', 'file-loader'],
-    // })
 ;
 
 module.exports = Encore.getWebpackConfig();
