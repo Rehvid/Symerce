@@ -14,7 +14,7 @@ function App() {
     return (
         <AuthProvider>
             <ApiProvider>
-                <section className="bg-slate-100 h-screen">
+                <section className="bg-slate-100 min-h-screen">
                     <BrowserRouter>
                         <Routes>
                             <Route

@@ -1,7 +1,10 @@
 import AppInput from '../../../../shared/components/Form/AppInput';
-import RouterLink from '../../../../shared/components/RouterLink';
-import React from 'react';
+import UserIcon from '@/images/shared/user.svg';
+import EyeIcon from '@/images/shared/eye.svg';
+import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
+import AppButton from "@/admin/components/Common/AppButton";
+import AppLink from "@/admin/components/Common/AppLink";
 
 const LoginForm = ({ onSubmit }) => {
     const {
@@ -9,9 +12,13 @@ const LoginForm = ({ onSubmit }) => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    const [showPassword, setShowPassword] = useState(false);
+    const togglePassword = () => {
+        setShowPassword(showPassword => !showPassword);
+    }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[40px]">
             <AppInput
                 {...register('email', {
                     required: 'Pole Email jest wymagane',
@@ -25,6 +32,7 @@ const LoginForm = ({ onSubmit }) => {
                 label="Adres e-mail"
                 hasError={errors.hasOwnProperty('email')}
                 errorMessage={errors?.email?.message}
+                icon={<UserIcon className="text-gray-500" />}
             />
             <AppInput
                 {...register('password', {
@@ -35,21 +43,20 @@ const LoginForm = ({ onSubmit }) => {
                             'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.',
                     },
                 })}
-                type="password"
+                type={`${showPassword ? 'text' : 'password'}`}
                 id="password"
                 label="Hasło"
                 hasError={errors.hasOwnProperty('password')}
                 errorMessage={errors?.password?.message}
+                icon={<EyeIcon onClick={togglePassword} className="text-gray-500 cursor-pointer"/>}
             />
+
             <div>
-                <button
-                    className="cursor-pointer w-full bg-indigo-500 text-white text-sm font-bold py-3 px-4 rounded-md hover:bg-indigo-600 transition duration-300"
-                    type="submit"
-                >
+                <AppButton variant="primary" type="submit" additionalClasses="px-4 py-2 w-full">
                     Zaloguj się
-                </button>
+                </AppButton>
             </div>
-            <RouterLink navigateTo="/admin/register" label="Nie masz konta? Zarejestruj się" />
+            <AppLink to="/admin/register" additionalClasses="w-full text-center">Nie masz konta? Zarejestruj się</AppLink>
         </form>
     );
 };
