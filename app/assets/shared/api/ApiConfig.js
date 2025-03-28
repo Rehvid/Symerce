@@ -9,15 +9,17 @@ export const createApiConfig = (endpoint, method, isAdmin) => {
         queryParams: {}
     };
 
-    return {
+    const api =  {
         setHeaders: (headers) => {
             config.headers = { ...config.headers, ...headers };
-            return config;
+            return api;
         },
         addQueryParams: (params) => {
             config.queryParams = { ...config.queryParams, ...params };
-            return config;
+            return api;
         },
         getConfig: () => config
     };
+
+    return api;
 };
