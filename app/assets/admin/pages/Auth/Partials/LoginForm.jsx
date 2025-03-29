@@ -1,17 +1,23 @@
 import AppInput from '../../../../shared/components/Form/AppInput';
-import UserIcon from '@/images/shared/user.svg';
 import EyeIcon from '@/images/shared/eye.svg';
 import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import AppButton from "@/admin/components/Common/AppButton";
 import AppLink from "@/admin/components/Common/AppLink";
+import {useValidationErrors} from "@/admin/hooks/useValidationErrors";
+import {validationRules} from "@/admin/utilities/validationRules";
+import MailIcon from "@/images/shared/mail.svg";
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, validationErrors }) => {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+        setError
+    } = useForm({
+        mode: "onBlur",
+    });
+    useValidationErrors(validationErrors, setError);
     const [showPassword, setShowPassword] = useState(false);
     const togglePassword = () => {
         setShowPassword(showPassword => !showPassword);
@@ -21,27 +27,21 @@ const LoginForm = ({ onSubmit }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[40px]">
             <AppInput
                 {...register('email', {
-                    required: 'Pole Email jest wymagane',
-                    minLength: {
-                        value: 3,
-                        message: 'Email musi mieć co najmniej 3 znaki',
-                    },
+                    ...validationRules.required(),
+                    ...validationRules.minLength(3),
                 })}
                 type="email"
                 id="email"
                 label="Adres e-mail"
                 hasError={errors.hasOwnProperty('email')}
                 errorMessage={errors?.email?.message}
-                icon={<UserIcon className="text-gray-500" />}
+                icon={<MailIcon className="text-gray-500" />}
+                isRequired
             />
             <AppInput
                 {...register('password', {
-                    required: 'Pole hasło jest wymagane',
-                    pattern: {
-                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/,
-                        message:
-                            'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.',
-                    },
+                    ...validationRules.required(),
+                    ...validationRules.password(),
                 })}
                 type={`${showPassword ? 'text' : 'password'}`}
                 id="password"
@@ -49,6 +49,7 @@ const LoginForm = ({ onSubmit }) => {
                 hasError={errors.hasOwnProperty('password')}
                 errorMessage={errors?.password?.message}
                 icon={<EyeIcon onClick={togglePassword} className="text-gray-500 cursor-pointer"/>}
+                isRequired
             />
 
             <div>

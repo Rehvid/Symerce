@@ -9,7 +9,6 @@ const RegisterPage = () => {
     const [validationErrors, setValidationErrors] = useState({});
     const navigate = useNavigate();
     const registerConfig = createApiConfig('auth/register', 'POST', true);
-
     const onSubmit = async values => {
         try {
             const response = await RestApiClient().executeRequest(registerConfig, values);
