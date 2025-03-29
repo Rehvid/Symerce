@@ -6,6 +6,10 @@ namespace App\Controller\Admin\Api;
 
 use App\Controller\AbstractApiController;
 use App\Dto\Request\User\SaveUserDTO;
+use App\Dto\Response\User\UserSessionDTO;
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,5 +42,60 @@ class AuthController extends AbstractApiController
         $response->headers->clearCookie('BEARER');
 
         return $response;
+    }
+
+    #[Route('/verify', name: 'verify_auth', methods: ['GET'])]
+    public function verifyAuth(
+        Request $request,
+        JWTTokenManagerInterface $tokenManager,
+        UserRepository $userRepository
+    ): JsonResponse
+    {
+        $token = (string) $request->cookies->get('BEARER');
+
+        if (!$token) {
+            return $this->createUnauthorizedResponse("Token not found");
+        }
+
+        try {
+            $decodedToken = $tokenManager->parse($token);
+            if (isset($decodedToken['exp'])) {
+                $expirationTime = $decodedToken['exp'];
+
+                $currentTime = time();
+                if ($expirationTime < $currentTime) {
+                    return $this->createUnauthorizedResponse("Token expired");
+                }
+            }
+
+            /** @var ?User $user */
+            $user = $userRepository->loadUserByIdentifier($decodedToken['username']);
+            if ($user) {
+                return $this->prepareJsonResponse(
+                    data: UserSessionDTO::fromArray([
+                        'email' => $user->getUserIdentifier(),
+                        'firstname' => $user->getFirstname(),
+                        'surname' => $user->getSurname(),
+                        'roles' => $user->getRoles(),
+                    ]),
+                );
+            }
+        } catch (\Exception $e) {
+            return $this->createUnauthorizedResponse("Could not parse token. " . $e->getMessage());
+        }
+
+        return $this->createUnauthorizedResponse("Unauthorized");
+    }
+
+    private function createUnauthorizedResponse(string $message): JsonResponse
+    {
+        return $this->prepareJsonResponse(
+            data: [
+                'status' => false,
+                'code' => Response::HTTP_UNAUTHORIZED,
+                'message' => $message,
+            ],
+            statusCode: Response::HTTP_UNAUTHORIZED
+        );
     }
 }
