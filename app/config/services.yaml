@@ -29,7 +29,7 @@ services:
         App\Service\DataPersister\Interface\UpdatePersisterInterface:
             tags: ['app.update_persister']
 
-    App\EventListener\ExceptionListener:
+    App\Listeners\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
