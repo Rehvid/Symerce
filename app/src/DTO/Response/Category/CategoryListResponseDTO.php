@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Dto\Response\Category;
+namespace App\DTO\Response\Category;
 
-use App\Dto\Response\ResponseInterfaceData;
+use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class CategoryListResponseDTO implements ResponseInterfaceData
 {

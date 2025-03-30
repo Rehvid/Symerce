@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Response\User;
+namespace App\DTO\Response\User;
 
-use App\Dto\Response\ResponseInterfaceData;
+use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class UserSessionResponseDTO implements ResponseInterfaceData
 {

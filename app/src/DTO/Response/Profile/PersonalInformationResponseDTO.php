@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Dto\Response\Profile;
+namespace App\DTO\Response\Profile;
 
-use App\Dto\Response\ResponseInterfaceData;
+use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class PersonalInformationResponseDTO implements ResponseInterfaceData
 {

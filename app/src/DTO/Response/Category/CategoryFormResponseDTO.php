@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Response\Category;
+namespace App\DTO\Response\Category;
 
 use App\Dto\Response\ResponseInterfaceData;
 

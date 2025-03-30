@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dto\Request\Profile;
+namespace App\DTO\Request\Profile;
 
 use App\Interfaces\PersistableInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Request\User;
+namespace App\DTO\Request\User;
 
 use App\Interfaces\PersistableInterface;
 use App\Validator\RepeatPassword as CustomAssertRepeatPassword;

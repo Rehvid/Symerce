@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Request\Category;
+namespace App\DTO\Request\Category;
 
 use App\Interfaces\PersistableInterface;
 use Symfony\Component\Validator\Constraints as Assert;

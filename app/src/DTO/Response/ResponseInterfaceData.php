@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Response;
+namespace App\DTO\Response;
 
 interface ResponseInterfaceData
 {
