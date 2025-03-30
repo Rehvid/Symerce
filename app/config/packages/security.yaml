@@ -39,7 +39,7 @@ security:
             jwt: ~
 
         api_admin:
-            pattern: ^/api
+            pattern: ^/api/admin
             stateless: true
             jwt: ~
             provider: app_user_provider
