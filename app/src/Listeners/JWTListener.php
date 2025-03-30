@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
-use App\Dto\Response\User\UserSessionResponseDTO;
+use App\DTO\Response\ErrorDTO;
+use App\DTO\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
@@ -88,7 +89,10 @@ final readonly class JWTListener implements EventSubscriberInterface
     {
         if ($this->isApiRequest($request)) {
             $apiResponse = $this->createApiResponse(
-                errors: ['status' => false, 'message' => $message, 'code' => Response::HTTP_UNAUTHORIZED],
+                error: ErrorDTO::fromArray([
+                    'message' => $message,
+                    'code' => Response::HTTP_UNAUTHORIZED,
+                ])
             );
 
             $event->setResponse(
@@ -118,12 +122,12 @@ final readonly class JWTListener implements EventSubscriberInterface
         return str_starts_with($request->getPathInfo(), '/api/');
     }
 
-    private function createApiResponse(mixed $data = [], ?array $meta = null, ?array $errors = null): ApiResponse
+    private function createApiResponse(mixed $data = [], ?array $meta = null, ?ErrorDTO $error = null): ApiResponse
     {
         return new ApiResponse(
             data: $data,
             meta: $meta,
-            errors: $errors,
+            error: $error,
         );
     }
 }

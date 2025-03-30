@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
+use App\DTO\Response\ErrorDTO;
+use App\Service\Response\ApiResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,9 +40,15 @@ final readonly class ExceptionListener
         }
 
         $this->logger->warning('UnprocessableEntityHttpException without ValidationFailedException.', ['exception' => $exception]);
+
+
+        $errorDTO = ErrorDTO::fromArray([
+            'code' => $exception->getStatusCode(),
+            'message' => $exception->getMessage(),
+        ]);
         $this->setEventResponse(
             $event,
-            ['errors' => $exception->getMessage(), 'success' => false],
+            $this->createApiResponse(error: $errorDTO)->toArray(),
             $exception->getStatusCode()
         );
     }
@@ -48,9 +56,14 @@ final readonly class ExceptionListener
     private function handleValidationException(ExceptionEvent $event, ValidationFailedException $exception): void
     {
         $this->logger->error($exception->getMessage(), ['exception' => $exception]);
+        $errorDTO = ErrorDTO::fromArray([
+            'code' => Response::HTTP_UNPROCESSABLE_ENTITY,
+            'message' => 'Validation failed',
+            'details' => $this->prepareResponseDataForValidationException($exception)
+        ]);
         $this->setEventResponse(
             $event,
-            $this->prepareResponseDataForValidationException($exception),
+            $this->createApiResponse(error: $errorDTO)->toArray(),
             Response::HTTP_UNPROCESSABLE_ENTITY
         );
     }
@@ -67,18 +80,24 @@ final readonly class ExceptionListener
      */
     private function prepareResponseDataForValidationException(ValidationFailedException $exception): array
     {
-        $responseData = [
-            'errors' => [],
-            'success' => false,
-        ];
+        $responseData = [];
 
         $violations = $exception->getViolations();
         foreach ($violations as $violation) {
-            $responseData['errors'][$violation->getPropertyPath()] = [
+            $responseData[$violation->getPropertyPath()] = [
                 'message' => $violation->getMessage(),
             ];
         }
 
         return $responseData;
+    }
+
+    private function createApiResponse(mixed $data = [], ?array $meta = null, ?ErrorDTO $error = null): ApiResponse
+    {
+        return new ApiResponse(
+            data: $data,
+            meta: $meta,
+            error: $error,
+        );
     }
 }
