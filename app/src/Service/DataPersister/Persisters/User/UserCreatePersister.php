@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Service\DataPersister;
+namespace App\Service\DataPersister\Persisters\User;
 
 use App\Dto\Request\User\SaveUserDTO;
 use App\Entity\User;
 use App\Enums\Roles;
 use App\Interfaces\PersistableInterface;
-use App\Service\DataPersister\Base\AbstractDataPersister;
+use App\Service\DataPersister\Base\CreatePersister;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class UserPersister extends AbstractDataPersister
+final class UserCreatePersister extends CreatePersister
 {
 
     public function __construct(
@@ -22,7 +22,7 @@ final class UserPersister extends AbstractDataPersister
         parent::__construct($entityManager);
     }
 
-    protected function createEntityFromDto(PersistableInterface $persistable): object
+    protected function createEntity(PersistableInterface $persistable): object
     {
         /** @var SaveUserDTO $persistable */
         $user = new User();
@@ -36,13 +36,8 @@ final class UserPersister extends AbstractDataPersister
         return $user;
     }
 
-    protected function updateEntityFromDto(object $entity, PersistableInterface $persistable): object
-    {
-        return $entity;
-    }
-
     public function getSupportedClasses(): array
     {
-        return [SaveUserDTO::class, User::class];
+        return [SaveUserDTO::class];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Dto\Request\User\Profile;
+namespace App\Dto\Request\Profile;
 
 use App\Interfaces\PersistableInterface;
 
-final readonly class ProfileInformationDTO implements PersistableInterface
+final readonly class ProfileInformationRequestDTO implements PersistableInterface
 {
     public function __construct(
         public string $firstname,

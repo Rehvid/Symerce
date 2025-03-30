@@ -24,13 +24,16 @@ services:
     # please note that last definitions always *replace* previous ones
 
     _instanceof:
-        App\Service\DataPersister\Interface\DataPersisterInterface:
-            tags: ['app.data_persister']
+        App\Service\DataPersister\Interface\CreatePersisterInterface:
+            tags: ['app.create_persister']
+        App\Service\DataPersister\Interface\UpdatePersisterInterface:
+            tags: ['app.update_persister']
 
     App\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
-    App\Service\DataPersister\Manager\DataPersisterManager:
+    App\Service\DataPersister\Manager\PersisterManager:
         arguments:
-            $persisters: !tagged_iterator app.data_persister
+            $createPersisters: !tagged_iterator app.create_persister
+            $updatePersisters: !tagged_iterator app.update_persister

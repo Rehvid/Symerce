@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Service\DataPersister\Manager\DataPersisterManager;
+use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,8 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class AbstractApiController extends AbstractController
 {
     public function __construct(
-        protected readonly DataPersisterManager $dataPersisterManager,
-        private readonly ResponseService $responseService,
+        protected readonly PersisterManager $dataPersisterManager,
+        private readonly ResponseService    $responseService,
     )
     {
     }
