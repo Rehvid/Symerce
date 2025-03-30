@@ -24,7 +24,7 @@ final class ErrorDTO implements ResponseInterfaceData
         return new self(
             code: $data['code'] ?? Response::HTTP_BAD_REQUEST,
             message: $data['message'] ?? "Something went wrong",
-            details: $data['details']
+            details: $data['details'] ?? null,
         );
     }
 
