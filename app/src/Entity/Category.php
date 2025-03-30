@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Interfaces\ArrayableInterface;
 use App\Traits\CreatedAtTrait;
 use App\Traits\ActiveTrait;
 use App\Traits\OrderTrait;
@@ -16,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
-class Category implements ArrayableInterface
+class Category
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -133,17 +132,5 @@ class Category implements ArrayableInterface
         if ($this->children->contains($category)) {
             $this->children->removeElement($category);
         }
-    }
-
-    public function toArray(array $additionalData = []): array
-    {
-        $data = [
-            'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'description' => $this->description,
-        ];
-
-        return array_merge($additionalData, $data);
     }
 }
