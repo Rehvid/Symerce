@@ -10,7 +10,7 @@ use App\Validator\StrongPassword as CustomAssertStrongPassword;
 use App\Validator\UniqueEmail as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveUserDTO implements PersistableInterface
+final readonly class SaveUserRequestDTO implements PersistableInterface
 {
     public function __construct(
         #[Assert\NotBlank] #[Assert\Email] #[CustomAssertUniqueEmail]  public string $email,

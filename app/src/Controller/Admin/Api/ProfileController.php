@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api;
 
 use App\Controller\AbstractApiController;
-use App\Dto\Request\User\Profile\ProfileInformationDTO;
-use App\Dto\Response\User\Profile\PersonalInformationDTO;
+use App\Dto\Request\Profile\ProfileInformationRequestDTO;
+use App\Dto\Response\Profile\PersonalInformationResponseDTO;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -19,7 +19,7 @@ class ProfileController extends AbstractApiController
     public function personal(User $user): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: PersonalInformationDTO::fromArray([
+            data: PersonalInformationResponseDTO::fromArray([
                 'firstname' => $user->getFirstName(),
                 'surname' => $user->getSurname(),
                 'email' => $user->getUserIdentifier()
@@ -30,10 +30,10 @@ class ProfileController extends AbstractApiController
     #[Route('/{id}/update-personal', name: 'update_personal', methods: ['PUT'])]
     public function updatePersonal(
         User $user,
-        #[MapRequestPayload]  ProfileInformationDTO $profileInformationDTO
+        #[MapRequestPayload] ProfileInformationRequestDTO $profileInformationDTO
     ): JsonResponse
     {
-        $this->dataPersisterManager->update($user, $profileInformationDTO);
+        $this->dataPersisterManager->update($profileInformationDTO, $user);
 
         return $this->prepareJsonResponse();
     }

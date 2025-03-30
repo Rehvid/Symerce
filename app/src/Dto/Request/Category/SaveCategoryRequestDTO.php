@@ -7,7 +7,7 @@ namespace App\Dto\Request\Category;
 use App\Interfaces\PersistableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveCategoryDto implements PersistableInterface
+final readonly class SaveCategoryRequestDTO implements PersistableInterface
 {
     public function __construct(
         #[Assert\NotBlank] public string $name,

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
-use App\Dto\Response\User\UserSessionDTO;
+use App\Dto\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
@@ -64,7 +64,7 @@ final readonly class JWTListener implements EventSubscriberInterface
 
         /** @var User $user */
         $user = $event->getUser();
-        $data = UserSessionDTO::fromArray([
+        $data = UserSessionResponseDTO::fromArray([
             'email' => $user->getUserIdentifier(),
             'firstname' => $user->getFirstname(),
             'surname' => $user->getSurname(),

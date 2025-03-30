@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Dto\Response\User\Profile;
+namespace App\Dto\Response\Profile;
 
 use App\Dto\Response\ResponseInterfaceData;
 
-final readonly class PersonalInformationDTO implements ResponseInterfaceData
+final readonly class PersonalInformationResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
       public string $firstname,

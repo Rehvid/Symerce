@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Persisters\User;
 
-use App\Dto\Request\User\SaveUserDTO;
+use App\Dto\Request\User\SaveUserRequestDTO;
 use App\Entity\User;
 use App\Enums\Roles;
 use App\Interfaces\PersistableInterface;
@@ -24,7 +24,7 @@ final class UserCreatePersister extends CreatePersister
 
     protected function createEntity(PersistableInterface $persistable): object
     {
-        /** @var SaveUserDTO $persistable */
+        /** @var SaveUserRequestDTO $persistable */
         $user = new User();
         $user->setEmail($persistable->email);
         $user->setRoles([Roles::ROLE_USER->value]);
@@ -38,6 +38,6 @@ final class UserCreatePersister extends CreatePersister
 
     public function getSupportedClasses(): array
     {
-        return [SaveUserDTO::class];
+        return [SaveUserRequestDTO::class];
     }
 }

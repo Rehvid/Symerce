@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api;
 
 use App\Controller\AbstractApiController;
-use App\Dto\Request\Category\SaveCategoryDto;
+use App\Dto\Request\Category\SaveCategoryRequestDTO;
 use App\Dto\Response\Category\CategoryFormResponseDTO;
-use App\Dto\Response\Category\CategoryListDTO;
+use App\Dto\Response\Category\CategoryListResponseDTO;
 use App\Entity\Category;
 use App\Service\CategoryTreeBuilder;
 use App\Service\Pagination\PaginationService;
@@ -26,7 +26,7 @@ class CategoryController extends AbstractApiController
         $paginationResponse = $paginationService->createResponse($request);
 
         return $this->prepareJsonResponse(
-            data: array_map(fn ($data) =>  CategoryListDTO::fromArray($data), $paginationResponse->data),
+            data: array_map(fn ($data) =>  CategoryListResponseDTO::fromArray($data), $paginationResponse->data),
             meta: $paginationResponse->paginationMeta->toArray()
         );
     }
@@ -47,7 +47,7 @@ class CategoryController extends AbstractApiController
     }
 
     #[Route('/create', name: 'create', methods: ['POST'], format: 'json')]
-    public function create(#[MapRequestPayload] SaveCategoryDto $dto): JsonResponse
+    public function create(#[MapRequestPayload] SaveCategoryRequestDTO $dto): JsonResponse
     {
         /** @var Category $entity */
         $entity = $this->dataPersisterManager->persist($dto);
@@ -60,8 +60,8 @@ class CategoryController extends AbstractApiController
 
     #[Route('/{id}/update', name: 'update', methods: ['PUT'])]
     public function update(
-        Category $category,
-        #[MapRequestPayload] SaveCategoryDto $dto,
+        Category                                    $category,
+        #[MapRequestPayload] SaveCategoryRequestDTO $dto,
     ): JsonResponse {
         /** @var Category $entity */
         $entity = $this->dataPersisterManager->update($category, $dto);

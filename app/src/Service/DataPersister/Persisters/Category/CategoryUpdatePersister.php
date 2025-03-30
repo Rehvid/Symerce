@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Persisters\Category;
 
-use App\Dto\Request\Category\SaveCategoryDto;
+use App\Dto\Request\Category\SaveCategoryRequestDTO;
 use App\Entity\Category;
 use App\Interfaces\PersistableInterface;
 use App\Service\DataPersister\Base\UpdatePersister;
@@ -23,7 +23,7 @@ final class CategoryUpdatePersister extends UpdatePersister
 
     protected function updateEntity(PersistableInterface $persistable, object $entity): object
     {
-        /** @var SaveCategoryDto $persistable */
+        /** @var SaveCategoryRequestDTO $persistable */
         /** @var Category $entity */
 
         if ($entity->getName() !== $persistable->name) {
@@ -40,7 +40,7 @@ final class CategoryUpdatePersister extends UpdatePersister
 
     public function getSupportedClasses(): array
     {
-        return [SaveCategoryDto::class, Category::class];
+        return [SaveCategoryRequestDTO::class, Category::class];
     }
 
     private function getParentCategory(?int $parentId): ?Category

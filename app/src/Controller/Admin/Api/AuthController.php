@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api;
 
 use App\Controller\AbstractApiController;
-use App\Dto\Request\User\SaveUserDTO;
-use App\Dto\Response\User\UserSessionDTO;
+use App\Dto\Request\User\SaveUserRequestDTO;
+use App\Dto\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -23,7 +23,7 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 class AuthController extends AbstractApiController
 {
     #[Route('/register', name: 'register', methods: ['POST'], format: 'json')]
-    public function register(#[MapRequestPayload] SaveUserDTO $saveUserDTO): JsonResponse
+    public function register(#[MapRequestPayload] SaveUserRequestDTO $saveUserDTO): JsonResponse
     {
         $this->dataPersisterManager->persist($saveUserDTO);
 
@@ -72,7 +72,7 @@ class AuthController extends AbstractApiController
             $user = $userRepository->loadUserByIdentifier($decodedToken['username']);
             if ($user) {
                 return $this->prepareJsonResponse(
-                    data: UserSessionDTO::fromArray([
+                    data: UserSessionResponseDTO::fromArray([
                         'email' => $user->getUserIdentifier(),
                         'firstname' => $user->getFirstname(),
                         'surname' => $user->getSurname(),

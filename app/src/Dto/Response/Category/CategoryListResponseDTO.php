@@ -4,7 +4,7 @@ namespace App\Dto\Response\Category;
 
 use App\Dto\Response\ResponseInterfaceData;
 
-final readonly class CategoryListDTO implements ResponseInterfaceData
+final readonly class CategoryListResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public int $id,

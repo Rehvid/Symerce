@@ -6,7 +6,7 @@ namespace App\Dto\Response\User;
 
 use App\Dto\Response\ResponseInterfaceData;
 
-final readonly class UserSessionDTO implements ResponseInterfaceData
+final readonly class UserSessionResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public ?string $email,
