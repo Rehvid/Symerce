@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api;
 
 use App\Controller\AbstractApiController;
-use App\Dto\Request\User\SaveUserRequestDTO;
-use App\Dto\Response\User\UserSessionResponseDTO;
+use App\DTO\Request\User\SaveUserRequestDTO;
+use App\DTO\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;

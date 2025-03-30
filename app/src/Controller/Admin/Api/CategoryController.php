@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api;
 
 use App\Controller\AbstractApiController;
-use App\Dto\Request\Category\SaveCategoryRequestDTO;
-use App\Dto\Response\Category\CategoryFormResponseDTO;
-use App\Dto\Response\Category\CategoryListResponseDTO;
+use App\DTO\Request\Category\SaveCategoryRequestDTO;
+use App\DTO\Response\Category\CategoryFormResponseDTO;
+use App\DTO\Response\Category\CategoryListResponseDTO;
 use App\Entity\Category;
 use App\Service\CategoryTreeBuilder;
 use App\Service\Pagination\PaginationService;

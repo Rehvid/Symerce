@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api;
 
 use App\Controller\AbstractApiController;
-use App\Dto\Request\Profile\ProfileInformationRequestDTO;
-use App\Dto\Response\Profile\PersonalInformationResponseDTO;
+use App\DTO\Request\Profile\ProfileInformationRequestDTO;
+use App\DTO\Response\Profile\PersonalInformationResponseDTO;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
