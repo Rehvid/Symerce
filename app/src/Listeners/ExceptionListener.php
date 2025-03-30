@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\EventListener;
+namespace App\Listeners;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,6 +30,7 @@ final readonly class ExceptionListener
         UnprocessableEntityHttpException $exception
     ): void {
         $previousException = $exception->getPrevious();
+
         if ($previousException instanceof ValidationFailedException) {
             $this->handleValidationException($event, $previousException);
 

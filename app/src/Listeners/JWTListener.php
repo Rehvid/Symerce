@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\EventListener;
+namespace App\Listeners;
 
 use App\Dto\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
