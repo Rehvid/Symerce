@@ -1,12 +1,8 @@
 import { Navigate } from 'react-router-dom';
 import {useAuth} from "@/admin/hooks/useAuth";
 
-const PrivateRoute = ({ component, redirectOnAuthFailure, redirectOnAuthSuccess }) => {
+const PublicRoute = ({ component, redirectOnAuthSuccess}) => {
     const { isAuthenticated } = useAuth();
-
-    if (!isAuthenticated && redirectOnAuthFailure) {
-        return <Navigate to={redirectOnAuthFailure} replace />;
-    }
 
     if (isAuthenticated && redirectOnAuthSuccess) {
         return <Navigate to={redirectOnAuthSuccess} replace />;
@@ -15,4 +11,4 @@ const PrivateRoute = ({ component, redirectOnAuthFailure, redirectOnAuthSuccess 
     return component;
 };
 
-export default PrivateRoute;
+export default PublicRoute;
