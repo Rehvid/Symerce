@@ -1,14 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import PrivateRoute from './components/PrivateRoute';
-import RegisterPage from './pages/Auth/RegisterPage';
-import LoginPage from './pages/Auth/LoginPage';
-import DashboardPage from './pages/DashboardPage';
-import AppLayout from './components/Layout/AppLayout';
-import ProductPage from './pages/Product/ProductPage';
-import CategoryPage from './pages/Category/CategoryPage';
-import CategoryFormPage from './pages/Category/CategoryFormPage';
+import ProtectedRoute from './components/Route/ProtectedRoute';
 import {ApiProvider} from "@/admin/context/ApiContext";
+import authorizationRoutes from "@/admin/routes/authorizationRoutes";
+import AppLayout from "@/admin/components/Layout/AppLayout";
+import adminRoutes from "@/admin/routes/adminRoutes";
+import NotFoundPage from "@/admin/pages/NotFoundPage";
+import ForbiddenPage from "@/admin/pages/ForbiddenPage";
 
 function App() {
     return (
@@ -17,28 +15,15 @@ function App() {
                 <section className="bg-slate-100 min-h-screen">
                     <BrowserRouter>
                         <Routes>
-                            <Route
-                                path="/admin/register"
-                                element={
-                                    <PrivateRoute component={<RegisterPage />} redirectOnAuthSuccess="/admin/dashboard" />
-                                }
-                            />
-                            <Route
-                                path="/admin/login"
-                                element={
-                                    <PrivateRoute component={<LoginPage />} redirectOnAuthSuccess="/admin/dashboard" />
-                                }
-                            />
+                            {authorizationRoutes}
                             <Route
                                 path="/admin"
-                                element={<PrivateRoute redirectOnAuthFailure="/admin/login" component={<AppLayout />} />}
+                                element={<AppLayout />}
                             >
-                                <Route path="dashboard" element={<DashboardPage />} />
-                                <Route path="products" element={<ProductPage />} />
-                                <Route path="categories" element={<CategoryPage />} />
-                                <Route path="categories/create" element={<CategoryFormPage />} />
-                                <Route path="categories/:id/edit" element={<CategoryFormPage />} />
+                                {adminRoutes}
                             </Route>
+                            <Route path="/admin/forbidden" element={<ForbiddenPage />} />
+                            <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </BrowserRouter>
                 </section>
