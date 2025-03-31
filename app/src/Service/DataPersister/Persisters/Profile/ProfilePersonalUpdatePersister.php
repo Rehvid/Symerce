@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Persisters\Profile;
 
-use App\Dto\Request\Profile\ProfileInformationRequestDTO;
+use App\DTO\Request\Profile\ProfileInformationRequestDTO;
 use App\Entity\User;
 use App\Interfaces\PersistableInterface;
 use App\Service\DataPersister\Base\UpdatePersister;

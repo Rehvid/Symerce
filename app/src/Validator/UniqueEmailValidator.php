@@ -26,12 +26,20 @@ class UniqueEmailValidator extends ConstraintValidator
             return;
         }
 
+        $object = $this->context->getObject();
         $user = $this->userRepository->findOneBy(['email' => $value]);
-        if ($user) {
-            $this->context
-                ->buildViolation($constraint->message)
-                ->setTranslationDomain('messages')
-                ->addViolation();
+
+        if (null === $user) {
+            return;
         }
+
+        if (null !== $object && property_exists($object, 'id') && $object->id === $user->getId()) {
+            return;
+        }
+
+        $this->context
+            ->buildViolation($constraint->message)
+            ->setTranslationDomain('messages')
+            ->addViolation();
     }
 }
