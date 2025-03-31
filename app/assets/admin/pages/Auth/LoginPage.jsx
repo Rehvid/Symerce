@@ -18,8 +18,8 @@ const LoginPage = () => {
             const result = await executeRequest(apiConfig, values);
             const { data, errors } = result;
 
-            if (data.user) {
-                login(data.user);
+            if (data) {
+                login(data);
                 navigate('/admin/dashboard');
             }
 
