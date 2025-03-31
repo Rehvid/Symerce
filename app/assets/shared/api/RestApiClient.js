@@ -50,6 +50,7 @@ const RestApiClient = () => {
             data: responseData.data,
             meta: responseData.meta,
             errors: responseData.errors,
+            code: response.status
         };
     };
 
