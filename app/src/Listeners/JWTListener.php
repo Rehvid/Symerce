@@ -66,6 +66,7 @@ final readonly class JWTListener implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getUser();
         $data = UserSessionResponseDTO::fromArray([
+            'id' => $user->getId(),
             'email' => $user->getUserIdentifier(),
             'firstname' => $user->getFirstname(),
             'surname' => $user->getSurname(),

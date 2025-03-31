@@ -73,6 +73,7 @@ class AuthController extends AbstractApiController
             if ($user) {
                 return $this->prepareJsonResponse(
                     data: UserSessionResponseDTO::fromArray([
+                        'id' => $user->getId(),
                         'email' => $user->getUserIdentifier(),
                         'firstname' => $user->getFirstname(),
                         'surname' => $user->getSurname(),

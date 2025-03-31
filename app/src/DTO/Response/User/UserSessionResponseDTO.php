@@ -9,6 +9,7 @@ use App\DTO\Response\ResponseInterfaceData;
 final readonly class UserSessionResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
+        public ?int $id,
         public ?string $email,
         public ?string $firstname,
         public ?string $surname,
@@ -19,6 +20,7 @@ final readonly class UserSessionResponseDTO implements ResponseInterfaceData
     public static function fromArray(array $data): ResponseInterfaceData
     {
         return new self(
+            id: $data['id'] ?? null,
             email: $data['email'] ?? null,
             firstname: $data['firstname'] ?? null,
             surname: $data['surname'] ?? null,
