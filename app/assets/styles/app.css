@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+
+
 body {
     font-family: Inter, sans-serif;
 }
@@ -10,4 +12,18 @@ body {
     --color-primary: #465fff;
     --color-primary-stronger: #3641f5;
     --color-secondary: #0989ff;
+    --progress-time: 1000ms;
+}
+
+@keyframes progressAnimation {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+.progress-bar {
+    animation: progressAnimation var(--progress-time) linear forwards;
 }

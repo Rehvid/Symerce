@@ -2,10 +2,20 @@ import CloseIcon from "@/images/shared/close.svg";
 import AlertTriangleIcon from "@/images/shared/alert-triangle.svg";
 import InfoCircleIcon from "@/images/shared/info-circle.svg";
 import CheckIcon from "@/images/shared/check.svg";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-const AppNotification = ({ label, variant }) => {
+const AppNotification = ({ label, variant, time }) => {
     const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setIsVisible(false);
+        }, time);
+
+        return () => clearTimeout(timeout);
+    }, [time]);
+
+    if (!isVisible) return null;
 
     const variants = {
         success: 'border-green-500',
@@ -13,6 +23,7 @@ const AppNotification = ({ label, variant }) => {
         warning: 'border-yellow-500',
         error: 'border-red-500'
     };
+
 
     const iconVariants = {
         success: <div className="bg-green-100 rounded-lg p-1"><CheckIcon className="text-green-500" /></div>,
@@ -27,14 +38,16 @@ const AppNotification = ({ label, variant }) => {
 
     return (
         <div className="py-5">
-            <div className={`flex items-center justify-between gap-3 w-full sm:max-w-[340px] rounded-md border-b-4 p-3 shadow-theme-sm bg-white  ${variants[variant]}`}>
-                <div className="flex items-center gap-4">
+            <div className="w-full flex items-center justify-between gap-3 w-full max-w-[340px] rounded-lg p-3 shadow-theme-sm bg-white relative">
+                <div className="flex items-center gap-4 w-full">
                     {iconVariants[variant]}
-                    <div>
-                        <h4 className="font-medium text-gray-700">{label}</h4>
-                    </div>
+                    <h4 className="font-medium text-gray-700 w-full break-all">{label}</h4>
                 </div>
                 <CloseIcon className="text-gray-500 cursor-pointer" onClick={() => setIsVisible(false)} />
+                <div className={`absolute bottom-0 left-0 h-1 transition-all duration-500 border-t-4 bg-opacity-80 progress-bar ${variants[variant]}`}
+                     style={{ "--progress-time": `${time}ms` }}
+                >
+                </div>
             </div>
         </div>
     );
