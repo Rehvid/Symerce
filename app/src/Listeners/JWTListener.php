@@ -9,6 +9,7 @@ use App\DTO\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
+use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTExpiredEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTNotFoundEvent;
@@ -41,6 +42,7 @@ final readonly class JWTListener implements EventSubscriberInterface
             Events::AUTHENTICATION_SUCCESS => 'onAuthenticationSuccess',
             Events::JWT_EXPIRED => 'onJwtExpired',
             Events::JWT_NOT_FOUND => 'onJwtNotFound',
+            Events::JWT_INVALID => 'onJwtInvalid',
         ];
     }
 
@@ -84,6 +86,11 @@ final readonly class JWTListener implements EventSubscriberInterface
     public function onJwtNotFound(JwtNotFoundEvent $event): void
     {
         $this->handleJwtError($event->getRequest(), $event, 'Token not found.');
+    }
+
+    public function onJwtInvalid(AuthenticationFailureEvent $event): void
+    {
+        $this->handleJwtError($event->getRequest(), $event, 'Token invalid.');
     }
 
     private function handleJwtError(Request $request, $event, string $message): void

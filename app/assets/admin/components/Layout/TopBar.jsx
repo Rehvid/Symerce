@@ -47,7 +47,7 @@ const TopBar = () => {
                         <ul className="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200">
                             <li>
                                 <AppLink
-                                    to="#"
+                                    to="profile"
                                     variant="button"
                                     additionalClasses="flex items-center gap-3 w-full px-3 py-2"
                                 >
