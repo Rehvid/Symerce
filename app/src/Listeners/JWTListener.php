@@ -40,6 +40,7 @@ final readonly class JWTListener implements EventSubscriberInterface
     {
         return [
             Events::AUTHENTICATION_SUCCESS => 'onAuthenticationSuccess',
+            Events::AUTHENTICATION_FAILURE => 'onAuthenticationFailure',
             Events::JWT_EXPIRED => 'onJwtExpired',
             Events::JWT_NOT_FOUND => 'onJwtNotFound',
             Events::JWT_INVALID => 'onJwtInvalid',
@@ -76,6 +77,11 @@ final readonly class JWTListener implements EventSubscriberInterface
         ]);
 
         $event->setData($this->createApiResponse($data)->toArray());
+    }
+
+    public function onAuthenticationFailure(AuthenticationFailureEvent $event): void
+    {
+        $this->handleJwtError($event->getRequest(), $event, 'Data is not valid.');
     }
 
     public function onJwtExpired(JwtExpiredEvent $event): void

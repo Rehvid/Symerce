@@ -23,7 +23,7 @@ const LoginPage = () => {
                 navigate('/admin/dashboard');
             }
 
-            if (errors) {
+            if (errors.length > 0) {
                 setValidationErrors(errors);
             }
         } catch (e) {
