@@ -8,7 +8,7 @@ import {useValidationErrors} from "@/admin/hooks/useValidationErrors";
 import {validationRules} from "@/admin/utilities/validationRules";
 import MailIcon from "@/images/shared/mail.svg";
 
-const LoginForm = ({ onSubmit, validationErrors }) => {
+const LoginForm = ({ onSubmit }) => {
     const {
         register,
         handleSubmit,
@@ -17,6 +17,9 @@ const LoginForm = ({ onSubmit, validationErrors }) => {
     } = useForm({
         mode: "onBlur",
     });
+
+    const [validationErrors, setValidationErrors] = useState({});
+
     useValidationErrors(validationErrors, setError);
     const [showPassword, setShowPassword] = useState(false);
     const togglePassword = () => {

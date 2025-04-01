@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import LoginForm from './Partials/LoginForm';
-import { createApiConfig } from '../../../shared/api/ApiConfig';
+import { createApiConfig } from '@/shared/api/ApiConfig';
 import {useAuth} from "@/admin/hooks/useAuth";
 import {useApi} from "@/admin/hooks/useApi";
 import Card from "@/admin/components/Card";
+import Alert from "@/admin/components/Alert";
+
 
 const LoginPage = () => {
-    const [validationErrors, setValidationErrors] = useState({});
+    const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
     const { login } = useAuth();
     const { executeRequest } = useApi();
@@ -18,13 +20,15 @@ const LoginPage = () => {
             const result = await executeRequest(apiConfig, values);
             const { data, errors } = result;
 
-            if (data) {
+            const isEmpty = Object.keys(errors).length === 0;
+
+            if (isEmpty && data) {
                 login(data);
-                navigate('/admin/dashboard');
+                navigate('/admin/dashboard', {replace: true});
             }
 
-            if (errors.length > 0) {
-                setValidationErrors(errors);
+            if (!isEmpty) {
+               setErrorMessage(errors.message);
             }
         } catch (e) {
             console.error('Unexpected error', e.message);
@@ -35,7 +39,10 @@ const LoginPage = () => {
         <div className="container mx-auto my-auto py-8">
             <Card additionalClasses="max-w-md mx-auto shadow-lg">
                 <h1 className="text-2xl font-bold py-5 mb-6 text-center ">Zaloguj się</h1>
-                <LoginForm onSubmit={onSubmit} validationErrors={validationErrors} />
+                {errorMessage && (
+                    <Alert variant="error" message={errorMessage} />
+                )}
+                <LoginForm onSubmit={onSubmit} />
             </Card>
         </div>
     );

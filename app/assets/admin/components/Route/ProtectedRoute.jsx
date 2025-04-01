@@ -1,7 +1,6 @@
 import {Navigate} from 'react-router-dom';
 import {useAuth} from "@/admin/hooks/useAuth";
 import {useEffect } from "react";
-import ForbiddenPage from "@/admin/pages/ForbiddenPage";
 
 const ProtectedRoute = ({ children, requiredRoles, redirectOnAuthFailure = '/admin/login' }) => {
     const { isAuthenticated, user, isLoadingAuthorization, verifyAuth } = useAuth();
@@ -10,7 +9,6 @@ const ProtectedRoute = ({ children, requiredRoles, redirectOnAuthFailure = '/adm
     useEffect(() => {
         verifyAuth();
     }, []);
-
 
     if (isLoadingAuthorization) {
         return <>...Loading</>
