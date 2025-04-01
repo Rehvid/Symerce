@@ -40,6 +40,13 @@ services:
       - symerce
     volumes:
       - ./volumes/db:/var/lib/mysql:delegated
+  maildev:
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - symerce
 
 networks:
   symerce:
