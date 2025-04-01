@@ -17,8 +17,18 @@ final class PaginationService
 
     public function createResponse(Request $request): PaginationResponse
     {
+        $search = $request->query->get('search');
         $paginationMeta = $this->preparePaginationMeta($request);
-        $data = $this->repository->findPaginated($paginationMeta);
+        $data = $this->repository->findPaginated(
+            $paginationMeta,
+            [
+                'search' => $request->query->get('search'),
+            ]
+        );
+
+        if (null !== $search && '' !== trim($search)) {
+            $paginationMeta = $this->modifyPaginationMeta($data, $paginationMeta);
+        }
 
         return new PaginationResponse($data, $paginationMeta);
     }
@@ -38,5 +48,16 @@ final class PaginationService
             totalPages: $totalPages,
             offset: $offset
         );
+    }
+
+    private function modifyPaginationMeta(array $data, PaginationMeta $meta): PaginationMeta
+    {
+        $totalItems = count($data);
+        $totalPages = (int) ceil($totalItems / $meta->getLimit());
+
+        $meta->setTotalItems($totalItems);
+        $meta->setTotalPages($totalPages);
+
+        return $meta;
     }
 }

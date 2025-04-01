@@ -26,12 +26,12 @@ abstract class BaseRepository extends ServiceEntityRepository implements BaseRep
 
         $alias = $this->getAlias();
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->setFirstResult($paginationMeta->offset)
-            ->setMaxResults($paginationMeta->limit)
+            ->setFirstResult($paginationMeta->getOffset())
+            ->setMaxResults($paginationMeta->getLimit())
             ->orderBy("$alias.order", 'ASC')
         ;
 
-        if (null !== $search) {
+        if (null !== $search && '' !== trim($search)) {
             $queryBuilder
                 ->andWhere("$alias.name LIKE :search")
                 ->setParameter('search', "%$search%")

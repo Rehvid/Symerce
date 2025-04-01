@@ -12,10 +12,10 @@ const SearchFilter = ({ filters, setFilters }) => {
     return (
         <div className="relative">
             <AppInput
-                label={"Szukaj"}
+                label="Szukaj"
                 onBlur={onBlur}
                 type='search'
-                value={filters?.search || ''}
+                defaultValue={filters?.search || ''}
                 icon={<SearchIcon className="text-gray-500" />}
             />
         </div>

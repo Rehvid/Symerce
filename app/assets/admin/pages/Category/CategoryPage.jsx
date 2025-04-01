@@ -13,11 +13,13 @@ import TableActionHeader from '../../components/Table/Partials/TableActionHeader
 import PaginationFilter from '../../components/Table/Filters/PaginationFilter';
 import TableRowDeleteAction from '../../components/Table/Partials/TableRow/TableRowDeleteAction';
 import TableRowEditAction from '../../components/Table/Partials/TableRow/TableRowEditAction';
-import { createApiConfig } from '../../../shared/api/ApiConfig';
+import { createApiConfig } from '@/shared/api/ApiConfig';
+import {useApi} from "@/admin/hooks/useApi";
 
 const CategoryPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const {executeRequest} = useApi();
 
     const [didInit, setDidInit] = useState(false);
     const [categories, setCategories] = useState([]);
@@ -26,6 +28,13 @@ const CategoryPage = () => {
         limit: 5,
         page: 1,
     });
+
+    const itemActions = category => (
+        <div className="flex gap-2 items-start">
+            <TableRowDeleteAction onClick={() => removeCategory(category.id)} />
+            <TableRowEditAction to={`${category.id}/edit`} />
+        </div>
+    );
 
     useEffect(() => {
         (async () => {
@@ -46,10 +55,12 @@ const CategoryPage = () => {
     const getCategories = async () => {
         const config = createApiConfig('category/list', 'GET', true).addQueryParams(filters);
         try {
-            const { data, meta, errors } = await RestApiClient().executeRequest(config);
+            const { data, meta, errors } = await executeRequest(config);
 
-            if (!errors) {
-                setCategories(data);
+            if (errors.length === 0) {
+                setCategories(prepareDataForTable(data, {
+                    actions: itemActions,
+                }));
                 setPagination(meta);
             }
         } catch (e) {
@@ -70,17 +81,11 @@ const CategoryPage = () => {
     const removeCategory = async id => {
         const config = createApiConfig(`category/delete/${id}`, 'DELETE', true);
         const { errors } = await RestApiClient().executeRequest(config);
-        if (errors === null) {
+        if (errors.length === 0) {
             await getCategories();
         }
     };
 
-    const itemActions = category => (
-        <div className="flex gap-2 items-start">
-            <TableRowDeleteAction onClick={() => removeCategory(category.id)} />
-            <TableRowEditAction to={`${category.id}/edit`} />
-        </div>
-    );
 
     const data = prepareDataForTable(categories, {
         actions: itemActions,
