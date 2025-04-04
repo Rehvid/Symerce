@@ -1,21 +1,29 @@
-export const createApiConfig = (endpoint, method, isAdmin) => {
+import { isValidEnumValue } from '@/admin/utils/helper';
+import { HTTP_METHODS } from '@/admin/constants/httpConstants';
+
+export const createApiConfig = (endpoint, method) => {
     if (!endpoint) throw new Error('Endpoint is required');
-    if (!method) throw new Error('Method is required!');
+    if (!isValidEnumValue(HTTP_METHODS, method)) throw new Error(`Invalid HTTP method: ${method}`);
 
     let config = {
-        endpoint: isAdmin ? `admin/${endpoint}` : `${endpoint}`,
+        endpoint: `${endpoint}`,
         method,
         headers: {},
         queryParams: {},
+        body: null,
     };
 
     const api = {
-        setHeaders: headers => {
+        setHeaders: (headers) => {
             config.headers = { ...config.headers, ...headers };
             return api;
         },
-        addQueryParams: params => {
+        addQueryParams: (params) => {
             config.queryParams = { ...config.queryParams, ...params };
+            return api;
+        },
+        setBody: (body) => {
+            config.body = body;
             return api;
         },
         getConfig: () => config,

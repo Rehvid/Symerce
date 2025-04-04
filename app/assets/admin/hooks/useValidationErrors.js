@@ -1,13 +1,15 @@
-import {useEffect} from "react";
+import { useEffect, useState } from 'react';
 
-export const useValidationErrors = (validationErrors, setError) => {
+export const useValidationErrors = (setError) => {
+    const [validationErrors, setValidationErrors] = useState({});
+
     useEffect(() => {
-        if (validationErrors && Object.keys(validationErrors).length > 0) {
-            Object.entries(validationErrors).forEach(([key, value]) => {
-                if (value?.message) {
-                    setError(key, { type: "custom", message: value.message });
-                }
-            });
-        }
+        Object.entries(validationErrors).forEach(([key, value]) => {
+            if (value?.message) {
+                setError(key, { type: 'custom', message: value.message });
+            }
+        });
     }, [validationErrors, setError]);
+
+    return { setValidationErrors };
 };

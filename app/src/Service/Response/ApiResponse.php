@@ -9,8 +9,8 @@ use App\DTO\Response\ErrorDTO;
 final readonly class ApiResponse
 {
     public function __construct(
-        public mixed $data,
-        public ?array $meta = null,
+        public array $data = [],
+        public array $meta = [],
         public ?ErrorDTO $error = null,
     ) {
     }

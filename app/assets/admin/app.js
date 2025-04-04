@@ -1,35 +1,21 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/Route/ProtectedRoute';
-import {ApiProvider} from "@/admin/context/ApiContext";
-import authorizationRoutes from "@/admin/routes/authorizationRoutes";
-import AppLayout from "@/admin/components/Layout/AppLayout";
-import adminRoutes from "@/admin/routes/adminRoutes";
-import NotFoundPage from "@/admin/pages/NotFoundPage";
-import ForbiddenPage from "@/admin/pages/ForbiddenPage";
+import AppRouter from '@/admin/routes/Router';
+import MainLayout from '@/admin/layouts/MainLayout';
+import { ApiProvider } from '@/admin/store/ApiContext';
+import { AuthProvider } from '@/admin/store/AuthContext';
+import { UserProvider } from '@/admin/store/UserContext';
 
-function App() {
+const App = () => {
     return (
-        <AuthProvider>
+        <UserProvider>
             <ApiProvider>
-                <section className="bg-slate-100 min-h-screen">
-                    <BrowserRouter>
-                        <Routes>
-                            {authorizationRoutes}
-                            <Route
-                                path="/admin"
-                                element={<AppLayout />}
-                            >
-                                {adminRoutes}
-                            </Route>
-                            <Route path="/admin/forbidden" element={<ForbiddenPage />} />
-                            <Route path="*" element={<NotFoundPage />} />
-                        </Routes>
-                    </BrowserRouter>
-                </section>
+                <AuthProvider>
+                    <MainLayout>
+                        <AppRouter />
+                    </MainLayout>
+                </AuthProvider>
             </ApiProvider>
-        </AuthProvider>
+        </UserProvider>
     );
-}
+};
 
 export default App;
