@@ -31,6 +31,7 @@ class Product
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
+    /** @var Collection<int, Category> */
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'products')]
     private Collection $categories;
 
@@ -44,6 +45,7 @@ class Product
         return $this->id;
     }
 
+    /** @return Collection<int, Category>   */
     public function getCategories(): Collection
     {
         return $this->categories;

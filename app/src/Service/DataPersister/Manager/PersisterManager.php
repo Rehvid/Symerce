@@ -6,11 +6,9 @@ namespace App\Service\DataPersister\Manager;
 
 use App\Interfaces\PersistableInterface;
 use App\Service\DataPersister\Interface\CreatePersisterInterface;
-use App\Service\DataPersister\Interface\DataPersisterInterface;
-use App\Service\DataPersister\Interface\DeletePersisterInterface;
 use App\Service\DataPersister\Interface\UpdatePersisterInterface;
 
-final class PersisterManager
+class PersisterManager
 {
     /**
      * @var CreatePersisterInterface[]
@@ -24,12 +22,16 @@ final class PersisterManager
 
     private readonly DeletePersister $deletePersister;
 
+    /**
+     * @param iterable<int, CreatePersisterInterface> $createPersisters
+     * @param iterable<int, UpdatePersisterInterface> $updatePersisters
+     */
     public function __construct(
         iterable $createPersisters,
         iterable $updatePersisters,
         DeletePersister $deletePersister
-    )
-    {
+    ) {
+
         foreach ($createPersisters as $persister) {
             foreach ($persister->getSupportedClasses() as $class) {
                 $this->createPersisters[$class] = $persister;
@@ -72,5 +74,13 @@ final class PersisterManager
     public function delete(object $entity): void
     {
         $this->deletePersister->delete($entity);
+    }
+
+    /**
+     * @param iterable<int, object> $entities
+     */
+    public function deleteCollection(iterable $entities): void
+    {
+        $this->deletePersister->deleteCollection($entities);
     }
 }

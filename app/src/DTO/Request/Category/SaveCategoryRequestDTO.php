@@ -10,9 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 final readonly class SaveCategoryRequestDTO implements PersistableInterface
 {
     public function __construct(
-        #[Assert\NotBlank] public string $name,
+        #[Assert\NotBlank] #[Assert\Length(min: 3)] public string $name,
         public bool $isActive,
-        public ?int $parentId = null,
+        public int|string|null $parentCategoryId = null,
         public ?string $description = null,
     ) {
     }

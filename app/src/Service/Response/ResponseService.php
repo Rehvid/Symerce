@@ -14,6 +14,9 @@ final readonly class ResponseService
     {
     }
 
+    /**
+     * @param array<string, mixed> $headers
+     */
     public function createJsonResponse(
         ApiResponse $response,
         int $statusCode = Response::HTTP_OK,

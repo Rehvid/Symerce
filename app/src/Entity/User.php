@@ -42,9 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    #[ORM\OneToMany(targetEntity: UserToken::class, mappedBy:"user", cascade:["remove"])]
+    /** @var Collection<int, UserToken> */
+    #[ORM\OneToMany(targetEntity: UserToken::class, mappedBy:'user', cascade:['remove'])]
     private Collection $tokens;
-
 
     public function __construct()
     {
@@ -74,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
+        /* @phpstan-ignore-next-line */
         return $this->email;
     }
 
@@ -118,13 +119,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->surname = $surname;
     }
 
-    public function getTokens(): ArrayCollection
+    /** @return Collection<int, UserToken>  */
+    public function getTokens(): Collection
     {
         return $this->tokens;
     }
 
     public function getFullName(): string
     {
-        return $this->firstname . " " . $this->surname;
+        return $this->firstname.' '.$this->surname;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    public function addUserToken(UserToken $token): void
+    {
+        if (!$this->tokens->contains($token)) {
+            $this->tokens->add($token);
+        }
+    }
+
+    public function removeUserToken(UserToken $token): void
+    {
+        if ($this->tokens->contains($token)) {
+            $this->tokens->removeElement($token);
+        }
     }
 }

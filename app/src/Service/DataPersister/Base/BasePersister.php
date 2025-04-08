@@ -6,18 +6,31 @@ namespace App\Service\DataPersister\Base;
 
 use App\Interfaces\PersistableInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\Proxy;
 
 abstract class BasePersister
 {
     public function __construct(
         protected readonly EntityManagerInterface $entityManager
-    ) {}
-
-    protected function isClassSupported(object $class, array $supportedClasses): bool
-    {
-        return in_array(get_class($class), $supportedClasses, true);
+    ) {
     }
 
+    /**
+     * @param array<int, string> $supportedClasses
+     */
+    protected function isClassSupported(object $class, array $supportedClasses): bool
+    {
+        $className = get_class($class);
+        if ($class instanceof Proxy) {
+            $className = get_parent_class($class);
+        }
+
+        return in_array($className, $supportedClasses, true);
+    }
+
+    /**
+     * @param array<int, string> $supportedClasses
+     */
     protected function buildUnsupportedClassesExceptionMessage(object $entity, array $supportedClasses): string
     {
         return sprintf(

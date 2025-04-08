@@ -9,7 +9,7 @@ use App\Validator\RepeatPassword as CustomAssertRepeatPassword;
 use App\Validator\StrongPassword as CustomAssertStrongPassword;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class ChangePasswordRequestDTO implements PersistableInterface
+final readonly class UpdateSecurityRequestDTO implements PersistableInterface
 {
     public function __construct(
         #[Assert\NotBlank] #[CustomAssertStrongPassword] public string $password,

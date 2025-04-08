@@ -4,27 +4,28 @@ declare(strict_types=1);
 
 namespace App\DTO\Response\Category;
 
-use App\Dto\Response\ResponseInterfaceData;
+use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class CategoryFormResponseDTO implements ResponseInterfaceData
 {
+    /** @param array<string,mixed> $tree */
     private function __construct(
         public array $tree,
         public ?string $name,
+        public bool $isActive,
         public ?int $parentCategoryId = null,
         public ?string $description = null,
-        public bool $isActive,
     ) {
     }
 
-    public static function fromArray(array $data): ResponseInterfaceData
+    public static function fromArray(array $data): self
     {
         return new self(
             tree: $data['tree'] ?? [],
             name: $data['name'] ?? null,
+            isActive: $data['isActive'] ?? false,
             parentCategoryId: $data['parentCategoryId'] ?? null,
             description: $data['description'] ?? null,
-            isActive: $data['isActive'] ?? false,
         );
     }
 }

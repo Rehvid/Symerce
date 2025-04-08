@@ -6,7 +6,7 @@ namespace App\Service\DataPersister\Interface;
 
 use App\Interfaces\PersistableInterface;
 
-interface UpdatePersisterInterface
+interface UpdatePersisterInterface extends DataPersisterInterface
 {
     public function update(PersistableInterface $persistable, object $entity): object;
 }

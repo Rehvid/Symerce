@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ subject }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.5;
+            background-color: oklch(0.968 0.007 247.896);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            font-size: 16px;
+            color: #777;
+            margin-top: 20px;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+    </style>
+
+    {% block styles %} {% endblock %}
+</head>
+<body>
+<div class="container">
+    {% block content %} {% endblock %}
+    {% block footer  %}
+        <footer class="footer">
+            <a href="https://www.symerce.com">www.symerce.com</a>
+        </footer>
+    {% endblock %}
+</div>
+</body>
+</html>
+

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Persisters\User;
 
-use App\Dto\Request\User\SaveUserRequestDTO;
+use App\DTO\Request\User\StoreUserRequestDTO;
 use App\Entity\User;
 use App\Enums\Roles;
 use App\Interfaces\PersistableInterface;
@@ -14,7 +14,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class UserCreatePersister extends CreatePersister
 {
-
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $entityManager
@@ -24,7 +23,7 @@ final class UserCreatePersister extends CreatePersister
 
     protected function createEntity(PersistableInterface $persistable): object
     {
-        /** @var SaveUserRequestDTO $persistable */
+        /** @var StoreUserRequestDTO $persistable */
         $user = new User();
         $user->setEmail($persistable->email);
         $user->setRoles([Roles::ROLE_USER->value]);
@@ -38,6 +37,6 @@ final class UserCreatePersister extends CreatePersister
 
     public function getSupportedClasses(): array
     {
-        return [SaveUserRequestDTO::class];
+        return [StoreUserRequestDTO::class];
     }
 }

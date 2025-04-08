@@ -35,6 +35,10 @@ final readonly class SluggerService
 
     private function findExistingSlugs(string $value, string $entityClass, string $fieldName): bool
     {
+        if (!class_exists($entityClass)) {
+            throw new \InvalidArgumentException("Class {$entityClass} does not exist.");
+        }
+
         $count = $this->entityManager
             ->getRepository($entityClass)
             ->createQueryBuilder('c')

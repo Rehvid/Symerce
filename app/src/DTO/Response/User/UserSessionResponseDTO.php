@@ -8,23 +8,26 @@ use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class UserSessionResponseDTO implements ResponseInterfaceData
 {
+    /** @param array<int|string>  $roles */
     private function __construct(
         public ?int $id,
         public ?string $email,
         public ?string $firstname,
         public ?string $surname,
-        public array $roles
+        public array $roles,
+        public ?string $fullName,
     ) {
     }
 
-    public static function fromArray(array $data): ResponseInterfaceData
+    public static function fromArray(array $data): self
     {
         return new self(
             id: $data['id'] ?? null,
             email: $data['email'] ?? null,
             firstname: $data['firstname'] ?? null,
             surname: $data['surname'] ?? null,
-            roles: $data['roles'] ?? []
+            roles: $data['roles'] ?? [],
+            fullName: $data['fullName'] ?? null,
         );
     }
 }

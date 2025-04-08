@@ -2,38 +2,32 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Admin\Api;
+namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\AbstractApiController;
 use App\DTO\Request\Category\SaveCategoryRequestDTO;
 use App\DTO\Response\Category\CategoryFormResponseDTO;
-use App\DTO\Response\Category\CategoryListResponseDTO;
+use App\DTO\Response\Category\CategoryIndexResponseDTO;
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use App\Service\CategoryTreeBuilder;
-use App\Service\Pagination\PaginationService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/category', name: 'category_')]
+#[Route('/categories', name: 'category_')]
 class CategoryController extends AbstractApiController
 {
-    #[Route('/list', name: 'list', methods: ['GET'])]
-    public function getList(Request $request, PaginationService $paginationService): JsonResponse
+    #[Route('', name: 'index', methods: ['GET'])]
+    public function index(Request $request, CategoryRepository $repository): JsonResponse
     {
-        $paginationResponse = $paginationService->createResponse($request);
-
-        return $this->prepareJsonResponse(
-            data: array_map(fn ($data) =>  CategoryListResponseDTO::fromArray($data), $paginationResponse->data),
-            meta: $paginationResponse->paginationMeta->toArray()
-        );
+        return $this->getPaginatedResponse($request, $repository, CategoryIndexResponseDTO::class);
     }
 
-
-    #[Route('/form-data/{id?}', name: 'form_data', defaults: ['id' => null], methods: ['GET'])]
-    public function getFormData(?Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
+    #[Route('/{id?}/form-data', name: 'form_data', defaults: ['id' => null], methods: ['GET'])]
+    public function showFormData(?Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
     {
         $data = CategoryFormResponseDTO::fromArray([
             'tree' => $treeBuilder->generateTree(),
@@ -43,39 +37,41 @@ class CategoryController extends AbstractApiController
             'isActive' => $category && $category->isActive(),
         ]);
 
-        return $this->prepareJsonResponse($data);
+        return $this->prepareJsonResponse(data: ['formData' => $data]);
     }
 
-    #[Route('/create', name: 'create', methods: ['POST'], format: 'json')]
-    public function create(#[MapRequestPayload] SaveCategoryRequestDTO $dto): JsonResponse
+    #[Route('', name: 'store', methods: ['POST'], format: 'json')]
+    public function store(#[MapRequestPayload] SaveCategoryRequestDTO $dto): JsonResponse
     {
         /** @var Category $entity */
         $entity = $this->dataPersisterManager->persist($dto);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
+            message: $this->translator->trans('base.messages.category.store'),
             statusCode: Response::HTTP_CREATED
         );
     }
 
-    #[Route('/{id}/update', name: 'update', methods: ['PUT'])]
+    #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
-        Category                                    $category,
+        Category $category,
         #[MapRequestPayload] SaveCategoryRequestDTO $dto,
     ): JsonResponse {
         /** @var Category $entity */
-        $entity = $this->dataPersisterManager->update($category, $dto);
+        $entity = $this->dataPersisterManager->update($dto, $category);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
+            message: $this->translator->trans('base.messages.category.update')
         );
     }
 
-    #[Route('/delete/{id}', name: 'delete', methods: ['DELETE'])]
-    public function delete(Category $category): JsonResponse
+    #[Route('/{id}', name: 'destroy', methods: ['DELETE'])]
+    public function destroy(Category $category): JsonResponse
     {
         $this->dataPersisterManager->delete($category);
 
-        return $this->prepareJsonResponse();
+        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.category.destroy'));
     }
 }

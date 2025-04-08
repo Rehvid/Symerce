@@ -4,19 +4,27 @@ declare(strict_types=1);
 
 namespace App\Repository\Base;
 
-use App\Repository\Interface\BaseRepositoryInterface;
+use App\Repository\Interface\PaginationRepositoryInterface;
 use App\Service\Pagination\PaginationMeta;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-abstract class BaseRepository extends ServiceEntityRepository implements BaseRepositoryInterface
+/** @phpstan-ignore-next-line */
+abstract class PaginationRepository extends ServiceEntityRepository implements PaginationRepositoryInterface
 {
     abstract protected function getEntityClass(): string;
 
     abstract protected function getAlias(): string;
 
+    /**
+     * @param array<string, mixed> $queryParams
+     */
+    abstract protected function handlePaginatedQueryParams(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder;
+
     public function __construct(ManagerRegistry $registry)
     {
+        /* @phpstan-ignore-next-line */
         parent::__construct($registry, $this->getEntityClass());
     }
 
@@ -37,6 +45,8 @@ abstract class BaseRepository extends ServiceEntityRepository implements BaseRep
                 ->setParameter('search', "%$search%")
             ;
         }
+
+        $queryBuilder = $this->handlePaginatedQueryParams($queryBuilder, $queryParams);
 
         return $queryBuilder->getQuery()->getArrayResult();
     }

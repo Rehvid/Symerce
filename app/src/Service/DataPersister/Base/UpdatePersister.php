@@ -10,7 +10,6 @@ use App\Service\DataPersister\Interface\UpdatePersisterInterface;
 
 abstract class UpdatePersister extends BasePersister implements UpdatePersisterInterface
 {
-
     /**
      * @throws PersisterException
      */
@@ -36,14 +35,12 @@ abstract class UpdatePersister extends BasePersister implements UpdatePersisterI
         }
 
         if (!$this->isClassSupported($entity, $this->getSupportedClasses())) {
-            throw new PersisterException(
-                $this->buildUnsupportedClassesExceptionMessage($entity, $this->getSupportedClasses())
-            );
+            throw new PersisterException($this->buildUnsupportedClassesExceptionMessage($entity, $this->getSupportedClasses()));
         }
     }
 
-
     abstract protected function updateEntity(PersistableInterface $persistable, object $entity): object;
 
+    /** @return array<int, string> */
     abstract public function getSupportedClasses(): array;
 }

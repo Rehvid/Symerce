@@ -3,3 +3,19 @@ base:
     unique_email: 'Podany adres e-mail jest już zarejestrowany.'
     strong_password: 'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.'
     repeat_password: 'Hasła muszą być identyczne.'
+    not_exist_field: 'Pole nie zostało znalezione'
+  messages:
+    errors:
+      validation_failed: 'Wystąpił błąd walidacji.'
+      jwt:
+        token_not_provided: 'Token nie został dostarczony.'
+        token_not_found: 'Token nie został znaleziony.'
+        token_expired: 'Token wygasł.'
+        token_invalid: 'Token jest nieprawidłowy.'
+        invalid_credentials: 'Dane są nieprawidłowe, spróbuj ponownie.'
+    category:
+      store: 'Kategoria została pomyślnie dodana.'
+      update: 'Kategoria została pomyślnie zaktualizowana.'
+      destroy: 'Kategoria została pomyślnie usunięta.'
+    profile:
+      update: 'Zmiany zostały pomyślnie zapisane.'

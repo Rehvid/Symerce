@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Service\DataPersister\Interface;
+declare(strict_types=1);
 
-use App\Interfaces\PersistableInterface;
+namespace App\Service\DataPersister\Interface;
 
 interface DataPersisterInterface
 {
+    /** @return array<int, string> */
     public function getSupportedClasses(): array;
 }

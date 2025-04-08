@@ -1,10 +1,10 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Service\DataPersister\Persisters\Profile;
 
-use App\DTO\Request\Profile\ChangePasswordRequestDTO;
+use App\DTO\Request\Profile\UpdateSecurityRequestDTO;
 use App\Entity\User;
 use App\Interfaces\PersistableInterface;
 use App\Service\DataPersister\Base\UpdatePersister;
@@ -16,15 +16,19 @@ final class ChangePasswordUpdatePersister extends UpdatePersister
     public function __construct(
         EntityManagerInterface $entityManager,
         private readonly UserPasswordHasherInterface $passwordHasher,
-    )
-    {
+    ) {
         parent::__construct($entityManager);
     }
 
+    /**
+     * @param UpdateSecurityRequestDTO $persistable
+     * @param User                     $entity
+     *
+     * @return User
+     */
     protected function updateEntity(PersistableInterface $persistable, object $entity): object
     {
-        /** @var User $entity */
-        /** @var ChangePasswordRequestDTO $persistable */
+
         $entity->setPassword($this->passwordHasher->hashPassword($entity, $persistable->password));
 
         return $entity;
@@ -32,6 +36,6 @@ final class ChangePasswordUpdatePersister extends UpdatePersister
 
     public function getSupportedClasses(): array
     {
-        return [ChangePasswordRequestDTO::class, User::class];
+        return [UpdateSecurityRequestDTO::class, User::class];
     }
 }

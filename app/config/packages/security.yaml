@@ -13,11 +13,19 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        api_auth:
+            pattern: ^/api/auth
+            stateless: true
+
+        admin_public:
+            pattern: ^/admin/public
+            stateless: true
+
         login:
             pattern: ^/api/login
             stateless: true
             json_login:
-                check_path: /api/login_check
+                check_path: /api/login
                 username_path: email
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -25,18 +33,12 @@ security:
             logout:
                 path: app_logout
 
-        admin_public:
-            pattern: ^/admin/(login|register)
-            stateless: true
-
-        api_auth:
-            pattern: ^/api/auth
-            stateless: true
 
         admin:
             pattern: ^/admin
             stateless: false
             jwt: ~
+            provider: app_user_provider
 
         api_admin:
             pattern: ^/api/admin
@@ -55,8 +57,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/admin/(login|register), roles: PUBLIC_ACCESS }
-        - { path: ^/api/admin/auth/(register|logout), roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth, roles: PUBLIC_ACCESS }
+        - { path: ^/admin/public, roles: PUBLIC_ACCESS }
+
         - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/admin, roles: IS_AUTHENTICATED_FULLY }
 

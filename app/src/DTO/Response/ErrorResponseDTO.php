@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\DTO\Response;
 
-
 use Symfony\Component\HttpFoundation\Response;
 
-final class ErrorDTO implements ResponseInterfaceData
+final class ErrorResponseDTO implements ResponseInterfaceData
 {
+    /** @param array<string, mixed>|null $details */
     private function __construct(
         public int $code,
         public string $message,
@@ -16,18 +16,16 @@ final class ErrorDTO implements ResponseInterfaceData
     ) {
     }
 
-    /**
-     * @return ErrorDTO
-     */
-    public static function fromArray(array $data): ResponseInterfaceData
+    public static function fromArray(array $data): self
     {
         return new self(
             code: $data['code'] ?? Response::HTTP_BAD_REQUEST,
-            message: $data['message'] ?? "Something went wrong",
+            message: $data['message'] ?? 'Something went wrong',
             details: $data['details'] ?? null,
         );
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return [

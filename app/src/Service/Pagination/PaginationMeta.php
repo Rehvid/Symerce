@@ -7,7 +7,7 @@ namespace App\Service\Pagination;
 final class PaginationMeta
 {
     public function __construct(
-        private readonly int $page,
+        private int $page,
         private readonly int $limit,
         private int $totalItems,
         private int $totalPages,
@@ -23,6 +23,11 @@ final class PaginationMeta
     public function setTotalPages(int $totalPages): void
     {
         $this->totalPages = $totalPages;
+    }
+
+    public function setPage(int $page): void
+    {
+        $this->page = $page;
     }
 
     public function getPage(): int
@@ -50,6 +55,7 @@ final class PaginationMeta
         return $this->totalItems;
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return [

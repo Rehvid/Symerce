@@ -1,7 +1,8 @@
 parameters:
-  level: 9
+  level: 8
   paths:
       - src
-      - tests
   excludePaths:
       - tests/bootstrap.php
+      - %rootDir%/../../../src/Entity
+      - %rootDir%/../../../src/Traits

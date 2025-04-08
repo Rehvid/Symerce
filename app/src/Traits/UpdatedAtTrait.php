@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait UpdatedAtTrait
 {
     #[ORM\Column(type: 'datetime', nullable: false)]
-    private \DateTime $updateAt;
+    private \DateTime $updatedAt;
 
     public function getUpdatedAt(): \DateTime
     {
