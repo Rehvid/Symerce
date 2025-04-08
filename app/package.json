@@ -30,9 +30,11 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.12",
+    "dompurify": "^3.2.5",
     "jwt-decode": "^4.0.0",
     "postcss": "^8.5.3",
     "postcss-loader": "^8.1.1",
+    "quill": "^2.0.3",
     "react": "^18.0",
     "react-dom": "^18.0",
     "react-hook-form": "^7.54.2",

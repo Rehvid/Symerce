@@ -87,7 +87,7 @@ const CategoryList = () => {
                 title="Your categories"
                 filters={filters}
                 setFilters={setFilters}
-                columns={['Id', 'Name', 'Slug', 'Description', 'Actions']}
+                columns={['Id', 'Name', 'Slug', 'Actions']}
                 pagination={pagination}
                 additionalFilters={[PaginationFilter]}
                 actionButtons={renderTableButtons}

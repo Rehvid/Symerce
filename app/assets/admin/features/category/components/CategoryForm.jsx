@@ -18,12 +18,14 @@ const CategoryForm = ({ params }) => {
         setValue,
         setError,
         watch,
+        control,
         formState: { errors: fieldErrors },
     } = useForm();
     const [categoryData, setCategoryData] = useState({});
     const navigate = useNavigate();
-    const { handleApiRequest } = useApi();
+    const { handleApiRequest, isRequestFinished } = useApi();
     const { addNotification } = useCreateNotification();
+
 
     useEffect(() => {
         const endpoint = params.id ? `admin/categories/${params.id}/form-data` : 'admin/categories/form-data';
@@ -55,6 +57,11 @@ const CategoryForm = ({ params }) => {
         ? createApiConfig(`admin/categories/${params.id}`, HTTP_METHODS.PUT)
         : createApiConfig('admin/categories', HTTP_METHODS.POST);
 
+
+    if (!isRequestFinished) {
+        return <>...</>
+    }
+
     return (
         <AppForm
             apiConfig={apiConfig}
@@ -71,6 +78,7 @@ const CategoryForm = ({ params }) => {
                         categoryData={categoryData}
                         params={params}
                         watch={watch}
+                        control={control}
                     />
                 </div>
                 <CategoryFormSideColumn register={register} />

@@ -10,7 +10,6 @@ final readonly class CategoryIndexResponseDTO implements ResponseInterfaceData
         public int $id,
         public string $name,
         public string $slug,
-        public ?string $description
     ) {
 
     }
@@ -21,7 +20,6 @@ final readonly class CategoryIndexResponseDTO implements ResponseInterfaceData
             id: $data['id'],
             name: $data['name'],
             slug: $data['slug'],
-            description: $data['description']
         );
     }
 }

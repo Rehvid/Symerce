@@ -27,3 +27,5 @@ body {
 .progress-bar {
     animation: progressAnimation var(--progress-time) linear forwards;
 }
+
+

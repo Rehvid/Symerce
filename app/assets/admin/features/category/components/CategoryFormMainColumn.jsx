@@ -3,8 +3,10 @@ import AppInput from '@/admin/components/form/AppInput';
 import AppFormMainColumn from '@/admin/components/form/AppFormMainColumn';
 import { validationRules } from '@/admin/utils/validationRules';
 import FormCategoryTree from '@/admin/components/category-tree/FormCategoryTree';
+import AppTextarea from '@/admin/components/form/AppTextarea';
+import { Controller } from 'react-hook-form';
 
-const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch }) => {
+const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch, control }) => {
     return (
         <AppFormMainColumn sectionTitle="Basic">
             <AppInput
@@ -17,15 +19,21 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch 
                 label="Nazwa"
                 hasError={errors.hasOwnProperty('name')}
                 errorMessage={errors?.name?.message}
+                isRequired
             />
-            <AppInput
-                {...register('description')}
-                type="text"
-                id="description"
-                label="Opis"
-                hasError={errors.hasOwnProperty('description')}
-                errorMessage={errors?.description?.message}
-            />
+
+          <Controller
+            name="description"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <AppTextarea
+                value={field.value}
+                onChange={field.onChange}
+                title="Opis"
+              />
+            )}
+          />
 
             <FormCategoryTree
                 titleSection="Parent Category"
@@ -39,6 +47,7 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch 
                 selected={categoryData.parentCategoryId}
                 watch={watch}
                 nameWatchedValue="parentCategoryId"
+                isRequired
             />
         </AppFormMainColumn>
     );
