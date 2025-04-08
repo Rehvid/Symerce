@@ -32,7 +32,7 @@ const useListData = (endpoint, filters, setFilters, itemActions) => {
     const fetchItems = async () => {
         const config = createApiConfig(endpoint, HTTP_METHODS.GET).addQueryParams(filters);
         handleApiRequest(config, {
-            onSuccess: (data, meta) => {
+            onSuccess: ({ data, meta }) => {
                 setItems(
                     prepareDataForTable(data, {
                         actions: itemActions,

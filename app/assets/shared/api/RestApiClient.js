@@ -33,6 +33,7 @@ const RestApiClient = () => {
                 meta: responseData.meta || {},
                 errors: responseData.errors || {},
                 code: response.status,
+                message: responseData.message || null,
             };
         } catch (error) {
             console.error('Api request failed:', error);

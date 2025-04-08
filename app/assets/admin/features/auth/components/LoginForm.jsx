@@ -24,7 +24,7 @@ const LoginForm = ({ setAlert }) => {
     const { login } = useAuth();
 
     const apiRequestCallbacks = {
-        onSuccess: (data) => {
+        onSuccess: ({ data }) => {
             login(data.user);
             navigate('/admin/dashboard', { replace: true });
         },

@@ -46,7 +46,8 @@ class ProfileController extends AbstractApiController
                     'email' => $user->getUserIdentifier(),
                     'fullName' => $user->getFullName(),
                 ]),
-            ]
+            ],
+            message: $this->translator->trans('base.messages.profile.update')
         );
     }
 
@@ -57,6 +58,6 @@ class ProfileController extends AbstractApiController
     ): JsonResponse {
         $this->dataPersisterManager->update($changePasswordRequestDTO, $user);
 
-        return $this->prepareJsonResponse();
+        return $this->prepareJsonResponse(  message: $this->translator->trans('base.messages.profile.update'));
     }
 }

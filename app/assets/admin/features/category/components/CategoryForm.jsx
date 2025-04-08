@@ -26,10 +26,10 @@ const CategoryForm = ({ params }) => {
     const { addNotification } = useCreateNotification();
 
     useEffect(() => {
-        const url = params.id ? `${params.id}` : '';
-        const createConfig = createApiConfig(`admin/category/form-data/${url}`, HTTP_METHODS.GET);
+        const endpoint = params.id ? `admin/categories/${params.id}/form-data` : 'admin/categories/form-data';
+        const createConfig = createApiConfig(endpoint, HTTP_METHODS.GET);
         handleApiRequest(createConfig, {
-            onSuccess: (data) => {
+            onSuccess: ({ data }) => {
                 const { formData } = data;
                 if (formData) {
                     setCategoryData(formData);
@@ -43,17 +43,17 @@ const CategoryForm = ({ params }) => {
     }, []);
 
     const apiRequestCallbacks = {
-        onSuccess: (data) => {
+        onSuccess: ({ data, message }) => {
             if (data.id) {
-                addNotification('Udało sie zapisać dane!', NOTIFICATION_TYPES.SUCCESS);
+                addNotification(message, NOTIFICATION_TYPES.SUCCESS);
                 navigate(`/admin/categories/${data.id}/edit`, { replace: true });
             }
         },
     };
 
     const apiConfig = params.id
-        ? createApiConfig(`admin/category/${params.id}/update`, HTTP_METHODS.PUT)
-        : createApiConfig('admin/category/create', HTTP_METHODS.POST);
+        ? createApiConfig(`admin/categories/${params.id}`, HTTP_METHODS.PUT)
+        : createApiConfig('admin/categories', HTTP_METHODS.POST);
 
     return (
         <AppForm

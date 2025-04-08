@@ -23,8 +23,8 @@ const ProfileSecurityForm = () => {
     const { addNotification } = useCreateNotification();
 
     const apiRequestCallbacks = {
-        onSuccess: () => {
-            addNotification('Udało się zapisać dane!', ALERT_TYPES.SUCCESS);
+        onSuccess: ({ message }) => {
+            addNotification(message, ALERT_TYPES.SUCCESS);
         },
     };
 
@@ -32,7 +32,7 @@ const ProfileSecurityForm = () => {
         <>
             <h1 className="text-2xl font-bold mb-6">Secruity</h1>
             <AppForm
-                apiConfig={createApiConfig(`admin/profile/${user.id}/change-password`, HTTP_METHODS.PUT)}
+                apiConfig={createApiConfig(`admin/profiles/${user.id}/security`, HTTP_METHODS.PUT)}
                 handleSubmit={handleSubmit}
                 setError={setError}
                 apiRequestCallbacks={apiRequestCallbacks}

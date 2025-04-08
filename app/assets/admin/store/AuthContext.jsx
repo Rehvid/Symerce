@@ -34,13 +34,13 @@ export const AuthProvider = ({ children }) => {
     const verifyAuth = async () => {
         const apiConfig = createApiConfig('auth/verify', HTTP_METHODS.GET);
         handleApiRequest(apiConfig, {
-            onSuccess: (data) => {
+            onSuccess: ({ data }) => {
                 setUser(data.user);
                 setIsAuthenticated(true);
                 setIsLoadingAuthorization(false);
             },
             onError: (errors) => {
-                console.log(errors);
+                console.error(errors);
                 setIsLoadingAuthorization(false);
             },
         });

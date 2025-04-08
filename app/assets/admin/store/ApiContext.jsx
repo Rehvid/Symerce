@@ -12,7 +12,7 @@ export const ApiProvider = ({ children }) => {
     const handleApiRequest = async (apiConfig, { onSuccess, onError, onNetworkError }) => {
         setIsRequestFinished(false);
         try {
-            const { data, errors, meta } = await restApiClient().sendApiRequest(apiConfig, {
+            const { data, errors, meta, message } = await restApiClient().sendApiRequest(apiConfig, {
                 onUnauthorized: () => {
                     setIsAuthenticated(false);
                     setUser(null);
@@ -25,7 +25,7 @@ export const ApiProvider = ({ children }) => {
             }
 
             setIsRequestFinished(true);
-            return onSuccess?.(data, meta);
+            return onSuccess?.({ data: data, meta: meta, message: message });
         } catch (e) {
             console.error('Network error:', e);
             setIsRequestFinished(true);

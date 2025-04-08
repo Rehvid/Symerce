@@ -26,15 +26,25 @@ class CategoryController extends AbstractApiController
         return $this->getPaginatedResponse($request, $repository, CategoryIndexResponseDTO::class);
     }
 
-    #[Route('/{id?}/form-data', name: 'form_data', defaults: ['id' => null], methods: ['GET'])]
-    public function showFormData(?Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
+    #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
+    public function storeUpdateFormData(?Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
     {
         $data = CategoryFormResponseDTO::fromArray([
             'tree' => $treeBuilder->generateTree(),
-            'name' => $category?->getName(),
-            'parentCategoryId' => $category?->getParent()?->getId(),
-            'description' => $category?->getDescription(),
-            'isActive' => $category && $category->isActive(),
+        ]);
+
+        return $this->prepareJsonResponse(data: ['formData' => $data]);
+    }
+
+    #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
+    public function showUpdateFormData(Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
+    {
+        $data = CategoryFormResponseDTO::fromArray([
+            'tree' => $treeBuilder->generateTree(),
+            'name' => $category->getName(),
+            'parentCategoryId' => $category->getParent()?->getId(),
+            'description' => $category->getDescription(),
+            'isActive' => $category->isActive(),
         ]);
 
         return $this->prepareJsonResponse(data: ['formData' => $data]);

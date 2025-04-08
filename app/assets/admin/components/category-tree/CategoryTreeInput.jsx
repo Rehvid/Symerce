@@ -3,7 +3,6 @@ import React from 'react';
 const CategoryTreeInput = React.forwardRef(
     ({ selected, category, disabledCategoryId, register, watch, nameWatchedValue }, ref) => {
         const isDisabled = disabledCategoryId === category.id;
-        console.log(Number(watch(nameWatchedValue)));
         return (
             <label
                 className={`flex items-center gap-2 ${isDisabled ? '' : 'cursor-pointer'} `}

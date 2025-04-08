@@ -22,8 +22,8 @@ const AppForm = ({
         apiConfig.setBody(values);
 
         handleApiRequest(apiConfig, {
-            onSuccess: (data, meta) => {
-                apiRequestCallbacks?.onSuccess(data, meta);
+            onSuccess: (data, meta, message) => {
+                apiRequestCallbacks?.onSuccess(data, meta, message);
             },
             onError: (errors) => {
                 apiRequestCallbacks?.onError?.(errors);

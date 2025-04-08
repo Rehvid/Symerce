@@ -31,13 +31,13 @@ const ProfilePersonalForm = () => {
 
     const { addNotification } = useCreateNotification();
     const apiRequestCallbacks = {
-        onSuccess: (data) => {
+        onSuccess: ({ data, message }) => {
             const { user: currentUser } = data;
             setUser((prev) => ({
                 ...prev,
                 ...currentUser,
             }));
-            addNotification('Udało się zapisać dane!', ALERT_TYPES.SUCCESS);
+            addNotification(message, ALERT_TYPES.SUCCESS);
         },
     };
 
@@ -45,7 +45,7 @@ const ProfilePersonalForm = () => {
         <>
             <h1 className="text-2xl font-bold mb-6">Personal Information</h1>
             <AppForm
-                apiConfig={createApiConfig(`admin/profile/${user.id}/update-personal`, HTTP_METHODS.PUT)}
+                apiConfig={createApiConfig(`admin/profiles/${user.id}/personal`, HTTP_METHODS.PUT)}
                 handleSubmit={handleSubmit}
                 setError={setError}
                 apiRequestCallbacks={apiRequestCallbacks}

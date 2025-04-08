@@ -45,10 +45,10 @@ const CategoryList = () => {
     );
 
     const removeCategory = async (id) => {
-        const config = createApiConfig(`admin/category/delete/${id}`, HTTP_METHODS.DELETE);
+        const config = createApiConfig(`admin/categories/${id}`, HTTP_METHODS.DELETE);
         handleApiRequest(config, {
-            onSuccess: () => {
-                addNotification('Udało się usunąć kategorie!', ALERT_TYPES.SUCCESS);
+            onSuccess: ({ message }) => {
+                addNotification(message, ALERT_TYPES.SUCCESS);
 
                 const wasLastItemOnPage = items.length === 0;
                 const isNotFirstPage = filters.page > 1;
@@ -67,7 +67,7 @@ const CategoryList = () => {
     };
 
     const { items, pagination, isLoading, fetchItems } = useListData(
-        'admin/category/list',
+        'admin/categories',
         filters,
         setFilters,
         renderItemActions,
