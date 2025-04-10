@@ -26,7 +26,6 @@ const CategoryForm = ({ params }) => {
     const { handleApiRequest, isRequestFinished } = useApi();
     const { addNotification } = useCreateNotification();
 
-
     useEffect(() => {
         const endpoint = params.id ? `admin/categories/${params.id}/form-data` : 'admin/categories/form-data';
         const createConfig = createApiConfig(endpoint, HTTP_METHODS.GET);
@@ -57,9 +56,8 @@ const CategoryForm = ({ params }) => {
         ? createApiConfig(`admin/categories/${params.id}`, HTTP_METHODS.PUT)
         : createApiConfig('admin/categories', HTTP_METHODS.POST);
 
-
     if (!isRequestFinished) {
-        return <>...</>
+        return <>...</>;
     }
 
     return (
@@ -81,7 +79,7 @@ const CategoryForm = ({ params }) => {
                         control={control}
                     />
                 </div>
-                <CategoryFormSideColumn register={register} />
+                <CategoryFormSideColumn register={register} control={control} />
 
                 <AppFormFixedButton />
             </div>

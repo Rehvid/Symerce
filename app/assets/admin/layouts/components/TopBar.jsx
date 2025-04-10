@@ -33,7 +33,7 @@ const TopBar = () => {
     };
 
     return (
-        <header className="sticky top-0 flex w-full bg-white border-gray-200 z-99999 lg:border-b">
+        <header className="sticky top-0 flex w-full bg-white border-gray-200 z-300 lg:border-b">
             <div className="flex flex-col items-center justify-end grow flex-row px-[160px] py-4">
                 <Dropdown forceClose={forceClose}>
                     <DropdownButton className="flex gap-2 items-center cursor-pointer" onClickExtra={onDropdownClick}>
