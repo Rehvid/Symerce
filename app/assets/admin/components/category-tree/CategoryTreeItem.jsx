@@ -9,7 +9,7 @@ const CategoryTreeItem = ({
     disabledCategoryId,
     register,
     watch,
-    nameWatchedValue
+    nameWatchedValue,
 }) => {
     const isOpen = openCategories.includes(category.id);
 

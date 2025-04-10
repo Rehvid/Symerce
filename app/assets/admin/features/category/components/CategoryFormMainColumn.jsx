@@ -22,18 +22,12 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 isRequired
             />
 
-          <Controller
-            name="description"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <AppTextarea
-                value={field.value}
-                onChange={field.onChange}
-                title="Opis"
-              />
-            )}
-          />
+            <Controller
+                name="description"
+                control={control}
+                defaultValue=""
+                render={({ field }) => <AppTextarea value={field.value} onChange={field.onChange} title="Opis" />}
+            />
 
             <FormCategoryTree
                 titleSection="Parent Category"
