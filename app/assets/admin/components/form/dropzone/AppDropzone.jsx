@@ -81,6 +81,7 @@ const AppDropzone = ({
 
     const removeFile = (file) => {
         setFiles(files.filter((item) => item !== file));
+        setErrors({});
     };
 
     const hasError = errors && errors.message;
