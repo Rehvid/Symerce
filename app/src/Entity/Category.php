@@ -48,6 +48,10 @@ class Category implements OrderSortableInterface
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     private Collection $children;
 
+    #[ORM\ManyToOne(targetEntity: File::class)]
+    #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?File $image;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -133,5 +137,15 @@ class Category implements OrderSortableInterface
         if ($this->children->contains($category)) {
             $this->children->removeElement($category);
         }
+    }
+
+    public function getImage(): File
+    {
+        return $this->image;
+    }
+
+    public function setImage(?File $image): void
+    {
+        $this->image = $image;
     }
 }
