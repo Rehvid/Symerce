@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
 class Category implements OrderSortableInterface
 {
@@ -48,7 +49,7 @@ class Category implements OrderSortableInterface
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     private Collection $children;
 
-    #[ORM\ManyToOne(targetEntity: File::class)]
+    #[ORM\ManyToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?File $image;
 
@@ -139,7 +140,7 @@ class Category implements OrderSortableInterface
         }
     }
 
-    public function getImage(): File
+    public function getImage(): ?File
     {
         return $this->image;
     }

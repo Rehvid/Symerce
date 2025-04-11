@@ -6,6 +6,7 @@ namespace App\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 trait UpdatedAtTrait
 {
     #[ORM\Column(type: 'datetime', nullable: false)]
@@ -13,11 +14,17 @@ trait UpdatedAtTrait
 
     public function getUpdatedAt(): \DateTime
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
     public function setUpdatedAt(\DateTime $updatedAt): void
     {
-        $this->updateAt = $updatedAt;
+        $this->updatedAt = $updatedAt;
+    }
+
+    #[ORM\PreUpdate]
+    public function updateTimestamp(): void
+    {
+        $this->updatedAt = new \DateTime();
     }
 }

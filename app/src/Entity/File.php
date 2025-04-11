@@ -10,6 +10,7 @@ use App\Traits\UpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 class File
 {
     use CreatedAtTrait;
