@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\OrderSortableInterface;
 use App\Traits\CreatedAtTrait;
 use App\Traits\ActiveTrait;
 use App\Traits\OrderTrait;
@@ -15,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
-class Category
+class Category implements OrderSortableInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;

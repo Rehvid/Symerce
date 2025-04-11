@@ -19,3 +19,4 @@ base:
       destroy: 'Kategoria została pomyślnie usunięta.'
     profile:
       update: 'Zmiany zostały pomyślnie zapisane.'
+    update_order: 'Udało się zaktualizować pozycje!'

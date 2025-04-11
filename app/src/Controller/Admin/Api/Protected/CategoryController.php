@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Api\Protected;
 
-use App\Controller\AbstractApiController;
+use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\Category\SaveCategoryRequestDTO;
+use App\DTO\Request\OrderRequestDTO;
 use App\DTO\Response\Category\CategoryFormResponseDTO;
 use App\DTO\Response\Category\CategoryIndexResponseDTO;
 use App\Entity\Category;
@@ -18,7 +19,7 @@ use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/categories', name: 'category_')]
-class CategoryController extends AbstractApiController
+class CategoryController extends AbstractAdminController
 {
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(Request $request, CategoryRepository $repository): JsonResponse
@@ -27,7 +28,7 @@ class CategoryController extends AbstractApiController
     }
 
     #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
-    public function storeUpdateFormData(?Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
+    public function storeUpdateFormData(CategoryTreeBuilder $treeBuilder): JsonResponse
     {
         $data = CategoryFormResponseDTO::fromArray([
             'tree' => $treeBuilder->generateTree(),
@@ -61,6 +62,12 @@ class CategoryController extends AbstractApiController
             message: $this->translator->trans('base.messages.category.store'),
             statusCode: Response::HTTP_CREATED
         );
+    }
+
+    #[Route('/order', name: 'order', methods: ['PUT'])]
+    public function order(#[MapRequestPayload] OrderRequestDTO $orderRequestDTO): JsonResponse
+    {
+        return $this->sortOrderForEntity($orderRequestDTO, Category::class);
     }
 
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
