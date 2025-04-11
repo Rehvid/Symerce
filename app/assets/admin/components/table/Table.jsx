@@ -10,6 +10,8 @@ const Table = ({
     actionButtons = null,
     titleSection = null,
     additionalFilters = [],
+    useDraggable = false,
+    draggableCallback = {},
     children,
 }) => {
     return (
@@ -28,7 +30,11 @@ const Table = ({
                             <div className="max-w-full overflow-x-auto mb-0 ">
                                 <table className="min-w-full">
                                     <TableColumns columns={columns} />
-                                    <TableBody data={data} />
+                                    <TableBody
+                                        data={data}
+                                        useDraggable={useDraggable}
+                                        draggableCallback={draggableCallback}
+                                    />
                                 </table>
                             </div>
                             {children}

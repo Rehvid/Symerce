@@ -14,6 +14,7 @@ import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 import DataTable from '@/admin/components/DataTable';
 import useListData from '@/admin/hooks/useListData';
+import { prepareDraggableDataToUpdateOrder } from '@/admin/utils/helper';
 
 const CategoryList = () => {
     const navigate = useNavigate();
@@ -77,6 +78,23 @@ const CategoryList = () => {
         return <>...Loading</>;
     }
 
+    const apiConfig = createApiConfig('admin/categories/order', HTTP_METHODS.PUT);
+    const draggableCallback = (items) => {
+        const draggableData = prepareDraggableDataToUpdateOrder(items);
+        apiConfig.setBody(draggableData);
+        handleApiRequest(apiConfig, {
+            onSuccess: ({ message }) => {
+                addNotification(message, ALERT_TYPES.SUCCESS);
+            },
+            onError: () => {
+                addNotification(
+                    'Nie udało się zaktualizować pozycji w tabeli. Proszę spróbować ponownie.',
+                    ALERT_TYPES.ERROR,
+                );
+            },
+        });
+    };
+
     return (
         <>
             <PageHeader title={'Categories'}>
@@ -92,6 +110,8 @@ const CategoryList = () => {
                 additionalFilters={[PaginationFilter]}
                 actionButtons={renderTableButtons}
                 items={items}
+                useDraggable={true}
+                draggableCallback={draggableCallback}
             />
         </>
     );

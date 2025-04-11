@@ -10,6 +10,14 @@ export const prepareDataForTable = (data, additionalData = {}) => {
     });
 };
 
+export const prepareDraggableDataToUpdateOrder = (data) => {
+    let draggableData = [];
+    data.forEach((element, key) => {
+        draggableData = [...draggableData, element[0]];
+    });
+    return { order: draggableData };
+};
+
 export const isValidEnumValue = (enumObject, value) => {
     return Object.values(enumObject).includes(value);
 };
