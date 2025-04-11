@@ -9,9 +9,11 @@ use App\DTO\Request\Category\SaveCategoryRequestDTO;
 use App\DTO\Request\OrderRequestDTO;
 use App\DTO\Response\Category\CategoryFormResponseDTO;
 use App\DTO\Response\Category\CategoryIndexResponseDTO;
+use App\DTO\Response\FileResponseDTO;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryTreeBuilder;
+use App\Service\FileService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,17 +40,26 @@ class CategoryController extends AbstractAdminController
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
+    public function showUpdateFormData(Category $category, CategoryTreeBuilder $treeBuilder, FileService $service): JsonResponse
     {
-        $data = CategoryFormResponseDTO::fromArray([
+
+        $dataResponse = [
             'tree' => $treeBuilder->generateTree(),
             'name' => $category->getName(),
             'parentCategoryId' => $category->getParent()?->getId(),
             'description' => $category->getDescription(),
             'isActive' => $category->isActive(),
-        ]);
+        ];
 
-        return $this->prepareJsonResponse(data: ['formData' => $data]);
+        if ($category->getImage()) {
+            $dataResponse['image'] = FileResponseDTO::fromArray([
+                'id' => $category->getImage()->getId(),
+                'originalName' => $category->getImage()->getOriginalName(),
+                'path' => $service->preparePublicPathToFile($category->getImage()),
+            ]);
+        }
+
+        return $this->prepareJsonResponse(data: ['formData' => CategoryFormResponseDTO::fromArray($dataResponse)]);
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]

@@ -9,4 +9,6 @@ enum FileMimeType: string
     case JPEG = 'image/jpeg';
     case PNG = 'image/png';
     case WEBP = 'image/webp';
+
+    case PDF = 'application/pdf';
 }

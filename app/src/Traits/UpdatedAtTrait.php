@@ -6,7 +6,6 @@ namespace App\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 trait UpdatedAtTrait
 {
     #[ORM\Column(type: 'datetime', nullable: false)]

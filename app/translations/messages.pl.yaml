@@ -20,3 +20,4 @@ base:
     profile:
       update: 'Zmiany zostały pomyślnie zapisane.'
     update_order: 'Udało się zaktualizować pozycje!'
+    destroy_file: 'Plik został pomyślnie usunięty.'

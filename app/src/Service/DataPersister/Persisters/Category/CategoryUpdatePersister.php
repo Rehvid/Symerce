@@ -9,12 +9,14 @@ use App\Entity\Category;
 use App\Interfaces\PersistableInterface;
 use App\Service\DataPersister\Base\UpdatePersister;
 use App\Service\DataPersister\PersisterHelper\CategoryPersisterHelper;
+use App\Service\FileService;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class CategoryUpdatePersister extends UpdatePersister
 {
     public function __construct(
         private readonly CategoryPersisterHelper $categoryPersisterHelper,
+        private readonly FileService $fileService,
         EntityManagerInterface $entityManager
     ) {
         parent::__construct($entityManager);
@@ -36,6 +38,12 @@ final class CategoryUpdatePersister extends UpdatePersister
         $entity->setParent(
             $this->categoryPersisterHelper->getParentCategory($persistable->parentCategoryId, $this->entityManager)
         );
+
+        if (!empty($persistable->image)) {
+            foreach ($persistable->image as $image) {
+                $entity->setImage($this->fileService->processFileRequestDTO($image, $entity->getImage()));
+            }
+        }
 
         return $entity;
     }

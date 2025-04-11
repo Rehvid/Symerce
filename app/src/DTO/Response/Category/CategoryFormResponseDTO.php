@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DTO\Response\Category;
 
+use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class CategoryFormResponseDTO implements ResponseInterfaceData
@@ -15,6 +16,7 @@ final readonly class CategoryFormResponseDTO implements ResponseInterfaceData
         public bool $isActive,
         public ?int $parentCategoryId = null,
         public ?string $description = null,
+        public ?FileResponseDTO $image = null,
     ) {
     }
 
@@ -26,6 +28,7 @@ final readonly class CategoryFormResponseDTO implements ResponseInterfaceData
             isActive: $data['isActive'] ?? false,
             parentCategoryId: $data['parentCategoryId'] ?? null,
             description: $data['description'] ?? null,
+            image: $data['image'] ?? null
         );
     }
 }
