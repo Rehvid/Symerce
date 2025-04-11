@@ -47,34 +47,6 @@ const RestApiClient = () => {
         }
     };
 
-    // const fetchApiData = async (apiConfig) => {
-    //     const { endpoint, method, queryParams, headers, body } = apiConfig.getConfig();
-    //     const url = constructUrl(queryParams, endpoint, BASE_URL);
-    //
-    //
-    //     const requestOptions = {
-    //         method: method,
-    //         headers: { ...defaultHeaders, ...headers },
-    //         body: method !== HTTP_METHODS.GET && method !== HTTP_METHODS.HEAD ? JSON.stringify(body) : null,
-    //     };
-    //
-    //     const response = await fetch(url, requestOptions);
-    //
-    //     let responseData;
-    //     try {
-    //         responseData = await response.json();
-    //     } catch (e) {
-    //         throw new Error("Wystąpił problem z przetworzeniem odpowiedzi serwera.");
-    //     }
-    //
-    //     return {
-    //         data: responseData.data || {},
-    //         meta: responseData.meta || {},
-    //         errors: responseData.errors || {},
-    //         code: response.status
-    //     };
-    // };
-
     const defaultHeaders = {
         'Content-Type': 'application/json',
         credentials: 'include',
