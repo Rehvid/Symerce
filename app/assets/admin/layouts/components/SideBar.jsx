@@ -2,6 +2,7 @@ import NavigationItem from '@/admin/layouts/components/navigation/NavigationItem
 import DashboardIcon from '@/images/icons/dashboard.svg';
 import FoldersIcon from '@/images/icons/folders.svg';
 import ProductIcon from '@/images/icons/assembly.svg';
+import UsersIcon from '@/images/icons/users.svg';
 
 const SideBar = () => {
     return (
@@ -24,6 +25,10 @@ const SideBar = () => {
                     <NavigationItem to={'products'}>
                         <ProductIcon />
                         <span>Products</span>
+                    </NavigationItem>
+                    <NavigationItem to={'users'}>
+                        <UsersIcon />
+                        <span>Users</span>
                     </NavigationItem>
                 </ul>
             </div>
