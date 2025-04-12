@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Mapper;
+
+use App\DTO\Response\Category\CategoryFormResponseDTO;
+use App\DTO\Response\Category\CategoryIndexResponseDTO;
+use App\DTO\Response\FileResponseDTO;
+use App\Entity\Category;
+use App\Service\CategoryTreeBuilder;
+use App\Service\FileService;
+
+final readonly class CategoryMapper
+{
+    public function __construct(private FileService $fileService)
+    {
+    }
+
+    /** @param array<string, mixed> $categoryData */
+    public function mapToIndexResponse(array $categoryData): CategoryIndexResponseDTO
+    {
+        if ($categoryData['path']) {
+            $categoryData['imagePath'] = $this->fileService->preparePublicPathToFile($categoryData['path']);
+        }
+
+        return CategoryIndexResponseDTO::fromArray($categoryData);
+    }
+
+    public function mapToFormData(CategoryTreeBuilder $tree, Category $category): CategoryFormResponseDTO
+    {
+        $dataResponse = [
+            'tree' => $tree->generateTree(),
+            'name' => $category->getName(),
+            'parentCategoryId' => $category->getParent()?->getId(),
+            'description' => $category->getDescription(),
+            'isActive' => $category->isActive(),
+        ];
+
+        if ($category->getImage()) {
+            $dataResponse['image'] = FileResponseDTO::fromArray([
+                'id' => $category->getImage()->getId(),
+                'originalName' => $category->getImage()->getOriginalName(),
+                'path' => $this->fileService->preparePublicPathToFile($category->getImage()->getPath()),
+            ]);
+        }
+
+        return CategoryFormResponseDTO::fromArray($dataResponse);
+    }
+}
