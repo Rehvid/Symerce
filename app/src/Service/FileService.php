@@ -33,14 +33,14 @@ readonly class FileService
         $this->filesystem->remove($path);
     }
 
-    public function preparePublicPathToFile(?File $file): ?string
+    public function preparePublicPathToFile(?string $filePath): ?string
     {
         /** @var string $baseUrl */
         $baseUrl = $this->parameterBag->get('app.base_url');
 
-        return null === $file
+        return null === $filePath
             ? null
-            : $baseUrl.'files/'.$file->getPath()
+            : $baseUrl.'files/'.$filePath
         ;
     }
 

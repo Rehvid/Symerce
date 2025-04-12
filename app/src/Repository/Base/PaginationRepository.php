@@ -20,7 +20,7 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
     /**
      * @param array<string, mixed> $queryParams
      */
-    abstract protected function handlePaginatedQueryParams(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder;
+    abstract protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -36,7 +36,6 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
         $queryBuilder = $this->createQueryBuilder($alias)
             ->setFirstResult($paginationMeta->getOffset())
             ->setMaxResults($paginationMeta->getLimit())
-            ->orderBy("$alias.order", 'ASC')
         ;
 
         if (null !== $search && '' !== trim($search)) {
@@ -46,7 +45,7 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
             ;
         }
 
-        $queryBuilder = $this->handlePaginatedQueryParams($queryBuilder, $queryParams);
+        $queryBuilder = $this->configureQueryForPagination($queryBuilder, $queryParams);
 
         return $queryBuilder->getQuery()->getArrayResult();
     }

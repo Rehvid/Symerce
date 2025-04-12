@@ -20,8 +20,14 @@ class CategoryRepository extends PaginationRepository
         return 'c';
     }
 
-    protected function handlePaginatedQueryParams(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder
+    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder
     {
-        return $queryBuilder;
+        $alias = $this->getAlias();
+
+        return $queryBuilder
+            ->select("$alias.id, $alias.name, $alias.slug, image.path")
+            ->leftJoin("$alias.image", 'image')
+            ->orderBy("$alias.order", 'ASC')
+        ;
     }
 }

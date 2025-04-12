@@ -9,24 +9,57 @@ use App\DTO\Request\Category\SaveCategoryRequestDTO;
 use App\DTO\Request\OrderRequestDTO;
 use App\DTO\Response\Category\CategoryFormResponseDTO;
 use App\DTO\Response\Category\CategoryIndexResponseDTO;
-use App\DTO\Response\FileResponseDTO;
 use App\Entity\Category;
+use App\Mapper\CategoryMapper;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryTreeBuilder;
-use App\Service\FileService;
+use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\Pagination\PaginationService;
+use App\Service\Response\ResponseService;
+use App\Service\SortableEntityOrderUpdater;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/categories', name: 'category_')]
 class CategoryController extends AbstractAdminController
 {
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        PaginationService $paginationService,
+        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
+        private readonly CategoryMapper $categoryMapper,
+    ) {
+        parent::__construct(
+            $dataPersisterManager,
+            $translator,
+            $responseService,
+            $paginationService,
+            $sortableEntityOrderUpdater
+        );
+    }
+
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(Request $request, CategoryRepository $repository): JsonResponse
     {
-        return $this->getPaginatedResponse($request, $repository, CategoryIndexResponseDTO::class);
+        $paginatedResponse = $this->getPaginatedResponse($request, $repository);
+
+        /** @var array<int, CategoryIndexResponseDTO> $responseData */
+        $responseData = [];
+
+        foreach ($paginatedResponse->data as $data) {
+            $responseData[] = $this->categoryMapper->mapToIndexResponse($data);
+        }
+
+        return $this->prepareJsonResponse(
+            data: $responseData,
+            meta: $paginatedResponse->paginationMeta->toArray()
+        );
     }
 
     #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
@@ -40,26 +73,11 @@ class CategoryController extends AbstractAdminController
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(Category $category, CategoryTreeBuilder $treeBuilder, FileService $service): JsonResponse
+    public function showUpdateFormData(Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
     {
+        $formData = $this->categoryMapper->mapToFormData($treeBuilder, $category);
 
-        $dataResponse = [
-            'tree' => $treeBuilder->generateTree(),
-            'name' => $category->getName(),
-            'parentCategoryId' => $category->getParent()?->getId(),
-            'description' => $category->getDescription(),
-            'isActive' => $category->isActive(),
-        ];
-
-        if ($category->getImage()) {
-            $dataResponse['image'] = FileResponseDTO::fromArray([
-                'id' => $category->getImage()->getId(),
-                'originalName' => $category->getImage()->getOriginalName(),
-                'path' => $service->preparePublicPathToFile($category->getImage()),
-            ]);
-        }
-
-        return $this->prepareJsonResponse(data: ['formData' => CategoryFormResponseDTO::fromArray($dataResponse)]);
+        return $this->prepareJsonResponse(data: ['formData' => $formData]);
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
