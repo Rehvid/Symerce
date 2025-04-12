@@ -45,10 +45,11 @@ const CategoryForm = ({ params }) => {
 
     const apiRequestCallbacks = {
         onSuccess: ({ data, message }) => {
-            if (data.id) {
-                addNotification(message, NOTIFICATION_TYPES.SUCCESS);
+            addNotification(message, NOTIFICATION_TYPES.SUCCESS);
+            if (!params.id && data.id) {
                 navigate(`/admin/categories/${data.id}/edit`, { replace: true });
             }
+            navigate(`/admin/categories`, { replace: true });
         },
     };
 
@@ -79,7 +80,12 @@ const CategoryForm = ({ params }) => {
                         control={control}
                     />
                 </div>
-                <CategoryFormSideColumn register={register} control={control} />
+                <CategoryFormSideColumn
+                    register={register}
+                    control={control}
+                    categoryFormData={categoryData}
+                    setCategoryFormData={setCategoryData}
+                />
 
                 <AppFormFixedButton />
             </div>

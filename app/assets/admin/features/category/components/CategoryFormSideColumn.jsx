@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppSwitch from '@/admin/components/form/AppSwitch';
 import AppFormSideColumn from '@/admin/components/form/AppFormSideColumn';
-import AppDropzone from '@/admin/components/form/dropzone/AppDropzone';
+import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import { Controller } from 'react-hook-form';
 import ModalHeader from '@/admin/components/modal/ModalHeader';
 import ModalBody from '@/admin/components/modal/ModalBody';
 
-const CategoryFormSideColumn = ({ register, control }) => {
+const CategoryFormSideColumn = ({ register, control, categoryFormData, setCategoryFormData }) => {
+    const [images, setImages] = useState(categoryFormData.image == null ? [] : [{ ...categoryFormData.image }]);
+
     const renderModal = (file) => (
         <>
             <ModalHeader title={file.name} />
@@ -24,9 +26,20 @@ const CategoryFormSideColumn = ({ register, control }) => {
                 <Controller
                     name="image"
                     control={control}
-                    defaultValue=""
+                    defaultValue={[]}
                     render={({ field }) => (
-                        <AppDropzone value={field.value} onChange={field.onChange} renderModal={renderModal} />
+                        <Dropzone
+                            onChange={field.onChange}
+                            renderModal={renderModal}
+                            value={images}
+                            setValue={(newImages) => {
+                                setImages(newImages);
+                                setCategoryFormData((prev) => ({
+                                    ...prev,
+                                    image: newImages.length > 0 ? newImages[0] : null,
+                                }));
+                            }}
+                        />
                     )}
                 />
             </AppFormSideColumn>

@@ -3,7 +3,7 @@ import TrashIcon from '@/images/icons/trash.svg';
 import React from 'react';
 import { useModal } from '@/admin/hooks/useModal';
 
-const AppDropzoneThumbnail = ({ file, renderModal, removeFile }) => {
+const DropzoneThumbnail = ({ file, renderModal, removeFile, additionalActions }) => {
     const { openModal } = useModal();
 
     return (
@@ -23,9 +23,10 @@ const AppDropzoneThumbnail = ({ file, renderModal, removeFile }) => {
                 >
                     <TrashIcon className="text-white scale-125%" />
                 </span>
+                {additionalActions && additionalActions}
             </div>
         </>
     );
 };
 
-export default AppDropzoneThumbnail;
+export default DropzoneThumbnail;
