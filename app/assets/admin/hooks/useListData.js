@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useApi } from '@/admin/hooks/useApi';
 import restApiClient from '@/shared/api/RestApiClient';
-import { prepareDataForTable } from '@/admin/utils/helper';
+
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 
-const useListData = (endpoint, filters, setFilters, itemActions) => {
+const useListData = (endpoint, filters) => {
     const { handleApiRequest } = useApi();
     const { addNotification } = useCreateNotification();
     const navigate = useNavigate();
@@ -33,11 +33,7 @@ const useListData = (endpoint, filters, setFilters, itemActions) => {
         const config = createApiConfig(endpoint, HTTP_METHODS.GET).addQueryParams(filters);
         handleApiRequest(config, {
             onSuccess: ({ data, meta }) => {
-                setItems(
-                    prepareDataForTable(data, {
-                        actions: itemActions,
-                    }),
-                );
+                setItems(data);
                 setPagination(meta);
                 setIsLoading(false);
             },

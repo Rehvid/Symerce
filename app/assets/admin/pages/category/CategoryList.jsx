@@ -15,6 +15,7 @@ import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 import DataTable from '@/admin/components/DataTable';
 import useListData from '@/admin/hooks/useListData';
 import { prepareDraggableDataToUpdateOrder } from '@/admin/utils/helper';
+import FoldersIcon from '@/images/icons/folders.svg';
 
 const CategoryList = () => {
     const navigate = useNavigate();
@@ -67,16 +68,39 @@ const CategoryList = () => {
         });
     };
 
-    const { items, pagination, isLoading, fetchItems } = useListData(
-        'admin/categories',
-        filters,
-        setFilters,
-        renderItemActions,
-    );
+    const {
+        items,
+        pagination,
+        isLoading,
+        fetchItems
+    } = useListData('admin/categories', filters);
 
     if (isLoading) {
         return <>...Loading</>;
     }
+
+    const joinNameWithImage = (item) => (
+        <div className="flex gap-4 items-center">
+            {item.imagePath ? (
+              <img src={item.imagePath} className="rounded-full w-12 h-12 object-cover" alt="Item image" />
+            ) : (
+              <div className="flex items-center w-12 h-12 bg-primary-light rounded-full ">
+                  <FoldersIcon className="text-primary mx-auto" />
+              </div>
+
+            )}
+            <span>{item.name}</span>
+        </div>
+    )
+
+    const data = items.map(item => {
+        return Object.values({
+            id: item.id,
+            name: joinNameWithImage(item),
+            slug: item.slug,
+            actions: renderItemActions(item)
+        })
+    });
 
     const apiConfig = createApiConfig('admin/categories/order', HTTP_METHODS.PUT);
     const draggableCallback = (items) => {
@@ -106,10 +130,10 @@ const CategoryList = () => {
                 filters={filters}
                 setFilters={setFilters}
                 columns={['Id', 'Name', 'Slug', 'Actions']}
+                items={data}
                 pagination={pagination}
                 additionalFilters={[PaginationFilter]}
                 actionButtons={renderTableButtons}
-                items={items}
                 useDraggable={true}
                 draggableCallback={draggableCallback}
             />
