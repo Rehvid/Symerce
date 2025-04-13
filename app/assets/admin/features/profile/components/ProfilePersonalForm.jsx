@@ -14,7 +14,6 @@ import AppFormFixedButton from '@/admin/components/form/AppFormFixedButton';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import ModalHeader from '@/admin/components/modal/ModalHeader';
 import ModalBody from '@/admin/components/modal/ModalBody';
-import DropzoneImagePreview from '@/admin/components/form/dropzone/DropzoneImagePreview';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import { normalizeFiles } from '@/admin/utils/helper';
 import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
