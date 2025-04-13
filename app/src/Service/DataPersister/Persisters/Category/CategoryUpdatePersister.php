@@ -26,9 +26,9 @@ final class CategoryUpdatePersister extends UpdatePersister
     {
         /** @var SaveCategoryRequestDTO $persistable */
         /** @var Category $entity */
-        if ($entity->getName() !== $persistable->name) {
+        if ($entity->getSlug() !== $persistable->slug) {
             $entity->setSlug(
-                $this->categoryPersisterHelper->generateSlug($persistable->name)
+                $this->categoryPersisterHelper->generateSlug($persistable->slug)
             );
         }
 

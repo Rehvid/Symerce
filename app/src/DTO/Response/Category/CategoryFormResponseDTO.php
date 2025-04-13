@@ -13,6 +13,7 @@ final readonly class CategoryFormResponseDTO implements ResponseInterfaceData
     private function __construct(
         public array $tree,
         public ?string $name,
+        public ?string $slug,
         public bool $isActive,
         public ?int $parentCategoryId = null,
         public ?string $description = null,
@@ -25,6 +26,7 @@ final readonly class CategoryFormResponseDTO implements ResponseInterfaceData
         return new self(
             tree: $data['tree'] ?? [],
             name: $data['name'] ?? null,
+            slug: $data['slug'] ?? null,
             isActive: $data['isActive'] ?? false,
             parentCategoryId: $data['parentCategoryId'] ?? null,
             description: $data['description'] ?? null,

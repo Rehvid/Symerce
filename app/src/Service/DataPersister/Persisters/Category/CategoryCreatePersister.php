@@ -30,9 +30,8 @@ final class CategoryCreatePersister extends CreatePersister
         $category->setParent(
             $this->categoryPersisterHelper->getParentCategory($persistable->parentCategoryId, $this->entityManager)
         );
-        $category->setSlug(
-            $this->categoryPersisterHelper->generateSlug($persistable->name)
-        );
+
+        $category->setSlug($this->saveSlug($persistable->name, $persistable->slug));
         $category->setOrder(
             $this->categoryPersisterHelper->getRepository($this->entityManager)->count()
         );
@@ -44,5 +43,14 @@ final class CategoryCreatePersister extends CreatePersister
     public function getSupportedClasses(): array
     {
         return [SaveCategoryRequestDTO::class];
+    }
+
+    private function saveSlug(string $name, ?string $slug): string
+    {
+        if ($slug === null) {
+            return $this->categoryPersisterHelper->generateSlug($name);
+        }
+
+        return $this->categoryPersisterHelper->generateSlug($slug);
     }
 }

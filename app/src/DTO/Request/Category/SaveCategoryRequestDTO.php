@@ -20,6 +20,7 @@ final class SaveCategoryRequestDTO implements PersistableInterface
     public function __construct(
         #[Assert\NotBlank] #[Assert\Length(min: 3)] public readonly string $name,
         public readonly bool $isActive,
+        public readonly ?string $slug = null,
         public readonly int|string|null $parentCategoryId = null,
         public readonly ?string $description = null,
         public array $image = [],

@@ -34,6 +34,7 @@ final readonly class CategoryMapper
         $dataResponse = [
             'tree' => $tree->generateTree(),
             'name' => $name,
+            'slug' => $category->getSlug(),
             'parentCategoryId' => $category->getParent()?->getId(),
             'description' => $category->getDescription(),
             'isActive' => $category->isActive(),
