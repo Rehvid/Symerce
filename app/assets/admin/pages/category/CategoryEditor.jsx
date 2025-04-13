@@ -9,9 +9,9 @@ const CategoryEditor = () => {
 
     return (
         <>
-            <PageHeader title={params.id ? 'Edit Category' : 'Create Category'}>
-                <Breadcrumb />
-            </PageHeader>
+          <PageHeader title={params.id ? 'Edit Category' : 'Create Category'} >
+            <Breadcrumb />
+          </PageHeader>
             <CategoryForm params={params} />
         </>
     );

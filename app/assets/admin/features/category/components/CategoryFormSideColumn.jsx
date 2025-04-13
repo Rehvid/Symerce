@@ -19,11 +19,7 @@ const CategoryFormSideColumn = ({ register, categoryFormData, setCategoryFormDat
         }));
     };
 
-  useEffect(() => {
-    console.log(categoryFormData)
-  }, [categoryFormData]);
-
-    const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, null, categoryFormDataImage, 5);
+    const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, categoryFormDataImage);
 
     const renderModal = (file) => (
         <>
@@ -37,27 +33,35 @@ const CategoryFormSideColumn = ({ register, categoryFormData, setCategoryFormDat
     );
 
     return (
-        <div className="flex flex-col h-full gap-4">
-            <AppFormSideColumn sectionTitle="Zdjęcia">
-                <Dropzone onDrop={onDrop} errors={errors}>
+        <div className="flex flex-col h-full gap-[2.5rem]">
+            <AppFormSideColumn sectionTitle="Zdjęcie">
+                <Dropzone
+                  onDrop={onDrop}
+                  errors={errors}
+                  containerClasses="relative"
+                >
                     {categoryFormDataImage.length > 0 && (
-                        <div className="mt-6">
-                            {categoryFormDataImage.map((file, key) => {
-                                return (
-                                  <div className="h-[150px] relative rounded-lg border border-gray-200 p-2 " key={key}>
-                                    <img className="rounded-lg mx-auto object-cover h-full w-full" src={file.preview} alt={file.name} />
-                                    <div className="absolute rounded-lg transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl ">
-                                      <DropzonePreviewActions renderModal={renderModal} removeFile={removeFile} file={file} />
-                                    </div>
-                                  </div>
-                                );
-                            })}
-                        </div>
+                            categoryFormDataImage.map((file, key) => (
+                              <div className="absolute flex top-0 h-full w-full rounded-lg" key={key}>
+                                <img
+                                  className="rounded-lg mx-auto object-cover w-full"
+                                  src={file.preview}
+                                  alt={file.name}
+                                />
+                                <div className="absolute rounded-lg transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl">
+                                  <DropzonePreviewActions
+                                    renderModal={renderModal}
+                                    removeFile={removeFile}
+                                    file={file}
+                                  />
+                                </div>
+                              </div>
+                            ))
                     )}
                 </Dropzone>
             </AppFormSideColumn>
-            <AppFormSideColumn sectionTitle="Attribute">
-                <AppSwitch label="Aktywny" {...register('isActive')} />
+            <AppFormSideColumn sectionTitle="Atrybuty">
+                <AppSwitch label="Aktywny?" {...register('isActive')} />
             </AppFormSideColumn>
         </div>
     );

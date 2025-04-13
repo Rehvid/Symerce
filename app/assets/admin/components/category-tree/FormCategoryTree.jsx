@@ -1,6 +1,7 @@
 import Card from '@/admin/components/Card';
 import CategoryTree from '@/admin/components/category-tree/CategoryTree';
 import React from 'react';
+import Heading from '@/admin/components/common/Heading';
 
 const FormCategoryTree = ({
     categories,
@@ -16,12 +17,12 @@ const FormCategoryTree = ({
 }) => {
     return (
         <div>
-            <h1 className={`mb-2 flex flex-col gap-2 ${hasError ? 'text-red-900' : 'text-gray-500'}`}>
+            <Heading level="h4" additionalClassNames={`mb-2 flex flex-col gap-2 ${hasError ? 'text-red-900' : ''}`}>
                 <span className="flex items-center">
                     {titleSection} {isRequired && <span className="pl-1 text-red-500">*</span>}{' '}
                 </span>
                 {hasError && <p className="text-sm text-red-600">{errorMessage}</p>}
-            </h1>
+            </Heading>
             <Card additionalClasses={`overflow-auto ${hasError ? 'border-red-500' : ''}`}>
                 <CategoryTree
                     categories={categories || []}

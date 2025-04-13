@@ -61,7 +61,7 @@ const QuillEditor = forwardRef(({ readOnly, defaultValue, onTextChange, onSelect
         };
     }, [ref]);
 
-    return <section ref={containerRef}></section>;
+    return <section className="bg-white" ref={containerRef}></section>;
 });
 
 export default QuillEditor;

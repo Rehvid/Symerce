@@ -1,10 +1,11 @@
 import Card from '@/admin/components/Card';
 import React from 'react';
+import Heading from '@/admin/components/common/Heading';
 
 const AppFormSideColumn = ({ sectionTitle, children }) => (
     <Card additionalClasses="w-[500px] h-full">
-        <div className="flex flex-col gap-4">
-            <h3 className="text-lg font-semibold">{sectionTitle}</h3>
+        <div className="flex flex-col gap-5">
+            <Heading level="h4" >{sectionTitle}</Heading>
             {children}
         </div>
     </Card>

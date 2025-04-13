@@ -10,6 +10,7 @@ import { useApi } from '@/admin/hooks/useApi';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 import { NOTIFICATION_TYPES } from '@/admin/constants/notificationConstants';
 import AppFormFixedButton from '@/admin/components/form/AppFormFixedButton';
+import FormLayout from '@/admin/layouts/FormLayout';
 
 const CategoryForm = ({ params }) => {
     const {
@@ -38,6 +39,7 @@ const CategoryForm = ({ params }) => {
                     setValue('description', formData.description);
                     setValue('isActive', formData.isActive);
                     setValue('parentCategoryId', formData.parentCategoryId);
+                    setValue('slug', formData.slug);
                 }
             },
         });
@@ -68,27 +70,27 @@ const CategoryForm = ({ params }) => {
             setError={setError}
             apiRequestCallbacks={apiRequestCallbacks}
         >
-            <div className="flex flex-row gap-4 mt-5">
-                <div className="flex flex-col w-full gap-4">
+            <FormLayout
+                mainColumn={
                     <CategoryFormMainColumn
-                        register={register}
-                        errors={fieldErrors}
-                        setValue={setValue}
-                        categoryData={categoryData}
-                        params={params}
-                        watch={watch}
-                        control={control}
+                      register={register}
+                      errors={fieldErrors}
+                      setValue={setValue}
+                      categoryData={categoryData}
+                      params={params}
+                      watch={watch}
+                      control={control}
                     />
-                </div>
-                <CategoryFormSideColumn
-                    register={register}
-                    categoryFormData={categoryData}
-                    setCategoryFormData={setCategoryData}
-                    setValue={setValue}
-                />
-
-                <AppFormFixedButton />
-            </div>
+                }
+                sideColumn={
+                    <CategoryFormSideColumn
+                      register={register}
+                      categoryFormData={categoryData}
+                      setCategoryFormData={setCategoryData}
+                      setValue={setValue}
+                    />
+                }
+            />
         </AppForm>
     );
 };

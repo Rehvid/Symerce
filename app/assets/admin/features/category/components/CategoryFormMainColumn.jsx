@@ -1,6 +1,5 @@
 import React from 'react';
 import AppInput from '@/admin/components/form/AppInput';
-import AppFormMainColumn from '@/admin/components/form/AppFormMainColumn';
 import { validationRules } from '@/admin/utils/validationRules';
 import FormCategoryTree from '@/admin/components/category-tree/FormCategoryTree';
 import AppTextarea from '@/admin/components/form/AppTextarea';
@@ -8,7 +7,7 @@ import { Controller } from 'react-hook-form';
 
 const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch, control }) => {
     return (
-        <AppFormMainColumn sectionTitle="Basic">
+        <>
             <AppInput
                 {...register('name', {
                     ...validationRules.required(),
@@ -22,6 +21,15 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 isRequired
             />
 
+            <AppInput
+              {...register('slug')}
+              type="text"
+              id="slug"
+              label="Przyjazny url"
+              hasError={errors.hasOwnProperty('slug')}
+              errorMessage={errors?.slug?.message}
+            />
+
             <Controller
                 name="description"
                 control={control}
@@ -30,20 +38,17 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
             />
 
             <FormCategoryTree
-                titleSection="Parent Category"
+                titleSection="Kategoria nadrzędna"
                 hasError={errors.hasOwnProperty('parentCategoryId')}
                 errorMessage={errors?.parentCategoryId?.message}
-                register={register('parentCategoryId', {
-                    ...validationRules.required(),
-                })}
+                register={register('parentCategoryId')}
                 disabledCategoryId={params.id ?? null}
                 categories={categoryData.tree || []}
                 selected={categoryData.parentCategoryId}
                 watch={watch}
                 nameWatchedValue="parentCategoryId"
-                isRequired
             />
-        </AppFormMainColumn>
+        </>
     );
 };
 
