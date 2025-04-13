@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DTO\Response\User;
 
+use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class UserSessionResponseDTO implements ResponseInterfaceData
@@ -16,6 +17,7 @@ final readonly class UserSessionResponseDTO implements ResponseInterfaceData
         public ?string $surname,
         public array $roles,
         public ?string $fullName,
+        public ?FileResponseDTO $avatar,
     ) {
     }
 
@@ -28,6 +30,7 @@ final readonly class UserSessionResponseDTO implements ResponseInterfaceData
             surname: $data['surname'] ?? null,
             roles: $data['roles'] ?? [],
             fullName: $data['fullName'] ?? null,
+            avatar: $data['avatar'] ?? null,
         );
     }
 }

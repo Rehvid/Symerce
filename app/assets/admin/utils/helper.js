@@ -1,4 +1,3 @@
-
 export const prepareDraggableDataToUpdateOrder = (data) => {
     let draggableData = [];
     data.forEach((element, key) => {
@@ -20,4 +19,16 @@ export const convertFileToBase64 = (file) => {
 
 export const isValidEnumValue = (enumObject, value) => {
     return Object.values(enumObject).includes(value);
+};
+
+export const normalizeFiles = (input) => {
+    if (Array.isArray(input)) {
+        return input.filter((file) => file && file.id !== null);
+    }
+
+    if (input && typeof input === 'object' && input.id !== null) {
+        return [input];
+    }
+
+    return [];
 };

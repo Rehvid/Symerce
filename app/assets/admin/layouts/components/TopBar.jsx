@@ -37,9 +37,18 @@ const TopBar = () => {
             <div className="flex flex-col items-center justify-end grow flex-row px-[160px] py-4">
                 <Dropdown forceClose={forceClose}>
                     <DropdownButton className="flex gap-2 items-center cursor-pointer" onClickExtra={onDropdownClick}>
-                        <span className="rounded-full bg-gray-100 py-2 px-2">
-                            <UserIcon />
-                        </span>
+                        {user?.avatar?.id ? (
+                            <img
+                                src={user.avatar.preview}
+                                className="rounded-full w-10 h-10 object-cover"
+                                alt="User - Avatar"
+                            />
+                        ) : (
+                            <span className="rounded-full bg-gray-100 py-2 px-2">
+                                <UserIcon />
+                            </span>
+                        )}
+
                         <div className="text-gray-700 font-medium flex gap-1">
                             <span> {user?.fullName} </span>
                             <ChevronIcon

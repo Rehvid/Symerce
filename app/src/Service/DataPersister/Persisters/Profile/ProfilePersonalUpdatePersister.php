@@ -8,9 +8,19 @@ use App\DTO\Request\Profile\UpdatePersonalRequestDTO;
 use App\Entity\User;
 use App\Interfaces\PersistableInterface;
 use App\Service\DataPersister\Base\UpdatePersister;
+use App\Service\FileService;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class ProfilePersonalUpdatePersister extends UpdatePersister
 {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        private readonly FileService $fileService,
+    ){
+        parent::__construct($entityManager);
+    }
+
+
     /**
      * @param UpdatePersonalRequestDTO $persistable
      * @param User                     $entity
@@ -22,6 +32,12 @@ final class ProfilePersonalUpdatePersister extends UpdatePersister
         $entity->setFirstname($persistable->firstname);
         $entity->setSurname($persistable->surname);
         $entity->setEmail($persistable->email);
+
+        if (!empty($persistable->avatar)) {
+            foreach ($persistable->avatar as $image) {
+                $entity->setAvatar($this->fileService->processFileRequestDTO($image, $entity->getAvatar()));
+            }
+        }
 
         return $entity;
     }

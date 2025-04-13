@@ -46,6 +46,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserToken::class, mappedBy:'user', cascade:['remove'])]
     private Collection $tokens;
 
+    #[ORM\ManyToOne(targetEntity: File::class, cascade:['persist'])]
+    #[ORM\JoinColumn(name: 'avatar_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?File $avatar = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -152,5 +156,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->tokens->contains($token)) {
             $this->tokens->removeElement($token);
         }
+    }
+
+    public function getAvatar(): ?File
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?File $avatar): void
+    {
+        $this->avatar = $avatar;
     }
 }

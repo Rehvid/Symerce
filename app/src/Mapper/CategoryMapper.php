@@ -29,20 +29,23 @@ final readonly class CategoryMapper
 
     public function mapToFormData(CategoryTreeBuilder $tree, Category $category): CategoryFormResponseDTO
     {
+        $name = $category->getName();
+
         $dataResponse = [
             'tree' => $tree->generateTree(),
-            'name' => $category->getName(),
+            'name' => $name,
             'parentCategoryId' => $category->getParent()?->getId(),
             'description' => $category->getDescription(),
             'isActive' => $category->isActive(),
         ];
 
-        if ($category->getImage()) {
+        if (null !== $category->getImage()) {
             $dataResponse['image'] = FileResponseDTO::fromArray([
-                'id' => $category->getImage()->getId(),
-                'originalName' => $category->getImage()->getOriginalName(),
-                'path' => $this->fileService->preparePublicPathToFile($category->getImage()->getPath()),
-            ]);
+                    'id' => $category->getImage()->getId(),
+                    'name' => $name,
+                    'preview' => $this->fileService->preparePublicPathToFile($category->getImage()->getPath()),
+                ])
+            ;
         }
 
         return CategoryFormResponseDTO::fromArray($dataResponse);

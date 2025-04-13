@@ -1,8 +1,5 @@
 const UserList = () => {
-    return(
-      <>
-      </>
-    )
-}
+    return <></>;
+};
 
 export default UserList;

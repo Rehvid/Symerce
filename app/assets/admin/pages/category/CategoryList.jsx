@@ -68,12 +68,7 @@ const CategoryList = () => {
         });
     };
 
-    const {
-        items,
-        pagination,
-        isLoading,
-        fetchItems
-    } = useListData('admin/categories', filters);
+    const { items, pagination, isLoading, fetchItems } = useListData('admin/categories', filters);
 
     if (isLoading) {
         return <>...Loading</>;
@@ -82,24 +77,23 @@ const CategoryList = () => {
     const joinNameWithImage = (item) => (
         <div className="flex gap-4 items-center">
             {item.imagePath ? (
-              <img src={item.imagePath} className="rounded-full w-12 h-12 object-cover" alt="Item image" />
+                <img src={item.imagePath} className="rounded-full w-12 h-12 object-cover" alt="Item image" />
             ) : (
-              <div className="flex items-center w-12 h-12 bg-primary-light rounded-full ">
-                  <FoldersIcon className="text-primary mx-auto" />
-              </div>
-
+                <div className="flex items-center w-12 h-12 bg-primary-light rounded-full ">
+                    <FoldersIcon className="text-primary mx-auto" />
+                </div>
             )}
             <span>{item.name}</span>
         </div>
-    )
+    );
 
-    const data = items.map(item => {
+    const data = items.map((item) => {
         return Object.values({
             id: item.id,
             name: joinNameWithImage(item),
             slug: item.slug,
-            actions: renderItemActions(item)
-        })
+            actions: renderItemActions(item),
+        });
     });
 
     const apiConfig = createApiConfig('admin/categories/order', HTTP_METHODS.PUT);

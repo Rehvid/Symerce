@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Service\Auth;
 
 use App\DTO\Response\ErrorResponseDTO;
+use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\FileService;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,8 @@ final readonly class AuthService
 {
     public function __construct(
         private JWTTokenManagerInterface $tokenManager,
-        private UserRepository $userRepository
+        private UserRepository $userRepository,
+        private FileService $fileService,
     ) {
     }
 
@@ -75,13 +78,20 @@ final readonly class AuthService
 
     private function createUserSessionResponseDTO(User $user): UserSessionResponseDTO
     {
+        $fullName = $user->getFullname();
+
         return UserSessionResponseDTO::fromArray([
             'id' => $user->getId(),
             'email' => $user->getUserIdentifier(),
             'firstname' => $user->getFirstname(),
             'surname' => $user->getSurname(),
             'roles' => $user->getRoles(),
-            'fullName' => $user->getFullName(),
+            'fullName' => $fullName,
+            'avatar' => FileResponseDTO::fromArray([
+                'id' => $user->getAvatar()?->getId(),
+                'name' => "Avatar - $fullName",
+                'preview' => $this->fileService->preparePublicPathToFile($user->getAvatar()?->getPath()),
+            ])
         ]);
     }
 

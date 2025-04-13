@@ -82,9 +82,9 @@ const CategoryForm = ({ params }) => {
                 </div>
                 <CategoryFormSideColumn
                     register={register}
-                    control={control}
                     categoryFormData={categoryData}
                     setCategoryFormData={setCategoryData}
+                    setValue={setValue}
                 />
 
                 <AppFormFixedButton />

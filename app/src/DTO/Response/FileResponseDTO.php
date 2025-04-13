@@ -8,8 +8,8 @@ class FileResponseDTO implements ResponseInterfaceData
 {
     public function __construct(
         public ?int $id,
-        public ?string $originalName,
-        public ?string $path,
+        public ?string $name,
+        public ?string $preview,
     ) {
     }
 
@@ -17,8 +17,8 @@ class FileResponseDTO implements ResponseInterfaceData
     {
         return new self(
             id: $data['id'] ?? null,
-            originalName: $data['originalName'] ?? null,
-            path: $data['path'] ?? null,
+            name: $data['name'] ?? null,
+            preview: $data['preview'] ?? null,
         );
     }
 }

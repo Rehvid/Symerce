@@ -2,6 +2,7 @@
 
 namespace App\DTO\Response\Profile;
 
+use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class PersonalIndexResponseDTO implements ResponseInterfaceData
@@ -11,6 +12,7 @@ final readonly class PersonalIndexResponseDTO implements ResponseInterfaceData
         public string $surname,
         public string $email,
         public string $fullName,
+        public ?FileResponseDTO $avatar,
     ) {
     }
 
@@ -21,6 +23,7 @@ final readonly class PersonalIndexResponseDTO implements ResponseInterfaceData
             surname: $data['surname'],
             email: $data['email'],
             fullName: $data['fullName'],
+            avatar: $data['avatar'] ?? null,
         );
     }
 }
