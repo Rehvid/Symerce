@@ -1,16 +1,15 @@
 import EyeIcon from '@/images/icons/eye.svg';
-
 import React, { useState } from 'react';
-import AppInput from '@/admin/components/form/AppInput';
+import Input from '@/admin/components/form/controls/Input';
 
-const AppInputPassword = React.forwardRef(({ id, hasError, errorMessage, label, ...register }, ref) => {
+const InputPassword = React.forwardRef(({ id, hasError, errorMessage, label, ...register }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
     const togglePassword = () => {
         setShowPassword((showPassword) => !showPassword);
     };
 
     return (
-        <AppInput
+        <Input
             type={`${showPassword ? 'text' : 'password'}`}
             id={id}
             label={label}
@@ -29,4 +28,4 @@ const AppInputPassword = React.forwardRef(({ id, hasError, errorMessage, label, 
     );
 });
 
-export default AppInputPassword;
+export default InputPassword;

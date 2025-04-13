@@ -3,20 +3,20 @@ import { useForm } from 'react-hook-form';
 import { validationRules } from '@/admin/utils/validationRules';
 import UserIcon from '@/images/icons/user.svg';
 import { createApiConfig } from '@/shared/api/ApiConfig';
-import AppInput from '@/admin/components/form/AppInput';
 import { useUser } from '@/admin/hooks/useUser';
-import AppInputEmail from '@/admin/components/form/AppInputEmail';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
-import AppForm from '@/admin/components/form/AppForm';
-import AppFormFixedButton from '@/admin/components/form/AppFormFixedButton';
+import ApiForm from '@/admin/components/form/ApiForm';
+import FormFooterActions from '@/admin/components/form/FormFooterActions';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import ModalHeader from '@/admin/components/modal/ModalHeader';
 import ModalBody from '@/admin/components/modal/ModalBody';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import { normalizeFiles } from '@/admin/utils/helper';
 import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
+import Input from '@/admin/components/form/controls/Input';
+import InputEmail from '@/admin/components/form/controls/InputEmail';
 
 const ProfilePersonalForm = () => {
     const { user, setUser } = useUser();
@@ -80,7 +80,7 @@ const ProfilePersonalForm = () => {
     return (
         <>
             <h1 className="text-2xl font-bold mb-6">Personal Information</h1>
-            <AppForm
+            <ApiForm
                 apiConfig={createApiConfig(`admin/profiles/${user.id}/personal`, HTTP_METHODS.PUT)}
                 handleSubmit={handleSubmit}
                 setError={setError}
@@ -117,7 +117,7 @@ const ProfilePersonalForm = () => {
                         </Dropzone>
                     </div>
 
-                    <AppInput
+                    <Input
                         {...register('firstname', {
                             ...validationRules.required(),
                             ...validationRules.minLength(3),
@@ -130,7 +130,7 @@ const ProfilePersonalForm = () => {
                         isRequired
                         icon={<UserIcon className="text-gray-500" />}
                     />
-                    <AppInput
+                    <Input
                         {...register('surname', {
                             ...validationRules.required(),
                             ...validationRules.minLength(2),
@@ -143,7 +143,7 @@ const ProfilePersonalForm = () => {
                         isRequired
                         icon={<UserIcon className="text-gray-500" />}
                     />
-                    <AppInputEmail
+                    <InputEmail
                         hasError={fieldErrors.hasOwnProperty('email')}
                         errorMessage={fieldErrors?.email?.message}
                         {...register('email', {
@@ -153,8 +153,8 @@ const ProfilePersonalForm = () => {
                     />
                 </div>
 
-                <AppFormFixedButton />
-            </AppForm>
+                <FormFooterActions />
+            </ApiForm>
         </>
     );
 };

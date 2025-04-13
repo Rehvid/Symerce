@@ -1,10 +1,10 @@
 import MailIcon from '@/images/icons/mail.svg';
 import React from 'react';
-import AppInput from '@/admin/components/form/AppInput';
+import Input from '@/admin/components/form/controls/Input';
 
-const AppInputEmail = React.forwardRef(({ hasError, errorMessage, ...register }, ref) => {
+const InputEmail = React.forwardRef(({ hasError, errorMessage, ...register }, ref) => {
     return (
-        <AppInput
+        <Input
             type="email"
             id="email"
             label="Adres e-mail"
@@ -18,4 +18,4 @@ const AppInputEmail = React.forwardRef(({ hasError, errorMessage, ...register },
     );
 });
 
-export default AppInputEmail;
+export default InputEmail;

@@ -4,13 +4,12 @@ import AppButton from '@/admin/components/common/AppButton';
 import AppLink from '@/admin/components/common/AppLink';
 import { validationRules } from '@/admin/utils/validationRules';
 import UserIcon from '@/images/icons/user.svg';
-import AppInputEmail from '@/admin/components/form/AppInputEmail';
-import AppInputPassword from '@/admin/components/form/AppInputPassword';
 import { useNavigate } from 'react-router-dom';
 import { createApiConfig } from '@/shared/api/ApiConfig';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
-import AppInput from '@/admin/components/form/AppInput';
-import AppForm from '@/admin/components/form/AppForm';
+import ApiForm from '@/admin/components/form/ApiForm';
+import InputEmail from '@/admin/components/form/controls/InputEmail';
+import Input from '@/admin/components/form/controls/Input';
 
 const RegisterForm = () => {
     const {
@@ -30,14 +29,14 @@ const RegisterForm = () => {
     };
 
     return (
-        <AppForm
+        <ApiForm
             handleSubmit={handleSubmit}
             setError={setError}
             apiConfig={createApiConfig('auth/register', HTTP_METHODS.POST)}
             apiRequestCallbacks={apiRequestCallbacks}
         >
             <div className="flex flex-col w-full gap-[40px]">
-                <AppInputEmail
+                <InputEmail
                     hasError={fieldErrors.hasOwnProperty('email')}
                     errorMessage={fieldErrors?.email?.message}
                     {...register('email', {
@@ -45,7 +44,7 @@ const RegisterForm = () => {
                         ...validationRules.minLength(3),
                     })}
                 />
-                <AppInput
+                <Input
                     {...register('firstname', {
                         ...validationRules.required(),
                         ...validationRules.minLength(3),
@@ -58,7 +57,7 @@ const RegisterForm = () => {
                     isRequired
                     icon={<UserIcon className="text-gray-500" />}
                 />
-                <AppInput
+                <Input
                     {...register('surname', {
                         ...validationRules.required(),
                         ...validationRules.minLength(2),
@@ -71,7 +70,7 @@ const RegisterForm = () => {
                     isRequired
                     icon={<UserIcon className="text-gray-500" />}
                 />
-                <AppInputPassword
+                <InputPassword
                     id="password"
                     label="Hasło"
                     hasError={fieldErrors.hasOwnProperty('password')}
@@ -81,7 +80,7 @@ const RegisterForm = () => {
                         ...validationRules.password(),
                     })}
                 />
-                <AppInputPassword
+                <InputPassword
                     id="password-confirmation"
                     label="Powtórz hasło"
                     hasError={fieldErrors.hasOwnProperty('passwordConfirmation')}
@@ -102,7 +101,7 @@ const RegisterForm = () => {
                     Masz konto? Zaloguj się!
                 </AppLink>
             </div>
-        </AppForm>
+        </ApiForm>
     );
 };
 

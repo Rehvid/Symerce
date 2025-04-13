@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CategoryFormSideColumn from './CategoryFormSideColumn';
 import CategoryFormMainColumn from './CategoryFormMainColumn';
-import AppForm from '@/admin/components/form/AppForm';
+import ApiForm from '@/admin/components/form/ApiForm';
 import { createApiConfig } from '@/shared/api/ApiConfig';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useApi } from '@/admin/hooks/useApi';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 import { NOTIFICATION_TYPES } from '@/admin/constants/notificationConstants';
-import AppFormFixedButton from '@/admin/components/form/AppFormFixedButton';
+import FormFooterActions from '@/admin/components/form/FormFooterActions';
 import FormLayout from '@/admin/layouts/FormLayout';
 
 const CategoryForm = ({ params }) => {
@@ -64,7 +64,7 @@ const CategoryForm = ({ params }) => {
     }
 
     return (
-        <AppForm
+        <ApiForm
             apiConfig={apiConfig}
             handleSubmit={handleSubmit}
             setError={setError}
@@ -91,7 +91,7 @@ const CategoryForm = ({ params }) => {
                     />
                 }
             />
-        </AppForm>
+        </ApiForm>
     );
 };
 

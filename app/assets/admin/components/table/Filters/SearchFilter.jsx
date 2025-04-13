@@ -1,5 +1,6 @@
 import SearchIcon from '../../../../images/icons/search.svg';
-import AppInput from '@/admin/components/form/AppInput';
+import Input from '@/admin/components/form/controls/Input';
+
 
 const SearchFilter = ({ filters, setFilters }) => {
     const onBlur = (e) => {
@@ -11,8 +12,7 @@ const SearchFilter = ({ filters, setFilters }) => {
 
     return (
         <div className="relative">
-            <AppInput
-                label="Szukaj"
+            <Input
                 onBlur={onBlur}
                 type="search"
                 defaultValue={filters?.search || ''}

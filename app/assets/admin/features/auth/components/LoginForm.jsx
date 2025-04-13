@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form';
 import AppButton from '@/admin/components/common/AppButton';
 import AppLink from '@/admin/components/common/AppLink';
 import { validationRules } from '@/admin/utils/validationRules';
-import AppInputPassword from '@/admin/components/form/AppInputPassword';
-import AppInputEmail from '@/admin/components/form/AppInputEmail';
 import { useNavigate } from 'react-router-dom';
 import { createApiConfig } from '@/shared/api/ApiConfig';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { useAuth } from '@/admin/hooks/useAuth';
-import AppForm from '@/admin/components/form/AppForm';
+import ApiForm from '@/admin/components/form/ApiForm';
+import InputEmail from '@/admin/components/form/controls/InputEmail';
+import InputPassword from '@/admin/components/form/controls/InputPassword';
 
 const LoginForm = ({ setAlert }) => {
     const {
@@ -31,14 +31,14 @@ const LoginForm = ({ setAlert }) => {
     };
 
     return (
-        <AppForm
+        <ApiForm
             handleSubmit={handleSubmit}
             apiConfig={createApiConfig('login', HTTP_METHODS.POST)}
             apiRequestCallbacks={apiRequestCallbacks}
             setError={setError}
         >
             <div className="flex flex-col w-full gap-[40px]">
-                <AppInputEmail
+                <InputEmail
                     hasError={fieldErrors.hasOwnProperty('email')}
                     errorMessage={fieldErrors?.email?.message}
                     {...register('email', {
@@ -46,7 +46,7 @@ const LoginForm = ({ setAlert }) => {
                         ...validationRules.minLength(3),
                     })}
                 />
-                <AppInputPassword
+                <InputPassword
                     id="password"
                     label="Hasło"
                     hasError={fieldErrors.hasOwnProperty('password')}
@@ -71,7 +71,7 @@ const LoginForm = ({ setAlert }) => {
                     </AppLink>
                 </div>
             </div>
-        </AppForm>
+        </ApiForm>
     );
 };
 

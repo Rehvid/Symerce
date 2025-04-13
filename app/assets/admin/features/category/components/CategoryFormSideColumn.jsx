@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import AppSwitch from '@/admin/components/form/AppSwitch';
-import AppFormSideColumn from '@/admin/components/form/AppFormSideColumn';
+import React from 'react';
+import FormSidePanel from '@/admin/components/form/FormSidePanel';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import ModalHeader from '@/admin/components/modal/ModalHeader';
 import ModalBody from '@/admin/components/modal/ModalBody';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import { normalizeFiles } from '@/admin/utils/helper';
 import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
+import Switch from '@/admin/components/form/controls/Switch';
 
 const CategoryFormSideColumn = ({ register, categoryFormData, setCategoryFormData, setValue }) => {
     const categoryFormDataImage = normalizeFiles(categoryFormData?.image);
@@ -34,7 +34,7 @@ const CategoryFormSideColumn = ({ register, categoryFormData, setCategoryFormDat
 
     return (
         <div className="flex flex-col h-full gap-[2.5rem]">
-            <AppFormSideColumn sectionTitle="Zdjęcie">
+            <FormSidePanel sectionTitle="Zdjęcie">
                 <Dropzone
                   onDrop={onDrop}
                   errors={errors}
@@ -59,10 +59,10 @@ const CategoryFormSideColumn = ({ register, categoryFormData, setCategoryFormDat
                             ))
                     )}
                 </Dropzone>
-            </AppFormSideColumn>
-            <AppFormSideColumn sectionTitle="Atrybuty">
-                <AppSwitch label="Aktywny?" {...register('isActive')} />
-            </AppFormSideColumn>
+            </FormSidePanel>
+            <FormSidePanel sectionTitle="Atrybuty">
+                <Switch label="Aktywny?" {...register('isActive')} />
+            </FormSidePanel>
         </div>
     );
 };

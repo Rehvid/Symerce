@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AppSwitch = React.forwardRef(({ label, ...register }, ref) => {
+const Switch = React.forwardRef(({ label, ...register }, ref) => {
     return (
         <label className="inline-flex items-center cursor-pointer">
             <input {...register} type="checkbox" className="sr-only peer" ref={ref} />
@@ -10,4 +10,4 @@ const AppSwitch = React.forwardRef(({ label, ...register }, ref) => {
     );
 });
 
-export default AppSwitch;
+export default Switch;

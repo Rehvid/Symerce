@@ -4,7 +4,7 @@ import { useApi } from '@/admin/hooks/useApi';
 import { useValidationErrors } from '@/admin/hooks/useValidationErrors';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 
-const AppForm = ({
+const ApiForm = ({
     apiConfig,
     additionalClasses,
     handleSubmit,
@@ -69,4 +69,4 @@ const AppForm = ({
     );
 };
 
-export default AppForm;
+export default ApiForm;

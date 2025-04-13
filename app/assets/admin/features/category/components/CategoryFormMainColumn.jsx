@@ -1,14 +1,14 @@
 import React from 'react';
-import AppInput from '@/admin/components/form/AppInput';
+import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
 import FormCategoryTree from '@/admin/components/category-tree/FormCategoryTree';
-import AppTextarea from '@/admin/components/form/AppTextarea';
 import { Controller } from 'react-hook-form';
+import Textarea from '@/admin/components/form/controls/Textarea';
 
 const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch, control }) => {
     return (
         <>
-            <AppInput
+            <Input
                 {...register('name', {
                     ...validationRules.required(),
                     ...validationRules.minLength(3),
@@ -21,7 +21,7 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 isRequired
             />
 
-            <AppInput
+            <Input
               {...register('slug')}
               type="text"
               id="slug"
@@ -34,7 +34,7 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 name="description"
                 control={control}
                 defaultValue=""
-                render={({ field }) => <AppTextarea value={field.value} onChange={field.onChange} title="Opis" />}
+                render={({ field }) => <Textarea value={field.value} onChange={field.onChange} title="Opis" />}
             />
 
             <FormCategoryTree

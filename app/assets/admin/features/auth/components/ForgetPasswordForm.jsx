@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AppButton from '@/admin/components/common/AppButton';
-import { useValidationErrors } from '@/admin/hooks/useValidationErrors';
 import { validationRules } from '@/admin/utils/validationRules';
-import AppInputEmail from '@/admin/components/form/AppInputEmail';
-import { useApi } from '@/admin/hooks/useApi';
 import { createApiConfig } from '@/shared/api/ApiConfig';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
-import AppForm from '@/admin/components/form/AppForm';
+import ApiForm from '@/admin/components/form/ApiForm';
+import InputEmail from '@/admin/components/form/controls/InputEmail';
 
 const ForgetPasswordForm = () => {
     const {
@@ -31,7 +29,7 @@ const ForgetPasswordForm = () => {
     };
 
     return (
-        <AppForm
+        <ApiForm
             handleSubmit={handleSubmit}
             setError={setError}
             apiConfig={createApiConfig('auth/forgot-password', HTTP_METHODS.POST)}
@@ -39,7 +37,7 @@ const ForgetPasswordForm = () => {
             additionalAlerts={alert}
         >
             <div className="flex flex-col w-full gap-[40px]">
-                <AppInputEmail
+                <InputEmail
                     hasError={fieldErrors.hasOwnProperty('email')}
                     errorMessage={fieldErrors?.email?.message}
                     {...register('email', {
@@ -54,7 +52,7 @@ const ForgetPasswordForm = () => {
                     </AppButton>
                 </div>
             </div>
-        </AppForm>
+        </ApiForm>
     );
 };
 

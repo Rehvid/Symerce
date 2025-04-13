@@ -3,7 +3,7 @@ import Editor from '@/admin/components/editor/Editor';
 import DOMPurify from 'quill/formats/link';
 import Heading from '@/admin/components/common/Heading';
 
-const AppTextarea = ({ title, value, onChange, isRequired }) => {
+const Textarea = ({ title, value, onChange, isRequired }) => {
     const quillRef = useRef();
 
     return (
@@ -24,4 +24,4 @@ const AppTextarea = ({ title, value, onChange, isRequired }) => {
     );
 };
 
-export default AppTextarea;
+export default Textarea;

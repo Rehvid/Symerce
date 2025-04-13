@@ -4,9 +4,9 @@ import { createApiConfig } from '@/shared/api/ApiConfig';
 import { validationRules } from '@/admin/utils/validationRules';
 import AppButton from '@/admin/components/common/AppButton';
 import { useNavigate } from 'react-router-dom';
-import AppInputPassword from '@/admin/components/form/AppInputPassword';
-import AppForm from '@/admin/components/form/AppForm';
+import ApiForm from '@/admin/components/form/ApiForm';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
+import InputPassword from '@/admin/components/form/controls/InputPassword';
 
 const ResetPasswordForm = ({ token }) => {
     const {
@@ -26,14 +26,14 @@ const ResetPasswordForm = ({ token }) => {
     };
 
     return (
-        <AppForm
+        <ApiForm
             handleSubmit={handleSubmit}
             apiConfig={createApiConfig(`auth/${token}/reset-password`, HTTP_METHODS.PUT)}
             setError={setError}
             apiRequestCallbacks={apiRequestCallbacks}
         >
             <div className="flex flex-col gap-[40px] w-full">
-                <AppInputPassword
+                <InputPassword
                     id="password"
                     label="Hasło"
                     hasError={fieldErrors.hasOwnProperty('password')}
@@ -43,7 +43,7 @@ const ResetPasswordForm = ({ token }) => {
                         ...validationRules.password(),
                     })}
                 />
-                <AppInputPassword
+                <InputPassword
                     id="password-confirmation"
                     label="Powtórz hasło"
                     hasError={fieldErrors.hasOwnProperty('passwordConfirmation')}
@@ -61,7 +61,7 @@ const ResetPasswordForm = ({ token }) => {
                     </AppButton>
                 </div>
             </div>
-        </AppForm>
+        </ApiForm>
     );
 };
 
