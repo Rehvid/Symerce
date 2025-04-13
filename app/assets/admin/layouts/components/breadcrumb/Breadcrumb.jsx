@@ -1,7 +1,7 @@
 import BreadcrumbItem from './BreadcrumbItem';
 
 const Breadcrumb = () => {
-    const paths = location.pathname.split('/').filter((path) => path);
+    const paths = location.pathname.split('/').filter((path) => path && isNaN(Number(path)));
 
     return (
         <nav>
