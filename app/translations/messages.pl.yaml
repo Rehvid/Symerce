@@ -17,6 +17,10 @@ base:
       store: 'Kategoria została pomyślnie dodana.'
       update: 'Kategoria została pomyślnie zaktualizowana.'
       destroy: 'Kategoria została pomyślnie usunięta.'
+    user:
+      store: 'Użytkownik został pomyślnie dodany.'
+      update: 'Użytkownik został pomyślnie zaktualizowany.'
+      destroy: 'Użytkownik został pomyślnie usunięty.'
     profile:
       update: 'Zmiany zostały pomyślnie zapisane.'
     update_order: 'Udało się zaktualizować pozycje!'

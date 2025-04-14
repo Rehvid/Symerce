@@ -48,6 +48,16 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/user/UserList')),
         roles: ['admin'],
     },
+    {
+        path: 'users/create',
+        component: lazy(() => import('@/admin/pages/user/UserEditor')),
+        roles: ['admin'],
+    },
+    {
+        path: 'users/:id/edit',
+        component: lazy(() => import('@/admin/pages/user/UserEditor')),
+        roles: ['admin'],
+    },
 ];
 
 const withProtection = (requiredRoles, Component) => (

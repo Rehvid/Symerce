@@ -1,9 +1,13 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const TableBody = ({ data, useDraggable, draggableCallback }) => {
     const [items, setItems] = useState(data);
     const dragItem = useRef();
     const dragOverItem = useRef();
+
+    useEffect(() => {
+        setItems(data);
+    }, [data]);
 
     const dragStart = (e) => {
         dragItem.current = e.target.id;
@@ -22,6 +26,15 @@ const TableBody = ({ data, useDraggable, draggableCallback }) => {
         draggableCallback?.(copyListItems);
     };
 
+    const renderCells = (row) => {
+        const cells = Array.isArray(row) ? row : Object.values(row);
+        return cells.map((cell, cellIndex) => (
+          <td key={cellIndex} className="px-4 py-3 font-normal text-sm whitespace-nowrap">
+              {cell}
+          </td>
+        ));
+    };
+
     return (
         <tbody>
             {items.map((row, rowIndex) => {
@@ -35,19 +48,11 @@ const TableBody = ({ data, useDraggable, draggableCallback }) => {
                         id={rowIndex}
                         className="border-b border-gray-100 last:border-b-0"
                     >
-                        {row.map((cell, cellIndex) => (
-                            <td key={cellIndex} className="px-4 py-3 font-normal text-sm whitespace-nowrap">
-                                {cell}
-                            </td>
-                        ))}
+                        {renderCells(row)}
                     </tr>
                 ) : (
                     <tr key={rowIndex} id={rowIndex} className="border-b border-gray-100 last:border-b-0">
-                        {row.map((cell, cellIndex) => (
-                            <td key={cellIndex} className="px-4 py-3 font-normal text-sm whitespace-nowrap">
-                                {cell}
-                            </td>
-                        ))}
+                        {renderCells(row)}
                     </tr>
                 );
             })}
