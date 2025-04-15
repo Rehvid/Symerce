@@ -19,7 +19,7 @@ class Attribute
     #[ORM\Column(type: 'string',  length: 255)]
     private string $name;
 
-    #[ORM\OneToMany(targetEntity: AttributeValue::class, mappedBy: 'attribute')]
+    #[ORM\OneToMany(targetEntity: AttributeValue::class, mappedBy: 'attribute', cascade: ['remove'])]
     private Collection $values;
 
 

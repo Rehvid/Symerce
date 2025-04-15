@@ -29,6 +29,21 @@ const routesConfig = [
         roles: ['user'],
     },
     {
+        path: 'products/attributes',
+        component: lazy(() => import('@/admin/pages/product/attribute/AttributeList')),
+        roles: ['user'],
+    },
+    {
+        path: 'products/attributes/create',
+        component: lazy(() => import('@/admin/pages/product/attribute/AttributeEditor')),
+        roles: ['user'],
+    },
+    {
+        path: 'products/attributes/:id/edit',
+        component: lazy(() => import('@/admin/pages/product/attribute/AttributeEditor')),
+        roles: ['user'],
+    },
+    {
         path: 'categories',
         component: lazy(() => import('@/admin/pages/category/CategoryList')),
         roles: ['user'],
@@ -67,7 +82,7 @@ const withProtection = (requiredRoles, Component) => (
 );
 
 const adminRoutes = routesConfig.map(({ path, component, roles }) => (
-    <Route key={path} path={path} element={withProtection(roles, component)} />
+    <Route key={path} path={path} element={withProtection(roles, component)}  />
 ));
 
 export default adminRoutes;

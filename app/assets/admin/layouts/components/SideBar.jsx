@@ -3,6 +3,7 @@ import DashboardIcon from '@/images/icons/dashboard.svg';
 import FoldersIcon from '@/images/icons/folders.svg';
 import ProductIcon from '@/images/icons/assembly.svg';
 import UsersIcon from '@/images/icons/users.svg';
+import Submenu from '@/admin/layouts/components/navigation/Submenu';
 
 const SideBar = () => {
     return (
@@ -22,10 +23,18 @@ const SideBar = () => {
                         <FoldersIcon />
                         <span> Categories</span>
                     </NavigationItem>
-                    <NavigationItem to={'products'}>
-                        <ProductIcon />
-                        <span>Products</span>
-                    </NavigationItem>
+                    <Submenu buttonLabel={
+                        <span className="flex gap-2 items-center">
+                            <ProductIcon /> Produkty
+                        </span>
+                    }>
+                        <NavigationItem to={'products'} >
+                            <span>Produkty</span>
+                        </NavigationItem>
+                        <NavigationItem to={'products/attributes'}>
+                            <span>Atrybuty</span>
+                        </NavigationItem>
+                    </Submenu>
                     <NavigationItem to={'users'}>
                         <UsersIcon />
                         <span>Users</span>
