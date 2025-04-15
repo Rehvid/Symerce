@@ -1,21 +1,19 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
+import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
+import TableActions from '@/admin/components/table/Partials/TableActions';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
-import TableActions from '@/admin/components/table/Partials/TableActions';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
-import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
-import AppLink from '@/admin/components/common/AppLink';
 
-import EyeIcon from '@/images/icons/eye.svg';
-
-const AttributeList = () => {
-  const navigate = useNavigate();
+const AttributeValueList = () => {
   const location = useLocation();
   const currentFilters = new URLSearchParams(location.search);
+  const params = useParams();
+  const { name } = location.state || {};
 
   const [filters, setFilters] = useState({
     limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
@@ -28,43 +26,31 @@ const AttributeList = () => {
     isLoading,
     fetchItems,
     removeItem,
-  } = useListData('admin/attributes', filters);
+  } = useListData(`admin/attributes/${params.id}/values`, filters);
 
   if (isLoading) {
     return <TableSkeleton rowsCount={filters.limit} />
   }
 
-  const actions = (item) => (
-    <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/attributes/${item.id}`)}>
-      <AppLink
-        to={`${item.id}/values`}
-        state={{ name: item.name }}
-       additionalClasses="text-gray-500"
-      >
-        <EyeIcon />
-      </AppLink>
-    </TableActions>
-  )
-
   const data = items.map((item) => {
     return Object.values({
       id: item.id,
-      name: item.name,
-      actions: actions(item),
+      value: item.value,
+      actions: <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/attributes/${item.id}/values/${item.id}`)} />
     });
   });
 
   return (
     <>
-      <PageHeader title={'Atrybuty'}>
+      <PageHeader title={`${name ? `Grupa - ${name}` : 'Grupa Wartości'}`}>
         <Breadcrumb />
       </PageHeader>
 
       <DataTable
-        title="Grupa Atrybutów"
+        title="Wartości"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Name', 'Actions']}
+        columns={['Id', 'Value', 'Actions']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}
@@ -74,4 +60,4 @@ const AttributeList = () => {
   )
 }
 
-export default AttributeList;
+export default AttributeValueList;

@@ -44,6 +44,21 @@ const routesConfig = [
         roles: ['user'],
     },
     {
+        path: 'products/attributes/:attributeId/values',
+        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueList')),
+        roles: ['user'],
+    },
+    {
+        path: 'products/attributes/:attributeId/values/create',
+        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueEditor')),
+        roles: ['user'],
+    },
+    {
+        path: 'products/attributes/:attributeId/values/:id/edit',
+        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueEditor')),
+        roles: ['user'],
+    },
+    {
         path: 'categories',
         component: lazy(() => import('@/admin/pages/category/CategoryList')),
         roles: ['user'],

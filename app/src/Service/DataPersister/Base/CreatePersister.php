@@ -19,10 +19,17 @@ abstract class CreatePersister extends BasePersister implements CreatePersisterI
 
         $entity = $this->createEntity($persistable);
 
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
+        $this->save($entity);
+
+        $this->afterPersist($entity);
 
         return $entity;
+    }
+
+    protected function save(object $entity): void
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
     }
 
     /**
@@ -34,6 +41,8 @@ abstract class CreatePersister extends BasePersister implements CreatePersisterI
             throw new PersisterException($this->buildUnsupportedPersistableMessage($persistable));
         }
     }
+
+    protected function afterPersist(object $entity): void {}
 
     abstract protected function createEntity(PersistableInterface $persistable): object;
 
