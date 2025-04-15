@@ -16,6 +16,7 @@ const AppLink = ({ to, children, variant = 'default', additionalClasses = '', ..
     return (
         <NavLink
             {...props}
+            end
             to={to}
             className={({ isActive }) =>
                 `transition-all ${variants[variant]} ${isActive ? activeVariants[variant] : ''} ${additionalClasses}`
