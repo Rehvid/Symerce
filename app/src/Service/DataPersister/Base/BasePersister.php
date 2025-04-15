@@ -49,4 +49,10 @@ abstract class BasePersister
             static::class
         );
     }
+
+    protected function save(object $entity): void
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+    }
 }

@@ -19,8 +19,7 @@ abstract class UpdatePersister extends BasePersister implements UpdatePersisterI
 
         $updatedEntity = $this->updateEntity($persistable, $entity);
 
-        $this->entityManager->persist($updatedEntity);
-        $this->entityManager->flush();
+        $this->save($updatedEntity);
 
         return $updatedEntity;
     }

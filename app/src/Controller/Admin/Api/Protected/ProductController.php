@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,5 +23,21 @@ class ProductController extends AbstractAdminController
             data: $paginatedResponse->data,
             meta: $paginatedResponse->paginationMeta->toArray()
         );
+    }
+
+    #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
+    public function storeUpdateFormData(): JsonResponse
+    {
+        $data = [];
+
+        return $this->prepareJsonResponse(data: ['formData' => $data]);
+    }
+
+    #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
+    public function showUpdateFormData(Product $product): JsonResponse
+    {
+        $formData = [];
+
+        return $this->prepareJsonResponse(data: ['formData' => $formData]);
     }
 }
