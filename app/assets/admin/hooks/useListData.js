@@ -8,7 +8,8 @@ import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 
-const useListData = (endpoint, filters) => {
+
+const useListData = (endpoint, filters, setFilters) => {
     const { handleApiRequest } = useApi();
     const { addNotification } = useCreateNotification();
     const navigate = useNavigate();
@@ -48,7 +49,29 @@ const useListData = (endpoint, filters) => {
         });
     };
 
-    return { items, pagination, fetchItems, isLoading };
+    const removeItem = async (endpoint) => {
+        const config = createApiConfig(endpoint, HTTP_METHODS.DELETE);
+        handleApiRequest(config, {
+            onSuccess: ({ message }) => {
+                addNotification(message, ALERT_TYPES.SUCCESS);
+
+                const wasLastItemOnPage = items.length === 0;
+                const isNotFirstPage = filters.page > 1;
+                const shouldGoToPreviousPage = wasLastItemOnPage && isNotFirstPage;
+
+                if (shouldGoToPreviousPage) {
+                    setFilters((prevFilters) => ({
+                        ...prevFilters,
+                        page: prevFilters.page - 1,
+                    }));
+                } else {
+                    fetchItems();
+                }
+            },
+        });
+    }
+
+    return { items, pagination, isLoading, fetchItems, removeItem };
 };
 
 export default useListData;
