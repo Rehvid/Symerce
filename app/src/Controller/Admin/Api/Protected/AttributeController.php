@@ -7,6 +7,7 @@ namespace App\Controller\Admin\Api\Protected;
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\Attribute\SaveAttributeRequestDTO;
 use App\DTO\Response\Attribute\AttributeFormResponseDTO;
+use App\DTO\Response\Attribute\AttributeIndexResponseDTO;
 use App\Entity\Attribute;
 use App\Repository\AttributeRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,8 +24,15 @@ class AttributeController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
+        $data = array_map(function (array $item) {
+            return AttributeIndexResponseDTO::fromArray([
+                'id' => $item['id'],
+                'name' => $item['name'],
+            ]);
+        }, $paginatedResponse->data);
+
         return $this->prepareJsonResponse(
-            data: $paginatedResponse->data,
+            data: $data,
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
@@ -37,7 +45,7 @@ class AttributeController extends AbstractAdminController
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.category.store'),
+            message: $this->translator->trans('base.messages.attribute.store'),
             statusCode: Response::HTTP_CREATED
         );
     }
@@ -65,7 +73,7 @@ class AttributeController extends AbstractAdminController
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.category.update')
+            message: $this->translator->trans('base.messages.attribute.update')
         );
     }
 
@@ -74,6 +82,6 @@ class AttributeController extends AbstractAdminController
     {
         $this->dataPersisterManager->delete($attribute);
 
-        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.category.destroy'));
+        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.attribute.destroy'));
     }
 }

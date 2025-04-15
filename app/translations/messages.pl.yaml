@@ -23,5 +23,13 @@ base:
       destroy: 'Użytkownik został pomyślnie usunięty.'
     profile:
       update: 'Zmiany zostały pomyślnie zapisane.'
+    attribute:
+      store: 'Atrybut został pomyślnie dodany.'
+      update: 'Atrybut został pomyślnie zaktualizowany.'
+      destroy: 'Atrybut został pomyślnie zniszczony.'
+    attribute_value:
+      store: "Atrybut grupy: %name%, został pomyślnie dodany."
+      update: 'Atrybut grupy: %name%, został pomyslnie zaktualizowany'
+      destroy: 'Atrybut grupy: %name%, został pomyślnie zniszczony.'
     update_order: 'Udało się zaktualizować pozycje!'
     destroy_file: 'Plik został pomyślnie usunięty.'
