@@ -5,6 +5,9 @@ import ProductIcon from '@/images/icons/assembly.svg';
 import UsersIcon from '@/images/icons/users.svg';
 import SettingIcon from '@/images/icons/settings.svg';
 import TagIcon from '@/images/icons/tag.svg';
+import CurrencyIcon from '@/images/icons/currency.svg';
+import CarrierIcon from '@/images/icons/carrier.svg';
+import DeliveryTimeIcon from '@/images/icons/delivery-time.svg';
 import Submenu from '@/admin/layouts/components/navigation/Submenu';
 
 const SideBar = () => {
@@ -43,6 +46,18 @@ const SideBar = () => {
                     <NavigationItem to={'tags'}>
                         <TagIcon />
                         <span>Tagi</span>
+                    </NavigationItem>
+                    <NavigationItem to={'carriers'}>
+                        <CarrierIcon />
+                        <span>Dostawcy</span>
+                    </NavigationItem>
+                    <NavigationItem to={'delivery-time'}>
+                        <DeliveryTimeIcon />
+                        <span>Czasy dostawy</span>
+                    </NavigationItem>
+                    <NavigationItem to={'currencies'}>
+                        <CurrencyIcon />
+                        <span>Waluty</span>
                     </NavigationItem>
                     <NavigationItem to={'users'}>
                         <UsersIcon />

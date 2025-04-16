@@ -133,6 +133,51 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/tag/TagEditor')),
         roles: ['admin'],
     },
+    {
+        path: 'carriers',
+        component: lazy(() => import('@/admin/pages/carrier/CarrierList')),
+        roles: ['admin'],
+    },
+    {
+        path: 'carriers/create',
+        component: lazy(() => import('@/admin/pages/carrier/CarrierEditor')),
+        roles: ['admin'],
+    },
+    {
+        path: 'carriers/:id/edit',
+        component: lazy(() => import('@/admin/pages/carrier/CarrierEditor')),
+        roles: ['admin'],
+    },
+    {
+        path: 'delivery-time',
+        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeList')),
+        roles: ['admin'],
+    },
+    {
+        path: 'delivery-time/create',
+        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeEditor')),
+        roles: ['admin'],
+    },
+    {
+        path: 'delivery-time/:id/edit',
+        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeEditor')),
+        roles: ['admin'],
+    },
+    {
+        path: 'currencies',
+        component: lazy(() => import('@/admin/pages/currency/CurrencyList')),
+        roles: ['admin'],
+    },
+    {
+        path: 'currencies/create',
+        component: lazy(() => import('@/admin/pages/currency/CurrencyEditor')),
+        roles: ['admin'],
+    },
+    {
+        path: 'currencies/:id/edit',
+        component: lazy(() => import('@/admin/pages/currency/CurrencyEditor')),
+        roles: ['admin'],
+    },
 ];
 
 const withProtection = (requiredRoles, Component) => (
