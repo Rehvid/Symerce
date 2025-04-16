@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\ActiveTrait;
 use App\Traits\CreatedAtTrait;
@@ -11,6 +12,7 @@ use App\Traits\UpdatedAtTrait;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 class Carrier
 {
     use CreatedAtTrait;
@@ -30,10 +32,17 @@ class Carrier
 
     #[ORM\ManyToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private ?File $image;
+    private ?File $image = null;
 
     #[ORM\ManyToMany(targetEntity: DeliveryTime::class, mappedBy: 'carriers')]
     private Collection $deliveryTimes;
+
+    public function __construct()
+    {
+        $this->deliveryTimes = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
 
     public function getId(): int
     {
@@ -68,5 +77,15 @@ class Carrier
     public function setImage(?File $image): void
     {
         $this->image = $image;
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function getDeliveryTimes(): Collection
+    {
+        return $this->deliveryTimes;
     }
 }
