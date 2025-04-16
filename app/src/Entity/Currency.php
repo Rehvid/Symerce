@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Entity;
+use App\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -22,7 +23,7 @@ class Currency
     #[ORM\Column(length: 50)]
     private string $name;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'smallint')]
     private int $roundingPrecision;
 
 
@@ -68,6 +69,10 @@ class Currency
 
     public function setRoundingPrecision(int $roundingPrecision): void
     {
+        if ($roundingPrecision > DecimalPrecision::MAXIMUM_PRECISION->value) {
+            $roundingPrecision = DecimalPrecision::MAXIMUM_PRECISION->value;
+        }
+
         $this->roundingPrecision = $roundingPrecision;
     }
 }

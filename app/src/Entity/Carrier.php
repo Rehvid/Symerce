@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Enums\DecimalPrecision;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\ActiveTrait;
@@ -27,7 +28,11 @@ class Carrier
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[ORM\Column(
+        type: 'decimal',
+        precision: DecimalPrecision::MAXIMUM_PRECISION->value,
+        scale: DecimalPrecision::MAXIMUM_SCALE->value
+    )]
     private string $fee;
 
     #[ORM\ManyToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
