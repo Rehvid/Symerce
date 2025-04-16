@@ -31,5 +31,9 @@ base:
       store: "Atrybut grupy: %name%, został pomyślnie dodany."
       update: 'Atrybut grupy: %name%, został pomyslnie zaktualizowany'
       destroy: 'Atrybut grupy: %name%, został pomyślnie zniszczony.'
+    vendor:
+      store: 'Producent został pomyślnie dodany.'
+      update: 'Producent został pomyślnie zaktualizowany.'
+      destroy: 'Producent został pomyślnie zniszczony.'
     update_order: 'Udało się zaktualizować pozycje!'
     destroy_file: 'Plik został pomyślnie usunięty.'

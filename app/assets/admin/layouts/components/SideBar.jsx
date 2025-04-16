@@ -34,6 +34,9 @@ const SideBar = () => {
                         <NavigationItem to={'products/attributes'}>
                             <span>Atrybuty</span>
                         </NavigationItem>
+                        <NavigationItem to={'products/vendors'}>
+                            <span>Producenci</span>
+                        </NavigationItem>
                     </Submenu>
                     <NavigationItem to={'users'}>
                         <UsersIcon />

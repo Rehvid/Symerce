@@ -59,6 +59,21 @@ const routesConfig = [
         roles: ['user'],
     },
     {
+        path: 'products/vendors',
+        component: lazy(() => import('@/admin/pages/product/vendor/VendorList')),
+        roles: ['user'],
+    },
+    {
+        path: 'products/vendors/create',
+        component: lazy(() => import('@/admin/pages/product/vendor/VendorEditor')),
+        roles: ['user'],
+    },
+    {
+        path: 'products/vendors/:id/edit',
+        component: lazy(() => import('@/admin/pages/product/vendor/VendorEditor')),
+        roles: ['user'],
+    },
+    {
         path: 'categories',
         component: lazy(() => import('@/admin/pages/category/CategoryList')),
         roles: ['user'],
