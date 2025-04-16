@@ -14,4 +14,16 @@ export const validationRules = {
             message: 'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.',
         },
     }),
+    min: (value, message = `To pole nie może mieć mniejszej wartości niż ${value}`) => ({
+        min: {
+            value: value,
+            message: message
+        }
+    }),
+    max: (value, message = `To pole nie może mieć większej wartości niż ${value}`) => ({
+        max: {
+            value: value,
+            message: message
+        }
+    })
 };
