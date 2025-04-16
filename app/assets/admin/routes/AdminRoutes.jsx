@@ -118,6 +118,21 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/setting/SettingEditor')),
         roles: ['admin'],
     },
+    {
+        path: 'tags',
+        component: lazy(() => import('@/admin/pages/tag/TagList')),
+        roles: ['admin'],
+    },
+    {
+        path: 'tags/create',
+        component: lazy(() => import('@/admin/pages/tag/TagEditor')),
+        roles: ['admin'],
+    },
+    {
+        path: 'tags/:id/edit',
+        component: lazy(() => import('@/admin/pages/tag/TagEditor')),
+        roles: ['admin'],
+    },
 ];
 
 const withProtection = (requiredRoles, Component) => (

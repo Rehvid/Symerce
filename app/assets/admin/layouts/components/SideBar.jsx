@@ -4,6 +4,7 @@ import FoldersIcon from '@/images/icons/folders.svg';
 import ProductIcon from '@/images/icons/assembly.svg';
 import UsersIcon from '@/images/icons/users.svg';
 import SettingIcon from '@/images/icons/settings.svg';
+import TagIcon from '@/images/icons/tag.svg';
 import Submenu from '@/admin/layouts/components/navigation/Submenu';
 
 const SideBar = () => {
@@ -39,6 +40,10 @@ const SideBar = () => {
                             <span>Producenci</span>
                         </NavigationItem>
                     </Submenu>
+                    <NavigationItem to={'tags'}>
+                        <TagIcon />
+                        <span>Tagi</span>
+                    </NavigationItem>
                     <NavigationItem to={'users'}>
                         <UsersIcon />
                         <span>Users</span>
