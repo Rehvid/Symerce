@@ -6,6 +6,10 @@ base:
     not_exist_field: 'Pole nie zostało znalezione'
   setting_type:
     other: 'Inne'
+  delivery_type:
+    standard: 'Standardowe'
+    express: 'Ekspresowe'
+    economy: 'Ekonomiczne'
   messages:
     errors:
       validation_failed: 'Wystąpił błąd walidacji.'
