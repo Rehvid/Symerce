@@ -4,6 +4,8 @@ base:
     strong_password: 'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.'
     repeat_password: 'Hasła muszą być identyczne.'
     not_exist_field: 'Pole nie zostało znalezione'
+  setting_type:
+    other: 'Inne'
   messages:
     errors:
       validation_failed: 'Wystąpił błąd walidacji.'

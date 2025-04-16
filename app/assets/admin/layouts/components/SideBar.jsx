@@ -3,6 +3,7 @@ import DashboardIcon from '@/images/icons/dashboard.svg';
 import FoldersIcon from '@/images/icons/folders.svg';
 import ProductIcon from '@/images/icons/assembly.svg';
 import UsersIcon from '@/images/icons/users.svg';
+import SettingIcon from '@/images/icons/settings.svg';
 import Submenu from '@/admin/layouts/components/navigation/Submenu';
 
 const SideBar = () => {
@@ -41,6 +42,10 @@ const SideBar = () => {
                     <NavigationItem to={'users'}>
                         <UsersIcon />
                         <span>Users</span>
+                    </NavigationItem>
+                    <NavigationItem to={'settings'}>
+                        <SettingIcon />
+                        <span>Ustawienia</span>
                     </NavigationItem>
                 </ul>
             </div>

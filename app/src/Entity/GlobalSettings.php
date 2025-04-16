@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 use App\Enums\SettingType;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 class GlobalSettings
 {
     #[ORM\Id]
@@ -17,8 +19,14 @@ class GlobalSettings
     #[ORM\Column(type: 'string',  length: 255)]
     private string $name;
 
+    #[ORM\Column(type: 'string',  length: 255)]
+    private string $value;
+
     #[ORM\Column(type: 'string', enumType: SettingType::class)]
     private SettingType $type;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isProtected = false;
 
     public function getId(): int
     {
@@ -48,5 +56,41 @@ class GlobalSettings
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function isProtected(): bool
+    {
+        return $this->isProtected;
+    }
+
+    public function setIsProtected(bool $isProtected): void
+    {
+        $this->isProtected = $isProtected;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    public function setValue(string $value): void
+    {
+        $this->value = $value;
+    }
+
+    #[ORM\PreRemove]
+    public function preventRemovalIfProtected(): void
+    {
+        if ($this->isProtected) {
+            throw new \RuntimeException(sprintf('Cannot delete protected setting: "%s"', $this->name));
+        }
+    }
+
+    #[ORM\PreUpdate]
+    public function preventUpdateIfProtected(PreUpdateEventArgs $event): void
+    {
+        if ($this->isProtected && ($event->hasChangedField('name') || $event->hasChangedField('type'))) {
+            throw new \RuntimeException(sprintf('Cannot update protected setting: "%s"', $this->name));
+        }
     }
 }
