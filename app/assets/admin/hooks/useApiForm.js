@@ -8,7 +8,7 @@ import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 
 const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
   const [formData, setFormData] = useState({});
-  const { handleApiRequest } = useApi();
+  const { handleApiRequest, isRequestFinished } = useApi();
   const { addNotification } = useCreateNotification();
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
     : createApiConfig(baseApiUrl, HTTP_METHODS.POST)
   ;
 
-  return { fetchFormData, defaultApiSuccessCallback, getApiConfig }
+  return { fetchFormData, defaultApiSuccessCallback, getApiConfig, formData, setFormData, isRequestFinished }
 }
 
 export default useApiForm;
