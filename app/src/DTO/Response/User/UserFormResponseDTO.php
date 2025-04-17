@@ -9,11 +9,12 @@ use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class UserFormResponseDTO implements ResponseInterfaceData
 {
+    /** @param array<int|string>  $roles */
     private function __construct(
-        public readonly string $firstname,
-        public readonly string $surname,
-        public readonly string $email,
-        public readonly ?array $roles,
+        public string $firstname,
+        public string $surname,
+        public string $email,
+        public ?array $roles,
         public ?FileResponseDTO $avatar,
     ) {
 

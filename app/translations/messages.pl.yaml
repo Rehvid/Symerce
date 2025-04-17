@@ -5,11 +5,11 @@ base:
     repeat_password: 'Hasła muszą być identyczne.'
     not_exist_field: 'Pole nie zostało znalezione'
   setting_type:
-    other: 'Inne'
+    custom: 'Niestanradowe'
   delivery_type:
-    standard: 'Standardowe'
-    express: 'Ekspresowe'
-    economy: 'Ekonomiczne'
+    standard: 'Dostawa standardowa'
+    express: 'Dostawa ekspresowa'
+    economy: 'Dostawa ekonomiczna'
   messages:
     errors:
       validation_failed: 'Wystąpił błąd walidacji.'
@@ -41,5 +41,26 @@ base:
       store: 'Producent został pomyślnie dodany.'
       update: 'Producent został pomyślnie zaktualizowany.'
       destroy: 'Producent został pomyślnie zniszczony.'
+    carrier:
+      store: 'Przewoźnik został pomyślnie dodany.'
+      update: 'Przewoźnik został pomyślnie zaktualizowany.'
+      destroy: 'Przewoźnik został pomyślnie usunięty.'
+
+    currency:
+      store: 'Waluta została pomyślnie dodana.'
+      update: 'Waluta została pomyślnie zaktualizowana.'
+      destroy: 'Waluta została pomyślnie usunięta.'
+    delivery_time:
+      store: 'Czas dostawy został pomyślnie dodany.'
+      update: 'Czas dostawy został pomyślnie zaktualizowany.'
+      destroy: 'Czas dostawy został pomyślnie usunięty.'
+    settings:
+      store: 'Ustawienia zostały pomyślnie zapisane.'
+      update: 'Ustawienia zostały pomyślnie zaktualizowane.'
+      destroy: 'Ustawienia zostały pomyślnie usunięte.'
+    tag:
+      store: 'Tag został pomyślnie dodany.'
+      update: 'Tag został pomyślnie zaktualizowany.'
+      destroy: 'Tag został pomyślnie usunięty.'
     update_order: 'Udało się zaktualizować pozycje!'
     destroy_file: 'Plik został pomyślnie usunięty.'

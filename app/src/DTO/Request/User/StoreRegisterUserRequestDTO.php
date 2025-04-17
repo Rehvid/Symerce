@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\DTO\Request\User;
 
-use App\Interfaces\PersistableInterface;
+use App\DTO\Request\PersistableInterface;
 use App\Validator\RepeatPassword as CustomAssertRepeatPassword;
 use App\Validator\StrongPassword as CustomAssertStrongPassword;
 use App\Validator\UniqueEmail as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class RegisterUserRequestDTO implements PersistableInterface
+final readonly class StoreRegisterUserRequestDTO implements PersistableInterface
 {
     public function __construct(
         #[Assert\NotBlank] #[Assert\Email] #[CustomAssertUniqueEmail]  public string $email,

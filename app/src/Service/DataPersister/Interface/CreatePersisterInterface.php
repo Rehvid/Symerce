@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Interface;
 
-use App\Interfaces\PersistableInterface;
+use App\DTO\Request\PersistableInterface;
 
 interface CreatePersisterInterface extends DataPersisterInterface
 {

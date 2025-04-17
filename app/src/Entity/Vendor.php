@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Repository\VendorRepository;
 use App\Traits\ActiveTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: VendorRepository::class)]
 class Vendor
 {
     use ActiveTrait;

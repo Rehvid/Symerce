@@ -10,7 +10,6 @@ use Doctrine\ORM\QueryBuilder;
 
 class VendorRepository extends PaginationRepository
 {
-
     protected function getEntityClass(): string
     {
         return Vendor::class;
@@ -28,6 +27,6 @@ class VendorRepository extends PaginationRepository
         return $queryBuilder
             ->select("$alias.id, $alias.name, image.path")
             ->leftJoin("$alias.image", 'image')
-            ;
+        ;
     }
 }

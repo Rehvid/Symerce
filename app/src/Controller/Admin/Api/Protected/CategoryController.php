@@ -9,11 +9,12 @@ use App\DTO\Request\Category\SaveCategoryRequestDTO;
 use App\DTO\Request\OrderRequestDTO;
 use App\DTO\Response\Category\CategoryFormResponseDTO;
 use App\DTO\Response\Category\CategoryIndexResponseDTO;
+use App\DTO\Response\FileResponseDTO;
 use App\Entity\Category;
-use App\Mapper\CategoryMapper;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryTreeBuilder;
 use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\FileService;
 use App\Service\Pagination\PaginationService;
 use App\Service\Response\ResponseService;
 use App\Service\SortableEntityOrderUpdater;
@@ -33,7 +34,7 @@ class CategoryController extends AbstractAdminController
         ResponseService $responseService,
         PaginationService $paginationService,
         SortableEntityOrderUpdater $sortableEntityOrderUpdater,
-        private readonly CategoryMapper $categoryMapper,
+        private readonly FileService $fileService,
     ) {
         parent::__construct(
             $dataPersisterManager,
@@ -50,11 +51,13 @@ class CategoryController extends AbstractAdminController
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
         /** @var array<int, CategoryIndexResponseDTO> $responseData */
-        $responseData = [];
+        $responseData = array_map(function ($item) {
+            if ($item['path']) {
+                $item['imagePath'] = $this->fileService->preparePublicPathToFile($item['path']);
+            }
 
-        foreach ($paginatedResponse->data as $data) {
-            $responseData[] = $this->categoryMapper->mapToIndexResponse($data);
-        }
+            return CategoryIndexResponseDTO::fromArray($item);
+        }, $paginatedResponse->data);
 
         return $this->prepareJsonResponse(
             data: $responseData,
@@ -73,18 +76,31 @@ class CategoryController extends AbstractAdminController
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(Category $category, CategoryTreeBuilder $treeBuilder): JsonResponse
+    public function showUpdateFormData(Category $category, CategoryTreeBuilder $tree): JsonResponse
     {
-        $formData = $this->categoryMapper->mapToFormData($treeBuilder, $category);
+        $name = $category->getName();
+        $formData = CategoryFormResponseDTO::fromArray([
+            'tree' => $tree->generateTree(),
+            'name' => $name,
+            'slug' => $category->getSlug(),
+            'parentCategoryId' => $category->getParent()?->getId(),
+            'description' => $category->getDescription(),
+            'isActive' => $category->isActive(),
+            'image' => FileResponseDTO::fromArray([
+                'id' => $category->getImage()?->getId(),
+                'name' => $name,
+                'preview' => $this->fileService->preparePublicPathToFile($category->getImage()?->getPath()),
+            ]),
+        ]);
 
         return $this->prepareJsonResponse(data: ['formData' => $formData]);
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] SaveCategoryRequestDTO $dto): JsonResponse
+    public function store(#[MapRequestPayload] SaveCategoryRequestDTO $persistable): JsonResponse
     {
         /** @var Category $entity */
-        $entity = $this->dataPersisterManager->persist($dto);
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
@@ -102,10 +118,10 @@ class CategoryController extends AbstractAdminController
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         Category $category,
-        #[MapRequestPayload] SaveCategoryRequestDTO $dto,
+        #[MapRequestPayload] SaveCategoryRequestDTO $persistable,
     ): JsonResponse {
         /** @var Category $entity */
-        $entity = $this->dataPersisterManager->update($dto, $category);
+        $entity = $this->dataPersisterManager->update($persistable, $category);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO\Response\Carrier;
 
 use App\DTO\Response\ResponseInterfaceData;
 
-class CarrierIndexResponseDTO implements ResponseInterfaceData
+final class CarrierIndexResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public int $id,
@@ -12,7 +14,7 @@ class CarrierIndexResponseDTO implements ResponseInterfaceData
         public bool $isActive,
         public string $fee,
         public ?string $imagePath,
-    ){
+    ) {
     }
 
     public static function fromArray(array $data): ResponseInterfaceData

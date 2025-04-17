@@ -5,14 +5,21 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enums\DecimalPrecision;
+use App\Repository\PaymentMethodRepository;
 use App\Traits\ActiveTrait;
-
+use App\Traits\CreatedAtTrait;
+use App\Traits\OrderTrait;
+use App\Traits\UpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: PaymentMethodRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class PaymentMethod
 {
     use ActiveTrait;
+    use OrderTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

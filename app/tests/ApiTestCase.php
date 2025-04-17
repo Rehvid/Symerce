@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\DTO\Request\User\RegisterUserRequestDTO;
+use App\DTO\Request\User\StoreRegisterUserRequestDTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\DataPersister\Persisters\User\UserRegisterCreatePersister;
@@ -58,7 +58,7 @@ class ApiTestCase extends WebTestCase
         $userRepo = static::getContainer()->get(UserRepository::class);
         $persister = static::getContainer()->get(UserRegisterCreatePersister::class);
 
-        $dto = new RegisterUserRequestDTO(
+        $dto = new StoreRegisterUserRequestDTO(
             email: 'user@example.com',
             password: 'Password123$',
             passwordConfirmation: 'Password123$',

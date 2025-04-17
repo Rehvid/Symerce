@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Interfaces\OrderSortableInterface;
+use App\Repository\CategoryRepository;
 use App\Traits\CreatedAtTrait;
 use App\Traits\ActiveTrait;
 use App\Traits\OrderTrait;
@@ -14,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
 class Category implements OrderSortableInterface
@@ -55,8 +56,6 @@ class Category implements OrderSortableInterface
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
         $this->products = new ArrayCollection();
         $this->children = new ArrayCollection();
     }

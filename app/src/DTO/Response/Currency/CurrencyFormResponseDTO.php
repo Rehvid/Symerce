@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO\Response\Currency;
 
 use App\DTO\Response\ResponseInterfaceData;
@@ -11,10 +13,9 @@ final readonly class CurrencyFormResponseDTO implements ResponseInterfaceData
         public string $symbol,
         public string $code,
         public string $roundingPrecision
-    ){
+    ) {
 
     }
-
 
     public static function fromArray(array $data): ResponseInterfaceData
     {

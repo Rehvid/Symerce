@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Base;
 
-use App\Interfaces\PersistableInterface;
+use App\DTO\Request\PersistableInterface;
+use App\Service\DataPersister\Filler\Resolver\EntityFillerResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Proxy;
 
 abstract class BasePersister
 {
     public function __construct(
-        protected readonly EntityManagerInterface $entityManager
+        protected readonly EntityManagerInterface $entityManager,
+        protected readonly EntityFillerResolver $fillerResolver,
     ) {
     }
 

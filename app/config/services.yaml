@@ -31,6 +31,8 @@ services:
             tags: ['app.create_persister']
         App\Service\DataPersister\Interface\UpdatePersisterInterface:
             tags: ['app.update_persister']
+        App\Service\DataPersister\Filler\Interface\EntityFillerInterface:
+            tags: ['app.entity_filler']
 
     App\Listeners\ExceptionListener:
         tags:
@@ -40,3 +42,7 @@ services:
         arguments:
             $createPersisters: !tagged_iterator app.create_persister
             $updatePersisters: !tagged_iterator app.update_persister
+
+    App\Service\DataPersister\Filler\Resolver\EntityFillerResolver:
+        arguments:
+            $fillers: !tagged_iterator app.entity_filler

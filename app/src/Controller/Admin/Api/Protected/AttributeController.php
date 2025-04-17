@@ -38,10 +38,10 @@ class AttributeController extends AbstractAdminController
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] SaveAttributeRequestDTO $dto,): JsonResponse
+    public function store(#[MapRequestPayload] SaveAttributeRequestDTO $persistable): JsonResponse
     {
         /** @var Attribute $entity */
-        $entity = $this->dataPersisterManager->persist($dto);
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
@@ -56,20 +56,19 @@ class AttributeController extends AbstractAdminController
         return $this->prepareJsonResponse(
             data: [
                 'formData' => AttributeFormResponseDTO::fromArray([
-                    'name' => $attribute->getName()
-                ])
+                    'name' => $attribute->getName(),
+                ]),
             ]
         );
     }
 
-
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         Attribute $attribute,
-        #[MapRequestPayload] SaveAttributeRequestDTO $dto,
+        #[MapRequestPayload] SaveAttributeRequestDTO $persistable,
     ): JsonResponse {
         /** @var Attribute $entity */
-        $entity = $this->dataPersisterManager->update($dto, $attribute);
+        $entity = $this->dataPersisterManager->update($persistable, $attribute);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DTO\Request\User;
 
+use App\DTO\Request\PersistableInterface;
 use App\Entity\User;
-use App\Interfaces\PersistableInterface;
 use App\Validator\ExistField as CustomAssertExistField;
 use Symfony\Component\Validator\Constraints as Assert;
 

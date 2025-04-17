@@ -5,12 +5,18 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enums\DeliveryType;
+use App\Repository\DeliveryTimeRepository;
+use App\Traits\ActiveTrait;
+use App\Traits\OrderTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: DeliveryTimeRepository::class)]
 class DeliveryTime
 {
+    use ActiveTrait;
+    use OrderTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
@@ -29,7 +35,7 @@ class DeliveryTime
     private DeliveryType $type;
 
     #[ORM\ManyToMany(targetEntity: Carrier::class, inversedBy: 'deliveryTimes', cascade: ['persist', 'remove'])]
-    #[ORM\JoinTable(name: "carrier_delivery_times")]
+    #[ORM\JoinTable(name: 'carrier_delivery_times')]
     private Collection $carriers;
 
     public function getId(): int
@@ -75,5 +81,10 @@ class DeliveryTime
     public function setType(DeliveryType $type): void
     {
         $this->type = $type;
+    }
+
+    public function getCarriers(): Collection
+    {
+        return $this->carriers;
     }
 }

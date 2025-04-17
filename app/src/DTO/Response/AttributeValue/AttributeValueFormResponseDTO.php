@@ -1,14 +1,13 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\DTO\Response\AttributeValue;
 
 use App\DTO\Response\ResponseInterfaceData;
 
-readonly class AttributeValueFormResponseDTO implements ResponseInterfaceData
+final readonly class AttributeValueFormResponseDTO implements ResponseInterfaceData
 {
-
     private function __construct(
         public string $value
     ) {

@@ -7,7 +7,7 @@ namespace App\DTO\Response\Vendor;
 use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\ResponseInterfaceData;
 
-final class VendorFormResponseDTO implements ResponseInterfaceData
+final readonly class VendorFormResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public string $name,

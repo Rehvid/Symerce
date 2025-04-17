@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enums\TokenType;
+use App\Repository\UserTokenRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: UserTokenRepository::class)]
 class UserToken
 {
     #[ORM\Id]

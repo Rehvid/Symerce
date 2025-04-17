@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Controller\Admin\Api\Protected;
 
@@ -55,21 +55,21 @@ class CarrierController extends AbstractAdminController
                         'id' => $carrier->getImage()?->getId(),
                         'name' => "Avatar - {$carrier->getName()}",
                         'preview' => $service->preparePublicPathToFile($carrier->getImage()?->getPath()),
-                    ])
-                ])
+                    ]),
+                ]),
             ]
         );
     }
 
-
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] SaveCarrierRequestDTO $dto): JsonResponse
+    public function store(#[MapRequestPayload] SaveCarrierRequestDTO $persistable): JsonResponse
     {
-        $entity = $this->dataPersisterManager->persist($dto);
+        /** @var Carrier $entity */
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.vendor.store'),
+            message: $this->translator->trans('base.messages.carrier.store'),
             statusCode: Response::HTTP_CREATED
         );
     }
@@ -77,14 +77,14 @@ class CarrierController extends AbstractAdminController
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         Carrier $carrier,
-        #[MapRequestPayload] SaveCarrierRequestDTO $dto,
+        #[MapRequestPayload] SaveCarrierRequestDTO $persistable,
     ): JsonResponse {
-
-        $entity = $this->dataPersisterManager->update($dto, $carrier);
+        /** @var Carrier $entity */
+        $entity = $this->dataPersisterManager->update($persistable, $carrier);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.vendor.update')
+            message: $this->translator->trans('base.messages.carrier.update')
         );
     }
 
@@ -93,6 +93,6 @@ class CarrierController extends AbstractAdminController
     {
         $this->dataPersisterManager->delete($carrier);
 
-        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.vendor.destroy'));
+        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.carrier.destroy'));
     }
 }

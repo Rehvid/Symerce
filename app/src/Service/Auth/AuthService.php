@@ -91,7 +91,7 @@ final readonly class AuthService
                 'id' => $user->getAvatar()?->getId(),
                 'name' => "Avatar - $fullName",
                 'preview' => $this->fileService->preparePublicPathToFile($user->getAvatar()?->getPath()),
-            ])
+            ]),
         ]);
     }
 

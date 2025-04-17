@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enums\DecimalPrecision;
+use App\Repository\CarrierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\ActiveTrait;
@@ -12,7 +13,7 @@ use App\Traits\CreatedAtTrait;
 use App\Traits\UpdatedAtTrait;
 use Doctrine\Common\Collections\Collection;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: CarrierRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Carrier
 {
@@ -45,8 +46,6 @@ class Carrier
     public function __construct()
     {
         $this->deliveryTimes = new ArrayCollection();
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): int
@@ -82,11 +81,6 @@ class Carrier
     public function setImage(?File $image): void
     {
         $this->image = $image;
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
     }
 
     public function getDeliveryTimes(): Collection

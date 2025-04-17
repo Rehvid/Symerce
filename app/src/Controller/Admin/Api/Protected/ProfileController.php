@@ -37,11 +37,12 @@ class ProfileController extends AbstractApiController
     public function updatePersonal(
         User $user,
         FileService $fileService,
-        #[MapRequestPayload] UpdatePersonalRequestDTO $profileInformationDTO
+        #[MapRequestPayload] UpdatePersonalRequestDTO $persistable
     ): JsonResponse {
-        $this->dataPersisterManager->update($profileInformationDTO, $user);
+        $this->dataPersisterManager->update($persistable, $user);
 
         $fullName = $user->getFullName();
+
         return $this->prepareJsonResponse(
             data: [
                 'user' => PersonalIndexResponseDTO::fromArray([
@@ -53,7 +54,7 @@ class ProfileController extends AbstractApiController
                         'id' => $user->getAvatar()?->getId(),
                         'originalName' => "Avatar - $fullName",
                         'path' => $fileService->preparePublicPathToFile($user->getAvatar()?->getPath()),
-                    ])
+                    ]),
                 ]),
             ],
             message: $this->translator->trans('base.messages.profile.update')
@@ -63,9 +64,9 @@ class ProfileController extends AbstractApiController
     #[Route('/{id}/security', name: 'update_security', methods: ['PUT'])]
     public function updateSecurity(
         User $user,
-        #[MapRequestPayload] UpdateSecurityRequestDTO $changePasswordRequestDTO
+        #[MapRequestPayload] UpdateSecurityRequestDTO $persistable
     ): JsonResponse {
-        $this->dataPersisterManager->update($changePasswordRequestDTO, $user);
+        $this->dataPersisterManager->update($persistable, $user);
 
         return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.profile.update'));
     }

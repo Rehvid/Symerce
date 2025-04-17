@@ -6,14 +6,14 @@ namespace App\DTO\Response\Vendor;
 
 use App\DTO\Response\ResponseInterfaceData;
 
-final class VendorIndexResponseDTO implements ResponseInterfaceData
+final readonly class VendorIndexResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public int $id,
         public string $name,
         public ?string $imagePath = null,
-    ){}
-
+    ) {
+    }
 
     public static function fromArray(array $data): ResponseInterfaceData
     {

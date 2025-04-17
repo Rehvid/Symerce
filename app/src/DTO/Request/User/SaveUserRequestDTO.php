@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DTO\Request\User;
 
-use App\Interfaces\PersistableInterface;
-use App\Traits\FileTransformerTrait;
+use App\DTO\Request\PersistableInterface;
+use App\Traits\FileRequestMapperTrait;
 use App\Validator\RepeatPassword as CustomAssertRepeatPassword;
 use App\Validator\StrongPassword as CustomAssertStrongPassword;
 use App\Validator\UniqueEmail as CustomAssertUniqueEmail;
@@ -14,8 +14,14 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class SaveUserRequestDTO implements PersistableInterface
 {
-    use FileTransformerTrait;
+    use FileRequestMapperTrait;
 
+    /**
+     * @param array<string, mixed> $avatar
+     * @param array<int|string>    $roles
+     *
+     * @throws \ReflectionException
+     */
     public function __construct(
         #[Assert\NotBlank] #[Assert\Email] #[CustomAssertUniqueEmail] public readonly string $email,
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public readonly string $firstname,
@@ -27,9 +33,8 @@ final class SaveUserRequestDTO implements PersistableInterface
         public readonly bool $isActive,
         public array $avatar = [],
     ) {
-        $this->avatar = $this->transformToFileRequestDTO($avatar);
+        $this->avatar = $this->createFileRequestDTOs($avatar);
     }
-
 
     #[Assert\Callback]
     public function validate(ExecutionContextInterface $context): void
@@ -42,7 +47,7 @@ final class SaveUserRequestDTO implements PersistableInterface
             ]);
 
             foreach ($violations as $violation) {
-                $context->buildViolation($violation->getMessage())
+                $context->buildViolation((string) $violation->getMessage())
                     ->atPath('password')
                     ->addViolation();
             }
@@ -55,7 +60,7 @@ final class SaveUserRequestDTO implements PersistableInterface
             ]);
 
             foreach ($violations as $violation) {
-                $context->buildViolation($violation->getMessage())
+                $context->buildViolation((string) $violation->getMessage())
                     ->atPath('passwordConfirmation')
                     ->addViolation();
             }

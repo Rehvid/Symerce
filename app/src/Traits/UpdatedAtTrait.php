@@ -21,6 +21,7 @@ trait UpdatedAtTrait
         $this->updatedAt = $updatedAt;
     }
 
+    #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function updateTimestamp(): void
     {

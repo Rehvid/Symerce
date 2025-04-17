@@ -26,7 +26,7 @@ class DeliveryTimeController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (array $item)  {
+        $data = array_map(function (array $item) {
             return DeliveryTimeIndexResponseDTO::fromArray([
                 'id' => $item['id'],
                 'label' => $item['label'],
@@ -42,19 +42,17 @@ class DeliveryTimeController extends AbstractAdminController
         );
     }
 
-
     #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
     public function showStoreFormData(): JsonResponse
     {
         return $this->prepareJsonResponse(
             data: [
                 'formData' => DeliveryTimeFormResponseDTO::fromArray([
-                    'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::valuesWithTranslation())
-                ])
+                    'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::translatedOptions()),
+                ]),
             ]
         );
     }
-
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
     public function showUpdateFormData(DeliveryTime $deliveryTime): JsonResponse
@@ -66,35 +64,36 @@ class DeliveryTimeController extends AbstractAdminController
                     'minDays' => $deliveryTime->getMinDays(),
                     'maxDays' => $deliveryTime->getMaxDays(),
                     'type' => $deliveryTime->getType()->value,
-                    'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::valuesWithTranslation())
-                ])
+                    'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::translatedOptions()),
+                ]),
             ]
         );
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] SaveDeliveryTimeRequestDTO $dto): JsonResponse
+    public function store(#[MapRequestPayload] SaveDeliveryTimeRequestDTO $persistable): JsonResponse
     {
-        $entity = $this->dataPersisterManager->persist($dto);
+        /** @var DeliveryTime $entity */
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.vendor.store'),
+            message: $this->translator->trans('base.messages.delivery_time.store'),
             statusCode: Response::HTTP_CREATED
         );
     }
 
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
-        DeliveryTime $currency,
-        #[MapRequestPayload] SaveDeliveryTimeRequestDTO $dto,
+        DeliveryTime $deliveryTime,
+        #[MapRequestPayload] SaveDeliveryTimeRequestDTO $persistable,
     ): JsonResponse {
-
-        $entity = $this->dataPersisterManager->update($dto, $currency);
+        /** @var DeliveryTime $entity */
+        $entity = $this->dataPersisterManager->update($persistable, $deliveryTime);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.vendor.update')
+            message: $this->translator->trans('base.messages.delivery_time.update')
         );
     }
 
@@ -103,9 +102,14 @@ class DeliveryTimeController extends AbstractAdminController
     {
         $this->dataPersisterManager->delete($currency);
 
-        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.vendor.destroy'));
+        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.delivery_time.destroy'));
     }
 
+    /**
+     * @param array <string, mixed> $types
+     *
+     * @return array<int, mixed>
+     */
     private function buildTranslatedOptionsForDeliverTypeEnum(array $types): array
     {
         return Utils::buildTranslatedOptions(

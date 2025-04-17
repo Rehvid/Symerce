@@ -4,7 +4,6 @@ namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\AttributeValue\SaveAttributeValueRequestDTO;
-use App\DTO\Response\Attribute\AttributeIndexResponseDTO;
 use App\DTO\Response\AttributeValue\AttributeValueFormResponseDTO;
 use App\DTO\Response\AttributeValue\AttributeValueIndexResponseDTO;
 use App\Entity\Attribute;
@@ -32,8 +31,7 @@ class AttributeValueController extends AbstractAdminController
         PaginationService $paginationService,
         SortableEntityOrderUpdater $sortableEntityOrderUpdater,
         private readonly AttributeRepository $attributeRepository,
-    )
-    {
+    ) {
         parent::__construct($dataPersisterManager, $translator, $responseService, $paginationService, $sortableEntityOrderUpdater);
     }
 
@@ -58,15 +56,14 @@ class AttributeValueController extends AbstractAdminController
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
     public function store(
         string $attributeId,
-        #[MapRequestPayload] SaveAttributeValueRequestDTO $dto
-    ): JsonResponse
-    {
+        #[MapRequestPayload] SaveAttributeValueRequestDTO $persistable,
+    ): JsonResponse {
         /** @var AttributeValue $entity */
-        $entity = $this->dataPersisterManager->persist($dto);
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.attribute_value.store',['%name%' => $this->getAttributeName($attributeId)]),
+            message: $this->translator->trans('base.messages.attribute_value.store', ['%name%' => $this->getAttributeName($attributeId)]),
             statusCode: Response::HTTP_CREATED
         );
     }
@@ -77,21 +74,20 @@ class AttributeValueController extends AbstractAdminController
         return $this->prepareJsonResponse(
             data: [
                 'formData' => AttributeValueFormResponseDTO::fromArray([
-                    'value' => $attribute->getValue()
-                ])
+                    'value' => $attribute->getValue(),
+                ]),
             ]
         );
     }
-
 
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         string $attributeId,
         AttributeValue $attribute,
-        #[MapRequestPayload] SaveAttributeValueRequestDTO $dto,
+        #[MapRequestPayload] SaveAttributeValueRequestDTO $persistable,
     ): JsonResponse {
         /** @var AttributeValue $entity */
-        $entity = $this->dataPersisterManager->update($dto, $attribute);
+        $entity = $this->dataPersisterManager->update($persistable, $attribute);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
@@ -111,6 +107,9 @@ class AttributeValueController extends AbstractAdminController
 
     private function getAttributeName(string $attributeId): ?string
     {
-        return $this->attributeRepository->find($attributeId)?->getName();
+        /** @var Attribute|null $attribute */
+        $attribute = $this->attributeRepository->find($attributeId);
+
+        return $attribute?->getName();
     }
 }

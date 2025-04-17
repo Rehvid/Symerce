@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Base;
 
+use App\DTO\Request\PersistableInterface;
 use App\Exceptions\PersisterException;
-use App\Interfaces\PersistableInterface;
 use App\Service\DataPersister\Interface\UpdatePersisterInterface;
 
 abstract class UpdatePersister extends BasePersister implements UpdatePersisterInterface
@@ -17,7 +17,9 @@ abstract class UpdatePersister extends BasePersister implements UpdatePersisterI
     {
         $this->ensureUpdateHasValidClasses($persistable, $entity);
 
-        $updatedEntity = $this->updateEntity($persistable, $entity);
+        $filler = $this->fillerResolver->getFillerFor($persistable);
+
+        $updatedEntity = $filler->toExistingEntity($persistable, $entity);
 
         $this->save($updatedEntity);
 
@@ -37,8 +39,6 @@ abstract class UpdatePersister extends BasePersister implements UpdatePersisterI
             throw new PersisterException($this->buildUnsupportedClassesExceptionMessage($entity, $this->getSupportedClasses()));
         }
     }
-
-    abstract protected function updateEntity(PersistableInterface $persistable, object $entity): object;
 
     /** @return array<int, string> */
     abstract public function getSupportedClasses(): array;

@@ -20,7 +20,10 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
     /**
      * @param array<string, mixed> $queryParams
      */
-    abstract protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder;
+    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder
+    {
+        return $queryBuilder;
+    }
 
     public function __construct(ManagerRegistry $registry)
     {

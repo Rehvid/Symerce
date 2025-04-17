@@ -4,12 +4,16 @@ namespace App\Utils;
 
 class Utils
 {
+    /**
+     * @param array <string, mixed> $items
+     *
+     * @return array<int, mixed>
+     */
     public static function buildTranslatedOptions(
         array $items,
         callable $labelCallback,
         callable $valueCallback
-    ): array
-    {
+    ): array {
         $result = [];
         $iterator = 0;
         foreach ($items as $item) {
@@ -18,6 +22,7 @@ class Utils
                 'value' => $valueCallback($item),
             ];
         }
+
         return $result;
     }
 }

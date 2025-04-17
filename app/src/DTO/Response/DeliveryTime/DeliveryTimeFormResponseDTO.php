@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\DTO\Response\DeliveryTime;
 
@@ -8,6 +8,7 @@ use App\DTO\Response\ResponseInterfaceData;
 
 final readonly class DeliveryTimeFormResponseDTO implements ResponseInterfaceData
 {
+    /** @param array<int, mixed>  $types */
     private function __construct(
         public ?string $label,
         public ?int $minDays,

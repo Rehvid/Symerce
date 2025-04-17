@@ -8,7 +8,6 @@ use Doctrine\ORM\QueryBuilder;
 
 class CarrierRepository extends PaginationRepository
 {
-
     protected function getEntityClass(): string
     {
         return Carrier::class;
@@ -26,6 +25,6 @@ class CarrierRepository extends PaginationRepository
         return $queryBuilder
             ->select("$alias.id, $alias.name, $alias.isActive, $alias.fee, image.path")
             ->leftJoin("$alias.image", 'image')
-            ;
+        ;
     }
 }

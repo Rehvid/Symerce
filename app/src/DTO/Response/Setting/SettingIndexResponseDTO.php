@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO\Response\Setting;
 
 use App\DTO\Response\ResponseInterfaceData;
 
-class SettingIndexResponseDTO implements ResponseInterfaceData
+final readonly class SettingIndexResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public int $id,

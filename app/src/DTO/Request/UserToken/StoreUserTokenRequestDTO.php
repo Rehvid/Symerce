@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\DTO\Request\UserToken;
 
+use App\DTO\Request\PersistableInterface;
 use App\Entity\User;
 use App\Enums\TokenType;
-use App\Interfaces\PersistableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class StoreUserTokenRequestDTO implements PersistableInterface

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validator;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -27,6 +28,8 @@ class UniqueEmailValidator extends ConstraintValidator
         }
 
         $object = $this->context->getObject();
+
+        /** @var User|null $user */
         $user = $this->userRepository->findOneBy(['email' => $value]);
 
         if (null === $user) {

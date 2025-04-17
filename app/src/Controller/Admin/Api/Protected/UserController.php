@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Api\Protected;
 
-use App\Controller\AbstractApiController;
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\User\SaveUserRequestDTO;
 use App\DTO\Response\FileResponseDTO;
@@ -26,11 +25,12 @@ class UserController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $userData = array_map(function(array $item) use ($service) {
+        $userData = array_map(function (array $item) use ($service) {
             if ($item['path']) {
                 $item['imagePath'] = $service->preparePublicPathToFile($item['path']);
             }
             unset($item['path']);
+
             return $item;
         }, $paginatedResponse->data);
 
@@ -40,7 +40,6 @@ class UserController extends AbstractAdminController
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
-
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
     public function showUpdateFormData(User $user, FileService $service): JsonResponse
@@ -56,7 +55,7 @@ class UserController extends AbstractAdminController
                 'id' => $user->getAvatar()?->getId(),
                 'name' => "Avatar - $fullName",
                 'preview' => $service->preparePublicPathToFile($user->getAvatar()?->getPath()),
-            ])
+            ]),
         ]);
 
 
@@ -64,10 +63,10 @@ class UserController extends AbstractAdminController
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] SaveUserRequestDTO $dto): JsonResponse
+    public function store(#[MapRequestPayload] SaveUserRequestDTO $persistable): JsonResponse
     {
         /** @var User $entity */
-        $entity = $this->dataPersisterManager->persist($dto);
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
@@ -79,10 +78,10 @@ class UserController extends AbstractAdminController
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         User $user,
-        #[MapRequestPayload] SaveUserRequestDTO $dto,
+        #[MapRequestPayload] SaveUserRequestDTO $persistable,
     ): JsonResponse {
-        /** @var $user $entity */
-        $entity = $this->dataPersisterManager->update($dto, $user);
+        /** @var User $entity */
+        $entity = $this->dataPersisterManager->update($persistable, $user);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],

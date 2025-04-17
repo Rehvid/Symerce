@@ -7,17 +7,15 @@ namespace App\Enums;
 enum SettingType: string
 {
     case CURRENCY = 'currency';
-    case OTHER = 'other';
+    case CUSTOM = 'custom';
 
-    public static function valuesNotProtected(): array
-    {
-        return [self::OTHER];
-    }
-
-    public static function valuesNotProtectedWithLabels(): array
+    /**
+     * @return array<string, mixed>
+     */
+    public static function translatedOptions(): array
     {
         return [
-            'base.setting_type' => self::OTHER
+            'base.setting_type' => self::CUSTOM,
         ];
     }
 }

@@ -22,7 +22,7 @@ class CurrencyController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (array $item)  {
+        $data = array_map(function (array $item) {
             return CurrencyIndexResponseDTO::fromArray([
                 'id' => $item['id'],
                 'name' => $item['name'],
@@ -38,10 +38,6 @@ class CurrencyController extends AbstractAdminController
         );
     }
 
-    /**
-     * @param Currency $currency
-     * @return JsonResponse
-     */
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
     public function showUpdateFormData(Currency $currency): JsonResponse
     {
@@ -52,19 +48,20 @@ class CurrencyController extends AbstractAdminController
                     'symbol' => $currency->getSymbol(),
                     'code' => $currency->getCode(),
                     'roundingPrecision' => $currency->getRoundingPrecision(),
-                ])
+                ]),
             ]
         );
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] SaveCurrencyRequestDTO $dto): JsonResponse
+    public function store(#[MapRequestPayload] SaveCurrencyRequestDTO $persistable): JsonResponse
     {
-        $entity = $this->dataPersisterManager->persist($dto);
+        /** @var Currency $entity */
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.vendor.store'),
+            message: $this->translator->trans('base.messages.currency.store'),
             statusCode: Response::HTTP_CREATED
         );
     }
@@ -72,14 +69,14 @@ class CurrencyController extends AbstractAdminController
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         Currency $currency,
-        #[MapRequestPayload] SaveCurrencyRequestDTO $dto,
+        #[MapRequestPayload] SaveCurrencyRequestDTO $persistable,
     ): JsonResponse {
-
-        $entity = $this->dataPersisterManager->update($dto, $currency);
+        /** @var Currency $entity */
+        $entity = $this->dataPersisterManager->update($persistable, $currency);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.vendor.update')
+            message: $this->translator->trans('base.messages.currency.update')
         );
     }
 
@@ -88,6 +85,6 @@ class CurrencyController extends AbstractAdminController
     {
         $this->dataPersisterManager->delete($currency);
 
-        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.vendor.destroy'));
+        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.currency.destroy'));
     }
 }

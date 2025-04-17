@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO\Response\Profile;
 
 use App\DTO\Response\FileResponseDTO;

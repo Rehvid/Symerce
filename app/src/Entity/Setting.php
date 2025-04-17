@@ -3,23 +3,30 @@
 declare(strict_types=1);
 
 namespace App\Entity;
+
 use App\Enums\SettingType;
+use App\Repository\SettingRepository;
+use App\Traits\ActiveTrait;
+use App\Traits\CreatedAtTrait;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(RepositoryClass: SettingRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class GlobalSettings
+class Setting
 {
+    use CreatedAtTrait;
+    use ActiveTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
     private int $id;
 
-    #[ORM\Column(type: 'string',  length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\Column(type: 'string',  length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $value;
 
     #[ORM\Column(type: 'string', enumType: SettingType::class)]

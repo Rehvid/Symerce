@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Repository\AttributeRepository;
+use App\Traits\OrderTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: AttributeRepository::class)]
 class Attribute
 {
+    use OrderTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
     private int $id;
 
-    #[ORM\Column(type: 'string',  length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
     #[ORM\OneToMany(targetEntity: AttributeValue::class, mappedBy: 'attribute', cascade: ['remove'])]
     private Collection $values;
-
 
     public function __construct()
     {
@@ -33,7 +36,6 @@ class Attribute
         return $this->id;
     }
 
-    
     public function getName(): string
     {
         return $this->name;

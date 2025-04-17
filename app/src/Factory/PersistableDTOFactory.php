@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use App\Interfaces\PersistableInterface;
+use App\DTO\Request\PersistableInterface;
 
 final class PersistableDTOFactory
 {

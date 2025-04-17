@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DTO\Request\Profile;
 
-use App\Interfaces\PersistableInterface;
+use App\DTO\Request\PersistableInterface;
 use App\Validator\RepeatPassword as CustomAssertRepeatPassword;
 use App\Validator\StrongPassword as CustomAssertStrongPassword;
 use Symfony\Component\Validator\Constraints as Assert;

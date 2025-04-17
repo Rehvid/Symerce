@@ -10,7 +10,10 @@ enum DeliveryType: string
     case EXPRESS = 'express';
     case ECONOMY = 'economy';
 
-    public static function valuesWithTranslation(): array
+    /**
+     * @return array<string, mixed>
+     */
+    public static function translatedOptions(): array
     {
         return [
             'base.delivery_type.standard' => self::STANDARD,

@@ -7,7 +7,7 @@ namespace App\Controller\Admin\Api\Public;
 use App\Controller\AbstractApiController;
 use App\DTO\Request\Profile\UpdateSecurityRequestDTO;
 use App\DTO\Request\User\ForgotPasswordRequestDTO;
-use App\DTO\Request\User\RegisterUserRequestDTO;
+use App\DTO\Request\User\StoreRegisterUserRequestDTO;
 use App\DTO\Response\ErrorResponseDTO;
 use App\Service\Auth\AuthService;
 use App\Service\Auth\ForgetPasswordService;
@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class AuthController extends AbstractApiController
 {
     #[Route('/register', name: 'register', methods: ['POST'], format: 'json')]
-    public function register(#[MapRequestPayload] RegisterUserRequestDTO $saveUserDTO): JsonResponse
+    public function register(#[MapRequestPayload] StoreRegisterUserRequestDTO $saveUserDTO): JsonResponse
     {
         $this->dataPersisterManager->persist($saveUserDTO);
 

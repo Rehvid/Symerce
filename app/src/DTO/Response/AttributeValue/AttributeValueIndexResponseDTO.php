@@ -1,18 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\DTO\Response\AttributeValue;
 
 use App\DTO\Response\ResponseInterfaceData;
 
-readonly class AttributeValueIndexResponseDTO implements ResponseInterfaceData
+final readonly class AttributeValueIndexResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public int $id,
         public string $value
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): ResponseInterfaceData

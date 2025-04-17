@@ -4,16 +4,16 @@ namespace App\DTO\Response\Setting;
 
 use App\DTO\Response\ResponseInterfaceData;
 
-class SettingUpdateFormResponseDTO extends SettingFormResponseDTO
+final class SettingUpdateFormResponseDTO extends SettingFormResponseDTO
 {
+    /** @param array<int, mixed>  $types */
     private function __construct(
         array $types,
         public string $name,
         public string $type,
         public string $value,
         public bool $isProtected,
-
-    ){
+    ) {
         parent::__construct($types);
     }
 

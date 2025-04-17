@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
-use App\DTO\Request\Vendor\VendorSaveRequestDTO;
+use App\DTO\Request\Vendor\SaveVendorRequestDTO;
 use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\Vendor\VendorFormResponseDTO;
 use App\DTO\Response\Vendor\VendorIndexResponseDTO;
@@ -41,10 +41,10 @@ class VendorController extends AbstractAdminController
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] VendorSaveRequestDTO $dto): JsonResponse
+    public function store(#[MapRequestPayload] SaveVendorRequestDTO $persistable): JsonResponse
     {
         /** @var Vendor $entity */
-        $entity = $this->dataPersisterManager->persist($dto);
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
@@ -65,20 +65,19 @@ class VendorController extends AbstractAdminController
                         'id' => $vendor->getImage()?->getId(),
                         'name' => "Avatar - {$vendor->getName()}",
                         'preview' => $service->preparePublicPathToFile($vendor->getImage()?->getPath()),
-                    ])
-                ])
+                    ]),
+                ]),
             ]
         );
     }
 
-
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         Vendor $vendor,
-        #[MapRequestPayload] VendorSaveRequestDTO $dto,
+        #[MapRequestPayload] SaveVendorRequestDTO $persistable,
     ): JsonResponse {
         /** @var Vendor $entity */
-        $entity = $this->dataPersisterManager->update($dto, $vendor);
+        $entity = $this->dataPersisterManager->update($persistable, $vendor);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],

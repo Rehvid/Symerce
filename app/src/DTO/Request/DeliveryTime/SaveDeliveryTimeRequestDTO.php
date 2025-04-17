@@ -1,15 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO\Request\DeliveryTime;
 
-use App\Interfaces\PersistableInterface;
+use App\DTO\Request\PersistableInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
-class SaveDeliveryTimeRequestDTO implements PersistableInterface
+final class SaveDeliveryTimeRequestDTO implements PersistableInterface
 {
     public function __construct(
-        public string $label,
-        public string $minDays,
-        public string $maxDays,
-        public string $type
-    ) {}
+        #[Assert\NotBlank] public string $label,
+        #[Assert\NotBlank] #[Assert\Type('digit')]  #[Assert\GreaterThanOrEqual(0)] public string $minDays,
+        #[Assert\NotBlank] #[Assert\Type('digit')] #[Assert\GreaterThanOrEqual(propertyPath: 'minDays')] public string $maxDays,
+        public string $type // TODO: Assert Enum
+    ) {
+    }
 }

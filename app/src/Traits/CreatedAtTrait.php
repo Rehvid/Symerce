@@ -20,4 +20,10 @@ trait CreatedAtTrait
     {
         $this->createdAt = $createdAt;
     }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtTimestamp(): void
+    {
+        $this->createdAt = new \DateTime();
+    }
 }

@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Manager;
 
-use App\Service\DataPersister\Base\BasePersister;
+use Doctrine\ORM\EntityManagerInterface;
 
-class DeletePersister extends BasePersister
+final class DeletePersister
 {
+    public function __construct(private readonly EntityManagerInterface $entityManager)
+    {
+    }
+
     public function delete(object $entity): void
     {
         $this->entityManager->remove($entity);

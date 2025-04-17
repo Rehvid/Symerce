@@ -44,20 +44,20 @@ class TagController extends AbstractAdminController
             data: [
                 'formData' => TagFormResponseDTO::fromArray([
                     'name' => $tag->getName(),
-                ])
+                ]),
             ]
         );
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] SaveTagRequestDTO $dto): JsonResponse
+    public function store(#[MapRequestPayload] SaveTagRequestDTO $persistable): JsonResponse
     {
-        /** @var Vendor $entity */
-        $entity = $this->dataPersisterManager->persist($dto);
+        /** @var Tag $entity */
+        $entity = $this->dataPersisterManager->persist($persistable);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.vendor.store'),
+            message: $this->translator->trans('base.messages.tag.store'),
             statusCode: Response::HTTP_CREATED
         );
     }
@@ -65,14 +65,15 @@ class TagController extends AbstractAdminController
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         Tag $tag,
-        #[MapRequestPayload] SaveTagRequestDTO $dto,
+        #[MapRequestPayload] SaveTagRequestDTO $persistable,
     ): JsonResponse {
 
-        $entity = $this->dataPersisterManager->update($dto, $tag);
+        /** @var Tag $entity */
+        $entity = $this->dataPersisterManager->update($persistable, $tag);
 
         return $this->prepareJsonResponse(
             data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.vendor.update')
+            message: $this->translator->trans('base.messages.tag.update')
         );
     }
 
@@ -81,6 +82,6 @@ class TagController extends AbstractAdminController
     {
         $this->dataPersisterManager->delete($tag);
 
-        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.vendor.destroy'));
+        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.tag.destroy'));
     }
 }

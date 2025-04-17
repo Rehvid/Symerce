@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\DTO\Request\Category;
 
-use App\DTO\Request\FileRequestDTO;
-use App\Enums\FileMimeType;
-use App\Factory\PersistableDTOFactory;
-use App\Interfaces\PersistableInterface;
+use App\DTO\Request\PersistableInterface;
+use App\Traits\FileRequestMapperTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class SaveCategoryRequestDTO implements PersistableInterface
 {
-    /** @param array<int, mixed> $image
-     * @param array<int, int> $imageIds
+    use FileRequestMapperTrait;
+
+    /**
+     * @param array<string, mixed> $image
      *
      * @throws \ReflectionException
      */
@@ -24,29 +24,7 @@ final class SaveCategoryRequestDTO implements PersistableInterface
         public readonly int|string|null $parentCategoryId = null,
         public readonly ?string $description = null,
         public array $image = [],
-        public array $imageIds = [],
     ) {
-        $this->transformToImageRequestDTO($image);
-    }
-
-    /**
-     * @param array<int, mixed> $image
-     *
-     * @throws \ReflectionException
-     */
-    private function transformToImageRequestDTO(array $image): void
-    {
-        $result = [];
-        foreach ($image as $imageFile) {
-            $fileRequestDTO = PersistableDTOFactory::create(FileRequestDTO::class, [
-                'size' => $imageFile['size'] ?? null,
-                'name' => $imageFile['name'] ?? null,
-                'type' => FileMimeType::tryFrom($imageFile['type'] ?? null),
-                'content' => $imageFile['content'] ?? null,
-            ]);
-            $result[] = $fileRequestDTO;
-        }
-
-        $this->image = $result;
+        $this->image = $this->createFileRequestDTOs($image);
     }
 }

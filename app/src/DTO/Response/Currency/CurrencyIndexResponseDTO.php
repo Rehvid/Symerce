@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO\Response\Currency;
 
 use App\DTO\Response\ResponseInterfaceData;
 
-class CurrencyIndexResponseDTO implements ResponseInterfaceData
+final readonly class CurrencyIndexResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public int $id,
@@ -12,10 +14,9 @@ class CurrencyIndexResponseDTO implements ResponseInterfaceData
         public string $name,
         public string $symbol,
         public int $roundingPrecision
-    ){
+    ) {
 
     }
-
 
     public static function fromArray(array $data): ResponseInterfaceData
     {
