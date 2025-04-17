@@ -6,11 +6,15 @@ namespace App\Entity;
 
 use App\Enums\DecimalPrecision;
 use App\Repository\CurrencyRepository;
+use App\Traits\ProtectedTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CurrencyRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Currency
 {
+    use ProtectedTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]

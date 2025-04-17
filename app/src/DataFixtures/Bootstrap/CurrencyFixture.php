@@ -21,6 +21,7 @@ class CurrencyFixture extends Fixture implements FixtureGroupInterface
             $currency->setSymbol($data['symbol']);
             $currency->setName($data['name']);
             $currency->setRoundingPrecision($data['roundingPrecision']);
+            $currency->setIsProtected($data['isProtected']);
             $manager->persist($currency);
         }
 

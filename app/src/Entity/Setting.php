@@ -8,15 +8,17 @@ use App\Enums\SettingType;
 use App\Repository\SettingRepository;
 use App\Traits\ActiveTrait;
 use App\Traits\CreatedAtTrait;
+use App\Traits\ProtectedTrait;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(RepositoryClass: SettingRepository::class)]
+#[ORM\Entity(repositoryClass: SettingRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Setting
 {
     use CreatedAtTrait;
     use ActiveTrait;
+    use ProtectedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,9 +33,6 @@ class Setting
 
     #[ORM\Column(type: 'string', enumType: SettingType::class)]
     private SettingType $type;
-
-    #[ORM\Column(type: 'boolean')]
-    private bool $isProtected = false;
 
     public function getId(): int
     {
@@ -65,16 +64,6 @@ class Setting
         $this->name = $name;
     }
 
-    public function isProtected(): bool
-    {
-        return $this->isProtected;
-    }
-
-    public function setIsProtected(bool $isProtected): void
-    {
-        $this->isProtected = $isProtected;
-    }
-
     public function getValue(): string
     {
         return $this->value;
@@ -83,14 +72,6 @@ class Setting
     public function setValue(string $value): void
     {
         $this->value = $value;
-    }
-
-    #[ORM\PreRemove]
-    public function preventRemovalIfProtected(): void
-    {
-        if ($this->isProtected) {
-            throw new \RuntimeException(sprintf('Cannot delete protected setting: "%s"', $this->name));
-        }
     }
 
     #[ORM\PreUpdate]
