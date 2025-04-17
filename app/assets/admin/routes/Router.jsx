@@ -10,7 +10,7 @@ const AppRouter = () => {
 
     return (
         <BrowserRouter>
-            <Suspense fallback={<div>Ładowanie...</div>}>
+            <Suspense fallback={<div>Ładowanie... EEEE</div>}>
                 <Routes>
                     <Route path="/admin/public/">{publicRoutes}</Route>
 

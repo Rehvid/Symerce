@@ -13,14 +13,13 @@ Encore.configureLoaderRule('images', (loaderRule) => {
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
-    .addEntry('admin', './assets/admin/index.js')
+    .addEntry('admin', './assets/admin/index.jsx')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
-    .enableStimulusBridge('./assets/controllers.json')
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = '3.38';

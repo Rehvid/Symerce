@@ -78,3 +78,9 @@ phpunit:
 # Js TOOLS
 prettier-format:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run prettier-format"
+
+check-eslint:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npx eslint assets --ext .js,.jsx --no-error-on-unmatched-pattern"
+
+fix-eslint:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npx eslint assets --ext .js,.jsx --fix"

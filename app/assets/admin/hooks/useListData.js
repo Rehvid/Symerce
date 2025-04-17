@@ -8,7 +8,6 @@ import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 
-
 const useListData = (endpoint, filters, setFilters) => {
     const { handleApiRequest } = useApi();
     const { addNotification } = useCreateNotification();
@@ -69,7 +68,7 @@ const useListData = (endpoint, filters, setFilters) => {
                 }
             },
         });
-    }
+    };
 
     return { items, pagination, isLoading, fetchItems, removeItem };
 };
