@@ -8,6 +8,12 @@ DOCKER_COMPOSE = docker-compose -f docker/docker-compose.yml
 print-env:
 	@cat docker/.env
 
+init:
+	$(MAKE) start
+	$(MAKE) composer-install
+	$(MAKE) migrate
+	$(MAKE) bootstrap-fixtures
+
 start:
 	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) up -d
 
@@ -40,6 +46,9 @@ migrate:
 
 composer-install:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "composer install"
+
+bootstrap-fixtures:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console doctrine:fixtures:load --group=bootstrap --append"
 
 npm-install:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm install"
