@@ -10,7 +10,7 @@ use App\Traits\CreatedAtTrait;
 use App\Traits\UpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(RepositoryClass: FileRepository::class)]
+#[ORM\Entity(repositoryClass: FileRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class File
 {
