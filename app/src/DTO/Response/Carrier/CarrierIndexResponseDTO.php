@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DTO\Response\Carrier;
 
 use App\DTO\Response\ResponseInterfaceData;
+use App\ValueObject\Money;
 
 final class CarrierIndexResponseDTO implements ResponseInterfaceData
 {
@@ -12,7 +13,7 @@ final class CarrierIndexResponseDTO implements ResponseInterfaceData
         public int $id,
         public string $name,
         public bool $isActive,
-        public string $fee,
+        public Money $fee,
         public ?string $imagePath,
     ) {
     }

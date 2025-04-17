@@ -12,6 +12,8 @@ use App\DTO\Response\FileResponseDTO;
 use App\Entity\Carrier;
 use App\Repository\CarrierRepository;
 use App\Service\FileService;
+use App\Service\SettingManager;
+use App\ValueObject\Money;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,16 +24,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class CarrierController extends AbstractAdminController
 {
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(Request $request, CarrierRepository $repository, FileService $service): JsonResponse
-    {
+    public function index(
+        Request $request,
+        CarrierRepository $repository,
+        SettingManager $settingManager,
+        FileService $service
+    ): JsonResponse {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (array $item) use ($service) {
+        $defaultCurrency = $settingManager->findDefaultCurrency();
+
+        $data = array_map(function (array $item) use ($service, $defaultCurrency) {
             return CarrierIndexResponseDTO::fromArray([
                 'id' => $item['id'],
                 'name' => $item['name'],
                 'isActive' => $item['isActive'],
-                'fee' => $item['fee'],
+                'fee' => new Money($item['fee'], $defaultCurrency),
                 'imagePath' => $service->preparePublicPathToFile($item['path']),
             ]);
         }, $paginatedResponse->data);
@@ -43,13 +51,13 @@ class CarrierController extends AbstractAdminController
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(Carrier $carrier, FileService $service): JsonResponse
+    public function showUpdateFormData(Carrier $carrier, FileService $service, SettingManager $settingManager): JsonResponse
     {
         return $this->prepareJsonResponse(
             data: [
                 'formData' => CarrierFormResponseDTO::fromArray([
                     'name' => $carrier->getName(),
-                    'fee' => $carrier->getFee(),
+                    'fee' => new Money($carrier->getFee(), $settingManager->findDefaultCurrency()),
                     'isActive' => $carrier->isActive(),
                     'image' => FileResponseDTO::fromArray([
                         'id' => $carrier->getImage()?->getId(),

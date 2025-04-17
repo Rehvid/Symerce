@@ -6,12 +6,13 @@ namespace App\DTO\Response\Carrier;
 
 use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\ResponseInterfaceData;
+use App\ValueObject\Money;
 
 final class CarrierFormResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
         public readonly string $name,
-        public readonly string $fee,
+        public readonly Money $fee,
         public readonly bool $isActive,
         public ?FileResponseDTO $image,
     ) {
