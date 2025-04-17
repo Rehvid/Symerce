@@ -10,6 +10,7 @@ import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import ApiForm from '@/admin/components/form/ApiForm';
 import InputEmail from '@/admin/components/form/controls/InputEmail';
 import Input from '@/admin/components/form/controls/Input';
+import InputPassword from '@/admin/components/form/controls/InputPassword';
 
 const RegisterForm = () => {
     const {

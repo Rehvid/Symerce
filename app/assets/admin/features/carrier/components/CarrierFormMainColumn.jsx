@@ -20,6 +20,7 @@ const CarrierFormMainColumn = ({register, fieldErrors}) => {
       <Input
         {...register('fee', {
           ...validationRules.required(),
+          ...validationRules.numeric(2),
         })}
         type="text"
         id="fee"
