@@ -1,9 +1,11 @@
 base:
   validation:
-    unique_email: 'Podany adres e-mail jest już zarejestrowany.'
+    already_exists: 'Wartość musi być unikalna.'
     strong_password: 'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.'
     repeat_password: 'Hasła muszą być identyczne.'
     not_exist_field: 'Pole nie zostało znalezione'
+    too_many_decimal_places: 'Podana wartość zawiera zbyt wiele miejsc po przecinku. Maksymalnie {{ precision }}.'
+
   setting_type:
     custom: 'Niestanradowe'
   delivery_type:

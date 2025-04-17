@@ -6,7 +6,7 @@ namespace App\DTO\Request\User;
 
 use App\DTO\Request\PersistableInterface;
 use App\Entity\User;
-use App\Validator\ExistField as CustomAssertExistField;
+use App\Validator\ExistsInDatabase as CustomAssertExistField;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class ForgotPasswordRequestDTO implements PersistableInterface

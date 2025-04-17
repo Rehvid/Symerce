@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\DTO\Request\User;
 
 use App\DTO\Request\PersistableInterface;
+use App\Entity\User;
+use App\Enums\Roles;
 use App\Traits\FileRequestMapperTrait;
 use App\Validator\RepeatPassword as CustomAssertRepeatPassword;
 use App\Validator\StrongPassword as CustomAssertStrongPassword;
-use App\Validator\UniqueEmail as CustomAssertUniqueEmail;
+use App\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -23,10 +25,12 @@ final class SaveUserRequestDTO implements PersistableInterface
      * @throws \ReflectionException
      */
     public function __construct(
-        #[Assert\NotBlank] #[Assert\Email] #[CustomAssertUniqueEmail] public readonly string $email,
+        #[Assert\NotBlank] #[Assert\Email]
+        #[CustomAssertUniqueEmail(options: ['field' => 'email', 'className' => User::class])]
+        public readonly string $email,
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public readonly string $firstname,
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public readonly string $surname,
-        #[Assert\NotBlank] public array $roles,
+        #[Assert\NotBlank] #[Assert\Choice(callback: [Roles::class, 'values'], multiple: true)] public array $roles,
         public readonly ?int $id,
         public readonly ?string $password,
         public readonly ?string $passwordConfirmation,

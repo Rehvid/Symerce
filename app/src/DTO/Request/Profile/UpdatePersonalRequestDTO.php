@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\DTO\Request\Profile;
 
 use App\DTO\Request\PersistableInterface;
+use App\Entity\User;
 use App\Traits\FileRequestMapperTrait;
-use App\Validator\UniqueEmail as CustomAssertUniqueEmail;
+use App\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class UpdatePersonalRequestDTO implements PersistableInterface
@@ -21,7 +22,10 @@ final class UpdatePersonalRequestDTO implements PersistableInterface
     public function __construct(
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public readonly string $firstname,
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public readonly string $surname,
-        #[Assert\NotBlank] #[Assert\Email] #[CustomAssertUniqueEmail] public readonly string $email,
+        #[Assert\NotBlank]
+        #[Assert\Email]
+        #[CustomAssertUniqueEmail(options: ['field' => 'email', 'className' => User::class])]
+        public readonly string $email,
         #[Assert\NotBlank] public readonly int $id,
         public array $avatar = [],
     ) {

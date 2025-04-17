@@ -21,4 +21,12 @@ enum DeliveryType: string
             'base.delivery_type.economy' => self::ECONOMY,
         ];
     }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function values(): array
+    {
+        return array_map(fn (self $case) => $case->value, self::cases());
+    }
 }

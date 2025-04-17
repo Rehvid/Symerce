@@ -7,7 +7,7 @@ namespace App\Validator;
 use Symfony\Component\Validator\Constraint;
 
 #[\Attribute]
-class ExistField extends Constraint
+class ExistsInDatabase extends Constraint
 {
     public string $field;
     public string $className;

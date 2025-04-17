@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class ExistFieldValidator extends ConstraintValidator
+class ExistsInDatabaseValidator extends ConstraintValidator
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManagerInterface,
@@ -18,8 +18,8 @@ class ExistFieldValidator extends ConstraintValidator
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ExistField) {
-            throw new UnexpectedTypeException($constraint, UniqueEmail::class);
+        if (!$constraint instanceof ExistsInDatabase) {
+            throw new UnexpectedTypeException($constraint, ExistsInDatabase::class);
         }
 
         if (null === $value || '' === $value) {

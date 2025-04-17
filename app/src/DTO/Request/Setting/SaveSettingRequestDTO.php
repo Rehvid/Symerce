@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DTO\Request\Setting;
 
 use App\DTO\Request\PersistableInterface;
+use App\Enums\SettingType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class SaveSettingRequestDTO implements PersistableInterface
@@ -13,7 +14,7 @@ final class SaveSettingRequestDTO implements PersistableInterface
         public ?int $id,
         #[Assert\NotBlank] #[Assert\Length(min: 3)] public string $name,
         #[Assert\NotBlank] #[Assert\Length(min: 3)] public string $value,
-        #[Assert\NotBlank] public string $type,
+        #[Assert\NotBlank] #[Assert\Choice(callback: [SettingType::class, 'values'])] public string $type,
         public bool $isProtected,
     ) {
     }
