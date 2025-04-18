@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import adminRoutes from '@/admin/routes/AdminRoutes';
 import publicRoutes from '@/admin/routes/PublicRoutes';
+import SuspenseFallback from '@/admin/pages/SuspenseFallback';
 
 const AppRouter = () => {
     const Forbidden = lazy(() => import('@/admin/pages/Forbidden'));
@@ -10,7 +11,7 @@ const AppRouter = () => {
 
     return (
         <BrowserRouter>
-            <Suspense fallback={<div>Ładowanie... EEEE</div>}>
+            <Suspense fallback={<SuspenseFallback/>}>
                 <Routes>
                     <Route path="/admin/public/">{publicRoutes}</Route>
 
