@@ -9,12 +9,12 @@ import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
     const [formData, setFormData] = useState({});
     const { handleApiRequest, isRequestFinished } = useApi();
+    const [isFormReady, setIsFormReady] = useState(true);
     const { addNotification } = useCreateNotification();
     const navigate = useNavigate();
 
-    if (navigate) console.log('Hello');
-
-    const fetchFormData = (endPoint, method, formFieldNames = []) => {
+    const fetchFormData = (endPoint, method, formFieldNames = [], fieldModifiers = []) => {
+        setIsFormReady(false);
         const config = createApiConfig(endPoint, method);
         handleApiRequest(config, {
             onSuccess: ({ data }) => {
@@ -24,9 +24,19 @@ const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
 
                     formFieldNames.forEach((fieldName) => {
                         if (formData[fieldName] !== undefined) {
-                            setValue(fieldName, formData[fieldName]);
+                            let value = formData[fieldName];
+
+                            if (fieldModifiers.length > 0) {
+                                const modifier = fieldModifiers.find(mod => mod.fieldName === fieldName);
+                                if (modifier) {
+                                    value = modifier.action(formData[fieldName]);
+                                }
+                            }
+
+                            setValue(fieldName, value);
                         }
                     });
+                    setIsFormReady(true);
                 }
             },
         });
@@ -47,7 +57,8 @@ const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
         params.id
             ? createApiConfig(`${baseApiUrl}/${params.id}`, HTTP_METHODS.PUT)
             : createApiConfig(baseApiUrl, HTTP_METHODS.POST);
-    return { fetchFormData, defaultApiSuccessCallback, getApiConfig, formData, setFormData, isRequestFinished };
+
+    return { fetchFormData, defaultApiSuccessCallback, getApiConfig, formData, setFormData, isRequestFinished, isFormReady };
 };
 
 export default useApiForm;

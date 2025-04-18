@@ -6,6 +6,7 @@ import ApiForm from '@/admin/components/form/ApiForm';
 import FormLayout from '@/admin/layouts/FormLayout';
 import CarrierFormSideColumn from '@/admin/features/carrier/components/CarrierFormSideColumn';
 import CarrierFormMainColumn from '@/admin/features/carrier/components/CarrierFormMainColumn';
+import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 
 const CarrierForm = ({params}) => {
   const {
@@ -24,7 +25,7 @@ const CarrierForm = ({params}) => {
     getApiConfig,
     formData,
     setFormData,
-    isRequestFinished
+    isFormReady
   } = useApiForm(
     setValue,
     params,
@@ -34,15 +35,24 @@ const CarrierForm = ({params}) => {
 
   if (params.id) {
     useEffect(() => {
-      fetchFormData(`admin/carriers/${params.id}/form-data`, HTTP_METHODS.GET, ['name', 'fee', 'isActive']);
+      fetchFormData(
+        `admin/carriers/${params.id}/form-data`,
+        HTTP_METHODS.GET,
+        ['name', 'isActive', 'fee'],
+        [{
+          fieldName: 'fee',
+          action: (item) => {
+            return item.amount;
+          }
+        }]
+      );
+
     }, []);
   }
 
-  // console.log(fieldErrors);
-  // console.log(Object.values(fieldErrors))
-  // if (!isRequestFinished && Object.values(fieldErrors).length === 0) {
-  //   return <FormSkeleton rowsCount={3} />
-  // }
+  if (!isFormReady ) {
+    return <FormSkeleton rowsCount={3} />
+  }
 
   return (
     <ApiForm
@@ -53,7 +63,7 @@ const CarrierForm = ({params}) => {
     >
       <FormLayout
         mainColumn={
-          <CarrierFormMainColumn register={register} fieldErrors={fieldErrors} />
+          <CarrierFormMainColumn register={register} fieldErrors={fieldErrors} formData={formData} />
         }
         sideColumn={
           <CarrierFormSideColumn register={register} formData={formData} setValue={setValue} setFormData={setFormData}/>

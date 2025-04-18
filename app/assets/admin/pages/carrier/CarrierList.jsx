@@ -34,13 +34,17 @@ const CarrierList = () => {
     return <Badge variant={variant} >{text}</Badge>
   }
 
+  const renderCurrency = (item) => (
+     <div>{item.amount} {item.symbol}</div>
+  );
+
 
   const data = items.map((item) => {
     return Object.values({
       id: item.id,
       name: item.name,
       active: activeBadge(item),
-      fee: item.fee,
+      fee: renderCurrency(item.fee),
       actions: <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/carriers/${item.id}`)}  />,
     });
   });
