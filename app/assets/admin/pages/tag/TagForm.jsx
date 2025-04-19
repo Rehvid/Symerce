@@ -1,13 +1,16 @@
 import { useForm } from 'react-hook-form';
 import useApiForm from '@/admin/hooks/useApiForm';
 import React, { useEffect } from 'react';
+import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import ApiForm from '@/admin/components/form/ApiForm';
 import FormLayout from '@/admin/layouts/FormLayout';
 import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
-import { HTTP_METHODS } from '@/admin/constants/httpConstants';
+import { useParams } from 'react-router-dom';
+import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 
-const AttributeValueForm = ({params}) => {
+const TagForm = () => {
+  const params = useParams();
   const {
     register,
     handleSubmit,
@@ -16,23 +19,25 @@ const AttributeValueForm = ({params}) => {
     formState: { errors: fieldErrors },
   } = useForm({
     mode: 'onBlur',
-    defaultValues: {
-      attributeId: Number(params.attributeId) || null
-    }
   });
 
-  const { fetchFormData, defaultApiSuccessCallback, getApiConfig } = useApiForm(
+  const { fetchFormData, defaultApiSuccessCallback, getApiConfig, isFormReady } = useApiForm(
     setValue,
     params,
-    `admin/attributes/${params.attributeId}/values`,
-    `/admin/products/attributes/${params.attributeId}/values`
+    'admin/tags',
+    '/admin/tags'
   );
 
   if (params.id) {
     useEffect(() => {
-      fetchFormData(`admin/attributes/${params.attributeId}/values/${params.id}/form-data`, HTTP_METHODS.GET, ['value']);
+      fetchFormData(`admin/tags/${params.id}/form-data`, HTTP_METHODS.GET, ['name']);
     }, []);
   }
+
+  if (!isFormReady ) {
+    return <FormSkeleton rowsCount={8} />
+  }
+
 
   return (
     <ApiForm
@@ -42,17 +47,18 @@ const AttributeValueForm = ({params}) => {
       apiRequestCallbacks={defaultApiSuccessCallback}
     >
       <FormLayout
+        pageTitle={params.id ? 'Edytuj Tag' : 'Dodaj Tag'}
         mainColumn={
           <Input
-            {...register('value', {
+            {...register('name', {
               ...validationRules.required(),
               ...validationRules.minLength(3),
             })}
             type="text"
-            id="value"
-            label="Wartość"
-            hasError={!!fieldErrors?.value}
-            errorMessage={fieldErrors?.value?.message}
+            id="name"
+            label="Nazwa"
+            hasError={!!fieldErrors?.name}
+            errorMessage={fieldErrors?.name?.message}
             isRequired
           />
         }
@@ -61,4 +67,4 @@ const AttributeValueForm = ({params}) => {
   )
 }
 
-export default AttributeValueForm;
+export default TagForm;

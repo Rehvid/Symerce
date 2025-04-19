@@ -20,12 +20,12 @@ const routesConfig = [
     },
     {
         path: 'products/create',
-        component: lazy(() => import('@/admin/pages/product/ProductEditor')),
+        component: lazy(() => import('@/admin/pages/product/ProductForm')),
         roles: ['user'],
     },
     {
         path: 'products/:id/edit',
-        component: lazy(() => import('@/admin/pages/product/ProductEditor')),
+        component: lazy(() => import('@/admin/pages/product/ProductForm')),
         roles: ['user'],
     },
     {
@@ -35,12 +35,12 @@ const routesConfig = [
     },
     {
         path: 'products/attributes/create',
-        component: lazy(() => import('@/admin/pages/product/attribute/AttributeEditor')),
+        component: lazy(() => import('@/admin/pages/product/attribute/AttributeForm')),
         roles: ['user'],
     },
     {
         path: 'products/attributes/:id/edit',
-        component: lazy(() => import('@/admin/pages/product/attribute/AttributeEditor')),
+        component: lazy(() => import('@/admin/pages/product/attribute/AttributeForm')),
         roles: ['user'],
     },
     {
@@ -50,12 +50,12 @@ const routesConfig = [
     },
     {
         path: 'products/attributes/:attributeId/values/create',
-        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueEditor')),
+        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueForm')),
         roles: ['user'],
     },
     {
         path: 'products/attributes/:attributeId/values/:id/edit',
-        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueEditor')),
+        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueForm')),
         roles: ['user'],
     },
     {
@@ -65,12 +65,12 @@ const routesConfig = [
     },
     {
         path: 'products/vendors/create',
-        component: lazy(() => import('@/admin/pages/product/vendor/VendorEditor')),
+        component: lazy(() => import('@/admin/pages/product/vendor/VendorForm')),
         roles: ['user'],
     },
     {
         path: 'products/vendors/:id/edit',
-        component: lazy(() => import('@/admin/pages/product/vendor/VendorEditor')),
+        component: lazy(() => import('@/admin/pages/product/vendor/VendorForm')),
         roles: ['user'],
     },
     {
@@ -80,12 +80,12 @@ const routesConfig = [
     },
     {
         path: 'categories/create',
-        component: lazy(() => import('@/admin/pages/category/CategoryEditor')),
+        component: lazy(() => import('@/admin/pages/category/CategoryForm')),
         roles: ['user', 'admin'],
     },
     {
         path: 'categories/:id/edit',
-        component: lazy(() => import('@/admin/pages/category/CategoryEditor')),
+        component: lazy(() => import('@/admin/pages/category/CategoryForm')),
         roles: ['user', 'admin'],
     },
     {
@@ -95,12 +95,12 @@ const routesConfig = [
     },
     {
         path: 'users/create',
-        component: lazy(() => import('@/admin/pages/user/UserEditor')),
+        component: lazy(() => import('@/admin/pages/user/UserForm')),
         roles: ['admin'],
     },
     {
         path: 'users/:id/edit',
-        component: lazy(() => import('@/admin/pages/user/UserEditor')),
+        component: lazy(() => import('@/admin/pages/user/UserForm')),
         roles: ['admin'],
     },
     {
@@ -110,12 +110,12 @@ const routesConfig = [
     },
     {
         path: 'settings/create',
-        component: lazy(() => import('@/admin/pages/setting/SettingEditor')),
+        component: lazy(() => import('@/admin/pages/setting/SettingForm')),
         roles: ['admin'],
     },
     {
         path: 'settings/:id/edit',
-        component: lazy(() => import('@/admin/pages/setting/SettingEditor')),
+        component: lazy(() => import('@/admin/pages/setting/SettingForm')),
         roles: ['admin'],
     },
     {
@@ -125,12 +125,12 @@ const routesConfig = [
     },
     {
         path: 'tags/create',
-        component: lazy(() => import('@/admin/pages/tag/TagEditor')),
+        component: lazy(() => import('@/admin/pages/tag/TagForm')),
         roles: ['admin'],
     },
     {
         path: 'tags/:id/edit',
-        component: lazy(() => import('@/admin/pages/tag/TagEditor')),
+        component: lazy(() => import('@/admin/pages/tag/TagForm')),
         roles: ['admin'],
     },
     {
@@ -140,12 +140,12 @@ const routesConfig = [
     },
     {
         path: 'carriers/create',
-        component: lazy(() => import('@/admin/pages/carrier/CarrierEditor')),
+        component: lazy(() => import('@/admin/pages/carrier/CarrierForm')),
         roles: ['admin'],
     },
     {
         path: 'carriers/:id/edit',
-        component: lazy(() => import('@/admin/pages/carrier/CarrierEditor')),
+        component: lazy(() => import('@/admin/pages/carrier/CarrierForm')),
         roles: ['admin'],
     },
     {
@@ -155,12 +155,12 @@ const routesConfig = [
     },
     {
         path: 'delivery-time/create',
-        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeEditor')),
+        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
         roles: ['admin'],
     },
     {
         path: 'delivery-time/:id/edit',
-        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeEditor')),
+        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
         roles: ['admin'],
     },
     {
@@ -170,12 +170,12 @@ const routesConfig = [
     },
     {
         path: 'currencies/create',
-        component: lazy(() => import('@/admin/pages/currency/CurrencyEditor')),
+        component: lazy(() => import('@/admin/pages/currency/CurrencyForm')),
         roles: ['admin'],
     },
     {
         path: 'currencies/:id/edit',
-        component: lazy(() => import('@/admin/pages/currency/CurrencyEditor')),
+        component: lazy(() => import('@/admin/pages/currency/CurrencyForm')),
         roles: ['admin'],
     },
 ];

@@ -34,7 +34,7 @@ const TopBar = () => {
 
     return (
         <header className="sticky top-0 flex w-full bg-white border-gray-200 z-300 lg:border-b">
-            <div className="flex flex-col items-center justify-end grow flex-row px-[160px] py-4">
+            <div className="flex flex-col items-center justify-end grow flex-row max-w-(--breakpoint-2xl) px-5 py-4">
                 <Dropdown forceClose={forceClose}>
                     <DropdownButton className="flex gap-2 items-center cursor-pointer" onClickExtra={onDropdownClick}>
                         {user?.avatar?.id ? (
@@ -56,7 +56,7 @@ const TopBar = () => {
                             />
                         </div>
                     </DropdownButton>
-                    <DropdownContent containerClasses="w-[250px] mt-2 ">
+                    <DropdownContent containerClasses="w-[250px] mt-2 right-0 ">
                         <div className="mb-1">
                             <span className="font-medium block text-gray-700">{user?.fullName}</span>
                             <small className="block text-gray-500">{user?.email}</small>

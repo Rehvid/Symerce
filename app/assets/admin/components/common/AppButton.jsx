@@ -1,7 +1,7 @@
 const AppButton = ({ children, id, variant, additionalClasses = '', type = 'button', ...props }) => {
     const variants = {
-        primary: 'bg-primary text-white hover:bg-primary-stronger',
-        secondary: 'bg-white hover:bg-gray-100 text-gray-700 border border-gray-300',
+        primary: 'bg-primary text-tertiary hover:bg-primary-hover',
+        secondary: 'bg-secondary text-tertiary hover:bg-secondary-hover ',
         link: 'bg-white text-gray-700 hover:bg-gray-100 hover:text-gray-900',
         sideBar: 'text-gray-700 hover:bg-gray-100',
     };
@@ -10,7 +10,7 @@ const AppButton = ({ children, id, variant, additionalClasses = '', type = 'butt
         <button
             id={id}
             type={type}
-            className={`transition-all rounded-full cursor-pointer  ${variant ? variants[variant] : ''} ${additionalClasses}`}
+            className={`transition-all rounded-lg cursor-pointer  ${variant ? variants[variant] : ''} ${additionalClasses}`}
             {...props}
         >
             {children}

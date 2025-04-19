@@ -6,7 +6,7 @@ function DropdownContent({ isOpen, children, containerClasses = '' }) {
             } relative`}
         >
             <div
-                className={`absolute rounded-md bg-white shadow-lg rounded-xl border border-gray-200 p-3 ${containerClasses}`}
+                className={`absolute bg-white shadow-lg rounded-lg border border-gray-200 p-3 ${containerClasses}`}
             >
                 {children}
             </div>

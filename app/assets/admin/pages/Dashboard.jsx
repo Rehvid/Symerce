@@ -1,7 +1,9 @@
+import Heading from '@/admin/components/common/Heading';
+
 const Dashboard = () => {
     return (
         <>
-            <h1>Dashboard</h1>
+            <Heading level="h2">Dashboard</Heading>
         </>
     );
 };

@@ -14,7 +14,7 @@ const ProfileNavigation = ({ activeTab, setActiveTab, tabs }) => {
                             key={index}
                             onClick={() => setActiveTab(tab.name)}
                         >
-                            {tab.name}
+                            {tab.label}
                         </AppButton>
                     );
                 })}

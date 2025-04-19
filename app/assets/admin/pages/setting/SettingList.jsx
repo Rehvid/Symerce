@@ -7,8 +7,9 @@ import PageHeader from '@/admin/layouts/components/PageHeader';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
-import TableRowDeleteAction from '@/admin/components/table/Partials/TableRow/TableRowDeleteAction';
 import TableRowEditAction from '@/admin/components/table/Partials/TableRow/TableRowEditAction';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
+import Badge from '@/admin/components/common/Badge';
 
 const SettingList = () => {
   const currentFilters = new URLSearchParams(location.search);
@@ -28,30 +29,26 @@ const SettingList = () => {
     return <TableSkeleton rowsCount={filters.limit} />
   }
 
-  const actions = (item) => {
-    const editPath = `${item.id}/edit`;
-
-    if (item.isProtected) {
+  const actions = (id, isProtected) => {
+    if (isProtected) {
       return  (
         <div className="flex gap-2 items-start">
-          <TableRowEditAction to={editPath}  />
+          <TableRowEditAction to={`${id}/edit`}  />
         </div>
       )
     }
 
-    return <TableActions
-      editPath={editPath}
-      onDelete={() => removeItem(`admin/settings/${item.id}`)}
-    />
+    return <TableActions id={id} onDelete={() => removeItem(`admin/settings/${item.id}`)} />
   }
 
   const data = items.map((item) => {
+    const {id, name, type, value, isProtected} = item;
     return Object.values({
-      id: item.id,
-      name: item.name,
-      type: item.type,
-      value: item.value,
-      actions: actions(item),
+      id: <TableRowId id={id} /> ,
+      name: name,
+      type: <Badge> {type} </Badge>, //TODO: Inne dane
+      value: value, //TODO: Dane inne wysyłamy
+      actions: actions(id, isProtected),
     });
   });
 
@@ -65,7 +62,7 @@ const SettingList = () => {
         title="Globalne Ustawienia"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Name', 'Type', 'Value', 'Actions']}
+        columns={['ID', 'Nazwa', 'Typ', 'Wartość', 'Akcje']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}

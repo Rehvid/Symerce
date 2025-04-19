@@ -8,6 +8,7 @@ import PageHeader from '@/admin/layouts/components/PageHeader';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const AttributeValueList = () => {
   const location = useLocation();
@@ -24,7 +25,6 @@ const AttributeValueList = () => {
     items,
     pagination,
     isLoading,
-    fetchItems,
     removeItem,
   } = useListData(`admin/attributes/${params.id}/values`, filters);
 
@@ -33,10 +33,11 @@ const AttributeValueList = () => {
   }
 
   const data = items.map((item) => {
+    const {id, value} = item;
     return Object.values({
-      id: item.id,
-      value: item.value,
-      actions: <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/attributes/${item.id}/values/${item.id}`)} />
+      id: <TableRowId id={id} />,
+      value: value,
+      actions: <TableActions id={id} onDelete={() => removeItem(`admin/attributes/${params.attributeId}/values/${id}`)} />
     });
   });
 
@@ -50,7 +51,7 @@ const AttributeValueList = () => {
         title="Wartości"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Value', 'Actions']}
+        columns={['ID', 'Wartości', 'Akcje']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}

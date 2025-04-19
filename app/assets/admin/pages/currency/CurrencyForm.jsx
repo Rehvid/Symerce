@@ -4,11 +4,12 @@ import React, { useEffect } from 'react';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import ApiForm from '@/admin/components/form/ApiForm';
 import FormLayout from '@/admin/layouts/FormLayout';
-import CarrierFormMainColumn from '@/admin/features/carrier/components/CarrierFormMainColumn';
-import CarrierFormSideColumn from '@/admin/features/carrier/components/CarrierFormSideColumn';
 import CurrencyFormMainColumn from '@/admin/features/currency/components/CurrencyFormMainColumn';
+import { useParams } from 'react-router-dom';
+import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 
-const CurrencyForm = ({params}) => {
+const CurrencyForm = () => {
+  const params = useParams();
   const {
     register,
     handleSubmit,
@@ -23,6 +24,7 @@ const CurrencyForm = ({params}) => {
     fetchFormData,
     defaultApiSuccessCallback,
     getApiConfig,
+    isFormReady
   } = useApiForm(
     setValue,
     params,
@@ -32,15 +34,17 @@ const CurrencyForm = ({params}) => {
 
   if (params.id) {
     useEffect(() => {
-      fetchFormData(`admin/currencies/${params.id}/form-data`, HTTP_METHODS.GET, ['name', 'code', 'symbol', 'roundingPrecision']);
+      fetchFormData(
+        `admin/currencies/${params.id}/form-data`,
+        HTTP_METHODS.GET,
+        ['name', 'code', 'symbol', 'roundingPrecision']
+      );
     }, []);
   }
 
-  // console.log(fieldErrors);
-  // console.log(Object.values(fieldErrors))
-  // if (!isRequestFinished && Object.values(fieldErrors).length === 0) {
-  //   return <FormSkeleton rowsCount={3} />
-  // }
+  if (!isFormReady ) {
+    return <FormSkeleton rowsCount={4} />
+  }
 
   return (
     <ApiForm
@@ -50,6 +54,7 @@ const CurrencyForm = ({params}) => {
       apiRequestCallbacks={defaultApiSuccessCallback}
     >
       <FormLayout
+        pageTitle={params.id ? 'Edytuj Walute' : 'Dodaj Walute'}
         mainColumn={
           <CurrencyFormMainColumn register={register} fieldErrors={fieldErrors} />
         }

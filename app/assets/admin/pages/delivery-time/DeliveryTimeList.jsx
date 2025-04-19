@@ -2,12 +2,13 @@ import { useState } from 'react';
 import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
-import Badge from '@/admin/components/common/Badge';
 import TableActions from '@/admin/components/table/Partials/TableActions';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
+import Badge from '@/admin/components/common/Badge';
 
 const DeliveryTimeList = () => {
   const currentFilters = new URLSearchParams(location.search);
@@ -27,15 +28,15 @@ const DeliveryTimeList = () => {
     return <TableSkeleton rowsCount={filters.limit} />
   }
 
-
   const data = items.map((item) => {
+    const { id, label, minDays, maxDays, type } = item;
     return Object.values({
-      id: item.id,
-      label: item.label,
-      minDays: item.minDays,
-      maxDays: item.maxDays,
-      type: item.type,
-      actions: <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/delivery-time/${item.id}`)}  />,
+      id: <TableRowId id={id} />,
+      label: label,
+      minDays: minDays,
+      maxDays: maxDays,
+      type: <Badge variant="info"> {type} </Badge>, //TODO: Pobierać inne nazwy
+      actions: <TableActions id={id} onDelete={() => removeItem(`admin/delivery-time/${id}`)}  />,
     });
   });
 
@@ -49,7 +50,7 @@ const DeliveryTimeList = () => {
         title="Czasy"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Label', 'MinDays', 'MaxDays', 'Type', 'Actions']}
+        columns={['ID', 'Nazwa', 'Minimalne Dni', 'Maksymalne Dni', 'Typ', 'Akcje']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}

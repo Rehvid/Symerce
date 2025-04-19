@@ -18,10 +18,10 @@ const AppNotification = ({ label, variant, time }) => {
     if (!isVisible) return null;
 
     const variants = {
-        success: 'border-green-500',
-        info: 'border-blue-500',
-        warning: 'border-yellow-500',
-        error: 'border-red-500',
+        success: 'border-success',
+        info: 'border-info',
+        warning: 'border-warning',
+        error: 'border-error',
     };
 
     const iconVariants = {

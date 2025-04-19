@@ -1,15 +1,16 @@
 import { useForm } from 'react-hook-form';
 import useApiForm from '@/admin/hooks/useApiForm';
 import React, { useEffect } from 'react';
-import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import ApiForm from '@/admin/components/form/ApiForm';
 import FormLayout from '@/admin/layouts/FormLayout';
 import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
-import VendorFormSideColumn from '@/admin/features/product/vendor/components/VendorFormSideColumn';
+import { HTTP_METHODS } from '@/admin/constants/httpConstants';
+import { useParams } from 'react-router-dom';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 
-const VendorForm = ({params}) => {
+const AttributeValueForm = () => {
+  const params = useParams();
   const {
     register,
     handleSubmit,
@@ -18,31 +19,28 @@ const VendorForm = ({params}) => {
     formState: { errors: fieldErrors },
   } = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      attributeId: Number(params.attributeId) || null
+    }
   });
 
-  const {
-    fetchFormData,
-    defaultApiSuccessCallback,
-    getApiConfig,
-    formData,
-    setFormData,
-    isRequestFinished
-  } = useApiForm(
+  const { fetchFormData, defaultApiSuccessCallback, getApiConfig, isFormReady } = useApiForm(
     setValue,
     params,
-    'admin/vendors',
-    '/admin/products/vendors'
+    `admin/attributes/${params.attributeId}/values`,
+    `/admin/products/attributes/${params.attributeId}/values`
   );
 
   if (params.id) {
     useEffect(() => {
-      fetchFormData(`admin/vendors/${params.id}/form-data`, HTTP_METHODS.GET, ['name']);
+      fetchFormData(`admin/attributes/${params.attributeId}/values/${params.id}/form-data`, HTTP_METHODS.GET, ['value']);
     }, []);
   }
 
-  if (!isRequestFinished) {
-    return <FormSkeleton rowsCount={3} />
+  if (!isFormReady ) {
+    return <FormSkeleton rowsCount={2} />
   }
+
 
   return (
     <ApiForm
@@ -52,27 +50,24 @@ const VendorForm = ({params}) => {
       apiRequestCallbacks={defaultApiSuccessCallback}
     >
       <FormLayout
+        pageTitle={params.id ? 'Edytuj wartość' : 'Dodaj wartość'}
         mainColumn={
           <Input
-            {...register('name', {
+            {...register('value', {
               ...validationRules.required(),
               ...validationRules.minLength(3),
             })}
             type="text"
-            id="name"
-            label="Nazwa"
-            hasError={!!fieldErrors?.name}
-            errorMessage={fieldErrors?.name?.message}
+            id="value"
+            label="Wartość"
+            hasError={!!fieldErrors?.value}
+            errorMessage={fieldErrors?.value?.message}
             isRequired
           />
-        }
-        sideColumn={
-          <VendorFormSideColumn register={register} formData={formData} setValue={setValue} setFormData={setFormData}/>
         }
       />
     </ApiForm>
   )
-
 }
 
-export default VendorForm;
+export default AttributeValueForm;

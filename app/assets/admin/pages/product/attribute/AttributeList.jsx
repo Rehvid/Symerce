@@ -11,9 +11,9 @@ import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import AppLink from '@/admin/components/common/AppLink';
 
 import EyeIcon from '@/images/icons/eye.svg';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const AttributeList = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const currentFilters = new URLSearchParams(location.search);
 
@@ -26,7 +26,6 @@ const AttributeList = () => {
     items,
     pagination,
     isLoading,
-    fetchItems,
     removeItem,
   } = useListData('admin/attributes', filters);
 
@@ -34,11 +33,11 @@ const AttributeList = () => {
     return <TableSkeleton rowsCount={filters.limit} />
   }
 
-  const actions = (item) => (
-    <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/attributes/${item.id}`)}>
+  const actions = (id, name) => (
+    <TableActions id={id} onDelete={() => removeItem(`admin/attributes/${id}`)}>
       <AppLink
-        to={`${item.id}/values`}
-        state={{ name: item.name }}
+        to={`${id}/values`}
+        state={{ name: name }}
        additionalClasses="text-gray-500"
       >
         <EyeIcon />
@@ -47,10 +46,11 @@ const AttributeList = () => {
   )
 
   const data = items.map((item) => {
+    const { id, name} = item;
     return Object.values({
-      id: item.id,
-      name: item.name,
-      actions: actions(item),
+      id: <TableRowId id={id} />,
+      name: name,
+      actions: actions(id, name),
     });
   });
 
@@ -64,7 +64,7 @@ const AttributeList = () => {
         title="Grupa Atrybutów"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Name', 'Actions']}
+        columns={['ID', 'Nazwa', 'Akcje']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}

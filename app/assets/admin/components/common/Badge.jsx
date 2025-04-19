@@ -1,8 +1,9 @@
 const Badge = ({variant = 'info', children}) => {
   const variants = {
-    info: 'bg-blue-100 text-blue-800',
-    success: 'bg-green-100 text-green-800',
-    error: 'bg-red-100 text-error-800'
+    info: 'bg-info text-black',
+    success: 'bg-success text-black',
+    error: 'bg-error text-black',
+    warning: 'bg-warning text-black',
   }
 
   return (

@@ -7,7 +7,11 @@ import PageHeader from '@/admin/layouts/components/PageHeader';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
-import Badge from '@/admin/components/common/Badge';
+import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/TableRowImageWithText';
+import CarrierIcon from '@/images/icons/carrier.svg';
+import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
+import TableRowMoney from '@/admin/components/table/Partials/TableRow/TableRowMoney';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const CarrierList = () => {
   const currentFilters = new URLSearchParams(location.search);
@@ -27,25 +31,14 @@ const CarrierList = () => {
     return <TableSkeleton rowsCount={filters.limit} />
   }
 
-  const activeBadge = (item) => {
-    const variant = item.isActive ? 'success' : 'error';
-    const text = item.isActive ? 'Aktywny' : 'Nieaktywny';
-
-    return <Badge variant={variant} >{text}</Badge>
-  }
-
-  const renderCurrency = (item) => (
-     <div>{item.amount} {item.symbol}</div>
-  );
-
-
   const data = items.map((item) => {
+    const { id, imagePath, isActive, name, fee } = item;
     return Object.values({
-      id: item.id,
-      name: item.name,
-      active: activeBadge(item),
-      fee: renderCurrency(item.fee),
-      actions: <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/carriers/${item.id}`)}  />,
+      id: <TableRowId id={id} />,
+      name: <TableRowImageWithText imagePath={imagePath} text={name} defaultIcon={<CarrierIcon className="text-primary mx-auto" />} />,
+      active: <TableRowActiveBadge isActive={isActive} />,
+      fee: <TableRowMoney amount={fee?.amount} symbol={fee?.symbol} />,
+      actions: <TableActions id={id} onDelete={() => removeItem(`admin/carriers/${id}`)}  />,
     });
   });
 
@@ -59,7 +52,7 @@ const CarrierList = () => {
         title="Twoi Dostawcy"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Name', 'Active', 'Fee', 'Actions']}
+        columns={['ID', 'Nazwa', 'Aktywny', 'Opłata', 'Akcje']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}

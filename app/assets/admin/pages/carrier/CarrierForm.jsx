@@ -7,8 +7,11 @@ import FormLayout from '@/admin/layouts/FormLayout';
 import CarrierFormSideColumn from '@/admin/features/carrier/components/CarrierFormSideColumn';
 import CarrierFormMainColumn from '@/admin/features/carrier/components/CarrierFormMainColumn';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
+import { useParams } from 'react-router-dom';
 
-const CarrierForm = ({params}) => {
+const CarrierForm = () => {
+  const params = useParams();
+
   const {
     register,
     handleSubmit,
@@ -18,7 +21,6 @@ const CarrierForm = ({params}) => {
   } = useForm({
     mode: 'onBlur',
   });
-
   const {
     fetchFormData,
     defaultApiSuccessCallback,
@@ -62,6 +64,7 @@ const CarrierForm = ({params}) => {
       apiRequestCallbacks={defaultApiSuccessCallback}
     >
       <FormLayout
+        pageTitle={params.id ? 'Edytuj Przewoźnika' : 'Dodaj Przewoźnika'}
         mainColumn={
           <CarrierFormMainColumn register={register} fieldErrors={fieldErrors} formData={formData} />
         }

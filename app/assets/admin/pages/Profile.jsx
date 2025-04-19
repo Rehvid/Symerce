@@ -12,16 +12,18 @@ const Profile = () => {
         {
             name: 'Personal',
             element: <ProfilePersonalForm />,
+            label: 'Osobiste'
         },
         {
             name: 'Security',
             element: <ProfileSecurityForm />,
+            label: 'Bezpieczeństwo'
         },
     ];
 
     return (
         <>
-            <PageHeader title={'Settings'}>
+            <PageHeader title={'Profil użytkownika'}>
                 <Breadcrumb />
             </PageHeader>
 

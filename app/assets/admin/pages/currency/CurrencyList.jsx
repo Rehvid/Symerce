@@ -8,6 +8,7 @@ import PageHeader from '@/admin/layouts/components/PageHeader';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const CurrencyList = () => {
   const currentFilters = new URLSearchParams(location.search);
@@ -28,13 +29,14 @@ const CurrencyList = () => {
   }
 
   const data = items.map((item) => {
+    const {id, name, symbol, code, roundingPrecision} = item;
     return Object.values({
-      id: item.id,
-      name: item.name,
-      symbol: item.symbol,
-      code: item.code,
-      roundingPrecision: <Badge variant='info' >{item.roundingPrecision}</Badge>,
-      actions: <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/currencies/${item.id}`)}  />,
+      id: <TableRowId id={id} />,
+      name: name,
+      symbol: symbol,
+      code: code,
+      roundingPrecision: <Badge variant='info'><strong>{roundingPrecision}</strong></Badge>,
+      actions: <TableActions id={id} onDelete={() => removeItem(`admin/currencies/${id}`)}  />,
     });
   });
 
@@ -48,7 +50,7 @@ const CurrencyList = () => {
         title="Waluty"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Name', 'Symbol', 'Code', 'Rounding Precision', 'Actions']}
+        columns={['ID', 'Nazwa', 'Symbol', 'Kod', 'Zaokrąglenie', 'Akcje']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}

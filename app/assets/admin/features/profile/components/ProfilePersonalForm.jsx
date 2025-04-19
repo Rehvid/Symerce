@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { validationRules } from '@/admin/utils/validationRules';
-import UserIcon from '@/images/icons/user.svg';
 import { createApiConfig } from '@/shared/api/ApiConfig';
 import { useUser } from '@/admin/hooks/useUser';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 import ApiForm from '@/admin/components/form/ApiForm';
-import FormFooterActions from '@/admin/components/form/FormFooterActions';
-import Dropzone from '@/admin/components/form/dropzone/Dropzone';
-import ModalHeader from '@/admin/components/modal/ModalHeader';
-import ModalBody from '@/admin/components/modal/ModalBody';
-import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
-import { normalizeFiles } from '@/admin/utils/helper';
-import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
-import Input from '@/admin/components/form/controls/Input';
-import InputEmail from '@/admin/components/form/controls/InputEmail';
+import FormLayout from '@/admin/layouts/FormLayout';
+import ProfilePersonalFormMainColumn from '@/admin/features/profile/components/partials/ProfilePersonalFormMainColumn';
+import { useParams } from 'react-router-dom';
 
 const ProfilePersonalForm = () => {
+    const params = useParams();
     const { user, setUser } = useUser();
     const { addNotification } = useCreateNotification();
     const {
@@ -36,12 +29,6 @@ const ProfilePersonalForm = () => {
             id: user.id,
         },
     });
-    const [userAvatar, setUserAvatar] = useState(normalizeFiles(user?.avatar));
-
-    const setDropzoneValue = (avatar) => {
-        setValue('avatar', avatar);
-        setUserAvatar(avatar);
-    };
 
     const apiRequestCallbacks = {
         onSuccess: ({ data, message }) => {
@@ -54,106 +41,25 @@ const ProfilePersonalForm = () => {
         },
     };
 
-    const { onDrop, errors, removeFile } = useDropzoneLogic(
-        setDropzoneValue,
-        (message) => {
-            addNotification(message, ALERT_TYPES.SUCCESS);
-            setUser((prev) => ({
-                ...prev,
-                avatar: null,
-            }));
-        },
-        userAvatar,
-    );
-
-    const renderModal = (file) => (
-        <>
-            <ModalHeader title={file.name} />
-            <ModalBody>
-                <div>
-                    <img src={file.preview} alt={file.name} />
-                </div>
-            </ModalBody>
-        </>
-    );
-
     return (
         <>
-            <h1 className="text-2xl font-bold mb-6">Personal Information</h1>
             <ApiForm
                 apiConfig={createApiConfig(`admin/profiles/${user.id}/personal`, HTTP_METHODS.PUT)}
                 handleSubmit={handleSubmit}
                 setError={setError}
                 apiRequestCallbacks={apiRequestCallbacks}
             >
-                <div className="flex flex-col w-full gap-[40px]">
-                    <div className="flex flex-col gap-2">
-                        <h1 className="mb-2 flex flex-col gap-2 text-gray-500">
-                            <span className="flex items-center">Avatar </span>
-                        </h1>
-                        <Dropzone
-                            onDrop={onDrop}
-                            errors={errors}
-                            variant="avatar"
-                            containerClasses="relative h-40 w-40"
-                        >
-                            {userAvatar.length > 0 &&
-                              userAvatar.map((file, key) => (
-                                <div className="absolute flex top-0 h-full w-full rounded-full" key={key}>
-                                    <img
-                                      className="rounded-full mx-auto object-cover"
-                                      src={file.preview}
-                                      alt={file.name}
-                                    />
-                                    <div className="absolute rounded-full transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl">
-                                        <DropzonePreviewActions
-                                          renderModal={renderModal}
-                                          removeFile={removeFile}
-                                          file={file}
-                                        />
-                                    </div>
-                                </div>
-                              ))}
-                        </Dropzone>
-                    </div>
-
-                    <Input
-                        {...register('firstname', {
-                            ...validationRules.required(),
-                            ...validationRules.minLength(3),
-                        })}
-                        type="text"
-                        id="firstname"
-                        label="Imie"
-                        hasError={fieldErrors.hasOwnProperty('firstname')}
-                        errorMessage={fieldErrors?.firstname?.message}
-                        isRequired
-                        icon={<UserIcon className="text-gray-500" />}
-                    />
-                    <Input
-                        {...register('surname', {
-                            ...validationRules.required(),
-                            ...validationRules.minLength(2),
-                        })}
-                        type="text"
-                        id="surname"
-                        label="Nazwisko"
-                        hasError={fieldErrors.hasOwnProperty('surname')}
-                        errorMessage={fieldErrors?.surname?.message}
-                        isRequired
-                        icon={<UserIcon className="text-gray-500" />}
-                    />
-                    <InputEmail
-                        hasError={fieldErrors.hasOwnProperty('email')}
-                        errorMessage={fieldErrors?.email?.message}
-                        {...register('email', {
-                            ...validationRules.required(),
-                            ...validationRules.minLength(3),
-                        })}
-                    />
-                </div>
-
-                <FormFooterActions />
+                <FormLayout
+                    mainColumn={
+                        <ProfilePersonalFormMainColumn
+                            setValue={setValue}
+                            setUser={setUser}
+                            register={register}
+                            fieldErrors={fieldErrors}
+                            user={user}
+                        />
+                    }
+                />
             </ApiForm>
         </>
     );

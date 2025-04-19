@@ -1,17 +1,27 @@
 import FormFooterActions from '@/admin/components/form/FormFooterActions';
 import React from 'react';
+import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
+import PageHeader from '@/admin/layouts/components/PageHeader';
 
-const FormLayout = ({mainColumn, sideColumn}) => {
+const FormLayout = ({mainColumn, sideColumn, pageTitle}) => {
   return (
-    <div className="flex flex-row gap-[3rem] mt-5 pb-[100px]">
-      <div className="flex flex-col w-full gap-[3.25rem]">
-        {mainColumn}
+    <>
+      {pageTitle && (
+        <PageHeader title={pageTitle} >
+          <Breadcrumb />
+        </PageHeader>
+      )}
+
+      <div className="flex flex-row gap-[3rem] mt-5 pb-[100px]">
+        <div className="flex flex-col w-full gap-[3.25rem]">
+          {mainColumn}
+        </div>
+
+        {sideColumn}
+
+        <FormFooterActions />
       </div>
-
-      {sideColumn}
-
-      <FormFooterActions />
-    </div>
+    </>
   );
 }
 

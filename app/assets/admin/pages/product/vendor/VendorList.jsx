@@ -7,6 +7,9 @@ import PageHeader from '@/admin/layouts/components/PageHeader';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
+import ProductIcon from '@/images/icons/assembly.svg';
+import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/TableRowImageWithText';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const VendorList = () => {
   const currentFilters = new URLSearchParams(location.search);
@@ -19,7 +22,6 @@ const VendorList = () => {
     items,
     pagination,
     isLoading,
-    fetchItems,
     removeItem,
   } = useListData('admin/vendors', filters);
 
@@ -28,10 +30,11 @@ const VendorList = () => {
   }
 
   const data = items.map((item) => {
+    const {id, name, imagePath} = item;
     return Object.values({
-      id: item.id,
-      name: item.name,
-      actions: <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/vendors/${item.id}`)}  />,
+      id: <TableRowId id={id} />,
+      name: <TableRowImageWithText imagePath={imagePath} text={name} defaultIcon={<ProductIcon className="text-primary mx-auto" />} />,
+      actions: <TableActions id={id} onDelete={() => removeItem(`admin/vendors/${item.id}`)}  />,
     });
   });
 
@@ -45,7 +48,7 @@ const VendorList = () => {
         title="Producenci"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Name', 'Actions']}
+        columns={['ID', 'Nazwa', 'Akcje']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}

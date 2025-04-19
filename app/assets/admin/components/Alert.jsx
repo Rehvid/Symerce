@@ -11,10 +11,10 @@ const Alert = ({ message, variant }) => {
     }
 
     const variants = {
-        success: 'bg-green-100 text-green-500',
-        info: 'bg-blue-100 text-blue-500',
-        warning: 'bg-yellow-100 text-yellow-500',
-        error: 'bg-red-100 text-red-500',
+        info: 'bg-info text-black',
+        success: 'bg-success text-black',
+        error: 'bg-error text-black',
+        warning: 'bg-warning text-black',
     };
 
     const iconVariants = {

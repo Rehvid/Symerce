@@ -2,12 +2,14 @@ import { useForm } from 'react-hook-form';
 import useApiForm from '@/admin/hooks/useApiForm';
 import React, { useEffect } from 'react';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
-import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 import ApiForm from '@/admin/components/form/ApiForm';
 import FormLayout from '@/admin/layouts/FormLayout';
-import SettingFormMainColumn from '@/admin/features/setting/components/SettingFormMainColumn';
+import DeliveryTimeFormMainColumn from '@/admin/features/delivery-time/components/DeliveryTimeFormMainColumn';
+import { useParams } from 'react-router-dom';
+import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 
-const SettingForm = ({params}) => {
+const DeliveryTimeForm = () => {
+  const params = useParams();
   const {
     register,
     handleSubmit,
@@ -23,28 +25,24 @@ const SettingForm = ({params}) => {
     defaultApiSuccessCallback,
     getApiConfig,
     formData,
-    isRequestFinished
+    isFormReady
   } = useApiForm(
     setValue,
     params,
-    'admin/settings',
-    '/admin/settings'
+    'admin/delivery-time',
+    '/admin/delivery-time'
   );
 
   useEffect(() => {
-    const endpointFormData = params.id ?
-      `admin/settings/${params.id}/form-data`
-      : `admin/settings/form-data`
-
-      fetchFormData(endpointFormData, HTTP_METHODS.GET, ['name', 'value', 'type', 'isProtected']);
+    const url = params.id
+      ? `admin/delivery-time/${params.id}/form-data`
+      : `admin/delivery-time/form-data`
+    fetchFormData(url, HTTP_METHODS.GET, ['label', 'minDays', 'maxDays', 'type']);
   }, []);
 
-
-  if (!isRequestFinished) {
-    return <FormSkeleton rowsCount={3} />
+  if (!isFormReady ) {
+    return <FormSkeleton rowsCount={8} />
   }
-
-  const { isProtected } = formData;
 
   return (
     <ApiForm
@@ -54,9 +52,9 @@ const SettingForm = ({params}) => {
       apiRequestCallbacks={defaultApiSuccessCallback}
     >
       <FormLayout
+        pageTitle={params.id ? 'Edytuj Czas dostawy' : 'Dodaj czas dostawy'}
         mainColumn={
-          <SettingFormMainColumn
-            isProtected={isProtected}
+          <DeliveryTimeFormMainColumn
             register={register}
             fieldErrors={fieldErrors}
             formData={formData}
@@ -66,7 +64,5 @@ const SettingForm = ({params}) => {
       />
     </ApiForm>
   )
-
 }
-
-export default SettingForm;
+export default DeliveryTimeForm;

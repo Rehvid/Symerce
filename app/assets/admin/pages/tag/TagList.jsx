@@ -7,6 +7,7 @@ import PageHeader from '@/admin/layouts/components/PageHeader';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const TagList = () => {
   const currentFilters = new URLSearchParams(location.search);
@@ -19,7 +20,6 @@ const TagList = () => {
     items,
     pagination,
     isLoading,
-    fetchItems,
     removeItem,
   } = useListData('admin/tags', filters);
 
@@ -28,10 +28,11 @@ const TagList = () => {
   }
 
   const data = items.map((item) => {
+    const {id, name} = item;
     return Object.values({
-      id: item.id,
-      name: item.name,
-      actions: <TableActions editPath={`${item.id}/edit`} onDelete={() => removeItem(`admin/tags/${item.id}`)}  />,
+      id: <TableRowId id={id} />,
+      name: name,
+      actions: <TableActions id={id} onDelete={() => removeItem(`admin/tags/${id}`)}  />,
     });
   });
 
@@ -45,7 +46,7 @@ const TagList = () => {
         title="Twoje tagi"
         filters={filters}
         setFilters={setFilters}
-        columns={['Id', 'Name', 'Actions']}
+        columns={['ID', 'Nazwa', 'Akcje']}
         items={data}
         pagination={pagination}
         additionalFilters={[PaginationFilter]}
