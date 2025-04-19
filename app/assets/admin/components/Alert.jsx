@@ -1,4 +1,3 @@
-import React from 'react';
 import CheckIcon from '@/images/icons/check.svg';
 import InfoCircleIcon from '@/images/icons/info-circle.svg';
 import AlertTriangleIcon from '@/images/icons/alert-triangle.svg';

@@ -22,12 +22,12 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
             />
 
             <Input
-              {...register('slug')}
-              type="text"
-              id="slug"
-              label="Przyjazny url"
-              hasError={errors.hasOwnProperty('slug')}
-              errorMessage={errors?.slug?.message}
+                {...register('slug')}
+                type="text"
+                id="slug"
+                label="Przyjazny url"
+                hasError={errors.hasOwnProperty('slug')}
+                errorMessage={errors?.slug?.message}
             />
 
             <Controller

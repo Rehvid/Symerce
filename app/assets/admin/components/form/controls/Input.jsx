@@ -12,29 +12,27 @@ const Input = React.forwardRef(
                 : 'focus:border-primary focus:border-1 focus:outline-hidden  focus:ring-primary-light'
         }`;
 
-        const labelClasses = `duration-300 block mb-2    ${
-            hasError ? 'text-red-900 peer-focus:text-red-900' : ''
-        }`;
+        const labelClasses = `duration-300 block mb-2    ${hasError ? 'text-red-900 peer-focus:text-red-900' : ''}`;
 
         return (
             <div className={`relative ${containerClassName || ''}`}>
                 {label && (
-                  <label htmlFor={id || 'input-id'} className={labelClasses}>
-                      <Heading level="h4">
-                          {label}
-                          {isRequired && <span className="pl-1 text-red-500">*</span>}
-                      </Heading>
-                  </label>
+                    <label htmlFor={id || 'input-id'} className={labelClasses}>
+                        <Heading level="h4">
+                            {label}
+                            {isRequired && <span className="pl-1 text-red-500">*</span>}
+                        </Heading>
+                    </label>
                 )}
                 <div className="relative">
                     <input
-                      className={inputClasses}
-                      type={type}
-                      id={id || 'input-id'}
-                      value={value}
-                      ref={ref}
-                      placeholder={' '}
-                      {...register}
+                        className={inputClasses}
+                        type={type}
+                        id={id || 'input-id'}
+                        value={value}
+                        ref={ref}
+                        placeholder={' '}
+                        {...register}
                     />
                     {icon && <span className="absolute right-3 top-1/2 -translate-y-1/2 ">{icon}</span>}
                 </div>

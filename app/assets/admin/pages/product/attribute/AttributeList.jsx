@@ -14,64 +14,55 @@ import EyeIcon from '@/images/icons/eye.svg';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const AttributeList = () => {
-  const location = useLocation();
-  const currentFilters = new URLSearchParams(location.search);
+    const location = useLocation();
+    const currentFilters = new URLSearchParams(location.search);
 
-  const [filters, setFilters] = useState({
-    limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
-    page: Number(currentFilters.get('page')) || 1,
-  });
-
-  const {
-    items,
-    pagination,
-    isLoading,
-    removeItem,
-  } = useListData('admin/attributes', filters);
-
-  if (isLoading) {
-    return <TableSkeleton rowsCount={filters.limit} />
-  }
-
-  const actions = (id, name) => (
-    <TableActions id={id} onDelete={() => removeItem(`admin/attributes/${id}`)}>
-      <AppLink
-        to={`${id}/values`}
-        state={{ name: name }}
-       additionalClasses="text-gray-500"
-      >
-        <EyeIcon />
-      </AppLink>
-    </TableActions>
-  )
-
-  const data = items.map((item) => {
-    const { id, name} = item;
-    return Object.values({
-      id: <TableRowId id={id} />,
-      name: name,
-      actions: actions(id, name),
+    const [filters, setFilters] = useState({
+        limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
+        page: Number(currentFilters.get('page')) || 1,
     });
-  });
 
-  return (
-    <>
-      <PageHeader title={'Atrybuty'}>
-        <Breadcrumb />
-      </PageHeader>
+    const { items, pagination, isLoading, removeItem } = useListData('admin/attributes', filters);
 
-      <DataTable
-        title="Grupa Atrybutów"
-        filters={filters}
-        setFilters={setFilters}
-        columns={['ID', 'Nazwa', 'Akcje']}
-        items={data}
-        pagination={pagination}
-        additionalFilters={[PaginationFilter]}
-        actionButtons={<TableToolbarButtons/>}
-      />
-    </>
-  )
-}
+    if (isLoading) {
+        return <TableSkeleton rowsCount={filters.limit} />;
+    }
+
+    const actions = (id, name) => (
+        <TableActions id={id} onDelete={() => removeItem(`admin/attributes/${id}`)}>
+            <AppLink to={`${id}/values`} state={{ name: name }} additionalClasses="text-gray-500">
+                <EyeIcon />
+            </AppLink>
+        </TableActions>
+    );
+
+    const data = items.map((item) => {
+        const { id, name } = item;
+        return Object.values({
+            id: <TableRowId id={id} />,
+            name: name,
+            actions: actions(id, name),
+        });
+    });
+
+    return (
+        <>
+            <PageHeader title={'Atrybuty'}>
+                <Breadcrumb />
+            </PageHeader>
+
+            <DataTable
+                title="Grupa Atrybutów"
+                filters={filters}
+                setFilters={setFilters}
+                columns={['ID', 'Nazwa', 'Akcje']}
+                items={data}
+                pagination={pagination}
+                additionalFilters={[PaginationFilter]}
+                actionButtons={<TableToolbarButtons />}
+            />
+        </>
+    );
+};
 
 export default AttributeList;

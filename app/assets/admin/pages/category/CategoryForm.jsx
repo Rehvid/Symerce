@@ -22,63 +22,48 @@ const CategoryForm = () => {
         formState: { errors: fieldErrors },
     } = useForm();
 
-    const {
-        fetchFormData,
-        defaultApiSuccessCallback,
-        getApiConfig,
-        formData,
-        setFormData,
-        isFormReady
-    } = useApiForm(
-      setValue,
-      params,
-      'admin/categories',
-      '/admin/categories'
+    const { fetchFormData, defaultApiSuccessCallback, getApiConfig, formData, setFormData, isFormReady } = useApiForm(
+        setValue,
+        params,
+        'admin/categories',
+        '/admin/categories',
     );
 
     useEffect(() => {
-        const endPoint = params.id ?
-           `admin/categories/${params.id}/form-data`
-          : 'admin/categories/form-data'
-        ;
-
-        fetchFormData(
-          endPoint,
-          HTTP_METHODS.GET,
-          ['name', 'isActive', 'description', 'parentCategoryId', 'slug'],
-        );
+        const endPoint = params.id ? `admin/categories/${params.id}/form-data` : 'admin/categories/form-data';
+        fetchFormData(endPoint, HTTP_METHODS.GET, ['name', 'isActive', 'description', 'parentCategoryId', 'slug']);
     }, []);
 
-    if (!isFormReady ) {
-        return <FormSkeleton rowsCount={8} />
+    if (!isFormReady) {
+        return <FormSkeleton rowsCount={8} />;
     }
 
     return (
         <ApiForm
-          apiConfig={getApiConfig()}
-          handleSubmit={handleSubmit}
-          setError={setError}
-          apiRequestCallbacks={defaultApiSuccessCallback}
+            apiConfig={getApiConfig()}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
         >
             <FormLayout
                 pageTitle={params.id ? 'Edytuj Kategorie' : 'Dodaj Kategorie'}
                 mainColumn={
                     <CategoryFormMainColumn
-                      register={register}
-                      errors={fieldErrors}
-                      setValue={setValue}
-                      categoryData={formData}
-                      params={params}
-                      watch={watch}
-                      control={control}
+                        register={register}
+                        errors={fieldErrors}
+                        setValue={setValue}
+                        categoryData={formData}
+                        params={params}
+                        watch={watch}
+                        control={control}
                     />
                 }
                 sideColumn={
                     <CategoryFormSideColumn
-                      register={register}
-                      categoryFormData={formData}
-                      setCategoryFormData={setFormData}
-                      setValue={setValue}
+                        register={register}
+                        categoryFormData={formData}
+                        setCategoryFormData={setFormData}
+                        setValue={setValue}
                     />
                 }
             />

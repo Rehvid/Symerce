@@ -8,20 +8,20 @@ import { useUser } from '@/admin/hooks/useUser';
 import { useAuth } from '@/admin/hooks/useAuth';
 
 const AdminLayout = () => {
-  const { isLoadingAuthorization, verifyAuth } = useAuth();
-  const { isAuthenticated } = useUser();
+    const { isLoadingAuthorization, verifyAuth } = useAuth();
+    const { isAuthenticated } = useUser();
 
-  useEffect(() => {
-    verifyAuth();
-  }, []);
+    useEffect(() => {
+        verifyAuth();
+    }, []);
 
-  if (isLoadingAuthorization || !isAuthenticated) {
-    return null;
-  }
+    if (isLoadingAuthorization || !isAuthenticated) {
+        return null;
+    }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/admin/public/login" />;
-  }
+    if (!isAuthenticated) {
+        return <Navigate to="/admin/public/login" />;
+    }
 
     return (
         <ModalProvider>

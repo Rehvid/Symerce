@@ -11,53 +11,52 @@ import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarB
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const CurrencyList = () => {
-  const currentFilters = new URLSearchParams(location.search);
-  const [filters, setFilters] = useState({
-    limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
-    page: Number(currentFilters.get('page')) || 1,
-  });
-
-  const {
-    items,
-    pagination,
-    isLoading,
-    removeItem,
-  } = useListData('admin/currencies', filters);
-
-  if (isLoading) {
-    return <TableSkeleton rowsCount={filters.limit} />
-  }
-
-  const data = items.map((item) => {
-    const {id, name, symbol, code, roundingPrecision} = item;
-    return Object.values({
-      id: <TableRowId id={id} />,
-      name: name,
-      symbol: symbol,
-      code: code,
-      roundingPrecision: <Badge variant='info'><strong>{roundingPrecision}</strong></Badge>,
-      actions: <TableActions id={id} onDelete={() => removeItem(`admin/currencies/${id}`)}  />,
+    const currentFilters = new URLSearchParams(location.search);
+    const [filters, setFilters] = useState({
+        limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
+        page: Number(currentFilters.get('page')) || 1,
     });
-  });
 
-  return (
-    <>
-      <PageHeader title={'Waluty'}>
-        <Breadcrumb />
-      </PageHeader>
+    const { items, pagination, isLoading, removeItem } = useListData('admin/currencies', filters);
 
-      <DataTable
-        title="Waluty"
-        filters={filters}
-        setFilters={setFilters}
-        columns={['ID', 'Nazwa', 'Symbol', 'Kod', 'Zaokrąglenie', 'Akcje']}
-        items={data}
-        pagination={pagination}
-        additionalFilters={[PaginationFilter]}
-        actionButtons={<TableToolbarButtons/>}
-      />
-    </>
-  )
-}
+    if (isLoading) {
+        return <TableSkeleton rowsCount={filters.limit} />;
+    }
+
+    const data = items.map((item) => {
+        const { id, name, symbol, code, roundingPrecision } = item;
+        return Object.values({
+            id: <TableRowId id={id} />,
+            name: name,
+            symbol: symbol,
+            code: code,
+            roundingPrecision: (
+                <Badge variant="info">
+                    <strong>{roundingPrecision}</strong>
+                </Badge>
+            ),
+            actions: <TableActions id={id} onDelete={() => removeItem(`admin/currencies/${id}`)} />,
+        });
+    });
+
+    return (
+        <>
+            <PageHeader title={'Waluty'}>
+                <Breadcrumb />
+            </PageHeader>
+
+            <DataTable
+                title="Waluty"
+                filters={filters}
+                setFilters={setFilters}
+                columns={['ID', 'Nazwa', 'Symbol', 'Kod', 'Zaokrąglenie', 'Akcje']}
+                items={data}
+                pagination={pagination}
+                additionalFilters={[PaginationFilter]}
+                actionButtons={<TableToolbarButtons />}
+            />
+        </>
+    );
+};
 
 export default CurrencyList;

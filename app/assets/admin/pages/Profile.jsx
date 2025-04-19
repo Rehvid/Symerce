@@ -12,12 +12,12 @@ const Profile = () => {
         {
             name: 'Personal',
             element: <ProfilePersonalForm />,
-            label: 'Osobiste'
+            label: 'Osobiste',
         },
         {
             name: 'Security',
             element: <ProfileSecurityForm />,
-            label: 'Bezpieczeństwo'
+            label: 'Bezpieczeństwo',
         },
     ];
 

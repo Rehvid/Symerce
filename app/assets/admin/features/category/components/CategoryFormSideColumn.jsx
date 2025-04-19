@@ -15,7 +15,7 @@ const CategoryFormSideColumn = ({ register, categoryFormData, setCategoryFormDat
         setValue('image', image);
         setCategoryFormData((prevFormData) => ({
             ...prevFormData,
-            image: image
+            image: image,
         }));
     };
 
@@ -35,29 +35,24 @@ const CategoryFormSideColumn = ({ register, categoryFormData, setCategoryFormDat
     return (
         <div className="flex flex-col h-full gap-[2.5rem]">
             <FormSidePanel sectionTitle="Zdjęcie">
-                <Dropzone
-                  onDrop={onDrop}
-                  errors={errors}
-                  containerClasses="relative"
-                >
-                    {categoryFormDataImage.length > 0 && (
-                            categoryFormDataImage.map((file, key) => (
-                              <div className="absolute flex top-0 h-full w-full rounded-lg" key={key}>
+                <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative">
+                    {categoryFormDataImage.length > 0 &&
+                        categoryFormDataImage.map((file, key) => (
+                            <div className="absolute flex top-0 h-full w-full rounded-lg" key={key}>
                                 <img
-                                  className="rounded-lg mx-auto object-cover w-full"
-                                  src={file.preview}
-                                  alt={file.name}
+                                    className="rounded-lg mx-auto object-cover w-full"
+                                    src={file.preview}
+                                    alt={file.name}
                                 />
                                 <div className="absolute rounded-lg transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl">
-                                  <DropzonePreviewActions
-                                    renderModal={renderModal}
-                                    removeFile={removeFile}
-                                    file={file}
-                                  />
+                                    <DropzonePreviewActions
+                                        renderModal={renderModal}
+                                        removeFile={removeFile}
+                                        file={file}
+                                    />
                                 </div>
-                              </div>
-                            ))
-                    )}
+                            </div>
+                        ))}
                 </Dropzone>
             </FormSidePanel>
             <FormSidePanel sectionTitle="Atrybuty">

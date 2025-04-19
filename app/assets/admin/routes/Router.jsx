@@ -11,7 +11,7 @@ const AppRouter = () => {
 
     return (
         <BrowserRouter>
-            <Suspense fallback={<SuspenseFallback/>}>
+            <Suspense fallback={<SuspenseFallback />}>
                 <Routes>
                     <Route path="/admin/public/">{publicRoutes}</Route>
 

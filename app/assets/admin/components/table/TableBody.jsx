@@ -29,9 +29,9 @@ const TableBody = ({ data, useDraggable, draggableCallback }) => {
     const renderCells = (row) => {
         const cells = Array.isArray(row) ? row : Object.values(row);
         return cells.map((cell, cellIndex) => (
-          <td key={cellIndex} className="px-4 py-3 font-normal text-sm whitespace-nowrap">
-              {cell}
-          </td>
+            <td key={cellIndex} className="px-4 py-3 font-normal text-sm whitespace-nowrap">
+                {cell}
+            </td>
         ));
     };
 

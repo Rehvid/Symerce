@@ -21,20 +21,26 @@ const CategoryList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
-    const { draggableCallback } = useDraggable('admin/categories/order')
-    const { items, pagination, isLoading, removeItem} = useListData('admin/categories', filters);
+    const { draggableCallback } = useDraggable('admin/categories/order');
+    const { items, pagination, isLoading, removeItem } = useListData('admin/categories', filters);
 
     if (isLoading) {
-        return <TableSkeleton rowsCount={filters.limit} />
+        return <TableSkeleton rowsCount={filters.limit} />;
     }
 
     const data = items.map((item) => {
         const { id, imagePath, name, slug } = item;
         return Object.values({
             id: <TableRowId id={id} />,
-            name: <TableRowImageWithText imagePath={imagePath} text={name} defaultIcon={<FoldersIcon className="text-primary mx-auto" />} />,
+            name: (
+                <TableRowImageWithText
+                    imagePath={imagePath}
+                    text={name}
+                    defaultIcon={<FoldersIcon className="text-primary mx-auto" />}
+                />
+            ),
             slug: slug,
-            actions: <TableActions id={id} onDelete={() => removeItem(`admin/categories/${id}`)}  />,
+            actions: <TableActions id={id} onDelete={() => removeItem(`admin/categories/${id}`)} />,
         });
     });
 
@@ -52,7 +58,7 @@ const CategoryList = () => {
                 items={data}
                 pagination={pagination}
                 additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons/>}
+                actionButtons={<TableToolbarButtons />}
                 useDraggable={true}
                 draggableCallback={draggableCallback}
             />

@@ -7,17 +7,15 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ErrorBoundaryFallback from '@/admin/pages/ErrorBoundaryFallback';
 
 const App = () => {
-
-
     return (
         <UserProvider>
             <ApiProvider>
                 <AuthProvider>
-                  <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
-                    <MainLayout>
-                        <AppRouter />
-                    </MainLayout>
-                  </ErrorBoundary>
+                    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+                        <MainLayout>
+                            <AppRouter />
+                        </MainLayout>
+                    </ErrorBoundary>
                 </AuthProvider>
             </ApiProvider>
         </UserProvider>

@@ -9,58 +9,52 @@ import { useParams } from 'react-router-dom';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 
 const CurrencyForm = () => {
-  const params = useParams();
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    formState: { errors: fieldErrors },
-  } = useForm({
-    mode: 'onBlur',
-  });
+    const params = useParams();
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        formState: { errors: fieldErrors },
+    } = useForm({
+        mode: 'onBlur',
+    });
 
-  const {
-    fetchFormData,
-    defaultApiSuccessCallback,
-    getApiConfig,
-    isFormReady
-  } = useApiForm(
-    setValue,
-    params,
-    'admin/currencies',
-    '/admin/currencies'
-  );
+    const { fetchFormData, defaultApiSuccessCallback, getApiConfig, isFormReady } = useApiForm(
+        setValue,
+        params,
+        'admin/currencies',
+        '/admin/currencies',
+    );
 
-  if (params.id) {
-    useEffect(() => {
-      fetchFormData(
-        `admin/currencies/${params.id}/form-data`,
-        HTTP_METHODS.GET,
-        ['name', 'code', 'symbol', 'roundingPrecision']
-      );
-    }, []);
-  }
+    if (params.id) {
+        useEffect(() => {
+            fetchFormData(`admin/currencies/${params.id}/form-data`, HTTP_METHODS.GET, [
+                'name',
+                'code',
+                'symbol',
+                'roundingPrecision',
+            ]);
+        }, []);
+    }
 
-  if (!isFormReady ) {
-    return <FormSkeleton rowsCount={4} />
-  }
+    if (!isFormReady) {
+        return <FormSkeleton rowsCount={4} />;
+    }
 
-  return (
-    <ApiForm
-      apiConfig={getApiConfig()}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormLayout
-        pageTitle={params.id ? 'Edytuj Walute' : 'Dodaj Walute'}
-        mainColumn={
-          <CurrencyFormMainColumn register={register} fieldErrors={fieldErrors} />
-        }
-      />
-    </ApiForm>
-  )
-}
+    return (
+        <ApiForm
+            apiConfig={getApiConfig()}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormLayout
+                pageTitle={params.id ? 'Edytuj Walute' : 'Dodaj Walute'}
+                mainColumn={<CurrencyFormMainColumn register={register} fieldErrors={fieldErrors} />}
+            />
+        </ApiForm>
+    );
+};
 
 export default CurrencyForm;

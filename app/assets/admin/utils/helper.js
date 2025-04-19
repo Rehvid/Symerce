@@ -1,6 +1,6 @@
 export const prepareDraggableDataToUpdateOrder = (data) => {
     let draggableData = [];
-    data.forEach((element, key) => {
+    data.forEach((element) => {
         draggableData = [...draggableData, element[0]];
     });
     return { order: draggableData };

@@ -1,7 +1,6 @@
 import SearchIcon from '../../../../images/icons/search.svg';
 import Input from '@/admin/components/form/controls/Input';
 
-
 const SearchFilter = ({ filters, setFilters }) => {
     const onBlur = (e) => {
         setFilters({

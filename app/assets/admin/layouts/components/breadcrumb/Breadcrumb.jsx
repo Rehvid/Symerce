@@ -9,7 +9,16 @@ const Breadcrumb = () => {
                 {paths.map((path, index) => {
                     const isLast = index === paths.length - 1;
                     const label = PATH_TRANSLATIONS[path] || path;
-                    return <BreadcrumbItem key={index} paths={paths} path={path} index={index} isLast={isLast} label={label} />;
+                    return (
+                        <BreadcrumbItem
+                            key={index}
+                            paths={paths}
+                            path={path}
+                            index={index}
+                            isLast={isLast}
+                            label={label}
+                        />
+                    );
                 })}
             </ol>
         </nav>

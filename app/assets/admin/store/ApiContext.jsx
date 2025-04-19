@@ -1,7 +1,5 @@
-import { createContext, useCallback, useState } from 'react';
+import { createContext, useState } from 'react';
 import restApiClient from '@/shared/api/RestApiClient';
-import { useAuth } from '@/admin/hooks/useAuth';
-import { HTTP_STATUS_CODES } from '@/admin/constants/httpConstants';
 import { useUser } from '@/admin/hooks/useUser';
 
 export const ApiContext = createContext(null);

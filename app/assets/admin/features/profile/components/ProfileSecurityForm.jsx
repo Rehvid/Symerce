@@ -37,32 +37,32 @@ const ProfileSecurityForm = () => {
                 apiRequestCallbacks={apiRequestCallbacks}
             >
                 <FormLayout
-                  mainColumn={
-                    <>
-                        <InputPassword
-                          id="password"
-                          label="Hasło"
-                          hasError={fieldErrors.hasOwnProperty('password')}
-                          errorMessage={fieldErrors?.password?.message}
-                          {...register('password', {
-                              ...validationRules.required(),
-                              ...validationRules.password(),
-                          })}
-                        />
-                        <InputPassword
-                          id="password-confirmation"
-                          label="Powtórz hasło"
-                          hasError={fieldErrors.hasOwnProperty('passwordConfirmation')}
-                          errorMessage={fieldErrors?.passwordConfirmation?.message}
-                          {...register('passwordConfirmation', {
-                              ...validationRules.required(),
-                              validate: function (passwordConfirmation, { password }) {
-                                  return passwordConfirmation === password || 'Hasła muszą być identyczne.';
-                              },
-                          })}
-                        />
-                    </>
-                  }
+                    mainColumn={
+                        <>
+                            <InputPassword
+                                id="password"
+                                label="Hasło"
+                                hasError={fieldErrors.hasOwnProperty('password')}
+                                errorMessage={fieldErrors?.password?.message}
+                                {...register('password', {
+                                    ...validationRules.required(),
+                                    ...validationRules.password(),
+                                })}
+                            />
+                            <InputPassword
+                                id="password-confirmation"
+                                label="Powtórz hasło"
+                                hasError={fieldErrors.hasOwnProperty('passwordConfirmation')}
+                                errorMessage={fieldErrors?.passwordConfirmation?.message}
+                                {...register('passwordConfirmation', {
+                                    ...validationRules.required(),
+                                    validate: function (passwordConfirmation, { password }) {
+                                        return passwordConfirmation === password || 'Hasła muszą być identyczne.';
+                                    },
+                                })}
+                            />
+                        </>
+                    }
                 />
             </ApiForm>
         </>

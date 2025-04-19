@@ -4,8 +4,8 @@ export const validationRules = {
     }),
     minLength: (value, message = `To pole musi mieć co najmniej ${value} znaki`) => ({
         minLength: {
-            value: value,
-            message: message,
+            value,
+            message,
         },
     }),
     password: () => ({
@@ -16,14 +16,14 @@ export const validationRules = {
     }),
     min: (value, message = `To pole nie może mieć mniejszej wartości niż ${value}`) => ({
         min: {
-            value: value,
-            message: message,
+            value,
+            message,
         },
     }),
     max: (value, message = `To pole nie może mieć większej wartości niż ${value}`) => ({
         max: {
-            value: value,
-            message: message,
+            value,
+            message,
         },
     }),
     numeric: (maxDecimalPlaces) => ({

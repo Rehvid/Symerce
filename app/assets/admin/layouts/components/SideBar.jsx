@@ -28,12 +28,14 @@ const SideBar = () => {
                         <FoldersIcon />
                         <span> Categories</span>
                     </NavigationItem>
-                    <Submenu buttonLabel={
-                        <span className="flex gap-2 items-center">
-                            <ProductIcon /> Produkty
-                        </span>
-                    }>
-                        <NavigationItem to={'products'} >
+                    <Submenu
+                        buttonLabel={
+                            <span className="flex gap-2 items-center">
+                                <ProductIcon /> Produkty
+                            </span>
+                        }
+                    >
+                        <NavigationItem to={'products'}>
                             <span>Produkty</span>
                         </NavigationItem>
                         <NavigationItem to={'products/attributes'}>

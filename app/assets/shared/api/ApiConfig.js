@@ -2,10 +2,14 @@ import { isValidEnumValue } from '@/admin/utils/helper';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 
 export const createApiConfig = (endpoint, method) => {
-    if (!endpoint) throw new Error('Endpoint is required');
-    if (!isValidEnumValue(HTTP_METHODS, method)) throw new Error(`Invalid HTTP method: ${method}`);
+    if (!endpoint) {
+        throw new Error('Endpoint is required');
+    }
+    if (!isValidEnumValue(HTTP_METHODS, method)) {
+        throw new Error(`Invalid HTTP method: ${method}`);
+    }
 
-    let config = {
+    const config = {
         endpoint: `${endpoint}`,
         method,
         headers: {},

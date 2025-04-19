@@ -54,7 +54,6 @@ export default [
       'no-nested-ternary': 'warn',
       'prefer-arrow-callback': 'warn',
       'arrow-spacing': ['warn', { before: true, after: true }],
-      'no-magic-numbers': ['warn', { ignoreArrayIndexes: true, enforceConst: true }],
       eqeqeq: ['error', 'always'],
       'no-shadow': 'warn',
       'consistent-return': 'error',

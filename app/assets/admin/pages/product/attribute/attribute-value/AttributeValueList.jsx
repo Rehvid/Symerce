@@ -11,54 +11,54 @@ import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarB
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 
 const AttributeValueList = () => {
-  const location = useLocation();
-  const currentFilters = new URLSearchParams(location.search);
-  const params = useParams();
-  const { name } = location.state || {};
+    const location = useLocation();
+    const currentFilters = new URLSearchParams(location.search);
+    const params = useParams();
+    const { name } = location.state || {};
 
-  const [filters, setFilters] = useState({
-    limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
-    page: Number(currentFilters.get('page')) || 1,
-  });
-
-  const {
-    items,
-    pagination,
-    isLoading,
-    removeItem,
-  } = useListData(`admin/attributes/${params.id}/values`, filters);
-
-  if (isLoading) {
-    return <TableSkeleton rowsCount={filters.limit} />
-  }
-
-  const data = items.map((item) => {
-    const {id, value} = item;
-    return Object.values({
-      id: <TableRowId id={id} />,
-      value: value,
-      actions: <TableActions id={id} onDelete={() => removeItem(`admin/attributes/${params.attributeId}/values/${id}`)} />
+    const [filters, setFilters] = useState({
+        limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
+        page: Number(currentFilters.get('page')) || 1,
     });
-  });
 
-  return (
-    <>
-      <PageHeader title={`${name ? `Grupa - ${name}` : 'Grupa Wartości'}`}>
-        <Breadcrumb />
-      </PageHeader>
+    const { items, pagination, isLoading, removeItem } = useListData(`admin/attributes/${params.id}/values`, filters);
 
-      <DataTable
-        title="Wartości"
-        filters={filters}
-        setFilters={setFilters}
-        columns={['ID', 'Wartości', 'Akcje']}
-        items={data}
-        pagination={pagination}
-        additionalFilters={[PaginationFilter]}
-        actionButtons={<TableToolbarButtons/>}
-      />
-    </>
-  )
-}
+    if (isLoading) {
+        return <TableSkeleton rowsCount={filters.limit} />;
+    }
+
+    const data = items.map((item) => {
+        const { id, value } = item;
+        return Object.values({
+            id: <TableRowId id={id} />,
+            value: value,
+            actions: (
+                <TableActions
+                    id={id}
+                    onDelete={() => removeItem(`admin/attributes/${params.attributeId}/values/${id}`)}
+                />
+            ),
+        });
+    });
+
+    return (
+        <>
+            <PageHeader title={`${name ? `Grupa - ${name}` : 'Grupa Wartości'}`}>
+                <Breadcrumb />
+            </PageHeader>
+
+            <DataTable
+                title="Wartości"
+                filters={filters}
+                setFilters={setFilters}
+                columns={['ID', 'Wartości', 'Akcje']}
+                items={data}
+                pagination={pagination}
+                additionalFilters={[PaginationFilter]}
+                actionButtons={<TableToolbarButtons />}
+            />
+        </>
+    );
+};
 
 export default AttributeValueList;

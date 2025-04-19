@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
 import Quill from 'quill';
 import DOMPurify from 'quill/formats/link';
 
-const QuillEditor = forwardRef(({ readOnly, defaultValue, onTextChange, onSelectionChange, register }, ref) => {
+const QuillEditor = forwardRef(({ readOnly, defaultValue, onTextChange, onSelectionChange }, ref) => {
     const containerRef = useRef(null);
     const defaultValueRef = useRef(defaultValue);
     const onTextChangeRef = useRef(onTextChange);

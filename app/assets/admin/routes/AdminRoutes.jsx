@@ -187,7 +187,7 @@ const withProtection = (requiredRoles, Component) => (
 );
 
 const adminRoutes = routesConfig.map(({ path, component, roles }) => (
-    <Route key={path} path={path} element={withProtection(roles, component)}  />
+    <Route key={path} path={path} element={withProtection(roles, component)} />
 ));
 
 export default adminRoutes;

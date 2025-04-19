@@ -3,26 +3,24 @@ import React from 'react';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 
-const FormLayout = ({mainColumn, sideColumn, pageTitle}) => {
-  return (
-    <>
-      {pageTitle && (
-        <PageHeader title={pageTitle} >
-          <Breadcrumb />
-        </PageHeader>
-      )}
+const FormLayout = ({ mainColumn, sideColumn, pageTitle }) => {
+    return (
+        <>
+            {pageTitle && (
+                <PageHeader title={pageTitle}>
+                    <Breadcrumb />
+                </PageHeader>
+            )}
 
-      <div className="flex flex-row gap-[3rem] mt-5 pb-[100px]">
-        <div className="flex flex-col w-full gap-[3.25rem]">
-          {mainColumn}
-        </div>
+            <div className="flex flex-row gap-[3rem] mt-5 pb-[100px]">
+                <div className="flex flex-col w-full gap-[3.25rem]">{mainColumn}</div>
 
-        {sideColumn}
+                {sideColumn}
 
-        <FormFooterActions />
-      </div>
-    </>
-  );
-}
+                <FormFooterActions />
+            </div>
+        </>
+    );
+};
 
 export default FormLayout;

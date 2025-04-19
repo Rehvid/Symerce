@@ -9,67 +9,57 @@ import SettingFormMainColumn from '@/admin/features/setting/components/SettingFo
 import { useParams } from 'react-router-dom';
 
 const SettingForm = () => {
-  const params = useParams();
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    formState: { errors: fieldErrors },
-  } = useForm({
-    mode: 'onBlur',
-  });
+    const params = useParams();
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        formState: { errors: fieldErrors },
+    } = useForm({
+        mode: 'onBlur',
+    });
 
-  const {
-    fetchFormData,
-    defaultApiSuccessCallback,
-    getApiConfig,
-    formData,
-    isFormReady
-  } = useApiForm(
-    setValue,
-    params,
-    'admin/settings',
-    '/admin/settings'
-  );
+    const { fetchFormData, defaultApiSuccessCallback, getApiConfig, formData, isFormReady } = useApiForm(
+        setValue,
+        params,
+        'admin/settings',
+        '/admin/settings',
+    );
 
-  useEffect(() => {
-    const endpointFormData = params.id ?
-      `admin/settings/${params.id}/form-data`
-      : `admin/settings/form-data`
+    useEffect(() => {
+        const endpointFormData = params.id ? `admin/settings/${params.id}/form-data` : `admin/settings/form-data`;
 
-      fetchFormData(endpointFormData, HTTP_METHODS.GET, ['name', 'value', 'type', 'isProtected']);
-  }, []);
+        fetchFormData(endpointFormData, HTTP_METHODS.GET, ['name', 'value', 'type', 'isProtected']);
+    }, []);
 
+    if (!isFormReady) {
+        return <FormSkeleton rowsCount={3} />;
+    }
 
-  if (!isFormReady) {
-    return <FormSkeleton rowsCount={3} />
-  }
+    const { isProtected } = formData;
 
-  const { isProtected } = formData;
-
-  return (
-    <ApiForm
-      apiConfig={getApiConfig()}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormLayout
-        pageTitle={params.id ? 'Edytuj Ustawienie' : 'Dodaj ustawienie'}
-        mainColumn={
-          <SettingFormMainColumn
-            isProtected={isProtected}
-            register={register}
-            fieldErrors={fieldErrors}
-            formData={formData}
-            setValue={setValue}
-          />
-        }
-      />
-    </ApiForm>
-  )
-
-}
+    return (
+        <ApiForm
+            apiConfig={getApiConfig()}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormLayout
+                pageTitle={params.id ? 'Edytuj Ustawienie' : 'Dodaj ustawienie'}
+                mainColumn={
+                    <SettingFormMainColumn
+                        isProtected={isProtected}
+                        register={register}
+                        fieldErrors={fieldErrors}
+                        formData={formData}
+                        setValue={setValue}
+                    />
+                }
+            />
+        </ApiForm>
+    );
+};
 
 export default SettingForm;

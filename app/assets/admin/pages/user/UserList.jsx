@@ -21,39 +21,45 @@ const UserList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
-  const { items, pagination, isLoading, removeItem } = useListData('admin/users', filters);
+    const { items, pagination, isLoading, removeItem } = useListData('admin/users', filters);
 
-  if (isLoading) {
-    return <TableSkeleton rowsCount={filters.limit} />
-  }
+    if (isLoading) {
+        return <TableSkeleton rowsCount={filters.limit} />;
+    }
 
-  const data = items.map((item) => {
-      const {id, email, name,imagePath} = item;
-      return Object.values({
-        id: <TableRowId id={id} />,
-        name: <TableRowImageWithText imagePath={imagePath} text={name} defaultIcon={<UsersIcon className="text-primary mx-auto" />} />,
-        email: email,
-        actions: <TableActions id={id} onDelete={() => removeItem(id)} />,
-      });
+    const data = items.map((item) => {
+        const { id, email, name, imagePath } = item;
+        return Object.values({
+            id: <TableRowId id={id} />,
+            name: (
+                <TableRowImageWithText
+                    imagePath={imagePath}
+                    text={name}
+                    defaultIcon={<UsersIcon className="text-primary mx-auto" />}
+                />
+            ),
+            email,
+            actions: <TableActions id={id} onDelete={() => removeItem(id)} />,
+        });
     });
 
     return (
-      <>
-          <PageHeader title={'Users'}>
-              <Breadcrumb />
-          </PageHeader>
+        <>
+            <PageHeader title={'Users'}>
+                <Breadcrumb />
+            </PageHeader>
 
-          <DataTable
-            title="Users"
-            filters={filters}
-            setFilters={setFilters}
-            columns={['ID', 'Użytkownik', 'Email', 'Akcje']}
-            items={data}
-            pagination={pagination}
-            additionalFilters={[PaginationFilter]}
-            actionButtons={<TableToolbarButtons/>}
-          />
-      </>
+            <DataTable
+                title="Users"
+                filters={filters}
+                setFilters={setFilters}
+                columns={['ID', 'Użytkownik', 'Email', 'Akcje']}
+                items={data}
+                pagination={pagination}
+                additionalFilters={[PaginationFilter]}
+                actionButtons={<TableToolbarButtons />}
+            />
+        </>
     );
 };
 

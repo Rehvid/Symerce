@@ -25,36 +25,35 @@ const ProductList = () => {
     }
 
     const renderTableButtons = (
-      <AppButton
-        onClick={() => navigate('create')}
-        variant="primary"
-        additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5"
-      >
-          <PlusIcon /> New Product
-      </AppButton>
+        <AppButton
+            onClick={() => navigate('create')}
+            variant="primary"
+            additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5"
+        >
+            <PlusIcon /> New Product
+        </AppButton>
     );
-
 
     return (
-      <>
-          <PageHeader title={'Products'}>
-              <Breadcrumb />
-          </PageHeader>
+        <>
+            <PageHeader title={'Products'}>
+                <Breadcrumb />
+            </PageHeader>
 
-          <DataTable
-            title="Your Products"
-            filters={filters}
-            setFilters={setFilters}
-            columns={['Id', 'Name', 'Slug', 'Actions']}
-            items={items}
-            pagination={pagination}
-            additionalFilters={[PaginationFilter]}
-            actionButtons={renderTableButtons}
-            // useDraggable={true}
-            // draggableCallback={draggableCallback}
-          />
-      </>
+            <DataTable
+                title="Your Products"
+                filters={filters}
+                setFilters={setFilters}
+                columns={['Id', 'Name', 'Slug', 'Actions']}
+                items={items}
+                pagination={pagination}
+                additionalFilters={[PaginationFilter]}
+                actionButtons={renderTableButtons}
+                // useDraggable={true}
+                // draggableCallback={draggableCallback}
+            />
+        </>
     );
-}
+};
 
 export default ProductList;

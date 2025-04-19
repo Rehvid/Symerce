@@ -6,28 +6,28 @@ import { useApi } from '@/admin/hooks/useApi';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 
 const useDraggable = (endpoint) => {
-  const { handleApiRequest } = useApi();
-  const { addNotification } = useCreateNotification();
+    const { handleApiRequest } = useApi();
+    const { addNotification } = useCreateNotification();
 
-  const apiConfig = createApiConfig(endpoint, HTTP_METHODS.PUT);
+    const apiConfig = createApiConfig(endpoint, HTTP_METHODS.PUT);
 
-  const draggableCallback = (items) => {
-    const draggableData = prepareDraggableDataToUpdateOrder(items);
-    apiConfig.setBody(draggableData);
-    handleApiRequest(apiConfig, {
-      onSuccess: ({ message }) => {
-        addNotification(message, ALERT_TYPES.SUCCESS);
-      },
-      onError: () => {
-        addNotification(
-          'Nie udało się zaktualizować pozycji w tabeli. Proszę spróbować ponownie.',
-          ALERT_TYPES.ERROR,
-        );
-      },
-    });
-  };
+    const draggableCallback = (items) => {
+        const draggableData = prepareDraggableDataToUpdateOrder(items);
+        apiConfig.setBody(draggableData);
+        handleApiRequest(apiConfig, {
+            onSuccess: ({ message }) => {
+                addNotification(message, ALERT_TYPES.SUCCESS);
+            },
+            onError: () => {
+                addNotification(
+                    'Nie udało się zaktualizować pozycji w tabeli. Proszę spróbować ponownie.',
+                    ALERT_TYPES.ERROR,
+                );
+            },
+        });
+    };
 
-  return { draggableCallback }
-}
+    return { draggableCallback };
+};
 
 export default useDraggable;

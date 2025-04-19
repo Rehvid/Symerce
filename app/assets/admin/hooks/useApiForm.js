@@ -27,7 +27,7 @@ const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
                             let value = formData[fieldName];
 
                             if (fieldModifiers.length > 0) {
-                                const modifier = fieldModifiers.find(mod => mod.fieldName === fieldName);
+                                const modifier = fieldModifiers.find((mod) => mod.fieldName === fieldName);
                                 if (modifier) {
                                     value = modifier.action(formData[fieldName]);
                                 }
@@ -58,7 +58,15 @@ const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
             ? createApiConfig(`${baseApiUrl}/${params.id}`, HTTP_METHODS.PUT)
             : createApiConfig(baseApiUrl, HTTP_METHODS.POST);
 
-    return { fetchFormData, defaultApiSuccessCallback, getApiConfig, formData, setFormData, isRequestFinished, isFormReady };
+    return {
+        fetchFormData,
+        defaultApiSuccessCallback,
+        getApiConfig,
+        formData,
+        setFormData,
+        isRequestFinished,
+        isFormReady,
+    };
 };
 
 export default useApiForm;
