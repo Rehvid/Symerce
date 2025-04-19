@@ -39,7 +39,7 @@ const CategoryList = () => {
                     defaultIcon={<FoldersIcon className="text-primary mx-auto" />}
                 />
             ),
-            slug: slug,
+            slug,
             actions: <TableActions id={id} onDelete={() => removeItem(`admin/categories/${id}`)} />,
         });
     });

@@ -18,18 +18,18 @@ const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
         const config = createApiConfig(endPoint, method);
         handleApiRequest(config, {
             onSuccess: ({ data }) => {
-                const { formData } = data;
-                if (formData) {
-                    setFormData(formData);
+                const { formFieldsData } = data;
+                if (formFieldsData) {
+                    setFormData(formFieldsData);
 
                     formFieldNames.forEach((fieldName) => {
-                        if (formData[fieldName] !== undefined) {
-                            let value = formData[fieldName];
+                        if (formFieldsData[fieldName] !== undefined) {
+                            let value = formFieldsData[fieldName];
 
                             if (fieldModifiers.length > 0) {
                                 const modifier = fieldModifiers.find((mod) => mod.fieldName === fieldName);
                                 if (modifier) {
-                                    value = modifier.action(formData[fieldName]);
+                                    value = modifier.action(formFieldsData[fieldName]);
                                 }
                             }
 

@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import useApiForm from '@/admin/hooks/useApiForm';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 import ApiForm from '@/admin/components/form/ApiForm';

@@ -2,7 +2,6 @@ import FormSidePanel from '@/admin/components/form/FormSidePanel';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
 import Switch from '@/admin/components/form/controls/Switch';
-import React from 'react';
 import { normalizeFiles } from '@/admin/utils/helper';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import ModalHeader from '@/admin/components/modal/ModalHeader';
@@ -15,7 +14,7 @@ const VendorFormSideColumn = ({ register, setValue, formData, setFormData }) => 
         setValue('image', image);
         setFormData((prevFormData) => ({
             ...prevFormData,
-            image: image,
+            image,
         }));
     };
 

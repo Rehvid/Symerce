@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
@@ -30,7 +30,7 @@ const AttributeList = () => {
 
     const actions = (id, name) => (
         <TableActions id={id} onDelete={() => removeItem(`admin/attributes/${id}`)}>
-            <AppLink to={`${id}/values`} state={{ name: name }} additionalClasses="text-gray-500">
+            <AppLink to={`${id}/values`} state={{ name }} additionalClasses="text-gray-500">
                 <EyeIcon />
             </AppLink>
         </TableActions>
@@ -40,7 +40,7 @@ const AttributeList = () => {
         const { id, name } = item;
         return Object.values({
             id: <TableRowId id={id} />,
-            name: name,
+            name,
             actions: actions(id, name),
         });
     });

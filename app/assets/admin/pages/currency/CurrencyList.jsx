@@ -27,9 +27,9 @@ const CurrencyList = () => {
         const { id, name, symbol, code, roundingPrecision } = item;
         return Object.values({
             id: <TableRowId id={id} />,
-            name: name,
-            symbol: symbol,
-            code: code,
+            name,
+            symbol,
+            code,
             roundingPrecision: (
                 <Badge variant="info">
                     <strong>{roundingPrecision}</strong>

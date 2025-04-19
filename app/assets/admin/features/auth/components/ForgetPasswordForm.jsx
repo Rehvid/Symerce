@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AppButton from '@/admin/components/common/AppButton';
 import { validationRules } from '@/admin/utils/validationRules';
@@ -38,7 +38,7 @@ const ForgetPasswordForm = () => {
         >
             <div className="flex flex-col w-full gap-[40px]">
                 <InputEmail
-                    hasError={fieldErrors.hasOwnProperty('email')}
+                    hasError={!!fieldErrors?.email}
                     errorMessage={fieldErrors?.email?.message}
                     {...register('email', {
                         ...validationRules.required(),

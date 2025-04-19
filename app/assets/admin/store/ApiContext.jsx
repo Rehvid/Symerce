@@ -23,7 +23,7 @@ export const ApiProvider = ({ children }) => {
             }
 
             setIsRequestFinished(true);
-            return onSuccess?.({ data: data, meta: meta, message: message });
+            return onSuccess?.({ data, meta, message });
         } catch (e) {
             console.error('Network error:', e);
             setIsRequestFinished(true);

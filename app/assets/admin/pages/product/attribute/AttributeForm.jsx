@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { validationRules } from '@/admin/utils/validationRules';
 import Input from '@/admin/components/form/controls/Input';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 

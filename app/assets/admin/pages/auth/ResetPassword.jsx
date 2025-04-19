@@ -1,5 +1,5 @@
 import Card from '@/admin/components/Card';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ResetPasswordForm from '@/admin/features/auth/components/ResetPasswordForm';
 import { useLocation, useNavigate } from 'react-router-dom';
 

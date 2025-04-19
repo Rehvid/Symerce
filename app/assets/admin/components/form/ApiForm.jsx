@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Alert from '@/admin/components/Alert';
 import { useApi } from '@/admin/hooks/useApi';
 import { useValidationErrors } from '@/admin/hooks/useValidationErrors';
@@ -47,8 +47,8 @@ const ApiForm = ({
 
     useEffect(() => {
         if (additionalAlerts && Object.values(additionalAlerts).length > 0) {
-            setAlert((alert) => ({
-                ...alert,
+            setAlert((prevAlert) => ({
+                ...prevAlert,
                 ...additionalAlerts,
             }));
         }

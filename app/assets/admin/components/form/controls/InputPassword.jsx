@@ -5,7 +5,7 @@ import Input from '@/admin/components/form/controls/Input';
 const InputPassword = React.forwardRef(({ id, hasError, errorMessage, label, ...register }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
     const togglePassword = () => {
-        setShowPassword((showPassword) => !showPassword);
+        setShowPassword((prevShowPassword) => !prevShowPassword);
     };
 
     return (
@@ -18,7 +18,7 @@ const InputPassword = React.forwardRef(({ id, hasError, errorMessage, label, ...
             icon={
                 <EyeIcon
                     onClick={togglePassword}
-                    className={`cursor-pointer transition-all ${showPassword ? 'text-primary-stronger ' : 'text-gray-500 hover:text-primary-stronger'}`}
+                    className={`cursor-pointer transition-all ${showPassword ? 'text-primary ' : 'text-gray-500 hover:text-primary-hover'}`}
                 />
             }
             isRequired

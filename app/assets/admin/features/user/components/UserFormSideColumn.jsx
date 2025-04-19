@@ -2,7 +2,6 @@ import FormSidePanel from '@/admin/components/form/FormSidePanel';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
 import Switch from '@/admin/components/form/controls/Switch';
-import React from 'react';
 import ModalHeader from '@/admin/components/modal/ModalHeader';
 import ModalBody from '@/admin/components/modal/ModalBody';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
@@ -14,7 +13,7 @@ const UserFormSideColumn = ({ register, setValue, userData, setUserData }) => {
         setValue('avatar', avatar);
         setUserData((prevFormData) => ({
             ...prevFormData,
-            avatar: avatar,
+            avatar,
         }));
     };
 

@@ -1,6 +1,5 @@
 import EyeIcon from '@/images/icons/eye.svg';
 import TrashIcon from '@/images/icons/trash.svg';
-import React from 'react';
 import { useModal } from '@/admin/hooks/useModal';
 
 const DropzonePreviewActions = ({ renderModal, removeFile, file }) => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { createApiConfig } from '@/shared/api/ApiConfig';
 import { validationRules } from '@/admin/utils/validationRules';
@@ -36,7 +35,7 @@ const ResetPasswordForm = ({ token }) => {
                 <InputPassword
                     id="password"
                     label="Hasło"
-                    hasError={fieldErrors.hasOwnProperty('password')}
+                    hasError={!!fieldErrors?.password}
                     errorMessage={fieldErrors?.password?.message}
                     {...register('password', {
                         ...validationRules.required(),
@@ -46,11 +45,11 @@ const ResetPasswordForm = ({ token }) => {
                 <InputPassword
                     id="password-confirmation"
                     label="Powtórz hasło"
-                    hasError={fieldErrors.hasOwnProperty('passwordConfirmation')}
+                    hasError={!!fieldErrors?.passwordConfirmation}
                     errorMessage={fieldErrors?.passwordConfirmation?.message}
                     {...register('passwordConfirmation', {
                         ...validationRules.required(),
-                        validate: function (passwordConfirmation, { password }) {
+                        validate(passwordConfirmation, { password }) {
                             return passwordConfirmation === password || 'Hasła muszą być identyczne.';
                         },
                     })}

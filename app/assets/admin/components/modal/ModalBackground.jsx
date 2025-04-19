@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ModalBackground = ({ children }) => {
     return (
         <div className="relative w-full max-w-5xl flex items-center justify-center mx-auto h-full">

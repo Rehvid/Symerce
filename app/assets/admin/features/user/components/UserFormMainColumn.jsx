@@ -2,7 +2,6 @@ import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
 import UserIcon from '@/images/icons/user.svg';
 import InputEmail from '@/admin/components/form/controls/InputEmail';
-import React from 'react';
 import MultiSelect from '@/admin/components/form/controls/MultiSelect';
 import { Controller } from 'react-hook-form';
 import InputPassword from '@/admin/components/form/controls/InputPassword';
@@ -18,7 +17,7 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params }) => {
                 type="text"
                 id="firstname"
                 label="Imie"
-                hasError={fieldErrors.hasOwnProperty('firstname')}
+                hasError={!!fieldErrors?.firstname}
                 errorMessage={fieldErrors?.firstname?.message}
                 isRequired
                 icon={<UserIcon className="text-gray-500" />}
@@ -31,13 +30,13 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params }) => {
                 type="text"
                 id="surname"
                 label="Nazwisko"
-                hasError={fieldErrors.hasOwnProperty('surname')}
+                hasError={!!fieldErrors?.surname}
                 errorMessage={fieldErrors?.surname?.message}
                 isRequired
                 icon={<UserIcon className="text-gray-500" />}
             />
             <InputEmail
-                hasError={fieldErrors.hasOwnProperty('email')}
+                hasError={!!fieldErrors?.email}
                 errorMessage={fieldErrors?.email?.message}
                 {...register('email', {
                     ...validationRules.required(),
@@ -68,7 +67,7 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params }) => {
                                 field.onChange(newValue);
                             }}
                             isRequired
-                            hasError={fieldErrors.hasOwnProperty('roles')}
+                            hasError={!!fieldErrors?.roles}
                             errorMessage={fieldErrors?.roles?.message}
                         />
                     </div>
@@ -79,7 +78,7 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params }) => {
                 id="password"
                 label="Hasło"
                 isRequired={params.id === null}
-                hasError={fieldErrors.hasOwnProperty('password')}
+                hasError={!!fieldErrors?.password}
                 errorMessage={fieldErrors?.password?.message}
                 {...register('password', {
                     ...validationRules.password(),
@@ -89,10 +88,10 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params }) => {
                 id="password-confirmation"
                 label="Powtórz hasło"
                 isRequired={params.id === null}
-                hasError={fieldErrors.hasOwnProperty('passwordConfirmation')}
+                hasError={!!fieldErrors?.passwordConfirmation}
                 errorMessage={fieldErrors?.passwordConfirmation?.message}
                 {...register('passwordConfirmation', {
-                    validate: function (passwordConfirmation, { password }) {
+                    validate(passwordConfirmation, { password }) {
                         return passwordConfirmation === password || 'Hasła muszą być identyczne.';
                     },
                 })}

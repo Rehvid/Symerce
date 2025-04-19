@@ -1,4 +1,3 @@
-import React from 'react';
 import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
 import FormCategoryTree from '@/admin/components/category-tree/FormCategoryTree';
@@ -16,7 +15,7 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 type="text"
                 id="name"
                 label="Nazwa"
-                hasError={errors.hasOwnProperty('name')}
+                hasError={!!errors?.name}
                 errorMessage={errors?.name?.message}
                 isRequired
             />
@@ -26,7 +25,7 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 type="text"
                 id="slug"
                 label="Przyjazny url"
-                hasError={errors.hasOwnProperty('slug')}
+                hasError={!!errors?.slug}
                 errorMessage={errors?.slug?.message}
             />
 
@@ -39,7 +38,7 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
 
             <FormCategoryTree
                 titleSection="Kategoria nadrzędna"
-                hasError={errors.hasOwnProperty('parentCategoryId')}
+                hasError={!!errors?.parentCategoryId}
                 errorMessage={errors?.parentCategoryId?.message}
                 register={register('parentCategoryId')}
                 disabledCategoryId={params.id ?? null}

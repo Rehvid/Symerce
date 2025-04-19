@@ -10,7 +10,7 @@ export const validationRules = {
     }),
     password: () => ({
         pattern: {
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/,
+            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>/?]).{8,}$/,
             message: 'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.',
         },
     }),
@@ -28,7 +28,7 @@ export const validationRules = {
     }),
     numeric: (maxDecimalPlaces) => ({
         pattern: {
-            value: new RegExp(`^\\d+([,.]\\d{1,${maxDecimalPlaces}})?$`),
+            value: `^\\d+([,.]\\d{1,${maxDecimalPlaces}})?$`,
             message: `Proszę podać liczbę z maksymalnie ${maxDecimalPlaces} miejscami po przecinku. Dozwolone separatory dziesiętne to kropka (.) lub przecinek (,).`,
         },
     }),

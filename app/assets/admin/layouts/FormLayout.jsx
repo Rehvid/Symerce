@@ -1,5 +1,4 @@
 import FormFooterActions from '@/admin/components/form/FormFooterActions';
-import React from 'react';
 import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 

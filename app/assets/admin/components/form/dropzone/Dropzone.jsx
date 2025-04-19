@@ -1,5 +1,4 @@
 import { useDropzone } from 'react-dropzone';
-import React from 'react';
 import PhotosIcon from '@/images/icons/photos.svg';
 
 const Dropzone = ({ onDrop, errors, variant = 'sideColumn', containerClasses = '', children }) => {

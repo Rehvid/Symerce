@@ -1,5 +1,4 @@
 import Card from '@/admin/components/Card';
-import React from 'react';
 import Heading from '@/admin/components/common/Heading';
 
 const FormSidePanel = ({ sectionTitle, children }) => (

@@ -1,6 +1,6 @@
 import ApiForm from '@/admin/components/form/ApiForm';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import FormLayout from '@/admin/layouts/FormLayout';
@@ -21,7 +21,7 @@ const UserForm = () => {
     } = useForm({
         mode: 'onBlur',
         defaultValues: {
-            id: Number(params.id) ?? null,
+            id: params.id ? Number(params.id) : null,
         },
     });
 

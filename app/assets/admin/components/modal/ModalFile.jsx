@@ -1,6 +1,5 @@
 import ModalHeader from '@/admin/components/modal/ModalHeader';
 import ModalBody from '@/admin/components/modal/ModalBody';
-import React from 'react';
 
 const ModalFile = ({ name, preview }) => (
     <>

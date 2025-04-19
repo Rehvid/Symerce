@@ -27,9 +27,9 @@ const DeliveryTimeList = () => {
         const { id, label, minDays, maxDays, type } = item;
         return Object.values({
             id: <TableRowId id={id} />,
-            label: label,
-            minDays: minDays,
-            maxDays: maxDays,
+            label,
+            minDays,
+            maxDays,
             type: <Badge variant="info"> {type} </Badge>, //TODO: Pobierać inne nazwy
             actions: <TableActions id={id} onDelete={() => removeItem(`admin/delivery-time/${id}`)} />,
         });

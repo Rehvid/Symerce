@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { createApiConfig } from '@/shared/api/ApiConfig';
 import { useUser } from '@/admin/hooks/useUser';
@@ -8,10 +7,8 @@ import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 import ApiForm from '@/admin/components/form/ApiForm';
 import FormLayout from '@/admin/layouts/FormLayout';
 import ProfilePersonalFormMainColumn from '@/admin/features/profile/components/partials/ProfilePersonalFormMainColumn';
-import { useParams } from 'react-router-dom';
 
 const ProfilePersonalForm = () => {
-    const params = useParams();
     const { user, setUser } = useUser();
     const { addNotification } = useCreateNotification();
     const {

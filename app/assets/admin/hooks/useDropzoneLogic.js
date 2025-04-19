@@ -46,7 +46,9 @@ export const useDropzoneLogic = (
             return true;
         });
 
-        if (filteredFiles.length === 0) return;
+        if (filteredFiles.length === 0) {
+            return;
+        }
 
         const withPreview = filteredFiles.map((file) =>
             Object.assign(file, {

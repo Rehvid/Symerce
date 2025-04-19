@@ -1,5 +1,3 @@
-import FoldersIcon from '@/images/icons/folders.svg';
-
 const TableRowImageWithText = ({ imagePath, text, defaultIcon }) => {
     return (
         <div className="flex gap-4 items-center">

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import Editor from '@/admin/components/editor/Editor';
 import DOMPurify from 'quill/formats/link';
 import Heading from '@/admin/components/common/Heading';

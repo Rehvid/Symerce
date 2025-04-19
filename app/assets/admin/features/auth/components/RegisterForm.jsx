@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import React from 'react';
 import AppButton from '@/admin/components/common/AppButton';
 import AppLink from '@/admin/components/common/AppLink';
 import { validationRules } from '@/admin/utils/validationRules';
@@ -38,7 +37,7 @@ const RegisterForm = () => {
         >
             <div className="flex flex-col w-full gap-[40px]">
                 <InputEmail
-                    hasError={fieldErrors.hasOwnProperty('email')}
+                    hasError={!!fieldErrors?.email}
                     errorMessage={fieldErrors?.email?.message}
                     {...register('email', {
                         ...validationRules.required(),
@@ -53,7 +52,7 @@ const RegisterForm = () => {
                     type="text"
                     id="firstname"
                     label="Imie"
-                    hasError={fieldErrors.hasOwnProperty('firstname')}
+                    hasError={!!fieldErrors?.firstname}
                     errorMessage={fieldErrors?.firstname?.message}
                     isRequired
                     icon={<UserIcon className="text-gray-500" />}
@@ -66,7 +65,7 @@ const RegisterForm = () => {
                     type="text"
                     id="surname"
                     label="Nazwisko"
-                    hasError={fieldErrors.hasOwnProperty('surname')}
+                    hasError={!!fieldErrors?.surname}
                     errorMessage={fieldErrors?.surname?.message}
                     isRequired
                     icon={<UserIcon className="text-gray-500" />}
@@ -74,7 +73,7 @@ const RegisterForm = () => {
                 <InputPassword
                     id="password"
                     label="Hasło"
-                    hasError={fieldErrors.hasOwnProperty('password')}
+                    hasError={!!fieldErrors?.password}
                     errorMessage={fieldErrors?.password?.message}
                     {...register('password', {
                         ...validationRules.required(),
@@ -84,11 +83,11 @@ const RegisterForm = () => {
                 <InputPassword
                     id="password-confirmation"
                     label="Powtórz hasło"
-                    hasError={fieldErrors.hasOwnProperty('passwordConfirmation')}
+                    hasError={!!fieldErrors?.passwordConfirmation}
                     errorMessage={fieldErrors?.passwordConfirmation?.message}
                     {...register('passwordConfirmation', {
                         ...validationRules.required(),
-                        validate: function (passwordConfirmation, { password }) {
+                        validate(passwordConfirmation, { password }) {
                             return passwordConfirmation === password || 'Hasła muszą być identyczne.';
                         },
                     })}

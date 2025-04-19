@@ -1,7 +1,7 @@
 import Dropdown from '@/admin/components/dropdown/Dropdown';
 import DropdownButton from '@/admin/components/dropdown/DropdownButton';
 import DropdownContent from '@/admin/components/dropdown/DropdownContent';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Badge from '@/admin/components/common/Badge';
 import ChevronIcon from '@/images/icons/chevron.svg';
 import Heading from '@/admin/components/common/Heading';
@@ -28,7 +28,7 @@ const MultiSelect = ({ options, selected, label, isRequired, onChange, hasError,
                 >
                     <span className="flex gap-2 flex-wrap">
                         {selectedLabels.length > 0 ? (
-                            selectedLabels.map((label, key) => <Badge key={key}>{label}</Badge>)
+                            selectedLabels.map((name, key) => <Badge key={key}>{name}</Badge>)
                         ) : (
                             <span className="text-gray-400">Wybierz...</span>
                         )}

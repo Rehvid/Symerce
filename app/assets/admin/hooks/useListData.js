@@ -48,8 +48,8 @@ const useListData = (endpoint, filters, setFilters) => {
         });
     };
 
-    const removeItem = async (endpoint) => {
-        const config = createApiConfig(endpoint, HTTP_METHODS.DELETE);
+    const removeItem = async (deleteEndpoint) => {
+        const config = createApiConfig(deleteEndpoint, HTTP_METHODS.DELETE);
         handleApiRequest(config, {
             onSuccess: ({ message }) => {
                 addNotification(message, ALERT_TYPES.SUCCESS);

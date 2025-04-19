@@ -1,6 +1,5 @@
 import Card from '@/admin/components/Card';
 import CategoryTree from '@/admin/components/category-tree/CategoryTree';
-import React from 'react';
 import Heading from '@/admin/components/common/Heading';
 
 const FormCategoryTree = ({

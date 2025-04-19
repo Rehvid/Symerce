@@ -15,7 +15,7 @@ const AdminLayout = () => {
         verifyAuth();
     }, []);
 
-    if (isLoadingAuthorization || !isAuthenticated) {
+    if (isLoadingAuthorization) {
         return null;
     }
 

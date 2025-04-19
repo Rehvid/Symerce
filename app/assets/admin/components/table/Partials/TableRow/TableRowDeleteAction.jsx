@@ -3,7 +3,6 @@ import AppButton from '@/admin/components/common/AppButton';
 import { useModal } from '@/admin/hooks/useModal';
 import ModalHeader from '@/admin/components/modal/ModalHeader';
 import ModalBody from '@/admin/components/modal/ModalBody';
-import React from 'react';
 
 const TableRowDeleteAction = ({ onClick }) => {
     const { openModal, closeModal } = useModal();

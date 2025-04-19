@@ -31,7 +31,7 @@ const AttributeValueList = () => {
         const { id, value } = item;
         return Object.values({
             id: <TableRowId id={id} />,
-            value: value,
+            value,
             actions: (
                 <TableActions
                     id={id}

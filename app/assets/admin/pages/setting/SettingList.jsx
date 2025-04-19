@@ -33,16 +33,16 @@ const SettingList = () => {
             );
         }
 
-        return <TableActions id={id} onDelete={() => removeItem(`admin/settings/${item.id}`)} />;
+        return <TableActions id={id} onDelete={() => removeItem(`admin/settings/${id}`)} />;
     };
 
     const data = items.map((item) => {
         const { id, name, type, value, isProtected } = item;
         return Object.values({
             id: <TableRowId id={id} />,
-            name: name,
+            name,
             type: <Badge> {type} </Badge>, //TODO: Inne dane
-            value: value, //TODO: Dane inne wysyłamy
+            value, //TODO: Dane inne wysyłamy
             actions: actions(id, isProtected),
         });
     });

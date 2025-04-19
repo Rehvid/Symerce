@@ -1,6 +1,5 @@
 import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
-import React from 'react';
 
 const CarrierFormMainColumn = ({ register, fieldErrors }) => {
     return (

@@ -6,7 +6,6 @@ import FormSidePanel from '@/admin/components/form/FormSidePanel';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
 import Switch from '@/admin/components/form/controls/Switch';
-import React from 'react';
 
 const CarrierFormSideColumn = ({ register, setValue, formData, setFormData }) => {
     const formDataImage = normalizeFiles(formData?.image);
@@ -15,7 +14,7 @@ const CarrierFormSideColumn = ({ register, setValue, formData, setFormData }) =>
         setValue('image', image);
         setFormData((prevFormData) => ({
             ...prevFormData,
-            image: image,
+            image,
         }));
     };
 

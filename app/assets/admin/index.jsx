@@ -3,7 +3,6 @@ import '../styles/app.css';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import App from './App';
-import { StrictMode } from 'react';
 
 const container = document.getElementById('app');
 const root = createRoot(container);

@@ -1,5 +1,4 @@
 import { validationRules } from '@/admin/utils/validationRules';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useUser } from '@/admin/hooks/useUser';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
@@ -42,7 +41,7 @@ const ProfileSecurityForm = () => {
                             <InputPassword
                                 id="password"
                                 label="Hasło"
-                                hasError={fieldErrors.hasOwnProperty('password')}
+                                hasError={!!fieldErrors?.password}
                                 errorMessage={fieldErrors?.password?.message}
                                 {...register('password', {
                                     ...validationRules.required(),
@@ -52,11 +51,11 @@ const ProfileSecurityForm = () => {
                             <InputPassword
                                 id="password-confirmation"
                                 label="Powtórz hasło"
-                                hasError={fieldErrors.hasOwnProperty('passwordConfirmation')}
+                                hasError={!!fieldErrors?.passwordConfirmation}
                                 errorMessage={fieldErrors?.passwordConfirmation?.message}
                                 {...register('passwordConfirmation', {
                                     ...validationRules.required(),
-                                    validate: function (passwordConfirmation, { password }) {
+                                    validate(passwordConfirmation, { password }) {
                                         return passwordConfirmation === password || 'Hasła muszą być identyczne.';
                                     },
                                 })}

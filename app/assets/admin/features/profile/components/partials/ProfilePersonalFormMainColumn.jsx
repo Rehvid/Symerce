@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Heading from '@/admin/components/common/Heading';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';

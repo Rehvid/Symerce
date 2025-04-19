@@ -2,7 +2,7 @@ import AppButton from '@/admin/components/common/AppButton';
 import { useNavigate } from 'react-router-dom';
 
 const FormFooterActions = ({ children }) => {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     return (
         <div className="fixed bottom-0 left-0 right-0 z-10 mt-8 bg-white py-4 rounded-md border-t  border-gray-300">
             <div className="ml-[290px]">

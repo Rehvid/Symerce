@@ -1,4 +1,3 @@
-import React from 'react';
 import FormSidePanel from '@/admin/components/form/FormSidePanel';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import ModalHeader from '@/admin/components/modal/ModalHeader';
@@ -15,7 +14,7 @@ const CategoryFormSideColumn = ({ register, categoryFormData, setCategoryFormDat
         setValue('image', image);
         setCategoryFormData((prevFormData) => ({
             ...prevFormData,
-            image: image,
+            image,
         }));
     };
 

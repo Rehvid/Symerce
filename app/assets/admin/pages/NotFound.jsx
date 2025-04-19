@@ -1,7 +1,5 @@
 import AppButton from '@/admin/components/common/AppButton';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '@/admin/hooks/useUser';
-import { useAuth } from '@/admin/hooks/useAuth';
 
 const NotFound = () => {
     const navigate = useNavigate();

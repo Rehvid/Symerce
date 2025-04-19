@@ -1,6 +1,5 @@
 import { validationRules } from '@/admin/utils/validationRules';
 import Input from '@/admin/components/form/controls/Input';
-import React from 'react';
 import Select from '@/shared/components/Select';
 
 const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, setValue }) => {

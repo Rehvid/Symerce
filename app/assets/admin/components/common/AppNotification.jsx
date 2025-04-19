@@ -15,7 +15,9 @@ const AppNotification = ({ label, variant, time }) => {
         return () => clearTimeout(timeout);
     }, [time]);
 
-    if (!isVisible) return null;
+    if (!isVisible) {
+        return null;
+    }
 
     const variants = {
         success: 'border-success',

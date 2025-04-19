@@ -1,4 +1,3 @@
-import React from 'react';
 import Card from '@/admin/components/Card';
 import LoginForm from '@/admin/features/auth/components/LoginForm';
 

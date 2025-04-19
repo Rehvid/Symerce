@@ -18,7 +18,7 @@ const ProductList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
-    const { items, pagination, isLoading, fetchItems } = useListData('admin/products', filters);
+    const { items, pagination, isLoading } = useListData('admin/products', filters);
 
     if (isLoading) {
         return <>...Loading</>;

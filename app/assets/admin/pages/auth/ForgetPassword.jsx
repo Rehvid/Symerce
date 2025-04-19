@@ -1,6 +1,4 @@
 import Card from '@/admin/components/Card';
-import Alert from '@/admin/components/Alert';
-import React, { useState } from 'react';
 import ForgotPasswordForm from '@/admin/features/auth/components/ForgetPasswordForm';
 
 const ForgetPassword = () => {
