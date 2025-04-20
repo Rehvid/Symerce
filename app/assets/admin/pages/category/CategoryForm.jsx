@@ -31,7 +31,7 @@ const CategoryForm = () => {
 
     useEffect(() => {
         const endPoint = params.id ? `admin/categories/${params.id}/form-data` : 'admin/categories/form-data';
-        // fetchFormData(endPoint, HTTP_METHODS.GET, ['name', 'isActive', 'description', 'parentCategoryId', 'slug']); //TODO: Dane źle są pobierane
+        fetchFormData(endPoint, HTTP_METHODS.GET, ['name', 'isActive', 'description', 'parentCategoryId', 'slug']);
     }, []);
 
     if (!isFormReady) {

@@ -18,37 +18,81 @@ final class CategoryTreeBuilder
     }
 
     /** @return list<array<string, mixed>> */
-    public function generateTree(): array
+    public function generateTree(?Category $currentCategory = null): array
     {
         $tree = [];
+        $this->processedCategories = [];
+
+
+        $excludedIds = [];
+        if (null !== $currentCategory) {
+            $excludedIds = $this->collectDescendantIds($currentCategory);
+            $excludedIds[] = $currentCategory->getId();
+        }
+
         $categories = $this->categoryRepository->findAll();
-
-        /** @var Category $category */
         foreach ($categories as $category) {
-            if (isset($this->processedCategories[$category->getId()])) {
-                continue;
+            if (
+                $category->getParent() === null &&
+                !isset($this->processedCategories[$category->getId()]) &&
+                !in_array($category->getId(), $excludedIds, true)
+            ) {
+                $tree[] = $this->buildTreeNode($category, [], $excludedIds);
             }
-
-            $tree[] = $this->buildTreeNode($category, false);
         }
 
         return $tree;
     }
 
-    /** @return array<string, mixed> */
-    private function buildTreeNode(Category $category, bool $isRecursive): array
+    /**
+     * @param list<int> $path
+     * @param list<int> $excludedIds
+     * @return array<string, mixed>
+     */
+    private function buildTreeNode(Category $category, array $path, array $excludedIds): array
     {
-        if ($isRecursive) {
-            $this->processedCategories[$category->getId()] = true;
+        $categoryId = $category->getId();
+
+        if (in_array($categoryId, $excludedIds, true)) {
+            return [];
         }
 
-        /** @var Category[] $children */
-        $children = array_map(fn ($child) => $this->buildTreeNode($child, true), $category->getChildren()->toArray());
+        if (in_array($categoryId, $path, true)) {
+            return [
+                'id' => $categoryId,
+                'name' => $category->getName(),
+                'children' => [],
+            ];
+        }
+
+        $this->processedCategories[$categoryId] = true;
+
+        $newPath = [...$path, $categoryId];
+
+        $children = array_filter(array_map(
+            fn(Category $child) => $this->buildTreeNode($child, $newPath, $excludedIds),
+            $category->getChildren()->toArray()
+        ));
 
         return [
-            'id' => $category->getId(),
+            'id' => $categoryId,
             'name' => $category->getName(),
-            'children' => $children,
+            'children' => array_values($children),
         ];
+    }
+
+    /**
+     * @return list<int>
+     */
+    private function collectDescendantIds(Category $category): array
+    {
+        $ids = [];
+
+        foreach ($category->getChildren() as $child) {
+            $ids[] = $child->getId();
+            $ids = array_merge($ids, $this->collectDescendantIds($child));
+        }
+
+        return $ids;
     }
 }

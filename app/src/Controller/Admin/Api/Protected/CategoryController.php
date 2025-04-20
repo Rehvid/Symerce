@@ -80,7 +80,7 @@ class CategoryController extends AbstractAdminController
     {
         $name = $category->getName();
         $formData = CategoryFormResponseDTO::fromArray([
-            'tree' => $tree->generateTree(),
+            'tree' => $tree->generateTree($category),
             'name' => $name,
             'slug' => $category->getSlug(),
             'parentCategoryId' => $category->getParent()?->getId(),
