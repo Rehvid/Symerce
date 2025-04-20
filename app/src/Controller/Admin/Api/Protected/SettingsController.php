@@ -7,36 +7,54 @@ use App\DTO\Request\Setting\SaveSettingRequestDTO;
 use App\DTO\Response\Setting\SettingFormResponseDTO;
 use App\DTO\Response\Setting\SettingIndexResponseDTO;
 use App\DTO\Response\Setting\SettingUpdateFormResponseDTO;
+use App\DTO\Response\Setting\SettingValueFormResponseDTO;
+use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Enums\SettingType;
+use App\Enums\SettingValueType;
+use App\Mapper\SettingMapper;
 use App\Repository\SettingRepository;
+use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\Pagination\PaginationService;
+use App\Service\Response\ResponseService;
+use App\Service\SortableEntityOrderUpdater;
 use App\Utils\Utils;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/settings', name: 'setting_')]
 class SettingsController extends AbstractAdminController
 {
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        PaginationService $paginationService,
+        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly SettingMapper $mapper,
+    ) {
+        parent::__construct(
+            $dataPersisterManager,
+            $translator,
+            $responseService,
+            $paginationService,
+            $sortableEntityOrderUpdater
+        );
+    }
+
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(Request $request, SettingRepository $repository): JsonResponse
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $responseData = array_map(function (array $item) {
-            return SettingIndexResponseDTO::fromArray([
-                'id' => $item['id'],
-                'name' => $item['name'],
-                'value' => $item['value'],
-                'type' => $item['type']?->value,
-                'isProtected' => $item['isProtected'],
-            ]);
-        }, $paginatedResponse->data);
-
         return $this->prepareJsonResponse(
-            data: $responseData,
+            data: $this->mapper->mapToIndex($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
 
@@ -72,13 +90,7 @@ class SettingsController extends AbstractAdminController
     {
         return $this->prepareJsonResponse(
             data: [
-                'formData' => SettingUpdateFormResponseDTO::fromArray([
-                    'types' => $this->buildTranslatedOptionsForSettingTypeEnum(SettingType::translatedOptions()),
-                    'name' => $setting->getName(),
-                    'type' => $setting->getType()->value,
-                    'value' => $setting->getValue(),
-                    'isProtected' => $setting->isProtected(),
-                ]),
+                'formData' => $this->mapper->mapToShowUpdateFormData($setting),
             ]
         );
     }
@@ -112,7 +124,7 @@ class SettingsController extends AbstractAdminController
      */
     private function buildTranslatedOptionsForSettingTypeEnum(array $types): array
     {
-        return Utils::buildTranslatedOptions(
+        return Utils::buildSelectedOptions(
             items: $types,
             labelCallback: fn (SettingType $type) => $this->translator->trans("base.setting_type.{$type->value}"),
             valueCallback: fn (SettingType $type) => $type->value,

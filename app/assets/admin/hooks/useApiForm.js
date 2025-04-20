@@ -18,7 +18,7 @@ const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
         const config = createApiConfig(endPoint, method);
         handleApiRequest(config, {
             onSuccess: ({ data }) => {
-                const { formFieldsData } = data;
+                const { formData: formFieldsData } = data;
                 if (formFieldsData) {
                     setFormData(formFieldsData);
 
@@ -36,8 +36,8 @@ const useApiForm = (setValue, params, baseApiUrl, redirectSuccessUrl = '') => {
                             setValue(fieldName, value);
                         }
                     });
-                    setIsFormReady(true);
                 }
+                setIsFormReady(true);
             },
         });
     };

@@ -41,8 +41,8 @@ const SettingList = () => {
         return Object.values({
             id: <TableRowId id={id} />,
             name,
-            type: <Badge> {type} </Badge>, //TODO: Inne dane
-            value, //TODO: Dane inne wysyłamy
+            type: <Badge> {type} </Badge>,
+            value,
             actions: actions(id, isProtected),
         });
     });

@@ -13,6 +13,7 @@ final class SettingUpdateFormResponseDTO extends SettingFormResponseDTO
         public string $type,
         public string $value,
         public bool $isProtected,
+        public ?SettingValueFormResponseDTO $settingValue,
     ) {
         parent::__construct($types);
     }
@@ -25,6 +26,7 @@ final class SettingUpdateFormResponseDTO extends SettingFormResponseDTO
             type: $data['type'],
             value: $data['value'],
             isProtected: $data['isProtected'],
+            settingValue: $data['settingValue'],
         );
     }
 }
