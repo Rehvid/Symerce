@@ -112,7 +112,7 @@ class DeliveryTimeController extends AbstractAdminController
      */
     private function buildTranslatedOptionsForDeliverTypeEnum(array $types): array
     {
-        return Utils::buildTranslatedOptions(
+        return Utils::buildSelectedOptions(
             items: $types,
             labelCallback: fn (DeliveryType $type) => $this->translator->trans("base.delivery_type.{$type->value}"),
             valueCallback: fn (DeliveryType $type) => $type->value,

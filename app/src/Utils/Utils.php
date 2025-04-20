@@ -9,7 +9,7 @@ class Utils
      *
      * @return array<int, mixed>
      */
-    public static function buildTranslatedOptions(
+    public static function buildSelectedOptions(
         array $items,
         callable $labelCallback,
         callable $valueCallback

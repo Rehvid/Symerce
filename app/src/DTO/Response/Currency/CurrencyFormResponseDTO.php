@@ -12,7 +12,7 @@ final readonly class CurrencyFormResponseDTO implements ResponseInterfaceData
         public string $name,
         public string $symbol,
         public string $code,
-        public string $roundingPrecision
+        public int $roundingPrecision
     ) {
 
     }
