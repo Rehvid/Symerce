@@ -26,7 +26,7 @@ const SideBar = () => {
                     </NavigationItem>
                     <NavigationItem to={'categories'}>
                         <FoldersIcon />
-                        <span> Categories</span>
+                        <span> Kategorie</span>
                     </NavigationItem>
                     <Submenu
                         buttonLabel={

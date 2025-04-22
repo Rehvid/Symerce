@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '../../components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '../../components/table/Filters/PaginationFilter';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import useListData from '@/admin/hooks/useListData';
 import FoldersIcon from '@/images/icons/folders.svg';
@@ -12,6 +11,7 @@ import TableActions from '@/admin/components/table/Partials/TableActions';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import useDraggable from '@/admin/hooks/useDraggable';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
+import ListHeader from '@/admin/components/ListHeader';
 
 const CategoryList = () => {
     const location = useLocation();
@@ -46,19 +46,16 @@ const CategoryList = () => {
 
     return (
         <>
-            <PageHeader title={'Categoriesa'}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title="Kategorie" totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
-                title="Your categories"
                 filters={filters}
                 setFilters={setFilters}
                 columns={['ID', 'Nazwa', 'Przyjazny URL', 'Akcje']}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons />}
                 useDraggable={true}
                 draggableCallback={draggableCallback}
             />

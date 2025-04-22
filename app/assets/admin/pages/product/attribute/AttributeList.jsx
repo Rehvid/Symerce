@@ -1,17 +1,16 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableActions from '@/admin/components/table/Partials/TableActions';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import AppLink from '@/admin/components/common/AppLink';
-
 import EyeIcon from '@/images/icons/eye.svg';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
+import ListHeader from '@/admin/components/ListHeader';
 
 const AttributeList = () => {
     const location = useLocation();
@@ -47,19 +46,16 @@ const AttributeList = () => {
 
     return (
         <>
-            <PageHeader title={'Atrybuty'}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title="Atrybuty" totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
-                title="Grupa Atrybutów"
                 filters={filters}
                 setFilters={setFilters}
                 columns={['ID', 'Nazwa', 'Akcje']}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons />}
             />
         </>
     );

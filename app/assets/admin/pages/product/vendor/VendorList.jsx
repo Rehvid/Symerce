@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import TableActions from '@/admin/components/table/Partials/TableActions';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import ProductIcon from '@/images/icons/assembly.svg';
 import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/TableRowImageWithText';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
+import ListHeader from '@/admin/components/ListHeader';
 
 const VendorList = () => {
     const currentFilters = new URLSearchParams(location.search);
@@ -41,19 +41,16 @@ const VendorList = () => {
 
     return (
         <>
-            <PageHeader title={'Producent'}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title="Producenci" totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
-                title="Producenci"
                 filters={filters}
                 setFilters={setFilters}
                 columns={['ID', 'Nazwa', 'Akcje']}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons />}
             />
         </>
     );

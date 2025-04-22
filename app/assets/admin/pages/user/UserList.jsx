@@ -1,9 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import UsersIcon from '@/images/icons/users.svg';
 import TableActions from '@/admin/components/table/Partials/TableActions';
@@ -11,6 +10,7 @@ import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/Ta
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
+import ListHeader from '@/admin/components/ListHeader';
 
 const UserList = () => {
     const location = useLocation();
@@ -28,13 +28,13 @@ const UserList = () => {
     }
 
     const data = items.map((item) => {
-        const { id, email, name, imagePath } = item;
+        const { id, email, fullName, imagePath } = item;
         return Object.values({
             id: <TableRowId id={id} />,
             name: (
                 <TableRowImageWithText
                     imagePath={imagePath}
-                    text={name}
+                    text={fullName}
                     defaultIcon={<UsersIcon className="text-primary mx-auto" />}
                 />
             ),
@@ -45,19 +45,16 @@ const UserList = () => {
 
     return (
         <>
-            <PageHeader title={'Users'}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title="Użytkownicy" totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
-                title="Users"
                 filters={filters}
                 setFilters={setFilters}
                 columns={['ID', 'Użytkownik', 'Email', 'Akcje']}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons />}
             />
         </>
     );

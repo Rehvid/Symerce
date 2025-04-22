@@ -6,7 +6,7 @@ const FormFooterActions = ({ children }) => {
     return (
         <div className="fixed bottom-0 left-0 right-0 z-10 mt-8 bg-white py-4 rounded-md border-t  border-gray-300">
             <div className="ml-[290px]">
-                <div className="flex items-center justify-end pr-[48px]">
+                <div className="flex items-center justify-end pr-[48px] gap-5">
                     {children}
                     <AppButton
                         variant="secondary"

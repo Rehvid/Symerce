@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import TableActions from '@/admin/components/table/Partials/TableActions';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableRowEditAction from '@/admin/components/table/Partials/TableRow/TableRowEditAction';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import Badge from '@/admin/components/common/Badge';
+import ListHeader from '@/admin/components/ListHeader';
 
 const SettingList = () => {
     const currentFilters = new URLSearchParams(location.search);
@@ -27,7 +27,7 @@ const SettingList = () => {
     const actions = (id, isProtected) => {
         if (isProtected) {
             return (
-                <div className="flex gap-2 items-start">
+                <div className="flex gap-2 justify-center">
                     <TableRowEditAction to={`${id}/edit`} />
                 </div>
             );
@@ -49,8 +49,8 @@ const SettingList = () => {
 
     return (
         <>
-            <PageHeader title={'Ustawienia'}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title="Ustawienia" totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
@@ -60,8 +60,6 @@ const SettingList = () => {
                 columns={['ID', 'Nazwa', 'Typ', 'Wartość', 'Akcje']}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons />}
             />
         </>
     );

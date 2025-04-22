@@ -18,15 +18,12 @@ const PaginationFilter = ({ filters, setFilters, overrideDefaultOptions = false,
     };
 
     return (
-        <div className="flex items-center gap-3">
-            <span className="text-gray-500">Show</span>
-            <Select
-                name="limit"
-                selected={filters.limit || PAGINATION_FILTER_DEFAULT_OPTION}
-                onChange={onChange}
-                options={overrideDefaultOptions ? options : defaultOptions}
-            />
-        </div>
+        <Select
+            name="limit"
+            selected={filters.limit || PAGINATION_FILTER_DEFAULT_OPTION}
+            onChange={onChange}
+            options={overrideDefaultOptions ? options : defaultOptions}
+        />
     );
 };
 

@@ -1,9 +1,7 @@
 import Table from '@/admin/components/table/Table';
-import TableActionHeader from '@/admin/components/table/Partials/TableActionHeader';
 import TablePagination from '@/admin/components/table/TablePagination';
 
 const DataTable = ({
-    title,
     filters,
     setFilters,
     columns,
@@ -13,6 +11,7 @@ const DataTable = ({
     actionButtons,
     useDraggable,
     draggableCallback,
+    sortBy = [],
 }) => {
     return (
         <Table
@@ -21,10 +20,10 @@ const DataTable = ({
             additionalFilters={additionalFilters}
             columns={columns}
             actionButtons={actionButtons}
-            titleSection={<TableActionHeader title={title} total={pagination.totalItems} />}
             data={items}
             useDraggable={useDraggable}
             draggableCallback={draggableCallback}
+            sortBy={sortBy}
         >
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination} />
         </Table>

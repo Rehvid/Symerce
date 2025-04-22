@@ -10,14 +10,12 @@ const SearchFilter = ({ filters, setFilters }) => {
     };
 
     return (
-        <div className="relative">
-            <Input
-                onBlur={onBlur}
-                type="search"
-                defaultValue={filters?.search || ''}
-                icon={<SearchIcon className="text-gray-500" />}
-            />
-        </div>
+        <Input
+            onBlur={onBlur}
+            type="search"
+            defaultValue={filters?.search || ''}
+            icon={<SearchIcon className="text-gray-500" />}
+        />
     );
 };
 

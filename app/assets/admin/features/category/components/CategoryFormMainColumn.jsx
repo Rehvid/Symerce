@@ -36,19 +36,19 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 render={({ field }) => <Textarea value={field.value} onChange={field.onChange} title="Opis" />}
             />
 
-          {categoryData.tree && categoryData.tree.length > 0 && (
-            <FormCategoryTree
-              titleSection="Kategoria nadrzędna"
-              hasError={!!errors?.parentCategoryId}
-              errorMessage={errors?.parentCategoryId?.message}
-              register={register('parentCategoryId')}
-              disabledCategoryId={params.id ?? null}
-              categories={categoryData.tree || []}
-              selected={categoryData.parentCategoryId}
-              watch={watch}
-              nameWatchedValue="parentCategoryId"
-            />
-          )}
+            {categoryData.tree && categoryData.tree.length > 0 && (
+                <FormCategoryTree
+                    titleSection="Kategoria nadrzędna"
+                    hasError={!!errors?.parentCategoryId}
+                    errorMessage={errors?.parentCategoryId?.message}
+                    register={register('parentCategoryId')}
+                    disabledCategoryId={params.id ?? null}
+                    categories={categoryData.tree || []}
+                    selected={categoryData.parentCategoryId}
+                    watch={watch}
+                    nameWatchedValue="parentCategoryId"
+                />
+            )}
         </>
     );
 };

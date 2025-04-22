@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import TableActions from '@/admin/components/table/Partials/TableActions';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import Badge from '@/admin/components/common/Badge';
+import ListHeader from '@/admin/components/ListHeader';
 
 const DeliveryTimeList = () => {
     const currentFilters = new URLSearchParams(location.search);
@@ -30,26 +30,24 @@ const DeliveryTimeList = () => {
             label,
             minDays,
             maxDays,
-            type: <Badge variant="info"> {type} </Badge>, //TODO: Pobierać inne nazwy
+            type: <Badge variant="info"> {type} </Badge>,
             actions: <TableActions id={id} onDelete={() => removeItem(`admin/delivery-time/${id}`)} />,
         });
     });
 
     return (
         <>
-            <PageHeader title={'Czasy Dostawy'}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title="Czasy dostawy" totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
-                title="Czasy"
                 filters={filters}
                 setFilters={setFilters}
                 columns={['ID', 'Nazwa', 'Minimalne Dni', 'Maksymalne Dni', 'Typ', 'Akcje']}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons />}
+                additionalFilters={[]}
             />
         </>
     );

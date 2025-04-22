@@ -7,8 +7,6 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, setValue 
         setValue('type', e.target.value);
     };
 
-    console.log(formData);
-
     return (
         <>
             <Input
@@ -31,8 +29,8 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, setValue 
                 type="text"
                 id="minDays"
                 label="Minimalne dni"
-                hasError={!!fieldErrors?.maxDays}
-                errorMessage={fieldErrors?.maxDays?.message}
+                hasError={!!fieldErrors?.minDays}
+                errorMessage={fieldErrors?.minDays?.message}
                 isRequired
             />
             <Input
@@ -43,16 +41,13 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, setValue 
                 type="text"
                 id="maxDays"
                 label="Maksymalne Dni"
-                hasError={!!fieldErrors?.minDays}
-                errorMessage={fieldErrors?.minDays?.message}
+                hasError={!!fieldErrors?.maxDays}
+                errorMessage={fieldErrors?.maxDays?.message}
                 isRequired
             />
 
             {formData.types && (
-                <div>
-                    Typy
-                    <Select onChange={onChange} selected={formData.type} options={formData.types} />
-                </div>
+                <Select label="Typy" onChange={onChange} selected={formData?.type ?? ''} options={formData.types} />
             )}
         </>
     );

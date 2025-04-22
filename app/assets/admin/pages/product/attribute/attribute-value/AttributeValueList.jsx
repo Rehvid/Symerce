@@ -1,14 +1,14 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import TableActions from '@/admin/components/table/Partials/TableActions';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
+import ListHeader from '@/admin/components/ListHeader';
 
 const AttributeValueList = () => {
     const location = useLocation();
@@ -41,10 +41,12 @@ const AttributeValueList = () => {
         });
     });
 
+    const pageTitle = `${name ? `Grupa - ${name}` : 'Grupa Wartości'}`;
+
     return (
         <>
-            <PageHeader title={`${name ? `Grupa - ${name}` : 'Grupa Wartości'}`}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title={pageTitle} totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
@@ -54,8 +56,6 @@ const AttributeValueList = () => {
                 columns={['ID', 'Wartości', 'Akcje']}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons />}
             />
         </>
     );

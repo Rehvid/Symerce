@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import Badge from '@/admin/components/common/Badge';
 import TableActions from '@/admin/components/table/Partials/TableActions';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
+import ListHeader from '@/admin/components/ListHeader';
 
 const CurrencyList = () => {
     const currentFilters = new URLSearchParams(location.search);
@@ -41,8 +41,8 @@ const CurrencyList = () => {
 
     return (
         <>
-            <PageHeader title={'Waluty'}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title="Waluty" totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
@@ -52,8 +52,6 @@ const CurrencyList = () => {
                 columns={['ID', 'Nazwa', 'Symbol', 'Kod', 'Zaokrąglenie', 'Akcje']}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={<TableToolbarButtons />}
             />
         </>
     );

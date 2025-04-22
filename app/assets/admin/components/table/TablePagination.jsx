@@ -1,4 +1,5 @@
 import ReactPaginate from 'react-paginate';
+import PaginationFilter from '@/admin/components/table/Filters/PaginationFilter';
 
 const TablePagination = ({ filters, setFilters, pagination }) => {
     const currentRendered = pagination.totalItems > 0 ? pagination.offset + 1 : 0;
@@ -14,6 +15,7 @@ const TablePagination = ({ filters, setFilters, pagination }) => {
 
     return (
         <div className="pt-5 px-2 flex justify-between border-t border-gray-100">
+            <PaginationFilter filters={filters} setFilters={setFilters} />
             {pagination.totalPages > 1 && (
                 <ReactPaginate
                     breakLabel="..."
@@ -35,7 +37,7 @@ const TablePagination = ({ filters, setFilters, pagination }) => {
                 />
             )}
             <p className="pt-3 text-sm font-medium text-center text-black border-t border-gray-100   xl:border-t-0 xl:pt-0 xl:text-left">
-                Showing {currentRendered} to {showed} of {pagination.totalItems} results
+                Wyświetlanie {currentRendered} - {showed} z {pagination.totalItems} wpisów
             </p>
         </div>
     );
