@@ -22,7 +22,7 @@ trait CreatedAtTrait
     }
 
     #[ORM\PrePersist]
-    public function setCreatedAtTimestamp(): void
+    public function initializeCreatedAtTimestamp(): void
     {
         $this->createdAt = new \DateTime();
     }

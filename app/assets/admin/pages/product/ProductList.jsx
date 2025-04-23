@@ -1,15 +1,20 @@
 import { useState } from 'react';
-import PaginationFilter, { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useListData from '@/admin/hooks/useListData';
 import PageHeader from '@/admin/layouts/components/PageHeader';
-import Breadcrumb from '@/admin/layouts/components/breadcrumb/Breadcrumb';
 import DataTable from '@/admin/components/DataTable';
-import AppButton from '@/admin/components/common/AppButton';
-import PlusIcon from '@/images/icons/plus.svg';
+import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
+import ListHeader from '@/admin/components/ListHeader';
+import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
+import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
+import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
+import TableActions from '@/admin/components/table/Partials/TableActions';
+import TableRowMoney from '@/admin/components/table/Partials/TableRow/TableRowMoney';
+import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/TableRowImageWithText';
+import ProductIcon from '@/images/icons/assembly.svg';
 
 const ProductList = () => {
-    const navigate = useNavigate();
     const location = useLocation();
     const currentFilters = new URLSearchParams(location.search);
 
@@ -18,39 +23,44 @@ const ProductList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
-    const { items, pagination, isLoading } = useListData('admin/products', filters);
+    const { items, pagination, isLoading, removeItem } = useListData('admin/products', filters);
 
     if (isLoading) {
-        return <>...Loading</>;
+        return <TableSkeleton rowsCount={filters.limit} />;
     }
 
-    const renderTableButtons = (
-        <AppButton
-            onClick={() => navigate('create')}
-            variant="primary"
-            additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5"
-        >
-            <PlusIcon /> New Product
-        </AppButton>
-    );
+    const data = items.map((item => {
+      const {discountedPrice, regularPrice, id, name, isActive, quantity, image} = item;
+      return Object.values({
+        id: <TableRowId id={id} />,
+        name:  (
+          <TableRowImageWithText
+            imagePath={image}
+            text={name}
+            defaultIcon={<ProductIcon className="text-primary mx-auto" />}
+          />
+        ),
+        discountPrice:  <TableRowMoney amount={discountedPrice?.amount} symbol={discountedPrice?.symbol} />,
+        regularPrice:  <TableRowMoney amount={regularPrice?.amount} symbol={regularPrice?.symbol} />,
+        quantity,
+        active: <TableRowActiveBadge isActive={isActive} />,
+        actions: <TableActions id={id} onDelete={() => removeItem(`admin/products/${id}`)} />,
+      })
+    }));
+
 
     return (
         <>
-            <PageHeader title={'Products'}>
-                <Breadcrumb />
+            <PageHeader title={<ListHeader title="Produkty" totalItems={pagination.totalItems} />}>
+                <TableToolbarButtons />
             </PageHeader>
 
             <DataTable
-                title="Your Products"
                 filters={filters}
                 setFilters={setFilters}
-                columns={['Id', 'Name', 'Slug', 'Actions']}
-                items={items}
+                columns={['ID', 'Nazwa', 'Cena Regularna', 'Cena Promocyjna', 'Ilość', 'Aktywny', 'Actions']}
+                items={data}
                 pagination={pagination}
-                additionalFilters={[PaginationFilter]}
-                actionButtons={renderTableButtons}
-                // useDraggable={true}
-                // draggableCallback={draggableCallback}
             />
         </>
     );

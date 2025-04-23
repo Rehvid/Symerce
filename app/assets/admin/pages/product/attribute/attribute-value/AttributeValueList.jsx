@@ -21,7 +21,7 @@ const AttributeValueList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
-    const { items, pagination, isLoading, removeItem } = useListData(`admin/attributes/${params.id}/values`, filters);
+    const { items, pagination, isLoading, removeItem } = useListData(`admin/attributes/${params.attributeId}/values`, filters);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
