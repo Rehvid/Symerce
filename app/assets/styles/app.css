@@ -7,12 +7,43 @@ body {
 }
 
 @theme {
+    --breakpoint-2xl: 100rem;
+
     --color-gray: f2f4f7;
     --color-primary-light: #ecf3ff;
-    --color-primary: #465fff;
+    /*--color-primary: #465fff;*/
     --color-primary-stronger: #3641f5;
-    --color-secondary: #0989ff;
+    /*--color-secondary: #0989ff;*/
     --progress-time: 1000ms;
+
+    --color-background-base:  #F8FAFC;
+    --color-surface-base:  #F1F5F9;
+
+    --color-primary: #B39EB4;
+    --color-primary-hover: #D1C1D9;
+    --color-primary-active: #8F7A99;
+
+    --color-secondary: #978FA8;
+    --color-secondary-hover: #B0A3B8;
+    --color-secondary-active: #7B6F8A;
+
+    --color-tertiary: #7A687F;
+
+    --color-success:         #D1E7DD;
+    --color-success-hover:   #E9F7EF;
+    --color-success-active:    #A9D9B8;
+
+    --color-error:           #F8D7DA;
+    --color-error-hover:     #FDECEF;
+    --color-error-active:      #EBA3A7;
+
+    --color-warning:         #FFF3CD;
+    --color-warning-hover:   #FFFAE6;
+    --color-warning-active:    #FFE58A;
+
+    --color-info:            #D1ECF1;
+    --color-info-hover:      #EAF7F9;
+    --color-info-active:       #A8DADD;
 }
 
 @keyframes progressAnimation {
