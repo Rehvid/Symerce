@@ -48,7 +48,6 @@ base:
       store: 'Przewoźnik został pomyślnie dodany.'
       update: 'Przewoźnik został pomyślnie zaktualizowany.'
       destroy: 'Przewoźnik został pomyślnie usunięty.'
-
     currency:
       store: 'Waluta została pomyślnie dodana.'
       update: 'Waluta została pomyślnie zaktualizowana.'
@@ -65,5 +64,9 @@ base:
       store: 'Tag został pomyślnie dodany.'
       update: 'Tag został pomyślnie zaktualizowany.'
       destroy: 'Tag został pomyślnie usunięty.'
+    product:
+      store: 'Produkt został pomyślnie dodany.'
+      update: 'Produkt został pomyślnie zaktualizowany.'
+      destroy: 'Produkt został pomyślnie usunięty.'
     update_order: 'Udało się zaktualizować pozycje!'
     destroy_file: 'Plik został pomyślnie usunięty.'
