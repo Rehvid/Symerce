@@ -108,7 +108,6 @@ const ProductFormMainColumn = ({register, fieldErrors, control, formData, setVal
 
       <Input
         {...register('discountPrice', {
-          ...validationRules.required(),
           ...validationRules.numeric(2),
         })}
         type="text"
@@ -116,14 +115,14 @@ const ProductFormMainColumn = ({register, fieldErrors, control, formData, setVal
         label="Cena promocyjna"
         hasError={!!fieldErrors?.discountPrice}
         errorMessage={fieldErrors?.discountPrice?.message}
-        isRequired
       />
 
       <Input
         {...register('quantity', {
           ...validationRules.required(),
+          ...validationRules.min(0),
         })}
-        type="text"
+        type="number"
         id="quantity"
         label="Ilość"
         hasError={!!fieldErrors?.quantity}
