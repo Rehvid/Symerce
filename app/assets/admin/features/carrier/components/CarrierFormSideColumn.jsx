@@ -6,6 +6,7 @@ import FormSidePanel from '@/admin/components/form/FormSidePanel';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
 import Switch from '@/admin/components/form/controls/Switch';
+import ModalFile from '@/admin/components/modal/ModalFile';
 
 const CarrierFormSideColumn = ({ register, setValue, formData, setFormData }) => {
     const formDataImage = normalizeFiles(formData?.image);
@@ -19,17 +20,6 @@ const CarrierFormSideColumn = ({ register, setValue, formData, setFormData }) =>
     };
 
     const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, formDataImage);
-
-    const renderModal = (file) => (
-        <>
-            <ModalHeader title={file.name} />
-            <ModalBody>
-                <div>
-                    <img src={file.preview} alt={file.name} />
-                </div>
-            </ModalBody>
-        </>
-    );
 
     return (
         <div className="flex flex-col h-full gap-[2.5rem]">
@@ -45,7 +35,7 @@ const CarrierFormSideColumn = ({ register, setValue, formData, setFormData }) =>
                                 />
                                 <div className="absolute rounded-lg transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl">
                                     <DropzonePreviewActions
-                                        renderModal={renderModal}
+                                        renderModal={() => <ModalFile preview={file.preview} name={file.name} />}
                                         removeFile={removeFile}
                                         file={file}
                                     />

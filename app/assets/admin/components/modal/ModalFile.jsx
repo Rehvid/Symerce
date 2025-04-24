@@ -5,8 +5,8 @@ const ModalFile = ({ name, preview }) => (
     <>
         <ModalHeader title={name} />
         <ModalBody>
-            <div>
-                <img src={preview} alt={name} />
+            <div className="border border-gray-200 shadow-xl rounded-lg">
+                <img className="rounded-lg" src={preview} alt={name} />
             </div>
         </ModalBody>
     </>

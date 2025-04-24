@@ -6,6 +6,7 @@ import ModalHeader from '@/admin/components/modal/ModalHeader';
 import ModalBody from '@/admin/components/modal/ModalBody';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import { normalizeFiles } from '@/admin/utils/helper';
+import ModalFile from '@/admin/components/modal/ModalFile';
 
 const UserFormSideColumn = ({ register, setValue, userData, setUserData }) => {
     const userDataAvatar = normalizeFiles(userData?.avatar);
@@ -19,16 +20,6 @@ const UserFormSideColumn = ({ register, setValue, userData, setUserData }) => {
 
     const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, userData);
 
-    const renderModal = (file) => (
-        <>
-            <ModalHeader title={file.name} />
-            <ModalBody>
-                <div>
-                    <img src={file.preview} alt={file.name} />
-                </div>
-            </ModalBody>
-        </>
-    );
 
     return (
         <div className="flex flex-col h-full gap-[2.5rem]">
@@ -44,7 +35,7 @@ const UserFormSideColumn = ({ register, setValue, userData, setUserData }) => {
                                 />
                                 <div className="absolute rounded-lg transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl">
                                     <DropzonePreviewActions
-                                        renderModal={renderModal}
+                                        renderModal={() => <ModalFile preview={file.preview} name={file.name} />}
                                         removeFile={removeFile}
                                         file={file}
                                     />
