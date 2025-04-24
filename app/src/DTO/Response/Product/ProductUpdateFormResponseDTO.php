@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTO\Response\Product;
 
 use App\DTO\Response\ResponseInterfaceData;
-use App\Entity\Vendor;
 
 final class ProductUpdateFormResponseDTO extends ProductFormResponseDTO
 {
@@ -25,6 +26,7 @@ final class ProductUpdateFormResponseDTO extends ProductFormResponseDTO
        public ?array $categories = [],
        public ?array $attributes = [],
        public ?array $deliveryTimes = [],
+       public ?array $images = []
    ) {
        parent::__construct($optionTags, $optionCategories, $optionVendors, $optionDeliveryTimes, $optionAttributes);
    }
@@ -49,6 +51,7 @@ final class ProductUpdateFormResponseDTO extends ProductFormResponseDTO
             categories: $data['categories'] ?? [],
             attributes: $data['attributes'] ?? [],
             deliveryTimes: $data['deliveryTimes'],
+            images: $data['images'] ?? [],
         );
     }
 }

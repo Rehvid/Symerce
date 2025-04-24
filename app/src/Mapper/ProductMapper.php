@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mapper;
 
+use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\Product\ProductFormResponseDTO;
 use App\DTO\Response\Product\ProductIndexResponseDTO;
 use App\DTO\Response\Product\ProductUpdateFormResponseDTO;
@@ -12,9 +13,11 @@ use App\Entity\Attribute;
 use App\Entity\AttributeValue;
 use App\Entity\Category;
 use App\Entity\DeliveryTime;
+use App\Entity\File;
 use App\Entity\Product;
 use App\Entity\Tag;
 use App\Entity\Vendor;
+use App\Service\FileService;
 use App\Service\SettingManager;
 use App\Utils\Utils;
 use App\ValueObject\Money;
@@ -25,6 +28,7 @@ final readonly class ProductMapper
     public function __construct(
         private EntityManagerInterface $entityManager,
         private SettingManager $settingManager,
+        private FileService $fileService,
     )
     {
     }
@@ -78,6 +82,13 @@ final readonly class ProductMapper
             'deliveryTimes' => $product->getDeliveryTimes()->map(fn (DeliveryTime $deliveryTime) => (string) $deliveryTime->getId())->toArray(),
             'categories' => $product->getCategories()->map(fn (Category $category) => (string) $category->getId())->toArray(),
             'attributes' => $productAttributes,
+            'images' => $product->getImages()->map(function (File $file) {
+                return FileResponseDTO::fromArray([
+                    'id' => $file->getId(),
+                    'name' => $file->getOriginalName(),
+                    'preview' => $this->fileService->preparePublicPathToFile($file->getPath()),
+                ]);
+            })->toArray(),
         ]);
     }
 

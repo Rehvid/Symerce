@@ -9,7 +9,6 @@ use App\Traits\FileRequestMapperTrait;
 
 final class SaveProductRequestDTO implements PersistableInterface
 {
-    use FileRequestMapperTrait;
 
     public function __construct(
         public string $name,
@@ -25,7 +24,5 @@ final class SaveProductRequestDTO implements PersistableInterface
         public ?string $vendor = null,
         public ?string $slug = null,
         public ?string $description = null,
-    ) {
-        $this->images = $this->createFileRequestDTOs($this->images);
-    }
+    ) {}
 }

@@ -73,7 +73,7 @@ class Product
     #[ORM\JoinTable(name: 'product_delivery_time')]
     private Collection $deliveryTimes;
 
-    #[ORM\ManyToMany(targetEntity: File::class, cascade: ['remove'])]
+    #[ORM\ManyToMany(targetEntity: File::class, cascade: ['remove', 'persist'])]
     #[ORM\JoinTable(name: 'product_image')]
     private Collection $images;
 

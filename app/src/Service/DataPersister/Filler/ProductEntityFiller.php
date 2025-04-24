@@ -9,12 +9,14 @@ use App\DTO\Request\Product\SaveProductRequestDTO;
 use App\Entity\Attribute;
 use App\Entity\Category;
 use App\Entity\DeliveryTime;
+use App\Entity\File;
 use App\Entity\Product;
 use App\Entity\Tag;
 use App\Entity\Vendor;
 use App\Service\DataPersister\Filler\Base\BaseEntityFiller;
 use App\Service\FileService;
 use App\Service\SluggerService;
+use App\Traits\FileRequestMapperTrait;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -22,6 +24,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 final class ProductEntityFiller extends BaseEntityFiller
 {
+    use FileRequestMapperTrait;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -170,8 +173,17 @@ final class ProductEntityFiller extends BaseEntityFiller
             return;
         }
 
-        foreach ($persistable->images as $image) {
-            $product->addImage($this->fileService->processFileRequestDTO($image, null));
+        $existingImages = $product->getImages();
+        $existingImageIds = $existingImages->map(fn(File $file) => $file->getId());
+        $unique = array_filter($persistable->images, function($image) use ($existingImageIds) {
+            $id = $image['id'] ?? null;
+
+            return empty($id) || !$existingImageIds->contains($id);
+        });
+
+        foreach ($unique as $image) {
+            $fileRequest = $this->createFileRequestDTO($image);
+            $product->addImage($this->fileService->processFileRequestDTO($fileRequest, null));
         }
     }
 }
