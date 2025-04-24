@@ -35,7 +35,7 @@ final class VendorEntityFiller extends BaseEntityFiller
 
     public static function supports(): string
     {
-        return SaveTagRequestDTO::class;
+        return SaveVendorRequestDTO::class;
     }
 
     /**
