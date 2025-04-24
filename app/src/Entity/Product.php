@@ -73,8 +73,7 @@ class Product
     #[ORM\JoinTable(name: 'product_delivery_time')]
     private Collection $deliveryTimes;
 
-    #[ORM\ManyToMany(targetEntity: File::class, cascade: ['remove', 'persist'])]
-    #[ORM\JoinTable(name: 'product_image')]
+    #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\ManyToMany(targetEntity: AttributeValue::class)]
@@ -193,18 +192,23 @@ class Product
         }
     }
 
-    public function addImage(File $image): void
+    public function addImage(ProductImage $image): void
     {
         if (!$this->images->contains($image)) {
             $this->images->add($image);
         }
     }
 
-    public function removeImage(File $image): void
+    public function removeImage(ProductImage $image): void
     {
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);
         }
+    }
+
+    public function getThumbnailImage(): ?ProductImage
+    {
+        return $this->images->filter(fn (ProductImage $image) => $image->isThumbnail())->first();
     }
 
     public function addDeliveryTime(DeliveryTime $deliveryTime): void

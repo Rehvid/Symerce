@@ -11,6 +11,7 @@ use App\Entity\Category;
 use App\Entity\DeliveryTime;
 use App\Entity\File;
 use App\Entity\Product;
+use App\Entity\ProductImage;
 use App\Entity\Tag;
 use App\Entity\Vendor;
 use App\Service\DataPersister\Filler\Base\BaseEntityFiller;
@@ -78,6 +79,24 @@ final class ProductEntityFiller extends BaseEntityFiller
         $this->fillTags($persistable, $entity);
         $this->fillDeliveryTimes($persistable, $entity);
         $this->fillImages($persistable, $entity);
+
+        if ($persistable->thumbnail) {
+            /** @var ProductImage $productImage */
+            $isFound = false;
+            foreach ($entity->getImages() as $productImage) {
+                if ($productImage->getFile()->getOriginalName() === $persistable->thumbnail['name'] && !$isFound) {
+                    $productImage->setIsThumbnail(true);
+                    $isFound = true;
+                } else {
+                    $productImage->setIsThumbnail(false);
+                }
+            }
+        }
+
+        if (null === $entity->getThumbnailImage() && $entity->getImages()->count() > 0) {
+            $productImage = $entity->getImages()->first();
+            $productImage->setIsThumbnail(true);
+        }
 
         return $entity;
     }
@@ -174,7 +193,7 @@ final class ProductEntityFiller extends BaseEntityFiller
         }
 
         $existingImages = $product->getImages();
-        $existingImageIds = $existingImages->map(fn(File $file) => $file->getId());
+        $existingImageIds = $existingImages->map(fn(ProductImage $productImage) => $productImage->getFile()->getId());
         $unique = array_filter($persistable->images, function($image) use ($existingImageIds) {
             $id = $image['id'] ?? null;
 
@@ -183,7 +202,13 @@ final class ProductEntityFiller extends BaseEntityFiller
 
         foreach ($unique as $image) {
             $fileRequest = $this->createFileRequestDTO($image);
-            $product->addImage($this->fileService->processFileRequestDTO($fileRequest, null));
+            $image = $this->fileService->processFileRequestDTO($fileRequest, null);
+
+            $productImage = new ProductImage();
+            $productImage->setFile($image);
+            $productImage->setProduct($product);
+
+            $product->addImage($productImage);
         }
     }
 }

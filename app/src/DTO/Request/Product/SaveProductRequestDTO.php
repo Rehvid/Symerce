@@ -9,7 +9,6 @@ use App\Traits\FileRequestMapperTrait;
 
 final class SaveProductRequestDTO implements PersistableInterface
 {
-
     public function __construct(
         public string $name,
         public string $regularPrice,
@@ -24,5 +23,7 @@ final class SaveProductRequestDTO implements PersistableInterface
         public ?string $vendor = null,
         public ?string $slug = null,
         public ?string $description = null,
-    ) {}
+        public ?array $thumbnail = null,
+    ) {
+    }
 }

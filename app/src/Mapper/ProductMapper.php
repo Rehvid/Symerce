@@ -6,6 +6,7 @@ namespace App\Mapper;
 
 use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\Product\ProductFormResponseDTO;
+use App\DTO\Response\Product\ProductImageResponseDTO;
 use App\DTO\Response\Product\ProductIndexResponseDTO;
 use App\DTO\Response\Product\ProductUpdateFormResponseDTO;
 use App\DTO\Response\ResponseInterfaceData;
@@ -15,6 +16,7 @@ use App\Entity\Category;
 use App\Entity\DeliveryTime;
 use App\Entity\File;
 use App\Entity\Product;
+use App\Entity\ProductImage;
 use App\Entity\Tag;
 use App\Entity\Vendor;
 use App\Service\FileService;
@@ -37,6 +39,7 @@ final readonly class ProductMapper
     {
         $currency = $this->settingManager->findDefaultCurrency();
         return array_map(function (array $item) use ($currency) {
+            $productName = $item['name'];
               return ProductIndexResponseDTO::fromArray([
                   'id' => $item['id'],
                   'image' => null,
@@ -82,11 +85,13 @@ final readonly class ProductMapper
             'deliveryTimes' => $product->getDeliveryTimes()->map(fn (DeliveryTime $deliveryTime) => (string) $deliveryTime->getId())->toArray(),
             'categories' => $product->getCategories()->map(fn (Category $category) => (string) $category->getId())->toArray(),
             'attributes' => $productAttributes,
-            'images' => $product->getImages()->map(function (File $file) {
-                return FileResponseDTO::fromArray([
+            'images' => $product->getImages()->map(function (ProductImage $productImage) {
+                $file = $productImage->getFile();
+                return ProductImageResponseDTO::fromArray([
                     'id' => $file->getId(),
                     'name' => $file->getOriginalName(),
                     'preview' => $this->fileService->preparePublicPathToFile($file->getPath()),
+                    'isThumbnail' => $productImage->isThumbnail()
                 ]);
             })->toArray(),
         ]);
