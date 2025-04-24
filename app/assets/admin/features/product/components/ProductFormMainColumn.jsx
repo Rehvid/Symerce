@@ -2,36 +2,41 @@ import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
 import { Controller } from 'react-hook-form';
 import Textarea from '@/admin/components/form/controls/Textarea';
-import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import { normalizeFiles } from '@/admin/utils/helper';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
-import ModalFile from '@/admin/components/modal/ModalFile';
 import Heading from '@/admin/components/common/Heading';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import ProductDropzoneThumbnail from '@/admin/features/product/components/ProductDropzoneThumbnail';
 
 const ProductFormMainColumn = ({register, fieldErrors, control, formData, setValue}) => {
-  const [productImages, setProductImages] = useState(normalizeFiles(formData?.images))
+  const [productImages, setProductImages] = useState([]);
+  const [thumbnail, setThumbnail] = useState(null);
 
-  const setDropzoneValue = (image) => {
-    setProductImages((prevImages) => {
-      const existingImages = prevImages || [];
-      const updatedImages = [...existingImages, ...image];
+  useEffect(() => {
+    if (formData?.images) {
+      const normalizedImages = normalizeFiles(formData?.images);
+      setProductImages(normalizedImages);
+    }
+  }, [formData?.images]);
 
-      setValue('images', updatedImages);
-
-      return updatedImages;
-    })
+  const setDropzoneValue = (newImages) => {
+    setProductImages(newImages);
+    setValue('images', newImages);
   };
 
 
-  const maxValues = 5;
   const { onDrop, errors, removeFile } = useDropzoneLogic(
     setDropzoneValue,
     null,
     productImages,
-    maxValues
+    5
   );
+
+  const setMainThumbnail = (file) => {
+    setThumbnail(file);
+    setValue('thumbnail', file);
+  }
 
   return (
     <>
@@ -54,22 +59,16 @@ const ProductFormMainColumn = ({register, fieldErrors, control, formData, setVal
         </Heading>
         <Dropzone onDrop={onDrop} errors={errors}>
           {productImages.length > 0 &&
-            <div className="grid grid-cols-3 gap-5 mt-5">
+            <div className="flex flex-wrap gap-5 mt-5">
               {productImages.map((file, key) => (
-                <div className="relative flex h-full w-full rounded-lg border border-gray-200 p-2 " key={key}>
-                  <img
-                    className="rounded-lg mx-auto object-cover w-full"
-                    src={file.preview}
-                    alt={file.name}
-                  />
-                  <div className="absolute rounded-lg transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl">
-                    <DropzonePreviewActions
-                      renderModal={() => <ModalFile preview={file.preview} name={file.name} />}
-                      removeFile={removeFile}
-                      file={file}
-                    />
-                  </div>
-                </div>
+                <ProductDropzoneThumbnail
+                  key={key}
+                  index={key}
+                  file={file}
+                  removeFile={removeFile}
+                  setMainThumbnail={setMainThumbnail}
+                  thumbnail={thumbnail}
+                />
               ))}
             </div>
           }

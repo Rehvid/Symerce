@@ -46,7 +46,8 @@ const ProductForm = () => {
               'tags',
               'categories',
               'deliveryTimes',
-              'attributes'
+              'attributes',
+              'images',
           ]
           : [];
 
@@ -57,7 +58,6 @@ const ProductForm = () => {
         return <FormSkeleton rowsCount={8} />;
     }
 
-    console.log(watch());
 
     return (
       <ApiForm

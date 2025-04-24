@@ -57,12 +57,13 @@ export const useDropzoneLogic = (
         );
 
         setErrors({});
-        handleFilesChange({ ...currentFiles, ...withPreview });
+        handleFilesChange(withPreview);
     };
 
     const handleFilesChange = async (filesArray) => {
         const processedFiles = await Promise.all(
-            Object.values(filesArray).map(async (file) => {
+            filesArray.map(async (file) => {
+                if (file.content) return file;
                 const base64 = await convertFileToBase64(file);
                 return {
                     size: file.size,
@@ -73,7 +74,9 @@ export const useDropzoneLogic = (
                 };
             }),
         );
-        setValue(processedFiles);
+
+        const newValue = [...value, ...processedFiles].slice(0, maxFiles);
+        setValue(newValue);
     };
 
     const removeFile = (file) => {
