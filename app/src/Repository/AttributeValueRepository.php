@@ -20,8 +20,18 @@ class AttributeValueRepository extends PaginationRepository
         return 'attribute_value';
     }
 
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder
-    {
-        return parent::configureQueryForPagination($queryBuilder, $queryParams);
+    protected function configureQueryForPagination(
+        QueryBuilder $queryBuilder,
+        array $queryParams = [],
+        array $additionalData = []
+    ): QueryBuilder {
+        $attributeId = $additionalData['attributeId'] ?? null;
+        if (null === $attributeId) {
+            return parent::configureQueryForPagination($queryBuilder, $queryParams, $additionalData);
+        }
+
+        return $queryBuilder
+            ->andWhere('attribute_value.attribute = :attributeId')
+            ->setParameter('attributeId', $attributeId);
     }
 }

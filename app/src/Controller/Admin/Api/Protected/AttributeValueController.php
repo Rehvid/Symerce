@@ -36,9 +36,9 @@ class AttributeValueController extends AbstractAdminController
     }
 
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(Request $request, AttributeValueRepository $repository): JsonResponse
+    public function index(Request $request, AttributeValueRepository $repository, string $attributeId): JsonResponse
     {
-        $paginatedResponse = $this->getPaginatedResponse($request, $repository);
+        $paginatedResponse = $this->getPaginatedResponse($request, $repository, ['attributeId' => $attributeId]);
 
         $data = array_map(function (array $item) {
             return AttributeValueIndexResponseDTO::fromArray([

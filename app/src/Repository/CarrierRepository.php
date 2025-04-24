@@ -18,7 +18,7 @@ class CarrierRepository extends PaginationRepository
         return 'carrier';
     }
 
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder
+    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = [], array $additionalData = []): QueryBuilder
     {
         $alias = $this->getAlias();
 

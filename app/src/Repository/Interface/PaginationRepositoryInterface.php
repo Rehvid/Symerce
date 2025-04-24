@@ -13,5 +13,5 @@ interface PaginationRepositoryInterface
      *
      * @return array<int, mixed>
      */
-    public function findPaginated(PaginationMeta $paginationMeta, array $queryParams = []): array;
+    public function findPaginated(PaginationMeta $paginationMeta, array $queryParams = [], array $additionalData = []): array;
 }

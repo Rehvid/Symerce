@@ -20,7 +20,7 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
     /**
      * @param array<string, mixed> $queryParams
      */
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = []): QueryBuilder
+    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = [], array $additionalData = []): QueryBuilder
     {
         return $queryBuilder;
     }
@@ -31,7 +31,7 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
         parent::__construct($registry, $this->getEntityClass());
     }
 
-    public function findPaginated(PaginationMeta $paginationMeta, array $queryParams = []): array
+    public function findPaginated(PaginationMeta $paginationMeta, array $queryParams = [], array $additionalData = []): array
     {
         $search = $queryParams['search'] ?? null;
 
@@ -48,7 +48,7 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
             ;
         }
 
-        $queryBuilder = $this->configureQueryForPagination($queryBuilder, $queryParams);
+        $queryBuilder = $this->configureQueryForPagination($queryBuilder, $queryParams, $additionalData);
 
         return $queryBuilder->getQuery()->getArrayResult();
     }

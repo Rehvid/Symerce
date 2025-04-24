@@ -31,9 +31,10 @@ class AbstractAdminController extends AbstractApiController
 
     protected function getPaginatedResponse(
         Request $request,
-        PaginationRepositoryInterface $paginationRepository
+        PaginationRepositoryInterface $paginationRepository,
+        array $additionalData = []
     ): PaginationResponse {
-        return $this->paginationService->buildPaginationResponse($request, $paginationRepository);
+        return $this->paginationService->buildPaginationResponse($request, $paginationRepository, $additionalData);
     }
 
     /**

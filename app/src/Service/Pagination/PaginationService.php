@@ -12,11 +12,15 @@ final class PaginationService
 {
     public const int DEFAULT_LIMIT = 10;
 
-    public function buildPaginationResponse(Request $request, PaginationRepositoryInterface $repository): PaginationResponse
+    public function buildPaginationResponse(
+        Request $request,
+        PaginationRepositoryInterface $repository,
+        array $additionalData = []
+    ): PaginationResponse
     {
         $paginationMeta = $this->buildPaginationMeta($request, $repository);
 
-        $result = $repository->findPaginated($paginationMeta, $request->query->all());
+        $result = $repository->findPaginated($paginationMeta, $request->query->all(), $additionalData);
 
         if (null !== $request->query->get('search') && '' !== trim($request->query->getString('search'))) {
             $paginationMeta = $this->updatePaginationMetaFromResult($result, $paginationMeta);
