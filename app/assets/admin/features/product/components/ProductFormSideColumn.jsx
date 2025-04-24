@@ -3,7 +3,7 @@ import Switch from '@/admin/components/form/controls/Switch';
 import { validationRules } from '@/admin/utils/validationRules';
 import MultiSelect from '@/admin/components/form/controls/MultiSelect';
 import { Controller } from 'react-hook-form';
-import Select from '@/shared/components/Select';
+import Select from '@/admin/components/form/controls/Select';
 
 const ProductFormSideColumn = ({register, control, fieldErrors, formData, setValue}) => {
   const attributes = Object.values(formData?.optionAttributes || {});
@@ -61,17 +61,23 @@ const ProductFormSideColumn = ({register, control, fieldErrors, formData, setVal
           )}
         />
 
-        {formData.optionVendors && (
-          <Select
-            label="Producent"
-            id="Vendor"
-            options={formData?.optionVendors || []}
-            selected={formData?.vendor || ''}
-            onChange={(e) => {
-              setValue('vendor', e.target.value)
-            }}
-          />
-        )}
+        <Controller
+          name="vendor"
+          control={control}
+          defaultValue={[]}
+          render={({ field }) => (
+            <div>
+              <Select
+                label="Producent"
+                options={formData?.optionVendors || []}
+                selected={field.value}
+                onChange={(value) => {
+                  field.onChange(value);
+                }}
+              />
+            </div>
+          )}
+        />
 
         <Controller
           name="deliveryTimes"
