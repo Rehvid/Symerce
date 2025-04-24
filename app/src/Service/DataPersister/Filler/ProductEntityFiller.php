@@ -76,7 +76,6 @@ final class ProductEntityFiller extends BaseEntityFiller
         $this->fillDeliveryTimes($persistable, $entity);
         $this->fillImages($persistable, $entity);
 
-
         return $entity;
     }
 
@@ -154,7 +153,10 @@ final class ProductEntityFiller extends BaseEntityFiller
             $ids[$attributeId] = $value;
         }
 
-        return $this->entityManager->getRepository(Attribute::class)->getAttributeValuesByAttributes($ids);
+        if (!empty($ids)) {
+            return $this->entityManager->getRepository(Attribute::class)->getAttributeValuesByAttributes($ids);
+        }
+        return $ids;
     }
 
     private function getVendor(?string $vendorId): ?Vendor
