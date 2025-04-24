@@ -62,14 +62,15 @@ final readonly class ProductMapper
             return $productAttributes;
         })->toArray();
 
+        $currency = $this->settingManager->findDefaultCurrency();
 
         return ProductUpdateFormResponseDTO::fromArray([
             ...$this->getOptions(),
             'name' => $product->getName(),
             'slug' => $product->getSlug(),
             'description' => $product->getDescription(),
-            'regularPrice' => $product->getRegularPrice(),
-            'discountPrice' => $product->getDiscountPrice(),
+            'regularPrice' => (new Money($product->getRegularPrice(), $currency))->getFormattedAmount(),
+            'discountPrice' => (new Money($product->getDiscountPrice(), $currency))->getFormattedAmount(),
             'quantity' => $product->getQuantity(),
             'isActive' => $product->isActive(),
             'vendor' => (string) $product->getVendor()?->getId(),
