@@ -9,9 +9,9 @@ final class PaginationMeta
     public function __construct(
         private int $page,
         private readonly int $limit,
-        private int $totalItems,
-        private int $totalPages,
-        private readonly int $offset
+        private readonly int $offset,
+        private int $totalItems = 0,
+        private int $totalPages = 0,
     ) {
     }
 

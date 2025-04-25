@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository\Base;
 
 use App\Repository\Interface\PaginationRepositoryInterface;
+use App\Service\Pagination\PaginationFilters;
 use App\Service\Pagination\PaginationMeta;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -20,7 +21,7 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
     /**
      * @param array<string, mixed> $queryParams
      */
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = [], array $additionalData = []): QueryBuilder
+    protected function configureQueryForPagination(QueryBuilder $queryBuilder, PaginationFilters $paginationFilters): QueryBuilder
     {
         return $queryBuilder;
     }
@@ -31,25 +32,37 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
         parent::__construct($registry, $this->getEntityClass());
     }
 
-    public function findPaginated(PaginationMeta $paginationMeta, array $queryParams = [], array $additionalData = []): array
+    public function findPaginated(PaginationMeta $paginationMeta, PaginationFilters $paginationFilters): array
     {
-        $search = $queryParams['search'] ?? null;
 
         $alias = $this->getAlias();
-        $queryBuilder = $this->createQueryBuilder($alias)
-            ->setFirstResult($paginationMeta->getOffset())
-            ->setMaxResults($paginationMeta->getLimit())
-        ;
 
-        if (null !== $search && '' !== trim($search)) {
-            $queryBuilder
+        $baseQueryBuilder = $this->createQueryBuilder($alias);
+
+        if ($paginationFilters->hasSearch()) {
+            $search = $paginationFilters->getSearch();
+            $baseQueryBuilder
                 ->andWhere("$alias.name LIKE :search")
                 ->setParameter('search', "%$search%")
             ;
         }
 
-        $queryBuilder = $this->configureQueryForPagination($queryBuilder, $queryParams, $additionalData);
+        $this->configureQueryForPagination($baseQueryBuilder, $paginationFilters);
 
-        return $queryBuilder->getQuery()->getArrayResult();
+        $countQueryBuilder = clone ($baseQueryBuilder);
+        $countQueryBuilder->select("COUNT($alias.id)");
+
+        $total = (int) $countQueryBuilder->getQuery()->getSingleScalarResult();
+
+        $baseQueryBuilder
+            ->setFirstResult($paginationMeta->getOffset())
+            ->setMaxResults($paginationMeta->getLimit());
+
+        $items = $baseQueryBuilder->getQuery()->getResult();
+
+        return [
+            'items' => $items,
+            'total' => $total,
+        ];
     }
 }
