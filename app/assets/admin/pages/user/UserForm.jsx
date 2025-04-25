@@ -34,10 +34,11 @@ const UserForm = () => {
     if (params.id) {
         useEffect(() => {
             fetchFormData(`admin/users/${params.id}/form-data`, HTTP_METHODS.GET, [
-                'name',
-                'value',
-                'type',
-                'isProtected',
+                'roles',
+                'firstname',
+                'surname',
+                'email',
+                'isActive'
             ]);
         }, []);
     }

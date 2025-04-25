@@ -51,6 +51,7 @@ class UserController extends AbstractAdminController
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
             'roles' => $user->getRoles(),
+            'isActive' => $user->isActive(),
             'avatar' => FileResponseDTO::fromArray([
                 'id' => $user->getAvatar()?->getId(),
                 'name' => "Avatar - $fullName",

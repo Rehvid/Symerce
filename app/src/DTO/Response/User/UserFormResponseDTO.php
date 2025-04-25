@@ -14,6 +14,7 @@ final readonly class UserFormResponseDTO implements ResponseInterfaceData
         public string $firstname,
         public string $surname,
         public string $email,
+        public bool $isActive,
         public ?array $roles,
         public ?FileResponseDTO $avatar,
     ) {
@@ -26,6 +27,7 @@ final readonly class UserFormResponseDTO implements ResponseInterfaceData
             firstname: $data['firstname'] ?? null,
             surname: $data['surname'] ?? null,
             email: $data['email'] ?? null,
+            isActive: $data['isActive'] ?? false,
             roles: $data['roles'] ?? [],
             avatar: $data['avatar'] ?? null,
         );
