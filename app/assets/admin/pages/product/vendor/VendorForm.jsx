@@ -29,7 +29,7 @@ const VendorForm = () => {
 
     if (params.id) {
         useEffect(() => {
-            fetchFormData(`admin/vendors/${params.id}/form-data`, HTTP_METHODS.GET, ['name']);
+            fetchFormData(`admin/vendors/${params.id}/form-data`, HTTP_METHODS.GET, ['name', 'isActive']);
         }, []);
     }
 
