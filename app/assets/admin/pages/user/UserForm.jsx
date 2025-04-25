@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import FormLayout from '@/admin/layouts/FormLayout';
 import UserFormMainColumn from '@/admin/features/user/components/UserFormMainColumn';
-import UserFormSideColumn from '@/admin/features/user/components/UserFormSideColumn';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 import useApiForm from '@/admin/hooks/useApiForm';
 
@@ -62,14 +61,9 @@ const UserForm = () => {
                         fieldErrors={fieldErrors}
                         control={control}
                         params={params}
-                    />
-                }
-                sideColumn={
-                    <UserFormSideColumn
-                        register={register}
                         setValue={setValue}
-                        userData={formData}
-                        setUserData={setFormData}
+                        formData={formData}
+                        setFormData={setFormData}
                     />
                 }
             />

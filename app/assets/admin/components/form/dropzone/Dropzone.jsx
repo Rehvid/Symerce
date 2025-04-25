@@ -4,7 +4,8 @@ import PhotosIcon from '@/images/icons/photos.svg';
 const Dropzone = ({ onDrop, errors, variant = 'sideColumn', containerClasses = '', children }) => {
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
     const variants = {
-        sideColumn: `dropzone max-w-full  min-h-[130px] rounded-md `,
+        sideColumn: `dropzone max-w-full  min-h-[130px] rounded-md`,
+        mainColumn: `max-w-lg min-h-[200px]`,
         avatar: 'rounded-full h-40 w-40',
     };
 
@@ -20,8 +21,8 @@ const Dropzone = ({ onDrop, errors, variant = 'sideColumn', containerClasses = '
                 </div>
                 <input {...getInputProps()} />
                 <p className="text-center mt-1 text-xs">
-                    <span className="text-gray-800">Drop your image here, or </span>
-                    <span className="text-primary">Click to browse</span>
+                    <span className="text-gray-800">Upuść tutaj obraz, lub </span>
+                    <span className="text-primary">Kliknij, aby przeglądać</span>
                 </p>
             </div>
             {errors && errors.message && <p className="mt-2 mb-2 pl-2 text-sm text-red-600">{errors.message}</p>}

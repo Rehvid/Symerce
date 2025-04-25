@@ -3,8 +3,27 @@ import { validationRules } from '@/admin/utils/validationRules';
 import FormCategoryTree from '@/admin/components/category-tree/FormCategoryTree';
 import { Controller } from 'react-hook-form';
 import Textarea from '@/admin/components/form/controls/Textarea';
+import { normalizeFiles } from '@/admin/utils/helper';
+import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
+import Heading from '@/admin/components/common/Heading';
+import Dropzone from '@/admin/components/form/dropzone/Dropzone';
+import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnail';
+import Switch from '@/admin/components/form/controls/Switch';
 
-const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch, control }) => {
+const CategoryFormMainColumn = ({ register, fieldErrors, formData, setFormData, setValue, params, watch, control }) => {
+  const categoryImage = normalizeFiles(formData?.image);
+
+  const setDropzoneValue = (image) => {
+    setValue('image', image);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      image,
+    }));
+  };
+
+  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, categoryImage);
+
+
     return (
         <>
             <Input
@@ -15,8 +34,8 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 type="text"
                 id="name"
                 label="Nazwa"
-                hasError={!!errors?.name}
-                errorMessage={errors?.name?.message}
+                hasError={!!fieldErrors?.name}
+                errorMessage={fieldErrors?.name?.message}
                 isRequired
             />
 
@@ -25,8 +44,8 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 type="text"
                 id="slug"
                 label="Przyjazny url"
-                hasError={!!errors?.slug}
-                errorMessage={errors?.slug?.message}
+                hasError={!!fieldErrors?.slug}
+                errorMessage={fieldErrors?.slug?.message}
             />
 
             <Controller
@@ -36,19 +55,36 @@ const CategoryFormMainColumn = ({ register, errors, categoryData, params, watch,
                 render={({ field }) => <Textarea value={field.value} onChange={field.onChange} title="Opis" />}
             />
 
-            {categoryData.tree && categoryData.tree.length > 0 && (
+            {formData.tree && formData.tree.length > 0 && (
                 <FormCategoryTree
                     titleSection="Kategoria nadrzędna"
-                    hasError={!!errors?.parentCategoryId}
-                    errorMessage={errors?.parentCategoryId?.message}
+                    hasError={!!fieldErrors?.parentCategoryId}
+                    errorMessage={fieldErrors?.parentCategoryId?.message}
                     register={register('parentCategoryId')}
                     disabledCategoryId={params.id ?? null}
-                    categories={categoryData.tree || []}
-                    selected={categoryData.parentCategoryId}
+                    categories={formData.tree || []}
+                    selected={formData.parentCategoryId}
                     watch={watch}
                     nameWatchedValue="parentCategoryId"
                 />
             )}
+
+          <Heading level="h4">
+            <span className="flex items-center">Miniaturka</span>
+          </Heading>
+          <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
+            {categoryImage.length > 0 &&
+              categoryImage.map((file, key) => (
+                <DropzoneThumbnail
+                  file={file}
+                  removeFile={removeFile}
+                  variant="single"
+                  key={key}
+                  index={key}
+                />
+              ))}
+          </Dropzone>
+          <Switch label="Aktywny?" {...register('isActive')} />
         </>
     );
 };

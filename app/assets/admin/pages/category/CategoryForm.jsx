@@ -5,7 +5,6 @@ import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { useParams } from 'react-router-dom';
 import FormLayout from '@/admin/layouts/FormLayout';
 import CategoryFormMainColumn from '@/admin/features/category/components/CategoryFormMainColumn';
-import CategoryFormSideColumn from '@/admin/features/category/components/CategoryFormSideColumn';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 import useApiForm from '@/admin/hooks/useApiForm';
 
@@ -50,20 +49,13 @@ const CategoryForm = () => {
                 mainColumn={
                     <CategoryFormMainColumn
                         register={register}
-                        errors={fieldErrors}
+                        fieldErrors={fieldErrors}
                         setValue={setValue}
-                        categoryData={formData}
+                        formData={formData}
+                        setFormData={setFormData}
                         params={params}
                         watch={watch}
                         control={control}
-                    />
-                }
-                sideColumn={
-                    <CategoryFormSideColumn
-                        register={register}
-                        categoryFormData={formData}
-                        setCategoryFormData={setFormData}
-                        setValue={setValue}
                     />
                 }
             />

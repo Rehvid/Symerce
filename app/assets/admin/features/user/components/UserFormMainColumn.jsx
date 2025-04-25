@@ -5,8 +5,25 @@ import InputEmail from '@/admin/components/form/controls/InputEmail';
 import MultiSelect from '@/admin/components/form/controls/MultiSelect';
 import { Controller } from 'react-hook-form';
 import InputPassword from '@/admin/components/form/controls/InputPassword';
+import Heading from '@/admin/components/common/Heading';
+import Dropzone from '@/admin/components/form/dropzone/Dropzone';
+import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnail';
+import Switch from '@/admin/components/form/controls/Switch';
+import { normalizeFiles } from '@/admin/utils/helper';
+import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 
-const UserFormMainColumn = ({ register, fieldErrors, control, params }) => {
+const UserFormMainColumn = ({ register, fieldErrors, control, params, setValue, formData, setFormData  }) => {
+  const userAvatar = normalizeFiles(formData?.avatar);
+  const setDropzoneValue = (avatar) => {
+    setValue('avatar', avatar);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      avatar,
+    }));
+  };
+
+  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, formData);
+
     return (
         <>
             <Input
@@ -96,6 +113,24 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params }) => {
                     },
                 })}
             />
+
+          <Heading level="h4">
+            <span className="flex items-center">Miniaturka</span>
+          </Heading>
+          <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
+            {userAvatar.length > 0 &&
+              userAvatar.map((file, key) => (
+                <DropzoneThumbnail
+                  file={file}
+                  removeFile={removeFile}
+                  variant="single"
+                  key={key}
+                  index={key}
+                />
+              ))}
+          </Dropzone>
+
+          <Switch label="Aktywny?" {...register('isActive')} />
         </>
     );
 };

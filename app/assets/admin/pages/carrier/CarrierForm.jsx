@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import ApiForm from '@/admin/components/form/ApiForm';
 import FormLayout from '@/admin/layouts/FormLayout';
-import CarrierFormSideColumn from '@/admin/features/carrier/components/CarrierFormSideColumn';
 import CarrierFormMainColumn from '@/admin/features/carrier/components/CarrierFormMainColumn';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
 import { useParams } from 'react-router-dom';
@@ -59,13 +58,13 @@ const CarrierForm = () => {
         >
             <FormLayout
                 pageTitle={params.id ? 'Edytuj Przewoźnika' : 'Dodaj Przewoźnika'}
-                mainColumn={<CarrierFormMainColumn register={register} fieldErrors={fieldErrors} formData={formData} />}
-                sideColumn={
-                    <CarrierFormSideColumn
-                        register={register}
-                        formData={formData}
-                        setValue={setValue}
-                        setFormData={setFormData}
+                mainColumn={
+                    <CarrierFormMainColumn
+                      register={register}
+                      fieldErrors={fieldErrors}
+                      formData={formData}
+                      setFormData={setFormData}
+                      setValue={setValue}
                     />
                 }
             />
