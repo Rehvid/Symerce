@@ -25,7 +25,7 @@ class CategoryRepository extends PaginationRepository
         $alias = $this->getAlias();
 
         return $queryBuilder
-            ->select("$alias.id, $alias.name, $alias.slug, image.path")
+            ->select("$alias.id, $alias.name, $alias.slug, $alias.isActive, image.path")
             ->leftJoin("$alias.image", 'image')
             ->orderBy("$alias.order", 'ASC')
         ;

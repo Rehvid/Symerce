@@ -25,14 +25,14 @@ class DeliveryTimeController extends AbstractAdminController
     public function index(Request $request, DeliveryTimeRepository $repository): JsonResponse
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
-
         $data = array_map(function (array $item) {
+            $type = $this->translator->trans("base.delivery_type.{$item['type']?->value}");
             return DeliveryTimeIndexResponseDTO::fromArray([
                 'id' => $item['id'],
                 'label' => $item['label'],
                 'minDays' => $item['minDays'],
                 'maxDays' => $item['maxDays'],
-                'type' => $item['type']->value,
+                'type' => $type,
             ]);
         }, $paginatedResponse->data);
 

@@ -12,6 +12,7 @@ final readonly class VendorIndexResponseDTO implements ResponseInterfaceData
         public int $id,
         public string $name,
         public ?string $imagePath = null,
+        public bool $isActive,
     ) {
     }
 
@@ -21,6 +22,7 @@ final readonly class VendorIndexResponseDTO implements ResponseInterfaceData
             id: $data['id'],
             name: $data['name'],
             imagePath: $data['imagePath'],
+            isActive: $data['isActive'],
         );
     }
 }

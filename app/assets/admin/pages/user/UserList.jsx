@@ -11,6 +11,7 @@ import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import ListHeader from '@/admin/components/ListHeader';
+import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
 
 const UserList = () => {
     const location = useLocation();
@@ -28,7 +29,7 @@ const UserList = () => {
     }
 
     const data = items.map((item) => {
-        const { id, email, fullName, imagePath } = item;
+        const { id, email, fullName, imagePath, isActive } = item;
         return Object.values({
             id: <TableRowId id={id} />,
             name: (
@@ -39,6 +40,7 @@ const UserList = () => {
                 />
             ),
             email,
+            active: <TableRowActiveBadge isActive={isActive} />,
             actions: <TableActions id={id} onDelete={() => removeItem(id)} />,
         });
     });
@@ -52,7 +54,7 @@ const UserList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Użytkownik', 'Email', 'Akcje']}
+                columns={['ID', 'Użytkownik', 'Email', 'Aktywny', 'Akcje']}
                 items={data}
                 pagination={pagination}
             />

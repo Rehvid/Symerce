@@ -31,6 +31,7 @@ class VendorController extends AbstractAdminController
                 'id' => $item['id'],
                 'name' => $item['name'],
                 'imagePath' => $service->preparePublicPathToFile($item['path']),
+                'isActive' => $item['isActive'],
             ]);
         }, $paginatedResponse->data);
 

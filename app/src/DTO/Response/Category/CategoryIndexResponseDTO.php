@@ -13,6 +13,7 @@ final readonly class CategoryIndexResponseDTO implements ResponseInterfaceData
         public string $name,
         public string $slug,
         public ?string $imagePath = null,
+        public bool $isActive,
     ) {
 
     }
@@ -24,6 +25,7 @@ final readonly class CategoryIndexResponseDTO implements ResponseInterfaceData
             name: $data['name'],
             slug: $data['slug'],
             imagePath: $data['imagePath'] ?? null,
+            isActive: $data['isActive'],
         );
     }
 }

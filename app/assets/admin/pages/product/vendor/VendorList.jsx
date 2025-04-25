@@ -10,6 +10,7 @@ import ProductIcon from '@/images/icons/assembly.svg';
 import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/TableRowImageWithText';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
+import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
 
 const VendorList = () => {
     const currentFilters = new URLSearchParams(location.search);
@@ -25,7 +26,7 @@ const VendorList = () => {
     }
 
     const data = items.map((item) => {
-        const { id, name, imagePath } = item;
+        const { id, name, imagePath, isActive } = item;
         return Object.values({
             id: <TableRowId id={id} />,
             name: (
@@ -35,6 +36,7 @@ const VendorList = () => {
                     defaultIcon={<ProductIcon className="text-primary mx-auto" />}
                 />
             ),
+            active: <TableRowActiveBadge isActive={isActive} />,
             actions: <TableActions id={id} onDelete={() => removeItem(`admin/vendors/${item.id}`)} />,
         });
     });
@@ -48,7 +50,7 @@ const VendorList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Akcje']}
+                columns={['ID', 'Nazwa', 'Aktywny', 'Akcje']}
                 items={data}
                 pagination={pagination}
             />

@@ -35,7 +35,7 @@ class UserRepository extends PaginationRepository implements UserLoaderInterface
         $alias = $this->getAlias();
 
         return $queryBuilder
-            ->select("CONCAT($alias.firstname, ' ', $alias.surname) AS fullName, $alias.id, $alias.email, avatar.path")
+            ->select("CONCAT($alias.firstname, ' ', $alias.surname) AS fullName, $alias.id, $alias.email, $alias.isActive, avatar.path")
             ->leftJoin("$alias.avatar", 'avatar')
         ;
     }

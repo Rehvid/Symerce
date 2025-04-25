@@ -25,7 +25,7 @@ class VendorRepository extends PaginationRepository
         $alias = $this->getAlias();
 
         return $queryBuilder
-            ->select("$alias.id, $alias.name, image.path")
+            ->select("$alias.id, $alias.name, $alias.isActive, image.path")
             ->leftJoin("$alias.image", 'image')
         ;
     }

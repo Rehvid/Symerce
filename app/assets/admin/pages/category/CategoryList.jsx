@@ -12,6 +12,7 @@ import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarB
 import useDraggable from '@/admin/hooks/useDraggable';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
+import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
 
 const CategoryList = () => {
     const location = useLocation();
@@ -29,7 +30,7 @@ const CategoryList = () => {
     }
 
     const data = items.map((item) => {
-        const { id, imagePath, name, slug } = item;
+        const { id, imagePath, name, slug, isActive } = item;
         return Object.values({
             id: <TableRowId id={id} />,
             name: (
@@ -40,6 +41,7 @@ const CategoryList = () => {
                 />
             ),
             slug,
+            active: <TableRowActiveBadge isActive={isActive} /> ,
             actions: <TableActions id={id} onDelete={() => removeItem(`admin/categories/${id}`)} />,
         });
     });
@@ -53,7 +55,7 @@ const CategoryList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Przyjazny URL', 'Akcje']}
+                columns={['ID', 'Nazwa', 'Przyjazny URL', 'Aktywny', 'Akcje']}
                 items={data}
                 pagination={pagination}
                 useDraggable={true}
