@@ -1,30 +1,70 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 const TableBody = ({ data, useDraggable, draggableCallback }) => {
-    const [items, setItems] = useState(data);
-    const dragItem = useRef();
-    const dragOverItem = useRef();
+  const [hasInitItems, setHasInitItems] = useState(false);
+  const [items, setItems] = useState(data);
+  const [draggedItemIndex, setDraggedItemIndex] = useState(null);
+  const [dragOverItemIndex, setDragOverItemIndex] = useState(null);
 
     useEffect(() => {
-        setItems(data);
+        if (hasInitItems) {
+          setHasInitItems(true);
+          setItems(data);
+        }
     }, [data]);
 
-    const dragStart = (e) => {
-        dragItem.current = e.target.id;
-    };
-    const dragEnter = (e) => {
-        dragOverItem.current = e.currentTarget.id;
-    };
+  const dragStart = (e, index) => {
+    setDraggedItemIndex(index);
+    e.currentTarget.classList.add("dragging");
+  };
+
+  const dragEnter = (e, index) => {
+    setDragOverItemIndex(index);
+  };
 
     const drop = () => {
-        const copyListItems = [...data];
-        const currentDragItem = copyListItems[dragItem.current];
-        copyListItems.splice(dragItem.current, 1);
-        copyListItems.splice(dragOverItem.current, 0, currentDragItem);
+      if (draggedItemIndex === null || dragOverItemIndex === null) return;
 
-        setItems(copyListItems);
-        draggableCallback?.(copyListItems);
+      const copyListItems = [...items];
+      if (draggedItemIndex === dragOverItemIndex) {
+        cleanup();
+        return;
+      }
+
+      const currentDragItem = copyListItems[draggedItemIndex];
+      copyListItems.splice(draggedItemIndex, 1);
+      copyListItems.splice(dragOverItemIndex, 0, currentDragItem);
+
+      setItems(copyListItems);
+
+      document.querySelectorAll(".dragging").forEach(el => el.classList.remove("dragging"));
+
+      const foundIds = copyListItems.map(item => {
+            let foundId = null;
+            item.some(element => {
+                if (element.props?.id) {
+                    foundId = element.props.id;
+                    return true;
+                }
+                return false;
+            });
+            return foundId;
+        }).filter(id => id !== null && id !== undefined);
+
+        if (foundIds.length === 0 || foundIds.length !== copyListItems.length) {
+            console.error("The resulting array is empty or identical to the original list.");
+            return;
+        }
+
+        cleanup();
+        draggableCallback?.(foundIds);
     };
+
+  const cleanup = () => {
+    setDraggedItemIndex(null);
+    setDragOverItemIndex(null);
+    document.querySelectorAll(".dragging").forEach(el => el.classList.remove("dragging"));
+  };
 
     const renderCells = (row) => {
         const cells = Array.isArray(row) ? row : Object.values(row);
@@ -35,26 +75,45 @@ const TableBody = ({ data, useDraggable, draggableCallback }) => {
         ));
     };
 
+  const renderPlaceholder = (index) => (
+    <tr key={`placeholder-${index}`} className="transition-all duration-150 ease-in-out">
+      <td colSpan="100%">
+        <div className="h-2 bg-primary rounded-md my-2 animate-pulse" />
+      </td>
+    </tr>
+  );
+
     return (
         <tbody>
             {items.map((row, rowIndex) => {
-                return useDraggable ? (
-                    <tr
-                        onDragStart={(e) => dragStart(e)}
-                        onDragEnter={(e) => dragEnter(e)}
-                        onDragEnd={drop}
-                        draggable
-                        key={rowIndex}
-                        id={rowIndex}
-                        className="border-b border-gray-100 last:border-b-0"
-                    >
-                        {renderCells(row)}
-                    </tr>
-                ) : (
-                    <tr key={rowIndex} id={rowIndex} className="border-b border-gray-100 last:border-b-0">
-                        {renderCells(row)}
-                    </tr>
-                );
+              const isDragging = draggedItemIndex === rowIndex;
+              const rowClasses = `border-b border-gray-100 last:border-b-0 transition-all duration-150 ease-in-out ${
+                isDragging ? 'opacity-50 scale-[1.01] bg-slate-100' : ''
+              }`;
+                return (
+                  <Fragment  key={`row-wrapper-${rowIndex}`} >
+                  {useDraggable && dragOverItemIndex === rowIndex && renderPlaceholder(rowIndex)}
+
+                  {useDraggable ? (
+                  <tr
+                    onDragStart={(e) => dragStart(e, rowIndex)}
+                    onDragEnter={(e) => dragEnter(e, rowIndex)}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDragEnd={drop}
+                    draggable
+                    key={rowIndex}
+                    id={rowIndex}
+                    className={rowClasses}
+                  >
+                    {renderCells(row)}
+                  </tr>
+                  ) : (
+                  <tr key={rowIndex} id={rowIndex} className="border-b border-gray-100 last:border-b-0">
+                    {renderCells(row)}
+                  </tr>
+                  )}
+                </Fragment>
+                )
             })}
         </tbody>
     );

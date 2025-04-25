@@ -1,9 +1,5 @@
 export const prepareDraggableDataToUpdateOrder = (data) => {
-    let draggableData = [];
-    data.forEach((element) => {
-        draggableData = [...draggableData, element[0]];
-    });
-    return { order: draggableData };
+    return { order: data };
 };
 
 export const convertFileToBase64 = (file) => {
