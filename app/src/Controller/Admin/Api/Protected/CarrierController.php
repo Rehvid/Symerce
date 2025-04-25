@@ -34,13 +34,13 @@ class CarrierController extends AbstractAdminController
 
         $defaultCurrency = $settingManager->findDefaultCurrency();
 
-        $data = array_map(function (array $item) use ($service, $defaultCurrency) {
+        $data = array_map(function (Carrier $carrier) use ($service, $defaultCurrency) {
             return CarrierIndexResponseDTO::fromArray([
-                'id' => $item['id'],
-                'name' => $item['name'],
-                'isActive' => $item['isActive'],
-                'fee' => new Money($item['fee'], $defaultCurrency),
-                'imagePath' => $service->preparePublicPathToFile($item['path']),
+                'id' => $carrier->getId(),
+                'name' => $carrier->getName(),
+                'isActive' => $carrier->isActive(),
+                'fee' => new Money($carrier->getFee(), $defaultCurrency),
+                'imagePath' => $service->preparePublicPathToFile($carrier->getImage()?->getPath()),
             ]);
         }, $paginatedResponse->data);
 

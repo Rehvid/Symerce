@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Mapper;
 
-use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\Product\ProductFormResponseDTO;
 use App\DTO\Response\Product\ProductImageResponseDTO;
 use App\DTO\Response\Product\ProductIndexResponseDTO;
@@ -38,16 +37,20 @@ final readonly class ProductMapper
     public function mapToIndex(array $data): array
     {
         $currency = $this->settingManager->findDefaultCurrency();
-        return array_map(function (array $item) use ($currency) {
-            $productName = $item['name'];
+        return array_map(function (Product $product) use ($currency) {
+            $productName = $product->getName();
+            $image = $product->getThumbnailImage() === null
+                ? null
+                : $this->fileService->preparePublicPathToFile($product->getThumbnailImage()->getFile()->getPath());
+
               return ProductIndexResponseDTO::fromArray([
-                  'id' => $item['id'],
-                  'image' => null,
-                  'name' => $item['name'],
-                  'discountedPrice' => new Money($item['discountPrice'], $currency),
-                  'regularPrice' => new Money($item['regularPrice'], $currency),
-                  'isActive' => $item['isActive'],
-                  'quantity' => $item['quantity'],
+                  'id' => $product->getId(),
+                  'image' => $image,
+                  'name' => $productName,
+                  'discountedPrice' => new Money($product->getDiscountPrice(), $currency),
+                  'regularPrice' => new Money($product->getRegularPrice(), $currency),
+                  'isActive' => $product->isActive(),
+                  'quantity' => $product->getQuantity(),
               ]);
         }, $data);
     }

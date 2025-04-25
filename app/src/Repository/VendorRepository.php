@@ -6,7 +6,6 @@ namespace App\Repository;
 
 use App\Entity\Vendor;
 use App\Repository\Base\PaginationRepository;
-use Doctrine\ORM\QueryBuilder;
 
 class VendorRepository extends PaginationRepository
 {
@@ -18,15 +17,5 @@ class VendorRepository extends PaginationRepository
     protected function getAlias(): string
     {
         return 'vendor';
-    }
-
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = [], array $additionalData = []): QueryBuilder
-    {
-        $alias = $this->getAlias();
-
-        return $queryBuilder
-            ->select("$alias.id, $alias.name, $alias.isActive, image.path")
-            ->leftJoin("$alias.image", 'image')
-        ;
     }
 }

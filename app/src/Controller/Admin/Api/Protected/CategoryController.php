@@ -51,12 +51,14 @@ class CategoryController extends AbstractAdminController
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
         /** @var array<int, CategoryIndexResponseDTO> $responseData */
-        $responseData = array_map(function ($item) {
-            if ($item['path']) {
-                $item['imagePath'] = $this->fileService->preparePublicPathToFile($item['path']);
-            }
-
-            return CategoryIndexResponseDTO::fromArray($item);
+        $responseData = array_map(function (Category $category) {
+            return CategoryIndexResponseDTO::fromArray([
+                'id' => $category->getId(),
+                'name' => $category->getName(),
+                'isActive' => $category->isActive(),
+                'slug' => $category->getSlug(),
+                'imagePath' => $this->fileService->preparePublicPathToFile($category->getImage()?->getPath()),
+            ]);
         }, $paginatedResponse->data);
 
         return $this->prepareJsonResponse(

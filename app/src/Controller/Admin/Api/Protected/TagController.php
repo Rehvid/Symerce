@@ -24,10 +24,10 @@ class TagController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (array $item) {
+        $data = array_map(function (Tag $tag) {
             return TagIndexResponseDTO::fromArray([
-                'id' => $item['id'],
-                'name' => $item['name'],
+                'id' => $tag->getId(),
+                'name' => $tag->getName(),
             ]);
         }, $paginatedResponse->data);
 

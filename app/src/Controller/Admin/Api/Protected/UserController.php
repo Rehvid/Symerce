@@ -8,6 +8,7 @@ use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\User\SaveUserRequestDTO;
 use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\User\UserFormResponseDTO;
+use App\DTO\Response\User\UserIndexResponseDTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\FileService;
@@ -25,13 +26,14 @@ class UserController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $userData = array_map(function (array $item) use ($service) {
-            if ($item['path']) {
-                $item['imagePath'] = $service->preparePublicPathToFile($item['path']);
-            }
-            unset($item['path']);
-
-            return $item;
+        $userData = array_map(function (User $user) use ($service) {
+            return UserIndexResponseDTO::fromArray([
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
+                'fullName' => $user->getFullName(),
+                'isActive' => $user->isActive(),
+                'imagePath' => $service->preparePublicPathToFile($user->getAvatar()?->getPath()),
+            ]);
         }, $paginatedResponse->data);
 
 

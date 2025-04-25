@@ -24,10 +24,10 @@ class AttributeController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (array $item) {
+        $data = array_map(function (Attribute $attribute) {
             return AttributeIndexResponseDTO::fromArray([
-                'id' => $item['id'],
-                'name' => $item['name'],
+                'id' => $attribute->getId(),
+                'name' => $attribute->getName(),
             ]);
         }, $paginatedResponse->data);
 

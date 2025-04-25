@@ -26,12 +26,12 @@ class VendorController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (array $item) use ($service) {
+        $data = array_map(function (Vendor $vendor) use ($service) {
             return VendorIndexResponseDTO::fromArray([
-                'id' => $item['id'],
-                'name' => $item['name'],
-                'imagePath' => $service->preparePublicPathToFile($item['path']),
-                'isActive' => $item['isActive'],
+                'id' => $vendor->getId(),
+                'name' => $vendor->getName(),
+                'imagePath' => $service->preparePublicPathToFile($vendor->getImage()?->getPath()),
+                'isActive' => $vendor->isActive(),
             ]);
         }, $paginatedResponse->data);
 

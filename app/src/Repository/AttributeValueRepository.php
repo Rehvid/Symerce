@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\AttributeValue;
 use App\Repository\Base\PaginationRepository;
+use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 
 class AttributeValueRepository extends PaginationRepository
@@ -22,12 +23,12 @@ class AttributeValueRepository extends PaginationRepository
 
     protected function configureQueryForPagination(
         QueryBuilder $queryBuilder,
-        array $queryParams = [],
-        array $additionalData = []
+        PaginationFilters $paginationFilters
     ): QueryBuilder {
-        $attributeId = $additionalData['attributeId'] ?? null;
+
+        $attributeId = $paginationFilters->getAdditionalData('attributeId');
         if (null === $attributeId) {
-            return parent::configureQueryForPagination($queryBuilder, $queryParams, $additionalData);
+            return parent::configureQueryForPagination($queryBuilder, $paginationFilters);
         }
 
         return $queryBuilder

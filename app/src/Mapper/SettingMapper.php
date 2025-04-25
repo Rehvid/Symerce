@@ -25,21 +25,21 @@ final readonly class SettingMapper
 
     public function mapToIndex(array $data): array
     {
-        return array_map(function (array $item) {
-            $type = $this->translator->trans("base.setting_type.{$item['type']?->value}");
-            $value = $item['value'];
+        return array_map(function (Setting $setting) {
+            $type = $this->translator->trans("base.setting_type.{$setting->getType()->value}");
+            $value = $setting->getValue();
 
-            if ($item['type'] === SettingType::CURRENCY) {
+            if ($setting->getType() === SettingType::CURRENCY) {
                 $decodedValue = json_decode($value, true);
                 $value = $this->entityManager->getRepository(Currency::class)->find($decodedValue['id'])?->getName();
             }
 
             return SettingIndexResponseDTO::fromArray([
-                'id' => $item['id'],
-                'name' => $item['name'],
+                'id' => $setting->getId(),
+                'name' => $setting->getName(),
                 'value' => $value,
                 'type' => $type,
-                'isProtected' => $item['isProtected'],
+                'isProtected' => $setting->isProtected(),
             ]);
 
         }, $data);

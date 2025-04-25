@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Repository\Base\PaginationRepository;
+use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 
 class CategoryRepository extends PaginationRepository
@@ -20,14 +21,10 @@ class CategoryRepository extends PaginationRepository
         return 'c';
     }
 
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = [], array $additionalData = []): QueryBuilder
+    protected function configureQueryForPagination(QueryBuilder $queryBuilder, PaginationFilters $paginationFilters): QueryBuilder
     {
         $alias = $this->getAlias();
 
-        return $queryBuilder
-            ->select("$alias.id, $alias.name, $alias.slug, $alias.isActive, image.path")
-            ->leftJoin("$alias.image", 'image')
-            ->orderBy("$alias.order", 'ASC')
-        ;
+        return $queryBuilder->orderBy("$alias.order", 'ASC');
     }
 }

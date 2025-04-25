@@ -22,13 +22,13 @@ class CurrencyController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (array $item) {
+        $data = array_map(function (Currency $currency) {
             return CurrencyIndexResponseDTO::fromArray([
-                'id' => $item['id'],
-                'name' => $item['name'],
-                'code' => $item['code'],
-                'symbol' => $item['symbol'],
-                'roundingPrecision' => $item['roundingPrecision'],
+                'id' => $currency->getId(),
+                'name' => $currency->getName(),
+                'code' => $currency->getCode(),
+                'symbol' => $currency->getSymbol(),
+                'roundingPrecision' => $currency->getRoundingPrecision(),
             ]);
         }, $paginatedResponse->data);
 

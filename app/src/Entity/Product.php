@@ -208,7 +208,12 @@ class Product
 
     public function getThumbnailImage(): ?ProductImage
     {
-        return $this->images->filter(fn (ProductImage $image) => $image->isThumbnail())->first();
+        $thumbnailImage = null;
+        $findThumbnail = $this->images->filter(fn (ProductImage $image) => $image->isThumbnail());
+        if ($findThumbnail->count() > 0) {
+            $thumbnailImage = $findThumbnail->first();
+        }
+        return $thumbnailImage;
     }
 
     public function addDeliveryTime(DeliveryTime $deliveryTime): void

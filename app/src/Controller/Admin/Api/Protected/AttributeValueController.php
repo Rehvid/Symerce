@@ -40,10 +40,10 @@ class AttributeValueController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository, ['attributeId' => $attributeId]);
 
-        $data = array_map(function (array $item) {
+        $data = array_map(function (AttributeValue $attributeValue) {
             return AttributeValueIndexResponseDTO::fromArray([
-                'id' => $item['id'],
-                'value' => $item['value'],
+                'id' => $attributeValue->getId(),
+                'value' => $attributeValue->getValue(),
             ]);
         }, $paginatedResponse->data);
 

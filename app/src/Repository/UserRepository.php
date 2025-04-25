@@ -6,7 +6,6 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Repository\Base\PaginationRepository;
-use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -28,15 +27,5 @@ class UserRepository extends PaginationRepository implements UserLoaderInterface
     protected function getAlias(): string
     {
         return 'u';
-    }
-
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, array $queryParams = [], array $additionalData = []): QueryBuilder
-    {
-        $alias = $this->getAlias();
-
-        return $queryBuilder
-            ->select("CONCAT($alias.firstname, ' ', $alias.surname) AS fullName, $alias.id, $alias.email, $alias.isActive, avatar.path")
-            ->leftJoin("$alias.avatar", 'avatar')
-        ;
     }
 }
