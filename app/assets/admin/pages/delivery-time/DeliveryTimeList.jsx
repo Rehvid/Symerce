@@ -9,6 +9,7 @@ import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarB
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import Badge from '@/admin/components/common/Badge';
 import ListHeader from '@/admin/components/ListHeader';
+import useDraggable from '@/admin/hooks/useDraggable';
 
 const DeliveryTimeList = () => {
     const currentFilters = new URLSearchParams(location.search);
@@ -17,6 +18,7 @@ const DeliveryTimeList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
+    const { draggableCallback } = useDraggable('admin/delivery-time/order');
     const { items, pagination, isLoading, removeItem } = useListData('admin/delivery-time', filters);
 
     if (isLoading) {
@@ -48,6 +50,8 @@ const DeliveryTimeList = () => {
                 items={data}
                 pagination={pagination}
                 additionalFilters={[]}
+                useDraggable={true}
+                draggableCallback={draggableCallback}
             />
         </>
     );

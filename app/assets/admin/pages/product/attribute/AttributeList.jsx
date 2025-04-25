@@ -11,6 +11,7 @@ import AppLink from '@/admin/components/common/AppLink';
 import EyeIcon from '@/images/icons/eye.svg';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
+import useDraggable from '@/admin/hooks/useDraggable';
 
 const AttributeList = () => {
     const location = useLocation();
@@ -21,6 +22,7 @@ const AttributeList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
+    const { draggableCallback } = useDraggable('admin/attributes/order');
     const { items, pagination, isLoading, removeItem } = useListData('admin/attributes', filters);
 
     if (isLoading) {
@@ -56,6 +58,8 @@ const AttributeList = () => {
                 columns={['ID', 'Nazwa', 'Akcje']}
                 items={data}
                 pagination={pagination}
+                useDraggable={true}
+                draggableCallback={draggableCallback}
             />
         </>
     );

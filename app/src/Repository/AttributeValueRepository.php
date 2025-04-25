@@ -25,14 +25,16 @@ class AttributeValueRepository extends PaginationRepository
         QueryBuilder $queryBuilder,
         PaginationFilters $paginationFilters
     ): QueryBuilder {
-
         $attributeId = $paginationFilters->getAdditionalData('attributeId');
         if (null === $attributeId) {
             return parent::configureQueryForPagination($queryBuilder, $paginationFilters);
         }
 
+        $alias = $this->getAlias();
+
         return $queryBuilder
             ->andWhere('attribute_value.attribute = :attributeId')
-            ->setParameter('attributeId', $attributeId);
+            ->setParameter('attributeId', $attributeId)
+            ->orderBy("$alias.order", 'ASC');
     }
 }

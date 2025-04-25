@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
+use App\DTO\Request\OrderRequestDTO;
 use App\DTO\Request\Product\SaveProductRequestDTO;
 use App\Entity\Product;
 use App\Mapper\ProductMapper;
@@ -74,6 +75,12 @@ class ProductController extends AbstractAdminController
             message: $this->translator->trans('base.messages.product.store'),
             statusCode: Response::HTTP_CREATED
         );
+    }
+
+    #[Route('/order', name: 'order', methods: ['PUT'])]
+    public function order(#[MapRequestPayload] OrderRequestDTO $orderRequestDTO): JsonResponse
+    {
+        return $this->sortOrderForEntity($orderRequestDTO, Product::class);
     }
 
     #[Route('/{id}', name: 'update', methods: ['PUT'])]

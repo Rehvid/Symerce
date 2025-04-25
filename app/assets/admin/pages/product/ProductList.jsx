@@ -13,6 +13,7 @@ import TableActions from '@/admin/components/table/Partials/TableActions';
 import TableRowMoney from '@/admin/components/table/Partials/TableRow/TableRowMoney';
 import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/TableRowImageWithText';
 import ProductIcon from '@/images/icons/assembly.svg';
+import useDraggable from '@/admin/hooks/useDraggable';
 
 const ProductList = () => {
     const location = useLocation();
@@ -23,7 +24,8 @@ const ProductList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
-    const { items, pagination, isLoading, removeItem } = useListData('admin/products', filters);
+  const { draggableCallback } = useDraggable('admin/products/order');
+  const { items, pagination, isLoading, removeItem } = useListData('admin/products', filters);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -61,6 +63,8 @@ const ProductList = () => {
                 columns={['ID', 'Nazwa', 'Cena Regularna', 'Cena Promocyjna', 'Ilość', 'Aktywny', 'Actions']}
                 items={data}
                 pagination={pagination}
+                useDraggable
+                draggableCallback={draggableCallback}
             />
         </>
     );

@@ -7,6 +7,8 @@ namespace App\Repository;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
 use App\Repository\Base\PaginationRepository;
+use App\Service\Pagination\PaginationFilters;
+use Doctrine\ORM\QueryBuilder;
 
 class AttributeRepository extends PaginationRepository
 {
@@ -46,5 +48,12 @@ class AttributeRepository extends PaginationRepository
         $qb->where($orX);
 
         return $qb->getQuery()->getResult();
+    }
+
+    protected function configureQueryForPagination(QueryBuilder $queryBuilder, PaginationFilters $paginationFilters): QueryBuilder
+    {
+        $alias = $this->getAlias();
+
+        return $queryBuilder->orderBy("$alias.order", 'ASC');
     }
 }

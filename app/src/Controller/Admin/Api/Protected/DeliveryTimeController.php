@@ -6,6 +6,7 @@ namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\DeliveryTime\SaveDeliveryTimeRequestDTO;
+use App\DTO\Request\OrderRequestDTO;
 use App\DTO\Response\DeliveryTime\DeliveryTimeFormResponseDTO;
 use App\DTO\Response\DeliveryTime\DeliveryTimeIndexResponseDTO;
 use App\Entity\DeliveryTime;
@@ -83,6 +84,12 @@ class DeliveryTimeController extends AbstractAdminController
         );
     }
 
+    #[Route('/order', name: 'order', methods: ['PUT'])]
+    public function order(#[MapRequestPayload] OrderRequestDTO $orderRequestDTO): JsonResponse
+    {
+        return $this->sortOrderForEntity($orderRequestDTO, DeliveryTime::class);
+    }
+
     #[Route('/{id}', name: 'update', methods: ['PUT'])]
     public function update(
         DeliveryTime $deliveryTime,
@@ -104,6 +111,8 @@ class DeliveryTimeController extends AbstractAdminController
 
         return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.delivery_time.destroy'));
     }
+
+
 
     /**
      * @param array <string, mixed> $types

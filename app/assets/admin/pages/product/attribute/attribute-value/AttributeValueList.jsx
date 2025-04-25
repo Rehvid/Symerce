@@ -9,6 +9,7 @@ import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
+import useDraggable from '@/admin/hooks/useDraggable';
 
 const AttributeValueList = () => {
     const location = useLocation();
@@ -21,6 +22,7 @@ const AttributeValueList = () => {
         page: Number(currentFilters.get('page')) || 1,
     });
 
+    const { draggableCallback } = useDraggable(`admin/attributes/${params.attributeId}/values/order`);
     const { items, pagination, isLoading, removeItem } = useListData(`admin/attributes/${params.attributeId}/values`, filters);
 
     if (isLoading) {
@@ -56,6 +58,8 @@ const AttributeValueList = () => {
                 columns={['ID', 'Wartości', 'Akcje']}
                 items={data}
                 pagination={pagination}
+                useDraggable={true}
+                draggableCallback={draggableCallback}
             />
         </>
     );

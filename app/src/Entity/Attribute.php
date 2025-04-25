@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\OrderSortableInterface;
 use App\Repository\AttributeRepository;
 use App\Traits\OrderTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: AttributeRepository::class)]
-class Attribute
+class Attribute implements OrderSortableInterface
 {
     use OrderTrait;
 

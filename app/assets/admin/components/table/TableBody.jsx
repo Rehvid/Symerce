@@ -87,7 +87,7 @@ const TableBody = ({ data, useDraggable, draggableCallback }) => {
         <tbody>
             {items.map((row, rowIndex) => {
               const isDragging = draggedItemIndex === rowIndex;
-              const rowClasses = `border-b border-gray-100 last:border-b-0 transition-all duration-150 ease-in-out ${
+              const rowClasses = `border-b border-gray-100 last:border-b-0 transition-all duration-150 ease-in-out hover:cursor-grab ${
                 isDragging ? 'opacity-50 scale-[1.01] bg-slate-100' : ''
               }`;
                 return (

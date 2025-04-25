@@ -4,6 +4,7 @@ namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\AttributeValue\SaveAttributeValueRequestDTO;
+use App\DTO\Request\OrderRequestDTO;
 use App\DTO\Response\AttributeValue\AttributeValueFormResponseDTO;
 use App\DTO\Response\AttributeValue\AttributeValueIndexResponseDTO;
 use App\Entity\Attribute;
@@ -66,6 +67,12 @@ class AttributeValueController extends AbstractAdminController
             message: $this->translator->trans('base.messages.attribute_value.store', ['%name%' => $this->getAttributeName($attributeId)]),
             statusCode: Response::HTTP_CREATED
         );
+    }
+
+    #[Route('/order', name: 'order', methods: ['PUT'])]
+    public function order(#[MapRequestPayload] OrderRequestDTO $orderRequestDTO): JsonResponse
+    {
+        return $this->sortOrderForEntity($orderRequestDTO, AttributeValue::class);
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
