@@ -7,6 +7,7 @@ import ModalBody from '@/admin/components/modal/ModalBody';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import { normalizeFiles } from '@/admin/utils/helper';
 import ModalFile from '@/admin/components/modal/ModalFile';
+import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnail';
 
 const UserFormSideColumn = ({ register, setValue, userData, setUserData }) => {
     const userDataAvatar = normalizeFiles(userData?.avatar);
@@ -27,20 +28,13 @@ const UserFormSideColumn = ({ register, setValue, userData, setUserData }) => {
                 <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative">
                     {userDataAvatar.length > 0 &&
                         userDataAvatar.map((file, key) => (
-                            <div className="absolute flex top-0 h-full w-full rounded-lg" key={key}>
-                                <img
-                                    className="rounded-lg mx-auto object-cover w-full"
-                                    src={file.preview}
-                                    alt={file.name}
-                                />
-                                <div className="absolute rounded-lg transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl">
-                                    <DropzonePreviewActions
-                                        renderModal={() => <ModalFile preview={file.preview} name={file.name} />}
-                                        removeFile={removeFile}
-                                        file={file}
-                                    />
-                                </div>
-                            </div>
+                          <DropzoneThumbnail
+                            file={file}
+                            removeFile={removeFile}
+                            variant="single"
+                            key={key}
+                            index={key}
+                          />
                         ))}
                 </Dropzone>
             </FormSidePanel>

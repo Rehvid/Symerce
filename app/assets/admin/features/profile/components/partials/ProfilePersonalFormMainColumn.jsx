@@ -11,6 +11,7 @@ import InputEmail from '@/admin/components/form/controls/InputEmail';
 import ModalFile from '@/admin/components/modal/ModalFile';
 import { normalizeFiles } from '@/admin/utils/helper';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
+import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnail';
 
 const ProfilePersonalFormMainColumn = ({ setValue, setUser, register, fieldErrors, user }) => {
     const { addNotification } = useCreateNotification();
@@ -42,16 +43,13 @@ const ProfilePersonalFormMainColumn = ({ setValue, setUser, register, fieldError
             <Dropzone onDrop={onDrop} errors={errors} variant="avatar" containerClasses="relative h-40 w-40">
                 {userAvatar.length > 0 &&
                     userAvatar.map((file, key) => (
-                        <div className="absolute flex top-0 h-full w-full rounded-full" key={key}>
-                            <img className="rounded-full mx-auto object-cover" src={file.preview} alt={file.name} />
-                            <div className="absolute rounded-full transition-all w-full h-full inset-0 flex items-center justify-center gap-3 hover:backdrop-blur-xl">
-                                <DropzonePreviewActions
-                                    renderModal={() => <ModalFile name={file.name} preview={file.preview} />}
-                                    removeFile={removeFile}
-                                    file={file}
-                                />
-                            </div>
-                        </div>
+                      <DropzoneThumbnail
+                        file={file}
+                        removeFile={removeFile}
+                        variant="avatar"
+                        key={key}
+                        index={key}
+                      />
                     ))}
             </Dropzone>
 
