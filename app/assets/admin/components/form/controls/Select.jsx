@@ -6,7 +6,7 @@ import Badge from '@/admin/components/common/Badge';
 import ChevronIcon from '@/images/icons/chevron.svg';
 import DropdownContent from '@/admin/components/dropdown/DropdownContent';
 
-const Select = ({options, selected, label, isRequired, onChange, hasError, errorMessage}) => {
+const Select = ({options, selected, label, isRequired, onChange, hasError, errorMessage, usePlaceholderOption = true}) => {
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const handleSelect = (value) => {
@@ -14,9 +14,9 @@ const Select = ({options, selected, label, isRequired, onChange, hasError, error
   };
 
   const selectedLabel = options.find((opt) => opt.value === selected)?.label;
-  const optionsWithPlaceholder = [
-    {label: 'Wybierz...', value: null}, ...options
-  ];
+  const optionsWithPlaceholder = usePlaceholderOption
+    ? [{label: 'Wybierz...', value: null}, ...options]
+    : options;
 
   return (
     <>
