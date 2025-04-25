@@ -15,6 +15,7 @@ const DeliveryTimeForm = () => {
         handleSubmit,
         setValue,
         setError,
+        control,
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',
@@ -28,8 +29,10 @@ const DeliveryTimeForm = () => {
     );
 
     useEffect(() => {
-        const url = params.id ? `admin/delivery-time/${params.id}/form-data` : `admin/delivery-time/form-data`;
-        fetchFormData(url, HTTP_METHODS.GET, ['label', 'minDays', 'maxDays', 'type']);
+        const endPoint = params.id ? `admin/delivery-time/${params.id}/form-data` : 'admin/delivery-time/form-data';
+        const formFieldNames = params.id ? ['label', 'minDays', 'maxDays', 'type'] : [];
+
+        fetchFormData(endPoint, HTTP_METHODS.GET, formFieldNames);
     }, []);
 
     if (!isFormReady) {
@@ -51,6 +54,7 @@ const DeliveryTimeForm = () => {
                         fieldErrors={fieldErrors}
                         formData={formData}
                         setValue={setValue}
+                        control={control}
                     />
                 }
             />

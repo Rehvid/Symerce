@@ -1,12 +1,9 @@
 import { validationRules } from '@/admin/utils/validationRules';
 import Input from '@/admin/components/form/controls/Input';
-import Select from '@/shared/components/Select';
+import Select from '@/admin/components/form/controls/Select';
+import { Controller } from 'react-hook-form';
 
-const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, setValue }) => {
-    const onChange = (e) => {
-        setValue('type', e.target.value);
-    };
-
+const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }) => {
     return (
         <>
             <Input
@@ -46,9 +43,23 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, setValue 
                 isRequired
             />
 
-            {formData.types && (
-                <Select label="Typy" onChange={onChange} selected={formData?.type ?? ''} options={formData.types} />
+           <Controller
+            name="type"
+            control={control}
+            defaultValue={[]}
+            render={({ field }) => (
+              <div>
+                <Select
+                  label="Producent"
+                  options={formData?.types || []}
+                  selected={field.value}
+                  onChange={(value) => {
+                    field.onChange(value);
+                  }}
+                />
+              </div>
             )}
+          />
         </>
     );
 };
