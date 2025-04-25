@@ -15,6 +15,7 @@ const SettingForm = () => {
         handleSubmit,
         setValue,
         setError,
+        control,
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',
@@ -54,7 +55,7 @@ const SettingForm = () => {
                         register={register}
                         fieldErrors={fieldErrors}
                         formData={formData}
-                        setValue={setValue}
+                        control={control}
                     />
                 }
             />

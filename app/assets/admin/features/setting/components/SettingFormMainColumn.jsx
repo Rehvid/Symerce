@@ -1,30 +1,21 @@
 import { validationRules } from '@/admin/utils/validationRules';
 import Input from '@/admin/components/form/controls/Input';
-import Select from '@/shared/components/Select';
+import Select from '@/admin/components/form/controls/Select';
+import { Controller } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 
-const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, setValue }) => {
-    const settingValue = formData?.settingValue;
-    let selected = '';
-    if (settingValue && settingValue?.type === 'select') {
-        const selectedParse = JSON.parse(formData.value);
-        selected = settingValue?.value.find((element) => element.value === Number(selectedParse.id));
-    }
 
-    const onChange = (e) => {
-        setValue('type', e.target.value);
-    };
+const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, control }) => {
+    const [selectedOption, setSelectedOption] = useState('');
 
-    const onSettingValueChange = (e) => {
-        let value = null;
-        const findValue = settingValue?.value.find((element) => element.value === Number(e.target.value));
-        if (findValue) {
-            value = {
-                id: findValue.value,
-                name: findValue.label,
-            };
+    useEffect(() => {
+        if (settingValue && settingValue?.type === 'select') {
+            const selectedParse = JSON.parse(formData.value);
+            setSelectedOption(settingValue?.value.find((element) => element.value === Number(selectedParse.id)).value);
         }
-        setValue('value', value);
-    };
+    }, [formData?.settingValue]);
+
+    const settingValue = formData?.settingValue;
 
     return (
         <>
@@ -44,20 +35,51 @@ const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, s
                     />
 
                     {formData.types && (
-                        <div>
-                            Typy
-                            <Select onChange={onChange} selected={formData.type} options={formData.types} />
-                        </div>
+                      <Controller
+                        name="type"
+                        control={control}
+                        defaultValue={[]}
+                        render={({ field }) => (
+                          <div>
+                              <Select
+                                label="Typy"
+                                options={formData.types || []}
+                                selected={field.value}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                }}
+                              />
+                          </div>
+                          )}
+                      />
                     )}
                 </>
             )}
             {settingValue && settingValue?.type === 'select' ? (
-                <Select
-                    onChange={onSettingValueChange}
-                    selected={selected}
-                    options={settingValue?.value}
-                    label="Wartość"
-                    id="value"
+                <Controller
+                  name="value"
+                  control={control}
+                  defaultValue={[]}
+                  render={({ field }) => (
+                    <div>
+                        <Select
+                          label="Wartość"
+                          options={settingValue?.value || []}
+                          selected={selectedOption}
+                          onChange={(value) => {
+                              setSelectedOption(value);
+                              const findValue = settingValue?.value.find((element) => element.value === Number(value));
+                              if (findValue) {
+                                  value = {
+                                      id: findValue.value,
+                                      name: findValue.label,
+                                  };
+                              }
+                              field.onChange(JSON.stringify(value));
+                          }}
+                        />
+                    </div>
+                  )}
                 />
             ) : (
                 <Input
