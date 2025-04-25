@@ -18,4 +18,13 @@ class SettingRepository extends PaginationRepository
     {
         return 'global_settings';
     }
+
+    public function findAllExcludingTypes(array $excludedTypes): array
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.type NOT IN (:excludedTypes)')
+            ->setParameter('excludedTypes', $excludedTypes)
+            ->getQuery()
+            ->getResult();
+    }
 }

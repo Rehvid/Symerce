@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Service\DataProvider\ReactDataProvider;
+use App\Service\DataProvider\SettingsProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,8 +14,13 @@ class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]
     #[Route('/admin/{reactRoute}', name: 'app_admin_react', requirements: ['reactRoute' => '.*'])]
-    public function index(): Response
+    public function index(SettingsProvider $provider): Response
     {
-        return $this->render('admin.html.twig');
+        $reactDataProvider = new ReactDataProvider();
+        $reactDataProvider->add($provider);
+
+        return $this->render('admin.html.twig', [
+            'data' => $reactDataProvider->getData(),
+        ]);
     }
 }

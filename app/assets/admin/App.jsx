@@ -5,9 +5,11 @@ import { AuthProvider } from '@/admin/store/AuthContext';
 import { UserProvider } from '@/admin/store/UserContext';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorBoundaryFallback from '@/admin/pages/ErrorBoundaryFallback';
+import { DataProvider } from '@/admin/store/DataContext';
 
 const App = () => {
     return (
+      <DataProvider>
         <UserProvider>
             <ApiProvider>
                 <AuthProvider>
@@ -19,6 +21,7 @@ const App = () => {
                 </AuthProvider>
             </ApiProvider>
         </UserProvider>
+      </DataProvider>
     );
 };
 

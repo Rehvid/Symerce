@@ -11,5 +11,9 @@
  {% endblock %}
 
 {% block body %}
+    <script>
+      window.data = {{ data|raw }}
+    </script>
+
     <div id="app"></div>
 {% endblock %}

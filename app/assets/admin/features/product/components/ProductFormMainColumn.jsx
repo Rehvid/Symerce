@@ -8,8 +8,10 @@ import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import Heading from '@/admin/components/common/Heading';
 import { useEffect, useState } from 'react';
 import ProductDropzoneThumbnail from '@/admin/features/product/components/ProductDropzoneThumbnail';
+import { useData } from '@/admin/hooks/useData';
 
 const ProductFormMainColumn = ({register, fieldErrors, control, formData, setValue}) => {
+  const { currency } = useData();
   const [productImages, setProductImages] = useState([]);
   const [thumbnail, setThumbnail] = useState(null);
 
@@ -95,7 +97,7 @@ const ProductFormMainColumn = ({register, fieldErrors, control, formData, setVal
       <Input
         {...register('regularPrice', {
           ...validationRules.required(),
-          ...validationRules.numeric(2),
+          ...validationRules.numeric(currency.roundingPrecision),
         })}
         type="text"
         id="regular-price"
@@ -107,7 +109,7 @@ const ProductFormMainColumn = ({register, fieldErrors, control, formData, setVal
 
       <Input
         {...register('discountPrice', {
-          ...validationRules.numeric(2),
+          ...validationRules.numeric(currency.roundingPrecision),
         })}
         type="text"
         id="discountPrice"

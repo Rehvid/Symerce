@@ -6,8 +6,10 @@ import Heading from '@/admin/components/common/Heading';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnail';
 import Switch from '@/admin/components/form/controls/Switch';
+import { useData } from '@/admin/hooks/useData';
 
 const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, setValue }) => {
+  const { currency } = useData();
   const formDataImage = normalizeFiles(formData?.image);
 
   const setDropzoneValue = (image) => {
@@ -38,7 +40,7 @@ const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, s
             <Input
                 {...register('fee', {
                     ...validationRules.required(),
-                    ...validationRules.numeric(2),
+                    ...validationRules.numeric(currency.roundingPrecision),
                 })}
                 type="text"
                 id="fee"
