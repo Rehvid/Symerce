@@ -12,6 +12,7 @@ const Table = ({
     additionalFilters = [],
     useDraggable = false,
     draggableCallback = {},
+    pagination = {},
     children,
 }) => {
     return (
@@ -34,6 +35,8 @@ const Table = ({
                                         data={data}
                                         useDraggable={useDraggable}
                                         draggableCallback={draggableCallback}
+                                        pagination={pagination}
+                                        filters={filters}
                                     />
                                 </table>
                             </div>

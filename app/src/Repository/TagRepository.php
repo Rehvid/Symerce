@@ -3,9 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Tag;
-use App\Repository\Base\PaginationRepository;
+use App\Repository\Base\AbstractRepository;
 
-class TagRepository extends PaginationRepository
+class TagRepository extends AbstractRepository
 {
     protected function getEntityClass(): string
     {

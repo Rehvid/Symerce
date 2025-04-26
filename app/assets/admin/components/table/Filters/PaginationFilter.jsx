@@ -8,6 +8,8 @@ const PaginationFilter = ({ filters, setFilters, overrideDefaultOptions = false,
         { value: 10, label: 10 },
         { value: 25, label: 25 },
         { value: 50, label: 50 },
+        { value: 100, label: 100 },
+        { value: -1, label: 'Wszystkie',}
     ];
 
     const onChange = (value) => {
@@ -19,7 +21,7 @@ const PaginationFilter = ({ filters, setFilters, overrideDefaultOptions = false,
     };
 
     return (
-      <div className="max-w-32 w-full">
+      <div className="max-w-48 w-full">
           <Select
             name="limit"
             selected={Number(filters.limit) || PAGINATION_FILTER_DEFAULT_OPTION}

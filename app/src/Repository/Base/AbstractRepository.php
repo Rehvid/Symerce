@@ -12,8 +12,10 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /** @phpstan-ignore-next-line */
-abstract class PaginationRepository extends ServiceEntityRepository implements PaginationRepositoryInterface
+abstract class AbstractRepository extends ServiceEntityRepository implements PaginationRepositoryInterface
 {
+    private const int ALL_RESULTS = -1;
+
     abstract protected function getEntityClass(): string;
 
     abstract protected function getAlias(): string;
@@ -34,7 +36,6 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
 
     public function findPaginated(PaginationMeta $paginationMeta, PaginationFilters $paginationFilters): array
     {
-
         $alias = $this->getAlias();
 
         $baseQueryBuilder = $this->createQueryBuilder($alias);
@@ -54,9 +55,11 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
 
         $total = (int) $countQueryBuilder->getQuery()->getSingleScalarResult();
 
-        $baseQueryBuilder
-            ->setFirstResult($paginationMeta->getOffset())
-            ->setMaxResults($paginationMeta->getLimit());
+        if ($paginationMeta->getLimit() !== self::ALL_RESULTS) {
+            $baseQueryBuilder
+                ->setFirstResult($paginationMeta->getOffset())
+                ->setMaxResults($paginationMeta->getLimit());
+        }
 
         $items = $baseQueryBuilder->getQuery()->getResult();
 
@@ -64,5 +67,26 @@ abstract class PaginationRepository extends ServiceEntityRepository implements P
             'items' => $items,
             'total' => $total,
         ];
+    }
+
+    public function findItemsInOrderRange(int $oldOrder, int $newOrder): array
+    {
+        $qb = $this->createQueryBuilder($this->getAlias());
+
+        if ($oldOrder < $newOrder) {
+            $qb->where('e.order > :oldOrder')
+                ->andWhere('e.order <= :newOrder')
+                ->setParameter('oldOrder', $oldOrder)
+                ->setParameter('newOrder', $newOrder)
+                ->orderBy('e.order', 'ASC');
+        } else {
+            $qb->where('e.order >= :newOrder')
+                ->andWhere('e.order < :oldOrder')
+                ->setParameter('newOrder', $newOrder)
+                ->setParameter('oldOrder', $oldOrder)
+                ->orderBy('e.order', 'DESC');
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }

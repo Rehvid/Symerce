@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Pagination;
 
-use App\Repository\Base\PaginationRepository;
+use App\Repository\Base\AbstractRepository;
 use App\Repository\Interface\PaginationRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,7 +34,7 @@ final class PaginationService
 
     private function buildPaginationMeta(Request $request, PaginationRepositoryInterface $repository): PaginationMeta
     {
-        /** @phpstan-var PaginationRepository $repository */
+        /** @phpstan-var AbstractRepository $repository */
         $limit = $request->query->getInt('limit', self::DEFAULT_LIMIT);
         $page = $request->query->getInt('page', 1);
         $offset = ($page - 1) * $limit;

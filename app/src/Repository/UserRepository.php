@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Repository\Base\PaginationRepository;
+use App\Repository\Base\AbstractRepository;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserRepository extends PaginationRepository implements UserLoaderInterface
+class UserRepository extends AbstractRepository implements UserLoaderInterface
 {
     public function loadUserByIdentifier(string $identifier): ?UserInterface
     {

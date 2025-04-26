@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\DTO\Request\OrderRequestDTO;
 use App\Interfaces\OrderSortableInterface;
+use App\Repository\Interface\OrderSortableRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 readonly class SortableEntityOrderUpdater
@@ -24,15 +25,31 @@ readonly class SortableEntityOrderUpdater
         }
 
         $repository = $this->entityManager->getRepository($class);
-        $orderedIds = $dto->order;
-        $entities = $repository->findBy(['id' => $orderedIds]);
+        $movedId = $dto->order['movedId'];
+        $oldOrder = $dto->order['oldPosition'];
+        $newOrder = $dto->order['newPosition'];
 
-        $orderMap = array_flip($orderedIds);
-
-        /** @var OrderSortableInterface $entity */
-        foreach ($entities as $entity) {
-            $this->setEntityOrderPosition($entity, $orderMap);
+        if (!is_subclass_of($repository, OrderSortableRepositoryInterface::class)) {
+            return;
         }
+
+        /** @var OrderSortableInterface[] $entities */
+        $entities = $repository->findItemsInOrderRange($oldOrder, $newOrder);
+
+        foreach ($entities as $entity) {
+            if ($oldOrder < $newOrder) {
+                $entity->setOrder($entity->getOrder() - 1);
+            } else {
+                $entity->setOrder($entity->getOrder() + 1);
+            }
+        }
+
+        $movedEntity = $repository->find($movedId);
+        if (!$movedEntity) {
+            throw new \RuntimeException("Not found movedId $movedId");
+        }
+
+        $movedEntity->setOrder($newOrder);
 
         $this->entityManager->flush();
     }
@@ -40,18 +57,5 @@ readonly class SortableEntityOrderUpdater
     private function isSortableClassAndValidOrder(OrderRequestDTO $dto, string $class): bool
     {
         return is_subclass_of($class, OrderSortableInterface::class) && !empty($dto->order);
-    }
-
-    /** @param array<int, int> $orderMap */
-    private function setEntityOrderPosition(OrderSortableInterface $entity, array $orderMap): void
-    {
-        $id = $entity->getId();
-
-        if (!isset($orderMap[$id])) {
-            return;
-        }
-
-        $entity->setOrder($orderMap[$id]);
-        $this->entityManager->persist($entity);
     }
 }

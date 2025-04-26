@@ -6,11 +6,11 @@ namespace App\Repository;
 
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
-use App\Repository\Base\PaginationRepository;
+use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 
-class AttributeRepository extends PaginationRepository
+class AttributeRepository extends AbstractRepository
 {
     protected function getEntityClass(): string
     {

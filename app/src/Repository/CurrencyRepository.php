@@ -3,9 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Currency;
-use App\Repository\Base\PaginationRepository;
+use App\Repository\Base\AbstractRepository;
 
-class CurrencyRepository extends PaginationRepository
+class CurrencyRepository extends AbstractRepository
 {
     protected function getEntityClass(): string
     {

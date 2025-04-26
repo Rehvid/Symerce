@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Setting;
-use App\Repository\Base\PaginationRepository;
+use App\Repository\Base\AbstractRepository;
 
-class SettingRepository extends PaginationRepository
+class SettingRepository extends AbstractRepository
 {
     protected function getEntityClass(): string
     {

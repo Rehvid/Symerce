@@ -3,11 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\DeliveryTime;
-use App\Repository\Base\PaginationRepository;
+use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 
-class DeliveryTimeRepository extends PaginationRepository
+class DeliveryTimeRepository extends AbstractRepository
 {
     protected function getEntityClass(): string
     {

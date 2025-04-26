@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Category;
-use App\Repository\Base\PaginationRepository;
+use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 
-class CategoryRepository extends PaginationRepository
+class CategoryRepository extends AbstractRepository
 {
     protected function getEntityClass(): string
     {

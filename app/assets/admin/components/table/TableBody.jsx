@@ -1,16 +1,32 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 
-const TableBody = ({ data, useDraggable, draggableCallback }) => {
-  const [hasInitItems, setHasInitItems] = useState(false);
+const TableBody = ({ data, useDraggable, draggableCallback, pagination, filters }) => {
   const [items, setItems] = useState(data);
   const [draggedItemIndex, setDraggedItemIndex] = useState(null);
   const [dragOverItemIndex, setDragOverItemIndex] = useState(null);
 
+  const prevDataRef = useRef(data);
+
+
+  const getIds = (list) =>
+    list.map(row =>
+      Array.isArray(row)
+        ? row.map(cell => cell?.props?.id).find(id => id !== undefined)
+        : Object.values(row).map(cell => cell?.props?.id).find(id => id !== undefined)
+    );
+
     useEffect(() => {
-        if (hasInitItems) {
-          setHasInitItems(true);
-          setItems(data);
-        }
+      const prevData = prevDataRef.current;
+      const prevIds = getIds(prevData);
+      const currentIds = getIds(data);
+
+      const isSameIds = prevIds.length === currentIds.length && prevIds.every((id, index) => id === currentIds[index]);
+
+      if (!isSameIds) {
+        setItems(data);
+      }
+
+      prevDataRef.current = data;
     }, [data]);
 
   const dragStart = (e, index) => {
@@ -37,27 +53,38 @@ const TableBody = ({ data, useDraggable, draggableCallback }) => {
 
       setItems(copyListItems);
 
-      document.querySelectorAll(".dragging").forEach(el => el.classList.remove("dragging"));
+      const findId = (item) => {
+        let foundId = null;
+        item.some(element => {
+          if (element.props?.id) {
+            foundId = element.props.id;
+            return true;
+          }
+          return false;
+        });
+        return foundId;
+      };
 
-      const foundIds = copyListItems.map(item => {
-            let foundId = null;
-            item.some(element => {
-                if (element.props?.id) {
-                    foundId = element.props.id;
-                    return true;
-                }
-                return false;
-            });
-            return foundId;
-        }).filter(id => id !== null && id !== undefined);
+      const movedId = findId(currentDragItem);
 
-        if (foundIds.length === 0 || foundIds.length !== copyListItems.length) {
-            console.error("The resulting array is empty or identical to the original list.");
-            return;
-        }
+      if (!movedId) {
+        console.error("Cannot find movedId!");
+        return;
+      }
 
-        cleanup();
-        draggableCallback?.(foundIds);
+      const page = pagination?.page ?? 1;
+      const pageSize = pagination?.offset ?? 10;
+
+      const oldPosition = (page - 1) * pageSize + draggedItemIndex;
+      const newPosition = (page - 1) * pageSize + dragOverItemIndex;
+
+      draggableCallback?.({
+        movedId,
+        oldPosition,
+        newPosition,
+      });
+
+      cleanup();
     };
 
   const cleanup = () => {
@@ -83,8 +110,24 @@ const TableBody = ({ data, useDraggable, draggableCallback }) => {
     </tr>
   );
 
+  const isOnlyPagination = (filters) => {
+    if (!filters) return true;
+    const allowedKeys = ['page', 'limit'];
+    return Object.keys(filters).every(key => allowedKeys.includes(key));
+  };
+  const isDraggableEnabled = useDraggable && isOnlyPagination(filters);
+
     return (
         <tbody>
+
+        {useDraggable && !isDraggableEnabled && (
+          <tr>
+            <td colSpan="100%" className="text-center p-2 text-gray-400 text-sm italic">
+              Przeciąganie wyłączone przy aktywnych filtrach lub sortowaniu
+            </td>
+          </tr>
+        )}
+
         {items.length > 0 ? (
           items.map((row, rowIndex) => {
               const isDragging = draggedItemIndex === rowIndex;
@@ -95,7 +138,7 @@ const TableBody = ({ data, useDraggable, draggableCallback }) => {
                 <Fragment  key={`row-wrapper-${rowIndex}`} >
                   {useDraggable && dragOverItemIndex === rowIndex && renderPlaceholder(rowIndex)}
 
-                  {useDraggable ? (
+                  {useDraggable && isDraggableEnabled ? (
                     <tr
                       onDragStart={(e) => dragStart(e, rowIndex)}
                       onDragEnter={(e) => dragEnter(e, rowIndex)}

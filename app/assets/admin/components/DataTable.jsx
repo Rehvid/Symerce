@@ -24,6 +24,7 @@ const DataTable = ({
             useDraggable={useDraggable}
             draggableCallback={draggableCallback}
             sortBy={sortBy}
+            pagination={pagination}
         >
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination} />
         </Table>
