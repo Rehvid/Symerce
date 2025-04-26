@@ -1,6 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import TableActions from '@/admin/components/table/Partials/TableActions';
@@ -10,17 +9,15 @@ import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarB
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import useDraggable from '@/admin/hooks/useDraggable';
+import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
 
 const AttributeValueList = () => {
     const location = useLocation();
-    const currentFilters = new URLSearchParams(location.search);
     const params = useParams();
     const { name } = location.state || {};
 
-    const [filters, setFilters] = useState({
-        limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
-        page: Number(currentFilters.get('page')) || 1,
-    });
+    const {defaultFilters} = useListDefaultFilters();
+    const [filters, setFilters] = useState(defaultFilters);
 
     const { draggableCallback } = useDraggable(`admin/attributes/${params.attributeId}/values/order`);
     const { items, pagination, isLoading, removeItem } = useListData(`admin/attributes/${params.attributeId}/values`, filters);

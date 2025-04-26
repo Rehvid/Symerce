@@ -12,13 +12,11 @@ import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/Tabl
 import TableRowMoney from '@/admin/components/table/Partials/TableRow/TableRowMoney';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
+import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
 
 const CarrierList = () => {
-    const currentFilters = new URLSearchParams(location.search);
-    const [filters, setFilters] = useState({
-        limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
-        page: Number(currentFilters.get('page')) || 1,
-    });
+    const {defaultFilters} = useListDefaultFilters();
+    const [filters, setFilters] = useState(defaultFilters);
 
     const { items, pagination, isLoading, removeItem } = useListData('admin/carriers', filters);
 

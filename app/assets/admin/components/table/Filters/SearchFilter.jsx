@@ -1,17 +1,25 @@
 import SearchIcon from '../../../../images/icons/search.svg';
 import Input from '@/admin/components/form/controls/Input';
+import { useCallback } from 'react';
 
 const SearchFilter = ({ filters, setFilters }) => {
-    const onBlur = (e) => {
-        setFilters({
-            ...filters,
-            search: e.target.value,
-        });
-    };
+    const onChange = useCallback((e) => {
+        const value = e.target.value.trim();
+
+        if (value === '' && filters?.search) {
+            const { search, ...rest } = filters;
+            setFilters(rest);
+        } else if (value !== '') {
+            setFilters((prev) => ({
+                ...prev,
+                search: value,
+            }));
+        }
+    }, [filters, setFilters]);
 
     return (
         <Input
-            onBlur={onBlur}
+            onChange={onChange}
             type="search"
             defaultValue={filters?.search || ''}
             icon={<SearchIcon className="text-gray-500" />}

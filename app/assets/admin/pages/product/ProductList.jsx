@@ -14,15 +14,11 @@ import TableRowMoney from '@/admin/components/table/Partials/TableRow/TableRowMo
 import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/TableRowImageWithText';
 import ProductIcon from '@/images/icons/assembly.svg';
 import useDraggable from '@/admin/hooks/useDraggable';
+import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
 
 const ProductList = () => {
-    const location = useLocation();
-    const currentFilters = new URLSearchParams(location.search);
-
-    const [filters, setFilters] = useState({
-        limit: Number(currentFilters.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
-        page: Number(currentFilters.get('page')) || 1,
-    });
+    const {defaultFilters} = useListDefaultFilters();
+    const [filters, setFilters] = useState(defaultFilters);
 
   const { draggableCallback } = useDraggable('admin/products/order');
   const { items, pagination, isLoading, removeItem } = useListData('admin/products', filters);
