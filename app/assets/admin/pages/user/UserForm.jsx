@@ -38,7 +38,7 @@ const UserForm = () => {
                 'firstname',
                 'surname',
                 'email',
-                'isActive'
+                'isActive',
             ]);
         }, []);
     }

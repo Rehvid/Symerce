@@ -63,7 +63,9 @@ export const useDropzoneLogic = (
     const handleFilesChange = async (filesArray) => {
         const processedFiles = await Promise.all(
             filesArray.map(async (file) => {
-                if (file.content) return file;
+                if (file.content) {
+                    return file;
+                }
                 const base64 = await convertFileToBase64(file);
                 return {
                     size: file.size,

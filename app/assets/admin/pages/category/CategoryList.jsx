@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '../../components/table/Filters/PaginationFilter';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 import DataTable from '@/admin/components/DataTable';
 import useListData from '@/admin/hooks/useListData';
@@ -16,11 +14,16 @@ import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/Tabl
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const CategoryList = () => {
-    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
     const { draggableCallback } = useDraggable('admin/categories/order');
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/categories', filters, setFilters, defaultSort);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        'admin/categories',
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -38,7 +41,7 @@ const CategoryList = () => {
                 />
             ),
             slug,
-            active: <TableRowActiveBadge isActive={isActive} /> ,
+            active: <TableRowActiveBadge isActive={isActive} />,
             actions: <TableActions id={id} onDelete={() => removeItem(`admin/categories/${id}`)} />,
         });
     });
@@ -49,7 +52,7 @@ const CategoryList = () => {
         { orderBy: 'slug', label: 'Przyjazny URL', sortable: true },
         { orderBy: 'isActive', label: 'Aktywny', sortable: true },
         { orderBy: 'actions', label: 'Actions' },
-    ]
+    ];
 
     return (
         <>

@@ -10,128 +10,121 @@ import { useEffect, useState } from 'react';
 import ProductDropzoneThumbnail from '@/admin/features/product/components/ProductDropzoneThumbnail';
 import { useData } from '@/admin/hooks/useData';
 
-const ProductFormMainColumn = ({register, fieldErrors, control, formData, setValue}) => {
-  const { currency } = useData();
-  const [productImages, setProductImages] = useState([]);
-  const [thumbnail, setThumbnail] = useState(null);
+const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setValue }) => {
+    const { currency } = useData();
+    const [productImages, setProductImages] = useState([]);
+    const [thumbnail, setThumbnail] = useState(null);
 
-  useEffect(() => {
-    if (formData?.images) {
-      const normalizedImages = normalizeFiles(formData?.images);
-      setProductImages(normalizedImages);
-    }
-  }, [formData?.images]);
+    useEffect(() => {
+        if (formData?.images) {
+            const normalizedImages = normalizeFiles(formData?.images);
+            setProductImages(normalizedImages);
+        }
+    }, [formData?.images]);
 
-  const setDropzoneValue = (newImages) => {
-    setProductImages(newImages);
-    setValue('images', newImages);
-  };
+    const setDropzoneValue = (newImages) => {
+        setProductImages(newImages);
+        setValue('images', newImages);
+    };
 
+    const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, null, productImages, 5);
 
-  const { onDrop, errors, removeFile } = useDropzoneLogic(
-    setDropzoneValue,
-    null,
-    productImages,
-    5
-  );
+    const setMainThumbnail = (file) => {
+        setThumbnail(file);
+        setValue('thumbnail', file);
+    };
 
-  const setMainThumbnail = (file) => {
-    setThumbnail(file);
-    setValue('thumbnail', file);
-  }
+    return (
+        <>
+            <Input
+                {...register('name', {
+                    ...validationRules.required(),
+                    ...validationRules.minLength(3),
+                })}
+                type="text"
+                id="name"
+                label="Nazwa"
+                hasError={!!fieldErrors?.name}
+                errorMessage={fieldErrors?.name?.message}
+                isRequired
+            />
 
-  return (
-    <>
-      <Input
-        {...register('name', {
-          ...validationRules.required(),
-          ...validationRules.minLength(3),
-        })}
-        type="text"
-        id="name"
-        label="Nazwa"
-        hasError={!!fieldErrors?.name}
-        errorMessage={fieldErrors?.name?.message}
-        isRequired
-      />
-
-      <div>
-        <Heading level="h4">
-          <span className="flex items-center mb-2">Zdjęcia </span>
-        </Heading>
-        <Dropzone onDrop={onDrop} errors={errors}>
-          {productImages.length > 0 &&
-            <div className="flex flex-wrap gap-5 mt-5">
-              {productImages.map((file, key) => (
-                <ProductDropzoneThumbnail
-                  key={key}
-                  index={key}
-                  file={file}
-                  removeFile={removeFile}
-                  setMainThumbnail={setMainThumbnail}
-                  thumbnail={thumbnail}
-                />
-              ))}
+            <div>
+                <Heading level="h4">
+                    <span className="flex items-center mb-2">Zdjęcia </span>
+                </Heading>
+                <Dropzone onDrop={onDrop} errors={errors}>
+                    {productImages.length > 0 && (
+                        <div className="flex flex-wrap gap-5 mt-5">
+                            {productImages.map((file, key) => (
+                                <ProductDropzoneThumbnail
+                                    key={key}
+                                    index={key}
+                                    file={file}
+                                    removeFile={removeFile}
+                                    setMainThumbnail={setMainThumbnail}
+                                    thumbnail={thumbnail}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </Dropzone>
             </div>
-          }
-        </Dropzone>
-      </div>
 
+            <Input
+                {...register('slug')}
+                type="text"
+                id="slug"
+                label="Przyjazny url"
+                hasError={!!fieldErrors?.slug}
+                errorMessage={fieldErrors?.slug?.message}
+            />
 
-      <Input
-        {...register('slug')}
-        type="text"
-        id="slug"
-        label="Przyjazny url"
-        hasError={!!fieldErrors?.slug}
-        errorMessage={fieldErrors?.slug?.message}
-      />
+            <Controller
+                name="description"
+                control={control}
+                defaultValue=""
+                render={({ field }) => <Textarea value={field.value} onChange={field.onChange} title="Opis" />}
+            />
 
-      <Controller
-        name="description"
-        control={control}
-        defaultValue=""
-        render={({ field }) => <Textarea value={field.value} onChange={field.onChange} title="Opis" />}
-      />
+            <Input
+                {...register('regularPrice', {
+                    ...validationRules.required(),
+                    ...validationRules.numeric(currency.roundingPrecision),
+                })}
+                type="text"
+                id="regular-price"
+                label="Cena regularna"
+                hasError={!!fieldErrors?.regularPrice}
+                errorMessage={fieldErrors?.regularPrice?.message}
+                isRequired
+            />
 
-      <Input
-        {...register('regularPrice', {
-          ...validationRules.required(),
-          ...validationRules.numeric(currency.roundingPrecision),
-        })}
-        type="text"
-        id="regular-price"
-        label="Cena regularna"
-        hasError={!!fieldErrors?.regularPrice}
-        errorMessage={fieldErrors?.regularPrice?.message}
-        isRequired
-      />
+            <Input
+                {...register('discountPrice', {
+                    ...validationRules.numeric(currency.roundingPrecision),
+                })}
+                type="text"
+                id="discountPrice"
+                label="Cena promocyjna"
+                hasError={!!fieldErrors?.discountPrice}
+                errorMessage={fieldErrors?.discountPrice?.message}
+            />
 
-      <Input
-        {...register('discountPrice', {
-          ...validationRules.numeric(currency.roundingPrecision),
-        })}
-        type="text"
-        id="discountPrice"
-        label="Cena promocyjna"
-        hasError={!!fieldErrors?.discountPrice}
-        errorMessage={fieldErrors?.discountPrice?.message}
-      />
-
-      <Input
-        {...register('quantity', {
-          ...validationRules.required(),
-          ...validationRules.min(0),
-        })}
-        type="number"
-        id="quantity"
-        label="Ilość"
-        hasError={!!fieldErrors?.quantity}
-        errorMessage={fieldErrors?.quantity?.message}
-        isRequired
-      />
-    </>
-  )
-}
+            <Input
+                {...register('quantity', {
+                    ...validationRules.required(),
+                    ...validationRules.min(0),
+                })}
+                type="number"
+                id="quantity"
+                label="Ilość"
+                hasError={!!fieldErrors?.quantity}
+                errorMessage={fieldErrors?.quantity?.message}
+                isRequired
+            />
+        </>
+    );
+};
 
 export default ProductFormMainColumn;

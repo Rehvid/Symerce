@@ -16,11 +16,16 @@ const AttributeValueList = () => {
     const params = useParams();
     const { name } = location.state || {};
 
-    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
     const { draggableCallback } = useDraggable(`admin/attributes/${params.attributeId}/values/order`);
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(`admin/attributes/${params.attributeId}/values`, filters, setFilters, defaultSort);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        `admin/attributes/${params.attributeId}/values`,
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;

@@ -1,4 +1,4 @@
 export const SORT_DIRECTION = {
-  ASC: 'asc',
-  DESC: 'desc',
+    ASC: 'asc',
+    DESC: 'desc',
 };

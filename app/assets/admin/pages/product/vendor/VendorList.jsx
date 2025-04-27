@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import TableActions from '@/admin/components/table/Partials/TableActions';
@@ -14,10 +13,15 @@ import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/Tabl
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const VendorList = () => {
-    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/vendors', filters, setFilters, defaultSort);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        'admin/vendors',
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;

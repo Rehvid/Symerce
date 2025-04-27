@@ -12,10 +12,15 @@ import ListHeader from '@/admin/components/ListHeader';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const SettingList = () => {
-    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/settings', filters, setFilters, defaultSort);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        'admin/settings',
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -48,7 +53,7 @@ const SettingList = () => {
         { orderBy: 'id', label: 'ID', sortable: true },
         { orderBy: 'name', label: 'Nazwa', sortable: true },
         { orderBy: 'type', label: 'Typ', sortable: true },
-        { orderBy: 'value', label: 'Value'},
+        { orderBy: 'value', label: 'Value' },
         { orderBy: 'actions', label: 'Actions' },
     ];
 

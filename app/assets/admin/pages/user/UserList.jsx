@@ -13,10 +13,15 @@ import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/Tabl
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const UserList = () => {
-    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/users', filters, setFilters, defaultSort);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        'admin/users',
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;

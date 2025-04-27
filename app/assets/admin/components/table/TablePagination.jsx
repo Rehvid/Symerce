@@ -37,15 +37,13 @@ const TablePagination = ({ filters, setFilters, pagination }) => {
                 />
             )}
             <p className="pt-3 text-sm font-medium text-center text-black border-t border-gray-100   xl:border-t-0 xl:pt-0 xl:text-left">
-              {pagination.limit === -1 ? (
-                <span>
-                  Wyświetlane wszystkie {pagination.totalItems} wpisów.
-                </span>
-              ) : (
-                <span>
-                  Pokazywanie {currentRendered}–{showed} z {pagination.totalItems} wpisów.
-                </span>
-              )}
+                {pagination.limit === -1 ? (
+                    <span>Wyświetlane wszystkie {pagination.totalItems} wpisów.</span>
+                ) : (
+                    <span>
+                        Pokazywanie {currentRendered}–{showed} z {pagination.totalItems} wpisów.
+                    </span>
+                )}
             </p>
         </div>
     );

@@ -18,38 +18,37 @@ const ProductForm = () => {
         setValue,
         setError,
         control,
-      watch,
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',
     });
 
     const { fetchFormData, defaultApiSuccessCallback, getApiConfig, formData, setFormData, isFormReady } = useApiForm(
-      setValue,
-      params,
-      'admin/products',
-      '/admin/products',
+        setValue,
+        params,
+        'admin/products',
+        '/admin/products',
     );
 
     useEffect(() => {
         const endPoint = params.id ? `admin/products/${params.id}/form-data` : 'admin/products/form-data';
         const formFieldNames = params.id
-          ? [
-              'name',
-              'description',
-              'isActive',
-              'quantity',
-              'slug',
-              'regularPrice',
-              'discountPrice',
-              'vendor',
-              'tags',
-              'categories',
-              'deliveryTimes',
-              'attributes',
-              'images',
-          ]
-          : [];
+            ? [
+                  'name',
+                  'description',
+                  'isActive',
+                  'quantity',
+                  'slug',
+                  'regularPrice',
+                  'discountPrice',
+                  'vendor',
+                  'tags',
+                  'categories',
+                  'deliveryTimes',
+                  'attributes',
+                  'images',
+              ]
+            : [];
 
         fetchFormData(endPoint, HTTP_METHODS.GET, formFieldNames);
     }, []);
@@ -58,37 +57,36 @@ const ProductForm = () => {
         return <FormSkeleton rowsCount={8} />;
     }
 
-
     return (
-      <ApiForm
-        apiConfig={getApiConfig()}
-        handleSubmit={handleSubmit}
-        setError={setError}
-        apiRequestCallbacks={defaultApiSuccessCallback}
-      >
-          <FormLayout
-            pageTitle={params.id ? 'Edytuj Produkt' : 'Dodaj Produkt'}
-            mainColumn={
-                <ProductFormMainColumn
-                    register={register}
-                    control={control}
-                    fieldErrors={fieldErrors}
-                    setValue={setValue}
-                    setFormData={setFormData}
-                    formData={formData}
-                />
-            }
-            sideColumn={
-                <ProductFormSideColumn
-                  register={register}
-                  control={control}
-                  fieldErrors={fieldErrors}
-                  formData={formData}
-                  setValue={setValue}
-                />
-            }
-          />
-      </ApiForm>
+        <ApiForm
+            apiConfig={getApiConfig()}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormLayout
+                pageTitle={params.id ? 'Edytuj Produkt' : 'Dodaj Produkt'}
+                mainColumn={
+                    <ProductFormMainColumn
+                        register={register}
+                        control={control}
+                        fieldErrors={fieldErrors}
+                        setValue={setValue}
+                        setFormData={setFormData}
+                        formData={formData}
+                    />
+                }
+                sideColumn={
+                    <ProductFormSideColumn
+                        register={register}
+                        control={control}
+                        fieldErrors={fieldErrors}
+                        formData={formData}
+                        setValue={setValue}
+                    />
+                }
+            />
+        </ApiForm>
     );
 };
 

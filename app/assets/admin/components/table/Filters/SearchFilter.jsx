@@ -3,19 +3,23 @@ import Input from '@/admin/components/form/controls/Input';
 import { useCallback } from 'react';
 
 const SearchFilter = ({ filters, setFilters }) => {
-    const onChange = useCallback((e) => {
-        const value = e.target.value.trim();
+    const onChange = useCallback(
+        (e) => {
+            const value = e.target.value.trim();
 
-        if (value === '' && filters?.search) {
-            const { search, ...rest } = filters;
-            setFilters(rest);
-        } else if (value !== '') {
-            setFilters((prev) => ({
-                ...prev,
-                search: value,
-            }));
-        }
-    }, [filters, setFilters]);
+            if (value === '' && filters?.search) {
+                // eslint-disable-next-line no-unused-vars
+                const { search, ...rest } = filters;
+                setFilters(rest);
+            } else if (value !== '') {
+                setFilters((prev) => ({
+                    ...prev,
+                    search: value,
+                }));
+            }
+        },
+        [filters, setFilters],
+    );
 
     return (
         <Input

@@ -17,7 +17,7 @@ const useListData = (endpoint, filters, setFilters, defaultSort) => {
     const [pagination, setPagination] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [sort, setSort] = useState(defaultSort);
-    const queryParams = sort.orderBy === null ? {...filters} : {...filters, ...sort};
+    const queryParams = sort.orderBy === null ? { ...filters } : { ...filters, ...sort };
 
     useEffect(() => {
         if (sort.orderBy !== null) {
@@ -36,7 +36,7 @@ const useListData = (endpoint, filters, setFilters, defaultSort) => {
     const fetchItemsWithQueryParams = () => {
         navigate(restApiClient().constructUrl(queryParams, location.pathname));
         fetchItems();
-    }
+    };
 
     useEffect(() => {
         if (!isLoading) {

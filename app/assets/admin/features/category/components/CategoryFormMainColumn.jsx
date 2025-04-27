@@ -11,18 +11,17 @@ import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnai
 import Switch from '@/admin/components/form/controls/Switch';
 
 const CategoryFormMainColumn = ({ register, fieldErrors, formData, setFormData, setValue, params, watch, control }) => {
-  const categoryImage = normalizeFiles(formData?.image);
+    const categoryImage = normalizeFiles(formData?.image);
 
-  const setDropzoneValue = (image) => {
-    setValue('image', image);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      image,
-    }));
-  };
+    const setDropzoneValue = (image) => {
+        setValue('image', image);
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            image,
+        }));
+    };
 
-  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, categoryImage);
-
+    const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, categoryImage);
 
     return (
         <>
@@ -69,22 +68,16 @@ const CategoryFormMainColumn = ({ register, fieldErrors, formData, setFormData, 
                 />
             )}
 
-          <Heading level="h4">
-            <span className="flex items-center">Miniaturka</span>
-          </Heading>
-          <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
-            {categoryImage.length > 0 &&
-              categoryImage.map((file, key) => (
-                <DropzoneThumbnail
-                  file={file}
-                  removeFile={removeFile}
-                  variant="single"
-                  key={key}
-                  index={key}
-                />
-              ))}
-          </Dropzone>
-          <Switch label="Aktywny?" {...register('isActive')} />
+            <Heading level="h4">
+                <span className="flex items-center">Miniaturka</span>
+            </Heading>
+            <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
+                {categoryImage.length > 0 &&
+                    categoryImage.map((file, key) => (
+                        <DropzoneThumbnail file={file} removeFile={removeFile} variant="single" key={key} index={key} />
+                    ))}
+            </Dropzone>
+            <Switch label="Aktywny?" {...register('isActive')} />
         </>
     );
 };

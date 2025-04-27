@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import Heading from '@/admin/components/common/Heading';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
-import DropzonePreviewActions from '@/admin/components/form/dropzone/DropzonePreviewActions';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
 import UserIcon from '@/images/icons/user.svg';
 import InputEmail from '@/admin/components/form/controls/InputEmail';
-import ModalFile from '@/admin/components/modal/ModalFile';
 import { normalizeFiles } from '@/admin/utils/helper';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnail';
@@ -43,13 +41,7 @@ const ProfilePersonalFormMainColumn = ({ setValue, setUser, register, fieldError
             <Dropzone onDrop={onDrop} errors={errors} variant="avatar" containerClasses="relative h-40 w-40">
                 {userAvatar.length > 0 &&
                     userAvatar.map((file, key) => (
-                      <DropzoneThumbnail
-                        file={file}
-                        removeFile={removeFile}
-                        variant="avatar"
-                        key={key}
-                        index={key}
-                      />
+                        <DropzoneThumbnail file={file} removeFile={removeFile} variant="avatar" key={key} index={key} />
                     ))}
             </Dropzone>
 

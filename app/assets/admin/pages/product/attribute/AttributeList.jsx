@@ -1,6 +1,4 @@
-import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 import DataTable from '@/admin/components/DataTable';
@@ -15,11 +13,16 @@ import useDraggable from '@/admin/hooks/useDraggable';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const AttributeList = () => {
-    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
     const { draggableCallback } = useDraggable('admin/attributes/order');
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/attributes', filters, setFilters, defaultSort);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        'admin/attributes',
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -43,9 +46,9 @@ const AttributeList = () => {
     });
 
     const columns = [
-      { orderBy: 'id', label: 'ID', sortable: true },
-      { orderBy: 'name', label: 'Nazwa', sortable: true },
-      { orderBy: 'actions', label: 'Actions' },
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
     ];
 
     return (

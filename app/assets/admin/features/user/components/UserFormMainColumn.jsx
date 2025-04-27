@@ -12,17 +12,17 @@ import Switch from '@/admin/components/form/controls/Switch';
 import { normalizeFiles } from '@/admin/utils/helper';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 
-const UserFormMainColumn = ({ register, fieldErrors, control, params, setValue, formData, setFormData  }) => {
-  const userAvatar = normalizeFiles(formData?.avatar);
-  const setDropzoneValue = (avatar) => {
-    setValue('avatar', avatar);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      avatar,
-    }));
-  };
+const UserFormMainColumn = ({ register, fieldErrors, control, params, setValue, formData, setFormData }) => {
+    const userAvatar = normalizeFiles(formData?.avatar);
+    const setDropzoneValue = (avatar) => {
+        setValue('avatar', avatar);
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            avatar,
+        }));
+    };
 
-  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, formData);
+    const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, formData);
 
     return (
         <>
@@ -114,23 +114,17 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params, setValue, 
                 })}
             />
 
-          <Heading level="h4">
-            <span className="flex items-center">Miniaturka</span>
-          </Heading>
-          <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
-            {userAvatar.length > 0 &&
-              userAvatar.map((file, key) => (
-                <DropzoneThumbnail
-                  file={file}
-                  removeFile={removeFile}
-                  variant="single"
-                  key={key}
-                  index={key}
-                />
-              ))}
-          </Dropzone>
+            <Heading level="h4">
+                <span className="flex items-center">Miniaturka</span>
+            </Heading>
+            <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
+                {userAvatar.length > 0 &&
+                    userAvatar.map((file, key) => (
+                        <DropzoneThumbnail file={file} removeFile={removeFile} variant="single" key={key} index={key} />
+                    ))}
+            </Dropzone>
 
-          <Switch label="Aktywny?" {...register('isActive')} />
+            <Switch label="Aktywny?" {...register('isActive')} />
         </>
     );
 };

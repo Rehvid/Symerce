@@ -60,11 +60,11 @@ const CarrierForm = () => {
                 pageTitle={params.id ? 'Edytuj Przewoźnika' : 'Dodaj Przewoźnika'}
                 mainColumn={
                     <CarrierFormMainColumn
-                      register={register}
-                      fieldErrors={fieldErrors}
-                      formData={formData}
-                      setFormData={setFormData}
-                      setValue={setValue}
+                        register={register}
+                        fieldErrors={fieldErrors}
+                        formData={formData}
+                        setFormData={setFormData}
+                        setValue={setValue}
                     />
                 }
             />

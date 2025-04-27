@@ -43,23 +43,23 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }
                 isRequired
             />
 
-           <Controller
-            name="type"
-            control={control}
-            defaultValue={[]}
-            render={({ field }) => (
-              <div>
-                <Select
-                  label="Producent"
-                  options={formData?.types || []}
-                  selected={field.value}
-                  onChange={(value) => {
-                    field.onChange(value);
-                  }}
-                />
-              </div>
-            )}
-          />
+            <Controller
+                name="type"
+                control={control}
+                defaultValue={[]}
+                render={({ field }) => (
+                    <div>
+                        <Select
+                            label="Producent"
+                            options={formData?.types || []}
+                            selected={field.value}
+                            onChange={(value) => {
+                                field.onChange(value);
+                            }}
+                        />
+                    </div>
+                )}
+            />
         </>
     );
 };

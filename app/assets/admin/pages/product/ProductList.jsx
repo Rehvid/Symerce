@@ -15,45 +15,49 @@ import useDraggable from '@/admin/hooks/useDraggable';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const ProductList = () => {
-    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-  const { draggableCallback } = useDraggable('admin/products/order');
-  const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/products', filters, setFilters, defaultSort);
+    const { draggableCallback } = useDraggable('admin/products/order');
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        'admin/products',
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
     }
 
-    const data = items.map((item => {
-      const {discountedPrice, regularPrice, id, name, isActive, quantity, image} = item;
-      return Object.values({
-        id: <TableRowId id={id} />,
-        name:  (
-          <TableRowImageWithText
-            imagePath={image}
-            text={name}
-            defaultIcon={<ProductIcon className="text-primary mx-auto" />}
-          />
-        ),
-        discountPrice:  <TableRowMoney amount={discountedPrice?.amount} symbol={discountedPrice?.symbol} />,
-        regularPrice:  <TableRowMoney amount={regularPrice?.amount} symbol={regularPrice?.symbol} />,
-        quantity,
-        active: <TableRowActiveBadge isActive={isActive} />,
-        actions: <TableActions id={id} onDelete={() => removeItem(`admin/products/${id}`)} />,
-      })
-    }));
+    const data = items.map((item) => {
+        const { discountedPrice, regularPrice, id, name, isActive, quantity, image } = item;
+        return Object.values({
+            id: <TableRowId id={id} />,
+            name: (
+                <TableRowImageWithText
+                    imagePath={image}
+                    text={name}
+                    defaultIcon={<ProductIcon className="text-primary mx-auto" />}
+                />
+            ),
+            discountPrice: <TableRowMoney amount={discountedPrice?.amount} symbol={discountedPrice?.symbol} />,
+            regularPrice: <TableRowMoney amount={regularPrice?.amount} symbol={regularPrice?.symbol} />,
+            quantity,
+            active: <TableRowActiveBadge isActive={isActive} />,
+            actions: <TableActions id={id} onDelete={() => removeItem(`admin/products/${id}`)} />,
+        });
+    });
 
-
-  const columns = [
-    { orderBy: 'id', label: 'ID', sortable: true },
-    { orderBy: 'name', label: 'Nazwa', sortable: true },
-    { orderBy: 'discountPrice.amount', label: 'Cena Promocyjna', sortable: true },
-    { orderBy: 'regularPrice.amount', label: 'Cena Regularna', sortable: true },
-    { orderBy: 'quantity', label: 'Ilość', sortable: true },
-    { orderBy: 'isActive', label: 'Aktywny', sortable: true },
-    { orderBy: 'actions', label: 'Actions' },
-  ];
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'discountPrice.amount', label: 'Cena Promocyjna', sortable: true },
+        { orderBy: 'regularPrice.amount', label: 'Cena Regularna', sortable: true },
+        { orderBy: 'quantity', label: 'Ilość', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
 
     return (
         <>

@@ -14,10 +14,15 @@ import ListHeader from '@/admin/components/ListHeader';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const CarrierList = () => {
-    const { defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/carriers', filters, setFilters, defaultSort);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        'admin/carriers',
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;

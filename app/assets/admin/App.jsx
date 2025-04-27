@@ -9,19 +9,19 @@ import { DataProvider } from '@/admin/store/DataContext';
 
 const App = () => {
     return (
-      <DataProvider>
-        <UserProvider>
-            <ApiProvider>
-                <AuthProvider>
-                    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
-                        <MainLayout>
-                            <AppRouter />
-                        </MainLayout>
-                    </ErrorBoundary>
-                </AuthProvider>
-            </ApiProvider>
-        </UserProvider>
-      </DataProvider>
+        <DataProvider>
+            <UserProvider>
+                <ApiProvider>
+                    <AuthProvider>
+                        <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+                            <MainLayout>
+                                <AppRouter />
+                            </MainLayout>
+                        </ErrorBoundary>
+                    </AuthProvider>
+                </ApiProvider>
+            </UserProvider>
+        </DataProvider>
     );
 };
 

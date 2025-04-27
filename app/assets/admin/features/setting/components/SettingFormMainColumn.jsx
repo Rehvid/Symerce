@@ -4,7 +4,6 @@ import Select from '@/admin/components/form/controls/Select';
 import { Controller } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 
-
 const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, control }) => {
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -35,51 +34,54 @@ const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, c
                     />
 
                     {formData.types && (
-                      <Controller
-                        name="type"
-                        control={control}
-                        defaultValue={[]}
-                        render={({ field }) => (
-                          <div>
-                              <Select
-                                label="Typy"
-                                options={formData.types || []}
-                                selected={field.value}
-                                onChange={(value) => {
-                                    field.onChange(value);
-                                }}
-                              />
-                          </div>
-                          )}
-                      />
+                        <Controller
+                            name="type"
+                            control={control}
+                            defaultValue={[]}
+                            render={({ field }) => (
+                                <div>
+                                    <Select
+                                        label="Typy"
+                                        options={formData.types || []}
+                                        selected={field.value}
+                                        onChange={(value) => {
+                                            field.onChange(value);
+                                        }}
+                                    />
+                                </div>
+                            )}
+                        />
                     )}
                 </>
             )}
             {settingValue && settingValue?.type === 'select' ? (
                 <Controller
-                  name="value"
-                  control={control}
-                  defaultValue={[]}
-                  render={({ field }) => (
-                    <div>
-                        <Select
-                          label="Wartość"
-                          options={settingValue?.value || []}
-                          selected={selectedOption}
-                          onChange={(value) => {
-                              setSelectedOption(value);
-                              const findValue = settingValue?.value.find((element) => element.value === Number(value));
-                              if (findValue) {
-                                  value = {
-                                      id: findValue.value,
-                                      name: findValue.label,
-                                  };
-                              }
-                              field.onChange(JSON.stringify(value));
-                          }}
-                        />
-                    </div>
-                  )}
+                    name="value"
+                    control={control}
+                    defaultValue={[]}
+                    render={({ field }) => (
+                        <div>
+                            <Select
+                                label="Wartość"
+                                options={settingValue?.value || []}
+                                selected={selectedOption}
+                                onChange={(value) => {
+                                    let newValue = value;
+                                    setSelectedOption(value);
+                                    const findValue = settingValue?.value.find(
+                                        (element) => element.value === Number(value),
+                                    );
+                                    if (findValue) {
+                                        newValue = {
+                                            id: findValue.value,
+                                            name: findValue.label,
+                                        };
+                                    }
+                                    field.onChange(JSON.stringify(newValue));
+                                }}
+                            />
+                        </div>
+                    )}
                 />
             ) : (
                 <Input

@@ -9,19 +9,18 @@ import Switch from '@/admin/components/form/controls/Switch';
 import { useData } from '@/admin/hooks/useData';
 
 const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, setValue }) => {
-  const { currency } = useData();
-  const formDataImage = normalizeFiles(formData?.image);
+    const { currency } = useData();
+    const formDataImage = normalizeFiles(formData?.image);
 
-  const setDropzoneValue = (image) => {
-    setValue('image', image);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      image,
-    }));
-  };
+    const setDropzoneValue = (image) => {
+        setValue('image', image);
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            image,
+        }));
+    };
 
-  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, formDataImage);
-
+    const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, formDataImage);
 
     return (
         <>
@@ -49,23 +48,17 @@ const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, s
                 errorMessage={fieldErrors?.fee?.message}
                 isRequired
             />
-          <Heading level="h4">
-            <span className="flex items-center">Miniaturka</span>
-          </Heading>
-          <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
-            {formDataImage.length > 0 &&
-              formDataImage.map((file, key) => (
-                <DropzoneThumbnail
-                  file={file}
-                  removeFile={removeFile}
-                  variant="single"
-                  key={key}
-                  index={key}
-                />
-              ))}
-          </Dropzone>
+            <Heading level="h4">
+                <span className="flex items-center">Miniaturka</span>
+            </Heading>
+            <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
+                {formDataImage.length > 0 &&
+                    formDataImage.map((file, key) => (
+                        <DropzoneThumbnail file={file} removeFile={removeFile} variant="single" key={key} index={key} />
+                    ))}
+            </Dropzone>
 
-          <Switch label="Aktywny?" {...register('isActive')} />
+            <Switch label="Aktywny?" {...register('isActive')} />
         </>
     );
 };

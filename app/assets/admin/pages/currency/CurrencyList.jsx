@@ -11,9 +11,14 @@ import ListHeader from '@/admin/components/ListHeader';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const CurrencyList = () => {
-    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/currencies', filters, setFilters, defaultSort);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+        'admin/currencies',
+        filters,
+        setFilters,
+        defaultSort,
+    );
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -42,7 +47,7 @@ const CurrencyList = () => {
         { orderBy: 'code', label: 'Kod', sortable: true },
         { orderBy: 'roundingPrecision', label: 'Zaokrąglenie', sortable: true },
         { orderBy: 'actions', label: 'Actions' },
-    ]
+    ];
 
     return (
         <>
