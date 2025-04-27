@@ -1,6 +1,4 @@
-import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 import DataTable from '@/admin/components/DataTable';
@@ -12,13 +10,13 @@ import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarB
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import ListHeader from '@/admin/components/ListHeader';
 import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const UserList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { items, pagination, isLoading, removeItem } = useListData('admin/users', filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/users', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -41,6 +39,14 @@ const UserList = () => {
         });
     });
 
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'fullName', label: 'Użytkownik' },
+        { orderBy: 'email', label: 'Email', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Użytkownicy" totalItems={pagination.totalItems} />}>
@@ -50,9 +56,11 @@ const UserList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Użytkownik', 'Email', 'Aktywny', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );

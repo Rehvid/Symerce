@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\AttributeValue;
+use App\Enums\DirectionType;
+use App\Enums\OrderByField;
 use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
@@ -32,9 +34,17 @@ class AttributeValueRepository extends AbstractRepository
 
         $alias = $this->getAlias();
 
-        return $queryBuilder
-            ->andWhere('attribute_value.attribute = :attributeId')
+        $queryBuilder
+            ->andWhere("$alias.attribute = :attributeId")
             ->setParameter('attributeId', $attributeId)
-            ->orderBy("$alias.order", 'ASC');
+        ;
+
+        if ($paginationFilters->hasOrderBy()) {
+            return $queryBuilder;
+        }
+
+        return $queryBuilder->orderBy("$alias." . OrderByField::ORDER->value , DirectionType::ASC->value);
     }
+
+
 }

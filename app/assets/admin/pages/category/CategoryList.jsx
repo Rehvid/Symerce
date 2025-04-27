@@ -13,14 +13,14 @@ import useDraggable from '@/admin/hooks/useDraggable';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const CategoryList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
     const { draggableCallback } = useDraggable('admin/categories/order');
-    const { items, pagination, isLoading, removeItem } = useListData('admin/categories', filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/categories', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -43,6 +43,14 @@ const CategoryList = () => {
         });
     });
 
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'slug', label: 'Przyjazny URL', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ]
+
     return (
         <>
             <PageHeader title={<ListHeader title="Kategorie" totalItems={pagination.totalItems} />}>
@@ -52,11 +60,13 @@ const CategoryList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Przyjazny URL', 'Aktywny', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
                 useDraggable={true}
                 draggableCallback={draggableCallback}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );

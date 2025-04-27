@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import TableActions from '@/admin/components/table/Partials/TableActions';
@@ -10,13 +9,13 @@ import TableRowEditAction from '@/admin/components/table/Partials/TableRow/Table
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import Badge from '@/admin/components/common/Badge';
 import ListHeader from '@/admin/components/ListHeader';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const SettingList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { items, pagination, isLoading, removeItem } = useListData('admin/settings', filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/settings', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -45,6 +44,14 @@ const SettingList = () => {
         });
     });
 
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'type', label: 'Typ', sortable: true },
+        { orderBy: 'value', label: 'Value'},
+        { orderBy: 'actions', label: 'Actions' },
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Ustawienia" totalItems={pagination.totalItems} />}>
@@ -55,9 +62,11 @@ const SettingList = () => {
                 title="Globalne Ustawienia"
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Typ', 'Wartość', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );

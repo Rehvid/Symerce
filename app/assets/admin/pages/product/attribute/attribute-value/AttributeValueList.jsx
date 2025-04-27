@@ -9,18 +9,18 @@ import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarB
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import useDraggable from '@/admin/hooks/useDraggable';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const AttributeValueList = () => {
     const location = useLocation();
     const params = useParams();
     const { name } = location.state || {};
 
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
     const { draggableCallback } = useDraggable(`admin/attributes/${params.attributeId}/values/order`);
-    const { items, pagination, isLoading, removeItem } = useListData(`admin/attributes/${params.attributeId}/values`, filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(`admin/attributes/${params.attributeId}/values`, filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -42,6 +42,12 @@ const AttributeValueList = () => {
 
     const pageTitle = `${name ? `Grupa - ${name}` : 'Grupa Wartości'}`;
 
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'value', label: 'Wartość', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title={pageTitle} totalItems={pagination.totalItems} />}>
@@ -52,11 +58,13 @@ const AttributeValueList = () => {
                 title="Wartości"
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Wartości', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
                 useDraggable={true}
                 draggableCallback={draggableCallback}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );

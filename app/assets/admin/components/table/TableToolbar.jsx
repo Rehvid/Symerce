@@ -6,7 +6,7 @@ const TableToolbar = ({ setSort, sort, filters, setFilters, additionalFilters = 
         <div className="flex items-center gap-4 justify-between">
             <div className="flex gap-2 items-center">
                 <SearchFilter filters={filters} setFilters={setFilters} />
-              {sort.orderBy !== null && (
+              {sort && sort.orderBy !== null && (
                 <AppButton
                   onClick={() => setSort({ orderBy: null, direction: null })}
                   variant="secondary"

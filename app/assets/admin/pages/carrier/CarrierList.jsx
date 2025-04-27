@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import TableActions from '@/admin/components/table/Partials/TableActions';
@@ -12,13 +11,13 @@ import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/Tabl
 import TableRowMoney from '@/admin/components/table/Partials/TableRow/TableRowMoney';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const CarrierList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const { defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { items, pagination, isLoading, removeItem } = useListData('admin/carriers', filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/carriers', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -41,6 +40,14 @@ const CarrierList = () => {
         });
     });
 
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'fee.amount', label: 'Opłata', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Przewoźnicy" totalItems={pagination.totalItems} />}>
@@ -50,9 +57,11 @@ const CarrierList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Aktywny', 'Opłata', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );

@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
-import { useLocation, useNavigate } from 'react-router-dom';
 import useListData from '@/admin/hooks/useListData';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 import DataTable from '@/admin/components/DataTable';

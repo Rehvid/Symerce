@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
 import useListData from '@/admin/hooks/useListData';
 import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import Badge from '@/admin/components/common/Badge';
@@ -9,12 +8,12 @@ import DataTable from '@/admin/components/DataTable';
 import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarButtons';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const CurrencyList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
-    const { items, pagination, isLoading, removeItem } = useListData('admin/currencies', filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/currencies', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -36,6 +35,15 @@ const CurrencyList = () => {
         });
     });
 
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'symbol', label: 'Symbol', sortable: true },
+        { orderBy: 'code', label: 'Kod', sortable: true },
+        { orderBy: 'roundingPrecision', label: 'Zaokrąglenie', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ]
+
     return (
         <>
             <PageHeader title={<ListHeader title="Waluty" totalItems={pagination.totalItems} />}>
@@ -46,9 +54,11 @@ const CurrencyList = () => {
                 title="Waluty"
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Symbol', 'Kod', 'Zaokrąglenie', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );

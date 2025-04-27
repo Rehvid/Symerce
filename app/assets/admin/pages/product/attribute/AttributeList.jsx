@@ -12,14 +12,14 @@ import EyeIcon from '@/images/icons/eye.svg';
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import useDraggable from '@/admin/hooks/useDraggable';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const AttributeList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
     const { draggableCallback } = useDraggable('admin/attributes/order');
-    const { items, pagination, isLoading, removeItem } = useListData('admin/attributes', filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/attributes', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -42,6 +42,12 @@ const AttributeList = () => {
         });
     });
 
+    const columns = [
+      { orderBy: 'id', label: 'ID', sortable: true },
+      { orderBy: 'name', label: 'Nazwa', sortable: true },
+      { orderBy: 'actions', label: 'Actions' },
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Atrybuty" totalItems={pagination.totalItems} />}>
@@ -51,11 +57,13 @@ const AttributeList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
                 useDraggable={true}
                 draggableCallback={draggableCallback}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );

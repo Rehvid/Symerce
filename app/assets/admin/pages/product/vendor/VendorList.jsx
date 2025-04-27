@@ -11,13 +11,13 @@ import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/Ta
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const VendorList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { items, pagination, isLoading, removeItem } = useListData('admin/vendors', filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/vendors', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -39,6 +39,13 @@ const VendorList = () => {
         });
     });
 
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Producenci" totalItems={pagination.totalItems} />}>
@@ -48,9 +55,11 @@ const VendorList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Aktywny', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );

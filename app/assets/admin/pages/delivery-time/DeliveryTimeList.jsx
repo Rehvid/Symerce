@@ -10,14 +10,14 @@ import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import Badge from '@/admin/components/common/Badge';
 import ListHeader from '@/admin/components/ListHeader';
 import useDraggable from '@/admin/hooks/useDraggable';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const DeliveryTimeList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
     const { draggableCallback } = useDraggable('admin/delivery-time/order');
-    const { items, pagination, isLoading, removeItem } = useListData('admin/delivery-time', filters);
+    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/delivery-time', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -35,6 +35,15 @@ const DeliveryTimeList = () => {
         });
     });
 
+    const columns = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'label', label: 'Nazwa', sortable: true },
+        { orderBy: 'minDays', label: 'Minimalne Dni', sortable: true },
+        { orderBy: 'maxDays', label: 'Maksymalne Dni', sortable: true },
+        { orderBy: 'type', label: 'Typ', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ]
+
     return (
         <>
             <PageHeader title={<ListHeader title="Czasy dostawy" totalItems={pagination.totalItems} />}>
@@ -44,12 +53,14 @@ const DeliveryTimeList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Minimalne Dni', 'Maksymalne Dni', 'Typ', 'Akcje']}
+                columns={columns}
                 items={data}
                 pagination={pagination}
                 additionalFilters={[]}
                 useDraggable={true}
                 draggableCallback={draggableCallback}
+                sort={sort}
+                setSort={setSort}
             />
         </>
     );
