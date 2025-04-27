@@ -11,7 +11,8 @@ const DataTable = ({
     actionButtons,
     useDraggable,
     draggableCallback,
-    sortBy = [],
+    sort = {},
+    setSort,
 }) => {
     return (
         <Table
@@ -23,7 +24,8 @@ const DataTable = ({
             data={items}
             useDraggable={useDraggable}
             draggableCallback={draggableCallback}
-            sortBy={sortBy}
+            sort={sort}
+            setSort={setSort}
             pagination={pagination}
         >
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination} />

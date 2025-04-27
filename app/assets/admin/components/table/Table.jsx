@@ -7,12 +7,12 @@ const Table = ({
     setFilters,
     columns = [],
     data = [],
-    actionButtons = null,
-    titleSection = null,
     additionalFilters = [],
     useDraggable = false,
     draggableCallback = {},
     pagination = {},
+    sort = {},
+    setSort = false,
     children,
 }) => {
     return (
@@ -21,16 +21,16 @@ const Table = ({
                 <div className="p-6 border-gray-100">
                     <div className="space-y-6">
                         <TableToolbar
-                            actionButtons={actionButtons}
-                            titleSection={titleSection}
                             filters={filters}
                             setFilters={setFilters}
                             additionalFilters={additionalFilters}
+                            sort={sort}
+                            setSort={setSort}
                         />
                         <div className="py-2">
                             <div className="max-w-full overflow-x-auto mb-0 ">
                                 <table className="min-w-full">
-                                    <TableColumns columns={columns} />
+                                    <TableColumns columns={columns} sort={sort} setSort={setSort} />
                                     <TableBody
                                         data={data}
                                         useDraggable={useDraggable}

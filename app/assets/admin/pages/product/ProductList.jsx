@@ -14,14 +14,14 @@ import TableRowMoney from '@/admin/components/table/Partials/TableRow/TableRowMo
 import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/TableRowImageWithText';
 import ProductIcon from '@/images/icons/assembly.svg';
 import useDraggable from '@/admin/hooks/useDraggable';
-import useListDefaultFilters from '@/admin/hooks/useListDefaultFilters';
+import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 
 const ProductList = () => {
-    const {defaultFilters} = useListDefaultFilters();
+    const {defaultFilters, defaultSort} = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
   const { draggableCallback } = useDraggable('admin/products/order');
-  const { items, pagination, isLoading, removeItem } = useListData('admin/products', filters);
+  const { items, pagination, isLoading, removeItem, sort, setSort } = useListData('admin/products', filters, setFilters, defaultSort);
 
     if (isLoading) {
         return <TableSkeleton rowsCount={filters.limit} />;
@@ -47,6 +47,16 @@ const ProductList = () => {
     }));
 
 
+  const columns = [
+    { orderBy: 'id', label: 'ID', sortable: true },
+    { orderBy: 'name', label: 'Nazwa', sortable: true },
+    { orderBy: 'discountPrice.amount', label: 'Cena Promocyjna', sortable: true },
+    { orderBy: 'regularPrice.amount', label: 'Cena Regularna', sortable: true },
+    { orderBy: 'quantity', label: 'Ilość', sortable: true },
+    { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+    { orderBy: 'actions', label: 'Actions' },
+  ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Produkty" totalItems={pagination.totalItems} />}>
@@ -56,7 +66,9 @@ const ProductList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
-                columns={['ID', 'Nazwa', 'Cena Regularna', 'Cena Promocyjna', 'Ilość', 'Aktywny', 'Actions']}
+                sort={sort}
+                setSort={setSort}
+                columns={columns}
                 items={data}
                 pagination={pagination}
                 useDraggable

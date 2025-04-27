@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useApi } from '@/admin/hooks/useApi';
 import restApiClient from '@/shared/api/RestApiClient';
-
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 
-const useListData = (endpoint, filters, setFilters) => {
+const useListData = (endpoint, filters, setFilters, defaultSort) => {
     const { handleApiRequest } = useApi();
     const { addNotification } = useCreateNotification();
     const navigate = useNavigate();
@@ -17,20 +16,36 @@ const useListData = (endpoint, filters, setFilters) => {
     const [items, setItems] = useState([]);
     const [pagination, setPagination] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [sort, setSort] = useState(defaultSort);
+    const queryParams = sort.orderBy === null ? {...filters} : {...filters, ...sort};
 
     useEffect(() => {
-        fetchItems();
+        if (sort.orderBy !== null) {
+            fetchItemsWithQueryParams();
+        } else {
+            fetchItems();
+        }
     }, []);
 
     useEffect(() => {
         if (!isLoading) {
-            navigate(restApiClient().constructUrl(filters, location.pathname));
-            fetchItems();
+            fetchItemsWithQueryParams();
         }
     }, [filters]);
 
+    const fetchItemsWithQueryParams = () => {
+        navigate(restApiClient().constructUrl(queryParams, location.pathname));
+        fetchItems();
+    }
+
+    useEffect(() => {
+        if (!isLoading) {
+            fetchItemsWithQueryParams();
+        }
+    }, [sort]);
+
     const fetchItems = async () => {
-        const config = createApiConfig(endpoint, HTTP_METHODS.GET).addQueryParams(filters);
+        const config = createApiConfig(endpoint, HTTP_METHODS.GET).addQueryParams(queryParams);
         handleApiRequest(config, {
             onSuccess: ({ data, meta }) => {
                 setItems(data);
@@ -70,7 +85,7 @@ const useListData = (endpoint, filters, setFilters) => {
         });
     };
 
-    return { items, pagination, isLoading, fetchItems, removeItem };
+    return { items, pagination, isLoading, fetchItems, removeItem, sort, setSort };
 };
 
 export default useListData;

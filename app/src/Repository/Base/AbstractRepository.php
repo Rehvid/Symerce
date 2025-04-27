@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repository\Base;
 
+use App\Enums\DirectionType;
+use App\Enums\OrderByField;
 use App\Repository\Interface\PaginationRepositoryInterface;
 use App\Service\Pagination\PaginationFilters;
 use App\Service\Pagination\PaginationMeta;
@@ -46,6 +48,15 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Pag
                 ->andWhere("$alias.name LIKE :search")
                 ->setParameter('search', "%$search%")
             ;
+        }
+
+        if ($paginationFilters->hasOrderBy()) {
+            /** @var OrderByField $orderBy */
+            $orderBy = $paginationFilters->getOrderBy();
+            /** @var DirectionType $direction */
+            $direction = $paginationFilters->getDirection();
+
+            $baseQueryBuilder->orderBy("$alias." . $orderBy->value, $direction->value);
         }
 
         $this->configureQueryForPagination($baseQueryBuilder, $paginationFilters);
