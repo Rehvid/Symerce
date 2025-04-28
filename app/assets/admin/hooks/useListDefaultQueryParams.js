@@ -17,7 +17,11 @@ const useListDefaultQueryParams = () => {
         direction: currentParams.get('direction') || SORT_DIRECTION.ASC,
     };
 
-    return { defaultFilters, defaultSort };
+    const getCurrentParam = (paramKey, expectedValueCallback) => {
+        return currentParams.has(paramKey) ? expectedValueCallback(currentParams.get(paramKey)) : null
+    }
+
+    return { defaultFilters, defaultSort, currentParams, getCurrentParam };
 };
 
 export default useListDefaultQueryParams;

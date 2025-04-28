@@ -28,3 +28,16 @@ export const normalizeFiles = (input) => {
 
     return [];
 };
+
+export const filterEmptyValues = (filters) => {
+    const cleaned = {};
+
+    for (const key in filters) {
+        const value = filters[key];
+        if (value !== null && value !== undefined) {
+            cleaned[key] = value;
+        }
+    }
+
+    return cleaned;
+}

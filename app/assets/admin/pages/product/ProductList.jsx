@@ -13,10 +13,26 @@ import TableRowImageWithText from '@/admin/components/table/Partials/TableRow/Ta
 import ProductIcon from '@/images/icons/assembly.svg';
 import useDraggable from '@/admin/hooks/useDraggable';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
+import ActiveFilter from '@/admin/components/table/Filters/ActiveFilter';
+import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
+import NumberIcon from '@/images/icons/number.svg';
+import { filterEmptyValues } from '@/admin/utils/helper';
+import ExactValueFilter from '@/admin/components/table/Filters/ExactValueFilter';
 
 const ProductList = () => {
-    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(defaultFilters);
+    const { defaultFilters, defaultSort, currentParams, getCurrentParam } = useListDefaultQueryParams();
+
+    const [filters, setFilters] = useState(filterEmptyValues({
+        ...defaultFilters,
+        isActive: getCurrentParam('isActive', (value => Boolean(value))),
+        regularPriceFrom: getCurrentParam('regularPriceFrom', (value => Number(value))),
+        regularPriceTo: getCurrentParam('regularPriceTo', (value => Number(value))),
+        discountPriceFrom: getCurrentParam('discountPriceFrom', (value => Number(value))),
+        discountPriceTo: getCurrentParam('discountPriceTo', (value => Number(value))),
+        quantity: getCurrentParam('quantity', (value => Number(value)))
+    }));
+
+
 
     const { draggableCallback } = useDraggable('admin/products/order');
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
@@ -59,6 +75,13 @@ const ProductList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
+    const additionalFilters = [
+      <ActiveFilter setFilters={setFilters} filters={filters} />,
+      <RangeFilter filters={filters} setFilters={setFilters} label="Cena Regularna" nameFilter="regularPrice" />,
+      <RangeFilter filters={filters} setFilters={setFilters} label="Cena promocyjna" nameFilter="discountPrice" />,
+      <ExactValueFilter filters={filters} setFilters={setFilters} label="Ilość" nameFilter="quantity"  />
+    ]
+
     return (
         <>
             <PageHeader title={<ListHeader title="Produkty" totalItems={pagination.totalItems} />}>
@@ -75,6 +98,7 @@ const ProductList = () => {
                 pagination={pagination}
                 useDraggable
                 draggableCallback={draggableCallback}
+                additionalFilters={additionalFilters}
             />
         </>
     );

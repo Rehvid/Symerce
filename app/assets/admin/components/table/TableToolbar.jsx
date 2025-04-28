@@ -16,10 +16,10 @@ const TableToolbar = ({ setSort, sort, filters, setFilters, additionalFilters = 
                     </AppButton>
                 )}
                 {additionalFilters && additionalFilters.length > 0 && (
-                    <ul className="flex flex-col gap-5">
-                        {additionalFilters.map((FilterComponent, index) => (
+                    <ul className="flex items-center justify-center gap-5">
+                        {additionalFilters.map((filterComponent, index) => (
                             <li key={index}>
-                                <FilterComponent setFilters={setFilters} filters={filters} />
+                              {filterComponent}
                             </li>
                         ))}
                     </ul>

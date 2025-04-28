@@ -31,6 +31,16 @@ final readonly class PaginationFilters
         return $this->queryParams[$key] ?? null;
     }
 
+    public function getBooleanQueryParam(string $key): bool
+    {
+        $value = $this->getQueryParam($key);
+        if ($value === null) {
+            return false;
+        }
+
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+    }
+
     public function getAdditionalData(string $key): mixed
     {
         return $this->additionalData[$key] ?? null;
