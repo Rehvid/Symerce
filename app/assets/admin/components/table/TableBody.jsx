@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { isOnlyPaginationInDataTable } from '@/admin/utils/helper';
 
 const TableBody = ({ data, useDraggable, draggableCallback, pagination, filters }) => {
     const [items, setItems] = useState(data);
@@ -114,14 +115,7 @@ const TableBody = ({ data, useDraggable, draggableCallback, pagination, filters 
         </tr>
     );
 
-    const isOnlyPagination = () => {
-        if (!filters) {
-            return true;
-        }
-        const allowedKeys = ['page', 'limit'];
-        return Object.keys(filters).every((key) => allowedKeys.includes(key));
-    };
-    const isDraggableEnabled = useDraggable && isOnlyPagination();
+    const isDraggableEnabled = useDraggable && isOnlyPaginationInDataTable(filters);
 
     return (
         <tbody>

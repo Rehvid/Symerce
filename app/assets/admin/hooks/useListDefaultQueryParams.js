@@ -21,7 +21,7 @@ const useListDefaultQueryParams = () => {
         return currentParams.has(paramKey) ? expectedValueCallback(currentParams.get(paramKey)) : null
     }
 
-    return { defaultFilters, defaultSort, currentParams, getCurrentParam };
+    return { defaultFilters, defaultSort, getCurrentParam };
 };
 
 export default useListDefaultQueryParams;

@@ -4,6 +4,7 @@ import TablePagination from '@/admin/components/table/TablePagination';
 const DataTable = ({
     filters,
     setFilters,
+    defaultFilters,
     columns,
     items,
     pagination,
@@ -18,6 +19,7 @@ const DataTable = ({
         <Table
             filters={filters}
             setFilters={setFilters}
+            defaultFilters={defaultFilters}
             additionalFilters={additionalFilters}
             columns={columns}
             actionButtons={actionButtons}

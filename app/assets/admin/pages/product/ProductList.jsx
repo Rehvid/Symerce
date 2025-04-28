@@ -20,7 +20,7 @@ import { filterEmptyValues } from '@/admin/utils/helper';
 import ExactValueFilter from '@/admin/components/table/Filters/ExactValueFilter';
 
 const ProductList = () => {
-    const { defaultFilters, defaultSort, currentParams, getCurrentParam } = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
 
     const [filters, setFilters] = useState(filterEmptyValues({
         ...defaultFilters,
@@ -31,8 +31,6 @@ const ProductList = () => {
         discountPriceTo: getCurrentParam('discountPriceTo', (value => Number(value))),
         quantity: getCurrentParam('quantity', (value => Number(value)))
     }));
-
-
 
     const { draggableCallback } = useDraggable('admin/products/order');
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
@@ -91,6 +89,7 @@ const ProductList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
+                defaultFilters={defaultFilters}
                 sort={sort}
                 setSort={setSort}
                 columns={columns}

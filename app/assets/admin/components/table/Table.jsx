@@ -5,6 +5,7 @@ import TableBody from './TableBody';
 const Table = ({
     filters,
     setFilters,
+    defaultFilters = {},
     columns = [],
     data = [],
     additionalFilters = [],
@@ -26,6 +27,7 @@ const Table = ({
                             additionalFilters={additionalFilters}
                             sort={sort}
                             setSort={setSort}
+                            defaultFilters={defaultFilters}
                         />
                         <div className="py-2">
                             <div className="max-w-full overflow-x-auto mb-0 ">

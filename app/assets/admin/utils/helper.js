@@ -41,3 +41,11 @@ export const filterEmptyValues = (filters) => {
 
     return cleaned;
 }
+
+export const isOnlyPaginationInDataTable = (filters) => {
+    if (!filters) {
+        return true;
+    }
+    const allowedKeys = ['page', 'limit'];
+    return Object.keys(filters).every((key) => allowedKeys.includes(key));
+}
