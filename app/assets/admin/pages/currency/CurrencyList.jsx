@@ -14,11 +14,13 @@ import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
 
 const CurrencyList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(filterEmptyValues({
-        ...defaultFilters,
-        roundingPrecisionFrom: getCurrentParam('roundingPrecisionFrom', (value => Number(value))),
-        roundingPrecisionTo: getCurrentParam('roundingPrecisionTo', (value => Number(value)))
-    }));
+    const [filters, setFilters] = useState(
+        filterEmptyValues({
+            ...defaultFilters,
+            roundingPrecisionFrom: getCurrentParam('roundingPrecisionFrom', (value) => Number(value)),
+            roundingPrecisionTo: getCurrentParam('roundingPrecisionTo', (value) => Number(value)),
+        }),
+    );
 
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/currencies',
@@ -57,8 +59,8 @@ const CurrencyList = () => {
     ];
 
     const additionalFilters = [
-      <RangeFilter filters={filters} setFilters={setFilters} label="Zaokrąglenie" nameFilter="roundingPrecision" />
-    ]
+        <RangeFilter filters={filters} setFilters={setFilters} label="Zaokrąglenie" nameFilter="roundingPrecision" />,
+    ];
 
     return (
         <>

@@ -25,13 +25,12 @@ const Select = ({
     const selectedLabel = options.find((opt) => opt.value === selected)?.label;
     const optionsWithPlaceholder = usePlaceholderOption ? [{ label: 'Wybierz...', value: null }, ...options] : options;
 
-    const renderHeading = () => (
-      label && (
-        <Heading level="h4" additionalClassNames={`mb-2 ${hasError ? ' text-red-900' : ''}`}>
-            {label} {isRequired && <span className="pl-1 text-red-500">*</span>}
-        </Heading>
-      )
-    )
+    const renderHeading = () =>
+        label && (
+            <Heading level="h4" additionalClassNames={`mb-2 ${hasError ? ' text-red-900' : ''}`}>
+                {label} {isRequired && <span className="pl-1 text-red-500">*</span>}
+            </Heading>
+        );
 
     return (
         <>

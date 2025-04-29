@@ -12,14 +12,15 @@ import ListHeader from '@/admin/components/ListHeader';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 import { filterEmptyValues } from '@/admin/utils/helper';
 import SelectFilter from '@/admin/components/table/Filters/SelectFilter';
-import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
 
 const SettingList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(filterEmptyValues({
-        ...defaultFilters,
-        type: getCurrentParam('type', (value => value)),
-    }));
+    const [filters, setFilters] = useState(
+        filterEmptyValues({
+            ...defaultFilters,
+            type: getCurrentParam('type', (value) => value),
+        }),
+    );
 
     const { items, pagination, isLoading, removeItem, sort, setSort, additionalData } = useListData(
         'admin/settings',
@@ -64,7 +65,12 @@ const SettingList = () => {
     ];
 
     const additionalFilters = [
-        <SelectFilter setFilters={setFilters} filters={filters} nameFilter="type" options={additionalData?.types || []} />,
+        <SelectFilter
+            setFilters={setFilters}
+            filters={filters}
+            nameFilter="type"
+            options={additionalData?.types || []}
+        />,
     ];
 
     return (

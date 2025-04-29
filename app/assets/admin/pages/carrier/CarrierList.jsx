@@ -18,12 +18,14 @@ import { filterEmptyValues } from '@/admin/utils/helper';
 
 const CarrierList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(filterEmptyValues({
-        ...defaultFilters,
-        isActive: getCurrentParam('isActive', (value => Boolean(value))),
-        feeFrom: getCurrentParam('feeFrom', (value => Number(value))),
-        feeTo: getCurrentParam('feeTo', (value => Number(value))),
-    }));
+    const [filters, setFilters] = useState(
+        filterEmptyValues({
+            ...defaultFilters,
+            isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+            feeFrom: getCurrentParam('feeFrom', (value) => Number(value)),
+            feeTo: getCurrentParam('feeTo', (value) => Number(value)),
+        }),
+    );
 
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/carriers',
@@ -62,9 +64,9 @@ const CarrierList = () => {
     ];
 
     const additionalFilters = [
-      <ActiveFilter setFilters={setFilters} filters={filters} />,
-      <RangeFilter filters={filters} setFilters={setFilters} nameFilter="fee" label="Opłata" />
-    ]
+        <ActiveFilter setFilters={setFilters} filters={filters} />,
+        <RangeFilter filters={filters} setFilters={setFilters} nameFilter="fee" label="Opłata" />,
+    ];
 
     return (
         <>

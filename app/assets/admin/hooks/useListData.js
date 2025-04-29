@@ -49,12 +49,12 @@ const useListData = (endpoint, filters, setFilters, defaultSort) => {
         const config = createApiConfig(endpoint, HTTP_METHODS.GET).addQueryParams(queryParams);
         handleApiRequest(config, {
             onSuccess: ({ data, meta }) => {
-                const additionalData = data.additionalData || [];
-                const items = Object.values(data).filter(item => item !== additionalData);
-                if (additionalData) {
-                    setAdditionalData(additionalData);
+                const additionalDataRequest = data.additionalData || [];
+                const itemsRequest = Object.values(data).filter((item) => item !== additionalDataRequest);
+                if (additionalDataRequest) {
+                    setAdditionalData(additionalDataRequest);
                 }
-                setItems(items);
+                setItems(itemsRequest);
                 setPagination(meta);
                 setIsLoading(false);
             },

@@ -18,8 +18,8 @@ const useListDefaultQueryParams = () => {
     };
 
     const getCurrentParam = (paramKey, expectedValueCallback) => {
-        return currentParams.has(paramKey) ? expectedValueCallback(currentParams.get(paramKey)) : null
-    }
+        return currentParams.has(paramKey) ? expectedValueCallback(currentParams.get(paramKey)) : null;
+    };
 
     return { defaultFilters, defaultSort, getCurrentParam };
 };

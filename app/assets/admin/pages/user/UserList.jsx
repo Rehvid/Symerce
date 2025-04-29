@@ -16,10 +16,12 @@ import ActiveFilter from '@/admin/components/table/Filters/ActiveFilter';
 
 const UserList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(filterEmptyValues({
-        ...defaultFilters,
-        isActive: getCurrentParam('isActive', (value => Boolean(value))),
-    }));
+    const [filters, setFilters] = useState(
+        filterEmptyValues({
+            ...defaultFilters,
+            isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+        }),
+    );
 
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/users',
@@ -57,9 +59,7 @@ const UserList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
-    const additionalFilters = [
-      <ActiveFilter setFilters={setFilters}  filters={filters}/>
-    ];
+    const additionalFilters = [<ActiveFilter setFilters={setFilters} filters={filters} />];
 
     return (
         <>

@@ -16,14 +16,16 @@ import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
 
 const DeliveryTimeList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(filterEmptyValues({
-        ...defaultFilters,
-        type: getCurrentParam('type', (value => value)),
-        minDaysFrom: getCurrentParam('minDaysFrom', (value => Number(value))),
-        minDaysTo: getCurrentParam('minDaysTo', (value => Number(value))),
-        maxDaysFrom: getCurrentParam('maxDaysFrom', (value => Number(value))),
-        maxDaysTo: getCurrentParam('maxDaysTo', (value => Number(value))),
-    }));
+    const [filters, setFilters] = useState(
+        filterEmptyValues({
+            ...defaultFilters,
+            type: getCurrentParam('type', (value) => value),
+            minDaysFrom: getCurrentParam('minDaysFrom', (value) => Number(value)),
+            minDaysTo: getCurrentParam('minDaysTo', (value) => Number(value)),
+            maxDaysFrom: getCurrentParam('maxDaysFrom', (value) => Number(value)),
+            maxDaysTo: getCurrentParam('maxDaysTo', (value) => Number(value)),
+        }),
+    );
 
     const { draggableCallback } = useDraggable('admin/delivery-time/order');
     const { items, pagination, isLoading, removeItem, sort, setSort, additionalData } = useListData(
@@ -59,9 +61,14 @@ const DeliveryTimeList = () => {
     ];
 
     const additionalFilters = [
-        <SelectFilter setFilters={setFilters} filters={filters} nameFilter="type" options={additionalData?.types || []} />,
+        <SelectFilter
+            setFilters={setFilters}
+            filters={filters}
+            nameFilter="type"
+            options={additionalData?.types || []}
+        />,
         <RangeFilter setFilters={setFilters} filters={filters} label="Minimalne Dni" nameFilter="minDays" />,
-        <RangeFilter setFilters={setFilters} filters={filters} label="Maksymalne Dni" nameFilter="maxDays" />
+        <RangeFilter setFilters={setFilters} filters={filters} label="Maksymalne Dni" nameFilter="maxDays" />,
     ];
 
     return (

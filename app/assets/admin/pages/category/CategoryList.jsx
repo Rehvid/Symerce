@@ -17,10 +17,12 @@ import { filterEmptyValues } from '@/admin/utils/helper';
 
 const CategoryList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(filterEmptyValues({
-        ...defaultFilters,
-        isActive: getCurrentParam('isActive', (value => Boolean(value))),
-    }));
+    const [filters, setFilters] = useState(
+        filterEmptyValues({
+            ...defaultFilters,
+            isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+        }),
+    );
 
     const { draggableCallback } = useDraggable('admin/categories/order');
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
@@ -59,9 +61,7 @@ const CategoryList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
-    const additionalFilters = [
-      <ActiveFilter setFilters={setFilters} filters={filters} />
-    ]
+    const additionalFilters = [<ActiveFilter setFilters={setFilters} filters={filters} />];
 
     return (
         <>
