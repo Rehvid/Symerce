@@ -11,10 +11,15 @@ import TableSkeleton from '@/admin/components/skeleton/TableSkeleton';
 import ListHeader from '@/admin/components/ListHeader';
 import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
+import { filterEmptyValues } from '@/admin/utils/helper';
+import ActiveFilter from '@/admin/components/table/Filters/ActiveFilter';
 
 const UserList = () => {
-    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(defaultFilters);
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState(filterEmptyValues({
+        ...defaultFilters,
+        isActive: getCurrentParam('isActive', (value => Boolean(value))),
+    }));
 
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/users',
@@ -52,6 +57,10 @@ const UserList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
+    const additionalFilters = [
+      <ActiveFilter setFilters={setFilters}  filters={filters}/>
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Użytkownicy" totalItems={pagination.totalItems} />}>
@@ -66,6 +75,8 @@ const UserList = () => {
                 pagination={pagination}
                 sort={sort}
                 setSort={setSort}
+                additionalFilters={additionalFilters}
+                defaultFilters={defaultFilters}
             />
         </>
     );

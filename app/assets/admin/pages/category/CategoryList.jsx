@@ -12,10 +12,15 @@ import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
+import ActiveFilter from '@/admin/components/table/Filters/ActiveFilter';
+import { filterEmptyValues } from '@/admin/utils/helper';
 
 const CategoryList = () => {
-    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(defaultFilters);
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState(filterEmptyValues({
+        ...defaultFilters,
+        isActive: getCurrentParam('isActive', (value => Boolean(value))),
+    }));
 
     const { draggableCallback } = useDraggable('admin/categories/order');
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
@@ -54,6 +59,10 @@ const CategoryList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
+    const additionalFilters = [
+      <ActiveFilter setFilters={setFilters} filters={filters} />
+    ]
+
     return (
         <>
             <PageHeader title={<ListHeader title="Kategorie" totalItems={pagination.totalItems} />}>
@@ -63,6 +72,8 @@ const CategoryList = () => {
             <DataTable
                 filters={filters}
                 setFilters={setFilters}
+                defaultFilters={defaultFilters}
+                additionalFilters={additionalFilters}
                 columns={columns}
                 items={data}
                 pagination={pagination}

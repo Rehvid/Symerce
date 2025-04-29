@@ -10,12 +10,18 @@ import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import Badge from '@/admin/components/common/Badge';
 import ListHeader from '@/admin/components/ListHeader';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
+import { filterEmptyValues } from '@/admin/utils/helper';
+import SelectFilter from '@/admin/components/table/Filters/SelectFilter';
+import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
 
 const SettingList = () => {
-    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(defaultFilters);
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState(filterEmptyValues({
+        ...defaultFilters,
+        type: getCurrentParam('type', (value => value)),
+    }));
 
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+    const { items, pagination, isLoading, removeItem, sort, setSort, additionalData } = useListData(
         'admin/settings',
         filters,
         setFilters,
@@ -57,6 +63,10 @@ const SettingList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
+    const additionalFilters = [
+        <SelectFilter setFilters={setFilters} filters={filters} nameFilter="type" options={additionalData?.types || []} />,
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Ustawienia" totalItems={pagination.totalItems} />}>
@@ -72,6 +82,8 @@ const SettingList = () => {
                 pagination={pagination}
                 sort={sort}
                 setSort={setSort}
+                additionalFilters={additionalFilters}
+                defaultFilters={defaultFilters}
             />
         </>
     );

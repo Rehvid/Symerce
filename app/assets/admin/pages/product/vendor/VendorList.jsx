@@ -11,10 +11,15 @@ import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
+import { filterEmptyValues } from '@/admin/utils/helper';
+import ActiveFilter from '@/admin/components/table/Filters/ActiveFilter';
 
 const VendorList = () => {
-    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(defaultFilters);
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState(filterEmptyValues({
+        ...defaultFilters,
+        isActive: getCurrentParam('isActive', (value => Boolean(value))),
+    }));
 
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/vendors',
@@ -50,6 +55,10 @@ const VendorList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
+    const additionalFilters = [
+      <ActiveFilter filters={filters} setFilters={setFilters} />
+    ]
+
     return (
         <>
             <PageHeader title={<ListHeader title="Producenci" totalItems={pagination.totalItems} />}>
@@ -64,6 +73,8 @@ const VendorList = () => {
                 pagination={pagination}
                 sort={sort}
                 setSort={setSort}
+                defaultFilters={defaultFilters}
+                additionalFilters={additionalFilters}
             />
         </>
     );

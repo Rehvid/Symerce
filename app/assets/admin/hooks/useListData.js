@@ -14,6 +14,7 @@ const useListData = (endpoint, filters, setFilters, defaultSort) => {
     const location = useLocation();
 
     const [items, setItems] = useState([]);
+    const [additionalData, setAdditionalData] = useState([]);
     const [pagination, setPagination] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [sort, setSort] = useState(defaultSort);
@@ -48,7 +49,12 @@ const useListData = (endpoint, filters, setFilters, defaultSort) => {
         const config = createApiConfig(endpoint, HTTP_METHODS.GET).addQueryParams(queryParams);
         handleApiRequest(config, {
             onSuccess: ({ data, meta }) => {
-                setItems(data);
+                const additionalData = data.additionalData || [];
+                const items = Object.values(data).filter(item => item !== additionalData);
+                if (additionalData) {
+                    setAdditionalData(additionalData);
+                }
+                setItems(items);
                 setPagination(meta);
                 setIsLoading(false);
             },
@@ -85,7 +91,7 @@ const useListData = (endpoint, filters, setFilters, defaultSort) => {
         });
     };
 
-    return { items, pagination, isLoading, fetchItems, removeItem, sort, setSort };
+    return { items, pagination, isLoading, fetchItems, removeItem, sort, setSort, additionalData };
 };
 
 export default useListData;

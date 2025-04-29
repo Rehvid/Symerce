@@ -9,10 +9,17 @@ import TableToolbarButtons from '@/admin/components/table/Partials/TableToolbarB
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
+import { filterEmptyValues } from '@/admin/utils/helper';
+import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
 
 const CurrencyList = () => {
-    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(defaultFilters);
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState(filterEmptyValues({
+        ...defaultFilters,
+        roundingPrecisionFrom: getCurrentParam('roundingPrecisionFrom', (value => Number(value))),
+        roundingPrecisionTo: getCurrentParam('roundingPrecisionTo', (value => Number(value)))
+    }));
+
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/currencies',
         filters,
@@ -49,6 +56,10 @@ const CurrencyList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
+    const additionalFilters = [
+      <RangeFilter filters={filters} setFilters={setFilters} label="Zaokrąglenie" nameFilter="roundingPrecision" />
+    ]
+
     return (
         <>
             <PageHeader title={<ListHeader title="Waluty" totalItems={pagination.totalItems} />}>
@@ -64,6 +75,8 @@ const CurrencyList = () => {
                 pagination={pagination}
                 sort={sort}
                 setSort={setSort}
+                additionalFilters={additionalFilters}
+                defaultFilters={defaultFilters}
             />
         </>
     );

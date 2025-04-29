@@ -10,13 +10,23 @@ import Badge from '@/admin/components/common/Badge';
 import ListHeader from '@/admin/components/ListHeader';
 import useDraggable from '@/admin/hooks/useDraggable';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
+import { filterEmptyValues } from '@/admin/utils/helper';
+import SelectFilter from '@/admin/components/table/Filters/SelectFilter';
+import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
 
 const DeliveryTimeList = () => {
-    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(defaultFilters);
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState(filterEmptyValues({
+        ...defaultFilters,
+        type: getCurrentParam('type', (value => value)),
+        minDaysFrom: getCurrentParam('minDaysFrom', (value => Number(value))),
+        minDaysTo: getCurrentParam('minDaysTo', (value => Number(value))),
+        maxDaysFrom: getCurrentParam('maxDaysFrom', (value => Number(value))),
+        maxDaysTo: getCurrentParam('maxDaysTo', (value => Number(value))),
+    }));
 
     const { draggableCallback } = useDraggable('admin/delivery-time/order');
-    const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
+    const { items, pagination, isLoading, removeItem, sort, setSort, additionalData } = useListData(
         'admin/delivery-time',
         filters,
         setFilters,
@@ -48,6 +58,12 @@ const DeliveryTimeList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
+    const additionalFilters = [
+        <SelectFilter setFilters={setFilters} filters={filters} nameFilter="type" options={additionalData?.types || []} />,
+        <RangeFilter setFilters={setFilters} filters={filters} label="Minimalne Dni" nameFilter="minDays" />,
+        <RangeFilter setFilters={setFilters} filters={filters} label="Maksymalne Dni" nameFilter="maxDays" />
+    ];
+
     return (
         <>
             <PageHeader title={<ListHeader title="Czasy dostawy" totalItems={pagination.totalItems} />}>
@@ -60,11 +76,12 @@ const DeliveryTimeList = () => {
                 columns={columns}
                 items={data}
                 pagination={pagination}
-                additionalFilters={[]}
+                additionalFilters={additionalFilters}
                 useDraggable={true}
                 draggableCallback={draggableCallback}
                 sort={sort}
                 setSort={setSort}
+                defaultFilters={defaultFilters}
             />
         </>
     );

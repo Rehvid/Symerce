@@ -53,8 +53,12 @@ class SettingsController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
+        $additionalData = [
+            'types' => $this->buildTranslatedOptionsForSettingTypeEnum(SettingType::cases()),
+        ];
+
         return $this->prepareJsonResponse(
-            data: $this->mapper->mapToIndex($paginatedResponse->data),
+            data: array_merge($this->mapper->mapToIndex($paginatedResponse->data), ['additionalData' => $additionalData]),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
 

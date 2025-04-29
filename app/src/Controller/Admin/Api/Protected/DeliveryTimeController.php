@@ -37,8 +37,12 @@ class DeliveryTimeController extends AbstractAdminController
             ]);
         }, $paginatedResponse->data);
 
+        $additionalData = [
+            'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::translatedOptions())
+        ];
+
         return $this->prepareJsonResponse(
-            data: $data,
+            data: array_merge($data, ['additionalData' => $additionalData]),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }

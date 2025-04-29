@@ -12,10 +12,18 @@ import TableRowMoney from '@/admin/components/table/Partials/TableRow/TableRowMo
 import TableRowId from '@/admin/components/table/Partials/TableRow/TableRowId';
 import ListHeader from '@/admin/components/ListHeader';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
+import ActiveFilter from '@/admin/components/table/Filters/ActiveFilter';
+import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
+import { filterEmptyValues } from '@/admin/utils/helper';
 
 const CarrierList = () => {
-    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-    const [filters, setFilters] = useState(defaultFilters);
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState(filterEmptyValues({
+        ...defaultFilters,
+        isActive: getCurrentParam('isActive', (value => Boolean(value))),
+        feeFrom: getCurrentParam('feeFrom', (value => Number(value))),
+        feeTo: getCurrentParam('feeTo', (value => Number(value))),
+    }));
 
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/carriers',
@@ -53,6 +61,11 @@ const CarrierList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
+    const additionalFilters = [
+      <ActiveFilter setFilters={setFilters} filters={filters} />,
+      <RangeFilter filters={filters} setFilters={setFilters} nameFilter="fee" label="Opłata" />
+    ]
+
     return (
         <>
             <PageHeader title={<ListHeader title="Przewoźnicy" totalItems={pagination.totalItems} />}>
@@ -67,6 +80,8 @@ const CarrierList = () => {
                 pagination={pagination}
                 sort={sort}
                 setSort={setSort}
+                additionalFilters={additionalFilters}
+                defaultFilters={defaultFilters}
             />
         </>
     );
