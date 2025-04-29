@@ -24,6 +24,11 @@ class AttributeRepository extends AbstractRepository
         return 'attribute';
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     *
+     * @return array<int, mixed>
+     */
     public function getAttributeValuesByAttributes(array $attributes): array
     {
         $qb = $this->createQueryBuilder($this->getAlias());

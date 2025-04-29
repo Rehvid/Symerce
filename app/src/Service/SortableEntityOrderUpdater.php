@@ -25,9 +25,9 @@ readonly class SortableEntityOrderUpdater
         }
 
         $repository = $this->entityManager->getRepository($class);
-        $movedId = $dto->order['movedId'];
-        $oldOrder = $dto->order['oldPosition'];
-        $newOrder = $dto->order['newPosition'];
+        $movedId = $dto->movedId;
+        $oldOrder = $dto->oldPosition;
+        $newOrder = $dto->newPosition;
 
         if (!is_subclass_of($repository, OrderSortableRepositoryInterface::class)) {
             return;
@@ -56,6 +56,6 @@ readonly class SortableEntityOrderUpdater
 
     private function isSortableClassAndValidOrder(OrderRequestDTO $dto, string $class): bool
     {
-        return is_subclass_of($class, OrderSortableInterface::class) && !empty($dto->order);
+        return is_subclass_of($class, OrderSortableInterface::class);
     }
 }

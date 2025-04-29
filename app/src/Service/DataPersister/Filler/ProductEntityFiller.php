@@ -15,6 +15,7 @@ use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Entity\Tag;
 use App\Entity\Vendor;
+use App\Repository\AttributeRepository;
 use App\Service\DataPersister\Filler\Base\BaseEntityFiller;
 use App\Service\FileService;
 use App\Service\SluggerService;
@@ -183,6 +184,8 @@ final class ProductEntityFiller extends BaseEntityFiller
     private function fillAttributeValues(SaveProductRequestDTO $persistable, Product $product): void
     {
         $attributes = $this->getAttributes($persistable->attributes);
+
+
         $product->getAttributeValues()->clear();
 
         /** @var AttributeValue $attribute */
@@ -193,6 +196,8 @@ final class ProductEntityFiller extends BaseEntityFiller
 
     /**
      * @param array<string, mixed> $attributeIds
+     *
+     * @return array<int,mixed>
      */
     private function getAttributes(array $attributeIds): array
     {
@@ -203,7 +208,10 @@ final class ProductEntityFiller extends BaseEntityFiller
         }
 
         if (!empty($ids)) {
-            return $this->entityManager->getRepository(Attribute::class)->getAttributeValuesByAttributes($ids);
+            /** @var AttributeRepository $attributeRepository */
+            $attributeRepository = $this->entityManager->getRepository(Attribute::class);
+
+            return $attributeRepository->getAttributeValuesByAttributes($ids);
         }
 
         return $ids;

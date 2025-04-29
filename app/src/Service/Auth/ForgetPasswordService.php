@@ -53,7 +53,9 @@ final readonly class ForgetPasswordService
 
     private function deleteOldUserTokens(User $user): void
     {
+
         $forgetPasswordTokens = $user->getTokens()->filter(
+            /** @phpstan-ignore-next-line */
             fn (UserToken $userToken) => TokenType::FORGOT_PASSWORD === $userToken->getTokenType()
         );
 

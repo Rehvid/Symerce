@@ -9,12 +9,12 @@ use App\DTO\Request\PersistableInterface;
 final class SaveProductRequestDTO implements PersistableInterface
 {
     /**
-     * @param array<int, mixed>      $categories
-     * @param array<int, mixed>      $tags
-     * @param array<int, mixed>      $deliveryTimes
-     * @param array<int, mixed>      $images
-     * @param array<int, mixed>      $attributes
-     * @param array<int, mixed>|null $thumbnail
+     * @param array<int, mixed>         $categories
+     * @param array<int, mixed>         $tags
+     * @param array<int, mixed>         $deliveryTimes
+     * @param array<int, mixed>         $images
+     * @param array<string, mixed>      $attributes
+     * @param array<string, mixed>|null $thumbnail
      */
     public function __construct(
         public string $name,

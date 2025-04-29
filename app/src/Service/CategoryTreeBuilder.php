@@ -9,12 +9,13 @@ use App\Repository\CategoryRepository;
 
 final class CategoryTreeBuilder
 {
-    /** @param array<int, bool> $processedCategories  */
-    public function __construct(
-        private readonly CategoryRepository $categoryRepository,
-        private array $processedCategories = []
-    ) {
+    /**
+     * @var array<int, bool>
+     */
+    private array $processedCategories = [];
 
+    public function __construct(private readonly CategoryRepository $categoryRepository)
+    {
     }
 
     /** @return list<array<string, mixed>> */
@@ -32,10 +33,13 @@ final class CategoryTreeBuilder
         /** @var Category[] $categories */
         $categories = $this->categoryRepository->findAll();
         foreach ($categories as $category) {
+            $id = $category->getId();
+
             if (
                 null === $category->getParent()
-                && !isset($this->processedCategories[$category->getId()])
-                && !in_array($category->getId(), $excludedIds, true)
+                /* @phpstan-ignore-next-line */
+                && !isset($this->processedCategories[$id])
+                && !in_array($id, $excludedIds, true)
             ) {
                 $tree[] = $this->buildTreeNode($category, [], $excludedIds);
             }

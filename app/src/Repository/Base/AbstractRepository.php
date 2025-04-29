@@ -6,6 +6,7 @@ namespace App\Repository\Base;
 
 use App\Enums\DirectionType;
 use App\Enums\OrderByField;
+use App\Repository\Interface\OrderSortableRepositoryInterface;
 use App\Repository\Interface\PaginationRepositoryInterface;
 use App\Service\Pagination\PaginationFilters;
 use App\Service\Pagination\PaginationMeta;
@@ -14,7 +15,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /** @phpstan-ignore-next-line */
-abstract class AbstractRepository extends ServiceEntityRepository implements PaginationRepositoryInterface
+abstract class AbstractRepository extends ServiceEntityRepository implements PaginationRepositoryInterface, OrderSortableRepositoryInterface
 {
     private const int ALL_RESULTS = -1;
 
@@ -81,24 +82,25 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Pag
     /** @return array<int, mixed> */
     public function findItemsInOrderRange(int $oldOrder, int $newOrder): array
     {
-        $queryBuilder = $this->createQueryBuilder($this->getAlias());
+        $alias = $this->getAlias();
+        $queryBuilder = $this->createQueryBuilder($alias);
 
         if ($oldOrder < $newOrder) {
-            return $queryBuilder->where('e.order > :oldOrder')
-                ->andWhere('e.order <= :newOrder')
+            return $queryBuilder->where("$alias.order > :oldOrder")
+                ->andWhere("$alias.order <= :newOrder")
                 ->setParameter('oldOrder', $oldOrder)
                 ->setParameter('newOrder', $newOrder)
-                ->orderBy('e.order', 'ASC')
+                ->orderBy("$alias.order", 'ASC')
                 ->getQuery()
                 ->getResult()
             ;
         }
 
-        return $queryBuilder->where('e.order >= :newOrder')
-            ->andWhere('e.order < :oldOrder')
+        return $queryBuilder->where("$alias.order >= :newOrder")
+            ->andWhere("$alias.order < :oldOrder")
             ->setParameter('newOrder', $newOrder)
             ->setParameter('oldOrder', $oldOrder)
-            ->orderBy('e.order', 'DESC')
+            ->orderBy("$alias.order", 'DESC')
             ->getQuery()
             ->getResult()
         ;

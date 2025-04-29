@@ -1,5 +1,11 @@
 export const prepareDraggableDataToUpdateOrder = (data) => {
-    return { order: data };
+    const {movedId = null, oldPosition = null, newPosition = null} = data;
+
+    return {
+        movedId,
+        oldPosition,
+        newPosition
+    };
 };
 
 export const convertFileToBase64 = (file) => {

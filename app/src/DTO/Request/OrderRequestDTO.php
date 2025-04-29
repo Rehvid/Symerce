@@ -6,9 +6,10 @@ namespace App\DTO\Request;
 
 final readonly class OrderRequestDTO
 {
-    /** @param array<int, int> $order */
     public function __construct(
-        public array $order
+        public int $movedId,
+        public int $newPosition,
+        public int $oldPosition,
     ) {
 
     }
