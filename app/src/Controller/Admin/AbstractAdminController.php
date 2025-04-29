@@ -29,6 +29,7 @@ class AbstractAdminController extends AbstractApiController
         parent::__construct($dataPersisterManager, $translator, $responseService);
     }
 
+    /** @param array<string,mixed> $additionalData */
     protected function getPaginatedResponse(
         Request $request,
         PaginationRepositoryInterface $paginationRepository,

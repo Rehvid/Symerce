@@ -23,19 +23,19 @@ final class CategoryTreeBuilder
         $tree = [];
         $this->processedCategories = [];
 
-
         $excludedIds = [];
         if (null !== $currentCategory) {
             $excludedIds = $this->collectDescendantIds($currentCategory);
             $excludedIds[] = $currentCategory->getId();
         }
 
+        /** @var Category[] $categories */
         $categories = $this->categoryRepository->findAll();
         foreach ($categories as $category) {
             if (
-                $category->getParent() === null &&
-                !isset($this->processedCategories[$category->getId()]) &&
-                !in_array($category->getId(), $excludedIds, true)
+                null === $category->getParent()
+                && !isset($this->processedCategories[$category->getId()])
+                && !in_array($category->getId(), $excludedIds, true)
             ) {
                 $tree[] = $this->buildTreeNode($category, [], $excludedIds);
             }
@@ -47,6 +47,7 @@ final class CategoryTreeBuilder
     /**
      * @param list<int> $path
      * @param list<int> $excludedIds
+     *
      * @return array<string, mixed>
      */
     private function buildTreeNode(Category $category, array $path, array $excludedIds): array
@@ -70,7 +71,7 @@ final class CategoryTreeBuilder
         $newPath = [...$path, $categoryId];
 
         $children = array_filter(array_map(
-            fn(Category $child) => $this->buildTreeNode($child, $newPath, $excludedIds),
+            fn (Category $child) => $this->buildTreeNode($child, $newPath, $excludedIds),
             $category->getChildren()->toArray()
         ));
 

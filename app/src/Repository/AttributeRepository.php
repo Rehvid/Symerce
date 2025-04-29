@@ -33,13 +33,13 @@ class AttributeRepository extends AbstractRepository
         $orX = $qb->expr()->orX();
 
         foreach ($attributes as $attributeId => $valueIds) {
-            $paramAttr = 'attr_' . $attributeId;
-            $paramVals = 'vals_' . $attributeId;
+            $paramAttr = 'attr_'.$attributeId;
+            $paramVals = 'vals_'.$attributeId;
 
             $orX->add(
                 $qb->expr()->andX(
                     $qb->expr()->eq('av.attribute', ":$paramAttr"),
-                    $qb->expr()->in("av.id", ":$paramVals")
+                    $qb->expr()->in('av.id', ":$paramVals")
                 )
             );
 
@@ -59,6 +59,7 @@ class AttributeRepository extends AbstractRepository
         }
 
         $alias = $this->getAlias();
-        return $queryBuilder->orderBy("$alias." . OrderByField::ORDER->value , DirectionType::ASC->value);
+
+        return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
     }
 }

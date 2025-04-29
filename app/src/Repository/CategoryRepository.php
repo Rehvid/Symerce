@@ -9,7 +9,6 @@ use App\Enums\DirectionType;
 use App\Enums\OrderByField;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
-use App\Service\FilterBuilder;
 use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class CategoryRepository extends AbstractRepository
 {
     public function __construct(
-        ManagerRegistry                $registry,
+        ManagerRegistry $registry,
         private readonly FilterBuilderFactory $filterBuilderFactory,
     ) {
         parent::__construct($registry);
@@ -44,6 +43,6 @@ class CategoryRepository extends AbstractRepository
             return $queryBuilder;
         }
 
-        return $queryBuilder->orderBy("$alias." . OrderByField::ORDER->value , DirectionType::ASC->value);
+        return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
     }
 }

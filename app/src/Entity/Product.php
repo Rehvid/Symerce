@@ -214,6 +214,7 @@ class Product implements OrderSortableInterface
         if ($findThumbnail->count() > 0) {
             $thumbnailImage = $findThumbnail->first();
         }
+
         return $thumbnailImage;
     }
 

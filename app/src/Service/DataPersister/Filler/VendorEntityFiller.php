@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Service\DataPersister\Filler;
 
 use App\DTO\Request\PersistableInterface;
-use App\DTO\Request\Tag\SaveTagRequestDTO;
 use App\DTO\Request\Vendor\SaveVendorRequestDTO;
 use App\Entity\Vendor;
 use App\Service\DataPersister\Filler\Base\BaseEntityFiller;

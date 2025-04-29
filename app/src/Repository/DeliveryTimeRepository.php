@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class DeliveryTimeRepository extends AbstractRepository
 {
     public function __construct(
-        ManagerRegistry                $registry,
+        ManagerRegistry $registry,
         private readonly FilterBuilderFactory $filterBuilderFactory,
     ) {
         parent::__construct($registry);
@@ -44,6 +44,7 @@ class DeliveryTimeRepository extends AbstractRepository
         }
 
         $alias = $this->getAlias();
-        return $queryBuilder->orderBy("$alias." . OrderByField::ORDER->value , DirectionType::ASC->value);
+
+        return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
     }
 }

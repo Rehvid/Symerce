@@ -10,7 +10,6 @@ use App\Service\DataPersister\Base\UpdatePersister;
 
 final class ProductUpdatePersister extends UpdatePersister
 {
-
     public function getSupportedClasses(): array
     {
         return [SaveProductRequestDTO::class, Product::class];

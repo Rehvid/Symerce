@@ -11,8 +11,8 @@ final readonly class VendorIndexResponseDTO implements ResponseInterfaceData
     private function __construct(
         public int $id,
         public string $name,
-        public ?string $imagePath = null,
         public bool $isActive,
+        public ?string $imagePath = null,
     ) {
     }
 
@@ -21,8 +21,8 @@ final readonly class VendorIndexResponseDTO implements ResponseInterfaceData
         return new self(
             id: $data['id'],
             name: $data['name'],
-            imagePath: $data['imagePath'],
             isActive: $data['isActive'],
+            imagePath: $data['imagePath'],
         );
     }
 }

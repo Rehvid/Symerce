@@ -15,7 +15,6 @@ class SettingValueFormResponseDTO implements ResponseInterfaceData
     ) {
     }
 
-
     public static function fromArray(array $data): ResponseInterfaceData
     {
         return new self(

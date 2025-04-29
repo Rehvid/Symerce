@@ -17,7 +17,7 @@ final class ProductIndexResponseDTO implements ResponseInterfaceData
         public Money $regularPrice,
         public bool $isActive,
         public int $quantity
-    ){
+    ) {
 
     }
 

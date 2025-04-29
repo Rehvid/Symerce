@@ -15,10 +15,11 @@ readonly class SettingsProvider implements ReactDataInterface
 {
     public function __construct(
         private SettingRepository $settingRepository,
-        private SettingManager    $settingManager,
+        private SettingManager $settingManager,
     ) {
     }
 
+    /** @return array<int, mixed> */
     public function getData(): array
     {
         $currency = $this->settingManager->findDefaultCurrency();
@@ -34,16 +35,16 @@ readonly class SettingsProvider implements ReactDataInterface
         ]);
 
         $settings = $this->settingRepository->findAllExcludingTypes([
-            SettingType::CURRENCY->value
+            SettingType::CURRENCY->value,
         ]);
         $result = array_map(function (Setting $setting) {
             return ProviderResponseDTO::fromArray([
-               'type' => $setting->getType(),
-               'value' => [
-                   'id' => $setting->getId(),
-                   'name' => $setting->getName(),
-                   'value' => $setting->getValue(),
-               ],
+                'type' => $setting->getType(),
+                'value' => [
+                    'id' => $setting->getId(),
+                    'name' => $setting->getName(),
+                    'value' => $setting->getValue(),
+                ],
             ]);
         }, $settings);
 

@@ -9,7 +9,6 @@ use App\Service\DataPersister\Base\CreatePersister;
 
 final class ProductCreatePersister extends CreatePersister
 {
-
     public function getSupportedClasses(): array
     {
         return [SaveProductRequestDTO::class];

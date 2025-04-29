@@ -11,10 +11,15 @@ final readonly class PaginationFilters
 {
     private const string ORDER_BY_FIELD_SEPARATOR = '.';
 
+    /**
+     * @param array<string, mixed> $queryParams
+     * @param array<string, mixed> $additionalData
+     */
     public function __construct(
         public array $queryParams = [],
         public array $additionalData = []
-    ) {}
+    ) {
+    }
 
     public function getSearch(): ?string
     {
@@ -23,7 +28,7 @@ final readonly class PaginationFilters
 
     public function hasSearch(): bool
     {
-        return $this->getSearch() !== null && trim($this->getSearch()) !== '';
+        return null !== $this->getSearch() && '' !== trim($this->getSearch());
     }
 
     public function getQueryParam(string $key): mixed
@@ -31,10 +36,10 @@ final readonly class PaginationFilters
         return $this->queryParams[$key] ?? null;
     }
 
-    public function getBooleanQueryParam(string $key): bool
+    public function getBooleanQueryParam(string $key): ?bool
     {
         $value = $this->getQueryParam($key);
-        if ($value === null) {
+        if (null === $value) {
             return false;
         }
 
@@ -48,7 +53,7 @@ final readonly class PaginationFilters
 
     public function hasOrderBy(): bool
     {
-        return $this->getOrderBy() !== null && $this->getDirection() !== null;
+        return null !== $this->getOrderBy() && null !== $this->getDirection();
     }
 
     public function getOrderBy(): ?OrderByField
@@ -57,9 +62,10 @@ final readonly class PaginationFilters
         if (null === $orderBy) {
             return null;
         }
+
         $orderByField = explode(self::ORDER_BY_FIELD_SEPARATOR, $orderBy);
 
-        return OrderByField::tryFrom($orderByField[0] ?? null);
+        return OrderByField::tryFrom($orderByField[0]);
     }
 
     public function getDirection(): ?DirectionType

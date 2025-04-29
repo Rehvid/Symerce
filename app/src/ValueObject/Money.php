@@ -8,14 +8,19 @@ use App\Entity\Currency;
 
 final readonly class Money implements \JsonSerializable
 {
-    /** @param string|numeric-string $amount */
-    public function __construct(
-        private string $amount,
-        private Currency $currency
-    ) {
-        if (!is_numeric($this->amount)) {
+    /** @var numeric-string */
+    private string $amount;
+
+    private Currency $currency;
+
+    public function __construct(string $amount, Currency $currency)
+    {
+        if (!is_numeric($amount)) {
             throw new \InvalidArgumentException('Amount must be a numeric string.');
         }
+
+        $this->amount = $amount;
+        $this->currency = $currency;
     }
 
     /**

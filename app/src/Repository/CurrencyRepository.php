@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class CurrencyRepository extends AbstractRepository
 {
     public function __construct(
-        ManagerRegistry                $registry,
+        ManagerRegistry $registry,
         private readonly FilterBuilderFactory $filterBuilderFactory,
     ) {
         parent::__construct($registry);

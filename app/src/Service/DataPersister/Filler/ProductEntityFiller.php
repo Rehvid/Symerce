@@ -1,15 +1,16 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\Service\DataPersister\Filler;
 
+use App\DTO\Request\FileRequestDTO;
 use App\DTO\Request\PersistableInterface;
 use App\DTO\Request\Product\SaveProductRequestDTO;
 use App\Entity\Attribute;
+use App\Entity\AttributeValue;
 use App\Entity\Category;
 use App\Entity\DeliveryTime;
-use App\Entity\File;
 use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Entity\Tag;
@@ -43,7 +44,6 @@ final class ProductEntityFiller extends BaseEntityFiller
     }
 
     /**
-     * @param PersistableInterface $persistable
      * @param Product $entity
      */
     public function toExistingEntity(PersistableInterface|SaveProductRequestDTO $persistable, object $entity): Product
@@ -64,8 +64,7 @@ final class ProductEntityFiller extends BaseEntityFiller
     protected function fillEntity(
         PersistableInterface|SaveProductRequestDTO $persistable,
         object $entity
-    ): Product
-    {
+    ): Product {
         $entity->setVendor($this->getVendor($persistable->vendor));
         $entity->setName($persistable->name);
         $entity->setActive($persistable->isActive);
@@ -81,15 +80,18 @@ final class ProductEntityFiller extends BaseEntityFiller
         $this->fillImages($persistable, $entity);
 
         if ($persistable->thumbnail) {
-            /** @var ProductImage $productImage */
+
             $isFound = false;
+
+            /** @var ProductImage $productImage */
             foreach ($entity->getImages() as $productImage) {
-                if ($productImage->getFile()->getOriginalName() === $persistable->thumbnail['name'] && !$isFound) {
+                if (!$isFound && $productImage->getFile()->getOriginalName() === $persistable->thumbnail['name']) {
                     $productImage->setIsThumbnail(true);
                     $isFound = true;
-                } else {
-                    $productImage->setIsThumbnail(false);
+                    continue;
                 }
+
+                $productImage->setIsThumbnail(false);
             }
         }
 
@@ -100,7 +102,6 @@ final class ProductEntityFiller extends BaseEntityFiller
 
         return $entity;
     }
-
 
     private function saveSlug(string $name, ?string $slug): string
     {
@@ -120,11 +121,18 @@ final class ProductEntityFiller extends BaseEntityFiller
     {
         $categories = $this->getCategories($persistable->categories);
         $product->getCategories()->clear();
+
+        /** @var Category $category */
         foreach ($categories as $category) {
             $product->addCategory($category);
         }
     }
 
+    /**
+     * @param array<int, mixed> $categoryIds
+     *
+     * @return Category[]
+     */
     private function getCategories(array $categoryIds): array
     {
         return $this->entityManager->getRepository(Category::class)->findBy(['id' => $categoryIds]);
@@ -134,11 +142,18 @@ final class ProductEntityFiller extends BaseEntityFiller
     {
         $deliveryTimes = $this->getDeliveryTimes($persistable->deliveryTimes);
         $product->getDeliveryTimes()->clear();
-        foreach ($deliveryTimes  as $deliveryTime) {
+
+        /** @var DeliveryTime $deliveryTime */
+        foreach ($deliveryTimes as $deliveryTime) {
             $product->addDeliveryTime($deliveryTime);
         }
     }
 
+    /**
+     * @param array<int, mixed> $deliveryTimeIds
+     *
+     * @return DeliveryTime[]
+     */
     private function getDeliveryTimes(array $deliveryTimeIds): array
     {
         return $this->entityManager->getRepository(DeliveryTime::class)->findBy(['id' => $deliveryTimeIds]);
@@ -148,11 +163,18 @@ final class ProductEntityFiller extends BaseEntityFiller
     {
         $tags = $this->getTags($persistable->tags);
         $product->getTags()->clear();
+
+        /** @var Tag $tag */
         foreach ($tags as $tag) {
             $product->addTag($tag);
         }
     }
 
+    /**
+     * @param array<int,mixed> $tagIds
+     *
+     * @return Tag[]
+     */
     private function getTags(array $tagIds): array
     {
         return $this->entityManager->getRepository(Tag::class)->findBy(['id' => $tagIds]);
@@ -162,11 +184,16 @@ final class ProductEntityFiller extends BaseEntityFiller
     {
         $attributes = $this->getAttributes($persistable->attributes);
         $product->getAttributeValues()->clear();
+
+        /** @var AttributeValue $attribute */
         foreach ($attributes as $attribute) {
             $product->addAttributeValue($attribute);
         }
     }
 
+    /**
+     * @param array<string, mixed> $attributeIds
+     */
     private function getAttributes(array $attributeIds): array
     {
         $ids = [];
@@ -178,6 +205,7 @@ final class ProductEntityFiller extends BaseEntityFiller
         if (!empty($ids)) {
             return $this->entityManager->getRepository(Attribute::class)->getAttributeValuesByAttributes($ids);
         }
+
         return $ids;
     }
 
@@ -193,14 +221,15 @@ final class ProductEntityFiller extends BaseEntityFiller
         }
 
         $existingImages = $product->getImages();
-        $existingImageIds = $existingImages->map(fn(ProductImage $productImage) => $productImage->getFile()->getId());
-        $unique = array_filter($persistable->images, function($image) use ($existingImageIds) {
+        $existingImageIds = $existingImages->map(fn (ProductImage $productImage) => $productImage->getFile()->getId());
+        $unique = array_filter($persistable->images, function ($image) use ($existingImageIds) {
             $id = $image['id'] ?? null;
 
             return empty($id) || !$existingImageIds->contains($id);
         });
 
         foreach ($unique as $image) {
+            /** @var FileRequestDTO $fileRequest */
             $fileRequest = $this->createFileRequestDTO($image);
             $image = $this->fileService->processFileRequestDTO($fileRequest, null);
 

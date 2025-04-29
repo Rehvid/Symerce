@@ -10,7 +10,7 @@ use App\Service\Pagination\PaginationMeta;
 interface PaginationRepositoryInterface
 {
     /**
-     * @return array<int, mixed>
+     * @return array<string, mixed>
      */
     public function findPaginated(PaginationMeta $paginationMeta, PaginationFilters $paginationFilters): array;
 }

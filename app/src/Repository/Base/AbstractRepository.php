@@ -22,9 +22,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Pag
 
     abstract protected function getAlias(): string;
 
-    /**
-     * @param array<string, mixed> $queryParams
-     */
+    /** @SuppressWarnings("UnusedFormalParameter") */
     protected function configureQueryForPagination(QueryBuilder $queryBuilder, PaginationFilters $paginationFilters): QueryBuilder
     {
         return $queryBuilder;
@@ -56,17 +54,17 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Pag
             /** @var DirectionType $direction */
             $direction = $paginationFilters->getDirection();
 
-            $baseQueryBuilder->orderBy("$alias." . $orderBy->value, $direction->value);
+            $baseQueryBuilder->orderBy("$alias.".$orderBy->value, $direction->value);
         }
 
         $this->configureQueryForPagination($baseQueryBuilder, $paginationFilters);
 
-        $countQueryBuilder = clone ($baseQueryBuilder);
+        $countQueryBuilder = clone $baseQueryBuilder;
         $countQueryBuilder->select("COUNT($alias.id)");
 
         $total = (int) $countQueryBuilder->getQuery()->getSingleScalarResult();
 
-        if ($paginationMeta->getLimit() !== self::ALL_RESULTS) {
+        if (self::ALL_RESULTS !== $paginationMeta->getLimit()) {
             $baseQueryBuilder
                 ->setFirstResult($paginationMeta->getOffset())
                 ->setMaxResults($paginationMeta->getLimit());
@@ -80,24 +78,29 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Pag
         ];
     }
 
+    /** @return array<int, mixed> */
     public function findItemsInOrderRange(int $oldOrder, int $newOrder): array
     {
-        $qb = $this->createQueryBuilder($this->getAlias());
+        $queryBuilder = $this->createQueryBuilder($this->getAlias());
 
         if ($oldOrder < $newOrder) {
-            $qb->where('e.order > :oldOrder')
+            return $queryBuilder->where('e.order > :oldOrder')
                 ->andWhere('e.order <= :newOrder')
                 ->setParameter('oldOrder', $oldOrder)
                 ->setParameter('newOrder', $newOrder)
-                ->orderBy('e.order', 'ASC');
-        } else {
-            $qb->where('e.order >= :newOrder')
-                ->andWhere('e.order < :oldOrder')
-                ->setParameter('newOrder', $newOrder)
-                ->setParameter('oldOrder', $oldOrder)
-                ->orderBy('e.order', 'DESC');
+                ->orderBy('e.order', 'ASC')
+                ->getQuery()
+                ->getResult()
+            ;
         }
 
-        return $qb->getQuery()->getResult();
+        return $queryBuilder->where('e.order >= :newOrder')
+            ->andWhere('e.order < :oldOrder')
+            ->setParameter('newOrder', $newOrder)
+            ->setParameter('oldOrder', $oldOrder)
+            ->orderBy('e.order', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

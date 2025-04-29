@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserRepository extends AbstractRepository implements UserLoaderInterface
 {
     public function __construct(
-        ManagerRegistry                $registry,
+        ManagerRegistry $registry,
         private readonly FilterBuilderFactory $filterBuilderFactory,
     ) {
         parent::__construct($registry);

@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Carrier;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
-use App\Service\FilterBuilder;
 use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,5 +38,4 @@ class CarrierRepository extends AbstractRepository
 
         return parent::configureQueryForPagination($queryBuilder, $paginationFilters);
     }
-
 }

@@ -5,13 +5,8 @@ namespace App\Controller\Admin\Api\Protected;
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\Setting\SaveSettingRequestDTO;
 use App\DTO\Response\Setting\SettingFormResponseDTO;
-use App\DTO\Response\Setting\SettingIndexResponseDTO;
-use App\DTO\Response\Setting\SettingUpdateFormResponseDTO;
-use App\DTO\Response\Setting\SettingValueFormResponseDTO;
-use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Enums\SettingType;
-use App\Enums\SettingValueType;
 use App\Mapper\SettingMapper;
 use App\Repository\SettingRepository;
 use App\Service\DataPersister\Manager\PersisterManager;
@@ -19,7 +14,6 @@ use App\Service\Pagination\PaginationService;
 use App\Service\Response\ResponseService;
 use App\Service\SortableEntityOrderUpdater;
 use App\Utils\Utils;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +30,6 @@ class SettingsController extends AbstractAdminController
         ResponseService $responseService,
         PaginationService $paginationService,
         SortableEntityOrderUpdater $sortableEntityOrderUpdater,
-        private readonly EntityManagerInterface $entityManager,
         private readonly SettingMapper $mapper,
     ) {
         parent::__construct(
@@ -122,7 +115,7 @@ class SettingsController extends AbstractAdminController
     }
 
     /**
-     * @param array <string, mixed> $types
+     * @param array <mixed, mixed> $types
      *
      * @return array<int, mixed>
      */

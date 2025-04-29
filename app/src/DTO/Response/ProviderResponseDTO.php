@@ -8,14 +8,13 @@ use App\Enums\SettingType;
 
 class ProviderResponseDTO implements ResponseInterfaceData
 {
+    /** @param array<int,mixed>|string $value  */
     private function __construct(
         public SettingType $type,
         public array|string $value
-    )
-    {
+    ) {
 
     }
-
 
     public static function fromArray(array $data): ResponseInterfaceData
     {

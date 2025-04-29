@@ -39,9 +39,9 @@ readonly class SortableEntityOrderUpdater
         foreach ($entities as $entity) {
             if ($oldOrder < $newOrder) {
                 $entity->setOrder($entity->getOrder() - 1);
-            } else {
-                $entity->setOrder($entity->getOrder() + 1);
+                continue;
             }
+            $entity->setOrder($entity->getOrder() + 1);
         }
 
         $movedEntity = $repository->find($movedId);

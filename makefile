@@ -69,6 +69,9 @@ phpstan:
 phpmd:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "vendor/bin/phpmd src/ text phpmd.ruleset.xml"
 
+phpmd-debug:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "vendor/bin/phpmd src/ text phpmd.ruleset.xml --verbose"
+
 phpcsfixer:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "vendor/bin/php-cs-fixer fix src"
 

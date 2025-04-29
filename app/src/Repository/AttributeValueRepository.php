@@ -43,8 +43,6 @@ class AttributeValueRepository extends AbstractRepository
             return $queryBuilder;
         }
 
-        return $queryBuilder->orderBy("$alias." . OrderByField::ORDER->value , DirectionType::ASC->value);
+        return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
     }
-
-
 }

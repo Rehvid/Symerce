@@ -28,6 +28,7 @@ class DeliveryTimeController extends AbstractAdminController
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
         $data = array_map(function (DeliveryTime $deliveryTime) {
             $type = $this->translator->trans("base.delivery_type.{$deliveryTime->getType()->value}");
+
             return DeliveryTimeIndexResponseDTO::fromArray([
                 'id' => $deliveryTime->getId(),
                 'label' => $deliveryTime->getLabel(),
@@ -38,7 +39,7 @@ class DeliveryTimeController extends AbstractAdminController
         }, $paginatedResponse->data);
 
         $additionalData = [
-            'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::translatedOptions())
+            'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::translatedOptions()),
         ];
 
         return $this->prepareJsonResponse(
@@ -115,8 +116,6 @@ class DeliveryTimeController extends AbstractAdminController
 
         return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.delivery_time.destroy'));
     }
-
-
 
     /**
      * @param array <string, mixed> $types

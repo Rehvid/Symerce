@@ -18,13 +18,13 @@ class ProductImageResponseDTO extends FileResponseDTO
         parent::__construct($id, $name, $preview);
     }
 
-   public static function fromArray(array $data): ResponseInterfaceData
-   {
-       return new self(
-         id: $data['id'],
-         name: $data['name'],
-         preview: $data['preview'],
-         isThumbnail: $data['isThumbnail'],
-       );
-   }
+    public static function fromArray(array $data): ResponseInterfaceData
+    {
+        return new self(
+            id: $data['id'],
+            name: $data['name'],
+            preview: $data['preview'],
+            isThumbnail: $data['isThumbnail'],
+        );
+    }
 }

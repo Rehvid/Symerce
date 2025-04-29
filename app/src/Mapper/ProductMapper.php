@@ -13,7 +13,6 @@ use App\Entity\Attribute;
 use App\Entity\AttributeValue;
 use App\Entity\Category;
 use App\Entity\DeliveryTime;
-use App\Entity\File;
 use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Entity\Tag;
@@ -30,28 +29,33 @@ final readonly class ProductMapper
         private EntityManagerInterface $entityManager,
         private SettingManager $settingManager,
         private FileService $fileService,
-    )
-    {
+    ) {
     }
 
+    /**
+     * @param array<int, mixed> $data
+     *
+     * @return array<int, mixed>
+     */
     public function mapToIndex(array $data): array
     {
         $currency = $this->settingManager->findDefaultCurrency();
+
         return array_map(function (Product $product) use ($currency) {
             $productName = $product->getName();
-            $image = $product->getThumbnailImage() === null
+            $image = null === $product->getThumbnailImage()
                 ? null
                 : $this->fileService->preparePublicPathToFile($product->getThumbnailImage()->getFile()->getPath());
 
-              return ProductIndexResponseDTO::fromArray([
-                  'id' => $product->getId(),
-                  'image' => $image,
-                  'name' => $productName,
-                  'discountedPrice' => new Money($product->getDiscountPrice(), $currency),
-                  'regularPrice' => new Money($product->getRegularPrice(), $currency),
-                  'isActive' => $product->isActive(),
-                  'quantity' => $product->getQuantity(),
-              ]);
+            return ProductIndexResponseDTO::fromArray([
+                'id' => $product->getId(),
+                'image' => $image,
+                'name' => $productName,
+                'discountedPrice' => new Money($product->getDiscountPrice(), $currency),
+                'regularPrice' => new Money($product->getRegularPrice(), $currency),
+                'isActive' => $product->isActive(),
+                'quantity' => $product->getQuantity(),
+            ]);
         }, $data);
     }
 
@@ -65,7 +69,7 @@ final readonly class ProductMapper
         $productAttributes = [];
         $product->getAttributeValues()->map(function (AttributeValue $attributeValue) use (&$productAttributes) {
             $attributeId = $attributeValue->getAttribute()->getId();
-            $index = 'attribute_' . $attributeId;
+            $index = 'attribute_'.$attributeId;
 
             $productAttributes[$index][] = (string) $attributeValue->getId();
 
@@ -90,16 +94,20 @@ final readonly class ProductMapper
             'attributes' => $productAttributes,
             'images' => $product->getImages()->map(function (ProductImage $productImage) {
                 $file = $productImage->getFile();
+
                 return ProductImageResponseDTO::fromArray([
                     'id' => $file->getId(),
                     'name' => $file->getOriginalName(),
                     'preview' => $this->fileService->preparePublicPathToFile($file->getPath()),
-                    'isThumbnail' => $productImage->isThumbnail()
+                    'isThumbnail' => $productImage->isThumbnail(),
                 ]);
             })->toArray(),
         ]);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getOptions(): array
     {
         return [
@@ -111,8 +119,12 @@ final readonly class ProductMapper
         ];
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     private function getCategories(): array
     {
+        /** @var Category[] $categories */
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
 
         return Utils::buildSelectedOptions(
@@ -122,8 +134,12 @@ final readonly class ProductMapper
         );
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     private function getVendors(): array
     {
+        /** @var Vendor[] $vendors */
         $vendors = $this->entityManager->getRepository(Vendor::class)->findAll();
 
         return Utils::buildSelectedOptions(
@@ -133,8 +149,12 @@ final readonly class ProductMapper
         );
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     private function getTags(): array
     {
+        /** @var Tag[] $tags */
         $tags = $this->entityManager->getRepository(Tag::class)->findAll();
 
         return Utils::buildSelectedOptions(
@@ -144,8 +164,12 @@ final readonly class ProductMapper
         );
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     private function getDeliveryTimes(): array
     {
+        /** @var DeliveryTime[] $deliveryTimes */
         $deliveryTimes = $this->entityManager->getRepository(DeliveryTime::class)->findAll();
 
         return Utils::buildSelectedOptions(
@@ -155,12 +179,15 @@ final readonly class ProductMapper
         );
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     private function getAttributes(): array
     {
+        /** @var Attribute[] $attributes */
         $attributes = $this->entityManager->getRepository(Attribute::class)->findAll();
 
         $data = [];
-        /** @var Attribute $attribute */
         foreach ($attributes as $key => $attribute) {
             $data[$key]['options'] = Utils::buildSelectedOptions(
                 $attribute->getValues()->toArray(),
@@ -168,7 +195,7 @@ final readonly class ProductMapper
                 fn (AttributeValue $attributeValue) => (string) $attributeValue->getId(),
             );
             $data[$key]['label'] = $attribute->getName();
-            $data[$key]['name'] = "attribute_" . $attribute->getId();
+            $data[$key]['name'] = 'attribute_'.$attribute->getId();
         }
 
         return $data;

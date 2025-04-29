@@ -12,8 +12,9 @@ final readonly class FilterBuilder
     public function __construct(
         private QueryBuilder $queryBuilder,
         private PaginationFilters $filters,
-        private string            $alias
-    ) {}
+        private string $alias
+    ) {
+    }
 
     public function applyIsActive(): self
     {

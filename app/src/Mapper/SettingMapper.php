@@ -20,16 +20,22 @@ final readonly class SettingMapper
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private TranslatorInterface    $translator,
-    ) {}
+        private TranslatorInterface $translator,
+    ) {
+    }
 
+    /**
+     * @param array<int, mixed> $data
+     *
+     * @return array<int, mixed>
+     */
     public function mapToIndex(array $data): array
     {
         return array_map(function (Setting $setting) {
             $type = $this->translator->trans("base.setting_type.{$setting->getType()->value}");
             $value = $setting->getValue();
 
-            if ($setting->getType() === SettingType::CURRENCY) {
+            if (SettingType::CURRENCY === $setting->getType()) {
                 $decodedValue = json_decode($value, true);
                 $value = $this->entityManager->getRepository(Currency::class)->find($decodedValue['id'])?->getName();
             }
@@ -49,7 +55,7 @@ final readonly class SettingMapper
     {
         $settingValue = SettingValueFormResponseDTO::fromArray(['type' => SettingValueType::PLAIN_TEXT]);
 
-        if ($setting->getType() === SettingType::CURRENCY) {
+        if (SettingType::CURRENCY === $setting->getType()) {
             $settingValue = $this->settingValueResponseDTOForCurrency();
         }
 
@@ -59,12 +65,13 @@ final readonly class SettingMapper
             'type' => $setting->getType()->value,
             'value' => $setting->getValue(),
             'isProtected' => $setting->isProtected(),
-            'settingValue' => $settingValue
+            'settingValue' => $settingValue,
         ]);
     }
 
     private function settingValueResponseDTOForCurrency(): ResponseInterfaceData
     {
+        /** @var Currency[] $values */
         $values = $this->entityManager->getRepository(Currency::class)->findAll();
 
         return SettingValueFormResponseDTO::fromArray([
@@ -73,7 +80,7 @@ final readonly class SettingMapper
                 $values,
                 fn (Currency $currency) => $currency->getName(),
                 fn (Currency $currency) => $currency->getId()
-            )
+            ),
         ]);
     }
 

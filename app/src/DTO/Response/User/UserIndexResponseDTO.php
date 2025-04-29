@@ -12,8 +12,8 @@ final readonly class UserIndexResponseDTO implements ResponseInterfaceData
         public int $id,
         public string $fullName,
         public string $email,
-        public ?string $imagePath = null,
         public bool $isActive,
+        public ?string $imagePath = null,
     ) {
 
     }
@@ -24,8 +24,8 @@ final readonly class UserIndexResponseDTO implements ResponseInterfaceData
             id: $data['id'],
             fullName: $data['fullName'],
             email: $data['email'],
-            imagePath: $data['imagePath'],
             isActive: $data['isActive'],
+            imagePath: $data['imagePath'],
         );
     }
 }

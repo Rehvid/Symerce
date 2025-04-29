@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class SettingRepository extends AbstractRepository
 {
     public function __construct(
-        ManagerRegistry                $registry,
+        ManagerRegistry $registry,
         private readonly FilterBuilderFactory $filterBuilderFactory,
     ) {
         parent::__construct($registry);
@@ -30,6 +30,11 @@ class SettingRepository extends AbstractRepository
         return 'global_settings';
     }
 
+    /**
+     * @param array<int, mixed> $excludedTypes
+     *
+     * @return Setting[]
+     */
     public function findAllExcludingTypes(array $excludedTypes): array
     {
         return $this->createQueryBuilder('s')

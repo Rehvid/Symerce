@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Service\Pagination;
 
-use App\Repository\Base\AbstractRepository;
 use App\Repository\Interface\PaginationRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,13 +11,13 @@ final class PaginationService
 {
     public const int DEFAULT_LIMIT = 10;
 
+    /** @param array<string, mixed> $additionalData */
     public function buildPaginationResponse(
         Request $request,
         PaginationRepositoryInterface $repository,
         array $additionalData = []
-    ): PaginationResponse
-    {
-        $paginationMeta = $this->buildPaginationMeta($request, $repository);
+    ): PaginationResponse {
+        $paginationMeta = $this->buildPaginationMeta($request);
         $paginationFilters = $this->buildPaginationFilters($request, $additionalData);
 
         $result = $repository->findPaginated($paginationMeta, $paginationFilters);
@@ -29,12 +28,11 @@ final class PaginationService
             $paginationMeta = $this->normalizeCurrentPage($paginationMeta);
         }
 
-        return new PaginationResponse($result['items'] ?? [], $paginationMeta);
+        return new PaginationResponse($result['items'], $paginationMeta);
     }
 
-    private function buildPaginationMeta(Request $request, PaginationRepositoryInterface $repository): PaginationMeta
+    private function buildPaginationMeta(Request $request): PaginationMeta
     {
-        /** @phpstan-var AbstractRepository $repository */
         $limit = $request->query->getInt('limit', self::DEFAULT_LIMIT);
         $page = $request->query->getInt('page', 1);
         $offset = ($page - 1) * $limit;
@@ -46,6 +44,9 @@ final class PaginationService
         );
     }
 
+    /**
+     * @param array<string, mixed> $additionalData
+     */
     private function buildPaginationFilters(Request $request, array $additionalData = []): PaginationFilters
     {
         return new PaginationFilters(
@@ -54,7 +55,7 @@ final class PaginationService
         );
     }
 
-    /** @param array<int, mixed> $queryResult */
+    /** @param array<string, mixed> $queryResult */
     private function updatePaginationMetaFromResult(array $queryResult, PaginationMeta $meta): void
     {
         $totalItems = $queryResult['total'];

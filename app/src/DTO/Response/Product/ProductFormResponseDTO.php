@@ -8,7 +8,13 @@ use App\DTO\Response\ResponseInterfaceData;
 
 class ProductFormResponseDTO implements ResponseInterfaceData
 {
-
+    /**
+     * @param array<int, mixed> $optionTags
+     * @param array<int, mixed> $optionCategories
+     * @param array<int, mixed> $optionVendors
+     * @param array<int, mixed> $optionDeliveryTimes
+     * @param array<int, mixed> $optionAttributes
+     */
     protected function __construct(
         public ?array $optionTags,
         public ?array $optionCategories,
