@@ -18,6 +18,7 @@ const ProductForm = () => {
         setValue,
         setError,
         control,
+        watch,
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',
@@ -57,12 +58,27 @@ const ProductForm = () => {
         return <FormSkeleton rowsCount={8} />;
     }
 
+    console.log(watch());
+
+    const modifySubmitValues = (values) => {
+      const modifyValues = {...values};
+
+      if (modifyValues?.attributes) {
+        modifyValues.attributes = {
+          ...modifyValues.attributes
+        };
+      }
+
+      return modifyValues;
+    }
+
     return (
         <ApiForm
             apiConfig={getApiConfig()}
             handleSubmit={handleSubmit}
             setError={setError}
             apiRequestCallbacks={defaultApiSuccessCallback}
+            modifySubmitValues={modifySubmitValues}
         >
             <FormLayout
                 pageTitle={params.id ? 'Edytuj Produkt' : 'Dodaj Produkt'}

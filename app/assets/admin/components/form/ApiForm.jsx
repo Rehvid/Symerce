@@ -11,6 +11,7 @@ const ApiForm = ({
     setError,
     apiRequestCallbacks = {},
     additionalAlerts = {},
+    modifySubmitValues = null,
     children,
 }) => {
     const { handleApiRequest } = useApi();
@@ -19,7 +20,11 @@ const ApiForm = ({
 
     const onSubmit = async (values) => {
         setAlert({});
-        apiConfig.setBody(values);
+
+        modifySubmitValues
+          ? apiConfig.setBody(modifySubmitValues(values))
+          : apiConfig.setBody(values)
+        ;
 
         handleApiRequest(apiConfig, {
             onSuccess: (data, meta, message) => {
