@@ -12,23 +12,25 @@ use App\DTO\Response\ResponseInterfaceData;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
 use App\Entity\Category;
+use App\Entity\Currency;
 use App\Entity\DeliveryTime;
 use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Entity\Tag;
 use App\Entity\Vendor;
-use App\Service\FileService;
+use App\Mapper\Helper\ResponseMapperHelper;
+use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Service\SettingManager;
 use App\Utils\Utils;
 use App\ValueObject\Money;
 use Doctrine\ORM\EntityManagerInterface;
 
-final readonly class ProductMapper
+final readonly class ProductResponseMapper implements ResponseMapperInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
         private SettingManager $settingManager,
-        private FileService $fileService,
+        private ResponseMapperHelper $responseMapperHelper,
     ) {
     }
 
@@ -37,35 +39,48 @@ final readonly class ProductMapper
      *
      * @return array<int, mixed>
      */
-    public function mapToIndex(array $data): array
+    public function mapToIndexResponse(array $data = []): array
     {
         $currency = $this->settingManager->findDefaultCurrency();
 
-        return array_map(function (Product $product) use ($currency) {
-            $productName = $product->getName();
-            $image = null === $product->getThumbnailImage()
-                ? null
-                : $this->fileService->preparePublicPathToFile($product->getThumbnailImage()->getFile()->getPath());
-
-            return ProductIndexResponseDTO::fromArray([
-                'id' => $product->getId(),
-                'image' => $image,
-                'name' => $productName,
-                'discountedPrice' => new Money($product->getDiscountPrice(), $currency),
-                'regularPrice' => new Money($product->getRegularPrice(), $currency),
-                'isActive' => $product->isActive(),
-                'quantity' => $product->getQuantity(),
-            ]);
-        }, $data);
+        return $this->responseMapperHelper->prepareIndexFormDataResponse(
+            array_map(fn (Product $product) => $this->createProductIndexResponse($product, $currency), $data)
+        );
     }
 
-    public function mapToStoreFormData(): ResponseInterfaceData|ProductFormResponseDTO
+    private function createProductIndexResponse(Product $product, Currency $currency): ResponseInterfaceData
     {
-        return ProductFormResponseDTO::fromArray($this->getOptions());
+        $productName = $product->getName();
+        $image = null === $product->getThumbnailImage()
+            ? null
+            : $this->responseMapperHelper->buildPublicFilePath($product->getThumbnailImage()->getFile()->getPath());
+
+        return ProductIndexResponseDTO::fromArray([
+            'id' => $product->getId(),
+            'image' => $image,
+            'name' => $productName,
+            'discountedPrice' => new Money($product->getDiscountPrice(), $currency),
+            'regularPrice' => new Money($product->getRegularPrice(), $currency),
+            'isActive' => $product->isActive(),
+            'quantity' => $product->getQuantity(),
+        ]);
     }
 
-    public function mapToUpdateFormData(Product $product): ResponseInterfaceData
+    /**
+     * @return array<string, mixed>
+     */
+    public function mapToStoreFormDataResponse(): array
     {
+        return $this->responseMapperHelper->prepareFormDataResponse(
+            ProductFormResponseDTO::fromArray($this->getOptions())
+        );
+    }
+
+    public function mapToUpdateFormDataResponse(array $data = []): array
+    {
+        /** @var Product $product */
+        $product = $data['product'];
+
         $productAttributes = [];
         $product->getAttributeValues()->map(function (AttributeValue $attributeValue) use (&$productAttributes) {
             $attributeId = $attributeValue->getAttribute()->getId();
@@ -78,7 +93,7 @@ final readonly class ProductMapper
 
         $currency = $this->settingManager->findDefaultCurrency();
 
-        return ProductUpdateFormResponseDTO::fromArray([
+        $response =  ProductUpdateFormResponseDTO::fromArray([
             ...$this->getOptions(),
             'name' => $product->getName(),
             'slug' => $product->getSlug(),
@@ -98,11 +113,13 @@ final readonly class ProductMapper
                 return ProductImageResponseDTO::fromArray([
                     'id' => $file->getId(),
                     'name' => $file->getOriginalName(),
-                    'preview' => $this->fileService->preparePublicPathToFile($file->getPath()),
+                    'preview' => $this->responseMapperHelper->buildPublicFilePath($file->getPath()),
                     'isThumbnail' => $productImage->isThumbnail(),
                 ]);
             })->toArray(),
         ]);
+
+        return $this->responseMapperHelper->prepareFormDataResponse($response);
     }
 
     /**

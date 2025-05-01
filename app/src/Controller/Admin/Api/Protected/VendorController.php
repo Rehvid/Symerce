@@ -6,37 +6,47 @@ namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\Vendor\SaveVendorRequestDTO;
-use App\DTO\Response\FileResponseDTO;
-use App\DTO\Response\Vendor\VendorFormResponseDTO;
-use App\DTO\Response\Vendor\VendorIndexResponseDTO;
 use App\Entity\Vendor;
+use App\Mapper\VendorResponseMapper;
 use App\Repository\VendorRepository;
-use App\Service\FileService;
+use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\Pagination\PaginationService;
+use App\Service\Response\ResponseService;
+use App\Service\SortableEntityOrderUpdater;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/vendors', name: 'vendor_')]
 class VendorController extends AbstractAdminController
 {
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        PaginationService $paginationService,
+        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
+        private readonly VendorResponseMapper $vendorResponseMapper
+    ) {
+        parent::__construct(
+            $dataPersisterManager,
+            $translator,
+            $responseService,
+            $paginationService,
+            $sortableEntityOrderUpdater
+        );
+    }
+
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(Request $request, VendorRepository $repository, FileService $service): JsonResponse
+    public function index(Request $request, VendorRepository $repository): JsonResponse
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (Vendor $vendor) use ($service) {
-            return VendorIndexResponseDTO::fromArray([
-                'id' => $vendor->getId(),
-                'name' => $vendor->getName(),
-                'imagePath' => $service->preparePublicPathToFile($vendor->getImage()?->getPath()),
-                'isActive' => $vendor->isActive(),
-            ]);
-        }, $paginatedResponse->data);
-
         return $this->prepareJsonResponse(
-            data: $data,
+            data: $this->vendorResponseMapper->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
@@ -55,20 +65,10 @@ class VendorController extends AbstractAdminController
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(Vendor $vendor, FileService $service): JsonResponse
+    public function showUpdateFormData(Vendor $vendor): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => VendorFormResponseDTO::fromArray([
-                    'name' => $vendor->getName(),
-                    'isActive' => $vendor->isActive(),
-                    'image' => FileResponseDTO::fromArray([
-                        'id' => $vendor->getImage()?->getId(),
-                        'name' => "Avatar - {$vendor->getName()}",
-                        'preview' => $service->preparePublicPathToFile($vendor->getImage()?->getPath()),
-                    ]),
-                ]),
-            ]
+            data: $this->vendorResponseMapper->mapToUpdateFormDataResponse(['vendor' => $vendor])
         );
     }
 

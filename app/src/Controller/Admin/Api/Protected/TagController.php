@@ -6,33 +6,47 @@ namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\Tag\SaveTagRequestDTO;
-use App\DTO\Response\Tag\TagFormResponseDTO;
-use App\DTO\Response\Tag\TagIndexResponseDTO;
 use App\Entity\Tag;
+use App\Mapper\TagResponseMapper;
 use App\Repository\TagRepository;
+use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\Pagination\PaginationService;
+use App\Service\Response\ResponseService;
+use App\Service\SortableEntityOrderUpdater;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/tags', name: 'tag_')]
 class TagController extends AbstractAdminController
 {
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        PaginationService $paginationService,
+        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
+        private readonly TagResponseMapper $tagResponseMapper,
+    ) {
+        parent::__construct(
+            $dataPersisterManager,
+            $translator,
+            $responseService,
+            $paginationService,
+            $sortableEntityOrderUpdater
+        );
+    }
+
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(Request $request, TagRepository $repository): JsonResponse
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (Tag $tag) {
-            return TagIndexResponseDTO::fromArray([
-                'id' => $tag->getId(),
-                'name' => $tag->getName(),
-            ]);
-        }, $paginatedResponse->data);
-
         return $this->prepareJsonResponse(
-            data: $data,
+            data: $this->tagResponseMapper->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
@@ -41,11 +55,7 @@ class TagController extends AbstractAdminController
     public function showUpdateFormData(Tag $tag): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => TagFormResponseDTO::fromArray([
-                    'name' => $tag->getName(),
-                ]),
-            ]
+            data: $this->tagResponseMapper->mapToUpdateFormDataResponse(['tag' => $tag]),
         );
     }
 

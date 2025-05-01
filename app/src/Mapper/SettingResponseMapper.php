@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Mapper;
 
 use App\DTO\Response\ResponseInterfaceData;
+use App\DTO\Response\Setting\SettingFormResponseDTO;
 use App\DTO\Response\Setting\SettingIndexResponseDTO;
 use App\DTO\Response\Setting\SettingUpdateFormResponseDTO;
 use App\DTO\Response\Setting\SettingValueFormResponseDTO;
@@ -12,15 +13,18 @@ use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Enums\SettingType;
 use App\Enums\SettingValueType;
+use App\Mapper\Helper\ResponseMapperHelper;
+use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Utils\Utils;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final readonly class SettingMapper
+final readonly class SettingResponseMapper implements ResponseMapperInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
         private TranslatorInterface $translator,
+        private ResponseMapperHelper $responseMapperHelper,
     ) {
     }
 
@@ -29,37 +33,56 @@ final readonly class SettingMapper
      *
      * @return array<int, mixed>
      */
-    public function mapToIndex(array $data): array
+    public function mapToIndexResponse(array $data = []): array
     {
-        return array_map(function (Setting $setting) {
-            $type = $this->translator->trans("base.setting_type.{$setting->getType()->value}");
-            $value = $setting->getValue();
-
-            if (SettingType::CURRENCY === $setting->getType()) {
-                $decodedValue = json_decode($value, true);
-                $value = $this->entityManager->getRepository(Currency::class)->find($decodedValue['id'])?->getName();
-            }
-
-            return SettingIndexResponseDTO::fromArray([
-                'id' => $setting->getId(),
-                'name' => $setting->getName(),
-                'value' => $value,
-                'type' => $type,
-                'isProtected' => $setting->isProtected(),
-            ]);
-
-        }, $data);
+        return $this->responseMapperHelper->prepareIndexFormDataResponse(
+            array_map(fn (Setting $setting) => $this->createSettingIndexResponse($setting), $data)
+        );
     }
 
-    public function mapToShowUpdateFormData(Setting $setting): ResponseInterfaceData
+    private function createSettingIndexResponse(Setting $setting): ResponseInterfaceData
     {
+        $type = $this->translator->trans("base.setting_type.{$setting->getType()->value}");
+        $value = $setting->getValue();
+
+        if (SettingType::CURRENCY === $setting->getType()) {
+            $decodedValue = json_decode($value, true);
+            $value = $this->entityManager->getRepository(Currency::class)->find($decodedValue['id'])?->getName();
+        }
+
+        return SettingIndexResponseDTO::fromArray([
+            'id' => $setting->getId(),
+            'name' => $setting->getName(),
+            'value' => $value,
+            'type' => $type,
+            'isProtected' => $setting->isProtected(),
+        ]);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function mapToStoreFormDataResponse(): array
+    {
+        $response = SettingFormResponseDTO::fromArray([
+            'types' => $this->buildTranslatedOptionsForSettingTypeEnum(SettingType::translatedOptions()),
+        ]);
+
+        return $this->responseMapperHelper->prepareFormDataResponse($response);
+    }
+
+    public function mapToUpdateFormDataResponse(array $data = []): array
+    {
+        /** @var Setting $setting */
+        $setting = $data['setting'];
+
         $settingValue = SettingValueFormResponseDTO::fromArray(['type' => SettingValueType::PLAIN_TEXT]);
 
         if (SettingType::CURRENCY === $setting->getType()) {
             $settingValue = $this->settingValueResponseDTOForCurrency();
         }
 
-        return SettingUpdateFormResponseDTO::fromArray([
+        $response = SettingUpdateFormResponseDTO::fromArray([
             'name' => $setting->getName(),
             'types' => $this->buildTranslatedOptionsForSettingTypeEnum(SettingType::translatedOptions()),
             'type' => $setting->getType()->value,
@@ -67,6 +90,8 @@ final readonly class SettingMapper
             'isProtected' => $setting->isProtected(),
             'settingValue' => $settingValue,
         ]);
+
+        return $this->responseMapperHelper->prepareFormDataResponse($response);
     }
 
     private function settingValueResponseDTOForCurrency(): ResponseInterfaceData

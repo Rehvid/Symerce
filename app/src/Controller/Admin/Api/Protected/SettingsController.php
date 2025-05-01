@@ -1,19 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\Setting\SaveSettingRequestDTO;
-use App\DTO\Response\Setting\SettingFormResponseDTO;
 use App\Entity\Setting;
-use App\Enums\SettingType;
-use App\Mapper\SettingMapper;
+use App\Mapper\SettingResponseMapper;
 use App\Repository\SettingRepository;
 use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\Pagination\PaginationService;
 use App\Service\Response\ResponseService;
 use App\Service\SortableEntityOrderUpdater;
-use App\Utils\Utils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,7 @@ class SettingsController extends AbstractAdminController
         ResponseService $responseService,
         PaginationService $paginationService,
         SortableEntityOrderUpdater $sortableEntityOrderUpdater,
-        private readonly SettingMapper $mapper,
+        private readonly SettingResponseMapper $mapper,
     ) {
         parent::__construct(
             $dataPersisterManager,
@@ -46,15 +45,10 @@ class SettingsController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $additionalData = [
-            'types' => $this->buildTranslatedOptionsForSettingTypeEnum(SettingType::cases()),
-        ];
-
         return $this->prepareJsonResponse(
-            data: array_merge($this->mapper->mapToIndex($paginatedResponse->data), ['additionalData' => $additionalData]),
+            data: $this->mapper->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
-
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
@@ -74,11 +68,7 @@ class SettingsController extends AbstractAdminController
     public function showStoreFormData(): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => SettingFormResponseDTO::fromArray([
-                    'types' => $this->buildTranslatedOptionsForSettingTypeEnum(SettingType::translatedOptions()),
-                ]),
-            ]
+            data: $this->mapper->mapToStoreFormDataResponse()
         );
     }
 
@@ -86,9 +76,7 @@ class SettingsController extends AbstractAdminController
     public function showUpdateFormData(Setting $setting): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => $this->mapper->mapToShowUpdateFormData($setting),
-            ]
+            $this->mapper->mapToUpdateFormDataResponse(['setting' => $setting]),
         );
     }
 
@@ -112,19 +100,5 @@ class SettingsController extends AbstractAdminController
         $this->dataPersisterManager->delete($settings);
 
         return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.settings.destroy'));
-    }
-
-    /**
-     * @param array <mixed, mixed> $types
-     *
-     * @return array<int, mixed>
-     */
-    private function buildTranslatedOptionsForSettingTypeEnum(array $types): array
-    {
-        return Utils::buildSelectedOptions(
-            items: $types,
-            labelCallback: fn (SettingType $type) => $this->translator->trans("base.setting_type.{$type->value}"),
-            valueCallback: fn (SettingType $type) => $type->value,
-        );
     }
 }

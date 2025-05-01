@@ -8,7 +8,7 @@ use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\OrderRequestDTO;
 use App\DTO\Request\Product\SaveProductRequestDTO;
 use App\Entity\Product;
-use App\Mapper\ProductMapper;
+use App\Mapper\ProductResponseMapper;
 use App\Repository\ProductRepository;
 use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\Pagination\PaginationService;
@@ -30,7 +30,7 @@ class ProductController extends AbstractAdminController
         ResponseService $responseService,
         PaginationService $paginationService,
         SortableEntityOrderUpdater $sortableEntityOrderUpdater,
-        private readonly ProductMapper $mapper,
+        private readonly ProductResponseMapper $mapper,
     ) {
         parent::__construct(
             $dataPersisterManager,
@@ -47,7 +47,7 @@ class ProductController extends AbstractAdminController
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
         return $this->prepareJsonResponse(
-            data: $this->mapper->mapToIndex($paginatedResponse->data),
+            data: $this->mapper->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
@@ -55,13 +55,15 @@ class ProductController extends AbstractAdminController
     #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
     public function storeUpdateFormData(): JsonResponse
     {
-        return $this->prepareJsonResponse(data: ['formData' => $this->mapper->mapToStoreFormData()]);
+        return $this->prepareJsonResponse(data: $this->mapper->mapToStoreFormDataResponse());
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
     public function showUpdateFormData(Product $product): JsonResponse
     {
-        return $this->prepareJsonResponse(data: ['formData' => $this->mapper->mapToUpdateFormData($product)]);
+        return $this->prepareJsonResponse(
+            data: $this->mapper->mapToUpdateFormDataResponse(['product' => $product])
+        );
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]

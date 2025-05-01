@@ -6,63 +6,58 @@ namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\User\SaveUserRequestDTO;
-use App\DTO\Response\FileResponseDTO;
-use App\DTO\Response\User\UserFormResponseDTO;
-use App\DTO\Response\User\UserIndexResponseDTO;
 use App\Entity\User;
+use App\Mapper\UserResponseMapper;
 use App\Repository\UserRepository;
-use App\Service\FileService;
+use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\Pagination\PaginationService;
+use App\Service\Response\ResponseService;
+use App\Service\SortableEntityOrderUpdater;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/users', name: 'user_')]
 class UserController extends AbstractAdminController
 {
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        PaginationService $paginationService,
+        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
+        private readonly UserResponseMapper $userResponseMapper,
+    ) {
+        parent::__construct(
+            $dataPersisterManager,
+            $translator,
+            $responseService,
+            $paginationService,
+            $sortableEntityOrderUpdater
+        );
+    }
+
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(Request $request, UserRepository $repository, FileService $service): JsonResponse
+    public function index(Request $request, UserRepository $repository): JsonResponse
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $userData = array_map(function (User $user) use ($service) {
-            return UserIndexResponseDTO::fromArray([
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'fullName' => $user->getFullName(),
-                'isActive' => $user->isActive(),
-                'imagePath' => $service->preparePublicPathToFile($user->getAvatar()?->getPath()),
-            ]);
-        }, $paginatedResponse->data);
-
-
         return $this->prepareJsonResponse(
-            data: $userData,
+            data: $this->userResponseMapper->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(User $user, FileService $service): JsonResponse
+    public function showUpdateFormData(User $user): JsonResponse
     {
-        $data = [];
-        $fullName = $user->getFullName();
-        $data['formData'] = UserFormResponseDTO::fromArray([
-            'firstname' => $user->getFirstname(),
-            'surname' => $user->getSurname(),
-            'email' => $user->getEmail(),
-            'roles' => $user->getRoles(),
-            'isActive' => $user->isActive(),
-            'avatar' => FileResponseDTO::fromArray([
-                'id' => $user->getAvatar()?->getId(),
-                'name' => "Avatar - $fullName",
-                'preview' => $service->preparePublicPathToFile($user->getAvatar()?->getPath()),
-            ]),
-        ]);
-
-
-        return $this->prepareJsonResponse(data: $data);
+        return $this->prepareJsonResponse(
+            data:
+            $this->userResponseMapper->mapToUpdateFormDataResponse(['user' => $user])
+        );
     }
 
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]

@@ -6,66 +6,58 @@ namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\Carrier\SaveCarrierRequestDTO;
-use App\DTO\Response\Carrier\CarrierFormResponseDTO;
-use App\DTO\Response\Carrier\CarrierIndexResponseDTO;
-use App\DTO\Response\FileResponseDTO;
 use App\Entity\Carrier;
+use App\Mapper\CarrierResponseMapper;
 use App\Repository\CarrierRepository;
-use App\Service\FileService;
-use App\Service\SettingManager;
-use App\ValueObject\Money;
+use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\Pagination\PaginationService;
+use App\Service\Response\ResponseService;
+use App\Service\SortableEntityOrderUpdater;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/carriers', name: 'carrier_')]
 class CarrierController extends AbstractAdminController
 {
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        PaginationService $paginationService,
+        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
+        private readonly CarrierResponseMapper $carrierResponseMapper,
+    ) {
+        parent::__construct(
+            $dataPersisterManager,
+            $translator,
+            $responseService,
+            $paginationService,
+            $sortableEntityOrderUpdater
+        );
+    }
+
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(
         Request $request,
         CarrierRepository $repository,
-        SettingManager $settingManager,
-        FileService $service
     ): JsonResponse {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $defaultCurrency = $settingManager->findDefaultCurrency();
-
-        $data = array_map(function (Carrier $carrier) use ($service, $defaultCurrency) {
-            return CarrierIndexResponseDTO::fromArray([
-                'id' => $carrier->getId(),
-                'name' => $carrier->getName(),
-                'isActive' => $carrier->isActive(),
-                'fee' => new Money($carrier->getFee(), $defaultCurrency),
-                'imagePath' => $service->preparePublicPathToFile($carrier->getImage()?->getPath()),
-            ]);
-        }, $paginatedResponse->data);
-
         return $this->prepareJsonResponse(
-            data: $data,
+            data: $this->carrierResponseMapper->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(Carrier $carrier, FileService $service, SettingManager $settingManager): JsonResponse
+    public function showUpdateFormData(Carrier $carrier): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => CarrierFormResponseDTO::fromArray([
-                    'name' => $carrier->getName(),
-                    'fee' => new Money($carrier->getFee(), $settingManager->findDefaultCurrency()),
-                    'isActive' => $carrier->isActive(),
-                    'image' => FileResponseDTO::fromArray([
-                        'id' => $carrier->getImage()?->getId(),
-                        'name' => "Avatar - {$carrier->getName()}",
-                        'preview' => $service->preparePublicPathToFile($carrier->getImage()?->getPath()),
-                    ]),
-                ]),
-            ]
+            data: $this->carrierResponseMapper->mapToUpdateFormDataResponse(['carrier' => $carrier])
         );
     }
 

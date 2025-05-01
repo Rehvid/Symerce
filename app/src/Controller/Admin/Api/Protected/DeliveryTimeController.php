@@ -7,21 +7,43 @@ namespace App\Controller\Admin\Api\Protected;
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\DeliveryTime\SaveDeliveryTimeRequestDTO;
 use App\DTO\Request\OrderRequestDTO;
-use App\DTO\Response\DeliveryTime\DeliveryTimeFormResponseDTO;
 use App\DTO\Response\DeliveryTime\DeliveryTimeIndexResponseDTO;
 use App\Entity\DeliveryTime;
 use App\Enums\DeliveryType;
+use App\Mapper\DeliveryTimeResponseMapper;
 use App\Repository\DeliveryTimeRepository;
+use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\Pagination\PaginationService;
+use App\Service\Response\ResponseService;
+use App\Service\SortableEntityOrderUpdater;
 use App\Utils\Utils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/delivery-time', name: 'delivery_time_')]
 class DeliveryTimeController extends AbstractAdminController
 {
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        PaginationService $paginationService,
+        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
+        private readonly DeliveryTimeResponseMapper $deliveryTimeResponseMapper,
+    ) {
+        parent::__construct(
+            $dataPersisterManager,
+            $translator,
+            $responseService,
+            $paginationService,
+            $sortableEntityOrderUpdater
+        );
+    }
+
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(Request $request, DeliveryTimeRepository $repository): JsonResponse
     {
@@ -52,11 +74,7 @@ class DeliveryTimeController extends AbstractAdminController
     public function showStoreFormData(): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => DeliveryTimeFormResponseDTO::fromArray([
-                    'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::translatedOptions()),
-                ]),
-            ]
+            data: $this->deliveryTimeResponseMapper->mapToStoreFormDataResponse(),
         );
     }
 
@@ -64,15 +82,7 @@ class DeliveryTimeController extends AbstractAdminController
     public function showUpdateFormData(DeliveryTime $deliveryTime): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => DeliveryTimeFormResponseDTO::fromArray([
-                    'label' => $deliveryTime->getLabel(),
-                    'minDays' => $deliveryTime->getMinDays(),
-                    'maxDays' => $deliveryTime->getMaxDays(),
-                    'type' => $deliveryTime->getType()->value,
-                    'types' => $this->buildTranslatedOptionsForDeliverTypeEnum(DeliveryType::translatedOptions()),
-                ]),
-            ]
+            $this->deliveryTimeResponseMapper->mapToUpdateFormDataResponse(['deliveryTime' => $deliveryTime])
         );
     }
 

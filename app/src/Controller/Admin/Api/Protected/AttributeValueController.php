@@ -5,10 +5,9 @@ namespace App\Controller\Admin\Api\Protected;
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\AttributeValue\SaveAttributeValueRequestDTO;
 use App\DTO\Request\OrderRequestDTO;
-use App\DTO\Response\AttributeValue\AttributeValueFormResponseDTO;
-use App\DTO\Response\AttributeValue\AttributeValueIndexResponseDTO;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
+use App\Mapper\AttributeValueResponseMapper;
 use App\Repository\AttributeRepository;
 use App\Repository\AttributeValueRepository;
 use App\Service\DataPersister\Manager\PersisterManager;
@@ -32,6 +31,7 @@ class AttributeValueController extends AbstractAdminController
         PaginationService $paginationService,
         SortableEntityOrderUpdater $sortableEntityOrderUpdater,
         private readonly AttributeRepository $attributeRepository,
+        private readonly AttributeValueResponseMapper $attributeValueResponseMapper,
     ) {
         parent::__construct($dataPersisterManager, $translator, $responseService, $paginationService, $sortableEntityOrderUpdater);
     }
@@ -41,15 +41,8 @@ class AttributeValueController extends AbstractAdminController
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository, ['attributeId' => $attributeId]);
 
-        $data = array_map(function (AttributeValue $attributeValue) {
-            return AttributeValueIndexResponseDTO::fromArray([
-                'id' => $attributeValue->getId(),
-                'value' => $attributeValue->getValue(),
-            ]);
-        }, $paginatedResponse->data);
-
         return $this->prepareJsonResponse(
-            data: $data,
+            data: $this->attributeValueResponseMapper->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
@@ -76,14 +69,10 @@ class AttributeValueController extends AbstractAdminController
     }
 
     #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(AttributeValue $attribute): JsonResponse
+    public function showUpdateFormData(AttributeValue $attributeValue): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => AttributeValueFormResponseDTO::fromArray([
-                    'value' => $attribute->getValue(),
-                ]),
-            ]
+            data: $this->attributeValueResponseMapper->mapToUpdateFormDataResponse(['attributeValue' => $attributeValue]),
         );
     }
 

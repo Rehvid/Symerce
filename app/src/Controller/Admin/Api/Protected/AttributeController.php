@@ -7,33 +7,41 @@ namespace App\Controller\Admin\Api\Protected;
 use App\Controller\Admin\AbstractAdminController;
 use App\DTO\Request\Attribute\SaveAttributeRequestDTO;
 use App\DTO\Request\OrderRequestDTO;
-use App\DTO\Response\Attribute\AttributeFormResponseDTO;
-use App\DTO\Response\Attribute\AttributeIndexResponseDTO;
 use App\Entity\Attribute;
+use App\Mapper\AttributeResponseMapper;
 use App\Repository\AttributeRepository;
+use App\Service\DataPersister\Manager\PersisterManager;
+use App\Service\Pagination\PaginationService;
+use App\Service\Response\ResponseService;
+use App\Service\SortableEntityOrderUpdater;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/attributes', name: 'attribute_')]
 class AttributeController extends AbstractAdminController
 {
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        PaginationService $paginationService,
+        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
+        private readonly AttributeResponseMapper $attributeResponseMapper,
+    ) {
+        parent::__construct($dataPersisterManager, $translator, $responseService, $paginationService, $sortableEntityOrderUpdater);
+    }
+
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(Request $request, AttributeRepository $repository): JsonResponse
     {
         $paginatedResponse = $this->getPaginatedResponse($request, $repository);
 
-        $data = array_map(function (Attribute $attribute) {
-            return AttributeIndexResponseDTO::fromArray([
-                'id' => $attribute->getId(),
-                'name' => $attribute->getName(),
-            ]);
-        }, $paginatedResponse->data);
-
         return $this->prepareJsonResponse(
-            data: $data,
+            data: $this->attributeResponseMapper->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
@@ -61,11 +69,7 @@ class AttributeController extends AbstractAdminController
     public function showUpdateFormData(Attribute $attribute): JsonResponse
     {
         return $this->prepareJsonResponse(
-            data: [
-                'formData' => AttributeFormResponseDTO::fromArray([
-                    'name' => $attribute->getName(),
-                ]),
-            ]
+            data: $this->attributeResponseMapper->mapToUpdateFormDataResponse(['attribute' => $attribute]),
         );
     }
 
