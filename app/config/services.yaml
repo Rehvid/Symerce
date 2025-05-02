@@ -33,6 +33,8 @@ services:
             tags: ['app.update_persister']
         App\Service\DataPersister\Filler\Interface\EntityFillerInterface:
             tags: ['app.entity_filler']
+        App\Mapper\Interfaces\ResponseMapperInterface:
+            tags: ['app.mapper_response']
 
     App\Listeners\ExceptionListener:
         tags:
@@ -46,3 +48,7 @@ services:
     App\Service\DataPersister\Filler\Resolver\EntityFillerResolver:
         arguments:
             $fillers: !tagged_iterator app.entity_filler
+
+    App\Mapper\Manager\ManagerMapperResponse:
+        arguments:
+            $mappers: !tagged_iterator app.mapper_response

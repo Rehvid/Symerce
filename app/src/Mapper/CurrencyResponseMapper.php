@@ -40,7 +40,7 @@ final readonly class CurrencyResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var Currency $currency */
-        $currency = $data['currency'];
+        $currency = $data['entity'];
 
         $response = CurrencyFormResponseDTO::fromArray([
             'name' => $currency->getName(),

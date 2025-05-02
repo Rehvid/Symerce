@@ -38,7 +38,7 @@ final readonly class VendorResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var Vendor $vendor */
-        $vendor = $data['vendor'];
+        $vendor = $data['entity'];
         $name = $vendor->getName();
 
         $image = $vendor->getImage();

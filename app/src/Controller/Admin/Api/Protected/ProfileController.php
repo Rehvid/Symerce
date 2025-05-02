@@ -10,15 +10,28 @@ use App\DTO\Request\Profile\UpdatePersonalRequestDTO;
 use App\DTO\Response\FileResponseDTO;
 use App\DTO\Response\Profile\PersonalIndexResponseDTO;
 use App\Entity\User;
+use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\FileService;
+use App\Service\RequestDtoResolver;
+use App\Service\Response\ResponseService;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/profiles', name: 'profile_')]
 class ProfileController extends AbstractApiController
 {
-    #[Route('/{id}', name: 'index', methods: ['GET'])]
+    public function __construct(
+        PersisterManager $dataPersisterManager,
+        TranslatorInterface $translator,
+        ResponseService $responseService,
+        protected readonly RequestDtoResolver $requestDtoResolver,
+    ) {
+        parent::__construct($dataPersisterManager, $translator, $responseService);
+    }
+
+    #[Route('/{id}', name: 'index', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function index(User $user): JsonResponse
     {
         return $this->prepareJsonResponse(
@@ -33,14 +46,12 @@ class ProfileController extends AbstractApiController
         );
     }
 
-    #[Route('/{id}/personal', name: 'update_personal', methods: ['PUT'])]
-    public function updatePersonal(
-        User $user,
-        FileService $fileService,
-        #[MapRequestPayload] UpdatePersonalRequestDTO $persistable
-    ): JsonResponse {
-        $this->dataPersisterManager->update($persistable, $user);
+    #[Route('/{id}/personal', name: 'update_personal', requirements: ['id' => '\d+'], methods: ['PUT'])]
+    public function updatePersonal(User $user, FileService $fileService, Request $request): JsonResponse
+    {
+        $persistable = $this->requestDtoResolver->mapAndValidate($request, UpdatePersonalRequestDTO::class);
 
+        $this->dataPersisterManager->update($persistable, $user);
         $fullName = $user->getFullName();
 
         return $this->prepareJsonResponse(
@@ -57,17 +68,17 @@ class ProfileController extends AbstractApiController
                     ]),
                 ]),
             ],
-            message: $this->translator->trans('base.messages.profile.update')
+            message: $this->translator->trans('base.messages.update')
         );
     }
 
-    #[Route('/{id}/security', name: 'update_security', methods: ['PUT'])]
-    public function updateSecurity(
-        User $user,
-        #[MapRequestPayload] UpdateSecurityRequestDTO $persistable
-    ): JsonResponse {
+    #[Route('/{id}/security', name: 'update_security', requirements: ['id' => '\d+'], methods: ['PUT'])]
+    public function updateSecurity(User $user, Request $request): JsonResponse
+    {
+        $persistable = $this->requestDtoResolver->mapAndValidate($request, UpdateSecurityRequestDTO::class);
+
         $this->dataPersisterManager->update($persistable, $user);
 
-        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.profile.update'));
+        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.update'));
     }
 }

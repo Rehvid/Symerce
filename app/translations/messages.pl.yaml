@@ -16,57 +16,16 @@ base:
   messages:
     errors:
       validation_failed: 'Wystąpił błąd walidacji.'
+      not_found: 'Nie znaleziono zasobu.'
       jwt:
         token_not_provided: 'Token nie został dostarczony.'
         token_not_found: 'Token nie został znaleziony.'
         token_expired: 'Token wygasł.'
         token_invalid: 'Token jest nieprawidłowy.'
         invalid_credentials: 'Dane są nieprawidłowe, spróbuj ponownie.'
-    category:
-      store: 'Kategoria została pomyślnie dodana.'
-      update: 'Kategoria została pomyślnie zaktualizowana.'
-      destroy: 'Kategoria została pomyślnie usunięta.'
-    user:
-      store: 'Użytkownik został pomyślnie dodany.'
-      update: 'Użytkownik został pomyślnie zaktualizowany.'
-      destroy: 'Użytkownik został pomyślnie usunięty.'
-    profile:
-      update: 'Zmiany zostały pomyślnie zapisane.'
-    attribute:
-      store: 'Atrybut został pomyślnie dodany.'
-      update: 'Atrybut został pomyślnie zaktualizowany.'
-      destroy: 'Atrybut został pomyślnie zniszczony.'
-    attribute_value:
-      store: "Atrybut grupy: %name%, został pomyślnie dodany."
-      update: 'Atrybut grupy: %name%, został pomyslnie zaktualizowany'
-      destroy: 'Atrybut grupy: %name%, został pomyślnie zniszczony.'
-    vendor:
-      store: 'Producent został pomyślnie dodany.'
-      update: 'Producent został pomyślnie zaktualizowany.'
-      destroy: 'Producent został pomyślnie zniszczony.'
-    carrier:
-      store: 'Przewoźnik został pomyślnie dodany.'
-      update: 'Przewoźnik został pomyślnie zaktualizowany.'
-      destroy: 'Przewoźnik został pomyślnie usunięty.'
-    currency:
-      store: 'Waluta została pomyślnie dodana.'
-      update: 'Waluta została pomyślnie zaktualizowana.'
-      destroy: 'Waluta została pomyślnie usunięta.'
-    delivery_time:
-      store: 'Czas dostawy został pomyślnie dodany.'
-      update: 'Czas dostawy został pomyślnie zaktualizowany.'
-      destroy: 'Czas dostawy został pomyślnie usunięty.'
-    settings:
-      store: 'Ustawienia zostały pomyślnie zapisane.'
-      update: 'Ustawienia zostały pomyślnie zaktualizowane.'
-      destroy: 'Ustawienia zostały pomyślnie usunięte.'
-    tag:
-      store: 'Tag został pomyślnie dodany.'
-      update: 'Tag został pomyślnie zaktualizowany.'
-      destroy: 'Tag został pomyślnie usunięty.'
-    product:
-      store: 'Produkt został pomyślnie dodany.'
-      update: 'Produkt został pomyślnie zaktualizowany.'
-      destroy: 'Produkt został pomyślnie usunięty.'
+    store: 'Zapisano pomyślnie.'
+    update: 'Zaktualizowano pomyślnie.'
+    destroy: 'Usunięto pomyślnie.'
+    not_found: 'Nie znaleziono'
     update_order: 'Udało się zaktualizować pozycje!'
     destroy_file: 'Plik został pomyślnie usunięty.'

@@ -74,7 +74,7 @@ final readonly class SettingResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var Setting $setting */
-        $setting = $data['setting'];
+        $setting = $data['entity'];
 
         $settingValue = SettingValueFormResponseDTO::fromArray(['type' => SettingValueType::PLAIN_TEXT]);
 

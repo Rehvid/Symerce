@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Listeners;
 
 use App\DTO\Response\ErrorResponseDTO;
+use App\Exceptions\RequestValidationException;
 use App\Service\Response\ApiResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
-use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class ExceptionListener
@@ -26,22 +25,18 @@ final readonly class ExceptionListener
         if ($exception instanceof UnprocessableEntityHttpException) {
             $this->handleUnprocessableEntityException($event, $exception);
         }
+
+        if ($exception instanceof RequestValidationException) {
+            $this->handleRequestValidationException($event, $exception);
+        }
+
     }
 
     private function handleUnprocessableEntityException(
         ExceptionEvent $event,
         UnprocessableEntityHttpException $exception
     ): void {
-        $previousException = $exception->getPrevious();
-
-        if ($previousException instanceof ValidationFailedException) {
-            $this->handleValidationException($event, $previousException);
-
-            return;
-        }
-
         $this->logger->warning('UnprocessableEntityHttpException without ValidationFailedException.', ['exception' => $exception]);
-
 
         $errorDTO = ErrorResponseDTO::fromArray([
             'code' => $exception->getStatusCode(),
@@ -55,20 +50,18 @@ final readonly class ExceptionListener
         );
     }
 
-    private function handleValidationException(ExceptionEvent $event, ValidationFailedException $exception): void
+    private function handleRequestValidationException(ExceptionEvent $event, RequestValidationException $exception): void
     {
-        $this->logger->error($exception->getMessage(), ['exception' => $exception]);
-
         $errorDTO = ErrorResponseDTO::fromArray([
-            'code' => Response::HTTP_BAD_REQUEST,
-            'message' => $this->translator->trans('base.messages.errors.validation_failed'),
-            'details' => $this->prepareResponseDataForValidationException($exception),
+            'code' => $exception->getStatusCode(),
+            'details' => $exception->getErrors(),
+            'message' =>  $this->translator->trans('base.messages.errors.validation_failed'),
         ]);
 
         $this->setEventResponse(
             $event,
             $this->createApiResponse(error: $errorDTO)->toArray(),
-            Response::HTTP_BAD_REQUEST
+            $exception->getStatusCode()
         );
     }
 
@@ -77,23 +70,6 @@ final readonly class ExceptionListener
     {
         $response = new JsonResponse($responseData, $statusCode);
         $event->setResponse($response);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    private function prepareResponseDataForValidationException(ValidationFailedException $exception): array
-    {
-        $responseData = [];
-
-        $violations = $exception->getViolations();
-        foreach ($violations as $violation) {
-            $responseData[$violation->getPropertyPath()] = [
-                'message' => $violation->getMessage(),
-            ];
-        }
-
-        return $responseData;
     }
 
     private function createApiResponse(?ErrorResponseDTO $error = null): ApiResponse

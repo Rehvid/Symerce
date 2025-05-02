@@ -4,106 +4,60 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Api\Protected;
 
-use App\Controller\Admin\AbstractAdminController;
-use App\DTO\Request\OrderRequestDTO;
+use App\Controller\Admin\AbstractCrudAdminController;
 use App\DTO\Request\Product\SaveProductRequestDTO;
 use App\Entity\Product;
+use App\Interfaces\UpdateOrderControllerInterface;
+use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Mapper\ProductResponseMapper;
-use App\Repository\ProductRepository;
-use App\Service\DataPersister\Manager\PersisterManager;
-use App\Service\Pagination\PaginationService;
-use App\Service\Response\ResponseService;
-use App\Service\SortableEntityOrderUpdater;
+use App\Repository\Base\AbstractRepository;
+use App\Repository\Interface\OrderSortableRepositoryInterface;
+use App\Traits\UpdateOrderControllerTrait;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/products', name: 'products_')]
-class ProductController extends AbstractAdminController
+class ProductController extends AbstractCrudAdminController implements UpdateOrderControllerInterface
 {
-    public function __construct(
-        PersisterManager $dataPersisterManager,
-        TranslatorInterface $translator,
-        ResponseService $responseService,
-        PaginationService $paginationService,
-        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
-        private readonly ProductResponseMapper $mapper,
-    ) {
-        parent::__construct(
-            $dataPersisterManager,
-            $translator,
-            $responseService,
-            $paginationService,
-            $sortableEntityOrderUpdater
-        );
-    }
-
-    #[Route('', name: 'index', methods: ['GET'])]
-    public function index(Request $request, ProductRepository $repository): JsonResponse
-    {
-        $paginatedResponse = $this->getPaginatedResponse($request, $repository);
-
-        return $this->prepareJsonResponse(
-            data: $this->mapper->mapToIndexResponse($paginatedResponse->data),
-            meta: $paginatedResponse->paginationMeta->toArray()
-        );
-    }
+    use UpdateOrderControllerTrait;
 
     #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
     public function storeUpdateFormData(): JsonResponse
     {
-        return $this->prepareJsonResponse(data: $this->mapper->mapToStoreFormDataResponse());
+        /** @var ProductResponseMapper $responseMapper */
+        $responseMapper = $this->getResponseMapper();
+
+        return $this->prepareJsonResponse(data: $responseMapper->mapToStoreFormDataResponse());
     }
 
-    #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(Product $product): JsonResponse
+    protected function getUpdateDtoClass(): string
     {
-        return $this->prepareJsonResponse(
-            data: $this->mapper->mapToUpdateFormDataResponse(['product' => $product])
-        );
+        return SaveProductRequestDTO::class;
     }
 
-    #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(#[MapRequestPayload] SaveProductRequestDTO $persistable): JsonResponse
+    protected function getStoreDtoClass(): string
     {
-        /** @var Product $entity */
-        $entity = $this->dataPersisterManager->persist($persistable);
-
-        return $this->prepareJsonResponse(
-            data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.product.store'),
-            statusCode: Response::HTTP_CREATED
-        );
+        return SaveProductRequestDTO::class;
     }
 
-    #[Route('/order', name: 'order', methods: ['PUT'])]
-    public function order(#[MapRequestPayload] OrderRequestDTO $orderRequestDTO): JsonResponse
+    protected function getResponseMapper(): ResponseMapperInterface
     {
-        return $this->sortOrderForEntity($orderRequestDTO, Product::class);
+        return $this->managerMapperResponse->get(ProductResponseMapper::class);
     }
 
-    #[Route('/{id}', name: 'update', methods: ['PUT'])]
-    public function update(
-        Product $product,
-        #[MapRequestPayload] SaveProductRequestDTO $persistable
-    ): JsonResponse {
-        /** @var Product $entity */
-        $entity = $this->dataPersisterManager->update($persistable, $product);
-
-        return $this->prepareJsonResponse(
-            data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.product.update')
-        );
-    }
-
-    #[Route('/{id}', name: 'destroy', methods: ['DELETE'])]
-    public function destroy(Product $product): JsonResponse
+    protected function getRepository(): AbstractRepository
     {
-        $this->dataPersisterManager->delete($product);
+        return $this->getRepositoryInstanceForClass(Product::class);
+    }
 
-        return $this->prepareJsonResponse(message: $this->translator->trans('base.messages.product.destroy'));
+    public function getOrderSortableRepository(): OrderSortableRepositoryInterface|AbstractRepository
+    {
+        return $this->getRepository();
+    }
+
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->entityManager;
     }
 }

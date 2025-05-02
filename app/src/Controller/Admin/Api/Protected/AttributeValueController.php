@@ -1,111 +1,70 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin\Api\Protected;
 
-use App\Controller\Admin\AbstractAdminController;
+use App\Controller\Admin\AbstractCrudAdminController;
 use App\DTO\Request\AttributeValue\SaveAttributeValueRequestDTO;
-use App\DTO\Request\OrderRequestDTO;
-use App\Entity\Attribute;
 use App\Entity\AttributeValue;
+use App\Interfaces\UpdateOrderControllerInterface;
 use App\Mapper\AttributeValueResponseMapper;
-use App\Repository\AttributeRepository;
-use App\Repository\AttributeValueRepository;
-use App\Service\DataPersister\Manager\PersisterManager;
-use App\Service\Pagination\PaginationService;
-use App\Service\Response\ResponseService;
-use App\Service\SortableEntityOrderUpdater;
+use App\Mapper\Interfaces\ResponseMapperInterface;
+use App\Repository\Base\AbstractRepository;
+use App\Repository\Interface\OrderSortableRepositoryInterface;
+use App\Traits\UpdateOrderControllerTrait;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/attributes/{attributeId}/values', name: 'attribute_value_')]
-class AttributeValueController extends AbstractAdminController
+class AttributeValueController extends AbstractCrudAdminController implements UpdateOrderControllerInterface
 {
-    public function __construct(
-        PersisterManager $dataPersisterManager,
-        TranslatorInterface $translator,
-        ResponseService $responseService,
-        PaginationService $paginationService,
-        SortableEntityOrderUpdater $sortableEntityOrderUpdater,
-        private readonly AttributeRepository $attributeRepository,
-        private readonly AttributeValueResponseMapper $attributeValueResponseMapper,
-    ) {
-        parent::__construct($dataPersisterManager, $translator, $responseService, $paginationService, $sortableEntityOrderUpdater);
-    }
+    use UpdateOrderControllerTrait;
 
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(Request $request, AttributeValueRepository $repository, string $attributeId): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $paginatedResponse = $this->getPaginatedResponse($request, $repository, ['attributeId' => $attributeId]);
+        $paginatedResponse = $this->getPaginatedResponse(
+            $request,
+            $this->getRepository(),
+            ['attributeId' => $request->get('attributeId')]
+        );
 
         return $this->prepareJsonResponse(
-            data: $this->attributeValueResponseMapper->mapToIndexResponse($paginatedResponse->data),
+            data: $this->getResponseMapper()->mapToIndexResponse($paginatedResponse->data),
             meta: $paginatedResponse->paginationMeta->toArray()
         );
     }
 
-    #[Route('', name: 'store', methods: ['POST'], format: 'json')]
-    public function store(
-        string $attributeId,
-        #[MapRequestPayload] SaveAttributeValueRequestDTO $persistable,
-    ): JsonResponse {
-        /** @var AttributeValue $entity */
-        $entity = $this->dataPersisterManager->persist($persistable);
-
-        return $this->prepareJsonResponse(
-            data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.attribute_value.store', ['%name%' => $this->getAttributeName($attributeId)]),
-            statusCode: Response::HTTP_CREATED
-        );
-    }
-
-    #[Route('/order', name: 'order', methods: ['PUT'])]
-    public function order(#[MapRequestPayload] OrderRequestDTO $orderRequestDTO): JsonResponse
+    protected function getUpdateDtoClass(): string
     {
-        return $this->sortOrderForEntity($orderRequestDTO, AttributeValue::class);
+        return SaveAttributeValueRequestDTO::class;
     }
 
-    #[Route('/{id}/form-data', name: 'update_form_data', methods: ['GET'])]
-    public function showUpdateFormData(AttributeValue $attributeValue): JsonResponse
+    protected function getStoreDtoClass(): string
     {
-        return $this->prepareJsonResponse(
-            data: $this->attributeValueResponseMapper->mapToUpdateFormDataResponse(['attributeValue' => $attributeValue]),
-        );
+        return SaveAttributeValueRequestDTO::class;
     }
 
-    #[Route('/{id}', name: 'update', methods: ['PUT'])]
-    public function update(
-        string $attributeId,
-        AttributeValue $attribute,
-        #[MapRequestPayload] SaveAttributeValueRequestDTO $persistable,
-    ): JsonResponse {
-        /** @var AttributeValue $entity */
-        $entity = $this->dataPersisterManager->update($persistable, $attribute);
-
-        return $this->prepareJsonResponse(
-            data: ['id' => $entity->getId()],
-            message: $this->translator->trans('base.messages.attribute_value.update', ['%name%' => $this->getAttributeName($attributeId)])
-        );
-    }
-
-    #[Route('/{id}', name: 'destroy', methods: ['DELETE'])]
-    public function destroy(string $attributeId, AttributeValue $attribute): JsonResponse
+    protected function getResponseMapper(): ResponseMapperInterface
     {
-        $this->dataPersisterManager->delete($attribute);
-
-        return $this->prepareJsonResponse(
-            message: $this->translator->trans('base.messages.attribute_value.destroy', ['%name%' => $this->getAttributeName($attributeId)])
-        );
+        return $this->managerMapperResponse->get(AttributeValueResponseMapper::class);
     }
 
-    private function getAttributeName(string $attributeId): ?string
+    protected function getRepository(): AbstractRepository
     {
-        /** @var Attribute|null $attribute */
-        $attribute = $this->attributeRepository->find($attributeId);
+        return $this->getRepositoryInstanceForClass(AttributeValue::class);
+    }
 
-        return $attribute?->getName();
+    public function getOrderSortableRepository(): OrderSortableRepositoryInterface|AbstractRepository
+    {
+        return $this->getRepository();
+    }
+
+    public function getEntityManager(): EntityManagerInterface
+    {
+       return $this->entityManager;
     }
 }

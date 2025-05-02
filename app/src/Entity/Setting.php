@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enums\SettingType;
+use App\Interfaces\IdentifiableEntityInterface;
 use App\Repository\SettingRepository;
 use App\Traits\ActiveTrait;
 use App\Traits\CreatedAtTrait;
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SettingRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Setting
+class Setting implements IdentifiableEntityInterface
 {
     use CreatedAtTrait;
     use ActiveTrait;

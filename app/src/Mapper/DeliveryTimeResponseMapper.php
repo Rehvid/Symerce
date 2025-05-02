@@ -64,7 +64,7 @@ final readonly class DeliveryTimeResponseMapper implements ResponseMapperInterfa
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var DeliveryTime $deliveryTime */
-        $deliveryTime = $data['deliveryTime'];
+        $deliveryTime = $data['entity'];
 
         $response = DeliveryTimeFormResponseDTO::fromArray([
             'label' => $deliveryTime->getLabel(),

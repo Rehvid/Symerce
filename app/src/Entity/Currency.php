@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enums\DecimalPrecision;
+use App\Interfaces\IdentifiableEntityInterface;
 use App\Repository\CurrencyRepository;
 use App\Traits\ProtectedTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CurrencyRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Currency
+class Currency implements IdentifiableEntityInterface
 {
     use ProtectedTrait;
 

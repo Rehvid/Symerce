@@ -45,7 +45,7 @@ final readonly class CarrierResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var Carrier $carrier */
-        $carrier = $data['carrier'];
+        $carrier = $data['entity'];
         $name = $carrier->getName();
         $image = $carrier->getImage();
 

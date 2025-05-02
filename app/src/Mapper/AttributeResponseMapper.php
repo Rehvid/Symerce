@@ -37,7 +37,7 @@ final readonly class AttributeResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var Attribute $attribute */
-        $attribute = $data['attribute'];
+        $attribute = $data['entity'];
 
         $response = AttributeFormResponseDTO::fromArray([
             'name' => $attribute->getName(),

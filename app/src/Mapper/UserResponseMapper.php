@@ -39,7 +39,7 @@ final readonly class UserResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var User $user */
-        $user = $data['user'];
+        $user = $data['entity'];
 
         $fullName = $user->getFullName();
         $avatar = $user->getAvatar();

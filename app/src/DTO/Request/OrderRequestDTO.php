@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\DTO\Request;
 
-final readonly class OrderRequestDTO
+use Symfony\Component\Validator\Constraints as Assert;
+
+final readonly class OrderRequestDTO implements PersistableInterface
 {
     public function __construct(
-        public int $movedId,
-        public int $newPosition,
-        public int $oldPosition,
+        #[Assert\NotBlank]  public int $movedId,
+        #[Assert\NotBlank]  public int $newPosition,
+        #[Assert\NotBlank]  public int $oldPosition,
     ) {
 
     }

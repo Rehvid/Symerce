@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\IdentifiableEntityInterface;
 use App\Repository\UserRepository;
 use App\Traits\ActiveTrait;
 use App\Traits\CreatedAtTrait;
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['email'], message: 'This account already exists.')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, IdentifiableEntityInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;

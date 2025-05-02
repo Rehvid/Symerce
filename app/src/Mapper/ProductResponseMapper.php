@@ -79,7 +79,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var Product $product */
-        $product = $data['product'];
+        $product = $data['entity'];
 
         $productAttributes = [];
         $product->getAttributeValues()->map(function (AttributeValue $attributeValue) use (&$productAttributes) {

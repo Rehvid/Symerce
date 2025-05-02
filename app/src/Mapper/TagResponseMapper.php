@@ -36,7 +36,7 @@ final readonly class TagResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var Tag $tag */
-        $tag = $data['tag'];
+        $tag = $data['entity'];
         $response = TagFormResponseDTO::fromArray([
             'name' => $tag->getName(),
         ]);

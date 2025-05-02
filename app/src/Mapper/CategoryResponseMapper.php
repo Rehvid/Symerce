@@ -53,7 +53,7 @@ final readonly class CategoryResponseMapper implements ResponseMapperInterface
     public function mapToUpdateFormDataResponse(array $data = []): array
     {
         /** @var Category $category */
-        $category = $data['category'];
+        $category = $data['entity'];
 
         $name = $category->getName();
         $image = $category->getImage();

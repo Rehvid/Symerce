@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\IdentifiableEntityInterface;
 use App\Repository\VendorRepository;
 use App\Traits\ActiveTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VendorRepository::class)]
-class Vendor
+class Vendor implements IdentifiableEntityInterface
 {
     use ActiveTrait;
 

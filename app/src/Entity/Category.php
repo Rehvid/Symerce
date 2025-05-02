@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
 use App\Repository\CategoryRepository;
 use App\Traits\CreatedAtTrait;
@@ -18,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
-class Category implements OrderSortableInterface
+class Category implements OrderSortableInterface, IdentifiableEntityInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
