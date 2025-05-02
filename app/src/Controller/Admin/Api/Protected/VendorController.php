@@ -12,7 +12,6 @@ use App\Mapper\VendorResponseMapper;
 use App\Repository\Base\AbstractRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 #[Route('/vendors', name: 'vendor_')]
 class VendorController extends AbstractCrudAdminController
 {

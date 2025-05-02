@@ -16,12 +16,10 @@ use App\Traits\UpdateOrderControllerTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
-
 #[Route('/attributes', name: 'attribute_')]
 class AttributeController extends AbstractCrudAdminController implements UpdateOrderControllerInterface
 {
     use UpdateOrderControllerTrait;
-
 
     protected function getUpdateDtoClass(): string
     {
@@ -30,7 +28,7 @@ class AttributeController extends AbstractCrudAdminController implements UpdateO
 
     protected function getStoreDtoClass(): string
     {
-       return SaveAttributeRequestDTO::class;
+        return SaveAttributeRequestDTO::class;
     }
 
     protected function getResponseMapper(): ResponseMapperInterface

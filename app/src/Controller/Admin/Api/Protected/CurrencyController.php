@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/currencies', name: 'currency_')]
 class CurrencyController extends AbstractCrudAdminController
 {
-
     protected function getUpdateDtoClass(): string
     {
         return SaveCurrencyRequestDTO::class;

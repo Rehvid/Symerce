@@ -65,6 +65,6 @@ class AttributeValueController extends AbstractCrudAdminController implements Up
 
     public function getEntityManager(): EntityManagerInterface
     {
-       return $this->entityManager;
+        return $this->entityManager;
     }
 }

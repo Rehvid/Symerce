@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Api\Protected;
 
-
 use App\Controller\Admin\AbstractCrudAdminController;
 use App\DTO\Request\Tag\SaveTagRequestDTO;
 use App\Entity\Tag;

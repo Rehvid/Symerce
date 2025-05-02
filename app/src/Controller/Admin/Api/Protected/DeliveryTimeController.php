@@ -22,7 +22,6 @@ class DeliveryTimeController extends AbstractCrudAdminController implements Upda
 {
     use UpdateOrderControllerTrait;
 
-
     #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
     public function showStoreFormData(): JsonResponse
     {
@@ -36,7 +35,7 @@ class DeliveryTimeController extends AbstractCrudAdminController implements Upda
 
     protected function getUpdateDtoClass(): string
     {
-       return SaveDeliveryTimeRequestDTO::class;
+        return SaveDeliveryTimeRequestDTO::class;
     }
 
     protected function getStoreDtoClass(): string

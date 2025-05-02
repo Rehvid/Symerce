@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Api\Protected;
 
-
 use App\Controller\Admin\AbstractCrudAdminController;
 use App\DTO\Request\Setting\SaveSettingRequestDTO;
 use App\Entity\Setting;
@@ -14,11 +13,9 @@ use App\Repository\Base\AbstractRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
-
 #[Route('/settings', name: 'setting_')]
 class SettingsController extends AbstractCrudAdminController
 {
-
     #[Route('/form-data', name: 'store_form_data', methods: ['GET'])]
     public function showStoreFormData(): JsonResponse
     {

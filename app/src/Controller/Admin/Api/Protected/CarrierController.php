@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/carriers', name: 'carrier_')]
 class CarrierController extends AbstractCrudAdminController
 {
-
     protected function getUpdateDtoClass(): string
     {
         return SaveCarrierRequestDTO::class;

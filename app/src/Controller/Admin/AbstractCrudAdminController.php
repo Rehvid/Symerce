@@ -25,7 +25,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class AbstractCrudAdminController extends AbstractApiController
 {
-
     public function __construct(
         protected readonly EntityManagerInterface $entityManager,
         protected readonly RequestDtoResolver $requestDtoResolver,
