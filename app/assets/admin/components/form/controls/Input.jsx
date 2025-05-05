@@ -26,7 +26,6 @@ const Input = React.forwardRef(
 
         const labelClasses = `duration-300 block mb-2    ${hasError ? 'text-red-900 peer-focus:text-red-900' : ''}`;
 
-        console.log(icon);
 
         return (
             <div className={`${containerClassName || ''}`}>
