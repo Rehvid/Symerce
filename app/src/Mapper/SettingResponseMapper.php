@@ -35,8 +35,14 @@ final readonly class SettingResponseMapper implements ResponseMapperInterface
      */
     public function mapToIndexResponse(array $data = []): array
     {
+        $settingData = array_map(fn (Setting $setting) => $this->createSettingIndexResponse($setting), $data);
+        $additionalData = [
+            'types' => $this->buildTranslatedOptionsForSettingTypeEnum(SettingType::cases()),
+        ];
+
         return $this->responseMapperHelper->prepareIndexFormDataResponse(
-            array_map(fn (Setting $setting) => $this->createSettingIndexResponse($setting), $data)
+            $settingData,
+            $additionalData,
         );
     }
 
