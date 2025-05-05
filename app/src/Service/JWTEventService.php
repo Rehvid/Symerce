@@ -109,7 +109,7 @@ final readonly class JWTEventService
         );
     }
 
-    private function createCookie(string $value, \DateTimeInterface|int $expire): Cookie
+    public function createCookie(string $value, \DateTimeInterface|int $expire): Cookie
     {
         return new Cookie(
             name: 'BEARER',

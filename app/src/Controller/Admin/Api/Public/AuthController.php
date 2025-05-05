@@ -12,6 +12,7 @@ use App\DTO\Response\ErrorResponseDTO;
 use App\Service\Auth\AuthService;
 use App\Service\Auth\ForgetPasswordService;
 use App\Service\Auth\ResetPasswordService;
+use App\Service\JWTEventService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,10 +69,10 @@ class AuthController extends AbstractApiController
     }
 
     #[Route('/logout', name: 'logout')]
-    public function logout(): JsonResponse
+    public function logout(JWTEventService $service): JsonResponse
     {
         $response = new JsonResponse(['success' => true], Response::HTTP_OK);
-        $response->headers->removeCookie('BEARER');
+        $response->headers->setCookie($service->createCookie('', 0));
 
         return $response;
     }
