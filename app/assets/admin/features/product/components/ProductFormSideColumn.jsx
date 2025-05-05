@@ -64,7 +64,7 @@ const ProductFormSideColumn = ({ register, control, fieldErrors, formData }) => 
                 <Controller
                     name="vendor"
                     control={control}
-                    defaultValue={[]}
+                    defaultValue={null}
                     render={({ field }) => (
                         <div>
                             <Select

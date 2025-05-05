@@ -51,9 +51,10 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
     #[ORM\Column(
         type: 'decimal',
         precision: DecimalPrecision::MAXIMUM_PRECISION->value,
-        scale: DecimalPrecision::MAXIMUM_SCALE->value
+        scale: DecimalPrecision::MAXIMUM_SCALE->value,
+        nullable: true
     )]
-    private string $discountPrice;
+    private ?string $discountPrice = null;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['unsigned' => true, 'default' => 0])]
     private int $quantity = 0;
@@ -136,7 +137,7 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
         return $this->regularPrice;
     }
 
-    public function getDiscountPrice(): string
+    public function getDiscountPrice(): ?string
     {
         return $this->discountPrice;
     }
@@ -248,7 +249,7 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
         $this->regularPrice = $regularPrice;
     }
 
-    public function setDiscountPrice(string $discountPrice): void
+    public function setDiscountPrice(?string $discountPrice): void
     {
         $this->discountPrice = $discountPrice;
     }

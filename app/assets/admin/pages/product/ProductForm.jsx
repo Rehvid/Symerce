@@ -18,7 +18,6 @@ const ProductForm = () => {
         setValue,
         setError,
         control,
-        watch,
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',
@@ -57,8 +56,6 @@ const ProductForm = () => {
     if (!isFormReady) {
         return <FormSkeleton rowsCount={8} />;
     }
-
-    console.log(watch());
 
     const modifySubmitValues = (values) => {
         const modifyValues = { ...values };

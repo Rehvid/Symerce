@@ -40,6 +40,7 @@ final class ProductEntityFiller extends BaseEntityFiller
     {
         $product = new Product();
         $product->setSlug($this->saveSlug($persistable->name, $persistable->slug));
+        $product->setOrder($this->entityManager->getRepository(Product::class)->count());
 
         return $this->fillEntity($persistable, $product);
     }
@@ -71,8 +72,11 @@ final class ProductEntityFiller extends BaseEntityFiller
         $entity->setActive($persistable->isActive);
         $entity->setDescription($persistable->description);
         $entity->setRegularPrice($persistable->regularPrice);
-        $entity->setDiscountPrice($persistable->discountPrice);
         $entity->setQuantity((int) $persistable->quantity);
+
+        if (null !== $persistable->discountPrice && $persistable->discountPrice !== '') {
+            $entity->setDiscountPrice($persistable->discountPrice);
+        }
 
         $this->fillCategories($persistable, $entity);
         $this->fillAttributeValues($persistable, $entity);

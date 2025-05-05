@@ -59,7 +59,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
             'id' => $product->getId(),
             'image' => $image,
             'name' => $productName,
-            'discountedPrice' => new Money($product->getDiscountPrice(), $currency),
+            'discountedPrice' => new Money($this->getDiscountPrice($product), $currency),
             'regularPrice' => new Money($product->getRegularPrice(), $currency),
             'isActive' => $product->isActive(),
             'quantity' => $product->getQuantity(),
@@ -93,13 +93,18 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
 
         $currency = $this->settingManager->findDefaultCurrency();
 
+        $discountPrice = $product->getDiscountPrice() === null
+            ? null
+            : (new Money($this->getDiscountPrice($product), $currency))->getFormattedAmount()
+        ;
+
         $response =  ProductUpdateFormResponseDTO::fromArray([
             ...$this->getOptions(),
             'name' => $product->getName(),
             'slug' => $product->getSlug(),
             'description' => $product->getDescription(),
             'regularPrice' => (new Money($product->getRegularPrice(), $currency))->getFormattedAmount(),
-            'discountPrice' => (new Money($product->getDiscountPrice(), $currency))->getFormattedAmount(),
+            'discountPrice' => $discountPrice,
             'quantity' => $product->getQuantity(),
             'isActive' => $product->isActive(),
             'vendor' => (string) $product->getVendor()?->getId(),
@@ -216,5 +221,10 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
         }
 
         return $data;
+    }
+
+    private function getDiscountPrice(Product $product): string
+    {
+        return $product->getDiscountPrice() === null ? '0' : $product->getDiscountPrice();
     }
 }

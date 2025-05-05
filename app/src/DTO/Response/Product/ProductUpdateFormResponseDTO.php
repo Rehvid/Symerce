@@ -25,7 +25,7 @@ final class ProductUpdateFormResponseDTO extends ProductFormResponseDTO
         public ?string $slug,
         public ?string $description,
         public string $regularPrice,
-        public string $discountPrice,
+        public ?string $discountPrice,
         public int $quantity,
         public bool $isActive,
         public ?string $vendor,
