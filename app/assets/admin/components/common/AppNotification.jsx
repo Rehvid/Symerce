@@ -55,14 +55,14 @@ const AppNotification = ({ label, variant, time }) => {
 
     return (
         <div className="py-5">
-            <div className="w-full flex items-center justify-between gap-3 w-full max-w-[340px] rounded-lg p-3 shadow-theme-sm bg-white relative">
+            <div className="w-full flex items-center justify-between gap-3 w-full max-w-[400px] rounded-lg px-3 py-4 shadow-xl bg-white relative">
                 <div className="flex items-center gap-4 w-full">
                     {iconVariants[variant]}
-                    <h4 className="font-medium text-gray-700 w-full break-all">{label}</h4>
+                    <h4 className="font-medium text-gray-700 w-full break-all pr-2">{label}</h4>
                 </div>
                 <CloseIcon className="text-gray-500 cursor-pointer" onClick={() => setIsVisible(false)} />
                 <div
-                    className={`absolute bottom-0 left-0 h-1 transition-all duration-500 border-t-4 bg-opacity-80 progress-bar ${variants[variant]}`}
+                    className={`absolute bottom-0 left-0  transition-all rounded-lg duration-500 border-t-5  progress-bar ${variants[variant]}`}
                     style={{ '--progress-time': `${time}ms` }}
                 ></div>
             </div>

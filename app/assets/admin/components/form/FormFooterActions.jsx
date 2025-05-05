@@ -1,5 +1,7 @@
 import AppButton from '@/admin/components/common/AppButton';
 import { useNavigate } from 'react-router-dom';
+import ArrowLeftIcon from '@/images/icons/arrow-left.svg';
+import SaveIcon from '@/images/icons/device-floppy.svg';
 
 const FormFooterActions = ({ children }) => {
     const navigate = useNavigate();
@@ -11,14 +13,16 @@ const FormFooterActions = ({ children }) => {
                     <AppButton
                         variant="secondary"
                         type="button"
-                        additionalClasses="px-5 py-3"
+                        additionalClasses="px-5 py-3 flex gap-2"
                         onClick={() => {
                             navigate(-1);
                         }}
                     >
+                        <ArrowLeftIcon />
                         Wstecz
                     </AppButton>
-                    <AppButton variant="primary" type="submit" additionalClasses="px-5 py-3">
+                    <AppButton variant="primary" type="submit" additionalClasses="px-5 py-3 flex gap-2">
+                        <SaveIcon />
                         Zapisz
                     </AppButton>
                 </div>

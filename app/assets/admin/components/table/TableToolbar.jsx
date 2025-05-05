@@ -1,39 +1,93 @@
 import SearchFilter from './Filters/SearchFilter';
 import AppButton from '@/admin/components/common/AppButton';
 import { isOnlyPaginationInDataTable } from '@/admin/utils/helper';
+import FilterIcon from '@/images/icons/filter.svg';
+import FilterResetIcon from '@/images/icons/filter-reset.svg';
+import SortResetIcon from '@/images/icons/sort-reset.svg';
+import { useModal } from '@/admin/hooks/useModal';
+import { POSITION_TYPES } from '@/admin/constants/positionConstants';
+import ModalHeader from '@/admin/components/modal/ModalHeader';
+import ModalBody from '@/admin/components/modal/ModalBody';
 
-const TableToolbar = ({ setSort, sort, filters, setFilters, additionalFilters = [], defaultFilters = {} }) => {
+const TableToolbar = ({
+    setSort,
+    sort,
+    filters,
+    setFilters,
+    additionalToolbarContent = '',
+    additionalFilters = [],
+    defaultFilters = {},
+}) => {
+    const { openModal } = useModal();
+
+    const renderModal = () => (
+        <>
+            <ModalHeader title="Filtry" />
+            <ModalBody>
+                <div className="flex flex-col gap-[2rem] justify-between lg:w-[500px]">{filtersContent()}</div>
+            </ModalBody>
+        </>
+    );
+
+    const openFilters = () => {
+        openModal(renderModal(), POSITION_TYPES.RIGHT);
+    };
+
+    const filtersContent = () => {
+        if (additionalFilters && additionalFilters.length === 0) {
+            return null;
+        }
+        return additionalFilters.map((filterComponent, index) => <div key={index}>{filterComponent}</div>);
+    };
+
+    const resetFilters = () => {
+        if (isOnlyPaginationInDataTable(filters)) {
+            return null;
+        }
+
+        const onClickFilters = () => {
+            const filtersToReset = { ...defaultFilters?.page, ...defaultFilters?.limit };
+            setFilters(filtersToReset);
+        };
+
+        return (
+            <AppButton onClick={() => onClickFilters()} variant="secondary" additionalClasses="px-4 py-1.5 flex gap-2">
+                <FilterResetIcon />
+                Resetuj Filtrowanie
+            </AppButton>
+        );
+    };
+
     return (
-        <div className="flex items-center gap-4 justify-between">
-            <div className="flex gap-2 items-center">
+        <>
+            {additionalToolbarContent && <div className="mb-[2rem]">{additionalToolbarContent}</div>}
+            <div className="sm:flex sm:items-center gap-4 sm:justify-between">
                 <SearchFilter filters={filters} setFilters={setFilters} />
-                {!isOnlyPaginationInDataTable(filters) && (
+                {additionalFilters && additionalFilters.length > 0 && (
                     <AppButton
-                        onClick={() => setFilters(defaultFilters)}
                         variant="secondary"
-                        additionalClasses="px-2 py-1.5"
+                        additionalClasses="h-[46px] px-5 flex gap-2 mt-4 sm:mt-0 w-full sm:w-auto justify-center items-center"
+                        onClick={() => openFilters()}
                     >
-                        Resetuj Filtrowanie
+                        <FilterIcon />
+                        Filtry
                     </AppButton>
                 )}
+            </div>
+            <div className="grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] sm:flex gap-4 mt-4">
+                {resetFilters()}
                 {sort && sort.orderBy !== null && (
                     <AppButton
                         onClick={() => setSort({ orderBy: null, direction: null })}
                         variant="secondary"
-                        additionalClasses="px-2 py-1.5"
+                        additionalClasses="px-4 py-1.5 flex gap-2"
                     >
+                        <SortResetIcon />
                         Resetuj sortowanie
                     </AppButton>
                 )}
-                {additionalFilters && additionalFilters.length > 0 && (
-                    <ul className="flex items-center justify-center gap-5">
-                        {additionalFilters.map((filterComponent, index) => (
-                            <li key={index}>{filterComponent}</li>
-                        ))}
-                    </ul>
-                )}
             </div>
-        </div>
+        </>
     );
 };
 

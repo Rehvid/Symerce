@@ -23,10 +23,10 @@ const MultiSelect = ({ options, selected, label, isRequired, onChange, hasError,
                     {label} {isRequired && <span className="pl-1 text-red-500">*</span>}
                 </Heading>
                 <DropdownButton
-                    className={`h-[46px] px-2.5 rounded-lg border border-gray-300 bg-white py-2.5  flex gap-2 items-center justify-between transition-all duration-300 cursor-pointer  ${hasError ? 'border-red-500 focus:ring-red-100' : 'border-gray-300'}  `}
+                    className={`min-h-[46px] px-2.5 rounded-lg border border-gray-300 bg-white py-2.5  flex gap-4 items-center justify-between transition-all duration-300 cursor-pointer  ${hasError ? 'border-red-500 focus:ring-red-100' : 'border-gray-300'}  `}
                     onClickExtra={() => setOpenDropdown((value) => !value)}
                 >
-                    <span className="flex gap-2 flex-wrap">
+                    <span className="flex gap-4 flex-wrap basis-[85%] ">
                         {selectedLabels.length > 0 ? (
                             selectedLabels.map((name, key) => <Badge key={key}>{name}</Badge>)
                         ) : (
@@ -34,7 +34,7 @@ const MultiSelect = ({ options, selected, label, isRequired, onChange, hasError,
                         )}
                     </span>
                     <ChevronIcon
-                        className={`${openDropdown ? 'rotate-180' : 'rotate-0'} transition-transform duration-300 text-gray-500`}
+                        className={`${openDropdown ? 'rotate-180' : 'rotate-0'}  transition-transform duration-300 text-gray-500`}
                     />
                 </DropdownButton>
                 <DropdownContent containerClasses="w-full mt-2">

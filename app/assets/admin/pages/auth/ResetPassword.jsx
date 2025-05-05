@@ -1,7 +1,8 @@
-import Card from '@/admin/components/Card';
 import { useEffect, useState } from 'react';
 import ResetPasswordForm from '@/admin/features/auth/components/ResetPasswordForm';
 import { useLocation, useNavigate } from 'react-router-dom';
+import AuthWrapper from '@/admin/pages/auth/AuthWrapper';
+import SuspenseFallback from '@/admin/pages/SuspenseFallback';
 
 const ResetPassword = () => {
     const [token, setToken] = useState(null);
@@ -21,16 +22,13 @@ const ResetPassword = () => {
     }, []);
 
     if (isLoading) {
-        return <>...Ładowanie</>;
+        return <SuspenseFallback />;
     }
 
     return (
-        <div className="container mx-auto my-auto py-8">
-            <Card additionalClasses="max-w-md mx-auto shadow-lg">
-                <h1 className="text-2xl font-bold py-5 mb-6 text-center ">Zresetuj hasło</h1>
-                <ResetPasswordForm token={token} />
-            </Card>
-        </div>
+        <AuthWrapper title="Zresetuj hasło">
+            <ResetPasswordForm token={token} />
+        </AuthWrapper>
     );
 };
 

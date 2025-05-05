@@ -14,7 +14,7 @@ const TablePagination = ({ filters, setFilters, pagination }) => {
     };
 
     return (
-        <div className="pt-5 px-2 flex justify-between border-t border-gray-100">
+        <div className="pt-5 px-2 border-t border-gray-100 flex flex-wrap flex-col-reverse w-full justify-center items-start gap-4  md:flex md:flex-row md:justify-between md:gap-2 md:items-baseline">
             <PaginationFilter filters={filters} setFilters={setFilters} />
             {pagination.totalPages > 1 && (
                 <ReactPaginate
@@ -36,7 +36,7 @@ const TablePagination = ({ filters, setFilters, pagination }) => {
                     disabledClassName="pointer-events-none text-gray-300"
                 />
             )}
-            <p className="pt-3 text-sm font-medium text-center text-black border-t border-gray-100   xl:border-t-0 xl:pt-0 xl:text-left">
+            <p className="pt-3 text-sm font-medium text-center text-black border-gray-100 hidden md:block">
                 {pagination.limit === -1 ? (
                     <span>Wyświetlane wszystkie {pagination.totalItems} wpisów.</span>
                 ) : (

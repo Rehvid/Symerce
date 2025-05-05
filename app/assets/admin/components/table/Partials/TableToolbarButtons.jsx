@@ -10,7 +10,7 @@ const TableToolbarButtons = ({ to = 'create', label = 'Dodaj', children }) => {
             <AppButton
                 onClick={() => navigate(to)}
                 variant="primary"
-                additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5"
+                additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5  sm:w-auto w-full"
             >
                 <PlusIcon /> {label}
             </AppButton>

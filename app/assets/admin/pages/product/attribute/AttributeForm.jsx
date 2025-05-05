@@ -8,6 +8,7 @@ import Input from '@/admin/components/form/controls/Input';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const AttributeForm = () => {
     const params = useParams();
@@ -59,6 +60,7 @@ const AttributeForm = () => {
                         hasError={!!fieldErrors?.name}
                         errorMessage={fieldErrors?.name?.message}
                         isRequired
+                        icon={<LabelNameIcon className="text-gray-500" />}
                     />
                 }
             />

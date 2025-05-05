@@ -1,5 +1,7 @@
 import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
+import NumberIcon from '@/images/icons/number.svg';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const CurrencyFormMainColumn = ({ register, fieldErrors }) => {
     return (
@@ -15,6 +17,7 @@ const CurrencyFormMainColumn = ({ register, fieldErrors }) => {
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
+                icon={<LabelNameIcon className="text-gray-500" />}
             />
             <Input
                 {...register('code', {
@@ -44,12 +47,13 @@ const CurrencyFormMainColumn = ({ register, fieldErrors }) => {
                     ...validationRules.min(0),
                     ...validationRules.max(8),
                 })}
-                type="text"
+                type="number"
                 id="roundingPrecision"
                 label="Precyzja zaokrąglenia"
                 hasError={!!fieldErrors?.roundingPrecision}
                 errorMessage={fieldErrors?.roundingPrecision?.message}
                 isRequired
+                icon={<NumberIcon className="text-gray-500" />}
             />
         </>
     );

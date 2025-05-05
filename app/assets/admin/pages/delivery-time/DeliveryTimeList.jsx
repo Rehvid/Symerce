@@ -66,31 +66,33 @@ const DeliveryTimeList = () => {
             filters={filters}
             nameFilter="type"
             options={additionalData?.types || []}
+            label="Typy"
         />,
         <RangeFilter setFilters={setFilters} filters={filters} label="Minimalne Dni" nameFilter="minDays" />,
         <RangeFilter setFilters={setFilters} filters={filters} label="Maksymalne Dni" nameFilter="maxDays" />,
     ];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Czasy dostawy" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Czasy dostawy" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                filters={filters}
-                setFilters={setFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                additionalFilters={additionalFilters}
-                useDraggable={true}
-                draggableCallback={draggableCallback}
-                sort={sort}
-                setSort={setSort}
-                defaultFilters={defaultFilters}
-            />
-        </>
+    return (
+        <DataTable
+            filters={filters}
+            setFilters={setFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            additionalFilters={additionalFilters}
+            useDraggable={true}
+            draggableCallback={draggableCallback}
+            sort={sort}
+            setSort={setSort}
+            defaultFilters={defaultFilters}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

@@ -62,25 +62,26 @@ const CurrencyList = () => {
         <RangeFilter filters={filters} setFilters={setFilters} label="Zaokrąglenie" nameFilter="roundingPrecision" />,
     ];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Waluty" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Waluty" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                title="Waluty"
-                filters={filters}
-                setFilters={setFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                sort={sort}
-                setSort={setSort}
-                additionalFilters={additionalFilters}
-                defaultFilters={defaultFilters}
-            />
-        </>
+    return (
+        <DataTable
+            title="Waluty"
+            filters={filters}
+            setFilters={setFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            sort={sort}
+            setSort={setSort}
+            additionalFilters={additionalFilters}
+            defaultFilters={defaultFilters}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

@@ -44,6 +44,17 @@ readonly class FileService
         ;
     }
 
+    public function getLogoPublicPath(): string
+    {
+        /** @var string $baseUrl */
+        $baseUrl = $this->parameterBag->get('app.base_url');
+
+        /** @var string $brandLogoShort */
+        $brandLogoShort = $this->parameterBag->get('app.brand_logo_short');
+
+        return $baseUrl . $brandLogoShort;
+    }
+
     private function processFileUpload(File $file, FileRequestDTO $fileRequestDTO): void
     {
         $uploadDirectory = $this->getUploadDirectory();

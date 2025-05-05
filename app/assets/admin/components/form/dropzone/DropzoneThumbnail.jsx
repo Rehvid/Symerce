@@ -3,9 +3,9 @@ import ModalFile from '@/admin/components/modal/ModalFile';
 
 const DropzoneThumbnail = ({ file, removeFile, index, variant, isMainThumbnail, children }) => {
     const variants = {
-        avatar: 'absolute flex top-0 h-full w-full rounded-full',
-        single: 'absolute flex top-0 h-full w-full rounded-lg border border-gray-200 p-2',
-        multiple: `relative flex h-40 w-40 rounded-lg border p-2  ${isMainThumbnail ? 'border-primary border-2' : 'border-gray-200'}`,
+        avatar: 'absolute flex top-0 h-40 w-40 rounded-full',
+        single: 'absolute flex top-0 rounded-lg w-full h-full border border-gray-200',
+        multiple: `relative flex sm:h-40 sm:w-40 max-w-lg w-full h-auto rounded-lg border p-2  ${isMainThumbnail ? 'border-primary border-2' : 'border-gray-200'}`,
     };
 
     const roundedClasses = `${variant === 'avatar' ? 'rounded-full' : 'rounded-lg'}`;

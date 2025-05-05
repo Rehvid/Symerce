@@ -1,11 +1,11 @@
 import AppButton from '@/admin/components/common/AppButton';
 
 const ProfileNavigation = ({ activeTab, setActiveTab, tabs }) => {
-    const activeClasses = `bg-primary-light text-primary font-medium hover:bg-primary-light`;
+    const activeClasses = `bg-primary text-white font-medium hover:bg-primary`;
 
     return (
         <>
-            <ul className="flex flex-col gap-5">
+            <ul className="flex flex-wrap gap-5 border-b border-gray-200">
                 {tabs.map((tab, index) => {
                     return (
                         <AppButton

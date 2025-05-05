@@ -25,8 +25,11 @@ const SearchFilter = ({ filters, setFilters }) => {
         <Input
             onChange={onChange}
             type="search"
-            defaultValue={filters?.search || ''}
+            value={filters?.search || ''}
             icon={<SearchIcon className="text-gray-500" />}
+            placeholder="Szukaj"
+            id="search"
+            containerClassName="w-full"
         />
     );
 };

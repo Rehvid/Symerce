@@ -39,22 +39,23 @@ const TagList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Tagi" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Tagi" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                filters={filters}
-                setFilters={setFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                sort={sort}
-                setSort={setSort}
-            />
-        </>
+    return (
+        <DataTable
+            filters={filters}
+            setFilters={setFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            sort={sort}
+            setSort={setSort}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 export default TagList;

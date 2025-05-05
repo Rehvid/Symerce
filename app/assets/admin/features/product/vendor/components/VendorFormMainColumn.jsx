@@ -6,6 +6,7 @@ import Heading from '@/admin/components/common/Heading';
 import { normalizeFiles } from '@/admin/utils/helper';
 import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 import Switch from '@/admin/components/form/controls/Switch';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const VendorFormMainColumn = ({ register, fieldErrors, formData, setFormData, setValue }) => {
     const formDataImage = normalizeFiles(formData?.image);
@@ -33,6 +34,7 @@ const VendorFormMainColumn = ({ register, fieldErrors, formData, setFormData, se
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
+                icon={<LabelNameIcon className="text-gray-500" />}
             />
 
             <Heading level="h4">

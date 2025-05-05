@@ -1,10 +1,10 @@
 export const prepareDraggableDataToUpdateOrder = (data) => {
-    const {movedId = null, oldPosition = null, newPosition = null} = data;
+    const { movedId = null, oldPosition = null, newPosition = null } = data;
 
     return {
         movedId,
         oldPosition,
-        newPosition
+        newPosition,
     };
 };
 

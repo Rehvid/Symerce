@@ -59,24 +59,25 @@ const VendorList = () => {
 
     const additionalFilters = [<ActiveFilter filters={filters} setFilters={setFilters} />];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Producenci" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Producenci" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                filters={filters}
-                setFilters={setFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                sort={sort}
-                setSort={setSort}
-                defaultFilters={defaultFilters}
-                additionalFilters={additionalFilters}
-            />
-        </>
+    return (
+        <DataTable
+            filters={filters}
+            setFilters={setFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            sort={sort}
+            setSort={setSort}
+            defaultFilters={defaultFilters}
+            additionalFilters={additionalFilters}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

@@ -9,6 +9,7 @@ const ActiveFilter = ({ filters, setFilters }) => (
             { label: 'Aktywny', value: true },
             { label: 'Nieaktywny', value: false },
         ]}
+        label="Aktywny"
     />
 );
 

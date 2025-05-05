@@ -20,13 +20,14 @@ const PaginationFilter = ({ filters, setFilters, overrideDefaultOptions = false,
     };
 
     return (
-        <div className="max-w-48 w-full">
+        <div className="md:max-w-48 w-full">
             <Select
                 name="limit"
                 selected={Number(filters.limit) || PAGINATION_FILTER_DEFAULT_OPTION}
                 onChange={onChange}
                 options={overrideDefaultOptions ? options : defaultOptions}
                 usePlaceholderOption={false}
+                dropdownContainerClasses="bottom-[60px]"
             />
         </div>
     );

@@ -2,6 +2,8 @@ import { validationRules } from '@/admin/utils/validationRules';
 import Input from '@/admin/components/form/controls/Input';
 import Select from '@/admin/components/form/controls/Select';
 import { Controller } from 'react-hook-form';
+import NumberIcon from '@/images/icons/number.svg';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }) => {
     return (
@@ -17,30 +19,33 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
+                icon={<LabelNameIcon className="text-gray-500" />}
             />
             <Input
                 {...register('minDays', {
                     ...validationRules.required(),
                     ...validationRules.min(0),
                 })}
-                type="text"
+                type="number"
                 id="minDays"
                 label="Minimalne dni"
                 hasError={!!fieldErrors?.minDays}
                 errorMessage={fieldErrors?.minDays?.message}
                 isRequired
+                icon={<NumberIcon className="text-gray-500" />}
             />
             <Input
                 {...register('maxDays', {
                     ...validationRules.required(),
                     ...validationRules.min(1),
                 })}
-                type="text"
+                type="number"
                 id="maxDays"
                 label="Maksymalne Dni"
                 hasError={!!fieldErrors?.maxDays}
                 errorMessage={fieldErrors?.maxDays?.message}
                 isRequired
+                icon={<NumberIcon className="text-gray-500" />}
             />
 
             <Controller

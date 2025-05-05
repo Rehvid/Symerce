@@ -91,7 +91,16 @@ const useListData = (endpoint, filters, setFilters, defaultSort) => {
         });
     };
 
-    return { items, pagination, isLoading, fetchItems, removeItem, sort, setSort, additionalData };
+    return {
+        items,
+        pagination,
+        isLoading,
+        fetchItems,
+        removeItem,
+        sort,
+        setSort,
+        additionalData,
+    };
 };
 
 export default useListData;

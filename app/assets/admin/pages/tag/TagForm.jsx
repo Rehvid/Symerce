@@ -8,6 +8,7 @@ import Input from '@/admin/components/form/controls/Input';
 import { validationRules } from '@/admin/utils/validationRules';
 import { useParams } from 'react-router-dom';
 import FormSkeleton from '@/admin/components/skeleton/FormSkeleton';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const TagForm = () => {
     const params = useParams();
@@ -59,6 +60,7 @@ const TagForm = () => {
                         hasError={!!fieldErrors?.name}
                         errorMessage={fieldErrors?.name?.message}
                         isRequired
+                        icon={<LabelNameIcon className="text-gray-500" />}
                     />
                 }
             />

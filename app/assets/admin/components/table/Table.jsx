@@ -5,6 +5,7 @@ import TableBody from './TableBody';
 const Table = ({
     filters,
     setFilters,
+    additionalToolbarContent = '',
     defaultFilters = {},
     columns = [],
     data = [],
@@ -17,35 +18,30 @@ const Table = ({
     children,
 }) => {
     return (
-        <div className="py-5">
-            <div className="rounded-xl border border-gray-200 bg-white">
-                <div className="p-6 border-gray-100">
-                    <div className="space-y-6">
-                        <TableToolbar
+        <div className="rounded-xl border border-gray-200 bg-white my-6">
+            <div className="p-6 space-y-6">
+                <TableToolbar
+                    filters={filters}
+                    setFilters={setFilters}
+                    additionalFilters={additionalFilters}
+                    additionalToolbarContent={additionalToolbarContent}
+                    sort={sort}
+                    setSort={setSort}
+                    defaultFilters={defaultFilters}
+                />
+                <div className="overflow-x-auto mb-0">
+                    <table className="w-full table-auto">
+                        <TableColumns columns={columns} sort={sort} setSort={setSort} />
+                        <TableBody
+                            data={data}
+                            useDraggable={useDraggable}
+                            draggableCallback={draggableCallback}
+                            pagination={pagination}
                             filters={filters}
-                            setFilters={setFilters}
-                            additionalFilters={additionalFilters}
-                            sort={sort}
-                            setSort={setSort}
-                            defaultFilters={defaultFilters}
                         />
-                        <div className="py-2">
-                            <div className="max-w-full overflow-x-auto mb-0 ">
-                                <table className="min-w-full">
-                                    <TableColumns columns={columns} sort={sort} setSort={setSort} />
-                                    <TableBody
-                                        data={data}
-                                        useDraggable={useDraggable}
-                                        draggableCallback={draggableCallback}
-                                        pagination={pagination}
-                                        filters={filters}
-                                    />
-                                </table>
-                            </div>
-                            {children}
-                        </div>
-                    </div>
+                    </table>
                 </div>
+                {children && children}
             </div>
         </div>
     );

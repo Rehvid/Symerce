@@ -81,26 +81,27 @@ const ProductList = () => {
         <ExactValueFilter filters={filters} setFilters={setFilters} label="Ilość" nameFilter="quantity" />,
     ];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Produkty" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Produkty" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                filters={filters}
-                setFilters={setFilters}
-                defaultFilters={defaultFilters}
-                sort={sort}
-                setSort={setSort}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                useDraggable
-                draggableCallback={draggableCallback}
-                additionalFilters={additionalFilters}
-            />
-        </>
+    return (
+        <DataTable
+            filters={filters}
+            setFilters={setFilters}
+            defaultFilters={defaultFilters}
+            sort={sort}
+            setSort={setSort}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            useDraggable
+            draggableCallback={draggableCallback}
+            additionalFilters={additionalFilters}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

@@ -2,13 +2,13 @@ import { NavLink } from 'react-router-dom';
 
 const AppLink = ({ to, state = {}, children, variant = 'default', additionalClasses = '', ...props }) => {
     const variants = {
-        sidebar: 'text-gray-700 rounded-lg hover:bg-gray-100',
+        sidebar: 'text-gray-700 rounded-lg hover:bg-primary hover:text-white',
         default: 'text-sm text-gray-500 hover:text-primary',
-        button: 'text-sm rounded-lg font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900',
+        button: 'text-sm rounded-lg font-medium text-gray-700 hover:bg-primary-hover hover:text-white',
     };
 
     const activeVariants = {
-        sidebar: 'bg-primary-light text-primary font-medium hover:bg-primary-light',
+        sidebar: 'bg-primary text-white font-medium hover:bg-primary',
         default: '',
         button: '',
     };

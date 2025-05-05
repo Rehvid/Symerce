@@ -3,7 +3,7 @@ import TableRowEditAction from '@/admin/components/table/Partials/TableRow/Table
 
 const TableActions = ({ id, onDelete, children }) => {
     return (
-        <div className="flex gap-2 items-center justify-center">
+        <div className="flex gap-2 items-center">
             <TableRowDeleteAction onClick={onDelete} />
             <TableRowEditAction to={`${id}/edit`} />
             {children}

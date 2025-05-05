@@ -10,7 +10,7 @@ const TableRowDeleteAction = ({ onClick }) => {
     const handleClick = () => {
         const title = (
             <div className="flex flex-col items-center gap-3 px-6">
-                <TrashIcon className="scale-[125%] text-gray-700" />
+                <TrashIcon className="scale-[125%] text-error" />
                 <span>Czy na pewno chcesz usunąć ten element?</span>
             </div>
         );
@@ -24,16 +24,20 @@ const TableRowDeleteAction = ({ onClick }) => {
             <>
                 <ModalHeader title={title} />
                 <ModalBody>
-                    <div className="flex justify-between">
+                    <div className="flex flex-col gap-5">
                         <AppButton
-                            variant="primary"
-                            additionalClasses="px-4 py-2.5 font-bold"
+                            variant="decline"
+                            additionalClasses="px-4 py-2.5 font-bold  w-full text-center"
                             onClick={() => confirmClick()}
                         >
-                            Tak
+                            Potwierdź usunięcie
                         </AppButton>
-                        <AppButton variant="secondary" additionalClasses="px-4 py-2.5 font-bold" onClick={closeModal}>
-                            Nie
+                        <AppButton
+                            variant="secondary"
+                            additionalClasses="px-4 py-2.5 font-bold w-full text-center "
+                            onClick={closeModal}
+                        >
+                            Anuluj operację
                         </AppButton>
                     </div>
                 </ModalBody>

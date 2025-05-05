@@ -9,11 +9,12 @@ import DropdownContent from '@/admin/components/dropdown/DropdownContent';
 const Select = ({
     options,
     selected,
-    label,
     isRequired,
     onChange,
     hasError,
     errorMessage,
+    label = '',
+    dropdownContainerClasses = '',
     usePlaceholderOption = true,
 }) => {
     const [openDropdown, setOpenDropdown] = useState(false);
@@ -25,19 +26,18 @@ const Select = ({
     const selectedLabel = options.find((opt) => opt.value === selected)?.label;
     const optionsWithPlaceholder = usePlaceholderOption ? [{ label: 'Wybierz...', value: null }, ...options] : options;
 
-    const renderHeading = () =>
-        label && (
-            <Heading level="h4" additionalClassNames={`mb-2 ${hasError ? ' text-red-900' : ''}`}>
-                {label} {isRequired && <span className="pl-1 text-red-500">*</span>}
-            </Heading>
-        );
+    const renderHeading = () => (
+        <Heading level="h4" additionalClassNames={`mb-2 ${hasError ? ' text-red-900' : ''}`}>
+            {label} {isRequired && <span className="pl-1 text-red-500">*</span>}
+        </Heading>
+    );
 
     return (
         <>
             <Dropdown>
-                {renderHeading}
+                {renderHeading()}
                 <DropdownButton
-                    className={`h-[46px] px-2.5 rounded-lg border border-gray-300 bg-white py-2.5  flex gap-2 items-center justify-between transition-all duration-300 cursor-pointer  ${hasError ? 'border-red-500 focus:ring-red-100' : 'border-gray-300'}  `}
+                    className={`min-h-[46px] px-2.5 rounded-lg border border-gray-300 bg-white py-2.5  flex gap-2 items-center justify-between transition-all duration-300 cursor-pointer  ${hasError ? 'border-red-500 focus:ring-red-100' : 'border-gray-300'}  `}
                     onClickExtra={() => setOpenDropdown((value) => !value)}
                 >
                     <span className="flex gap-2 flex-wrap">
@@ -51,7 +51,7 @@ const Select = ({
                         className={`${openDropdown ? 'rotate-180' : 'rotate-0'} transition-transform duration-300 text-gray-500`}
                     />
                 </DropdownButton>
-                <DropdownContent containerClasses="w-full mt-2">
+                <DropdownContent containerClasses={`w-full mt-2 ${dropdownContainerClasses}`}>
                     <ul className="flex flex-col">
                         {optionsWithPlaceholder.map((option, key) => {
                             const isSelected = selected === option.value;

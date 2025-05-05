@@ -1,6 +1,6 @@
 const TableRowImageWithText = ({ imagePath, text, defaultIcon }) => {
     return (
-        <div className="flex gap-4 items-center justify-center">
+        <div className="flex gap-4 items-center ">
             {imagePath ? (
                 <img src={imagePath} className="rounded-full w-12 h-12 object-cover" alt="Item image" />
             ) : (

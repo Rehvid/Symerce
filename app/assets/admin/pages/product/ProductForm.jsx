@@ -61,16 +61,16 @@ const ProductForm = () => {
     console.log(watch());
 
     const modifySubmitValues = (values) => {
-      const modifyValues = {...values};
+        const modifyValues = { ...values };
 
-      if (modifyValues?.attributes) {
-        modifyValues.attributes = {
-          ...modifyValues.attributes
-        };
-      }
+        if (modifyValues?.attributes) {
+            modifyValues.attributes = {
+                ...modifyValues.attributes,
+            };
+        }
 
-      return modifyValues;
-    }
+        return modifyValues;
+    };
 
     return (
         <ApiForm

@@ -63,26 +63,27 @@ const CategoryList = () => {
 
     const additionalFilters = [<ActiveFilter setFilters={setFilters} filters={filters} />];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Kategorie" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Kategorie" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                filters={filters}
-                setFilters={setFilters}
-                defaultFilters={defaultFilters}
-                additionalFilters={additionalFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                useDraggable={true}
-                draggableCallback={draggableCallback}
-                sort={sort}
-                setSort={setSort}
-            />
-        </>
+    return (
+        <DataTable
+            filters={filters}
+            setFilters={setFilters}
+            defaultFilters={defaultFilters}
+            additionalFilters={additionalFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            useDraggable={true}
+            draggableCallback={draggableCallback}
+            sort={sort}
+            setSort={setSort}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

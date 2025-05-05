@@ -1,14 +1,17 @@
 import { createContext, useState } from 'react';
 import ModalBackground from '@/admin/components/modal/ModalBackground';
+import { POSITION_TYPES as POSITION_TYPE } from '@/admin/constants/positionConstants';
 
 export const ModalContext = createContext({});
 
 export const ModalProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
+    const [position, setPosition] = useState(POSITION_TYPE.CENTER);
 
-    const openModal = (content) => {
+    const openModal = (content, newPosition = POSITION_TYPE.CENTER) => {
         setModalContent(content);
+        setPosition(newPosition);
         setIsOpen(true);
     };
 
@@ -24,9 +27,9 @@ export const ModalProvider = ({ children }) => {
                 <div
                     id="popup-modal"
                     tabIndex="-1"
-                    className={`backdrop-blur-lg overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-310 w-full h-[calc(100%-1rem)] max-h-full`}
+                    className={`bg-black/85 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-350 w-full h-screen `}
                 >
-                    <ModalBackground>{modalContent}</ModalBackground>
+                    <ModalBackground position={position}>{modalContent}</ModalBackground>
                 </div>
             )}
         </ModalContext.Provider>

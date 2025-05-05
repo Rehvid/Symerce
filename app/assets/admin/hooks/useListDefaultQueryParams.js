@@ -8,6 +8,7 @@ const useListDefaultQueryParams = () => {
         limit: Number(currentParams.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
         page: Number(currentParams.get('page')) || 1,
     };
+
     if (currentParams.has('search')) {
         defaultFilters.search = currentParams.get('search');
     }

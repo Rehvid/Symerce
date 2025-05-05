@@ -3,13 +3,16 @@ import SideBar from '@/admin/layouts/components/SideBar';
 import TopBar from '@/admin/layouts/components/TopBar';
 import { NotificationProvider } from '@/admin/store/NotificationContext';
 import { ModalProvider } from '@/admin/store/ModalContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser } from '@/admin/hooks/useUser';
 import { useAuth } from '@/admin/hooks/useAuth';
+import { useIsMobile } from '@/admin/hooks/useIsMobile';
 
 const AdminLayout = () => {
+    const isMobile = useIsMobile();
     const { isLoadingAuthorization, verifyAuth } = useAuth();
     const { isAuthenticated } = useUser();
+    const [sideBarContent, setSideBarContent] = useState(null);
 
     useEffect(() => {
         verifyAuth();
@@ -25,9 +28,9 @@ const AdminLayout = () => {
 
     return (
         <ModalProvider>
-            <SideBar />
             <div className="flex-1 transition-all duration-300 ease-in-out lg:ml-[290px] ">
-                <TopBar />
+                <SideBar isMobile={isMobile} setSideBarContent={setSideBarContent} />
+                <TopBar isMobile={isMobile} sideBarContent={sideBarContent} />
                 <NotificationProvider>
                     <div className="max-w-(--breakpoint-2xl) p-5 relative">
                         <Outlet />

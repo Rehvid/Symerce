@@ -5,7 +5,7 @@ export const NotificationContext = createContext({});
 
 export const NotificationProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([]);
-    const TIMEOUT_DELAY = 4000;
+    const TIMEOUT_DELAY = 3000;
 
     const addNotification = (label, variant) => {
         setNotifications((prev) => [...prev, { id: Date.now(), label, variant, time: TIMEOUT_DELAY }]);
@@ -16,7 +16,7 @@ export const NotificationProvider = ({ children }) => {
 
     return (
         <NotificationContext.Provider value={{ addNotification }}>
-            <div className="absolute top-14 right-26 z-50">
+            <div className="absolute top-14 right-1 z-50">
                 {notifications.map((notif) => (
                     <AppNotification key={notif.id} label={notif.label} variant={notif.variant} time={notif.time} />
                 ))}

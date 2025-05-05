@@ -9,6 +9,7 @@ import Heading from '@/admin/components/common/Heading';
 import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnail';
 import Switch from '@/admin/components/form/controls/Switch';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const CategoryFormMainColumn = ({ register, fieldErrors, formData, setFormData, setValue, params, watch, control }) => {
     const categoryImage = normalizeFiles(formData?.image);
@@ -36,6 +37,7 @@ const CategoryFormMainColumn = ({ register, fieldErrors, formData, setFormData, 
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
+                icon={<LabelNameIcon className="text-gray-500" />}
             />
 
             <Input

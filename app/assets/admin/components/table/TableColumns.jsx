@@ -29,14 +29,14 @@ const TableColumns = ({ columns, sort, setSort }) => {
         }
 
         return sort.direction === SORT_DIRECTION.ASC ? (
-            <SortAscendingIcon className="scale-75 text-black" />
+            <SortAscendingIcon className="scale-75 text-primary" />
         ) : (
-            <SortDescendingIcon className="scale-75 text-black" />
+            <SortDescendingIcon className="scale-75 text-primary" />
         );
     };
 
     return (
-        <thead className="bg-gray-50 border-b border-gray-100">
+        <thead className="border-b border-gray-100">
             <tr>
                 {columns.map((col, index) => {
                     const { label, orderBy, sortable = false } = col;

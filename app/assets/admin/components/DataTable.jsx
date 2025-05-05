@@ -9,7 +9,7 @@ const DataTable = ({
     items,
     pagination,
     additionalFilters,
-    actionButtons,
+    additionalToolbarContent,
     useDraggable,
     draggableCallback,
     sort = {},
@@ -22,7 +22,7 @@ const DataTable = ({
             defaultFilters={defaultFilters}
             additionalFilters={additionalFilters}
             columns={columns}
-            actionButtons={actionButtons}
+            additionalToolbarContent={additionalToolbarContent}
             data={items}
             useDraggable={useDraggable}
             draggableCallback={draggableCallback}

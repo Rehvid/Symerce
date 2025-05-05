@@ -7,6 +7,8 @@ import Dropzone from '@/admin/components/form/dropzone/Dropzone';
 import DropzoneThumbnail from '@/admin/components/form/dropzone/DropzoneThumbnail';
 import Switch from '@/admin/components/form/controls/Switch';
 import { useData } from '@/admin/hooks/useData';
+import CurrencyIcon from '@/admin/components/common/CurrencyIcon';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, setValue }) => {
     const { currency } = useData();
@@ -35,6 +37,7 @@ const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, s
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
+                icon={<LabelNameIcon className="text-gray-500" />}
             />
             <Input
                 {...register('fee', {
@@ -47,6 +50,7 @@ const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, s
                 hasError={!!fieldErrors?.fee}
                 errorMessage={fieldErrors?.fee?.message}
                 isRequired
+                icon={<CurrencyIcon />}
             />
             <Heading level="h4">
                 <span className="flex items-center">Miniaturka</span>

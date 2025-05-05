@@ -101,7 +101,7 @@ const TableBody = ({ data, useDraggable, draggableCallback, pagination, filters 
     const renderCells = (row) => {
         const cells = Array.isArray(row) ? row : Object.values(row);
         return cells.map((cell, cellIndex) => (
-            <td key={cellIndex} className="px-4 py-3 font-normal text-sm whitespace-nowrap text-center">
+            <td key={cellIndex} className="px-4 py-6 font-normal text-sm whitespace-nowrap">
                 {cell}
             </td>
         ));

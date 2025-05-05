@@ -68,24 +68,25 @@ const CarrierList = () => {
         <RangeFilter filters={filters} setFilters={setFilters} nameFilter="fee" label="Opłata" />,
     ];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Przewoźnicy" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Przewoźnicy" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                filters={filters}
-                setFilters={setFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                sort={sort}
-                setSort={setSort}
-                additionalFilters={additionalFilters}
-                defaultFilters={defaultFilters}
-            />
-        </>
+    return (
+        <DataTable
+            filters={filters}
+            setFilters={setFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            sort={sort}
+            setSort={setSort}
+            additionalFilters={additionalFilters}
+            defaultFilters={defaultFilters}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

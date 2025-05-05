@@ -5,7 +5,6 @@ base:
     repeat_password: 'Hasła muszą być identyczne.'
     not_exist_field: 'Pole nie zostało znalezione'
     too_many_decimal_places: 'Podana wartość zawiera zbyt wiele miejsc po przecinku. Maksymalnie {{ precision }}.'
-
   setting_type:
     custom: 'Niestanradowe'
     currency: 'Waluta'

@@ -1,23 +1,16 @@
 import Input from '@/admin/components/form/controls/Input';
 import { useState } from 'react';
-import Dropdown from '@/admin/components/dropdown/Dropdown';
-import DropdownButton from '@/admin/components/dropdown/DropdownButton';
-import ChevronIcon from '@/images/icons/chevron.svg';
-import DropdownContent from '@/admin/components/dropdown/DropdownContent';
-import Badge from '@/admin/components/common/Badge';
+import Heading from '@/admin/components/common/Heading';
+import NumberIcon from '@/images/icons/number.svg';
 
 const RangeFilter = ({ filters, setFilters, nameFilter, label, icon = null }) => {
-    const [openDropdown, setOpenDropdown] = useState(false);
+    const nameFilterFrom = `${nameFilter}From`;
+    const nameFilterTo = `${nameFilter}To`;
 
-    const value = {
-        from: filters[`${nameFilter}From`] ?? '',
-        to: filters[`${nameFilter}To`] ?? '',
-    };
+    const [fromValue, setFromValue] = useState(filters[nameFilterFrom] ?? '');
+    const [toValue, setToValue] = useState(filters[nameFilterTo] ?? '');
 
     const handleFilters = (newPartial) => {
-        const nameFilterFrom = `${nameFilter}From`;
-        const nameFilterTo = `${nameFilter}To`;
-
         const updatedFilters = { ...filters };
 
         if (newPartial.from !== undefined) {
@@ -40,46 +33,47 @@ const RangeFilter = ({ filters, setFilters, nameFilter, label, icon = null }) =>
     };
 
     const forChange = (e) => {
-        handleFilters({ from: e.target.value.trim() });
+        const newVal = e.target.value.trim();
+        setFromValue(newVal);
+        handleFilters({ from: newVal });
     };
 
     const toChange = (e) => {
-        handleFilters({ to: e.target.value.trim() });
+        const newVal = e.target.value.trim();
+        setToValue(newVal);
+        handleFilters({ to: newVal });
     };
 
-    const renderValueBadge = () => {
-        if (value.from !== null && value.from !== '' && value.to !== null && value.to !== '') {
-            return (
-                <>
-                    <Badge variant="info">{value.from}</Badge> - <Badge variant="info">{value.to}</Badge>
-                </>
-            );
-        }
-        return <span>{label}</span>;
-    };
+    const renderLabel = () => (
+        <Heading level="h4" additionalClassNames={`mb-2 flex gap-2 `}>
+            {icon}
+            {label}
+        </Heading>
+    );
 
     return (
-        <Dropdown>
-            <DropdownButton
-                className={`h-[46px] px-2.5 w-64 rounded-lg border border-gray-300 bg-white flex gap-2 items-center justify-between transition-all duration-300 cursor-pointer  `}
-                onClickExtra={() => setOpenDropdown((isOpen) => !isOpen)}
-            >
-                <span className="flex gap-2 flex-wrap text-gray-400">
-                    {icon && icon}
-                    {renderValueBadge()}
-                </span>
-                <ChevronIcon
-                    className={`${openDropdown ? 'rotate-180' : 'rotate-0'} transition-transform duration-300 text-gray-500`}
+        <>
+            {label && renderLabel()}
+            <div className="flex flex-col lg:flex-row gap-4 items-center ">
+                <Input
+                    onChange={forChange}
+                    value={fromValue}
+                    placeholder="Od"
+                    id={`${nameFilter}From`}
+                    type="number"
+                    icon={<NumberIcon className="text-gray-500" />}
                 />
-            </DropdownButton>
-            <DropdownContent containerClasses="w-full mt-2">
-                <div className="flex flex-col gap-4">
-                    {label}
-                    <Input onChange={forChange} value={value?.from || ''} placeholder="Od" />
-                    <Input onChange={toChange} value={value?.to || ''} placeholder="Do" />
-                </div>
-            </DropdownContent>
-        </Dropdown>
+                <div className="hidden lg:block">-</div>
+                <Input
+                    onChange={toChange}
+                    value={toValue}
+                    placeholder="Do"
+                    id={`${nameFilter}To`}
+                    type="number"
+                    icon={<NumberIcon className="text-gray-500" />}
+                />
+            </div>
+        </>
     );
 };
 

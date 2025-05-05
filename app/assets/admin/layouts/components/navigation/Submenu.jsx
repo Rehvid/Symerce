@@ -10,7 +10,7 @@ const Submenu = ({ buttonLabel, children }) => {
     return (
         <li>
             <button
-                className={`transition-all block py-2 px-5 text-gray-900 rounded-lg hover:bg-indigo-500 hover:text-white w-full flex justify-between cursor-pointer ${open ? 'bg-indigo-500 hover:bg-indigo-500 text-white ' : 'text-gray-900'}`}
+                className={`transition-all block py-2 px-5 text-gray-900 rounded-lg hover:bg-secondary hover:text-white w-full flex justify-between cursor-pointer ${open ? 'bg-secondary hover:bg-secondary text-white ' : 'text-gray-900'}`}
                 onClick={handleToggle}
             >
                 {buttonLabel}
@@ -21,7 +21,7 @@ const Submenu = ({ buttonLabel, children }) => {
                     open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
             >
-                <ul className="mt-4 space-y-1 ml-9 flex flex-col gap-2">{children}</ul>
+                <ul className="mt-4 space-y-1 ml-4 flex flex-col gap-2">{children}</ul>
             </div>
         </li>
     );

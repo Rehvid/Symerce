@@ -3,6 +3,7 @@ import Input from '@/admin/components/form/controls/Input';
 import Select from '@/admin/components/form/controls/Select';
 import { Controller } from 'react-hook-form';
 import { useEffect, useState } from 'react';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, control }) => {
     const [selectedOption, setSelectedOption] = useState('');
@@ -31,6 +32,7 @@ const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, c
                         hasError={!!fieldErrors?.name}
                         errorMessage={fieldErrors?.name?.message}
                         isRequired
+                        icon={<LabelNameIcon className="text-gray-500" />}
                     />
 
                     {formData.types && (
@@ -39,16 +41,14 @@ const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, c
                             control={control}
                             defaultValue={[]}
                             render={({ field }) => (
-                                <div>
-                                    <Select
-                                        label="Typy"
-                                        options={formData.types || []}
-                                        selected={field.value}
-                                        onChange={(value) => {
-                                            field.onChange(value);
-                                        }}
-                                    />
-                                </div>
+                                <Select
+                                    label="Typy"
+                                    options={formData.types || []}
+                                    selected={field.value}
+                                    onChange={(value) => {
+                                        field.onChange(value);
+                                    }}
+                                />
                             )}
                         />
                     )}

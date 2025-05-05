@@ -36,7 +36,7 @@ const SettingList = () => {
     const actions = (id, isProtected) => {
         if (isProtected) {
             return (
-                <div className="flex gap-2 justify-center">
+                <div className="flex gap-2">
                     <TableRowEditAction to={`${id}/edit`} />
                 </div>
             );
@@ -70,28 +70,29 @@ const SettingList = () => {
             filters={filters}
             nameFilter="type"
             options={additionalData?.types || []}
+            label="Typy"
         />,
     ];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Ustawienia" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Ustawienia" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                title="Globalne Ustawienia"
-                filters={filters}
-                setFilters={setFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                sort={sort}
-                setSort={setSort}
-                additionalFilters={additionalFilters}
-                defaultFilters={defaultFilters}
-            />
-        </>
+    return (
+        <DataTable
+            filters={filters}
+            setFilters={setFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            sort={sort}
+            setSort={setSort}
+            additionalFilters={additionalFilters}
+            defaultFilters={defaultFilters}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

@@ -53,25 +53,26 @@ const AttributeValueList = () => {
         { orderBy: 'actions', label: 'Actions' },
     ];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title={pageTitle} totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title={pageTitle} totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                title="Wartości"
-                filters={filters}
-                setFilters={setFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                useDraggable={true}
-                draggableCallback={draggableCallback}
-                sort={sort}
-                setSort={setSort}
-            />
-        </>
+    return (
+        <DataTable
+            title="Wartości"
+            filters={filters}
+            setFilters={setFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            useDraggable={true}
+            draggableCallback={draggableCallback}
+            sort={sort}
+            setSort={setSort}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

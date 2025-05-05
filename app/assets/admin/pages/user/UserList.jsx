@@ -61,24 +61,25 @@ const UserList = () => {
 
     const additionalFilters = [<ActiveFilter setFilters={setFilters} filters={filters} />];
 
-    return (
-        <>
-            <PageHeader title={<ListHeader title="Użytkownicy" totalItems={pagination.totalItems} />}>
-                <TableToolbarButtons />
-            </PageHeader>
+    const additionalToolbarContent = (
+        <PageHeader title={<ListHeader title="Użytkownicy" totalItems={pagination.totalItems} />}>
+            <TableToolbarButtons />
+        </PageHeader>
+    );
 
-            <DataTable
-                filters={filters}
-                setFilters={setFilters}
-                columns={columns}
-                items={data}
-                pagination={pagination}
-                sort={sort}
-                setSort={setSort}
-                additionalFilters={additionalFilters}
-                defaultFilters={defaultFilters}
-            />
-        </>
+    return (
+        <DataTable
+            filters={filters}
+            setFilters={setFilters}
+            columns={columns}
+            items={data}
+            pagination={pagination}
+            sort={sort}
+            setSort={setSort}
+            additionalFilters={additionalFilters}
+            defaultFilters={defaultFilters}
+            additionalToolbarContent={additionalToolbarContent}
+        />
     );
 };
 

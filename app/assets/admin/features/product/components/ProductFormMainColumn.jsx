@@ -9,6 +9,9 @@ import Heading from '@/admin/components/common/Heading';
 import { useEffect, useState } from 'react';
 import ProductDropzoneThumbnail from '@/admin/features/product/components/ProductDropzoneThumbnail';
 import { useData } from '@/admin/hooks/useData';
+import CurrencyIcon from '@/admin/components/common/CurrencyIcon';
+import NumberIcon from '@/images/icons/number.svg';
+import LabelNameIcon from '@/images/icons/label-name.svg';
 
 const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setValue }) => {
     const { currency } = useData();
@@ -47,6 +50,7 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
+                icon={<LabelNameIcon className="text-gray-500" />}
             />
 
             <div>
@@ -98,6 +102,7 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 hasError={!!fieldErrors?.regularPrice}
                 errorMessage={fieldErrors?.regularPrice?.message}
                 isRequired
+                icon={<CurrencyIcon />}
             />
 
             <Input
@@ -109,6 +114,7 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 label="Cena promocyjna"
                 hasError={!!fieldErrors?.discountPrice}
                 errorMessage={fieldErrors?.discountPrice?.message}
+                icon={<CurrencyIcon />}
             />
 
             <Input
@@ -122,6 +128,7 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 hasError={!!fieldErrors?.quantity}
                 errorMessage={fieldErrors?.quantity?.message}
                 isRequired
+                icon={<NumberIcon className="text-gray-500" />}
             />
         </>
     );

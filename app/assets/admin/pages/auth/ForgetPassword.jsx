@@ -1,14 +1,11 @@
-import Card from '@/admin/components/Card';
 import ForgotPasswordForm from '@/admin/features/auth/components/ForgetPasswordForm';
+import AuthWrapper from '@/admin/pages/auth/AuthWrapper';
 
 const ForgetPassword = () => {
     return (
-        <div className="container mx-auto my-auto py-8">
-            <Card additionalClasses="max-w-md mx-auto shadow-lg">
-                <h1 className="text-2xl font-bold py-5 mb-6 text-center ">Przypomnij hasło</h1>
-                <ForgotPasswordForm />
-            </Card>
-        </div>
+        <AuthWrapper title="Przypomnij Hasło">
+            <ForgotPasswordForm />
+        </AuthWrapper>
     );
 };
 

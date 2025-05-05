@@ -3,7 +3,19 @@ import Heading from '@/admin/components/common/Heading';
 
 const Input = React.forwardRef(
     (
-        { id, type = 'text', value, label, hasError, errorMessage, containerClassName, icon, isRequired, ...register },
+        {
+            id,
+            type = 'text',
+            value,
+            label,
+            hasError,
+            errorMessage,
+            containerClassName,
+            icon,
+            isRequired,
+            placeholder = '',
+            ...register
+        },
         ref,
     ) => {
         const inputClasses = `peer w-full h-[46px] rounded-lg border border-gray-300 bg-white py-2.5 pl-[16px] pr-[60px] text-sm text-gray-800 shadow-theme-xs transition-all placeholder:text-gray-400 focus:ring-4 ${
@@ -14,8 +26,10 @@ const Input = React.forwardRef(
 
         const labelClasses = `duration-300 block mb-2    ${hasError ? 'text-red-900 peer-focus:text-red-900' : ''}`;
 
+        console.log(icon);
+
         return (
-            <div className={`relative ${containerClassName || ''}`}>
+            <div className={`${containerClassName || ''}`}>
                 {label && (
                     <label htmlFor={id || 'input-id'} className={labelClasses}>
                         <Heading level="h4">
@@ -31,7 +45,7 @@ const Input = React.forwardRef(
                         id={id || 'input-id'}
                         value={value}
                         ref={ref}
-                        placeholder={' '}
+                        placeholder={placeholder}
                         {...register}
                     />
                     {icon && <span className="absolute right-3 top-1/2 -translate-y-1/2 ">{icon}</span>}
