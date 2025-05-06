@@ -1,9 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale|default('pl') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Sklep{% endblock %}</title>
+
+    {% set meta = meta|default({}) %}
+    {% set metaTitle = meta.title|default('shop.meta.title'|trans) %}
+
+    {% block meta %}
+        {% set metaDescription = meta.description|default('shop.meta.description'|trans) %}
+        <meta name="robots" content="index, follow">
+        <meta name="description" content="{{ metaDescription }}">
+        <meta property="og:title" content="{{ meta.ogTitle|default(metaTitle) }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="{{ meta.ogDescription|default(metaDescription) }}" />
+    {% endblock %}
+
+    {% block title %}
+        <title>{{ metaTitle }}</title>
+    {% endblock %}
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -12,11 +28,18 @@
     {% endblock %}
 
     {% block stylesheets %}
-
+        {{ encore_entry_link_tags('shop/style') }}
     {% endblock %}
 
 </head>
 <body>
+{% block header %}
+    {% include 'shop/layout/header.html.twig' %}
+{% endblock %}
+
 {% block body %}{% endblock %}
+{% block footer %}
+    {% include 'shop/layout/footer.html.twig' %}
+{% endblock %}
 </body>
 </html>

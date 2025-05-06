@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import '../styles/app.css';
+import '@/admin/styles/app.css';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import App from './App';

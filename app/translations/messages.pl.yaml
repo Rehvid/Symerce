@@ -28,3 +28,8 @@ base:
     not_found: 'Nie znaleziono'
     update_order: 'Udało się zaktualizować pozycje!'
     destroy_file: 'Plik został pomyślnie usunięty.'
+
+shop:
+  meta:
+    title: 'Symerce - Sklep'
+    description: 'Symerce - Opis strony'

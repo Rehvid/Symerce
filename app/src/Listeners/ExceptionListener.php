@@ -23,18 +23,25 @@ final readonly class ExceptionListener
 
     public function onKernelException(ExceptionEvent $event): void
     {
-        $exception = $event->getThrowable();
-        if ($exception instanceof UnprocessableEntityHttpException) {
-            $this->handleUnprocessableEntityException($event, $exception);
-            return;
+        $request = $event->getRequest();
+
+        if ($request->getContentTypeFormat() === 'json') {
+            $exception = $event->getThrowable();
+            if ($exception instanceof UnprocessableEntityHttpException) {
+                $this->handleUnprocessableEntityException($event, $exception);
+                return;
+            }
+
+            if ($exception instanceof RequestValidationException) {
+                $this->handleRequestValidationException($event, $exception);
+                return;
+            }
+
+
+            $this->handleException($event, $exception);
         }
 
-        if ($exception instanceof RequestValidationException) {
-            $this->handleRequestValidationException($event, $exception);
-            return;
-        }
 
-        $this->handleException($event, $exception);
     }
 
     private function handleUnprocessableEntityException(
@@ -97,5 +104,10 @@ final readonly class ExceptionListener
     private function createApiResponse(?ErrorResponseDTO $error = null): ApiResponse
     {
         return new ApiResponse(error: $error);
+    }
+
+    private function isApiResponse(ExceptionEvent $event): bool
+    {
+        dd($event->getRequest());
     }
 }

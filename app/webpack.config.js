@@ -15,7 +15,7 @@ if (ENTRY === 'admin' || ENTRY === 'all') {
     Encore.addEntry('admin/app', './assets/admin/index.jsx');
 }
 if (ENTRY === 'shop' || ENTRY === 'all') {
-
+    Encore.addEntry('shop/style', './assets/shop/styles/app.css')
 }
 
 Encore
