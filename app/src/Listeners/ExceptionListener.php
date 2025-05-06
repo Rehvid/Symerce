@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
-use App\DTO\Response\ErrorResponseDTO;
+use App\DTO\Admin\Response\ErrorResponseDTO;
 use App\Exceptions\RequestValidationException;
 use App\Service\Response\ApiResponse;
 use Psr\Log\LoggerInterface;

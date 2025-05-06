@@ -56,11 +56,24 @@ npm-install:
 node-npm-version:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "node -v && npm -v"
 
-npm-watch:
-	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run watch"
+npm-build-all:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run build:all"
 
-npm-build:
-	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run build"
+npm-build-admin:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run build:admin"
+
+npm-build-shop:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run build:shop"
+
+npm-watch-all:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run watch:all"
+
+npm-watch-admin:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run watch:admin"
+
+npm-watch-shop:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm run watch:shop"
+
 
 # PHP Tools
 phpstan:

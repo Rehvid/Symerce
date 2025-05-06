@@ -6,8 +6,6 @@ namespace App\Tests\File;
 
 use App\Entity\File;
 use App\Enums\FileMimeType;
-use App\Service\DataPersister\Persisters\Category\CategoryCreatePersister;
-use App\Service\FileService;
 use App\Tests\ApiTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
-use App\DTO\Request\User\ForgotPasswordRequestDTO;
-use App\DTO\Request\UserToken\StoreUserTokenRequestDTO;
-use App\DTO\Response\Mail\MailResponseDTO;
+use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
+use App\DTO\Admin\Request\UserToken\StoreUserTokenRequestDTO;
+use App\DTO\Admin\Response\Mail\MailResponseDTO;
 use App\Entity\User;
 use App\Entity\UserToken;
 use App\Enums\TokenType;

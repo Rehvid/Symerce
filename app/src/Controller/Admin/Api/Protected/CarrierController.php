@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\DTO\Request\Carrier\SaveCarrierRequestDTO;
+use App\DTO\Admin\Request\Carrier\SaveCarrierRequestDTO;
 use App\Entity\Carrier;
-use App\Mapper\CarrierResponseMapper;
+use App\Mapper\Admin\CarrierResponseMapper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Repository\Base\AbstractRepository;
 use Symfony\Component\Routing\Attribute\Route;

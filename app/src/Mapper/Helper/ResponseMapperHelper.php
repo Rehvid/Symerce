@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Mapper\Helper;
 
-use App\DTO\Response\FileResponseDTO;
-use App\DTO\Response\ResponseInterfaceData;
+use App\DTO\Admin\Response\FileResponseDTO;
+use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\Service\FileService;
 
 final readonly class ResponseMapperHelper

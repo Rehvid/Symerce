@@ -32,8 +32,12 @@
   "scripts": {
     "dev-server": "encore dev-server",
     "dev": "encore dev",
-    "watch": "encore dev --watch",
-    "build": "encore production --progress",
+    "build:all": "ENTRY=all NODE_ENV=production encore production",
+    "build:admin": "ENTRY=admin NODE_ENV=production encore production",
+    "build:shop": "ENTRY=shop NODE_ENV=production encore production",
+    "watch:all": "ENTRY=all encore dev --watch",
+    "watch:admin": "ENTRY=admin encore dev --watch",
+    "watch:shop": "ENTRY=shop encore dev --watch",
     "prettier-format": "prettier --write  assets/**/*.{js,jsx}"
   },
   "dependencies": {

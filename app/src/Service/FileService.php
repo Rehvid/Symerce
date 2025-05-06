@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\DTO\Request\FileRequestDTO;
+use App\DTO\Admin\Request\FileRequestDTO;
 use App\Entity\File;
 use App\Enums\FileMimeType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;

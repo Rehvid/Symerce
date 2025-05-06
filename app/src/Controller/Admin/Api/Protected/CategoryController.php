@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\DTO\Request\Category\SaveCategoryRequestDTO;
+use App\DTO\Admin\Request\Category\SaveCategoryRequestDTO;
 use App\Entity\Category;
 use App\Interfaces\UpdateOrderControllerInterface;
-use App\Mapper\CategoryResponseMapper;
+use App\Mapper\Admin\CategoryResponseMapper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Repository\Base\AbstractRepository;
 use App\Repository\Interface\OrderSortableRepositoryInterface;

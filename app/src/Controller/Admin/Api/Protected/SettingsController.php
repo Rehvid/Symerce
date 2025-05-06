@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\DTO\Request\Setting\SaveSettingRequestDTO;
+use App\DTO\Admin\Request\Setting\SaveSettingRequestDTO;
 use App\Entity\Setting;
+use App\Mapper\Admin\SettingResponseMapper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
-use App\Mapper\SettingResponseMapper;
 use App\Repository\Base\AbstractRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;

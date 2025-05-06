@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Base;
 
-use App\DTO\Request\PersistableInterface;
+use App\DTO\Admin\Request\PersistableInterface;
 use App\Exceptions\PersisterException;
 use App\Service\DataPersister\Interface\UpdatePersisterInterface;
 

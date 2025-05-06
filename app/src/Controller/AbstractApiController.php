@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\DTO\Response\ErrorResponseDTO;
+use App\DTO\Admin\Response\ErrorResponseDTO;
 use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;

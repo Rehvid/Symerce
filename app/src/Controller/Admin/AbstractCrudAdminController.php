@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AbstractApiController;
-use App\DTO\Request\PersistableInterface;
+use App\DTO\Admin\Request\PersistableInterface;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Mapper\Manager\ManagerMapperResponse;

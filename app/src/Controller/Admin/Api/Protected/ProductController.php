@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\DTO\Request\Product\SaveProductRequestDTO;
+use App\DTO\Admin\Request\Product\SaveProductRequestDTO;
 use App\Entity\Product;
 use App\Interfaces\UpdateOrderControllerInterface;
+use App\Mapper\Admin\ProductResponseMapper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
-use App\Mapper\ProductResponseMapper;
 use App\Repository\Base\AbstractRepository;
 use App\Repository\Interface\OrderSortableRepositoryInterface;
 use App\Traits\UpdateOrderControllerTrait;

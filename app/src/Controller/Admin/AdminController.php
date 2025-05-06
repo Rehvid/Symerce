@@ -20,7 +20,7 @@ class AdminController extends AbstractController
         $reactDataProvider = new ReactDataProvider();
         $reactDataProvider->add($provider);
 
-        return $this->render('admin.html.twig', [
+        return $this->render('admin/admin.html.twig', [
             'data' => $reactDataProvider->getData(),
             'logo' => $service->getLogoPublicPath()
         ]);

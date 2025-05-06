@@ -2,7 +2,7 @@
 
 namespace App\Service\DataPersister\Filler\Resolver;
 
-use App\DTO\Request\PersistableInterface;
+use App\DTO\Admin\Request\PersistableInterface;
 use App\Service\DataPersister\Filler\Interface\EntityFillerInterface;
 
 final class EntityFillerResolver

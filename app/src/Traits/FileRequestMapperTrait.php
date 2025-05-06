@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
-use App\DTO\Request\FileRequestDTO;
-use App\DTO\Request\PersistableInterface;
+use App\DTO\Admin\Request\FileRequestDTO;
+use App\DTO\Admin\Request\PersistableInterface;
 use App\Enums\FileMimeType;
 use App\Factory\PersistableDTOFactory;
 

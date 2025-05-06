@@ -1,0 +1,30 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\DTO\Admin\Response\Carrier;
+
+use App\DTO\Admin\Response\FileResponseDTO;
+use App\DTO\Admin\Response\ResponseInterfaceData;
+use App\ValueObject\Money;
+
+final class CarrierFormResponseDTO implements ResponseInterfaceData
+{
+    private function __construct(
+        public readonly string $name,
+        public readonly Money $fee,
+        public readonly bool $isActive,
+        public ?FileResponseDTO $image,
+    ) {
+    }
+
+    public static function fromArray(array $data): ResponseInterfaceData
+    {
+        return new self(
+            name: $data['name'],
+            fee: $data['fee'],
+            isActive: $data['isActive'],
+            image: $data['image'],
+        );
+    }
+}

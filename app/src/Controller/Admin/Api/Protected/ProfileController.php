@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\AbstractApiController;
-use App\DTO\Request\Profile\UpdateSecurityRequestDTO;
-use App\DTO\Request\Profile\UpdatePersonalRequestDTO;
-use App\DTO\Response\FileResponseDTO;
-use App\DTO\Response\Profile\PersonalIndexResponseDTO;
+use App\DTO\Admin\Request\Profile\UpdatePersonalRequestDTO;
+use App\DTO\Admin\Request\Profile\UpdateSecurityRequestDTO;
+use App\DTO\Admin\Response\FileResponseDTO;
+use App\DTO\Admin\Response\Profile\PersonalIndexResponseDTO;
 use App\Entity\User;
 use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\FileService;

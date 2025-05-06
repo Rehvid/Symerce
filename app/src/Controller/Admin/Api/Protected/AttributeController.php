@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\DTO\Request\Attribute\SaveAttributeRequestDTO;
+use App\DTO\Admin\Request\Attribute\SaveAttributeRequestDTO;
 use App\Entity\Attribute;
 use App\Interfaces\UpdateOrderControllerInterface;
-use App\Mapper\AttributeResponseMapper;
+use App\Mapper\Admin\AttributeResponseMapper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Repository\Base\AbstractRepository;
 use App\Repository\Interface\OrderSortableRepositoryInterface;

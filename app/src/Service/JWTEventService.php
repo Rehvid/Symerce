@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\DTO\Response\ErrorResponseDTO;
-use App\DTO\Response\User\UserSessionResponseDTO;
+use App\DTO\Admin\Response\ErrorResponseDTO;
+use App\DTO\Admin\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;

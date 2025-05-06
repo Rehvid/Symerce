@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\DTO\Request\User\StoreRegisterUserRequestDTO;
+use App\DTO\Admin\Request\User\StoreRegisterUserRequestDTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
-use App\Service\DataPersister\Persisters\User\UserRegisterCreatePersister;
+use App\Service\DataPersister\Persisters\Admin\User\UserRegisterCreatePersister;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;

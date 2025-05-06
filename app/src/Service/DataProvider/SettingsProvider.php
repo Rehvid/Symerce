@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataProvider;
 
-use App\DTO\Response\ProviderResponseDTO;
+use App\DTO\Admin\Response\ProviderResponseDTO;
 use App\Entity\Setting;
 use App\Enums\SettingType;
 use App\Repository\SettingRepository;

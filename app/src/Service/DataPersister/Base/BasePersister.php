@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Base;
 
-use App\DTO\Request\PersistableInterface;
+use App\DTO\Admin\Request\PersistableInterface;
 use App\Service\DataPersister\Filler\Resolver\EntityFillerResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Proxy;

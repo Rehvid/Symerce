@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Filler\Base;
 
-use App\DTO\Request\PersistableInterface;
+use App\DTO\Admin\Request\PersistableInterface;
 use App\Service\DataPersister\Filler\Interface\EntityFillerInterface;
 
 /**

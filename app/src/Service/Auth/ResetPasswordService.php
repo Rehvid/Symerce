@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
-use App\DTO\Request\Profile\UpdateSecurityRequestDTO;
+use App\DTO\Admin\Request\Profile\UpdateSecurityRequestDTO;
 use App\Entity\User;
 use App\Entity\UserToken;
 use App\Service\DataPersister\Manager\PersisterManager;

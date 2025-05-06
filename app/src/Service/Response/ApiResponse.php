@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Response;
 
-use App\DTO\Response\ErrorResponseDTO;
+use App\DTO\Admin\Response\ErrorResponseDTO;
 
 final readonly class ApiResponse
 {

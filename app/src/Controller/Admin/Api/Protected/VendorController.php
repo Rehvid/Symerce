@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\Mapper\Interfaces\ResponseMapperInterface;
-use App\DTO\Request\Vendor\SaveVendorRequestDTO;
+use App\DTO\Admin\Request\Vendor\SaveVendorRequestDTO;
 use App\Entity\Vendor;
-use App\Mapper\VendorResponseMapper;
+use App\Mapper\Admin\VendorResponseMapper;
+use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Repository\Base\AbstractRepository;
 use Symfony\Component\Routing\Annotation\Route;
 

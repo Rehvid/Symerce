@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
-use App\DTO\Request\OrderRequestDTO;
-use App\DTO\Request\PersistableInterface;
+use App\DTO\Admin\Request\OrderRequestDTO;
+use App\DTO\Admin\Request\PersistableInterface;
 use App\Factory\PersistableDTOFactory;
 use App\Interfaces\OrderSortableInterface;
 use App\Interfaces\UpdateOrderControllerInterface;

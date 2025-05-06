@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Public;
 
 use App\Controller\AbstractApiController;
-use App\DTO\Request\Profile\UpdateSecurityRequestDTO;
-use App\DTO\Request\User\ForgotPasswordRequestDTO;
-use App\DTO\Request\User\StoreRegisterUserRequestDTO;
-use App\DTO\Response\ErrorResponseDTO;
+use App\DTO\Admin\Request\Profile\UpdateSecurityRequestDTO;
+use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
+use App\DTO\Admin\Request\User\StoreRegisterUserRequestDTO;
+use App\DTO\Admin\Response\ErrorResponseDTO;
 use App\Service\Auth\AuthService;
 use App\Service\Auth\ForgetPasswordService;
 use App\Service\Auth\ResetPasswordService;

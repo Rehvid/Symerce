@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\DTO\Request\Currency\SaveCurrencyRequestDTO;
+use App\DTO\Admin\Request\Currency\SaveCurrencyRequestDTO;
 use App\Entity\Currency;
-use App\Mapper\CurrencyResponseMapper;
+use App\Mapper\Admin\CurrencyResponseMapper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Repository\Base\AbstractRepository;
 use Symfony\Component\Routing\Attribute\Route;

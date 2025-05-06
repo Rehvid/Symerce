@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Category;
 
-use App\DTO\Request\Category\SaveCategoryRequestDTO;
+use App\DTO\Admin\Request\Category\SaveCategoryRequestDTO;
 use App\Factory\PersistableDTOFactory;
-use App\Service\DataPersister\Persisters\Category\CategoryCreatePersister;
+use App\Service\DataPersister\Persisters\Admin\Category\CategoryCreatePersister;
 use App\Tests\ApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

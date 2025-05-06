@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\DTO\Request\DeliveryTime\SaveDeliveryTimeRequestDTO;
+use App\DTO\Admin\Request\DeliveryTime\SaveDeliveryTimeRequestDTO;
 use App\Entity\DeliveryTime;
 use App\Interfaces\UpdateOrderControllerInterface;
-use App\Mapper\DeliveryTimeResponseMapper;
+use App\Mapper\Admin\DeliveryTimeResponseMapper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Repository\Base\AbstractRepository;
 use App\Repository\Interface\OrderSortableRepositoryInterface;

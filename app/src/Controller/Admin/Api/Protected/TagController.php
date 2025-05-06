@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Api\Protected;
 
 use App\Controller\Admin\AbstractCrudAdminController;
-use App\DTO\Request\Tag\SaveTagRequestDTO;
+use App\DTO\Admin\Request\Tag\SaveTagRequestDTO;
 use App\Entity\Tag;
+use App\Mapper\Admin\TagResponseMapper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
-use App\Mapper\TagResponseMapper;
 use App\Repository\Base\AbstractRepository;
 use Symfony\Component\Routing\Attribute\Route;
 
