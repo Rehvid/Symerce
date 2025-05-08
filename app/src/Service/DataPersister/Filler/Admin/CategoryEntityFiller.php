@@ -59,9 +59,11 @@ final class CategoryEntityFiller extends BaseEntityFiller
         $entity->setName($persistable->name);
         $entity->setDescription($persistable->description);
 
-        /** @var Category|null $parentCategory */
-        $parentCategory = $this->categoryRepository->find($persistable->parentCategoryId);
-        $entity->setParent($parentCategory);
+        if (null !== $persistable->parentCategoryId) {
+            /** @var Category|null $parentCategory */
+            $parentCategory = $this->categoryRepository->find($persistable->parentCategoryId);
+            $entity->setParent($parentCategory);
+        }
 
         if (!empty($persistable->image)) {
             foreach ($persistable->image as $image) {

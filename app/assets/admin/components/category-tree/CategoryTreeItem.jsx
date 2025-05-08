@@ -15,7 +15,7 @@ const CategoryTreeItem = ({
 
     return (
         <li className="pl-4">
-            <div className={`flex mb-3 ${category.children.length <= 0 ? 'pl-[24px]' : ''} `}>
+            <div className={`flex mb-3 ${category.children.length >= 0 ? 'pl-[24px]' : ''} `}>
                 {category.children.length > 0 && (
                     <ChevronIcon
                         onClick={() => toggleOpen(category.id)}
