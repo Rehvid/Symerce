@@ -8,6 +8,11 @@ base:
   setting_type:
     custom: 'Niestanradowe'
     currency: 'Waluta'
+    meta_shop_title: 'Meta tytuł sklepu'
+    meta_shop_description: 'Meta opis sklepu'
+    meta_shop_og_title: 'Open Graph tytuł sklepu'
+    meta_shop_og_description: 'Open Graph opis sklepu'
+    shop_categories: 'Kategorie wyświetlane w sklepie'
   delivery_type:
     standard: 'Dostawa standardowa'
     express: 'Dostawa ekspresowa'
@@ -33,3 +38,8 @@ shop:
   meta:
     title: 'Symerce - Sklep'
     description: 'Symerce - Opis strony'
+  common:
+    homepage: 'Strona główna'
+  input:
+    search:
+      placeholder: 'Szukaj...'

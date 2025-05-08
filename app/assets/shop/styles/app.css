@@ -4,3 +4,10 @@ body {
     font-family: Inter, sans-serif;
 }
 
+@theme {
+    --color-background-base: #f8f8fb;
+
+    --color-primary: #6c7fd8;
+
+    --color-primary-content: #3d4750;
+}

@@ -1,3 +1,57 @@
-<header>
+{% set shopCategories = getMenuCategories() %}
 
+<header class="bg-white">
+    <div class="w-full lg:container px-4 py-4 lg:mx-auto lg:px-auto">
+        <div class="flex flex-wrap justify-between items-center gap-4 mb-5">
+            <a class="order-1 max-w-10 h-auto block">
+                <img src="{{ asset('assets/images/short-logo.png') }}" alt="Logo" class="h-auto w-full" />
+            </a>
+
+            <div class="order-2 lg:order-3 flex gap-4">
+                <div class="lg:flex lg:gap-2 lg:items-center">
+                    <div class="w-10 lg:w-[40px]">
+                        {{ getSvgInline('build/images/user.svg', 'w-10 lg:w-[40px] h-auto text-primary cursor-pointer react-user-modal-toggle')|raw }}
+                    </div>
+                </div>
+
+                <div class="lg:flex lg:gap-2 lg:items-center">
+                    <div class="relative">
+                        {{ getSvgInline('build/images/shopping-cart.svg', 'w-10 lg:w-[40px] h-auto text-primary')|raw }}
+                        <span class="absolute px-1 top-[-4px] right-[-2px] bg-green-200 text-black font-lg block min-w-[25px] min-h-[25px] rounded-full flex items-center justify-center text-xs">10</span>
+                    </div>
+                </div>
+
+                <span class="lg:hidden block  react-menu-modal-toggle" data-menu="{{ shopCategories|json_encode }}">
+                    {{ getSvgInline('build/images/menu.svg', 'w-10 h-auto text-primary')|raw }}
+                </span>
+            </div>
+            <div class="relative order-last lg:order-2 w-full lg:max-w-2xl xl:max-w-4xl">
+                <input
+                    id="search"
+                    type="search"
+                    name="search"
+                    class="transition-all duration-300 rounded-lg border border-gray-200 h-[46px] focus:outline-hidden px-4 w-full lg:max-w-2xl xl:max-w-4xl focus:border-primary active:border-primary"
+                    placeholder="{{ 'shop.input.search.placeholder'|trans }}"
+                />
+                {{ getSvgInline('build/images/search.svg', 'w-[24px] h-auto absolute right-[16px] bottom-[10px] text-gray-500')|raw }}
+            </div>
+        </div>
+
+        <nav class="lg:block hidden border-t border-gray-200">
+            <ul class="flex gap-5">
+                <li>
+                    <a href="{{ path('shop.home') }}" class="flex items-center h-[46px] w-full transition-all duration-300 hover:text-primary">
+                        {{ 'shop.common.homepage'|trans }}
+                    </a>
+                </li>
+                {% for shopCategory in shopCategories %}
+                    <li>
+                        <a href="{{ shopCategory.url }}" class="flex items-center h-[46px] w-full transition-all duration-300 hover:text-primary ">
+                            {{ shopCategory.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
 </header>

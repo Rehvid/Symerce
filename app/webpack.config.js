@@ -1,4 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const ENTRY = process.env.ENTRY || 'all';
@@ -11,12 +12,15 @@ Encore.configureLoaderRule('images', (loaderRule) => {
     loaderRule.exclude = /\.svg$/;
 });
 
-if (ENTRY === 'admin' || ENTRY === 'all') {
+// if (ENTRY === 'admin' || ENTRY === 'all') {
     Encore.addEntry('admin/app', './assets/admin/index.jsx');
-}
-if (ENTRY === 'shop' || ENTRY === 'all') {
-    Encore.addEntry('shop/style', './assets/shop/styles/app.css')
-}
+// }
+// if (ENTRY === 'shop' || ENTRY === 'all') {
+    Encore
+      .addEntry('shop/app', './assets/shop/app.js')
+      .addEntry('shop/style', './assets/shop/styles/app.css')
+    ;
+// }
 
 Encore
     .setOutputPath('public/build/')
@@ -37,15 +41,39 @@ Encore
     .addAliases({
         '@': path.resolve(__dirname, 'assets'),
     })
-    .addRule({
-        test: /\.svg$/,
-        use: [
-            {
-                loader: '@svgr/webpack',
-            },
-        ],
-    })
 ;
+
+
+Encore.addRule({
+    test: /\.svg$/,
+    include: path.resolve(__dirname, 'assets/images/icons'),
+    issuer: /\.[jt]sx?$/,
+    use: [
+        {
+            loader: '@svgr/webpack',
+            options: { icon: true }
+        }
+    ]
+})
+
+
+Encore.addRule({
+    test: /\.svg$/,
+    include: path.resolve(__dirname, 'assets/twig-icons'),
+    type: 'asset/resource',
+    generator: {
+        filename: 'images/[name].[contenthash:8][ext][query]',
+    },
+})
+
+  Encore.addPlugin(new CopyWebpackPlugin({
+      patterns: [
+          {
+              from: 'assets/images/icons/twig-icons', to: 'images'
+          }
+      ]
+  }))
+
 
 module.exports = Encore.getWebpackConfig();
 
