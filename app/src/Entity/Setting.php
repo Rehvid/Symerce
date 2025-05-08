@@ -29,11 +29,14 @@ class Setting implements IdentifiableEntityInterface
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private string $value;
 
     #[ORM\Column(type: 'string', enumType: SettingType::class)]
     private SettingType $type;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $isJson = false;
 
     public function getId(): int
     {
@@ -75,6 +78,16 @@ class Setting implements IdentifiableEntityInterface
         $this->value = $value;
     }
 
+    public function isJson(): bool
+    {
+        return $this->isJson;
+    }
+
+    public function setIsJson(bool $isJson): void
+    {
+        $this->isJson = $isJson;
+    }
+
     #[ORM\PreUpdate]
     public function preventUpdateIfProtected(PreUpdateEventArgs $event): void
     {
@@ -82,4 +95,6 @@ class Setting implements IdentifiableEntityInterface
             throw new \RuntimeException(sprintf('Cannot update protected setting: "%s"', $this->name));
         }
     }
+
+
 }
