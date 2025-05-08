@@ -7,7 +7,12 @@ namespace App\Enums;
 enum SettingType: string
 {
     case CURRENCY = 'currency';
+    case META_SHOP_TITLE = 'meta_shop_title';
+    case META_SHOP_DESCRIPTION = 'meta_shop_description';
+    case META_SHOP_OG_TITLE = 'meta_shop_og_title';
+    case META_SHOP_OG_DESCRIPTION = 'meta_shop_og_description';
     case CUSTOM = 'custom';
+    case SHOP_CATEGORIES = 'shop_categories';
 
     /**
      * @return array<int, string>
@@ -24,6 +29,16 @@ enum SettingType: string
     {
         return [
             'base.setting_type' => self::CUSTOM,
+        ];
+    }
+
+    public static function getMetaTypes(): array
+    {
+        return [
+            self::META_SHOP_TITLE,
+            self::META_SHOP_DESCRIPTION,
+            self::META_SHOP_OG_TITLE,
+            self::META_SHOP_OG_DESCRIPTION,
         ];
     }
 }

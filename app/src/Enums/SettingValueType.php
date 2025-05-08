@@ -8,4 +8,5 @@ enum SettingValueType: string
 {
     case PLAIN_TEXT = 'plain_text';
     case SELECT = 'select';
+    case MULTI_SELECT = 'multi_select';
 }

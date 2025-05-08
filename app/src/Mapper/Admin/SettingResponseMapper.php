@@ -9,6 +9,7 @@ use App\DTO\Admin\Response\Setting\SettingFormResponseDTO;
 use App\DTO\Admin\Response\Setting\SettingIndexResponseDTO;
 use App\DTO\Admin\Response\Setting\SettingUpdateFormResponseDTO;
 use App\DTO\Admin\Response\Setting\SettingValueFormResponseDTO;
+use App\Entity\Category;
 use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Enums\SettingType;
@@ -16,6 +17,7 @@ use App\Enums\SettingValueType;
 use App\Mapper\Helper\ResponseMapperHelper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Utils\Utils;
+use App\ValueObject\JsonData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -52,8 +54,8 @@ final readonly class SettingResponseMapper implements ResponseMapperInterface
         $value = $setting->getValue();
 
         if (SettingType::CURRENCY === $setting->getType()) {
-            $decodedValue = json_decode($value, true);
-            $value = $this->entityManager->getRepository(Currency::class)->find($decodedValue['id'])?->getName();
+            $decodedValue = new JsonData($setting->getValue());
+            $value = $this->entityManager->getRepository(Currency::class)->find($decodedValue->get('id'))?->getName();
         }
 
         return SettingIndexResponseDTO::fromArray([
@@ -87,6 +89,9 @@ final readonly class SettingResponseMapper implements ResponseMapperInterface
         if (SettingType::CURRENCY === $setting->getType()) {
             $settingValue = $this->settingValueResponseDTOForCurrency();
         }
+        if (SettingType::SHOP_CATEGORIES === $setting->getType()) {
+            $settingValue = $this->settingValueResponseDTOForShopCategories();
+        }
 
         $response = SettingUpdateFormResponseDTO::fromArray([
             'name' => $setting->getName(),
@@ -114,6 +119,22 @@ final readonly class SettingResponseMapper implements ResponseMapperInterface
             ),
         ]);
     }
+
+    private function settingValueResponseDTOForShopCategories(): ResponseInterfaceData
+    {
+        $values = $this->entityManager->getRepository(Category::class)->findAll();
+
+        return SettingValueFormResponseDTO::fromArray([
+            'type' => SettingValueType::MULTI_SELECT,
+            'value' => Utils::buildSelectedOptions(
+                $values,
+                fn (Category $category) => $category->getName(),
+                fn (Category $category) => $category->getId(),
+            )
+        ]);
+    }
+
+
 
     /**
      * @param array <string, mixed> $types

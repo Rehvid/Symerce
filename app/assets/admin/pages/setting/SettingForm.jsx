@@ -16,6 +16,7 @@ const SettingForm = () => {
         setValue,
         setError,
         control,
+      watch,
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',
@@ -31,7 +32,7 @@ const SettingForm = () => {
     useEffect(() => {
         const endpointFormData = params.id ? `admin/settings/${params.id}/form-data` : `admin/settings/form-data`;
 
-        fetchFormData(endpointFormData, HTTP_METHODS.GET, ['name', 'value', 'type', 'isProtected']);
+        fetchFormData(endpointFormData, HTTP_METHODS.GET, ['name', 'value', 'type', 'isProtected', 'isJson']);
     }, []);
 
     if (!isFormReady) {

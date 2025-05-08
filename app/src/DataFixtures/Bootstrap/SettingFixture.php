@@ -21,6 +21,23 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
 
     public function load(ObjectManager $manager): void
     {
+        $this->loadCurrencySetting($manager);
+        $this->loadMetaShopTitleSetting($manager);
+        $this->loadMetaShopDescriptionSetting($manager);
+        $this->loadMetaShopOgTitleSetting($manager);
+        $this->loadMetaShopOgDescriptionSetting($manager);
+        $this->loadShopCategoriesSetting($manager);
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            CurrencyFixture::class,
+        ];
+    }
+
+    private function loadCurrencySetting(ObjectManager $manager): void
+    {
         $currency = $manager->getRepository(Currency::class)->findOneBy(['code' => 'PLN']);
 
         $value = [
@@ -34,15 +51,75 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
         $setting->setName('Domyślna waluta');
         $setting->setIsProtected(true);
         $setting->setActive(true);
+        $setting->setIsJson(true);
 
         $manager->persist($setting);
         $manager->flush();
     }
 
-    public function getDependencies(): array
+    private function loadMetaShopTitleSetting(ObjectManager $manager): void
     {
-        return [
-            CurrencyFixture::class,
-        ];
+        $setting = new Setting();
+        $setting->setType(SettingType::META_SHOP_TITLE);
+        $setting->setValue('Symerce - Sklep');
+        $setting->setName('Tytuł SEO sklepu');
+        $setting->setIsProtected(true);
+        $setting->setActive(true);
+
+        $manager->persist($setting);
+        $manager->flush();
+    }
+
+    private function loadMetaShopDescriptionSetting(ObjectManager $manager): void
+    {
+        $setting = new Setting();
+        $setting->setType(SettingType::META_SHOP_DESCRIPTION);
+        $setting->setValue('Symerce to sklep internetowy, w którym znajdziesz starannie wyselekcjonowane produkty i wygodne zakupy online');
+        $setting->setName('Opis SEO sklepu');
+        $setting->setIsProtected(true);
+        $setting->setActive(true);
+
+        $manager->persist($setting);
+        $manager->flush();
+    }
+
+    private function loadMetaShopOgTitleSetting(ObjectManager $manager): void
+    {
+        $setting = new Setting();
+        $setting->setType(SettingType::META_SHOP_OG_TITLE);
+        $setting->setValue('Sklep Internetowy dla Ciebie');
+        $setting->setName('Tytuł ogólny (og:title) sklepu');
+        $setting->setIsProtected(true);
+        $setting->setActive(true);
+
+        $manager->persist($setting);
+        $manager->flush();
+    }
+
+    private function loadMetaShopOgDescriptionSetting(ObjectManager $manager): void
+    {
+        $setting = new Setting();
+        $setting->setType(SettingType::META_SHOP_OG_DESCRIPTION);
+        $setting->setValue('Zakupy online jeszcze nigdy nie były tak wygodne. Sprawdź bogatą ofertę produktów w sklepie Symerce.');
+        $setting->setName('Opis ogólny (og:description) sklepu');
+        $setting->setIsProtected(true);
+        $setting->setActive(true);
+
+        $manager->persist($setting);
+        $manager->flush();
+    }
+
+    private function loadShopCategoriesSetting(ObjectManager $manager): void
+    {
+        $setting = new Setting();
+        $setting->setType(SettingType::SHOP_CATEGORIES);
+        $setting->setValue('[]');
+        $setting->setName('Kategorie wyświetlane w sklepie (maks. 8)');
+        $setting->setIsProtected(true);
+        $setting->setActive(true);
+        $setting->setIsJson(true);
+
+        $manager->persist($setting);
+        $manager->flush();
     }
 }

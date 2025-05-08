@@ -21,6 +21,9 @@ final class SettingEntityPersister extends BaseEntityFiller
         $globalSettings->setType(SettingType::from($persistable->type));
         $globalSettings->setIsProtected(false);
         $globalSettings->setName($persistable->name);
+        if (null !== $persistable->isJson) {
+            $globalSettings->setIsJson($persistable->isJson);
+        }
 
         return $this->fillEntity($persistable, $globalSettings);
     }

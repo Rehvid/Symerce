@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Setting;
+use App\Enums\SettingType;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
@@ -37,9 +38,28 @@ class SettingRepository extends AbstractRepository
      */
     public function findAllExcludingTypes(array $excludedTypes): array
     {
-        return $this->createQueryBuilder('s')
-            ->where('s.type NOT IN (:excludedTypes)')
+        $alias = $this->getAlias();
+
+        return $this->createQueryBuilder($alias)
+            ->where("$alias.type NOT IN (:excludedTypes)")
             ->setParameter('excludedTypes', $excludedTypes)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    /**
+     * @return Setting[]
+     */
+    public function findAllMetaSettings(): array
+    {
+        $alias = $this->getAlias();
+
+        return $this->createQueryBuilder($alias)
+            ->where("$alias.type IN (:types)")
+            ->andWhere("$alias.isActive = :active")
+            ->setParameter('types', SettingType::getMetaTypes())
+            ->setParameter('active', true)
             ->getQuery()
             ->getResult();
     }

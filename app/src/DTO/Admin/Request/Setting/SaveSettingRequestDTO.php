@@ -16,6 +16,7 @@ final class SaveSettingRequestDTO implements PersistableInterface
         #[Assert\NotBlank] #[Assert\Length(min: 3)] public string $value,
         #[Assert\NotBlank] #[Assert\Choice(callback: [SettingType::class, 'values'])] public string $type,
         public ?bool $isProtected,
+        public ?bool $isJson
     ) {
     }
 }
