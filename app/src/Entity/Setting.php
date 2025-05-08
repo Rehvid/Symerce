@@ -95,6 +95,4 @@ class Setting implements IdentifiableEntityInterface
             throw new \RuntimeException(sprintf('Cannot update protected setting: "%s"', $this->name));
         }
     }
-
-
 }

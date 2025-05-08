@@ -48,6 +48,7 @@ final class SettingManager
         return $currency;
     }
 
+    /** @return array<string, string> */
     public function getMeta(): array
     {
         $metaSettings = $this->settingRepository->findAllMetaSettings();
@@ -79,9 +80,15 @@ final class SettingManager
 
         /** @var CategoryRepository $categoryRepository */
         $categoryRepository = $this->entityManager->getRepository(Category::class);
+
+        /** @var Category[] $categories */
         $categories = $categoryRepository->findBy(['id' => $idCategories, 'isActive' => true]);
 
-        return array_map(function ($category) {
+        if (empty($categories)) {
+            return [];
+        }
+
+        return array_map(function (Category $category) {
             $url = $this->urlGenerator->generate('shop.category_show', ['slug' => $category->getSlug()]);
 
             return SettingShopCategoryDTOResponse::fromArray([

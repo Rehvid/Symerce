@@ -52,7 +52,7 @@ readonly class FileService
         /** @var string $brandLogoShort */
         $brandLogoShort = $this->parameterBag->get('app.brand_logo_short');
 
-        return $baseUrl . $brandLogoShort;
+        return $baseUrl.$brandLogoShort;
     }
 
     private function processFileUpload(File $file, FileRequestDTO $fileRequestDTO): void

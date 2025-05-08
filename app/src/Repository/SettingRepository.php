@@ -47,7 +47,6 @@ class SettingRepository extends AbstractRepository
             ->getResult();
     }
 
-
     /**
      * @return Setting[]
      */

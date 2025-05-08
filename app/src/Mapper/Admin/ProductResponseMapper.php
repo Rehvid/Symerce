@@ -93,7 +93,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
 
         $currency = $this->settingManager->findDefaultCurrency();
 
-        $discountPrice = $product->getDiscountPrice() === null
+        $discountPrice = null === $product->getDiscountPrice()
             ? null
             : (new Money($this->getDiscountPrice($product), $currency))->getFormattedAmount()
         ;
@@ -225,6 +225,6 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
 
     private function getDiscountPrice(Product $product): string
     {
-        return $product->getDiscountPrice() === null ? '0' : $product->getDiscountPrice();
+        return null === $product->getDiscountPrice() ? '0' : $product->getDiscountPrice();
     }
 }

@@ -122,6 +122,7 @@ final readonly class SettingResponseMapper implements ResponseMapperInterface
 
     private function settingValueResponseDTOForShopCategories(): ResponseInterfaceData
     {
+        /** @var Category[] $values */
         $values = $this->entityManager->getRepository(Category::class)->findAll();
 
         return SettingValueFormResponseDTO::fromArray([
@@ -130,14 +131,12 @@ final readonly class SettingResponseMapper implements ResponseMapperInterface
                 $values,
                 fn (Category $category) => $category->getName(),
                 fn (Category $category) => $category->getId(),
-            )
+            ),
         ]);
     }
 
-
-
     /**
-     * @param array <string, mixed> $types
+     * @param array<mixed, mixed> $types
      *
      * @return array<int, mixed>
      */

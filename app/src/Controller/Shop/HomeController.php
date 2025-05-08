@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
-
     #[Route('', name: 'shop.home', methods: ['GET'])]
     public function home(): Response
     {

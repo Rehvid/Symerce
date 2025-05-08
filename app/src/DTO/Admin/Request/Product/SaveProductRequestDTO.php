@@ -23,8 +23,8 @@ final class SaveProductRequestDTO implements PersistableInterface
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $name,
         #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] #[CustomAssertCurrencyPrecision]  public string $regularPrice,
         #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] public string|int $quantity,
-        public ?string $discountPrice = null,
         public bool $isActive,
+        public ?string $discountPrice = null,
         public array $categories = [],
         public array $tags = [],
         public array $deliveryTimes = [],
@@ -41,7 +41,7 @@ final class SaveProductRequestDTO implements PersistableInterface
     public function validate(ExecutionContextInterface $context): void
     {
         $validator = $context->getValidator();
-        if ($this->discountPrice !== null && $this->discountPrice !== "") {
+        if (null !== $this->discountPrice && '' !== $this->discountPrice) {
             $violations = $validator->validate($this->discountPrice, [
                 new Assert\Type('numeric'),
                 new Assert\GreaterThanOrEqual(0),

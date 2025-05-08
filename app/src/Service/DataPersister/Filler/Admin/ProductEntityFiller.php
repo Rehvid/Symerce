@@ -74,7 +74,7 @@ final class ProductEntityFiller extends BaseEntityFiller
         $entity->setRegularPrice($persistable->regularPrice);
         $entity->setQuantity((int) $persistable->quantity);
 
-        if (null !== $persistable->discountPrice && $persistable->discountPrice !== '') {
+        if (null !== $persistable->discountPrice && '' !== $persistable->discountPrice) {
             $entity->setDiscountPrice($persistable->discountPrice);
         }
 

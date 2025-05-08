@@ -32,6 +32,9 @@ enum SettingType: string
         ];
     }
 
+    /**
+     * @return array<int, self>
+     */
     public static function getMetaTypes(): array
     {
         return [

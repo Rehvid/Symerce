@@ -22,7 +22,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/admin.html.twig', [
             'data' => $reactDataProvider->getData(),
-            'logo' => $service->getLogoPublicPath()
+            'logo' => $service->getLogoPublicPath(),
         ]);
     }
 }
