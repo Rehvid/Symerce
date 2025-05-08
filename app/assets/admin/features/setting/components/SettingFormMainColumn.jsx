@@ -27,11 +27,18 @@ const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, c
                 return <SettingValueTypeSelect formData={formData} settingValue={settingValue} control={control} />;
 
             case SETTING_VALUE_TYPES.MULTI_SELECT:
-                return <SettingValueTypeMultiSelect formData={formData} settingValue={settingValue} control={control} fieldErrors={fieldErrors} />
+                return (
+                    <SettingValueTypeMultiSelect
+                        formData={formData}
+                        settingValue={settingValue}
+                        control={control}
+                        fieldErrors={fieldErrors}
+                    />
+                );
             default:
                 return null;
         }
-    }
+    };
 
     return (
         <>

@@ -16,7 +16,6 @@ const SettingForm = () => {
         setValue,
         setError,
         control,
-      watch,
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',

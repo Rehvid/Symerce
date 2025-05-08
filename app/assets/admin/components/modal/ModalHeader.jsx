@@ -5,14 +5,14 @@ const ModalHeader = ({ title, extraCloseModal = null }) => {
     const { closeModal } = useModal();
 
     const onCloseClick = () => {
-      if (extraCloseModal) {
-        extraCloseModal();
-      }
+        if (extraCloseModal) {
+            extraCloseModal();
+        }
 
-      if (closeModal) {
-        closeModal();
-      }
-    }
+        if (closeModal) {
+            closeModal();
+        }
+    };
 
     return (
         <div className="border-b border-gray-200">

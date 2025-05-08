@@ -6,39 +6,39 @@ import ModalBody from '@/admin/components/modal/ModalBody';
 import { useIsMobile } from '@/admin/hooks/useIsMobile';
 import { useEffect } from 'react';
 
-const MenuModalToggle = ({items = []}) => {
-  const isMobile = useIsMobile();
+const MenuModalToggle = ({ items = [] }) => {
+    const isMobile = useIsMobile();
 
-  const handler = (e) => openModal();
+    const handler = () => openModal();
 
-  const { open, openModal, closeModal } = useClickToggleBySelector(true, '.react-menu-modal-toggle', handler);
+    const { open, openModal, closeModal } = useClickToggleBySelector(true, '.react-menu-modal-toggle', handler);
 
-  useEffect(() => {
-    if (!isMobile) {
-      closeModal();
+    useEffect(() => {
+        if (!isMobile) {
+            closeModal();
+        }
+    }, [isMobile]);
+
+    if (!open) {
+        return null;
     }
-  }, [isMobile]);
 
-  if (!open) {
-    return null;
-  }
-
-  return (
-    <Modal isOpen={open} position={POSITION_TYPES.RIGHT}>
-      <ModalHeader title="Menu" extraCloseModal={() => closeModal()} />
-      <ModalBody>
-          <ul className="flex flex-col gap-2 justify-between lg:w-[500px]">
-            {items.map((item, key)  => (
-              <li key={key}>
-                <a className="flex items-center h-[46px] w-full" href={item.url}>
-                  {item.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-      </ModalBody>
-    </Modal>
-  );
-}
+    return (
+        <Modal isOpen={open} position={POSITION_TYPES.RIGHT}>
+            <ModalHeader title="Menu" extraCloseModal={() => closeModal()} />
+            <ModalBody>
+                <ul className="flex flex-col gap-2 justify-between lg:w-[500px]">
+                    {items.map((item, key) => (
+                        <li key={key}>
+                            <a className="flex items-center h-[46px] w-full" href={item.url}>
+                                {item.name}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </ModalBody>
+        </Modal>
+    );
+};
 
 export default MenuModalToggle;
