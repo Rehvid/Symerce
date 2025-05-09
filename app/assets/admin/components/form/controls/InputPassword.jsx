@@ -18,7 +18,7 @@ const InputPassword = React.forwardRef(({ id, hasError, errorMessage, label, ...
             icon={
                 <EyeIcon
                     onClick={togglePassword}
-                    className={`cursor-pointer transition-all ${showPassword ? 'text-primary ' : 'text-gray-500 hover:text-primary-hover'}`}
+                    className={`w-[24px] h-[24px] cursor-pointer transition-all ${showPassword ? 'text-primary ' : 'text-gray-500 hover:text-primary-hover'}`}
                 />
             }
             isRequired

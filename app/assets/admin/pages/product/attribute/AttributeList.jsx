@@ -31,7 +31,7 @@ const AttributeList = () => {
     const actions = (id, name) => (
         <TableActions id={id} onDelete={() => removeItem(`admin/attributes/${id}`)}>
             <AppLink to={`${id}/values`} state={{ name }} additionalClasses="text-gray-500">
-                <EyeIcon />
+                <EyeIcon className="w-[24px] h-[24px]" />
             </AppLink>
         </TableActions>
     );

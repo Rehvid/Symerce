@@ -61,7 +61,7 @@ const RangeFilter = ({ filters, setFilters, nameFilter, label, icon = null }) =>
                     placeholder="Od"
                     id={`${nameFilter}From`}
                     type="number"
-                    icon={<NumberIcon className="text-gray-500" />}
+                    icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]"  />}
                 />
                 <div className="hidden lg:block">-</div>
                 <Input
@@ -70,7 +70,7 @@ const RangeFilter = ({ filters, setFilters, nameFilter, label, icon = null }) =>
                     placeholder="Do"
                     id={`${nameFilter}To`}
                     type="number"
-                    icon={<NumberIcon className="text-gray-500" />}
+                    icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
                 />
             </div>
         </>

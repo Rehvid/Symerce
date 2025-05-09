@@ -14,7 +14,7 @@ const Submenu = ({ buttonLabel, children }) => {
                 onClick={handleToggle}
             >
                 {buttonLabel}
-                <ChevronIcon className={`${open ? 'rotate-180' : 'rotate-0'} transition-transform duration-300`} />
+                <ChevronIcon className={`${open ? 'rotate-180' : 'rotate-0'} transition-transform duration-300 h-[24px] w-[24px]`} />
             </button>
             <div
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${

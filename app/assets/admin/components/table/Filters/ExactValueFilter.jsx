@@ -39,7 +39,7 @@ const ExactValueFilter = ({ filters, setFilters, nameFilter, label = '', icon = 
                     placeholder={label}
                     type="number"
                     id={nameFilter}
-                    icon={<NumberIcon className="text-gray-500" />}
+                    icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
                 />
             </div>
         </>

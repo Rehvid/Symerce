@@ -18,11 +18,11 @@ const FormFooterActions = ({ children }) => {
                             navigate(-1);
                         }}
                     >
-                        <ArrowLeftIcon />
+                        <ArrowLeftIcon className="w-[24px] h-[24px]" />
                         Wstecz
                     </AppButton>
                     <AppButton variant="primary" type="submit" additionalClasses="px-5 py-3 flex gap-2">
-                        <SaveIcon />
+                        <SaveIcon className="w-[24px] h-[24px]" />
                         Zapisz
                     </AppButton>
                 </div>

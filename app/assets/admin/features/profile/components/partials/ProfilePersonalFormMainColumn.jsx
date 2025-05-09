@@ -56,7 +56,7 @@ const ProfilePersonalFormMainColumn = ({ setValue, setUser, register, fieldError
                 hasError={!!fieldErrors?.firstname}
                 errorMessage={fieldErrors?.firstname?.message}
                 isRequired
-                icon={<UserIcon className="text-gray-500" />}
+                icon={<UserIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
             <Input
                 {...register('surname', {
@@ -69,7 +69,7 @@ const ProfilePersonalFormMainColumn = ({ setValue, setUser, register, fieldError
                 hasError={!!fieldErrors?.surname}
                 errorMessage={fieldErrors?.surname?.message}
                 isRequired
-                icon={<UserIcon className="text-gray-500" />}
+                icon={<UserIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
             <InputEmail
                 hasError={!!fieldErrors?.email}

@@ -18,7 +18,7 @@ const ModalHeader = ({ title, extraCloseModal = null }) => {
         <div className="border-b border-gray-200">
             <div className="flex justify-between gap-4 p-4">
                 <h1 className="text-gray-500 text-xl font-semibold">{title}</h1>
-                <CloseIcon className="text-gray-500 cursor-pointer" onClick={() => onCloseClick()} />
+                <CloseIcon className="text-gray-500 cursor-pointer w-[24px] h-[24px]" onClick={() => onCloseClick()} />
             </div>
         </div>
     );

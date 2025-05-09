@@ -12,7 +12,7 @@ const TableToolbarButtons = ({ to = 'create', label = 'Dodaj', children }) => {
                 variant="primary"
                 additionalClasses="flex items-center justify-center gap-2 px-4 py-2.5  sm:w-auto w-full"
             >
-                <PlusIcon /> {label}
+                <PlusIcon className="w-[24px] h-[24px]" /> {label}
             </AppButton>
             {children}
         </div>

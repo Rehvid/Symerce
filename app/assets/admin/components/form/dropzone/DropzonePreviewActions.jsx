@@ -9,7 +9,7 @@ const DropzonePreviewActions = ({ renderModal, removeFile, file }) => {
         <>
             {renderModal && (
                 <span className="block cursor-pointer" onClick={() => openModal(renderModal(file))}>
-                    <EyeIcon className="text-white scale-125%" />
+                    <EyeIcon className="text-white w-[30px] h-[30px]" />
                 </span>
             )}
             <span
@@ -18,7 +18,7 @@ const DropzonePreviewActions = ({ renderModal, removeFile, file }) => {
                     removeFile(file);
                 }}
             >
-                <TrashIcon className="text-white scale-125%" />
+                <TrashIcon className="text-white w-[30px] h-[30px]" />
             </span>
         </>
     );

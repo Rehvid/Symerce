@@ -37,7 +37,7 @@ const CategoryFormMainColumn = ({ register, fieldErrors, formData, setFormData, 
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
-                icon={<LabelNameIcon className="text-gray-500" />}
+                icon={<LabelNameIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
 
             <Input

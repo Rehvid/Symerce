@@ -43,14 +43,14 @@ const TopBarDropdown = () => {
                     />
                 ) : (
                     <span className="rounded-full bg-gray-100 py-2 px-2">
-                        <UserIcon />
+                        <UserIcon className="w-[24px] h-[24px]" />
                     </span>
                 )}
 
                 <div className="text-gray-700 font-medium flex gap-1">
                     <span> {user?.fullName} </span>
                     <ChevronIcon
-                        className={`${openDropdown ? 'rotate-180' : 'rotate-0'} transition-transform duration-300`}
+                        className={`${openDropdown ? 'rotate-180' : 'rotate-0'} transition-transform duration-300 w-[24px] h-[24px]`}
                     />
                 </div>
             </DropdownButton>
@@ -67,7 +67,7 @@ const TopBarDropdown = () => {
                             additionalClasses="flex items-center gap-3 w-full px-3 py-2"
                             onClick={handleForceClick}
                         >
-                            <UserIcon />
+                            <UserIcon className="w-[24px] h-[24px]" />
                             Edytuj profil
                         </AppLink>
                     </li>
@@ -77,7 +77,7 @@ const TopBarDropdown = () => {
                     variant="link"
                     additionalClasses="w-full flex items-center gap-3 px-3 py-2 mt-3"
                 >
-                    <LogoutIcon />
+                    <LogoutIcon className="w-[24px] h-[24px]" />
                     <span>Wyloguj sie</span>
                 </AppButton>
             </DropdownContent>

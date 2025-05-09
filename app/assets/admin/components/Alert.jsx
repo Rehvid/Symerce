@@ -19,22 +19,22 @@ const Alert = ({ message, variant }) => {
     const iconVariants = {
         success: (
             <div className="rounded-lg">
-                <CheckIcon className="text-green-500" />
+                <CheckIcon className="text-green-500 w-[24px] h-[24px]" />
             </div>
         ),
         info: (
             <div className="rounded-lg">
-                <InfoCircleIcon className="text-blue-500" />
+                <InfoCircleIcon className="text-blue-500 w-[24px] h-[24px]" />
             </div>
         ),
         warning: (
             <div className="rounded-lg">
-                <AlertTriangleIcon className="text-yellow-500" />
+                <AlertTriangleIcon className="text-yellow-500 w-[24px] h-[24px]" />
             </div>
         ),
         error: (
             <div className="rounded-lg">
-                <InfoCircleIcon className="text-red-500" />
+                <InfoCircleIcon className="text-red-500 w-[24px] h-[24px]" />
             </div>
         ),
     };

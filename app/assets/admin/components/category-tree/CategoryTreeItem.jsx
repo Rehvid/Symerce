@@ -19,7 +19,7 @@ const CategoryTreeItem = ({
                 {category.children.length > 0 && (
                     <ChevronIcon
                         onClick={() => toggleOpen(category.id)}
-                        className={`${isOpen ? '-rotate-90' : 'rotate-0'} transition-transform duration-300 text-gray-500 scale-[90%] cursor-pointer`}
+                        className={`${isOpen ? '-rotate-90' : 'rotate-0'} transition-transform duration-300 text-gray-500 w-[24px] h-[24px] cursor-pointer`}
                     />
                 )}
                 <CategoryTreeInput

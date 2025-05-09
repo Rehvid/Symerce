@@ -52,7 +52,7 @@ const TableToolbar = ({
 
         return (
             <AppButton onClick={() => onClickFilters()} variant="secondary" additionalClasses="px-4 py-1.5 flex gap-2">
-                <FilterResetIcon />
+                <FilterResetIcon className="w-[24px] h-[24px]" />
                 Resetuj Filtrowanie
             </AppButton>
         );
@@ -69,7 +69,7 @@ const TableToolbar = ({
                         additionalClasses="h-[46px] px-5 flex gap-2 mt-4 sm:mt-0 w-full sm:w-auto justify-center items-center"
                         onClick={() => openFilters()}
                     >
-                        <FilterIcon />
+                        <FilterIcon className="w-[24px] h-[24px]" />
                         Filtry
                     </AppButton>
                 )}
@@ -82,7 +82,7 @@ const TableToolbar = ({
                         variant="secondary"
                         additionalClasses="px-4 py-1.5 flex gap-2"
                     >
-                        <SortResetIcon />
+                        <SortResetIcon  className="w-[24px] h-[24px]" />
                         Resetuj sortowanie
                     </AppButton>
                 )}

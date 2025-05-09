@@ -50,7 +50,7 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
-                icon={<LabelNameIcon className="text-gray-500" />}
+                icon={<LabelNameIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
 
             <div>
@@ -102,7 +102,7 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 hasError={!!fieldErrors?.regularPrice}
                 errorMessage={fieldErrors?.regularPrice?.message}
                 isRequired
-                icon={<CurrencyIcon />}
+                icon={<CurrencyIcon className="w-[24px] h-[24px]" />}
             />
 
             <Input
@@ -114,7 +114,7 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 label="Cena promocyjna"
                 hasError={!!fieldErrors?.discountPrice}
                 errorMessage={fieldErrors?.discountPrice?.message}
-                icon={<CurrencyIcon />}
+                icon={<CurrencyIcon className="w-[24px] h-[24px]" />}
             />
 
             <Input
@@ -128,7 +128,7 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 hasError={!!fieldErrors?.quantity}
                 errorMessage={fieldErrors?.quantity?.message}
                 isRequired
-                icon={<NumberIcon className="text-gray-500" />}
+                icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
         </>
     );

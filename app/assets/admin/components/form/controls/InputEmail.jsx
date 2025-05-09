@@ -10,7 +10,7 @@ const InputEmail = React.forwardRef(({ hasError, errorMessage, ...register }, re
             label="Adres e-mail"
             hasError={hasError}
             errorMessage={errorMessage}
-            icon={<MailIcon className="text-gray-500" />}
+            icon={<MailIcon className="text-gray-500 w-[24px] h-[24px]" />}
             isRequired
             ref={ref}
             {...register}

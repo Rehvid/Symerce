@@ -19,7 +19,7 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
-                icon={<LabelNameIcon className="text-gray-500" />}
+                icon={<LabelNameIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
             <Input
                 {...register('minDays', {
@@ -32,7 +32,7 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }
                 hasError={!!fieldErrors?.minDays}
                 errorMessage={fieldErrors?.minDays?.message}
                 isRequired
-                icon={<NumberIcon className="text-gray-500" />}
+                icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
             <Input
                 {...register('maxDays', {
@@ -45,7 +45,7 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }
                 hasError={!!fieldErrors?.maxDays}
                 errorMessage={fieldErrors?.maxDays?.message}
                 isRequired
-                icon={<NumberIcon className="text-gray-500" />}
+                icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
 
             <Controller

@@ -29,22 +29,22 @@ const AppNotification = ({ label, variant, time }) => {
     const iconVariants = {
         success: (
             <div className="bg-green-100 rounded-lg p-1">
-                <CheckIcon className="text-green-500" />
+                <CheckIcon className="text-green-500 w-[24px] h-[24px]" />
             </div>
         ),
         info: (
             <div className="rounded-lg p-1 bg-blue-100">
-                <InfoCircleIcon className="text-blue-500" />
+                <InfoCircleIcon className="text-blue-500 w-[24px] h-[24px]" />
             </div>
         ),
         warning: (
             <div className="rounded-lg p-1 bg-yellow-100">
-                <AlertTriangleIcon className="text-yellow-500" />
+                <AlertTriangleIcon className="text-yellow-500 w-[24px] h-[24px]" />
             </div>
         ),
         error: (
             <div className="rounded-lg p-1 bg-red-100">
-                <InfoCircleIcon className="text-red-500" />
+                <InfoCircleIcon className="text-red-500 w-[24px] h-[24px]" />
             </div>
         ),
     };
@@ -60,7 +60,7 @@ const AppNotification = ({ label, variant, time }) => {
                     {iconVariants[variant]}
                     <h4 className="font-medium text-gray-700 w-full break-all pr-2">{label}</h4>
                 </div>
-                <CloseIcon className="text-gray-500 cursor-pointer" onClick={() => setIsVisible(false)} />
+                <CloseIcon className="text-gray-500 cursor-pointer w-[24px] h-[24px]" onClick={() => setIsVisible(false)} />
                 <div
                     className={`absolute bottom-0 left-0  transition-all rounded-lg duration-500 border-t-5  progress-bar ${variants[variant]}`}
                     style={{ '--progress-time': `${time}ms` }}

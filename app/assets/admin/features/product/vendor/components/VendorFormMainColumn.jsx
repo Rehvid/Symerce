@@ -34,7 +34,7 @@ const VendorFormMainColumn = ({ register, fieldErrors, formData, setFormData, se
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
-                icon={<LabelNameIcon className="text-gray-500" />}
+                icon={<LabelNameIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
 
             <Heading level="h4">

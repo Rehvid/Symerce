@@ -25,13 +25,13 @@ const TableColumns = ({ columns, sort, setSort }) => {
         }
 
         if (sort.orderBy !== orderBy) {
-            return <SortAscendingIcon className="scale-75 text-gray-400" />;
+            return <SortAscendingIcon className="w-[20px] h-[20px] text-gray-400" />;
         }
 
         return sort.direction === SORT_DIRECTION.ASC ? (
-            <SortAscendingIcon className="scale-75 text-primary" />
+            <SortAscendingIcon className="w-[20px] h-[20px] text-primary" />
         ) : (
-            <SortDescendingIcon className="scale-75 text-primary" />
+            <SortDescendingIcon className="w-[20px] h-[20px] text-primary" />
         );
     };
 

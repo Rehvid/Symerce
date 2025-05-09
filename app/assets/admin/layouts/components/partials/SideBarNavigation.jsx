@@ -13,17 +13,17 @@ import SettingIcon from '@/images/icons/settings.svg';
 const SideBarNavigation = () => (
     <ul className="flex flex-col gap-4">
         <NavigationItem to={'dashboard'}>
-            <DashboardIcon />
+            <DashboardIcon className="w-[24px] h-[24px]" />
             <span> Dashboard</span>
         </NavigationItem>
         <NavigationItem to={'categories'}>
-            <FoldersIcon />
+            <FoldersIcon className="w-[24px] h-[24px]" />
             <span> Kategorie</span>
         </NavigationItem>
         <Submenu
             buttonLabel={
                 <span className="flex gap-2 items-center">
-                    <ProductIcon /> Produkty
+                    <ProductIcon className="w-[24px] h-[24px]" /> Produkty
                 </span>
             }
         >
@@ -38,27 +38,27 @@ const SideBarNavigation = () => (
             </NavigationItem>
         </Submenu>
         <NavigationItem to={'tags'}>
-            <TagIcon />
+            <TagIcon className="w-[24px] h-[24px]" />
             <span>Tagi</span>
         </NavigationItem>
         <NavigationItem to={'carriers'}>
-            <CarrierIcon />
+            <CarrierIcon className="w-[24px] h-[24px]" />
             <span>Dostawcy</span>
         </NavigationItem>
         <NavigationItem to={'delivery-time'}>
-            <DeliveryTimeIcon />
+            <DeliveryTimeIcon className="w-[24px] h-[24px]" />
             <span>Czasy dostawy</span>
         </NavigationItem>
         <NavigationItem to={'currencies'}>
-            <CurrencyIcon />
+            <CurrencyIcon className="w-[24px] h-[24px]" />
             <span>Waluty</span>
         </NavigationItem>
         <NavigationItem to={'users'}>
-            <UsersIcon />
+            <UsersIcon className="w-[24px] h-[24px]" />
             <span>Users</span>
         </NavigationItem>
         <NavigationItem to={'settings'}>
-            <SettingIcon />
+            <SettingIcon className="w-[24px] h-[24px]" />
             <span>Ustawienia</span>
         </NavigationItem>
     </ul>

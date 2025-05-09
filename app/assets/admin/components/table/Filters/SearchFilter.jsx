@@ -26,7 +26,7 @@ const SearchFilter = ({ filters, setFilters }) => {
             onChange={onChange}
             type="search"
             value={filters?.search || ''}
-            icon={<SearchIcon className="text-gray-500" />}
+            icon={<SearchIcon className="text-gray-500 w-[24px] h-[24px]" />}
             placeholder="Szukaj"
             id="search"
             containerClassName="w-full"

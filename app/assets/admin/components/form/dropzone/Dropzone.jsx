@@ -17,7 +17,7 @@ const Dropzone = ({ onDrop, errors, variant = 'sideColumn', containerClasses = '
                 })}
             >
                 <div>
-                    <PhotosIcon />
+                    <PhotosIcon className="w-[36px] h-[36px]" />
                 </div>
                 <input {...getInputProps()} />
                 <p className="text-center mt-1 text-xs">

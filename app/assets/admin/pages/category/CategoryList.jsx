@@ -44,7 +44,7 @@ const CategoryList = () => {
                 <TableRowImageWithText
                     imagePath={imagePath}
                     text={name}
-                    defaultIcon={<FoldersIcon className="text-primary mx-auto" />}
+                    defaultIcon={<FoldersIcon className="text-primary mx-auto w-[24px] h-[24px]" />}
                 />
             ),
             slug,

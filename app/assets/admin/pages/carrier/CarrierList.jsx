@@ -46,7 +46,7 @@ const CarrierList = () => {
                 <TableRowImageWithText
                     imagePath={imagePath}
                     text={name}
-                    defaultIcon={<CarrierIcon className="text-primary mx-auto" />}
+                    defaultIcon={<CarrierIcon className="text-primary mx-auto w-[24px] h-[24px]" />}
                 />
             ),
             active: <TableRowActiveBadge isActive={isActive} />,

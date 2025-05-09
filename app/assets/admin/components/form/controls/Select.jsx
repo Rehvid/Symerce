@@ -48,7 +48,7 @@ const Select = ({
                         )}
                     </span>
                     <ChevronIcon
-                        className={`${openDropdown ? 'rotate-180' : 'rotate-0'} transition-transform duration-300 text-gray-500`}
+                        className={`${openDropdown ? 'rotate-180' : 'rotate-0'} w-[24px] h-[24px] transition-transform duration-300 text-gray-500`}
                     />
                 </DropdownButton>
                 <DropdownContent containerClasses={`w-full mt-2 ${dropdownContainerClasses}`}>

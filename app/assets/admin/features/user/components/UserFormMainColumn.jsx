@@ -37,7 +37,7 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params, setValue, 
                 hasError={!!fieldErrors?.firstname}
                 errorMessage={fieldErrors?.firstname?.message}
                 isRequired
-                icon={<UserIcon className="text-gray-500" />}
+                icon={<UserIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
             <Input
                 {...register('surname', {
@@ -50,7 +50,7 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params, setValue, 
                 hasError={!!fieldErrors?.surname}
                 errorMessage={fieldErrors?.surname?.message}
                 isRequired
-                icon={<UserIcon className="text-gray-500" />}
+                icon={<UserIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
             <InputEmail
                 hasError={!!fieldErrors?.email}

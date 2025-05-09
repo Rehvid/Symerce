@@ -10,7 +10,7 @@ const TableRowDeleteAction = ({ onClick }) => {
     const handleClick = () => {
         const title = (
             <div className="flex flex-col items-center gap-3 px-6">
-                <TrashIcon className="scale-[125%] text-error" />
+                <TrashIcon className="w-[24px] h-[24px] text-error" />
                 <span>Czy na pewno chcesz usunąć ten element?</span>
             </div>
         );
@@ -47,7 +47,7 @@ const TableRowDeleteAction = ({ onClick }) => {
 
     return (
         <AppButton onClick={handleClick} additionalClasses="text-gray-500">
-            <TrashIcon />
+            <TrashIcon className="w-[24px] h-[24px]" />
         </AppButton>
     );
 };

@@ -37,7 +37,7 @@ const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, s
                 hasError={!!fieldErrors?.name}
                 errorMessage={fieldErrors?.name?.message}
                 isRequired
-                icon={<LabelNameIcon className="text-gray-500" />}
+                icon={<LabelNameIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
             <Input
                 {...register('fee', {
@@ -50,7 +50,7 @@ const CarrierFormMainColumn = ({ register, fieldErrors, formData, setFormData, s
                 hasError={!!fieldErrors?.fee}
                 errorMessage={fieldErrors?.fee?.message}
                 isRequired
-                icon={<CurrencyIcon />}
+                icon={<CurrencyIcon className="w-[24px] h-[24px]" />}
             />
             <Heading level="h4">
                 <span className="flex items-center">Miniaturka</span>
