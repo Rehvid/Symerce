@@ -1,0 +1,35 @@
+{% import 'shop/macros/heading.html.twig' as ui %}
+
+<a class="relative h-full flex flex-col border-b border-gray-200 transition-all duration-300 hover:border-primary hover:border" href="{{ path('shop.category_show', {'slug': category.slug}) }}">
+    <div class="p-4">
+        {% if category.imagePath is not null %}
+            <div class="w-full h-full pb-[100%] relative">
+                <img class="absolute inset-0 w-full h-full object-cover rounded-xl" src="{{ category.imagePath }}" alt="{{ category.name }}">
+            </div>
+        {% else %}
+            <div class="w-full pb-[100%] relative">
+                <img class="absolute inset-0 w-full h-full object-cover rounded-xl" src="{{ asset('assets/images/placeholder-image.jpg') }}" alt="Placeholder Image - {{ category.name }}">
+            </div>
+        {% endif %}
+    </div>
+
+
+    <div class=" h-full">
+        <div class="p-4 flex flex-col items-center gap-2 justify-between h-full">
+            {{ ui.heading('h2', category.name, 'text-primary-content') }}
+            <small class="text-primary-content">
+                {{ category.productCount }}
+                {% if category.productCount == 1 %}
+                    {{ 'shop.common.product_count.one'|trans }}
+                {% elseif category.productCount in 2..4 %}
+                    {{ 'shop.common.product_count.few'|trans }}
+                {% else %}
+                    {{ 'shop.common.product_count.other'|trans }}
+                {% endif %}
+            </small>
+
+        </div>
+    </div>
+
+</a>
+

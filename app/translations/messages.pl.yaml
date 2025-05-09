@@ -40,6 +40,14 @@ shop:
     description: 'Symerce - Opis strony'
   common:
     homepage: 'Strona główna'
+    categories: 'Kategorie'
+    categories_empty: 'Brak kategorii'
+    sort: 'Sortowanie'
+    filter: 'Filtry'
+    product_count:
+      one: 'Produkt'
+      few: 'Produkty'
+      other: 'Produktów'
   input:
     search:
       placeholder: 'Szukaj...'

@@ -1,0 +1,9 @@
+{% set tag = tag|default('div') %}
+{% set classes = classes|default('lg:container px-4 py-4 lg:mx-auto lg:px-auto') %}
+
+<{% autoescape false %}{{ tag }}{% endautoescape %}
+    {% if id is defined %} id="{{ id }}"{% endif %}
+    class="{{ classes }}"
+>
+    {% block content %}{% endblock %}
+</{{ tag }}>

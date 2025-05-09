@@ -11,7 +11,8 @@ class SettingShopCategoryDTOResponse implements ResponseInterfaceData
     private function __construct(
         public string $name,
         public string $url
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): ResponseInterfaceData
     {

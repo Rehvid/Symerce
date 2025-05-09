@@ -41,7 +41,7 @@ class Category implements OrderSortableInterface, IdentifiableEntityInterface
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'categories', cascade: ['persist', 'remove'])]
-    #[ORM\JoinTable(name: 'products_categories')]
+    #[ORM\JoinTable(name: 'product_category')]
     private Collection $products;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]

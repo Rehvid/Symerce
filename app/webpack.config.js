@@ -18,6 +18,8 @@ Encore.configureLoaderRule('images', (loaderRule) => {
 // if (ENTRY === 'shop' || ENTRY === 'all') {
     Encore
       .addEntry('shop/app', './assets/shop/app.js')
+      .addEntry('shop/filter', './assets/shop/common/filter.js')
+      .addEntry('shop/dropdown', './assets/shop/common/dropdown.js')
       .addEntry('shop/style', './assets/shop/styles/app.css')
     ;
 // }

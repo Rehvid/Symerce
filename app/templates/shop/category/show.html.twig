@@ -1,0 +1,17 @@
+{% extends 'shop/base.html.twig' %}
+
+{% block body %}
+    {% include 'shop/partials/_page_header.html.twig' with {pageTitle: category.name} %}
+
+    {% set wrapperId = 'category-' ~ category.id %}
+    {% embed 'shop/partials/_content_wrapper.html.twig' with {tag: 'section', id: wrapperId} %}
+        {% block content %}
+            {% if category.description is not null %}
+                <div class="text-primary-content mb-[2rem] break-all">{{ category.description|raw }}</div>
+            {% endif %}
+            <div>
+                Content
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

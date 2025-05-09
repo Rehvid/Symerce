@@ -7,7 +7,6 @@ import { renderOverlay } from '@/shop/overlayManager';
 export const mountHeader = () => {
     mountUserModalToggle();
     mountMenuModal();
-    mountSubmenus();
 };
 
 const mountUserModalToggle = () => {
@@ -35,23 +34,5 @@ const mountMenuModal = () => {
 
     reactMenuModalElement.addEventListener('click', () => {
         renderOverlay(<MenuModalToggle items={items} />);
-    });
-};
-
-const mountSubmenus = () => {
-    document.querySelectorAll('.react-submenu').forEach((parentSubmenu) => {
-        const placeholder = parentSubmenu.querySelector('.submenu-placeholder');
-        const dataSubmenu = parentSubmenu.getAttribute('data-submenu');
-        let items = [];
-
-        try {
-            items = JSON.parse(dataSubmenu);
-            if (placeholder) {
-                createRoot(placeholder).render(<Submenu items={items} parent={parentSubmenu} />);
-            }
-        } catch (e) {
-            console.error(e.message);
-            console.error('Cannot parse submenu data!');
-        }
     });
 };
