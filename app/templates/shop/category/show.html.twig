@@ -6,12 +6,74 @@
     {% set wrapperId = 'category-' ~ category.id %}
     {% embed 'shop/partials/_content_wrapper.html.twig' with {tag: 'section', id: wrapperId} %}
         {% block content %}
+
             {% if category.description is not null %}
                 <div class="text-primary-content mb-[2rem] break-all">{{ category.description|raw }}</div>
             {% endif %}
-            <div>
-                Content
+
+            {% if subcategories is defined and subcategories is not empty %}
+                <div class="mb-[3rem] react-category-swiper h-[300px]" data-categories="{{ subcategories|json_encode }}">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        {% for i in 1..6 %}
+                            <div class="flex flex-col gap-4 items-center justify-center animate-pulse">
+                                <div class="w-full pb-[100%] relative bg-gray-200 rounded-xl"></div>
+                                <div class="h-4 w-1/2 bg-gray-200 rounded"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="w-full flex gap-2 flex-wrap items-center justify-between text-primary-content pb-5 mb-4 border-b border-gray-200">
+
+                <button
+                        class="react-filter-toggle border border-gray-200 transition-all duration-300 py-2 px-4 cursor-pointer rounded-xl flex gap-2 hover:border-primary"
+                        data-filters="[]"
+                        type="button"
+                >
+                    {{ getSvgInline('build/images/filter.svg', 'text-primary-content')|raw }}
+                    <span>{{ 'shop.common.filter'|trans }}</span>
+                </button>
+
+                <button
+                        class="react-dropdown relative border border-gray-200 transition-all duration-300 py-2 px-4 cursor-pointer rounded-xl flex gap-2 hover:border-primary"
+                        data-content="<div>Subcategories</div>"
+                >
+                    {{ getSvgInline('build/images/sort.svg', 'text-primary-content')|raw }}
+                    <span>{{ 'shop.common.sort'|trans }}</span>
+                    <div class="react-dropdown-placeholder"></div>
+                </button>
             </div>
+
+            <div class="grid gap-[40px] xl:grid-cols-4 lg:grid-cols-3 w-full sm:grid-cols-2 grid-cols-1 mb-[3rem]">
+                {% for product in products %}
+                    {% include 'shop/product/product-list.html.twig' with {
+                        name: product.name,
+                        url: product.url,
+                        discountPrice: product.discountPrice,
+                        regularPrice: product.regularPrice,
+                        thumbnail: product.thumbnail,
+                        hasPromotion: product.hasPromotion
+                    }
+                    %}
+                {% endfor %}
+            </div>
+
+
         {% endblock %}
     {% endembed %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {{ encore_entry_link_tags('shop/swiper-style') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('shop/filter') }}
+    {{ encore_entry_script_tags('shop/dropdown') }}
+    {{ encore_entry_script_tags('shop/category') }}
 {% endblock %}

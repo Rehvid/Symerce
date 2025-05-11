@@ -1,0 +1,12 @@
+{% extends 'shop/base.html.twig' %}
+
+{% block body %}
+    {% include 'shop/partials/_page_header.html.twig' with {pageTitle: product.name} %}
+
+    {% set wrapperId = 'product-' ~ product.id %}
+    {% embed 'shop/partials/_content_wrapper.html.twig' with {tag: 'section', id: wrapperId} %}
+        {% block content %}
+            {{ product.name }} - Under construction
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

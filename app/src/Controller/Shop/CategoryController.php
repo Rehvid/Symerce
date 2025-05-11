@@ -6,8 +6,11 @@ namespace App\Controller\Shop;
 
 use App\DTO\Shop\Response\Category\CategoryIndexResponseDTO;
 use App\Entity\Category;
+use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Service\FileService;
+use App\Service\SettingManager;
+use App\ValueObject\Money;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +21,7 @@ class CategoryController extends AbstractController
     public function __construct(
         private readonly CategoryRepository $categoryRepository,
         private readonly FileService $fileService,
+        private readonly SettingManager $settingManager,
     ) {
     }
 
@@ -43,8 +47,37 @@ class CategoryController extends AbstractController
     #[Route('/kategoria/{slug}', name: 'shop.category_show', methods: ['GET'])]
     public function show(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category): Response
     {
+
+        //TODO: Create responseMapper and DTO
+        $subcategories = array_map(function (Category $category) {
+            return [
+                'name' => $category->getName(),
+                'href' => $this->generateUrl('shop.category_show', ['slug' => $category->getSlug()]),
+                'image' => $this->fileService->preparePublicPathToFile($category->getImage()?->getPath()),
+            ];
+        }, $category->getChildren()->toArray());
+
+        $currency = $this->settingManager->findDefaultCurrency();
+
+        $products = array_map(function (Product $product) use ($category, $currency) {
+            $discountPrice = $product->getDiscountPrice() === null
+                ? null
+                : (new Money($product->getDiscountPrice(), $currency))->getFormattedAmountWithSymbol();
+
+            return [
+                'name' => $product->getName(),
+                'url' => $this->generateUrl('shop.product_show', ['slugCategory' => $category->getSlug(),'slug' => $product->getSlug()]),
+                'thumbnail' => $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile()?->getPath()),
+                'discountPrice' => $discountPrice,
+                'regularPrice' => (new Money($product->getRegularPrice(), $currency))->getFormattedAmountWithSymbol(),
+                'hasPromotion' => $discountPrice !== null,
+            ];
+        }, $category->getProducts()->toArray());
+
         return $this->render('shop/category/show.html.twig', [
-            'category' => $category
+            'category' => $category,
+            'subcategories' => $subcategories,
+            'products' => $products,
         ]);
     }
 }

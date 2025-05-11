@@ -41,6 +41,11 @@ final readonly class Money implements \JsonSerializable
         );
     }
 
+    public function getFormattedAmountWithSymbol(): string
+    {
+        return $this->getFormattedAmount() . ' ' . $this->currency->getSymbol();
+    }
+
     public function add(Money $money): self
     {
         $this->checkCurrencyCompatibility($money);

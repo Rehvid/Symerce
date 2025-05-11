@@ -1,0 +1,25 @@
+{% import 'shop/macros/heading.html.twig' as ui %}
+
+<a class="relative h-full flex flex-col border-b border-gray-200 transition-all duration-300 hover:border-primary hover:border" href="{{ url }}">
+    <div class="p-4">
+        {% include 'shop/partials/_page_item_image.html.twig' with { itemImage: thumbnail, itemName: name } %}
+    </div>
+
+    <div class=" h-full">
+        <div class="p-4 flex flex-col gap-2 justify-between h-full">
+            {{ ui.heading('h2', name, 'text-primary-content cursor-pointer transition-all duration-300 hover:text-primary') }}
+            {% if hasPromotion %}
+                <small class="line-through">{{ regularPrice }}</small>
+                <div class="text-lg font-bold">
+                    {{ discountPrice }}
+                </div>
+            {% else %}
+                <div class="text-lg font-bold">
+                    {{ regularPrice }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</a>
+
+

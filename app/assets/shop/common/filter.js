@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 const mountFilter = () => {
   const reactFilterToggle = document.querySelector('.react-filter-toggle');
 
-  console.log(reactFilterToggle);
   if (!reactFilterToggle) {
     return;
   }

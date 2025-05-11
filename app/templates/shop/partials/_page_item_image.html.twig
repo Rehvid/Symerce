@@ -1,0 +1,9 @@
+{% if itemImage is defined and itemImage is not null %}
+    <div class="w-full h-full pb-[100%] relative">
+        <img class="absolute inset-0 w-full h-full object-cover rounded-xl" src="{{ itemImage }}" {% if itemName is defined and itemName is not null %} alt="{{ itemName }}" {% endif %}>
+    </div>
+{% else %}
+    <div class="w-full pb-[100%] relative">
+        <img class="absolute inset-0 w-full h-full object-cover rounded-xl" src="{{ asset('assets/images/placeholder-image.png') }}" {% if itemName is defined and itemName is not null %} alt="Placeholder Image - {{ itemName }}" {% endif %}>
+    </div>
+{% endif %}
