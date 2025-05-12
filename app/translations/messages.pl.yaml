@@ -56,3 +56,5 @@ shop:
     description: 'Opis'
     parameters: 'Parametry'
     out_of_stock: 'Brak na magazynie'
+  errors:
+    not_found: 'Strona jest niedostępna lub została wyłączona.'

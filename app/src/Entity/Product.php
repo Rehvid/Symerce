@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enums\DecimalPrecision;
+use App\Interfaces\ActivatableInterface;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
 use App\Repository\ProductRepository;
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Product implements OrderSortableInterface, IdentifiableEntityInterface
+class Product implements OrderSortableInterface, IdentifiableEntityInterface, ActivatableInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;

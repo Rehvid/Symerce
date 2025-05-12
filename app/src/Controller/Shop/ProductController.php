@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop;
 
-use App\Entity\AttributeValue;
 use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Enums\SettingType;
@@ -16,14 +15,17 @@ use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ProductController extends AbstractController
+class ProductController extends AbstractShopController
 {
     public function __construct(
         private readonly SettingManager $settingManager,
         private readonly FileService $fileService,
         private readonly CarrierRepository $carrierRepository,
+        TranslatorInterface $translator
     ) {
+        parent::__construct($translator);
     }
 
     #[Route('/kategoria/{slugCategory}/produkt/{slug}', name: 'shop.product_show', methods: ['GET'])]
@@ -31,6 +33,8 @@ class ProductController extends AbstractController
         #[MapEntity(mapping: ['slug' => 'slug'])] Product $product
     ): Response
     {
+        $this->ensurePageIsActive($product);
+
         $currency = $this->settingManager->findDefaultCurrency();
 
         $discountPrice = $product->getDiscountPrice() === null ? null : (new Money($product->getDiscountPrice(), $currency))->getFormattedAmountWithSymbol();

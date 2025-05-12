@@ -15,14 +15,17 @@ use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-class CategoryController extends AbstractController
+class CategoryController extends AbstractShopController
 {
     public function __construct(
         private readonly CategoryRepository $categoryRepository,
         private readonly FileService $fileService,
         private readonly SettingManager $settingManager,
+        TranslatorInterface $translator
     ) {
+        parent::__construct($translator);
     }
 
     #[Route('/kategorie', name: 'shop.categories', methods: ['GET'])]
@@ -47,6 +50,8 @@ class CategoryController extends AbstractController
     #[Route('/kategoria/{slug}', name: 'shop.category_show', methods: ['GET'])]
     public function show(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category): Response
     {
+        $this->ensurePageIsActive($category);
+
 
         //TODO: Create responseMapper and DTO
         $subcategories = array_map(function (Category $category) {
