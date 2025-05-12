@@ -46,15 +46,15 @@
     <div class="flex flex-col gap-4 border border-gray-200 rounded-xl p-4">
         <div class="flex justify-between gap-2 pb-5 border-b border-gray-200 ">
             <span>Czas dostawy</span>
-            <span>5 dni</span>
+            <span>{{ product.deliveryTime }}</span>
         </div>
         <div class="flex justify-between gap-2 pb-5 border-b border-gray-200">
             <span>Wysyłka</span>
-            <span>Do 35zł</span>
+            <span>{{ product.deliveryFee }}</span>
         </div>
         <div class="flex justify-between gap-2 ">
             <span>Zwrot</span>
-            <span>14 dni</span>
+            <span>{{ product.refund }}</span>
         </div>
     </div>
 </div>

@@ -18,6 +18,19 @@ class CarrierRepository extends AbstractRepository
         parent::__construct($registry);
     }
 
+    /** @return array<int, mixed> */
+    public function findLowestAndHighestFee(): array
+    {
+        $alias = $this->getAlias();
+
+        return $this->createQueryBuilder($alias)
+            ->select("MAX($alias.fee) as maxFee, MIN($alias.fee) as minFee")
+            ->andWhere("$alias.isActive = :active")
+            ->setParameter("active", true)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     protected function getEntityClass(): string
     {
         return Carrier::class;

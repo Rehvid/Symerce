@@ -7,6 +7,8 @@ namespace App\Controller\Shop;
 use App\Entity\AttributeValue;
 use App\Entity\Product;
 use App\Entity\ProductImage;
+use App\Enums\SettingType;
+use App\Repository\CarrierRepository;
 use App\Service\FileService;
 use App\Service\SettingManager;
 use App\ValueObject\Money;
@@ -20,6 +22,7 @@ class ProductController extends AbstractController
     public function __construct(
         private readonly SettingManager $settingManager,
         private readonly FileService $fileService,
+        private readonly CarrierRepository $carrierRepository,
     ) {
     }
 
@@ -33,12 +36,27 @@ class ProductController extends AbstractController
         $discountPrice = $product->getDiscountPrice() === null ? null : (new Money($product->getDiscountPrice(), $currency))->getFormattedAmountWithSymbol();
         $hasPromotion = $discountPrice !== null;
 
-        $attributes = $product->getAttributeValues()->map(function (AttributeValue $attributeValue) {
-            return [
-                'attribute' => $attributeValue->getAttribute()->getName(),
-                'value' => $attributeValue->getValue()
-            ];
-        });
+        $attributes = [];
+
+        foreach ($product->getAttributeValues() as $attributeValue) {
+            $attribute = $attributeValue->getAttribute();
+            $attributes[$attribute->getName()][] =  $attributeValue->getValue();
+        }
+
+        $productRefund = $this->settingManager->get(SettingType::PRODUCT_REFUND)?->getValue();
+        $deliveryFeeData = $this->carrierRepository->findLowestAndHighestFee();
+
+        $minFee = isset($deliveryFeeData['minFee']) ? (new Money((string) $deliveryFeeData['minFee'], $currency))->getFormattedAmountWithSymbol() : null;
+        $maxFee = isset($deliveryFeeData['maxFee']) ? (new Money((string) $deliveryFeeData['maxFee'], $currency))->getFormattedAmountWithSymbol(): null;
+
+        $deliveryFee = match (true) {
+            $minFee !== null && $maxFee !== null => "od $minFee do $maxFee",
+            $minFee !== null => $minFee,
+            $maxFee !== null => $maxFee,
+            default => null,
+        };
+
+
 
         //TODO: Make responser and DTO
         $data = [
@@ -50,11 +68,14 @@ class ProductController extends AbstractController
             'regularPrice' => (new Money($product->getRegularPrice(), $currency))->getFormattedAmountWithSymbol(),
             'discountPrice' => $discountPrice,
             'hasPromotion' => $hasPromotion,
-            'attributes' => $attributes->toArray(),
+            'attributes' => $attributes,
             'thumbnail' => $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile()?->getPath()),
             'images' => $product->getImages()->map(fn (ProductImage $image) => $this->fileService->preparePublicPathToFile($image->getFile()->getPath())),
             'quantity' => $product->getQuantity(),
-            'isOutOfStock' => $product->getQuantity() === 0
+            'isOutOfStock' => $product->getQuantity() === 0,
+            'deliveryTime' => $product->getDeliveryTime()->getLabel(),
+            'refund' => null === $productRefund ? 14 : (int) $productRefund,
+            'deliveryFee' => $deliveryFee,
         ];
 
         return $this->render('shop/product/show.html.twig', [

@@ -28,6 +28,11 @@ final class SettingManager
         $this->settingRepository = $settingRepository;
     }
 
+    public function get(SettingType $type): ?Setting
+    {
+        return $this->settingRepository->findOneBy(['type' => $type]);
+    }
+
     public function findDefaultCurrency(): Currency
     {
         /** @var Setting|null $setting */
