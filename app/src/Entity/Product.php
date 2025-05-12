@@ -36,7 +36,6 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-
     #[ORM\Column(type: 'string', length: 255)]
     private string $slug;
 
@@ -46,7 +45,6 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
         scale: DecimalPrecision::MAXIMUM_SCALE->value
     )]
     private string $regularPrice;
-
 
     #[ORM\Column(
         type: 'decimal',
@@ -65,31 +63,31 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
 
     /** @var Collection<int, Category> */
     #[ORM\ManyToMany(targetEntity: Category::class)]
-    #[ORM\JoinTable(name: 'product_category')]
+    #[ORM\JoinTable(name: 'product_categories')]
     private Collection $categories;
 
     #[ORM\ManyToMany(targetEntity: Tag::class)]
     #[ORM\JoinTable(name: 'product_tag')]
     private Collection $tags;
 
-    #[ORM\ManyToMany(targetEntity: DeliveryTime::class)]
-    #[ORM\JoinTable(name: 'product_delivery_time')]
-    private Collection $deliveryTimes;
+    #[ORM\ManyToOne(targetEntity: DeliveryTime::class)]
+    #[ORM\JoinColumn(name: 'delivery_time_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private DeliveryTime $deliveryTime;
 
     #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['isThumbnail' => 'DESC'])]
     private Collection $images;
 
-    #[ORM\ManyToMany(targetEntity: AttributeValue::class)]
-    #[ORM\JoinTable(name: 'product_attribute_value')]
-    private Collection $attributeValues;
+    #[ORM\ManyToMany(targetEntity: Attribute::class)]
+    #[ORM\JoinTable(name: 'product_attribute')]
+    private Collection $attributes;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
-        $this->deliveryTimes = new ArrayCollection();
-        $this->attributeValues = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     public function getId(): int
@@ -173,25 +171,20 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
 
     public function getAttributeValues(): Collection
     {
-        return $this->attributeValues;
+        return $this->attributes;
     }
 
-    public function getDeliveryTimes(): Collection
+    public function addAttribute(Attribute $attribute): void
     {
-        return $this->deliveryTimes;
-    }
-
-    public function addAttributeValue(AttributeValue $attributeValue): void
-    {
-        if (!$this->attributeValues->contains($attributeValue)) {
-            $this->attributeValues->add($attributeValue);
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes->add($attribute);
         }
     }
 
-    public function removeAttributeValue(AttributeValue $attributeValue): void
+    public function removeAttributeValue(Attribute $attribute): void
     {
-        if ($this->attributeValues->contains($attributeValue)) {
-            $this->attributeValues->removeElement($attributeValue);
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
         }
     }
 
@@ -218,20 +211,6 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
         }
 
         return $thumbnailImage;
-    }
-
-    public function addDeliveryTime(DeliveryTime $deliveryTime): void
-    {
-        if (!$this->deliveryTimes->contains($deliveryTime)) {
-            $this->deliveryTimes->add($deliveryTime);
-        }
-    }
-
-    public function removeDeliveryTime(DeliveryTime $deliveryTime): void
-    {
-        if ($this->deliveryTimes->contains($deliveryTime)) {
-            $this->deliveryTimes->removeElement($deliveryTime);
-        }
     }
 
     public function setVendor(?Vendor $vendor): void
@@ -272,5 +251,15 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
     public function setQuantity(int $quantity): void
     {
         $this->quantity = $quantity;
+    }
+
+    public function getDeliveryTime(): DeliveryTime
+    {
+        return $this->deliveryTime;
+    }
+
+    public function setDeliveryTime(DeliveryTime $deliveryTime): void
+    {
+        $this->deliveryTime = $deliveryTime;
     }
 }

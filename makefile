@@ -38,17 +38,26 @@ ps:
 bash:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash
 
+cache-clear:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console cache:clear"
+
 create-migration:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console make:migration"
 
 migrate:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console doctrine:migrations:migrate"
 
+schema-update-force:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console doctrine:schema:update --force"
+
 composer-install:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "composer install"
 
 bootstrap-fixtures:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console doctrine:fixtures:load --group=bootstrap --append"
+
+fake-data-fixtures:
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "php bin/console doctrine:fixtures:load --group=fakeData --append"
 
 npm-install:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "npm install"
