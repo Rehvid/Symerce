@@ -81,7 +81,7 @@ final class ProductEntityFiller extends BaseEntityFiller
         $this->fillCategories($persistable, $entity);
         $this->fillAttributeValues($persistable, $entity);
         $this->fillTags($persistable, $entity);
-        $this->fillDeliveryTimes($persistable, $entity);
+        $this->fillDeliveryTime($persistable, $entity);
         $this->fillImages($persistable, $entity);
 
         if ($persistable->thumbnail) {
@@ -143,25 +143,13 @@ final class ProductEntityFiller extends BaseEntityFiller
         return $this->entityManager->getRepository(Category::class)->findBy(['id' => $categoryIds]);
     }
 
-    private function fillDeliveryTimes(SaveProductRequestDTO $persistable, Product $product): void
+    private function fillDeliveryTime(SaveProductRequestDTO $persistable, Product $product): void
     {
-        $deliveryTimes = $this->getDeliveryTimes($persistable->deliveryTimes);
-        $product->getDeliveryTimes()->clear();
-
-        /** @var DeliveryTime $deliveryTime */
-        foreach ($deliveryTimes as $deliveryTime) {
-            $product->addDeliveryTime($deliveryTime);
-        }
-    }
-
-    /**
-     * @param array<int, mixed> $deliveryTimeIds
-     *
-     * @return DeliveryTime[]
-     */
-    private function getDeliveryTimes(array $deliveryTimeIds): array
-    {
-        return $this->entityManager->getRepository(DeliveryTime::class)->findBy(['id' => $deliveryTimeIds]);
+       $deliveryTime = $this->entityManager->getRepository(DeliveryTime::class)->find($persistable->deliveryTime);
+       if (null === $deliveryTime) {
+           return;
+       }
+       $product->setDeliveryTime($deliveryTime);
     }
 
     private function fillTags(SaveProductRequestDTO $persistable, Product $product): void
@@ -188,7 +176,6 @@ final class ProductEntityFiller extends BaseEntityFiller
     private function fillAttributeValues(SaveProductRequestDTO $persistable, Product $product): void
     {
         $attributes = $this->getAttributes($persistable->attributes);
-
 
         $product->getAttributeValues()->clear();
 

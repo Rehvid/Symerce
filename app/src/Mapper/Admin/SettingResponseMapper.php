@@ -51,17 +51,11 @@ final readonly class SettingResponseMapper implements ResponseMapperInterface
     private function createSettingIndexResponse(Setting $setting): ResponseInterfaceData
     {
         $type = $this->translator->trans("base.setting_type.{$setting->getType()->value}");
-        $value = $setting->getValue();
-
-        if (SettingType::CURRENCY === $setting->getType()) {
-            $decodedValue = new JsonData($setting->getValue());
-            $value = $this->entityManager->getRepository(Currency::class)->find($decodedValue->get('id'))?->getName();
-        }
 
         return SettingIndexResponseDTO::fromArray([
             'id' => $setting->getId(),
             'name' => $setting->getName(),
-            'value' => $value,
+            'isActive' => $setting->isActive(),
             'type' => $type,
             'isProtected' => $setting->isProtected(),
         ]);

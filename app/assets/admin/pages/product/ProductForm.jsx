@@ -44,7 +44,7 @@ const ProductForm = () => {
                   'vendor',
                   'tags',
                   'categories',
-                  'deliveryTimes',
+                  'deliveryTime',
                   'attributes',
                   'images',
               ]

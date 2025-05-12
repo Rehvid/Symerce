@@ -109,7 +109,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
             'isActive' => $product->isActive(),
             'vendor' => (string) $product->getVendor()?->getId(),
             'tags' => $product->getTags()->map(fn (Tag $tag) => (string) $tag->getId())->toArray(),
-            'deliveryTimes' => $product->getDeliveryTimes()->map(fn (DeliveryTime $deliveryTime) => (string) $deliveryTime->getId())->toArray(),
+            'deliveryTime' => (string) $product->getDeliveryTime()?->getId(),
             'categories' => $product->getCategories()->map(fn (Category $category) => (string) $category->getId())->toArray(),
             'attributes' => $productAttributes,
             'images' => $product->getImages()->map(function (ProductImage $productImage) {

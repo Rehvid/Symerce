@@ -80,27 +80,24 @@ const ProductFormSideColumn = ({ register, control, fieldErrors, formData }) => 
                 />
 
                 <Controller
-                    name="deliveryTimes"
+                    name="deliveryTime"
                     control={control}
-                    defaultValue={[]}
+                    defaultValue={null}
                     rules={{
                         ...validationRules.required(),
                     }}
                     render={({ field }) => (
                         <div>
-                            <MultiSelect
-                                label="Czasy dostawy"
+                            <Select
+                                label="Czas dostawy"
                                 options={formData?.optionDeliveryTimes || []}
                                 selected={field.value}
-                                onChange={(value, checked) => {
-                                    const newValue = checked
-                                        ? [...field.value, value]
-                                        : field.value.filter((v) => v !== value);
-                                    field.onChange(newValue);
+                                onChange={(value) => {
+                                  field.onChange(value);
                                 }}
                                 isRequired
-                                hasError={!!fieldErrors?.deliveryTimes}
-                                errorMessage={fieldErrors?.deliveryTimes?.message}
+                                hasError={!!fieldErrors?.deliveryTime}
+                                errorMessage={fieldErrors?.deliveryTime?.message}
                             />
                         </div>
                     )}

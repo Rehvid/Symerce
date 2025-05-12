@@ -28,11 +28,11 @@ final class ProductUpdateFormResponseDTO extends ProductFormResponseDTO
         public ?string $discountPrice,
         public int $quantity,
         public bool $isActive,
+        public ?string $deliveryTime,
         public ?string $vendor,
         public ?array $tags = [],
         public ?array $categories = [],
         public ?array $attributes = [],
-        public ?array $deliveryTimes = [],
         public ?array $images = []
     ) {
         parent::__construct($optionTags, $optionCategories, $optionVendors, $optionDeliveryTimes, $optionAttributes);
@@ -53,11 +53,11 @@ final class ProductUpdateFormResponseDTO extends ProductFormResponseDTO
             discountPrice: $data['discountPrice'],
             quantity: $data['quantity'],
             isActive: $data['isActive'],
+            deliveryTime: $data['deliveryTime'],
             vendor: $data['vendor'] ?? null,
             tags: $data['tags'],
             categories: $data['categories'] ?? [],
             attributes: $data['attributes'] ?? [],
-            deliveryTimes: $data['deliveryTimes'],
             images: $data['images'] ?? [],
         );
     }

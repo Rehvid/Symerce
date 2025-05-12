@@ -11,8 +11,8 @@ final readonly class SettingIndexResponseDTO implements ResponseInterfaceData
     private function __construct(
         public int $id,
         public string $name,
-        public string $value,
         public string $type,
+        public bool $isActive,
         public bool $isProtected,
     ) {
     }
@@ -22,8 +22,8 @@ final readonly class SettingIndexResponseDTO implements ResponseInterfaceData
         return new self(
             id: $data['id'],
             name: $data['name'],
-            value: $data['value'],
             type: $data['type'],
+            isActive: $data['isActive'],
             isProtected: $data['isProtected'],
         );
     }

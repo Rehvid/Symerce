@@ -12,6 +12,7 @@ import ListHeader from '@/admin/components/ListHeader';
 import useListDefaultQueryParams from '@/admin/hooks/useListDefaultQueryParams';
 import { filterEmptyValues } from '@/admin/utils/helper';
 import SelectFilter from '@/admin/components/table/Filters/SelectFilter';
+import TableRowActiveBadge from '@/admin/components/table/Partials/TableRow/TableRowActiveBadge';
 
 const SettingList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -46,12 +47,12 @@ const SettingList = () => {
     };
 
     const data = items.map((item) => {
-        const { id, name, type, value, isProtected } = item;
+        const { id, name, type, isActive, isProtected } = item;
         return Object.values({
             id: <TableRowId id={id} />,
             name,
             type: <Badge> {type} </Badge>,
-            value,
+            active: <TableRowActiveBadge isActive={isActive} />,
             actions: actions(id, isProtected),
         });
     });
@@ -60,7 +61,7 @@ const SettingList = () => {
         { orderBy: 'id', label: 'ID', sortable: true },
         { orderBy: 'name', label: 'Nazwa', sortable: true },
         { orderBy: 'type', label: 'Typ', sortable: true },
-        { orderBy: 'value', label: 'Value' },
+        { label: 'Aktywny' },
         { orderBy: 'actions', label: 'Actions' },
     ];
 

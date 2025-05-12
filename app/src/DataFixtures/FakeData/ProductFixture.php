@@ -65,7 +65,9 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
             }
 
             foreach ($attributes as $attribute) {
-                $product->addAttribute($attribute);
+                foreach ($attribute->getValues() as $value) {
+                    $product->addAttributeValue($value);
+                }
             }
 
             $categorySlug = $data['categorySlug'];

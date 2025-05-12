@@ -78,16 +78,16 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
     #[ORM\OrderBy(['isThumbnail' => 'DESC'])]
     private Collection $images;
 
-    #[ORM\ManyToMany(targetEntity: Attribute::class)]
-    #[ORM\JoinTable(name: 'product_attribute')]
-    private Collection $attributes;
+    #[ORM\ManyToMany(targetEntity: AttributeValue::class)]
+    #[ORM\JoinTable(name: 'product_attribute_value')]
+    private Collection $attributeValues;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
-        $this->attributes = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
     }
 
     public function getId(): int
@@ -171,20 +171,20 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface
 
     public function getAttributeValues(): Collection
     {
-        return $this->attributes;
+        return $this->attributeValues;
     }
 
-    public function addAttribute(Attribute $attribute): void
+    public function addAttributeValue(AttributeValue $attributeValue): void
     {
-        if (!$this->attributes->contains($attribute)) {
-            $this->attributes->add($attribute);
+        if (!$this->attributeValues->contains($attributeValue)) {
+            $this->attributeValues->add($attributeValue);
         }
     }
 
-    public function removeAttributeValue(Attribute $attribute): void
+    public function removeAttribute(AttributeValue $attributeValue): void
     {
-        if ($this->attributes->contains($attribute)) {
-            $this->attributes->removeElement($attribute);
+        if ($this->attributeValues->contains($attributeValue)) {
+            $this->attributeValues->removeElement($attributeValue);
         }
     }
 
