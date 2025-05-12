@@ -16,7 +16,8 @@ final class ProductIndexResponseDTO implements ResponseInterfaceData
         public Money $discountedPrice,
         public Money $regularPrice,
         public bool $isActive,
-        public int $quantity
+        public int $quantity,
+        public string $showUrl
     ) {
 
     }
@@ -31,6 +32,7 @@ final class ProductIndexResponseDTO implements ResponseInterfaceData
             regularPrice: $data['regularPrice'],
             isActive: $data['isActive'],
             quantity: $data['quantity'],
+            showUrl: $data['showUrl'],
         );
     }
 }

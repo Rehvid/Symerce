@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Service\DataProvider\AppConfigProvider;
 use App\Service\DataProvider\ReactDataProvider;
 use App\Service\DataProvider\SettingsProvider;
 use App\Service\FileService;
@@ -15,10 +16,11 @@ class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]
     #[Route('/admin/{reactRoute}', name: 'app_admin_react', requirements: ['reactRoute' => '.*'])]
-    public function index(SettingsProvider $provider, FileService $service): Response
+    public function index(SettingsProvider $provider, FileService $service, AppConfigProvider $appConfigProvider): Response
     {
         $reactDataProvider = new ReactDataProvider();
         $reactDataProvider->add($provider);
+        $reactDataProvider->add($appConfigProvider);
 
         return $this->render('admin/admin.html.twig', [
             'data' => $reactDataProvider->getData(),

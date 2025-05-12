@@ -24,6 +24,7 @@ use App\Service\SettingManager;
 use App\Utils\Utils;
 use App\ValueObject\Money;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final readonly class ProductResponseMapper implements ResponseMapperInterface
 {
@@ -31,6 +32,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
         private EntityManagerInterface $entityManager,
         private SettingManager $settingManager,
         private ResponseMapperHelper $responseMapperHelper,
+        private UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
@@ -63,6 +65,10 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
             'regularPrice' => new Money($product->getRegularPrice(), $currency),
             'isActive' => $product->isActive(),
             'quantity' => $product->getQuantity(),
+            'showUrl' => $this->urlGenerator->generate('shop.product_show', [
+                'slug' => $product->getSlug(),
+                'slugCategory' => $product->getCategories()->first()->getSlug(),
+            ]),
         ]);
     }
 

@@ -17,6 +17,7 @@ import ActiveFilter from '@/admin/components/table/Filters/ActiveFilter';
 import RangeFilter from '@/admin/components/table/Filters/RangeFilter';
 import { filterEmptyValues } from '@/admin/utils/helper';
 import ExactValueFilter from '@/admin/components/table/Filters/ExactValueFilter';
+import TableRowShowAction from '@/admin/components/table/Partials/TableRow/TableRowShowAction';
 
 const ProductList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -45,6 +46,12 @@ const ProductList = () => {
         return <TableSkeleton rowsCount={filters.limit} />;
     }
 
+    const renderActions = (item) => (
+      <TableActions id={item.id} onDelete={() => removeItem(`admin/products/${item.id}`)} >
+          <TableRowShowAction href={item.showUrl}/>
+      </TableActions>
+    )
+
     const data = items.map((item) => {
         const { discountedPrice, regularPrice, id, name, isActive, quantity, image } = item;
         return Object.values({
@@ -60,7 +67,7 @@ const ProductList = () => {
             regularPrice: <TableRowMoney amount={regularPrice?.amount} symbol={regularPrice?.symbol} />,
             quantity,
             active: <TableRowActiveBadge isActive={isActive} />,
-            actions: <TableActions id={id} onDelete={() => removeItem(`admin/products/${id}`)} />,
+            actions: renderActions(item),
         });
     });
 
