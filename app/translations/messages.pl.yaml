@@ -51,3 +51,7 @@ shop:
   input:
     search:
       placeholder: 'Szukaj...'
+  product:
+    description: 'Opis'
+    parameters: 'Parametry'
+    out_of_stock: 'Brak na magazynie'

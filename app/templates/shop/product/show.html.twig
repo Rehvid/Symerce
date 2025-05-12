@@ -1,12 +1,38 @@
 {% extends 'shop/base.html.twig' %}
 
+ {% block title %}
+     <title>{{ product.name }}</title>
+ {% endblock %}
+
+
 {% block body %}
     {% include 'shop/partials/_page_header.html.twig' with {pageTitle: product.name} %}
 
     {% set wrapperId = 'product-' ~ product.id %}
     {% embed 'shop/partials/_content_wrapper.html.twig' with {tag: 'section', id: wrapperId} %}
+        {% import 'shop/macros/heading.html.twig' as ui %}
         {% block content %}
-            {{ product.name }} - Under construction
+            <div class="flex flex-col gap-4 lg:flex-row mb-[3rem]">
+                {% include 'shop/product/partials/_show_gallery.html.twig' %}
+                {% include 'shop/product/partials/_show_info.html.twig' %}
+            </div>
+
+            <div>
+                {% include 'shop/product/partials/_show_tabs.html.twig' %}
+            </div>
+            
         {% endblock %}
     {% endembed %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {{ encore_entry_link_tags('shop/swiper-style') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('shop/product') }}
 {% endblock %}

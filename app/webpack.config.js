@@ -21,6 +21,7 @@ Encore.configureLoaderRule('images', (loaderRule) => {
       .addEntry('shop/filter', './assets/shop/common/filter.js')
       .addEntry('shop/dropdown', './assets/shop/common/dropdown.js')
       .addEntry('shop/category', './assets/shop/category/index.js')
+      .addEntry('shop/product', './assets/shop/product/index.js')
 
       .addEntry('shop/style', './assets/shop/styles/app.css')
       .addEntry('shop/swiper-style', './assets/shop/styles/swiper.css')

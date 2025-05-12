@@ -1,0 +1,30 @@
+{% set productTabs = ['description', 'param'] %}
+
+<div class="text-sm font-medium text-center border-b border-gray-200">
+    <ul class="flex flex-wrap -mb-px gap-5 react-product-tab"
+        data-types="{{ productTabs|json_encode }}"
+        data-active-tab="description"
+    >
+        <li class="me-2">
+            <span
+                class="react-product-tab-element cursor-pointer inline-block p-4 border-b-2 text-primary border-primary rounded-t-lg "
+                data-content="{{ product.description }}"
+                data-type="description"
+            > {{ 'shop.product.description'|trans }}
+            </span>
+        </li>
+        <li class="me-2">
+            <span
+                class="react-product-tab-element cursor-pointer transition-all duration-300 inline-block p-4 border-transparent border-b-2 rounded-t-lg hover:text-primary hover:border-primary"
+                data-content="{{ product.attributes|json_encode }}"
+                data-type="param"
+            >{{  'shop.product.parameters'|trans  }}</span>
+        </li>
+    </ul>
+</div>
+
+<div class="react-product-tab-content mt-5 mb-[3rem]">
+    <div class="break-all">
+        {{ product.description|raw }}
+    </div>
+</div>

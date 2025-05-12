@@ -1,0 +1,60 @@
+{% import 'shop/macros/heading.html.twig' as ui %}
+
+<div class="w-full flex flex-col gap-[2.5rem] lg:max-w-[600px] ">
+    <div class="flex flex-col gap-[2rem]">
+
+        <div class="flex flex-wrap gap-4">
+            {% for tag in product.tags %}
+                <span class="inline-flex items-center px-3 py-1.5 text-sm uppercase font-medium rounded-lg text-black border border-gray-200">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="flex flex-col gap-2">
+            {{ ui.heading('h1', product.name, 'text-primary-content cursor-pointer transition-all duration-300') }}
+            {% if product.vendor is not null %}
+                <div class="font-medium">
+                    <span>Product: <strong>{{ product.vendor.name }}</strong></span>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="flex items-center gap-4 border-b border-gray-200 pb-3">
+            {% if product.hasPromotion %}
+                <div class="line-through text-sm">{{ product.regularPrice }}</div>
+                <div class="text-xl font-bold">
+                    {{ product.discountPrice }}
+                </div>
+            {% else %}
+                <div class="text-xl font-bold">
+                    {{ product.regularPrice }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="flex justify-between gap-4">
+        {% if product.isOutOfStock %}
+            <strong>{{ 'shop.product.out_of_stock'|trans }}</strong>
+        {% else %}
+            <input name="product-quantity" placeholder="0" id="product-quantity" class="w-75 border border-gray-200 rounded-lg focus:outline-hidden px-4" type="number" min="0" max="{{ product.quantity }}" step="1">
+            <button id="product-add-to-cart" class="px-5 py-2.5 bg-green-200 border border-green-200 rounded-lg transition-all duration-300 cursor-pointer hover:bg-green-300 hover:border-green-300">Dodaj do koszyka</button>
+        {% endif %}
+
+    </div>
+
+    <div class="flex flex-col gap-4 border border-gray-200 rounded-xl p-4">
+        <div class="flex justify-between gap-2 pb-5 border-b border-gray-200 ">
+            <span>Czas dostawy</span>
+            <span>5 dni</span>
+        </div>
+        <div class="flex justify-between gap-2 pb-5 border-b border-gray-200">
+            <span>Wysyłka</span>
+            <span>Do 35zł</span>
+        </div>
+        <div class="flex justify-between gap-2 ">
+            <span>Zwrot</span>
+            <span>14 dni</span>
+        </div>
+    </div>
+</div>
