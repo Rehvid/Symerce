@@ -27,6 +27,7 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
         $this->loadMetaShopOgTitleSetting($manager);
         $this->loadMetaShopOgDescriptionSetting($manager);
         $this->loadShopCategoriesSetting($manager);
+        $this->loadProductRefundSetting($manager);
     }
 
     public function getDependencies(): array
@@ -118,6 +119,20 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
         $setting->setIsProtected(true);
         $setting->setActive(true);
         $setting->setIsJson(true);
+
+        $manager->persist($setting);
+        $manager->flush();
+    }
+
+    private function loadProductRefundSetting(ObjectManager $manager): void
+    {
+        $setting = new Setting();
+        $setting->setType(SettingType::PRODUCT_REFUND);
+        $setting->setName('Produkt dni do zwortu');
+        $setting->setValue("14");
+        $setting->setActive(true);
+        $setting->setIsJson(false);
+        $setting->setIsProtected(true);
 
         $manager->persist($setting);
         $manager->flush();

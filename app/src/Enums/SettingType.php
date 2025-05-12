@@ -14,6 +14,8 @@ enum SettingType: string
     case CUSTOM = 'custom';
     case SHOP_CATEGORIES = 'shop_categories';
 
+    case PRODUCT_REFUND = 'product_refund';
+
     /**
      * @return array<int, string>
      */

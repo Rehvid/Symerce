@@ -13,6 +13,7 @@ base:
     meta_shop_og_title: 'Open Graph tytuł sklepu'
     meta_shop_og_description: 'Open Graph opis sklepu'
     shop_categories: 'Kategorie wyświetlane w sklepie'
+    product_refund: 'Ilość dni do zwrotu'
   delivery_type:
     standard: 'Dostawa standardowa'
     express: 'Dostawa ekspresowa'
