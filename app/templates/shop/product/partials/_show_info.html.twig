@@ -38,7 +38,8 @@
             <strong>{{ 'shop.product.out_of_stock'|trans }}</strong>
         {% else %}
             <input name="product-quantity" placeholder="0" id="product-quantity" class="w-75 border border-gray-200 rounded-lg focus:outline-hidden px-4" type="number" min="0" max="{{ product.quantity }}" step="1">
-            <button id="product-add-to-cart" class="px-5 py-2.5 bg-green-200 border border-green-200 rounded-lg transition-all duration-300 cursor-pointer hover:bg-green-300 hover:border-green-300">Dodaj do koszyka</button>
+            <button id="product-add-to-cart" data-product-id="{{ product.id }}" class="px-5 py-2.5 bg-green-200 border border-green-200 rounded-lg transition-all duration-300 cursor-pointer hover:bg-green-300 hover:border-green-300">Dodaj do koszyka</button>
+            <div id="react-cart"></div>
         {% endif %}
 
     </div>

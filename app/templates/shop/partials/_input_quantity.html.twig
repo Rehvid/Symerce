@@ -1,0 +1,33 @@
+<div class="inline-flex items-center border border-gray-300 rounded-full overflow-hidden">
+    <button
+        class="px-3 py-2 transition-all duration-300 bg-gray-100 hover:bg-gray-200 cursor-pointer btn-quantity-change"
+        data-method="decrease"
+        {% if productId is defined and productId is not null %}
+            data-product-id="{{ productId }}"
+        {% endif %}
+    >
+        {{ getSvgInline('build/images/minus.svg')|raw }}
+    </button>
+    <input
+        type="text"
+        {% if id is defined and id is not null %}
+            id="{{ id }}"
+        {% endif %}
+        class="w-16 text-center outline-none border-gray-300"
+        {% if name is defined and name is not null %}
+            name="{{ name }}"
+        {% endif %}
+        {% if quantity is defined and quantity is not null %}
+            value="{{ quantity }}"
+        {% endif %}
+    >
+    <button
+        class="px-3 py-2 transition-all duration-300 bg-gray-100 hover:bg-gray-200 cursor-pointer btn-quantity-change"
+        data-method="increase"
+        {% if productId is defined and productId is not null %}
+            data-product-id="{{ productId }}"
+        {% endif %}
+    >
+        {{ getSvgInline('build/images/plus.svg')|raw }}
+    </button>
+</div>

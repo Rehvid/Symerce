@@ -81,7 +81,7 @@ final readonly class ExceptionListener
     private function handleException(ExceptionEvent $event, \Throwable $exception): void
     {
         $statusCode = 0 === $exception->getCode() ? Response::HTTP_INTERNAL_SERVER_ERROR : $exception->getCode();
-        $code = isset(Response::$statusTexts[$statusCode]) ? Response::HTTP_INTERNAL_SERVER_ERROR : $statusCode;
+        $code = isset(Response::$statusTexts[$statusCode]) ? $statusCode : Response::HTTP_INTERNAL_SERVER_ERROR;
 
         $errorDTO = ErrorResponseDTO::fromArray([
             'code' => (int) $code,

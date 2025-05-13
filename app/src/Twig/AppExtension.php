@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use App\Entity\Cart;
+use App\Enums\CookieName;
+use App\Service\CookieManager;
 use App\Service\SettingManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -12,6 +16,8 @@ class AppExtension extends AbstractExtension
 {
     public function __construct(
         private readonly SettingManager $settingManager,
+        private readonly CookieManager $cookieManager,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -21,6 +27,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('getSvgInline', [$this, 'getSvgInline']),
             new TwigFunction('getMeta', [$this, 'getMeta']),
             new TwigFunction('getMenuCategories', [$this, 'getMenuCategories']),
+            new TwigFunction('getCart', [$this, 'getCart']),
         ];
     }
 
@@ -57,5 +64,15 @@ class AppExtension extends AbstractExtension
     public function getMenuCategories(): array
     {
         return $this->settingManager->getShopCategories();
+    }
+
+    public function getCart(): ?Cart
+    {
+        $cookie = $this->cookieManager->get(CookieName::SHOP_CART->value);
+        if (!$cookie) {
+            return null;
+        }
+
+        return $this->entityManager->getRepository(Cart::class)->findOneBy(['cartToken' => $cookie]);
     }
 }

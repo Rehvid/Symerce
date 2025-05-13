@@ -1,7 +1,5 @@
-import { createRoot } from 'react-dom/client';
-import { UserModalToggle } from '@/shop/header/UserModalToggle';
-import Submenu from '@/shop/header/Submenu';
-import MenuModalToggle from '@/shop/header/MenuModalToggle';
+import { UserModalToggle } from '@/shop/header/components/UserModalToggle';
+import MenuModalToggle from '@/shop/header/components/MenuModalToggle';
 import { renderOverlay } from '@/shop/overlayManager';
 
 export const mountHeader = () => {

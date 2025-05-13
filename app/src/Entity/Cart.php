@@ -30,7 +30,7 @@ class Cart
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
     private string $cartToken;
 
-    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: "cart", cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: "cart", cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $items;
 
     public function __construct()
@@ -75,5 +75,16 @@ class Cart
     public function setCartToken(string $cartToken): void
     {
         $this->cartToken = $cartToken;
+    }
+
+    public function getTotalQuantity(): int
+    {
+        $totalQuantity = 0;
+
+        foreach ($this->items as $item) {
+            $totalQuantity += $item->getQuantity();
+        }
+
+        return $totalQuantity;
     }
 }

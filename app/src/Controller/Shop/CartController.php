@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Controller\Shop;
+
+use App\Enums\CookieName;
+use App\Repository\CartRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+
+class CartController extends AbstractController
+{
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly CartRepository $cartRepository,
+    ) {
+
+    }
+
+
+    #[Route('/koszyk', name: 'shop.cart', methods: ['GET'])]
+    public function index(Request $request): Response
+    {
+        $cartCookie = $request->cookies->get(CookieName::SHOP_CART->value);
+        if (!$cartCookie) {
+            throw $this->createNotFoundException($this->translator->trans('shop.errors.not_found'));
+        }
+
+        $cart = $this->cartRepository->findOneBy(['cartToken' => $cartCookie]);
+        if (!$cart) {
+            throw $this->createNotFoundException($this->translator->trans('shop.errors.not_found'));
+        }
+
+        return $this->render('shop/cart/index.html.twig', ['cart' => $cart]);
+    }
+}
