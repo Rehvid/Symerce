@@ -27,11 +27,14 @@ class Cart
     #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
     private ?User $user = null;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
-    private string $cartToken;
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    private string $token;
 
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: "cart", cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $items;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $expiresAt = null;
 
     public function __construct()
     {
