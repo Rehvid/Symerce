@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Cart;
+namespace App\Service;
 
 use App\Entity\Cart;
 use App\Repository\CartRepository;
@@ -35,7 +35,7 @@ final readonly class CartTokenGenerator
 
     private function checkTokenExistence(string $token): ?Cart
     {
-        return $this->cartRepository->findOneBy(['cartToken' => $token]);
+        return $this->cartRepository->findByToken($token);
     }
 
     private function generateUniqueToken(string $token): string
