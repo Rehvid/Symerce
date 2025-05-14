@@ -9,6 +9,8 @@ enum Roles: string
     case ROLE_ADMIN = 'admin';
     case ROLE_USER = 'user';
 
+    case ROLE_CUSTOMER = 'customer';
+
     /**
      * @return array<int, string>
      */
