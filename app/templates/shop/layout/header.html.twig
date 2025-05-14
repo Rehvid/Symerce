@@ -16,17 +16,8 @@
                     </div>
 
                     <div class="lg:flex lg:gap-2 lg:items-center">
-                        <div class="relative">
-                            {% set cart = getCart() %}
-
-                            {% if cart is not null %}
-                                <a href="{{ path('shop.cart') }}">
-                                    {{ getSvgInline('build/images/shopping-cart.svg', 'w-10 lg:w-[40px] h-auto text-primary')|raw }}
-                                    <span class="absolute px-1 top-[-4px] right-[-2px] bg-green-200 text-black font-lg block min-w-[25px] min-h-[25px] rounded-full flex items-center justify-center text-xs">{{ cart.getTotalQuantity }}</span>
-                                </a>
-                            {% else %}
-                                {{ getSvgInline('build/images/shopping-cart.svg', 'w-10 lg:w-[40px] h-auto text-primary')|raw }}
-                            {% endif %}
+                        <div class="react-header-cart" data-href="{{ path('shop.cart') }}">
+                            <div class="h-[40px] w-[40px]"></div>
                         </div>
                     </div>
 

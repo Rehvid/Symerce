@@ -1,10 +1,12 @@
 import { createRoot } from 'react-dom/client';
 import ProductThumbnailSwiper from '@/shop/product/components/ProductThumbnailSwiper';
 import ProductTab from '@/shop/product/components/ProductTab';
+import ProductAddToCart from '@/shop/product/components/ProductAddToCart';
 
 document.addEventListener('DOMContentLoaded', () => {
   mountSwiper();
   mountProductTabs();
+  mountProductAddItem();
 });
 
 const mountSwiper = () => {
@@ -75,4 +77,12 @@ const mountProductTabs = () => {
   };
 
   document.addEventListener('click', handleTabClick);
+}
+
+const mountProductAddItem = () => {
+  const element = document.querySelector('#react-product-add-to-cart');
+  if (element) {
+    const productId = element.dataset.productId;
+    createRoot(element).render(<ProductAddToCart productId={productId}  />)
+  }
 }

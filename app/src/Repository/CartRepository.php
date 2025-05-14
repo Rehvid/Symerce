@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Cart;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Base\DoctrineRepository;
 
-
-/**
- * @extends ServiceEntityRepository<Cart>
- */
-class CartRepository extends ServiceEntityRepository
+class CartRepository extends DoctrineRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function findByToken(?string $token): ?Cart
     {
-        parent::__construct($registry, Cart::class);
+        return $this->findOneBy(['token' => $token]);
+    }
+
+    protected function getEntityClass(): string
+    {
+        return Cart::class;
     }
 }

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop\Api\Public;
 
-use App\DTO\Shop\Request\Cart\SaveCartDTO;
+use App\DTO\Shop\Request\Cart\ChangeQuantityProductRequest;
+use App\DTO\Shop\Request\Cart\SaveCartRequest;
+use App\DTO\Shop\Response\Cart\CartSaveResponseDTO;
+use App\Entity\CartItem;
 use App\Enums\CookieName;
 use App\Repository\CartRepository;
 use App\Service\Cart\CartService;
@@ -12,7 +15,14 @@ use App\Service\CookieManager;
 use App\Service\RequestDtoResolver;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
+use App\UseCases\Cart\ChangeProductQuantityUseCase;
+use App\UseCases\Cart\CreateCartUseCase;
+use App\UseCases\Cart\RemoveCartItemUseCase;
+use App\UseCases\Cart\ListCartUseCase;
+use App\UseCases\Cart\UpdateCartUseCase;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -22,58 +32,85 @@ use Symfony\Component\Routing\Attribute\Route;
 class CartController extends AbstractController
 {
     public function __construct(
-        protected readonly RequestDtoResolver $requestDtoResolver,
-        protected readonly CartService        $cartService,
-        private readonly ResponseService      $responseService,
+        private readonly RequestDtoResolver $requestDtoResolver,
         private readonly CookieManager        $cookieManager,
+        private readonly ResponseService      $responseService,
         private readonly CartRepository       $cartRepository,
+        private readonly CreateCartUseCase $createCartUseCase,
+        private readonly UpdateCartUseCase $updateCartUseCase,
+        private readonly ParameterBagInterface  $parameterBag,
     )
     {
     }
 
-
-    #[Route('/add-to-cart', name: 'add_to_cart', methods: ['POST'])]
-    public function addToCart(Request $request): JsonResponse
+    #[Route('', name: 'list', methods: ['GET'])]
+    public function list(Request $request, ListCartUseCase $listUseCase): JsonResponse
     {
-        $dto = $this->requestDtoResolver->mapAndValidate($request, SaveCartDTO::class);
-
-        $data = $this->cartService->handleAddToCart($dto);
-
-        $response = $this->responseService->createJsonResponse(new ApiResponse(['cart' => $data]));
-
-        if (!$this->cookieManager->exists(CookieName::SHOP_CART->value)) {
-            $time = ( new \DateTime())->modify('+1 month')->getTimestamp();
-            $response->headers->setCookie($this->cookieManager->create(CookieName::SHOP_CART->value, $data->token, $time));
-        }
-
-        return $response;
-    }
-
-    #[Route('/increase-decrease', name: 'increase_decrease', methods: ['PUT'])]
-    public function increaseOrDecrease(Request $request): JsonResponse
-    {
-        $dto = $this->requestDtoResolver->mapAndValidate($request, SaveCartDTO::class);
-
-        $data = $this->cartService->increaseOrDecrease($dto);
-
-        return $this->responseService->createJsonResponse(new ApiResponse(['cart' => $data]));
-    }
-
-    #[Route('/{productId}', name: 'remove_item_cart', methods: ['DELETE'])]
-    public function removeFromCart(string $productId, Request $request): JsonResponse
-    {
-        $cookie = $request->cookies->get(CookieName::SHOP_CART->value);
-        if (!$cookie) {
-            throw new BadRequestHttpException();
-        }
-
-        $cart = $this->cartRepository->findOneBy(['cartToken' => $cookie]);
+        $cart = $this->cartRepository->findByToken($request->cookies->get(CookieName::SHOP_CART->value));
         if (!$cart) {
             throw new BadRequestHttpException();
         }
 
-        $this->cartService->handleRemoveItemFromCart($productId, $cart);
+        return $this->responseService->createJsonResponse(
+            new ApiResponse([$listUseCase->execute($cart)]),
+        );
+    }
 
-        return new JsonResponse();
+    #[Route('/change-quantity/', name: 'change-quantity', methods: ['PUT'])]
+    public function changeQuantityProduct(
+        Request $request,
+        ChangeProductQuantityUseCase $useCase
+    ): JsonResponse
+    {
+        $cart = $this->cartRepository->findByToken($request->cookies->get(CookieName::SHOP_CART->value));
+
+        if (!$cart) {
+            throw new BadRequestHttpException();
+        }
+
+        $dto = $this->requestDtoResolver->mapAndValidate($request, ChangeQuantityProductRequest::class);
+
+        return $this->responseService->createJsonResponse(new ApiResponse([$useCase->execute($cart, $dto)]));
+    }
+
+    #[Route('/{id}', name: 'remove_item', methods: ['DELETE'])]
+    public function removeItem(
+        #[MapEntity(mapping: ['id' => 'id'])] CartItem $cartItem,
+        Request $request,
+        RemoveCartItemUseCase $useCase
+    ): JsonResponse {
+        $cart = $this->cartRepository->findByToken($request->cookies->get(CookieName::SHOP_CART->value));
+        if (!$cart) {
+            throw new BadRequestHttpException();
+        }
+
+        return $this->responseService->createJsonResponse(new ApiResponse([$useCase->execute($cart, $cartItem)]));
+    }
+
+
+    #[Route('', name: 'add_or_update_cart', methods: ['POST'])]
+    public function addOrUpdateCart(Request $request): JsonResponse
+    {
+        $cartRequest = $this->requestDtoResolver->mapAndValidate($request, SaveCartRequest::class);
+        $cart = $this->cartRepository->findByToken($request->cookies->get(CookieName::SHOP_CART->value));
+
+        if ($cart) {
+            $data = $this->updateCartUseCase->execute($cartRequest, $cart);
+            return $this->responseService->createJsonResponse(new ApiResponse(['cart' => $data]));
+        }
+
+        $newCart = $this->createCartUseCase->execute($cartRequest);
+        $expiresAt = new \DateTime();
+        $expiresAt->add(new \DateInterval('PT' . $this->parameterBag->get('app.cart_token_expires'). 'S'));
+        $cookie = $this->cookieManager->create(CookieName::SHOP_CART->value, $newCart->getToken(), $expiresAt);
+
+        $response = $this->responseService->createJsonResponse(new ApiResponse([
+            'cart' => CartSaveResponseDTO::fromArray([
+                'totalQuantity' => $newCart->getTotalQuantity(),
+            ])
+        ]));
+
+        $response->headers->setCookie($cookie);
+        return $response;
     }
 }

@@ -263,4 +263,9 @@ class Product implements OrderSortableInterface, IdentifiableEntityInterface, Ac
     {
         $this->deliveryTime = $deliveryTime;
     }
+
+    public function getCurrentPrice(): string
+    {
+        return $this->discountPrice ?? $this->regularPrice;
+    }
 }

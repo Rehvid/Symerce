@@ -19,9 +19,7 @@ class CartController extends AbstractController
         private readonly TranslatorInterface $translator,
         private readonly CartRepository $cartRepository,
     ) {
-
     }
-
 
     #[Route('/koszyk', name: 'shop.cart', methods: ['GET'])]
     public function index(Request $request): Response
@@ -31,7 +29,7 @@ class CartController extends AbstractController
             throw $this->createNotFoundException($this->translator->trans('shop.errors.not_found'));
         }
 
-        $cart = $this->cartRepository->findOneBy(['cartToken' => $cartCookie]);
+        $cart = $this->cartRepository->findByToken($cartCookie);
         if (!$cart) {
             throw $this->createNotFoundException($this->translator->trans('shop.errors.not_found'));
         }

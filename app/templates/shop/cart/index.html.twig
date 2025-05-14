@@ -4,7 +4,6 @@
      <title>{{ 'Koszyk' }}</title>
  {% endblock %}
 
-
 {% block body %}
     {% include 'shop/partials/_page_header.html.twig' with {pageTitle: 'Koszyk'} %}
 
@@ -12,21 +11,12 @@
     {% embed 'shop/partials/_content_wrapper.html.twig' with {tag: 'section', id: wrapperId} %}
         {% block content %}
             <div id="react-cart"></div>
-            <div class="flex flex-col gap-[1.5rem] lg:flex-row">
-                <div class="w-full lg:flex-[2.5]">
-                    <div class="flex flex-col gap-[2rem]">
-                        {% for item in cart.items %}
-                            {% include 'shop/cart/partials/_cart_item.html.twig' %}
-                        {% endfor %}
-                    </div>
-
-                </div>
-                <div class="w-full lg:flex-[1.5]">
-                    Kup sobie
-                </div>
-            </div>
-
-
         {% endblock %}
     {% endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('shop/cart') }}
 {% endblock %}

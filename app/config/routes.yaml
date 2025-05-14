@@ -13,7 +13,7 @@ controllers_api_admin:
 controllers_shop_api:
     resource: ../src/Controller/Shop/Api/
     type: attribute
-    prefix: /shop/api
+    prefix: /api/shop
     name_prefix: shop_api_
 
 api_login_check:

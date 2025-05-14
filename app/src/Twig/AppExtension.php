@@ -73,6 +73,6 @@ class AppExtension extends AbstractExtension
             return null;
         }
 
-        return $this->entityManager->getRepository(Cart::class)->findOneBy(['cartToken' => $cookie]);
+        return $this->entityManager->getRepository(Cart::class)->findOneBy(['token' => $cookie]);
     }
 }

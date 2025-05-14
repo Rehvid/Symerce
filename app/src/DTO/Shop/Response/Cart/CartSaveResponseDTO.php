@@ -9,7 +9,6 @@ use App\DTO\Admin\Response\ResponseInterfaceData;
 final readonly class CartSaveResponseDTO implements ResponseInterfaceData
 {
     private function __construct(
-        public string $token,
         public int $totalQuantity,
     ) {
 
@@ -18,7 +17,6 @@ final readonly class CartSaveResponseDTO implements ResponseInterfaceData
     public static function fromArray(array $data): ResponseInterfaceData
     {
         return new self(
-            token: $data['token'],
             totalQuantity: $data['totalQuantity'],
         );
     }

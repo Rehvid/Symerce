@@ -5,13 +5,13 @@ declare (strict_types=1);
 namespace App\Service\DataPersister\Filler\Shop;
 
 use App\DTO\Admin\Request\PersistableInterface;
-use App\DTO\Shop\Request\Cart\SaveCartDTO;
+use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Product;
 use App\Enums\QuantityChangeType;
 use App\Exceptions\PersisterException;
-use App\Service\Cart\CartTokenGenerator;
+use App\Service\CartTokenGenerator;
 use App\Service\DataPersister\Filler\Base\BaseEntityFiller;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -26,10 +26,10 @@ final class CartEntityFiller extends BaseEntityFiller
     {
     }
 
-    public function toNewEntity(PersistableInterface|SaveCartDTO $persistable): Cart
+    public function toNewEntity(PersistableInterface|SaveCartRequest $persistable): Cart
     {
         $cart = new Cart();
-        $cart->setCartToken($this->cartTokenGenerator->generate());
+        $cart->setToken($persistable->getCartToken());
 
         return $this->fillEntity($persistable, $cart);
     }
@@ -37,25 +37,25 @@ final class CartEntityFiller extends BaseEntityFiller
     /**
      * @param Cart $entity
      */
-    public function toExistingEntity(PersistableInterface|SaveCartDTO $persistable, object $entity): Cart
+    public function toExistingEntity(PersistableInterface|SaveCartRequest $persistable, object $entity): Cart
     {
         return $this->fillEntity($persistable, $entity);
     }
 
     public static function supports(): string
     {
-        return SaveCartDTO::class;
+        return SaveCartRequest::class;
     }
 
     /**
      * @param Cart $entity
      */
-    protected function fillEntity(PersistableInterface|SaveCartDTO $persistable, object $entity): Cart
+    protected function fillEntity(PersistableInterface|SaveCartRequest $persistable, object $entity): Cart
     {
-        $product = $this->findProduct($persistable->productId);
+        $product = $this->findProduct((int) $persistable->productId);
 
         $cartItem = $entity->getItems()->filter(
-            fn (CartItem $cartItem) => $cartItem->getProduct()->getId() === $persistable->productId
+            fn (CartItem $cartItem) => $cartItem->getProduct()->getId() === (int) $persistable->productId
         )->first();
 
         return $cartItem
@@ -63,7 +63,7 @@ final class CartEntityFiller extends BaseEntityFiller
             : $this->addCartItem($persistable, $entity, $product);
     }
 
-    private function addCartItem(PersistableInterface|SaveCartDTO $persistable, Cart $cart, Product $product): Cart
+    private function addCartItem(PersistableInterface|SaveCartRequest $persistable, Cart $cart, Product $product): Cart
     {
         $price = $product->getDiscountPrice() ?? $product->getRegularPrice();
 
@@ -79,10 +79,10 @@ final class CartEntityFiller extends BaseEntityFiller
     }
 
     private function updateCartItem(
-        PersistableInterface|SaveCartDTO $persistable,
-        Cart $cart,
-        Product $product,
-        CartItem $cartItem
+        PersistableInterface|SaveCartRequest $persistable,
+        Cart                                 $cart,
+        Product                              $product,
+        CartItem                             $cartItem
     ): Cart {
         $price = $product->getDiscountPrice() ?? $product->getRegularPrice();
 

@@ -70,14 +70,14 @@ class Cart
         }
     }
 
-    public function getCartToken(): string
+    public function getToken(): string
     {
-        return $this->cartToken;
+        return $this->token;
     }
 
-    public function setCartToken(string $cartToken): void
+    public function setToken(string $token): void
     {
-        $this->cartToken = $cartToken;
+        $this->token = $token;
     }
 
     public function getTotalQuantity(): int
@@ -89,5 +89,20 @@ class Cart
         }
 
         return $totalQuantity;
+    }
+
+    public function getCartItemByProductId(int $productId): ?CartItem
+    {
+        return $this->items->filter(fn (CartItem $cartItem) => $cartItem->getProduct()->getId() === $productId)->first();
+    }
+
+    public function getExpiresAt(): ?\DateTime
+    {
+        return $this->expiresAt;
+    }
+
+    public function setExpiresAt(?\DateTime $expiresAt): void
+    {
+        $this->expiresAt = $expiresAt;
     }
 }

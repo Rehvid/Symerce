@@ -6,6 +6,7 @@
 parameters:
     app.base_url: '%env(APP_BASE_URL)%'
     app.brand_logo_short: 'short-logo.png'
+    app.cart_token_expires: 2592000
 services:
 
 

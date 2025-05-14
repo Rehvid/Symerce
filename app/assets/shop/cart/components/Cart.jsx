@@ -1,140 +1,77 @@
-import { useEffect } from 'react';
-
+import { useEffect, useState } from 'react';
+import { createApiConfig } from '@/shared/api/ApiConfig';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
+import RestApiClient from '@/shared/api/RestApiClient';
+import SpinnerIcon from '@/images/icons/spinner.svg';
+import { CartItem } from '@/shop/cart/components/CartItem';
+import { updateCartCount } from '@/shop/cartManager';
+import Heading from '@/admin/components/common/Heading';
 
-export const Cart = () => {
-
-  const handleClick = (e) => {
-    const button = e.currentTarget;
-    const productId = button.dataset.productId;
-
-    const quantity = document.querySelector('#product-quantity');
-    if (!quantity) {
-      return;
-    }
-
-    const quantityValue = quantity.value;
-    if (!quantityValue) {
-      return;
-    }
-
-    const cartStorage = localStorage.getItem('cart');
-    let cartToken = null;
-    if (cartStorage) {
-      const value = JSON.parse(cartStorage);
-      cartToken = value.token;
-    }
-
-    handleRequest({
-      productId: parseInt(productId),
-      quantity: parseInt(quantityValue),
-      cartToken,
-      method: 'increase',
-    });
-  }
-
-  const handleRequest = (data) => {
-    fetch('http://localhost:4000/shop/api/cart/add-to-cart', {
-      method: HTTP_METHODS.POST,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    }).then(response => response.json()).then(response => {
-      const { data } = response;
-      localStorage.setItem('cart', JSON.stringify(data.cart));
-      //todo: ADD Toast
-    });
-  }
-
-  const handleRemoveClick = (e) => {
-    const button = e.currentTarget;
-    console.log(button);
-    const productId = button.dataset.productId;
-
-    if (!productId) {
-      return;
-    }
-
-    const data = {
-      productId
-    }
-
-    fetch(`http://localhost:4000/shop/api/cart/${productId}`, {
-      method: HTTP_METHODS.DELETE,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    }).then(response => response.json()).then(response => {
-      const { data } = response;
-      localStorage.setItem('cart', JSON.stringify(data.cart));
-      //todo: ADD Toast
-    });
-
-  }
+const Cart = () => {
+  const [items, setItems] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const button = document.querySelector('#product-add-to-cart');
-    if (!button) {
-      return;
-    }
-    button.addEventListener('click', handleClick);
+      RestApiClient().sendApiRequest(createApiConfig('shop/cart', HTTP_METHODS.GET), {})
+        .then(response => {
+          setItems(response.data[0]);
+          setLoading(true);
+        })
 
-
-    return () => button.removeEventListener('click', handleClick);
-  }, []);
-
-  useEffect(() => {
-    const removeItem = document.querySelector('.btn-remove-product');
-    if (!removeItem) {
-      return;
-    }
-    removeItem.addEventListener('click', handleRemoveClick);
-
-
-    return () => removeItem.removeEventListener('click', handleRemoveClick)
   }, []);
 
 
-  const btnQuantityChange = (e) => {
-    const { currentTarget } = e;
-
-    const method = currentTarget.dataset.method;
-    const productId = parseInt(currentTarget.dataset.productId);
-    const input = document.querySelector(`#product-cart-${productId}`);
-    const quantity = method === 'increase' ? 1 : -1;
-
-    const data = {
-      productId,
-      quantity,
-      method: method,
-      cartToken: '9e727553d3b38bbac647702fb0b76537_c0cf7bfc-afde-4c28-9cdd-b5ce64a5ce3c'
-    }
-
-    fetch('http://localhost:4000/shop/api/cart/increase-decrease', {
-      method: HTTP_METHODS.PUT,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    }).then(response => response.json()).then(response => {
-      const { data } = response;
-      localStorage.setItem('cart', JSON.stringify(data.cart));
-      //todo: ADD Toast
+  const onDelete = (id) => {
+    const apiConfig = createApiConfig(`shop/cart/${id}`, HTTP_METHODS.DELETE);
+    RestApiClient().sendApiRequest(apiConfig, {}).then(response => {
+      const data = response.data[0];
+      updateCartCount(- data.totalQuantity);
     });
+
+    setItems((prev) => ({
+      ...prev,
+      cartItems: prev.cartItems.filter((cartItem) => cartItem.id !== id),
+    }));
   }
 
-  useEffect(() => {
-    document.querySelectorAll('.btn-quantity-change').forEach(element => {
-      element.addEventListener('click', btnQuantityChange);
-    })
+  if (!loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <SpinnerIcon className="animate-spin text-primary w-16 h-16" />
+        <span className="sr-only">Ladowanie...</span>
+      </div>
+    )
+  }
 
-    return () => document.querySelectorAll('.btn-quantity-change').forEach(element => {
-      element.removeEventListener('click', btnQuantityChange);
-    })
-  }, []);
+  if (!items || !items.cartItems?.length) {
+    return <p className="text-center">Twój koszyk jest pusty.</p>;
+  }
 
+  return (
+      <div className="flex flex-col gap-[1.5rem] lg:flex-row">
+        <div className="w-full lg:flex-[2.75]">
+          <div className="flex flex-col gap-[2rem]">
+            {items.cartItems.map((item, key) => <CartItem key={key} item={item} onDelete={onDelete} />)}
+          </div>
+        </div>
+        <div className="w-full lg:flex-[1.25]">
+          <Heading level="h3" additionalClassNames="border-b-2 pb-2">Podusmowanie</Heading>
+          <div className="flex flex-col gap-[1.25rem] mt-4">
+            <div className="flex gap-4 items-center justify-between">
+              <span>Razem</span>
+              <span>Cena</span>
+            </div>
+            <div className="w-full mt-5">
+              <a href="#" className=" text-center block px-4 py-2 bg-green-200 border border-green-200 rounded-lg transition-all duration-300 cursor-pointer hover:bg-green-300 hover:border-green-300">
+                PRZEJDŹ DALEJ
+              </a>
+            </div>
+          </div>
 
-  return null;
+        </div>
+
+      </div>
+  )
 }
+
+export default Cart;
