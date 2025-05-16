@@ -5,18 +5,23 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Embeddables\Address;
+use App\Traits\CreatedAtTrait;
+use App\Traits\UpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
-class InvoiceAddress extends Address
+class InvoiceAddress
 {
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
     private int $id;
 
-    #[ORM\Embedded(class: Address::class)]
+    #[ORM\Embedded(class: Address::class, columnPrefix: false)]
     private Address $address;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
@@ -59,4 +64,11 @@ class InvoiceAddress extends Address
     {
         $this->address = $address;
     }
+
+    public function setCompanyName(?string $companyName): void
+    {
+        $this->companyName = $companyName;
+    }
+
+
 }

@@ -17,6 +17,12 @@ class OrderItem
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderItems')]
+    #[ORM\JoinColumn(
+        name: 'order_id',
+        referencedColumnName: 'id',
+        nullable: false,
+        onDelete: 'CASCADE'
+    )]
     private Order $order;
 
     #[ORM\ManyToOne(targetEntity: Product::class)]

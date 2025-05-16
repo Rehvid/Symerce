@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\DTO\ArrayHydratableInterface;
 use App\Exceptions\RequestValidationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -27,10 +28,22 @@ final readonly class RequestDtoResolver
      */
     public function mapAndValidate(Request $request, string $dtoClass): object
     {
+        $json = $request->getContent();
         try {
-            $dto = $this->serializer->deserialize($request->getContent(), $dtoClass, 'json');
+            $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         } catch (\Throwable $e) {
             throw new BadRequestHttpException('Invalid JSON: '.$e->getMessage());
+        }
+
+        if (in_array(ArrayHydratableInterface::class, class_implements($dtoClass), true)) {
+            /** @var ArrayHydratableInterface $dtoClass */
+            $dto = $dtoClass::fromArray($data);
+        } else {
+            try {
+                $dto = $this->serializer->deserialize($json, $dtoClass, 'json');
+            } catch (\Throwable $e) {
+                throw new BadRequestHttpException('Deserialization failed: '.$e->getMessage());
+            }
         }
 
         $violations = $this->validator->validate($dto);

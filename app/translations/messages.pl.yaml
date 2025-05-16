@@ -41,6 +41,10 @@ shop:
     description: 'Symerce - Opis strony'
   common:
     homepage: 'Strona główna'
+    confirmation: 'Potwierdzenie zamówienia'
+    thank_you: 'Podziękowania'
+    payment: 'Płatność'
+    address: 'Adres'
     categories: 'Kategorie'
     categories_empty: 'Brak kategorii'
     sort: 'Sortowanie'

@@ -17,7 +17,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 && composer --version
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql zip gd intl
+RUN docker-php-ext-install pdo pdo_mysql zip gd intl bcmath
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \

@@ -23,7 +23,13 @@ class Payment
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'payments')]
-    private Order $order;
+    #[ORM\JoinColumn(
+        name: 'order_id',
+        referencedColumnName: 'id',
+        nullable: true,
+        onDelete: 'SET NULL'
+    )]
+    private ?Order $order = null;
 
     #[ORM\Column(
         type: 'decimal',
@@ -36,11 +42,21 @@ class Payment
     #[ORM\Column(type: 'string', enumType: PaymentStatus::class)]
     private PaymentStatus $status = PaymentStatus::UNPAID;
 
-    #[ORM\Column(type: 'datetime', nullable: false)]
-    private \DateTime $paidAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $paidAt = null;
 
-    #[ORM\Column(type: 'string', length: 100, unique: true)]
-    private string $gatewayTransactionId;
+    #[ORM\Column(type: 'string', length: 100, unique: true, nullable: true)]
+    private ?string $gatewayTransactionId = null;
+
+
+    #[ORM\ManyToOne(targetEntity: PaymentMethod::class)]
+    #[ORM\JoinColumn(
+        name: 'payment_method',
+        referencedColumnName: 'id',
+        nullable: true,
+        onDelete: 'SET NULL'
+    )]
+    private ?PaymentMethod $paymentMethod = null;
 
     public function getId(): int
     {
@@ -82,12 +98,33 @@ class Payment
         $this->status = $status;
     }
 
-    public function getPaidAt(): \DateTime
+
+    public function getGatewayTransactionId(): ?string
+    {
+        return $this->gatewayTransactionId;
+    }
+
+    public function setGatewayTransactionId(?string $gatewayTransactionId): void
+    {
+        $this->gatewayTransactionId = $gatewayTransactionId;
+    }
+
+    public function getPaymentMethod(): ?PaymentMethod
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(?PaymentMethod $paymentMethod): void
+    {
+        $this->paymentMethod = $paymentMethod;
+    }
+
+    public function getPaidAt(): ?\DateTime
     {
         return $this->paidAt;
     }
 
-    public function setPaidAt(\DateTime $paidAt): void
+    public function setPaidAt(?\DateTime $paidAt): void
     {
         $this->paidAt = $paidAt;
     }

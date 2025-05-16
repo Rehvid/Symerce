@@ -24,7 +24,10 @@ build:
 	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) build
 
 down:
-	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) down
+	$(DOCKER_COMPOSE) down
+
+restart:
+	$(DOCKER_COMPOSE) restart
 
 remove:
 	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) rm -f

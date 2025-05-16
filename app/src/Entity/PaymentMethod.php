@@ -26,6 +26,9 @@ class PaymentMethod
     #[ORM\Column(type: 'bigint')]
     private int $id;
 
+    #[ORM\Column(type: 'string', length: 100, unique: true)]
+    private string $code;
+
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
@@ -39,6 +42,13 @@ class PaymentMethod
     #[ORM\ManyToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?File $image;
+
+    #[ORM\Column(type: 'json', nullable: true)]
+    private ?array $config = null;
+
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $requiresWebhook = false;
 
     public function getId(): int
     {
@@ -73,5 +83,35 @@ class PaymentMethod
     public function setImage(?File $image): void
     {
         $this->image = $image;
+    }
+
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    public function getConfig(): ?array
+    {
+        return $this->config;
+    }
+
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
+
+    public function setConfig(?array $config): void
+    {
+        $this->config = $config;
+    }
+
+    public function isRequiresWebhook(): bool
+    {
+        return $this->requiresWebhook;
+    }
+
+    public function setRequiresWebhook(bool $requiresWebhook): void
+    {
+        $this->requiresWebhook = $requiresWebhook;
     }
 }

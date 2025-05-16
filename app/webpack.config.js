@@ -23,6 +23,7 @@ if (ENTRY === 'shop' || ENTRY === 'all') {
       .addEntry('shop/category', './assets/shop/category/index.js')
       .addEntry('shop/product', './assets/shop/product/index.js')
       .addEntry('shop/cart', './assets/shop/cart/index.js')
+      .addEntry('shop/checkout', './assets/shop/checkout/index.js')
 
       .addEntry('shop/style', './assets/shop/styles/app.css')
       .addEntry('shop/swiper-style', './assets/shop/styles/swiper.css')
@@ -44,6 +45,7 @@ Encore
     })
     .enableReactPreset()
     .enablePostCssLoader()
+    .enableTypeScriptLoader()
     .addPlugin(new Dotenv())
     .addAliases({
         '@': path.resolve(__dirname, 'assets'),

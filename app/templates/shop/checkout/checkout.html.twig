@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|default('pl') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website" />
+
+    {% set meta = meta|default({}) %}
+    {% set metaSettings = getMeta() %}
+    {% set metaTitle = metaSettings[enum('App\\Enums\\SettingType').META_SHOP_TITLE.name]|default('shop.meta.title'|trans) %}
+
+    {% block meta %}
+        {% set metaDescription = metaSettings[enum('App\\Enums\\SettingType').META_SHOP_DESCRIPTION.name]|default('shop.meta.description'|trans) %}
+        {% set metaOgTitle = metaSettings[enum('App\\Enums\\SettingType').META_SHOP_OG_TITLE.name]|default(metaTitle) %}
+        {% set metaOgDescription = metaSettings[enum('App\\Enums\\SettingType').META_SHOP_OG_DESCRIPTION.name]|default(metaDescription) %}
+
+        <meta name="description" content="{{ metaDescription }}">
+        <meta property="og:title" content="{{ metaOgTitle }}" />
+        <meta property="og:description" content="{{ metaOgDescription }}" />
+    {% endblock %}
+
+    {% if enum('App\\Enums\\CheckoutStep').ADDRESS == step %}
+        <title>{{ 'shop.common.address'|trans }}</title>
+    {% elseif enum('App\\Enums\\CheckoutStep').PAYMENT == step %}
+        <title>{{ 'shop.common.payment'|trans }}</title>
+    {% elseif enum('App\\Enums\\CheckoutStep').CONFIRMATION == step %}
+        <title>{{ 'shop.common.confirmation'|trans }}</title>
+    {% elseif enum('App\\Enums\\CheckoutStep').THANK_YOU == step %}
+        <title>{{ 'shop.common.thank_you'|trans }}</title>
+    {% endif %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('shop/app') }}
+        {{ encore_entry_script_tags('shop/checkout') }}
+    {% endblock %}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('shop/style') }}
+    {% endblock %}
+</head>
+
+<body>
+    <main>
+        {% embed 'shop/partials/_content_wrapper.html.twig' with {tag: 'section'} %}
+            {% block content %}
+                <div id="react-checkout-root" data-step="{{ step.value }}"></div>
+            {% endblock %}
+        {% endembed %}
+    </main>
+</body>

@@ -11,9 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Embeddable]
 class Address
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
-
     #[ORM\Column(type: "string", length: 255)]
     private string $street;
 
@@ -23,8 +20,8 @@ class Address
     #[ORM\Column(type: "string", length: 100)]
     private string $postalCode;
 
-    #[ORM\Column(type: "string", length: 25)]
-    private string $phoneNumber;
+    #[ORM\Column(type: "string", length: 100)]
+    private string $country;
 
     public function getStreet(): string
     {
@@ -46,14 +43,14 @@ class Address
         $this->city = $city;
     }
 
-    public function getPhoneNumber(): string
+    public function getCountry(): string
     {
-        return $this->phoneNumber;
+        return $this->country;
     }
 
-    public function setPhoneNumber(string $phoneNumber): void
+    public function setCountry(string $country): void
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->country = $country;
     }
 
     public function getPostalCode(): string

@@ -14,4 +14,9 @@ class OrderRepository extends DoctrineRepository
     {
         return Order::class;
     }
+
+    public function findByToken(string $token): ?Order
+    {
+        return $this->findOneBy(['cartToken' => $token]);
+    }
 }

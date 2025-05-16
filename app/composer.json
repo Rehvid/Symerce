@@ -26,7 +26,8 @@
         "symfony/string": "7.2.*",
         "symfony/ux-react": "^2.23",
         "symfony/webpack-encore-bundle": "^2.2",
-        "symfony/yaml": "7.2.*"
+        "symfony/yaml": "7.2.*",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^8.3",

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Embeddables\Address;
+use App\Entity\Embeddables\ContactDetails;
+use App\Enums\CheckoutStep;
 use App\Enums\DecimalPrecision;
 use App\Enums\OrderStatus;
 use App\Repository\OrderRepository;
@@ -17,6 +20,7 @@ use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'orders')]
 class Order
 {
     use CreatedAtTrait;
@@ -28,13 +32,16 @@ class Order
     private int $id;
 
     #[ORM\Column(type: 'guid', unique: true)]
-    private UuidInterface $uuid;
+    private string $uuid;
 
-    #[ORM\ManyToOne(targetEntity: DeliveryAddress::class)]
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $cartToken;
+
+    #[ORM\ManyToOne(targetEntity: DeliveryAddress::class, cascade: ['persist'])]
     #[ORM\JoinColumn(name: "delivery_address_id", referencedColumnName: "id", nullable: true)]
     private ?DeliveryAddress $deliveryAddress = null;
 
-    #[ORM\ManyToOne(targetEntity: InvoiceAddress::class)]
+    #[ORM\ManyToOne(targetEntity: InvoiceAddress::class, cascade: ['persist'])]
     #[ORM\JoinColumn(name: "invoice_address_id", referencedColumnName: "id", nullable: true)]
     private ?InvoiceAddress $invoiceAddress = null;
 
@@ -57,15 +64,26 @@ class Order
     #[ORM\Column(type: 'string', enumType: OrderStatus::class)]
     private OrderStatus $status = OrderStatus::NEW;
 
-    #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: 'order')]
+    #[ORM\ManyToOne(targetEntity: PaymentMethod::class)]
+    #[ORM\JoinColumn(name: "payment_method_id", referencedColumnName: "id", nullable: true)]
+    private ?PaymentMethod $paymentMethod = null;
+
+
+    #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: 'order', cascade: ['persist', 'remove'])]
     private Collection $payments;
 
-    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'order', cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'order', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $orderItems;
+
+    #[ORM\Embedded(class: ContactDetails::class, columnPrefix: false)]
+    private ContactDetails $contactDetails;
+
+    #[ORM\Column(type: 'string', enumType: CheckoutStep::class)]
+    private CheckoutStep $checkoutStep;
 
     public function __construct()
     {
-        $this->uuid = Uuid::uuid4();
+        $this->uuid = Uuid::uuid4()->toString();
         $this->payments = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
     }
@@ -120,16 +138,6 @@ class Order
         $this->carrier = $carrier;
     }
 
-    public function getPaymentMethod(): ?PaymentMethod
-    {
-        return $this->paymentMethod;
-    }
-
-    public function setPaymentMethod(?PaymentMethod $paymentMethod): void
-    {
-        $this->paymentMethod = $paymentMethod;
-    }
-
     public function getTotalPrice(): ?string
     {
         return $this->totalPrice;
@@ -140,12 +148,12 @@ class Order
         $this->totalPrice = $totalPrice;
     }
 
-    public function getUuid(): UuidInterface
+    public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    public function setUuid(UuidInterface $uuid): void
+    public function setUuid(string $uuid): void
     {
         $this->uuid = $uuid;
     }
@@ -196,5 +204,46 @@ class Order
         if ($this->orderItems->contains($orderItem)) {
             $this->orderItems->removeElement($orderItem);
         }
+    }
+
+    public function getCartToken(): string
+    {
+        return $this->cartToken;
+    }
+
+    public function setCartToken(string $cartToken): void
+    {
+        $this->cartToken = $cartToken;
+    }
+
+
+    public function getContactDetails(): ?ContactDetails
+    {
+        return $this->contactDetails;
+    }
+
+    public function setContactDetails(?ContactDetails $contactDetails): void
+    {
+        $this->contactDetails = $contactDetails;
+    }
+
+    public function getPaymentMethod(): ?PaymentMethod
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(?PaymentMethod $paymentMethod): void
+    {
+        $this->paymentMethod = $paymentMethod;
+    }
+
+    public function getCheckoutStep(): CheckoutStep
+    {
+        return $this->checkoutStep;
+    }
+
+    public function setCheckoutStep(CheckoutStep $checkoutStep): void
+    {
+        $this->checkoutStep = $checkoutStep;
     }
 }

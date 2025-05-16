@@ -56,6 +56,14 @@ final readonly class Money implements \JsonSerializable
         );
     }
 
+    public function multiply(int|string $multiplier): self
+    {
+        return new self(
+            bcmul($this->getAmount(), (string) $multiplier, $this->currency->getRoundingPrecision()),
+            $this->currency
+        );
+    }
+
     public function subtract(Money $money): self
     {
         $this->checkCurrencyCompatibility($money);
