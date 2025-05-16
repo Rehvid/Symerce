@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\DTO\ArrayHydratableInterface;
 use App\Exceptions\RequestValidationException;
+use App\Shared\Application\Contract\ArrayHydratableInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\SerializerInterface;

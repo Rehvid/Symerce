@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
-use App\DTO\Admin\Response\ErrorResponseDTO;
 use App\Exceptions\RequestValidationException;
 use App\Service\Response\ApiResponse;
+use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +51,7 @@ final readonly class ExceptionListener
     ): void {
         $this->logger->warning('UnprocessableEntityHttpException without ValidationFailedException.', ['exception' => $exception]);
 
-        $errorDTO = ErrorResponseDTO::fromArray([
+        $errorDTO = ApiErrorResponse::fromArray([
             'code' => $exception->getStatusCode(),
             'message' => $exception->getMessage(),
         ]);
@@ -65,7 +65,7 @@ final readonly class ExceptionListener
 
     private function handleRequestValidationException(ExceptionEvent $event, RequestValidationException $exception): void
     {
-        $errorDTO = ErrorResponseDTO::fromArray([
+        $errorDTO = ApiErrorResponse::fromArray([
             'code' => $exception->getStatusCode(),
             'details' => $exception->getErrors(),
             'message' =>  $this->translator->trans('base.messages.errors.validation_failed'),
@@ -83,7 +83,7 @@ final readonly class ExceptionListener
         $statusCode = 0 === $exception->getCode() ? Response::HTTP_INTERNAL_SERVER_ERROR : $exception->getCode();
         $code = isset(Response::$statusTexts[$statusCode]) ? $statusCode : Response::HTTP_INTERNAL_SERVER_ERROR;
 
-        $errorDTO = ErrorResponseDTO::fromArray([
+        $errorDTO = ApiErrorResponse::fromArray([
             'code' => (int) $code,
             'message' =>  $exception->getMessage(),
         ]);
@@ -102,7 +102,7 @@ final readonly class ExceptionListener
         $event->setResponse($response);
     }
 
-    private function createApiResponse(?ErrorResponseDTO $error = null): ApiResponse
+    private function createApiResponse(?ApiErrorResponse $error = null): ApiResponse
     {
         return new ApiResponse(error: $error);
     }

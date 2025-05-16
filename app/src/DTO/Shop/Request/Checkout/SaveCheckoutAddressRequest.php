@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\DTO\Shop\Request\Checkout;
 
-use App\DTO\ArrayHydratableInterface;
 use App\DTO\Shop\Request\Address\SaveAddressDeliveryRequest;
 use App\DTO\Shop\Request\Address\SaveAddressInvoiceRequest;
 use App\DTO\Shop\Request\ContactDetails\SaveContactDetailsRequest;
+use App\Shared\Application\Contract\ArrayHydratableInterface;
 
 final readonly class SaveCheckoutAddressRequest implements ArrayHydratableInterface
 {

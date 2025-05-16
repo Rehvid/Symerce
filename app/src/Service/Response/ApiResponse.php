@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Response;
 
-use App\DTO\Admin\Response\ErrorResponseDTO;
+use App\Shared\Application\DTO\Response\ApiErrorResponse;
 
 final readonly class ApiResponse
 {
@@ -13,10 +13,10 @@ final readonly class ApiResponse
      * @param array<string, mixed>     $meta
      */
     public function __construct(
-        public array $data = [],
-        public array $meta = [],
-        public ?ErrorResponseDTO $error = null,
-        public ?string $message = null,
+        public array             $data = [],
+        public array             $meta = [],
+        public ?ApiErrorResponse $error = null,
+        public ?string           $message = null,
     ) {
     }
 

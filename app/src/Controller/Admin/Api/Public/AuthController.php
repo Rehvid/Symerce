@@ -8,11 +8,11 @@ use App\Controller\AbstractApiController;
 use App\DTO\Admin\Request\Profile\UpdateSecurityRequestDTO;
 use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
 use App\DTO\Admin\Request\User\StoreRegisterUserRequestDTO;
-use App\DTO\Admin\Response\ErrorResponseDTO;
 use App\Service\Auth\AuthService;
 use App\Service\Auth\ForgetPasswordService;
 use App\Service\Auth\ResetPasswordService;
 use App\Service\JWTEventService;
+use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +38,7 @@ class AuthController extends AbstractApiController
         try {
             $forgetPasswordService->sendMail($forgotPasswordRequestDTO);
         } catch (\Throwable $exception) {
-            return $this->prepareJsonResponse(error: ErrorResponseDTO::fromArray([
+            return $this->prepareJsonResponse(error: ApiErrorResponse::fromArray([
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
             ]));
@@ -57,7 +57,7 @@ class AuthController extends AbstractApiController
             $resetPasswordService->handleResetPassword($changePasswordRequestDTO, $token);
         } catch (\Throwable $exception) {
             return $this->prepareJsonResponse(
-                error: ErrorResponseDTO::fromArray([
+                error: ApiErrorResponse::fromArray([
                     'message' => $exception->getMessage(),
                     'code' => $exception->getCode(),
                 ]),

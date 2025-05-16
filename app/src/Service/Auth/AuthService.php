@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
-use App\DTO\Admin\Response\ErrorResponseDTO;
 use App\DTO\Admin\Response\FileResponseDTO;
 use App\DTO\Admin\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\FileService;
+use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +34,7 @@ final readonly class AuthService
         }
 
         $parseToken = $this->parseToken($token);
-        if ($parseToken instanceof ErrorResponseDTO) {
+        if ($parseToken instanceof ApiErrorResponse) {
             return $this->prepareResponseData(
                 statusCode: Response::HTTP_UNAUTHORIZED,
                 errorResponseDTO: $parseToken
@@ -55,8 +55,8 @@ final readonly class AuthService
         );
     }
 
-    /** @return ErrorResponseDTO|array<string,mixed> */
-    private function parseToken(string $token): ErrorResponseDTO|array
+    /** @return ApiErrorResponse|array<string,mixed> */
+    private function parseToken(string $token): ApiErrorResponse|array
     {
         try {
             $decodedToken = $this->tokenManager->parse($token);
@@ -95,9 +95,9 @@ final readonly class AuthService
         ]);
     }
 
-    private function createErrorResponse(string $message): ErrorResponseDTO
+    private function createErrorResponse(string $message): ApiErrorResponse
     {
-        return ErrorResponseDTO::fromArray([
+        return ApiErrorResponse::fromArray([
             'status' => false,
             'code' => Response::HTTP_UNAUTHORIZED,
             'message' => $message,
@@ -106,8 +106,8 @@ final readonly class AuthService
 
     private function prepareResponseData(
         ?UserSessionResponseDTO $userSessionResponseDTO = null,
-        int $statusCode = Response::HTTP_OK,
-        ?ErrorResponseDTO $errorResponseDTO = null,
+        int                     $statusCode = Response::HTTP_OK,
+        ?ApiErrorResponse       $errorResponseDTO = null,
     ): AuthorizationResult {
         return new AuthorizationResult(
             authorized: null === $errorResponseDTO,

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\DTO\Admin\Response\ErrorResponseDTO;
 use App\DTO\Admin\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
+use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -55,7 +55,7 @@ final readonly class JWTEventService
     public function handleApiJWTErrorResponse(mixed $event, string $message): void
     {
         $apiResponse = $this->createApiResponse(
-            error: ErrorResponseDTO::fromArray([
+            error: ApiErrorResponse::fromArray([
                 'message' => $message,
                 'code' => Response::HTTP_UNAUTHORIZED,
             ])
@@ -101,7 +101,7 @@ final readonly class JWTEventService
     /**
      * @param array<string, mixed> $data
      */
-    private function createApiResponse(array $data = [], ?ErrorResponseDTO $error = null): ApiResponse
+    private function createApiResponse(array $data = [], ?ApiErrorResponse $error = null): ApiResponse
     {
         return new ApiResponse(
             data: $data,

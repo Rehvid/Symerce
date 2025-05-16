@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\DTO\Admin\Response\ErrorResponseDTO;
 use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
+use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +28,12 @@ abstract class AbstractApiController extends AbstractController
      * @param array<string, mixed>     $headers
      */
     protected function prepareJsonResponse(
-        array $data = [],
-        array $meta = [],
-        ?ErrorResponseDTO $error = null,
-        ?string $message = null,
-        int $statusCode = Response::HTTP_OK,
-        array $headers = [],
+        array             $data = [],
+        array             $meta = [],
+        ?ApiErrorResponse $error = null,
+        ?string           $message = null,
+        int               $statusCode = Response::HTTP_OK,
+        array             $headers = [],
     ): JsonResponse {
         $response = new ApiResponse(
             data: $data,

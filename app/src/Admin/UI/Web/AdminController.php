@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Admin;
+namespace App\Admin\UI\Web;
 
 use App\Service\DataProvider\AppConfigProvider;
 use App\Service\DataProvider\ReactDataProvider;

@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Response;
+namespace App\Shared\Application\DTO\Response;
 
+use App\DTO\Admin\Response\ResponseInterfaceData;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ErrorResponseDTO implements ResponseInterfaceData
+final readonly class ApiErrorResponse implements ResponseInterfaceData, \JsonSerializable
 {
     /** @param array<string, mixed>|null $details */
     private function __construct(
-        public int $code,
-        public string $message,
-        public ?array $details = null,
+        private int $code = Response::HTTP_INTERNAL_SERVER_ERROR,
+        private string $message = 'Something went wrong',
+        private ?array $details = null,
     ) {
     }
 
@@ -27,6 +28,16 @@ final class ErrorResponseDTO implements ResponseInterfaceData
 
     /** @return array<string, mixed> */
     public function toArray(): array
+    {
+        return [
+            'code' => $this->code,
+            'message' => $this->message,
+            'details' => $this->details,
+        ];
+    }
+
+    /** @return array<string, mixed> */
+    public function jsonSerialize(): array
     {
         return [
             'code' => $this->code,
