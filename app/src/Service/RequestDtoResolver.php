@@ -8,6 +8,7 @@ use App\Exceptions\RequestValidationException;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -15,7 +16,8 @@ final readonly class RequestDtoResolver
 {
     public function __construct(
         private SerializerInterface $serializer,
-        private ValidatorInterface $validator
+        private ValidatorInterface $validator,
+        private KernelInterface $kernel,
     ) {
     }
 
@@ -32,7 +34,10 @@ final readonly class RequestDtoResolver
         try {
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         } catch (\Throwable $e) {
-            throw new BadRequestHttpException('Invalid JSON: '.$e->getMessage());
+            throw new BadRequestHttpException($this->kernel->getEnvironment() === 'prod'
+                ? 'Invalid JSON payload.'
+                : 'Invalid JSON: ' . $e->getMessage()
+            );
         }
 
         if (in_array(ArrayHydratableInterface::class, class_implements($dtoClass), true)) {
@@ -42,7 +47,10 @@ final readonly class RequestDtoResolver
             try {
                 $dto = $this->serializer->deserialize($json, $dtoClass, 'json');
             } catch (\Throwable $e) {
-                throw new BadRequestHttpException('Deserialization failed: '.$e->getMessage());
+                throw new BadRequestHttpException($this->kernel->getEnvironment() === 'prod'
+                    ? 'Invalid request structure.'
+                    : 'Deserialization failed: ' . $e->getMessage()
+                );
             }
         }
 

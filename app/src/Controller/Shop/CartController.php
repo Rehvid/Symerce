@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop;
 
+use App\Admin\Infrastructure\Repository\CartRepository;
 use App\Enums\CookieName;
-use App\Repository\CartRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

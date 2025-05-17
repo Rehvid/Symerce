@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
+use App\Admin\Infrastructure\Repository\CartRepository;
 use App\DTO\Shop\Request\Cart\ChangeQuantityProductRequest;
 use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Product;
 use App\Enums\QuantityChangeType;
-use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
 use App\Service\CartTokenGenerator;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;

@@ -9,6 +9,7 @@ import DeliveryTimeIcon from '@/images/icons/delivery-time.svg';
 import CurrencyIcon from '@/images/icons/currency.svg';
 import UsersIcon from '@/images/icons/users.svg';
 import SettingIcon from '@/images/icons/settings.svg';
+import PaymentIcon from '@/images/icons/payment.svg';
 
 const SideBarNavigation = () => (
     <ul className="flex flex-col gap-4">
@@ -53,6 +54,10 @@ const SideBarNavigation = () => (
             <CurrencyIcon className="w-[24px] h-[24px]" />
             <span>Waluty</span>
         </NavigationItem>
+      <NavigationItem to={'payment-methods'}>
+        <PaymentIcon className="w-[24px] h-[24px]" />
+        <span>Płatności</span>
+      </NavigationItem>
         <NavigationItem to={'users'}>
             <UsersIcon className="w-[24px] h-[24px]" />
             <span>Users</span>

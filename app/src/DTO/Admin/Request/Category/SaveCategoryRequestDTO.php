@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\DTO\Admin\Request\Category;
 
 use App\DTO\Admin\Request\PersistableInterface;
+use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Traits\FileRequestMapperTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class SaveCategoryRequestDTO implements PersistableInterface
+final class SaveCategoryRequestDTO implements PersistableInterface, RequestDtoInterface
 {
     use FileRequestMapperTrait;
 

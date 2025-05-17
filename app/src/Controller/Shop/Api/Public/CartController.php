@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop\Api\Public;
 
+use App\Admin\Infrastructure\Repository\CartRepository;
 use App\DTO\Shop\Request\Cart\ChangeQuantityProductRequest;
 use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\DTO\Shop\Response\Cart\CartSaveResponseDTO;
 use App\Entity\CartItem;
 use App\Enums\CookieName;
-use App\Repository\CartRepository;
 use App\Service\Cart\CartService;
 use App\Service\CookieManager;
 use App\Service\RequestDtoResolver;
@@ -17,8 +17,8 @@ use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
 use App\UseCases\Cart\ChangeProductQuantityUseCase;
 use App\UseCases\Cart\CreateCartUseCase;
-use App\UseCases\Cart\RemoveCartItemUseCase;
 use App\UseCases\Cart\ListCartUseCase;
+use App\UseCases\Cart\RemoveCartItemUseCase;
 use App\UseCases\Cart\UpdateCartUseCase;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

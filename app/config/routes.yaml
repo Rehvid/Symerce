@@ -10,6 +10,12 @@ controllers_api_admin:
     prefix: /api/admin
     name_prefix: api_admin_
 
+admin_ui_controllers:
+    resource: ../src/Admin/UI/API/
+    type: attribute
+    prefix: /api/admin
+    name_prefix: api_admin_
+
 controllers_shop_api:
     resource: ../src/Controller/Shop/Api/
     type: attribute
