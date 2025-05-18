@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Contract\HasFileInterface;
+use App\Admin\Infrastructure\Repository\CarrierDoctrineRepository;
 use App\Enums\DecimalPrecision;
 use App\Interfaces\IdentifiableEntityInterface;
-use App\Repository\CarrierRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use App\Traits\ActiveTrait;
 use App\Traits\CreatedAtTrait;
 use App\Traits\UpdatedAtTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CarrierRepository::class)]
+#[ORM\Entity(repositoryClass: CarrierDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Carrier implements IdentifiableEntityInterface
+class Carrier implements IdentifiableEntityInterface, HasFileInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -76,7 +77,7 @@ class Carrier implements IdentifiableEntityInterface
 
     public function getImage(): ?File
     {
-        return $this->image;
+        return $this->getFile();
     }
 
     public function setImage(?File $image): void
@@ -87,5 +88,15 @@ class Carrier implements IdentifiableEntityInterface
     public function getDeliveryTimes(): Collection
     {
         return $this->deliveryTimes;
+    }
+
+    public function setFile(File $file): void
+    {
+        $this->image = $file;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->image;
     }
 }

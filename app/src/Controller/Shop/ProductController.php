@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop;
 
+use App\Admin\Infrastructure\Repository\CarrierDoctrineRepository;
 use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Enums\SettingType;
-use App\Repository\CarrierRepository;
 use App\Service\FileService;
 use App\Service\SettingManager;
 use App\ValueObject\Money;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -20,10 +19,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ProductController extends AbstractShopController
 {
     public function __construct(
-        private readonly SettingManager $settingManager,
-        private readonly FileService $fileService,
-        private readonly CarrierRepository $carrierRepository,
-        TranslatorInterface $translator
+        private readonly SettingManager            $settingManager,
+        private readonly FileService               $fileService,
+        private readonly CarrierDoctrineRepository $carrierRepository,
+        TranslatorInterface                        $translator
     ) {
         parent::__construct($translator);
     }

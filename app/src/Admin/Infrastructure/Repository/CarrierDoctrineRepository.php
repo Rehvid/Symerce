@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\CarrierRepositoryInterface;
 use App\Entity\Carrier;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
@@ -9,7 +10,7 @@ use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CarrierRepository extends AbstractRepository
+class CarrierDoctrineRepository extends AbstractRepository implements CarrierRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,

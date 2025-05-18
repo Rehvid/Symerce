@@ -51,6 +51,9 @@ final readonly class UserAssembler
     public function toFormDataResponse(User $user): array
     {
         $avatar = $user->getAvatar();
+        $file = $avatar === null
+            ? null
+            : $this->responseHelperAssembler->toFileResponse($image->getId(), $user->getFullName(), $image->getPath());
 
         return $this->responseHelperAssembler->wrapAsFormData(
             new UserFormResponse(
@@ -59,11 +62,7 @@ final readonly class UserAssembler
                 email: $user->getEmail(),
                 isActive: $user->isActive(),
                 roles: $user->getRoles(),
-                avatar: FileResponseDTO::fromArray([
-                    'id' => $avatar?->getId(),
-                    'name' => $user->getFullName(),
-                    'preview' => $this->responseHelperAssembler->buildPublicFilePath($avatar?->getPath())
-                ]),
+                avatar: $file,
                 availableRoles: $this->getAvailableRoles()
             )
         );

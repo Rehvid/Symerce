@@ -30,7 +30,7 @@ const CarrierForm = () => {
     if (params.id) {
         useEffect(() => {
             fetchFormData(
-                `admin/carriers/${params.id}/form-data`,
+                `admin/carriers/${params.id}`,
                 HTTP_METHODS.GET,
                 ['name', 'isActive', 'fee'],
                 [
