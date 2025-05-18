@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\File;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Shared\Infrastructure\Repository\DoctrinePersistableRepository;
 
-/**
- * @extends ServiceEntityRepository<File>
- */
-class FileRepository extends ServiceEntityRepository
+
+class FileRepository extends DoctrinePersistableRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    protected function getEntityClass(): string
     {
-        parent::__construct($registry, File::class);
+        return  File::class;
+    }
+
+    protected function getAlias(): string
+    {
+        return 'f';
     }
 }

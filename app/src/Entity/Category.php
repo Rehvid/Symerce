@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Contract\HasFileInterface;
 use App\Admin\Infrastructure\Repository\CategoryRepository;
 use App\Interfaces\ActivatableInterface;
 use App\Interfaces\IdentifiableEntityInterface;
@@ -20,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
-class Category implements OrderSortableInterface, IdentifiableEntityInterface, ActivatableInterface
+class Category implements OrderSortableInterface, IdentifiableEntityInterface, ActivatableInterface, HasFileInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -140,13 +141,13 @@ class Category implements OrderSortableInterface, IdentifiableEntityInterface, A
         }
     }
 
-    public function getImage(): ?File
+    public function setFile(File $file): void
     {
-        return $this->image;
+        $this->image = $file;
     }
 
-    public function setImage(?File $image): void
+    public function getFile(): ?File
     {
-        $this->image = $image;
+        return $this->image;
     }
 }

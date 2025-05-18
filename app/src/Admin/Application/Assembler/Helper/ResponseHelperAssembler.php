@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\Assembler\Helper;
 
+use App\Admin\Application\Service\FileService;
 use App\DTO\Admin\Response\FileResponseDTO;
 use App\DTO\Admin\Response\ResponseInterfaceData;
-use App\Service\FileService;
 
 final readonly class ResponseHelperAssembler
 {

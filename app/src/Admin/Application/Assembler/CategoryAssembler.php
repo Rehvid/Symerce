@@ -51,7 +51,7 @@ final readonly class CategoryAssembler
     public function toFormDataResponse(Category $category): array
     {
         $name = $category->getName();
-        $image = $category->getImage();
+        $image = $category->getFile();
 
         $file = $image === null
             ? null
@@ -77,7 +77,7 @@ final readonly class CategoryAssembler
             name: $category->getName(),
             slug: $category->getSlug(),
             isActive: $category->isActive(),
-            imagePath: $this->responseHelperAssembler->buildPublicFilePath($category->getImage()?->getPath()),
+            imagePath: $this->responseHelperAssembler->buildPublicFilePath($category->getFile()?->getPath()),
         );
     }
 }

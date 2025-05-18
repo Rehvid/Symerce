@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Category\SaveCategoryRequest;
+use App\Admin\Application\Service\FileService;
+use App\Admin\Domain\Model\FileData;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Entity\Category;
-use App\Service\FileService;
 use App\Service\SluggerService;
-use App\Traits\FileRequestMapperTrait;
 
 final readonly class CategoryHydrator
 {
@@ -20,8 +20,6 @@ final readonly class CategoryHydrator
     ) {
     }
 
-    use FileRequestMapperTrait;
-
     public function hydrate(SaveCategoryRequest $request, Category $category): Category
     {
         $category->setActive($request->isActive);
@@ -29,7 +27,7 @@ final readonly class CategoryHydrator
         $category->setDescription($request->description);
 
         $this->setParent($request, $category);
-        $this->setImage($request, $category);
+        $this->setImage($request->fileData, $category);
 
         return $category;
     }
@@ -59,18 +57,13 @@ final readonly class CategoryHydrator
         $category->setParent($parentCategory);
     }
 
-    private function setImage(SaveCategoryRequest $request, Category $category): void
+    private function setImage(?FileData $fileData, Category $category): void
     {
-        if (empty($request->image)) {
+        if (null === $fileData) {
             return;
         }
 
-        $imageProcessed = $this->createFileRequestDTOs($request->image);
-
-        foreach ($imageProcessed as $image) {
-            $category->setImage(
-                $this->fileService->processFileRequestDTO($image, $category->getImage())
-            );
-        }
+        $this->fileService->replaceFile($category, $fileData);
     }
+
 }
