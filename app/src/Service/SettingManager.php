@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Admin\Infrastructure\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\DTO\Shop\Response\Setting\SettingShopCategoryDTOResponse;
 use App\Entity\Category;
 use App\Entity\Currency;
@@ -83,7 +83,7 @@ final class SettingManager
             $idCategories[] = $value['id'];
         }
 
-        /** @var CategoryRepository $categoryRepository */
+        /** @var CategoryDoctrineRepository $categoryRepository */
         $categoryRepository = $this->entityManager->getRepository(Category::class);
 
         /** @var Category[] $categories */

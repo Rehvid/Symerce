@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Category;
 
-use App\Admin\Infrastructure\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\DTO\Admin\Request\Category\SaveCategoryRequestDTO;
 use App\Factory\PersistableDTOFactory;
 use App\Service\DataPersister\Persisters\Admin\Category\CategoryCreatePersister;
@@ -38,7 +38,7 @@ class OrderTest extends ApiTestCase
         $this->assertIsApiResponse($data);
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_OK);
 
-        $categories = self::getContainer()->get(CategoryRepository::class)->findAll();
+        $categories = self::getContainer()->get(CategoryDoctrineRepository::class)->findAll();
         foreach ($categories as $category) {
             $this->assertEquals($category->getOrder(), $newOrderMap[$category->getId()]);
         }

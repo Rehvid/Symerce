@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop\Api\Public;
 
-use App\Admin\Infrastructure\Repository\CartRepository;
+use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\DTO\Shop\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Entity\Carrier;
 use App\Entity\Order;
@@ -31,11 +31,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class CheckoutController extends AbstractController
 {
     public function __construct(
-        private readonly RequestDtoResolver $requestDtoResolver,
-        private readonly CartRepository $cartRepository,
-        private readonly OrderRepository $orderRepository,
+        private readonly RequestDtoResolver     $requestDtoResolver,
+        private readonly CartDoctrineRepository $cartRepository,
+        private readonly OrderRepository        $orderRepository,
         private readonly EntityManagerInterface $entityManager,
-        private readonly ResponseService      $responseService,
+        private readonly ResponseService        $responseService,
     ){
     }
 

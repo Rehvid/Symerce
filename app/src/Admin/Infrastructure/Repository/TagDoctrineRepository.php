@@ -8,7 +8,7 @@ use App\Admin\Domain\Repository\TagRepositoryInterface;
 use App\Entity\Tag;
 use App\Repository\Base\AbstractRepository;
 
-class TagRepository extends AbstractRepository implements TagRepositoryInterface
+class TagDoctrineRepository extends AbstractRepository implements TagRepositoryInterface
 {
     protected function getEntityClass(): string
     {

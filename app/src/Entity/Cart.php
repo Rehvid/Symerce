@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Admin\Infrastructure\Repository\CartRepository;
+use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\Traits\CreatedAtTrait;
 use App\Traits\UpdatedAtTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CartRepository::class)]
+#[ORM\Entity(repositoryClass: CartDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Cart
 {

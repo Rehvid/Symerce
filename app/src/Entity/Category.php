@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Admin\Domain\Contract\HasFileInterface;
-use App\Admin\Infrastructure\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\Interfaces\ActivatableInterface;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[ORM\Entity(repositoryClass: CategoryDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
 class Category implements OrderSortableInterface, IdentifiableEntityInterface, ActivatableInterface, HasFileInterface

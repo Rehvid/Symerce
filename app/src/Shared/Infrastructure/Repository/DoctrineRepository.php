@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Repository;
 
-use App\Admin\Domain\Repository\PersistableRepositoryInterface;
+use App\Admin\Domain\Repository\QueryRepositoryInterface;
+use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-abstract class DoctrinePersistableRepository extends ServiceEntityRepository implements PersistableRepositoryInterface
+abstract class DoctrineRepository
+    extends ServiceEntityRepository
+    implements ReadWriteRepositoryInterface, QueryRepositoryInterface
 {
     abstract protected function getEntityClass(): string;
 
@@ -29,5 +32,10 @@ abstract class DoctrinePersistableRepository extends ServiceEntityRepository imp
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
+    }
+
+    public function findById(int|string $id): ?object
+    {
+        return $this->find($id);
     }
 }

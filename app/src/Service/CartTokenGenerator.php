@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Admin\Infrastructure\Repository\CartRepository;
+use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\Entity\Cart;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -14,7 +14,7 @@ final readonly class CartTokenGenerator
 
     public function __construct(
         private RequestStack   $requestStack,
-        private CartRepository $cartRepository
+        private CartDoctrineRepository $cartRepository
     ) {
 
     }

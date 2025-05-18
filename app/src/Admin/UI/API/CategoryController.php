@@ -11,7 +11,7 @@ use App\Admin\Application\UseCase\Category\GetByIdCategoryUseCase;
 use App\Admin\Application\UseCase\Category\GetCategoryCreateDataUseCase;
 use App\Admin\Application\UseCase\Category\ListCategoryUseCase;
 use App\Admin\Application\UseCase\Category\UpdateCategoryUseCase;
-use App\Admin\Infrastructure\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\Interfaces\UpdateOrderControllerInterface;
 use App\Repository\Base\AbstractRepository;
 use App\Repository\Interface\OrderSortableRepositoryInterface;
@@ -34,15 +34,15 @@ final class CategoryController extends AbstractCrudController implements UpdateO
     use UpdateOrderControllerTrait;
 
     public function __construct(
-        private readonly ListCategoryUseCase $listCategoryUseCase,
-        private readonly GetByIdCategoryUseCase $getByIdCategoryUseCase,
-        private readonly CreateCategoryUseCase $createCategoryUseCase,
-        private readonly UpdateCategoryUseCase $updateCategoryUseCase,
-        private readonly DeleteCategoryUseCase $deleteCategoryUseCase,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly CategoryRepository $categoryRepository, //TODO: Later fix
-        RequestDtoResolver $requestDtoResolver,
-        TranslatorInterface $translator
+        private readonly ListCategoryUseCase        $listCategoryUseCase,
+        private readonly GetByIdCategoryUseCase     $getByIdCategoryUseCase,
+        private readonly CreateCategoryUseCase      $createCategoryUseCase,
+        private readonly UpdateCategoryUseCase      $updateCategoryUseCase,
+        private readonly DeleteCategoryUseCase      $deleteCategoryUseCase,
+        private readonly EntityManagerInterface     $entityManager,
+        private readonly CategoryDoctrineRepository $categoryRepository,
+        RequestDtoResolver                          $requestDtoResolver,
+        TranslatorInterface                         $translator
     ) {
         parent::__construct($requestDtoResolver, $translator);
     }

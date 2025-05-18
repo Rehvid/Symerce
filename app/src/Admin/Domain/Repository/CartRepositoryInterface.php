@@ -6,7 +6,7 @@ namespace App\Admin\Domain\Repository;
 
 use App\Entity\Cart;
 
-interface CartRepositoryInterface extends PersistableRepositoryInterface
+interface CartRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface
 {
     public function findByCartToken(?string $token): ?Cart;
 }

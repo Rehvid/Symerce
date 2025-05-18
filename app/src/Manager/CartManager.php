@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\Admin\Infrastructure\Repository\CartRepository;
+use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\DTO\Shop\Request\Cart\ChangeQuantityProductRequest;
 use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\Entity\Cart;
@@ -18,10 +18,10 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class CartManager
 {
    public function __construct(
-       private readonly CartRepository $repository,
-       private readonly ProductRepository $productRepository,
-       private readonly CartTokenGenerator $cartTokenGenerator,
-       private readonly ParameterBagInterface $parameterBag,
+       private readonly CartDoctrineRepository $repository,
+       private readonly ProductRepository      $productRepository,
+       private readonly CartTokenGenerator     $cartTokenGenerator,
+       private readonly ParameterBagInterface  $parameterBag,
    )
    {}
 

@@ -6,7 +6,7 @@ namespace App\Admin\Domain\Repository;
 
 use App\Entity\Category;
 
-interface CategoryRepositoryInterface
+interface CategoryRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface
 {
     public function getMaxOrder(): int;
 

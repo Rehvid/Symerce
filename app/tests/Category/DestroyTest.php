@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Category;
 
-use App\Admin\Infrastructure\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\DTO\Admin\Request\Category\SaveCategoryRequestDTO;
 use App\Entity\Category;
 use App\Factory\PersistableDTOFactory;
@@ -38,7 +38,7 @@ class DestroyTest extends ApiTestCase
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_OK);
         $this->assertIsApiResponse($this->getJsonResponseData());
 
-        $result = self::getContainer()->get(CategoryRepository::class)->find($category->getId());
+        $result = self::getContainer()->get(CategoryDoctrineRepository::class)->find($category->getId());
         $this->assertNull($result);
     }
 

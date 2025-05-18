@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Category;
 
-use App\Admin\Infrastructure\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\Tests\ApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +28,7 @@ class StoreTest extends ApiTestCase
         $this->assertIsApiResponse($data);
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_CREATED);
 
-        $category = self::getContainer()->get(CategoryRepository::class)->findOneBy(['name' => 'T-shirt']);
+        $category = self::getContainer()->get(CategoryDoctrineRepository::class)->findOneBy(['name' => 'T-shirt']);
         $this->assertNotNull($category);
     }
 

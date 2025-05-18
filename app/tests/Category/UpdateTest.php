@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Category;
 
-use App\Admin\Infrastructure\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\DTO\Admin\Request\Category\SaveCategoryRequestDTO;
 use App\Factory\PersistableDTOFactory;
 use App\Service\DataPersister\Persisters\Admin\Category\CategoryCreatePersister;
@@ -42,7 +42,7 @@ class UpdateTest extends ApiTestCase
         $this->assertIsApiResponse($data);
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_OK);
 
-        $category = self::getContainer()->get(CategoryRepository::class)->find($category->getId());
+        $category = self::getContainer()->get(CategoryDoctrineRepository::class)->find($category->getId());
         $this->assertNotNull($category);
 
         $this->assertEquals('Trousers', $category->getName());

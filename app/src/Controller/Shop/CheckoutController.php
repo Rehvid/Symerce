@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop;
 
-use App\Admin\Infrastructure\Repository\CartRepository;
+use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\Enums\CheckoutStep;
 use App\Enums\CookieName;
 use App\Repository\OrderRepository;
@@ -17,8 +17,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class CheckoutController extends AbstractController
 {
     public function __construct(
-        private readonly CartRepository $cartRepository,
-        private readonly OrderRepository $orderRepository,
+        private readonly CartDoctrineRepository $cartRepository,
+        private readonly OrderRepository        $orderRepository,
     ) {
     }
 

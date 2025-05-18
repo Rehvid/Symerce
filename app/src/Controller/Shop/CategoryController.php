@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop;
 
-use App\Admin\Infrastructure\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\DTO\Shop\Response\Category\CategoryIndexResponseDTO;
 use App\Entity\Category;
 use App\Entity\Product;
@@ -19,10 +19,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CategoryController extends AbstractShopController
 {
     public function __construct(
-        private readonly CategoryRepository $categoryRepository,
-        private readonly FileService $fileService,
-        private readonly SettingManager $settingManager,
-        TranslatorInterface $translator
+        private readonly CategoryDoctrineRepository $categoryRepository,
+        private readonly FileService                $fileService,
+        private readonly SettingManager             $settingManager,
+        TranslatorInterface                         $translator
     ) {
         parent::__construct($translator);
     }

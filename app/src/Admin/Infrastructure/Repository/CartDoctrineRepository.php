@@ -6,9 +6,9 @@ namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Repository\CartRepositoryInterface;
 use App\Entity\Cart;
-use App\Shared\Infrastructure\Repository\DoctrinePersistableRepository;
+use App\Shared\Infrastructure\Repository\DoctrineRepository;
 
-class CartRepository extends DoctrinePersistableRepository implements CartRepositoryInterface
+class CartDoctrineRepository extends DoctrineRepository implements CartRepositoryInterface
 {
     public function findByToken(?string $token): ?Cart
     {

@@ -14,7 +14,7 @@ use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
+class CategoryDoctrineRepository extends AbstractRepository implements CategoryRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,

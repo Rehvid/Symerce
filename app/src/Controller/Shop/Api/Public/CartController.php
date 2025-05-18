@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop\Api\Public;
 
-use App\Admin\Infrastructure\Repository\CartRepository;
+use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\DTO\Shop\Request\Cart\ChangeQuantityProductRequest;
 use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\DTO\Shop\Response\Cart\CartSaveResponseDTO;
@@ -32,12 +32,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class CartController extends AbstractController
 {
     public function __construct(
-        private readonly RequestDtoResolver $requestDtoResolver,
-        private readonly CookieManager        $cookieManager,
-        private readonly ResponseService      $responseService,
-        private readonly CartRepository       $cartRepository,
-        private readonly CreateCartUseCase $createCartUseCase,
-        private readonly UpdateCartUseCase $updateCartUseCase,
+        private readonly RequestDtoResolver     $requestDtoResolver,
+        private readonly CookieManager          $cookieManager,
+        private readonly ResponseService        $responseService,
+        private readonly CartDoctrineRepository $cartRepository,
+        private readonly CreateCartUseCase      $createCartUseCase,
+        private readonly UpdateCartUseCase      $updateCartUseCase,
         private readonly ParameterBagInterface  $parameterBag,
     )
     {

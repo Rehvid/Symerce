@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Repository;
 
-interface TagRepositoryInterface extends PersistableRepositoryInterface
+interface TagRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface
 {
 
 }

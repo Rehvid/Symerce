@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop;
 
-use App\Admin\Infrastructure\Repository\CartRepository;
+use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\Enums\CookieName;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +16,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CartController extends AbstractController
 {
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        private readonly CartRepository $cartRepository,
+        private readonly TranslatorInterface    $translator,
+        private readonly CartDoctrineRepository $cartRepository,
     ) {
     }
 
