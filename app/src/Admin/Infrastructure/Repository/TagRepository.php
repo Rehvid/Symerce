@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Repository;
+declare(strict_types=1);
 
+namespace App\Admin\Infrastructure\Repository;
+
+use App\Admin\Domain\Repository\TagRepositoryInterface;
 use App\Entity\Tag;
 use App\Repository\Base\AbstractRepository;
 
-class TagRepository extends AbstractRepository
+class TagRepository extends AbstractRepository implements TagRepositoryInterface
 {
     protected function getEntityClass(): string
     {

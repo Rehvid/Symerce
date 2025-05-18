@@ -31,7 +31,7 @@ const TagForm = () => {
 
     if (params.id) {
         useEffect(() => {
-            fetchFormData(`admin/tags/${params.id}/form-data`, HTTP_METHODS.GET, ['name']);
+            fetchFormData(`admin/tags/${params.id}`, HTTP_METHODS.GET, ['name']);
         }, []);
     }
 

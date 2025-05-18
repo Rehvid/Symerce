@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Infrastructure\Repository\TagRepository;
 use App\Interfaces\IdentifiableEntityInterface;
-use App\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
