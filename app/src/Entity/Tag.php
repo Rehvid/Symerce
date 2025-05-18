@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Admin\Infrastructure\Repository\TagRepository;
+use App\Admin\Infrastructure\Repository\TagDoctrineRepository;
 use App\Interfaces\IdentifiableEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ORM\Entity(repositoryClass: TagDoctrineRepository::class)]
 class Tag implements IdentifiableEntityInterface
 {
     #[ORM\Id]
