@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repository\Base;
 
+use App\Admin\Domain\Repository\QueryRepositoryInterface;
+use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
 use App\Enums\DirectionType;
 use App\Enums\OrderByField;
 use App\Repository\Interface\OrderSortableRepositoryInterface;
@@ -15,7 +17,9 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /** @phpstan-ignore-next-line */
-abstract class AbstractRepository extends ServiceEntityRepository implements PaginationRepositoryInterface, OrderSortableRepositoryInterface
+abstract class AbstractRepository
+    extends ServiceEntityRepository
+    implements PaginationRepositoryInterface, OrderSortableRepositoryInterface, ReadWriteRepositoryInterface, QueryRepositoryInterface
 {
     private const int ALL_RESULTS = -1;
 
@@ -117,5 +121,10 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Pag
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findById(int|string $id): ?object
+    {
+        return $this->find($id);
     }
 }
