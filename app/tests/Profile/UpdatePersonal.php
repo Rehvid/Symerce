@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Profile;
 
-use App\Repository\UserRepository;
+use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Tests\ApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +32,7 @@ class UpdatePersonal extends ApiTestCase
         $this->assertIsApiResponse($data);
         $this->assertJsonResponse($this->client->getResponse(), Response::HTTP_OK);
 
-        $userEntity = self::getContainer()->get(UserRepository::class)->find($user->getId());
+        $userEntity = self::getContainer()->get(UserDoctrineRepository::class)->find($user->getId());
         $this->assertNotNull($userEntity);
 
         $this->assertSame($user->getFullName(), 'LocalHost');

@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Interfaces\IdentifiableEntityInterface;
-use App\Repository\UserRepository;
 use App\Traits\ActiveTrait;
 use App\Traits\CreatedAtTrait;
 use App\Traits\UpdatedAtTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Entity(repositoryClass: UserDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['email'], message: 'This account already exists.')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, IdentifiableEntityInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, IdentifiableEntityInterface, \App\Admin\Domain\Contract\HasFileInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -159,11 +159,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Identif
 
     public function getAvatar(): ?File
     {
-        return $this->avatar;
+        return $this->getFile(); //TODO: Change it later
     }
 
     public function setAvatar(?File $avatar): void
     {
         $this->avatar = $avatar;
+    }
+
+    public function setFile(File $file): void
+    {
+        $this->avatar = $file;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->avatar;
     }
 }

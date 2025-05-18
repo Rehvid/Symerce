@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum Roles: string
+enum AdminRole: string
 {
-    case ROLE_ADMIN = 'admin';
-    case ROLE_USER = 'user';
-
-    case ROLE_CUSTOMER = 'customer';
+    case ADMIN = 'ROLE_ADMIN';
+    case EMPLOYEE = 'ROLE_EMPLOYEE';
 
     /**
      * @return array<int, string>

@@ -31,17 +31,22 @@ const UserForm = () => {
         '/admin/users',
     );
 
-    if (params.id) {
+
         useEffect(() => {
-            fetchFormData(`admin/users/${params.id}/form-data`, HTTP_METHODS.GET, [
-                'roles',
-                'firstname',
-                'surname',
-                'email',
-                'isActive',
-            ]);
+            if (params.id) {
+                fetchFormData(`admin/users/${params.id}`, HTTP_METHODS.GET, [
+                    'roles',
+                    'firstname',
+                    'surname',
+                    'email',
+                    'isActive',
+                ]);
+            } else {
+                fetchFormData(`admin/users/store-data`, HTTP_METHODS.GET);
+            }
+
         }, []);
-    }
+
 
     if (!isFormReady) {
         return <FormSkeleton rowsCount={8} />;

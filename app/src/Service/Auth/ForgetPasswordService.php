@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
+use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
 use App\DTO\Admin\Request\UserToken\StoreUserTokenRequestDTO;
 use App\DTO\Admin\Response\Mail\MailResponseDTO;
@@ -12,7 +13,6 @@ use App\Entity\UserToken;
 use App\Enums\TokenType;
 use App\Exceptions\PersisterException;
 use App\Factory\PersistableDTOFactory;
-use App\Repository\UserRepository;
 use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\MailService;
 use Ramsey\Uuid\Guid\Guid;
@@ -22,10 +22,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final readonly class ForgetPasswordService
 {
     public function __construct(
-        private MailService $mailService,
-        private UserRepository $userRepository,
-        private PersisterManager $persisterManager,
-        private UrlGeneratorInterface $urlGenerator,
+        private MailService            $mailService,
+        private UserDoctrineRepository $userRepository,
+        private PersisterManager       $persisterManager,
+        private UrlGeneratorInterface  $urlGenerator,
     ) {
 
     }

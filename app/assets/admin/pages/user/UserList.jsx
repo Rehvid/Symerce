@@ -47,7 +47,7 @@ const UserList = () => {
             ),
             email,
             active: <TableRowActiveBadge isActive={isActive} />,
-            actions: <TableActions id={id} onDelete={() => removeItem(id)} />,
+            actions: <TableActions id={id} onDelete={() => removeItem(`admin/users/${item.id}`)} />,
         });
     });
 

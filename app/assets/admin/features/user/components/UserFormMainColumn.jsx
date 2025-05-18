@@ -72,10 +72,7 @@ const UserFormMainColumn = ({ register, fieldErrors, control, params, setValue, 
                     <div>
                         <MultiSelect
                             label="Role"
-                            options={[
-                                { value: 'user', label: 'Użytkownik' },
-                                { value: 'admin', label: 'Administrator' },
-                            ]}
+                            options={formData?.availableRoles || []}
                             selected={field.value}
                             onChange={(value, checked) => {
                                 const newValue = checked

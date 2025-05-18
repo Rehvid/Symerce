@@ -18,6 +18,9 @@ base:
     standard: 'Dostawa standardowa'
     express: 'Dostawa ekspresowa'
     economy: 'Dostawa ekonomiczna'
+  admin_role_type:
+    admin: 'Administrator'
+    employee: 'Pracownik'
   messages:
     errors:
       validation_failed: 'Wystąpił błąd walidacji.'

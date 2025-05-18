@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\DTO\Admin\Request\User\StoreRegisterUserRequestDTO;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use App\Service\DataPersister\Persisters\Admin\User\UserRegisterCreatePersister;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -55,7 +55,7 @@ class ApiTestCase extends WebTestCase
 
     protected function createUser(): User
     {
-        $userRepo = static::getContainer()->get(UserRepository::class);
+        $userRepo = static::getContainer()->get(UserDoctrineRepository::class);
         $persister = static::getContainer()->get(UserRegisterCreatePersister::class);
 
         $dto = new StoreRegisterUserRequestDTO(

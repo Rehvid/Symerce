@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\UserRepositoryInterface;
 use App\Entity\User;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
@@ -13,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserRepository extends AbstractRepository implements UserLoaderInterface
+class UserDoctrineRepository extends AbstractRepository implements UserLoaderInterface, UserRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,

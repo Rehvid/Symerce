@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
+use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\DTO\Admin\Response\FileResponseDTO;
 use App\DTO\Admin\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use App\Service\FileService;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -18,8 +18,8 @@ final readonly class AuthService
 {
     public function __construct(
         private JWTTokenManagerInterface $tokenManager,
-        private UserRepository $userRepository,
-        private FileService $fileService,
+        private UserDoctrineRepository   $userRepository,
+        private FileService              $fileService,
     ) {
     }
 

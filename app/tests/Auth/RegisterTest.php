@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Auth;
 
+use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use App\Tests\ApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ class RegisterTest extends ApiTestCase
 {
     private function getUserByEmail(string $email): ?User
     {
-        return static::getContainer()->get(UserRepository::class)->findOneBy(['email' => $email]);
+        return static::getContainer()->get(UserDoctrineRepository::class)->findOneBy(['email' => $email]);
     }
 
     public function testSuccessfulRegister(): void

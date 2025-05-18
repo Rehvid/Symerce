@@ -7,7 +7,7 @@ namespace App\Service\DataPersister\Filler\Admin;
 use App\DTO\Admin\Request\PersistableInterface;
 use App\DTO\Admin\Request\User\StoreRegisterUserRequestDTO;
 use App\Entity\User;
-use App\Enums\Roles;
+use App\Enums\AdminRole;
 use App\Service\DataPersister\Filler\Base\BaseEntityFiller;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -44,7 +44,7 @@ final class UserRegisterEntityFiller extends BaseEntityFiller
     protected function fillEntity(StoreRegisterUserRequestDTO|PersistableInterface $persistable, object $entity): User
     {
         $entity->setEmail($persistable->email);
-        $entity->setRoles([Roles::ROLE_USER->value]);
+        $entity->setRoles([AdminRole::ROLE_USER->value]);
         $entity->setPassword($this->passwordHasher->hashPassword($entity, $persistable->password));
         $entity->setIsActive(true);
         $entity->setFirstname($persistable->firstname);
