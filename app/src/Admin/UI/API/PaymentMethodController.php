@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace App\Admin\UI\API;
 
 use App\Admin\Application\DTO\Request\PaymentMethod\SavePaymentMethodRequest;
+use App\Admin\Application\UseCase\PaymentMethod\CreatePaymentMethodUseCase;
+use App\Admin\Application\UseCase\PaymentMethod\DeletePaymentMethodUseCase;
+use App\Admin\Application\UseCase\PaymentMethod\GetByIdPaymentMethodUseCase;
 use App\Admin\Application\UseCase\PaymentMethod\ListPaymentMethodUseCase;
+use App\Admin\Application\UseCase\PaymentMethod\UpdatePaymentMethodUseCase;
 use App\Service\RequestDtoResolver;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;
 use App\Shared\Application\UseCases\Base\DeleteUseCaseInterface;
@@ -21,10 +25,10 @@ final class PaymentMethodController extends AbstractCrudController
 
     public function __construct(
         private readonly ListPaymentMethodUseCase $listCartUseCase,
-        private readonly GetByIdUseCaseInterface  $getByIdUseCase,
-        private readonly CreateUseCaseInterface   $createUseCase,
-        private readonly UpdateUseCaseInterface   $updateUseCase,
-        private readonly DeleteUseCaseInterface   $deleteUseCase,
+        private readonly GetByIdPaymentMethodUseCase $getByIdUseCase,
+        private readonly CreatePaymentMethodUseCase   $createUseCase,
+        private readonly UpdatePaymentMethodUseCase   $updateUseCase,
+        private readonly DeletePaymentMethodUseCase   $deleteUseCase,
         RequestDtoResolver                        $requestDtoResolver,
         TranslatorInterface $translator,
     ) {

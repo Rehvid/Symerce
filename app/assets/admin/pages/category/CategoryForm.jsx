@@ -29,7 +29,7 @@ const CategoryForm = () => {
     );
 
     useEffect(() => {
-        const endPoint = params.id ? `admin/categories/${params.id}/form-data` : 'admin/categories/form-data';
+        const endPoint = params.id ? `admin/categories/${params.id}` : 'admin/categories/store-data';
         fetchFormData(endPoint, HTTP_METHODS.GET, ['name', 'isActive', 'description', 'parentCategoryId', 'slug']);
     }, []);
 

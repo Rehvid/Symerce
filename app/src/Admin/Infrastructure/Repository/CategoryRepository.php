@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Entity\Category;
 use App\Enums\DirectionType;
 use App\Enums\OrderByField;
@@ -13,7 +14,7 @@ use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CategoryRepository extends AbstractRepository
+class CategoryRepository extends AbstractRepository implements CategoryRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,
@@ -44,5 +45,21 @@ class CategoryRepository extends AbstractRepository
         }
 
         return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
+    }
+
+    public function getMaxOrder(): int
+    {
+        $alias = $this->getAlias();
+
+        return (int) $this->createQueryBuilder($alias)
+            ->select("MAX($alias.order)")
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /** @return Category[] */
+    public function findAllOrdered(): array
+    {
+        return $this->findBy([], ['order' => 'ASC']);
     }
 }

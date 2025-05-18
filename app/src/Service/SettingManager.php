@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Admin\Infrastructure\Repository\CategoryRepository;
 use App\DTO\Shop\Response\Setting\SettingShopCategoryDTOResponse;
 use App\Entity\Category;
 use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Enums\SettingType;
-use App\Repository\CategoryRepository;
 use App\Repository\SettingRepository;
 use App\ValueObject\JsonData;
 use Doctrine\ORM\EntityManagerInterface;

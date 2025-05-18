@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Category;
 
-use App\Repository\CategoryRepository;
+use App\Admin\Infrastructure\Repository\CategoryRepository;
 use App\Tests\ApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

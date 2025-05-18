@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Mapper\Admin;
 
+use App\Admin\Domain\Service\CategoryTreeBuilder;
 use App\DTO\Admin\Response\Category\CategoryFormResponseDTO;
 use App\DTO\Admin\Response\Category\CategoryIndexResponseDTO;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\Entity\Category;
 use App\Mapper\Helper\ResponseMapperHelper;
 use App\Mapper\Interfaces\ResponseMapperInterface;
-use App\Service\CategoryTreeBuilder;
 
 final readonly class CategoryResponseMapper implements ResponseMapperInterface
 {

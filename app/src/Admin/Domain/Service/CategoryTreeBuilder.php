@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Admin\Domain\Service;
 
+use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Entity\Category;
-use App\Repository\CategoryRepository;
 
-final class CategoryTreeBuilder
+
+final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
 {
     /**
      * @var array<int, bool>
      */
     private array $processedCategories = [];
 
-    public function __construct(private readonly CategoryRepository $categoryRepository)
-    {
+    public function __construct(
+        private readonly CategoryRepositoryInterface $categoryRepository
+    ) {
+
     }
 
     /** @return list<array<string, mixed>> */
@@ -30,8 +33,7 @@ final class CategoryTreeBuilder
             $excludedIds[] = $currentCategory->getId();
         }
 
-        /** @var Category[] $categories */
-        $categories = $this->categoryRepository->findAll();
+        $categories = $this->categoryRepository->findAllOrdered();
         foreach ($categories as $category) {
             $id = $category->getId();
 

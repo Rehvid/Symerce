@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Infrastructure\Repository\CategoryRepository;
 use App\Interfaces\ActivatableInterface;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
-use App\Repository\CategoryRepository;
-use App\Traits\CreatedAtTrait;
 use App\Traits\ActiveTrait;
+use App\Traits\CreatedAtTrait;
 use App\Traits\OrderTrait;
 use App\Traits\UpdatedAtTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -53,7 +53,7 @@ class Category implements OrderSortableInterface, IdentifiableEntityInterface, A
 
     #[ORM\ManyToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private ?File $image;
+    private ?File $image = null;
 
     public function __construct()
     {

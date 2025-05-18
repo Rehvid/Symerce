@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Shop;
 
+use App\Admin\Infrastructure\Repository\CategoryRepository;
 use App\DTO\Shop\Response\Category\CategoryIndexResponseDTO;
 use App\Entity\Category;
 use App\Entity\Product;
-use App\Repository\CategoryRepository;
 use App\Service\FileService;
 use App\Service\SettingManager;
 use App\ValueObject\Money;
