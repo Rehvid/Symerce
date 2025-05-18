@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\FileRepositoryInterface;
 use App\Entity\File;
 use App\Shared\Infrastructure\Repository\DoctrineRepository;
 
-
-class FileRepository extends DoctrineRepository
+class FileDoctrineRepository extends DoctrineRepository implements FileRepositoryInterface
 {
 
     protected function getEntityClass(): string

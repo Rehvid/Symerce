@@ -6,15 +6,15 @@ namespace App\Admin\Application\Service;
 
 use App\Admin\Domain\Contract\HasFileInterface;
 use App\Admin\Domain\Model\FileData;
+use App\Admin\Domain\Repository\FileRepositoryInterface;
 use App\Admin\Infrastructure\Service\FileStorageService;
 use App\Entity\File;
-use App\Repository\FileRepository;
 
 final readonly class FileService
 {
     public function __construct(
-        private FileStorageService $fileStorageService,
-        private FileRepository $repository,
+        private FileStorageService     $fileStorageService,
+        private FileRepositoryInterface $repository,
     ) {
     }
 
