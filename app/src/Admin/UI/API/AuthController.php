@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Admin\UI\API;
 
+use App\Admin\Application\DTO\Request\Auth\ForgotPasswordRequest;
 use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
 use App\Admin\Application\UseCase\Auth\ForgotPasswordUseCase;
 use App\Admin\Application\UseCase\Auth\LogoutUseCase;
 use App\Admin\Application\UseCase\Auth\ResetPasswordUseCase;
 use App\Admin\Application\UseCase\Auth\VerifyAuthUseCase;
 use App\Controller\AbstractApiController;
-use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,8 +23,8 @@ final class AuthController extends AbstractApiController
 
     #[Route('/forgot-password', name: 'forgot_password', methods: ['POST'], format: 'json')]
     public function forgotPassword(
-        #[MapRequestPayload] ForgotPasswordRequestDTO $forgotPasswordRequestDTO,
-        ForgotPasswordUseCase $useCase,
+        #[MapRequestPayload] ForgotPasswordRequest $forgotPasswordRequestDTO,
+        ForgotPasswordUseCase                      $useCase,
     ): JsonResponse {
         return $this->json($useCase->execute($forgotPasswordRequestDTO));
     }

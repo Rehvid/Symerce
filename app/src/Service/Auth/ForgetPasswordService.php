@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
+use App\Admin\Application\DTO\Request\Auth\ForgotPasswordRequest;
 use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Admin\Infrastructure\Repository\UserTokenRepository;
-use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
-use App\DTO\Admin\Request\UserToken\StoreUserTokenRequestDTO;
 use App\DTO\Admin\Response\Mail\MailResponseDTO;
 use App\Entity\User;
 use App\Entity\UserToken;
 use App\Enums\TokenType;
 use App\Exceptions\PersisterException;
-use App\Factory\PersistableDTOFactory;
-use App\Service\DataPersister\Manager\PersisterManager;
 use App\Service\MailService;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,7 +31,7 @@ final readonly class ForgetPasswordService
     /**
      * @throws PersisterException|\ReflectionException
      */
-    public function sendMail(ForgotPasswordRequestDTO $dto): void
+    public function sendMail(ForgotPasswordRequest $dto): void
     {
         /** @var User|null $user */
         $user = $this->userRepository->loadUserByIdentifier($dto->email);

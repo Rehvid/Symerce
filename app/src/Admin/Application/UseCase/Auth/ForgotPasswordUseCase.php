@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\UseCase\Auth;
 
-use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
-use App\Shared\Application\DTO\Response\ApiErrorResponse;
+use App\Admin\Application\DTO\Request\Auth\ForgotPasswordRequest;
 use App\Service\Auth\ForgetPasswordService;
+use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Application\DTO\Response\ApiResponse;
 
 final readonly class ForgotPasswordUseCase
@@ -16,7 +16,7 @@ final readonly class ForgotPasswordUseCase
     ) {
     }
 
-    public function execute(ForgotPasswordRequestDTO $forgotPasswordRequestDTO): ApiResponse
+    public function execute(ForgotPasswordRequest $forgotPasswordRequestDTO): ApiResponse
     {
         try {
             $this->forgetPasswordService->sendMail($forgotPasswordRequestDTO);

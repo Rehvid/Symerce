@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Auth;
 
+use App\Admin\Application\DTO\Request\Auth\StoreUserTokenRequest;
 use App\Admin\Infrastructure\Repository\UserTokenRepository;
-use App\DTO\Admin\Request\UserToken\StoreUserTokenRequestDTO;
 use App\Entity\UserToken;
 use App\Enums\TokenType;
 use App\Factory\PersistableDTOFactory;
@@ -21,7 +21,7 @@ class ResetPasswordTest extends ApiTestCase
     {
         $user = $this->createUser();
 
-        $persist = PersistableDTOFactory::create(StoreUserTokenRequestDTO::class, [
+        $persist = PersistableDTOFactory::create(StoreUserTokenRequest::class, [
             'user' => $user,
             'token' => Guid::uuid4()->toString(),
             'tokenType' => TokenType::FORGOT_PASSWORD,

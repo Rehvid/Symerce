@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\Auth;
 
 use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
-use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
-use App\Service\Auth\ForgetPasswordService;
 use App\Service\Auth\ResetPasswordService;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Application\DTO\Response\ApiResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 final readonly class ResetPasswordUseCase
 {
