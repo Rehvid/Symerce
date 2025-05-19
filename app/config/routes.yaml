@@ -4,11 +4,9 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-controllers_api_admin:
-    resource: ../src/Controller/Admin/Api/Protected
+admin_web_controllers:
+    resource: ../src/Admin/UI/Web/
     type: attribute
-    prefix: /api/admin
-    name_prefix: api_admin_
 
 admin_ui_controllers:
     resource: ../src/Admin/UI/API/
