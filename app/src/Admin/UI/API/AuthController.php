@@ -12,13 +12,14 @@ use App\Admin\Application\UseCase\Auth\ResetPasswordUseCase;
 use App\Admin\Application\UseCase\Auth\VerifyAuthUseCase;
 use App\Controller\AbstractApiController;
 use App\Shared\Application\DTO\Response\ApiResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/auth', name: 'auth_')]
-final class AuthController extends AbstractApiController
+final class AuthController extends AbstractController
 {
 
     #[Route('/forgot-password', name: 'forgot_password', methods: ['POST'], format: 'json')]

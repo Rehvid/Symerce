@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Cart;
+namespace App\Shop\Application\UseCase\Cart;
 
 use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\Entity\Cart;

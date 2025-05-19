@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases\Checkout;
+namespace App\Shop\Application\UseCase\Checkout;
 
 use App\Entity\Carrier;
 use App\Entity\Order;

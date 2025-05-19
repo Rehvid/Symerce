@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Shop;
+namespace App\Shop\UI\Web;
 
 use App\Interfaces\ActivatableInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

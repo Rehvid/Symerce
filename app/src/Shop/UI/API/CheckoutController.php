@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Shop\Api\Public;
+namespace App\Shop\UI\API;
 
 use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\DTO\Shop\Request\Checkout\SaveCheckoutAddressRequest;
@@ -16,10 +16,10 @@ use App\Service\FileService;
 use App\Service\RequestDtoResolver;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
-use App\UseCases\Checkout\ConfirmationOrderUseCase;
-use App\UseCases\Checkout\SaveCarrierUseCase;
-use App\UseCases\Checkout\SaveCheckoutAddressUseCase;
-use App\UseCases\Checkout\SavePaymentMethodUseCase;
+use App\Shop\Application\UseCase\Checkout\ConfirmationOrderUseCase;
+use App\Shop\Application\UseCase\Checkout\SaveCarrierUseCase;
+use App\Shop\Application\UseCase\Checkout\SaveCheckoutAddressUseCase;
+use App\Shop\Application\UseCase\Checkout\SavePaymentMethodUseCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

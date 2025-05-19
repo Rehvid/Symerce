@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Shop;
+namespace App\Shop\UI\Web;
 
 use App\Admin\Infrastructure\Repository\CarrierDoctrineRepository;
 use App\Entity\Product;

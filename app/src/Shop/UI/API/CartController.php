@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Shop\Api\Public;
+namespace App\Shop\UI\API;
 
 use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\DTO\Shop\Request\Cart\ChangeQuantityProductRequest;
@@ -15,11 +15,11 @@ use App\Service\CookieManager;
 use App\Service\RequestDtoResolver;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
-use App\UseCases\Cart\ChangeProductQuantityUseCase;
-use App\UseCases\Cart\CreateCartUseCase;
-use App\UseCases\Cart\ListCartUseCase;
-use App\UseCases\Cart\RemoveCartItemUseCase;
-use App\UseCases\Cart\UpdateCartUseCase;
+use App\Shop\Application\UseCase\Cart\ChangeProductQuantityUseCase;
+use App\Shop\Application\UseCase\Cart\CreateCartUseCase;
+use App\Shop\Application\UseCase\Cart\ListCartUseCase;
+use App\Shop\Application\UseCase\Cart\RemoveCartItemUseCase;
+use App\Shop\Application\UseCase\Cart\UpdateCartUseCase;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;

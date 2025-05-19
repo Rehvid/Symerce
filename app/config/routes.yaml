@@ -14,8 +14,12 @@ admin_ui_controllers:
     prefix: /api/admin
     name_prefix: api_admin_
 
-controllers_shop_api:
-    resource: ../src/Controller/Shop/Api/
+shop_web_controllers:
+    resource: ../src/Shop/UI/Web/
+    type: attribute
+
+shop_api_controllers:
+    resource: ../src/Shop/UI/API/
     type: attribute
     prefix: /api/shop
     name_prefix: shop_api_

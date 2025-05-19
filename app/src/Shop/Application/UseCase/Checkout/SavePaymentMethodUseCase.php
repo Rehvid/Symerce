@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Checkout;
+namespace App\Shop\Application\UseCase\Checkout;
 
 use App\Entity\Order;
 use App\Entity\PaymentMethod;

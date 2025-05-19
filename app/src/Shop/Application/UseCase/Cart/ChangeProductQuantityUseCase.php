@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Cart;
+namespace App\Shop\Application\UseCase\Cart;
 
 use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\DTO\Shop\Request\Cart\ChangeQuantityProductRequest;
