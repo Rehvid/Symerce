@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Api\Public;
 
+use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
 use App\Controller\AbstractApiController;
-use App\DTO\Admin\Request\Profile\UpdateSecurityRequestDTO;
 use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
 use App\DTO\Admin\Request\User\StoreRegisterUserRequestDTO;
 use App\Service\Auth\AuthService;
@@ -49,9 +49,9 @@ class AuthController extends AbstractApiController
 
     #[Route('/{token}/reset-password', name: 'reset_password', methods: ['PUT'])]
     public function resetPassword(
-        string $token,
-        ResetPasswordService $resetPasswordService,
-        #[MapRequestPayload] UpdateSecurityRequestDTO $changePasswordRequestDTO,
+        string                                     $token,
+        ResetPasswordService                       $resetPasswordService,
+        #[MapRequestPayload] UpdateSecurityRequest $changePasswordRequestDTO,
     ): JsonResponse {
         try {
             $resetPasswordService->handleResetPassword($changePasswordRequestDTO, $token);

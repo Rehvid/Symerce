@@ -25,6 +25,7 @@ final readonly class CreateAttributeValueUseCase implements CreateUseCaseInterfa
     public function execute(RequestDtoInterface $requestDto): mixed
     {
         $attribute = $this->attributeRepository->findById($requestDto->attributeId);
+        //TODO: Factory
         if ($attribute === null) {
             throw new EntityNotFoundException();
         }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
-use App\DTO\Admin\Request\Profile\UpdateSecurityRequestDTO;
+use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
 use App\Entity\User;
 use App\Entity\UserToken;
 use App\Service\DataPersister\Manager\PersisterManager;
@@ -20,7 +20,7 @@ final readonly class ResetPasswordService
     ) {
     }
 
-    public function handleResetPassword(UpdateSecurityRequestDTO $changePasswordRequestDTO, string $token): void
+    public function handleResetPassword(UpdateSecurityRequest $changePasswordRequestDTO, string $token): void
     {
         $userToken = $this->entityManager->getRepository(UserToken::class)->findOneBy(['token' => $token]);
         if (null === $userToken) {
