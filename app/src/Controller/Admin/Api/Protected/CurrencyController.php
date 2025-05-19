@@ -12,7 +12,7 @@ use App\Mapper\Interfaces\ResponseMapperInterface;
 use App\Repository\Base\AbstractRepository;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/currencies', name: 'currency_')]
+//#[Route('/currencies', name: 'currency_')]
 class CurrencyController extends AbstractCrudAdminController
 {
     protected function getUpdateDtoClass(): string

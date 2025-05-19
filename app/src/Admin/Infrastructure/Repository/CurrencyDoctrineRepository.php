@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\CurrencyRepositoryInterface;
 use App\Entity\Currency;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
@@ -9,7 +10,7 @@ use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CurrencyRepository extends AbstractRepository
+class CurrencyDoctrineRepository extends AbstractRepository implements CurrencyRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,

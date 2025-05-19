@@ -29,7 +29,7 @@ const CurrencyForm = () => {
 
     if (params.id) {
         useEffect(() => {
-            fetchFormData(`admin/currencies/${params.id}/form-data`, HTTP_METHODS.GET, [
+            fetchFormData(`admin/currencies/${params.id}`, HTTP_METHODS.GET, [
                 'name',
                 'code',
                 'symbol',
