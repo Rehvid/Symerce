@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Service\DataProvider;
 
+use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
 use App\DTO\Admin\Response\ProviderResponseDTO;
 use App\Entity\Setting;
 use App\Enums\SettingType;
-use App\Repository\SettingRepository;
 use App\Service\DataProvider\Interface\ReactDataInterface;
 use App\Service\SettingManager;
 
 readonly class SettingsProvider implements ReactDataInterface
 {
     public function __construct(
-        private SettingRepository $settingRepository,
-        private SettingManager $settingManager,
+        private SettingDoctrineRepository $settingRepository,
+        private SettingManager            $settingManager,
     ) {
     }
 

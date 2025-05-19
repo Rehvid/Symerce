@@ -19,6 +19,9 @@ const SettingForm = () => {
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',
+        defaultValues: {
+            type: 'custom'
+        }
     });
 
     const { fetchFormData, defaultApiSuccessCallback, getApiConfig, formData, isFormReady } = useApiForm(
@@ -29,7 +32,7 @@ const SettingForm = () => {
     );
 
     useEffect(() => {
-        const endpointFormData = params.id ? `admin/settings/${params.id}/form-data` : `admin/settings/form-data`;
+        const endpointFormData = params.id ? `admin/settings/${params.id}` : `admin/settings/store-data`;
 
         fetchFormData(endpointFormData, HTTP_METHODS.GET, ['name', 'value', 'type', 'isProtected', 'isJson']);
     }, []);

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
 use App\Enums\SettingType;
 use App\Interfaces\IdentifiableEntityInterface;
-use App\Repository\SettingRepository;
 use App\Traits\ActiveTrait;
 use App\Traits\CreatedAtTrait;
 use App\Traits\ProtectedTrait;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SettingRepository::class)]
+#[ORM\Entity(repositoryClass: SettingDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Setting implements IdentifiableEntityInterface
 {

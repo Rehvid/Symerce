@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Request\Setting;
+namespace App\Admin\Application\DTO\Request\Setting;
 
-use App\DTO\Admin\Request\PersistableInterface;
 use App\Enums\SettingType;
+use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class SaveSettingRequestDTO implements PersistableInterface
+final class SaveSettingRequest implements RequestDtoInterface
 {
     public function __construct(
         public ?int $id,

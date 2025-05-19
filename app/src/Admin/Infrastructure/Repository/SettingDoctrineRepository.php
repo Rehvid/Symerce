@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\SettingRepositoryInterface;
 use App\Entity\Setting;
 use App\Enums\SettingType;
 use App\Factory\FilterBuilderFactory;
@@ -12,7 +13,7 @@ use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class SettingRepository extends AbstractRepository
+class SettingDoctrineRepository extends AbstractRepository implements SettingRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,

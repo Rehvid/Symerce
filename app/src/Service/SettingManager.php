@@ -5,25 +5,25 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
+use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
 use App\DTO\Shop\Response\Setting\SettingShopCategoryDTOResponse;
 use App\Entity\Category;
 use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Enums\SettingType;
-use App\Repository\SettingRepository;
 use App\ValueObject\JsonData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SettingManager
 {
-    private SettingRepository $settingRepository;
+    private SettingDoctrineRepository $settingRepository;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UrlGeneratorInterface $urlGenerator,
     ) {
-        /** @var SettingRepository $settingRepository */
+        /** @var SettingDoctrineRepository $settingRepository */
         $settingRepository = $this->entityManager->getRepository(Setting::class);
         $this->settingRepository = $settingRepository;
     }
