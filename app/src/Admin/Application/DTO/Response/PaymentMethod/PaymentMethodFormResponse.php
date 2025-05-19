@@ -15,7 +15,7 @@ final readonly class PaymentMethodFormResponse
        public string $fee,
        public bool $isActive,
        public bool $isRequireWebhook,
-       public FileResponseDTO|ResponseInterfaceData|null $file,
+       public FileResponseDTO|ResponseInterfaceData|null $thumbnail,
    ) {
 
    }

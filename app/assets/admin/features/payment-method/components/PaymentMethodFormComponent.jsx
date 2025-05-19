@@ -12,17 +12,17 @@ import { useDropzoneLogic } from '@/admin/hooks/useDropzoneLogic';
 
 const PaymentMethodFormComponent = ({ register, fieldErrors, setValue, setFormData, formData }) => {
   const { currency } = useData();
-  const categoryImage = normalizeFiles(formData?.image);
+  const thumbnail = normalizeFiles(formData?.thumbnail);
 
   const setDropzoneValue = (image) => {
     setValue('thumbnail', image);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      image,
+      thumbnail: image,
     }));
   };
 
-  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, categoryImage);
+  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, thumbnail);
 
   return (
     <>
@@ -30,8 +30,8 @@ const PaymentMethodFormComponent = ({ register, fieldErrors, setValue, setFormDa
         <span className="flex items-center">Miniaturka</span>
       </Heading>
       <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
-        {categoryImage.length > 0 &&
-          categoryImage.map((file, key) => (
+        {thumbnail.length > 0 &&
+          thumbnail.map((file, key) => (
             <DropzoneThumbnail file={file} removeFile={removeFile} variant="single" key={key} index={key} />
           ))}
       </Dropzone>

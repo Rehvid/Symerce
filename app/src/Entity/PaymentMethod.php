@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Contract\HasFileInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\OrderTrait;
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PaymentMethodRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class PaymentMethod
+class PaymentMethod implements HasFileInterface
 {
     use ActiveTrait;
     use OrderTrait;
@@ -77,13 +78,9 @@ class PaymentMethod
 
     public function getImage(): ?File
     {
-        return $this->image;
+        return $this->getFile();
     }
 
-    public function setImage(?File $image): void
-    {
-        $this->image = $image;
-    }
 
     public function getCode(): string
     {
@@ -113,5 +110,15 @@ class PaymentMethod
     public function setRequiresWebhook(bool $requiresWebhook): void
     {
         $this->requiresWebhook = $requiresWebhook;
+    }
+
+    public function setFile(File $file): void
+    {
+        $this->image = $file;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->image;
     }
 }

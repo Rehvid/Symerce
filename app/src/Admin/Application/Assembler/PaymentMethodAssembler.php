@@ -37,7 +37,7 @@ final readonly class PaymentMethodAssembler
      */
     public function toFormDataResponse(PaymentMethod $paymentMethod): array
     {
-        $image = $paymentMethod->getImage();
+        $image = $paymentMethod->getFile();
         $name = $paymentMethod->getName();
 
         $file = null === $image
@@ -51,7 +51,7 @@ final readonly class PaymentMethodAssembler
                 fee: $this->moneyFactory->create($paymentMethod->getFee())->getFormattedAmount(),
                 isActive: $paymentMethod->isActive(),
                 isRequireWebhook: $paymentMethod->isRequiresWebhook(),
-                file: $file
+                thumbnail: $file
             )
         );
     }
