@@ -62,9 +62,6 @@ const LoginForm = () => {
                     </AppButton>
                 </div>
                 <div className="flex flex-col gap-4">
-                    <AppLink to="/admin/public/register" additionalClasses="w-full text-center">
-                        Nie masz konta? Zarejestruj się
-                    </AppLink>
                     <AppLink to="/admin/public/forgot-password" additionalClasses="w-full text-center">
                         Zapomniałeś hasła?
                     </AppLink>
