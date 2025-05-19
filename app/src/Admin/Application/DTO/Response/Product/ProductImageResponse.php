@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Response\Product;
+namespace App\Admin\Application\DTO\Response\Product;
 
 use App\DTO\Admin\Response\FileResponseDTO;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 
-class ProductImageResponseDTO extends FileResponseDTO
+final class ProductImageResponse extends FileResponseDTO
 {
     public function __construct(
         ?int $id,

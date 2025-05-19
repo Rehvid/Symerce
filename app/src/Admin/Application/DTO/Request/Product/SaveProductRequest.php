@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Request\Product;
+namespace App\Admin\Application\DTO\Request\Product;
 
 use App\DTO\Admin\Request\PersistableInterface;
+use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-final class SaveProductRequestDTO implements PersistableInterface
+final class SaveProductRequest implements RequestDtoInterface
 {
     /**
      * @param array<int, mixed>         $categories

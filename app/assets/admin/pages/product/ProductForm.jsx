@@ -31,7 +31,7 @@ const ProductForm = () => {
     );
 
     useEffect(() => {
-        const endPoint = params.id ? `admin/products/${params.id}/form-data` : 'admin/products/form-data';
+        const endPoint = params.id ? `admin/products/${params.id}` : 'admin/products/store-data';
         const formFieldNames = params.id
             ? [
                   'name',

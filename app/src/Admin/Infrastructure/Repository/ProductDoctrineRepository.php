@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\ProductRepositoryInterface;
 use App\Entity\Product;
 use App\Enums\DirectionType;
 use App\Enums\OrderByField;
@@ -13,7 +14,7 @@ use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ProductRepository extends AbstractRepository
+class ProductDoctrineRepository extends AbstractRepository implements ProductRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,
@@ -49,5 +50,15 @@ class ProductRepository extends AbstractRepository
         $alias = $this->getAlias();
 
         return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
+    }
+
+    public function getMaxOrder(): int
+    {
+        $alias = $this->getAlias();
+
+        return (int) $this->createQueryBuilder($alias)
+            ->select("MAX($alias.order)")
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

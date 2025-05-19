@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Mapper\Admin;
 
-use App\DTO\Admin\Response\Product\ProductFormResponseDTO;
-use App\DTO\Admin\Response\Product\ProductImageResponseDTO;
-use App\DTO\Admin\Response\Product\ProductIndexResponseDTO;
-use App\DTO\Admin\Response\Product\ProductUpdateFormResponseDTO;
+use App\Admin\Application\DTO\Response\Product\ProductCreateFormResponse;
+use App\Admin\Application\DTO\Response\Product\ProductFormResponse;
+use App\Admin\Application\DTO\Response\Product\ProductImageResponse;
+use App\Admin\Application\DTO\Response\Product\ProductListResponse;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
@@ -57,7 +57,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
             ? null
             : $this->responseMapperHelper->buildPublicFilePath($product->getThumbnailImage()->getFile()->getPath());
 
-        return ProductIndexResponseDTO::fromArray([
+        return ProductListResponse::fromArray([
             'id' => $product->getId(),
             'image' => $image,
             'name' => $productName,
@@ -78,7 +78,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
     public function mapToStoreFormDataResponse(): array
     {
         return $this->responseMapperHelper->prepareFormDataResponse(
-            ProductFormResponseDTO::fromArray($this->getOptions())
+            ProductCreateFormResponse::fromArray($this->getOptions())
         );
     }
 
@@ -104,7 +104,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
             : (new Money($this->getDiscountPrice($product), $currency))->getFormattedAmount()
         ;
 
-        $response =  ProductUpdateFormResponseDTO::fromArray([
+        $response =  ProductFormResponse::fromArray([
             ...$this->getOptions(),
             'name' => $product->getName(),
             'slug' => $product->getSlug(),
@@ -121,7 +121,7 @@ final readonly class ProductResponseMapper implements ResponseMapperInterface
             'images' => $product->getImages()->map(function (ProductImage $productImage) {
                 $file = $productImage->getFile();
 
-                return ProductImageResponseDTO::fromArray([
+                return ProductImageResponse::fromArray([
                     'id' => $file->getId(),
                     'name' => $file->getOriginalName(),
                     'preview' => $this->responseMapperHelper->buildPublicFilePath($file->getPath()),

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Infrastructure\Repository\ProductDoctrineRepository;
 use App\Enums\DecimalPrecision;
 use App\Interfaces\ActivatableInterface;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
-use App\Repository\ProductRepository;
 use App\Traits\ActiveTrait;
 use App\Traits\CreatedAtTrait;
 use App\Traits\OrderTrait;
@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Entity(repositoryClass: ProductDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Product implements OrderSortableInterface, IdentifiableEntityInterface, ActivatableInterface
 {
