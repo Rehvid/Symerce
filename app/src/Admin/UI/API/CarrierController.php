@@ -10,12 +10,12 @@ use App\Admin\Application\UseCase\Carrier\DeleteCarrierUseCase;
 use App\Admin\Application\UseCase\Carrier\GetByIdCarrierUseCase;
 use App\Admin\Application\UseCase\Carrier\ListCarrierUseCase;
 use App\Admin\Application\UseCase\Carrier\UpdateCarrierUseCase;
-use App\Service\RequestDtoResolver;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;
 use App\Shared\Application\UseCases\Base\DeleteUseCaseInterface;
 use App\Shared\Application\UseCases\Base\GetByIdUseCaseInterface;
 use App\Shared\Application\UseCases\Base\ListUseCaseInterface;
 use App\Shared\Application\UseCases\Base\UpdateUseCaseInterface;
+use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Response\User;
+namespace App\Admin\Application\DTO\Response\User;
 
-use App\DTO\Admin\Response\FileResponseDTO;
+use App\Admin\Application\DTO\Response\FileResponse;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 
-final readonly class UserSessionResponseDTO implements ResponseInterfaceData
+final readonly class UserSessionResponse implements ResponseInterfaceData
 {
     /** @param array<int|string>  $roles */
     private function __construct(
-        public ?int $id,
-        public ?string $email,
-        public ?string $firstname,
-        public ?string $surname,
-        public array $roles,
-        public ?string $fullName,
-        public ?FileResponseDTO $avatar,
+        public ?int          $id,
+        public ?string       $email,
+        public ?string       $firstname,
+        public ?string       $surname,
+        public array         $roles,
+        public ?string       $fullName,
+        public ?FileResponse $avatar,
     ) {
     }
 

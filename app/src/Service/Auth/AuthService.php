@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\Auth;
 
+use App\Admin\Application\DTO\Response\FileResponse;
+use App\Admin\Application\DTO\Response\User\UserSessionResponse;
 use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
-use App\DTO\Admin\Response\FileResponseDTO;
-use App\DTO\Admin\Response\User\UserSessionResponseDTO;
 use App\Entity\User;
 use App\Service\FileService;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
@@ -76,18 +76,18 @@ final readonly class AuthService
         }
     }
 
-    private function createUserSessionResponseDTO(User $user): UserSessionResponseDTO
+    private function createUserSessionResponseDTO(User $user): UserSessionResponse
     {
         $fullName = $user->getFullname();
 
-        return UserSessionResponseDTO::fromArray([
+        return UserSessionResponse::fromArray([
             'id' => $user->getId(),
             'email' => $user->getUserIdentifier(),
             'firstname' => $user->getFirstname(),
             'surname' => $user->getSurname(),
             'roles' => $user->getRoles(),
             'fullName' => $fullName,
-            'avatar' => FileResponseDTO::fromArray([
+            'avatar' => FileResponse::fromArray([
                 'id' => $user->getAvatar()?->getId(),
                 'name' => "Avatar - $fullName",
                 'preview' => $this->fileService->preparePublicPathToFile($user->getAvatar()?->getPath()),
@@ -105,9 +105,9 @@ final readonly class AuthService
     }
 
     private function prepareResponseData(
-        ?UserSessionResponseDTO $userSessionResponseDTO = null,
-        int                     $statusCode = Response::HTTP_OK,
-        ?ApiErrorResponse       $errorResponseDTO = null,
+        ?UserSessionResponse $userSessionResponseDTO = null,
+        int                  $statusCode = Response::HTTP_OK,
+        ?ApiErrorResponse    $errorResponseDTO = null,
     ): AuthorizationResult {
         return new AuthorizationResult(
             authorized: null === $errorResponseDTO,

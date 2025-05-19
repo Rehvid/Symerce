@@ -10,12 +10,12 @@ use App\Admin\Application\UseCase\Tag\DeleteTagUseCase;
 use App\Admin\Application\UseCase\Tag\GetByIdTagUseCase;
 use App\Admin\Application\UseCase\Tag\ListTagUseCase;
 use App\Admin\Application\UseCase\Tag\UpdateTagUseCase;
-use App\Service\RequestDtoResolver;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;
 use App\Shared\Application\UseCases\Base\DeleteUseCaseInterface;
 use App\Shared\Application\UseCases\Base\GetByIdUseCaseInterface;
 use App\Shared\Application\UseCases\Base\ListUseCaseInterface;
 use App\Shared\Application\UseCases\Base\UpdateUseCaseInterface;
+use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Service;
+declare(strict_types=1);
+
+namespace App\Admin\Infrastructure\Slug;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Guid\Guid;

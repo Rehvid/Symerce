@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\DTO\Admin\Response\User\UserSessionResponseDTO;
+use App\Admin\Application\DTO\Response\User\UserSessionResponse;
 use App\Entity\User;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
@@ -81,7 +81,7 @@ final readonly class JWTEventService
     private function createDataForApiResponse(User $user): array
     {
         $data = [];
-        $data['user'] = UserSessionResponseDTO::fromArray([
+        $data['user'] = UserSessionResponse::fromArray([
             'id' => $user->getId(),
             'email' => $user->getUserIdentifier(),
             'firstname' => $user->getFirstname(),

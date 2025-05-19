@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\DataProvider;
 
+use App\Admin\Application\DTO\Response\ProviderResponse;
 use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
-use App\DTO\Admin\Response\ProviderResponseDTO;
 use App\Entity\Setting;
 use App\Service\DataProvider\Interface\ReactDataInterface;
 use App\Service\SettingManager;
@@ -23,7 +23,7 @@ readonly class SettingsProvider implements ReactDataInterface
     public function getData(): array
     {
         $currency = $this->settingManager->findDefaultCurrency();
-        $defaultCurrency = ProviderResponseDTO::fromArray([
+        $defaultCurrency = ProviderResponse::fromArray([
             'type' => SettingType::CURRENCY,
             'value' => [
                 'id' => $currency->getId(),
@@ -38,7 +38,7 @@ readonly class SettingsProvider implements ReactDataInterface
             SettingType::CURRENCY->value,
         ]);
         $result = array_map(function (Setting $setting) {
-            return ProviderResponseDTO::fromArray([
+            return ProviderResponse::fromArray([
                 'type' => $setting->getType(),
                 'value' => [
                     'id' => $setting->getId(),

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Response;
+namespace App\Admin\Application\DTO\Response;
 
-class FileResponseDTO implements ResponseInterfaceData
+use App\DTO\Admin\Response\ResponseInterfaceData;
+
+class FileResponse
 {
     public function __construct(
         public ?int $id,

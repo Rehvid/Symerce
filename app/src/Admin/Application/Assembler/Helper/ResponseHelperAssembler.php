@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\Assembler\Helper;
 
+use App\Admin\Application\DTO\Response\FileResponse;
 use App\Admin\Application\Service\FileService;
-use App\DTO\Admin\Response\FileResponseDTO;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 
 final readonly class ResponseHelperAssembler
@@ -23,7 +23,7 @@ final readonly class ResponseHelperAssembler
 
     public function toFileResponse(?int $id, ?string $name, ?string $filePath): ResponseInterfaceData
     {
-        return FileResponseDTO::fromArray([
+        return FileResponse::fromArray([
             'id' => $id,
             'name' => $name,
             'preview' => $this->fileService->preparePublicPathToFile($filePath),

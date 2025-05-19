@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Admin\UI\API;
 
-use App\Service\RequestDtoResolver;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;
 use App\Shared\Application\UseCases\Base\DeleteUseCaseInterface;
 use App\Shared\Application\UseCases\Base\GetByIdUseCaseInterface;
 use App\Shared\Application\UseCases\Base\ListUseCaseInterface;
 use App\Shared\Application\UseCases\Base\UpdateUseCaseInterface;
+use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

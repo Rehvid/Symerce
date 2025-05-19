@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Response\Product;
 
-use App\DTO\Admin\Response\FileResponseDTO;
+use App\Admin\Application\DTO\Response\FileResponse;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 
-final class ProductImageResponse extends FileResponseDTO
+final class ProductImageResponse extends FileResponse
 {
     public function __construct(
         ?int $id,

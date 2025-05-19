@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Shared\Infrastructure\Http;
 
 use App\Exceptions\RequestValidationException;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
@@ -31,6 +31,7 @@ final readonly class RequestDtoResolver
     public function mapAndValidate(Request $request, string $dtoClass): object
     {
         $json = $request->getContent();
+
         try {
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         } catch (\Throwable $e) {
@@ -40,20 +41,31 @@ final readonly class RequestDtoResolver
             );
         }
 
+        $dto = $this->deserialize($dtoClass, $data, $json);
+        $this->validate($dto);
+
+        return $dto;
+    }
+
+    private function deserialize(string $dtoClass, mixed $data, mixed $json)
+    {
         if (in_array(ArrayHydratableInterface::class, class_implements($dtoClass), true)) {
             /** @var ArrayHydratableInterface $dtoClass */
-            $dto = $dtoClass::fromArray($data);
-        } else {
-            try {
-                $dto = $this->serializer->deserialize($json, $dtoClass, 'json');
-            } catch (\Throwable $e) {
-                throw new BadRequestHttpException($this->kernel->getEnvironment() === 'prod'
-                    ? 'Invalid request structure.'
-                    : 'Deserialization failed: ' . $e->getMessage()
-                );
-            }
+            return $dtoClass::fromArray($data);
         }
 
+        try {
+            return $this->serializer->deserialize($json, $dtoClass, 'json');
+        } catch (\Throwable $e) {
+            throw new BadRequestHttpException($this->kernel->getEnvironment() === 'prod'
+                ? 'Invalid request structure.'
+                : 'Deserialization failed: ' . $e->getMessage()
+            );
+        }
+    }
+
+    private function validate(object $dto): void
+    {
         $violations = $this->validator->validate($dto);
         if (count($violations) > 0) {
             $errors = [];
@@ -63,7 +75,5 @@ final readonly class RequestDtoResolver
 
             throw new RequestValidationException($errors);
         }
-
-        return $dto;
     }
 }

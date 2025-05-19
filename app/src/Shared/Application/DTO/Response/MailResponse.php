@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Response\Mail;
+namespace App\Shared\Application\DTO\Response;
 
 use App\DTO\Admin\Response\ResponseInterfaceData;
 
-readonly class MailResponseDTO implements ResponseInterfaceData
+readonly final class MailResponse implements ResponseInterfaceData
 {
     /** @param array<string, mixed> $context */
     private function __construct(

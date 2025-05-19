@@ -8,11 +8,11 @@ use App\Admin\Application\DTO\Request\Auth\ForgotPasswordRequest;
 use App\Admin\Domain\Enums\TokenType;
 use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Admin\Infrastructure\Repository\UserTokenRepository;
-use App\DTO\Admin\Response\Mail\MailResponseDTO;
 use App\Entity\User;
 use App\Entity\UserToken;
 use App\Exceptions\PersisterException;
-use App\Service\MailService;
+use App\Shared\Application\DTO\Response\MailResponse;
+use App\Shared\Infrastructure\Mail\MailService;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -92,7 +92,7 @@ final readonly class ForgetPasswordService
 
     private function send(string $toEmail, string $link): void
     {
-        $this->mailService->sendMail(MailResponseDTO::fromArray([
+        $this->mailService->sendMail(MailResponse::fromArray([
             'toEmail' => $toEmail,
             'subject' => 'Przypomnienie hasła',
             'context' => [

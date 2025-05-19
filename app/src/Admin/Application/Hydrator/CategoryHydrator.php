@@ -8,8 +8,8 @@ use App\Admin\Application\DTO\Request\Category\SaveCategoryRequest;
 use App\Admin\Application\Service\FileService;
 use App\Admin\Domain\Model\FileData;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
+use App\Admin\Infrastructure\Slug\SluggerService;
 use App\Entity\Category;
-use App\Service\SluggerService;
 
 final readonly class CategoryHydrator
 {

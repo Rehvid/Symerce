@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Response;
+namespace App\Admin\Application\DTO\Response;
 
+use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\Shared\Domain\Enums\SettingType;
 
-class ProviderResponseDTO implements ResponseInterfaceData
+class ProviderResponse implements ResponseInterfaceData
 {
     /** @param array<int,mixed>|string $value  */
     private function __construct(

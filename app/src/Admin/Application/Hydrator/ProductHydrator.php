@@ -6,16 +6,15 @@ namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Product\SaveProductRequest;
 use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
+use App\Admin\Infrastructure\Slug\SluggerService;
 use App\DTO\Admin\Request\FileRequestDTO;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
 use App\Entity\Category;
 use App\Entity\DeliveryTime;
 use App\Entity\Product;
-use App\Entity\ProductImage;
 use App\Entity\Tag;
 use App\Entity\Vendor;
-use App\Service\SluggerService;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class ProductHydrator

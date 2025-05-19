@@ -2,19 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Shared\Infrastructure\Mail;
 
-use App\DTO\Admin\Response\Mail\MailResponseDTO;
+use App\Shared\Application\DTO\Response\MailResponse;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 
-readonly class MailService
+readonly final class MailService
 {
-    public function __construct(private MailerInterface $mailer)
-    {
+    public function __construct(
+        private MailerInterface $mailer
+    ) {
     }
 
-    public function sendMail(MailResponseDTO $mailResponseDTO): void
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function sendMail(MailResponse $mailResponseDTO): void
     {
         $email = (new TemplatedEmail())
             ->from('admin@symerce.com')
