@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\API;
 
-use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\DTO\Shop\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Entity\Carrier;
 use App\Entity\Order;
@@ -16,6 +15,7 @@ use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;
+use App\Shared\Infrastructure\Repository\CartDoctrineRepository;
 use App\Shop\Application\UseCase\Checkout\ConfirmationOrderUseCase;
 use App\Shop\Application\UseCase\Checkout\SaveCarrierUseCase;
 use App\Shop\Application\UseCase\Checkout\SaveCheckoutAddressUseCase;

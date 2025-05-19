@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\API;
 
-use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
 use App\DTO\Shop\Request\Cart\ChangeQuantityProductRequest;
 use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\DTO\Shop\Response\Cart\CartSaveResponseDTO;
@@ -15,6 +14,7 @@ use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;
+use App\Shared\Infrastructure\Repository\CartDoctrineRepository;
 use App\Shop\Application\UseCase\Cart\ChangeProductQuantityUseCase;
 use App\Shop\Application\UseCase\Cart\CreateCartUseCase;
 use App\Shop\Application\UseCase\Cart\ListCartUseCase;

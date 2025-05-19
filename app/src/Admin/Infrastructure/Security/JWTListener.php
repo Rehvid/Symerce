@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Listeners;
+namespace App\Admin\Infrastructure\Security;
 
 use App\Entity\User;
-use App\Service\JWTEventService;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTExpiredEvent;

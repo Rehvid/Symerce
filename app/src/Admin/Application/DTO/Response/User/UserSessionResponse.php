@@ -10,14 +10,14 @@ use App\DTO\Admin\Response\ResponseInterfaceData;
 final readonly class UserSessionResponse implements ResponseInterfaceData
 {
     /** @param array<int|string>  $roles */
-    private function __construct(
+    public function __construct(
         public ?int          $id,
         public ?string       $email,
         public ?string       $firstname,
         public ?string       $surname,
         public array         $roles,
         public ?string       $fullName,
-        public ?FileResponse $avatar,
+        public ?FileResponse $avatar = null,
     ) {
     }
 

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Admin\Infrastructure\Security;
 
 use App\Admin\Application\DTO\Response\User\UserSessionResponse;
 use App\Entity\User;
 use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
+use App\Shared\Domain\Enums\CookieName;
+use App\Shared\Infrastructure\Http\CookieFactory;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 final readonly class JWTEventService
 {
@@ -23,7 +23,7 @@ final readonly class JWTEventService
     public function __construct(
         private ResponseService $responseService,
         private ParameterBagInterface $params,
-        private KernelInterface $kernel,
+        private CookieFactory $cookieFactory,
     ) {
         /** @var int $tokenTtl */
         $tokenTtl = $this->params->get('lexik_jwt_authentication.token_ttl');
@@ -55,10 +55,10 @@ final readonly class JWTEventService
     public function handleApiJWTErrorResponse(mixed $event, string $message): void
     {
         $apiResponse = $this->createApiResponse(
-            error: ApiErrorResponse::fromArray([
-                'message' => $message,
-                'code' => Response::HTTP_UNAUTHORIZED,
-            ])
+            error: new ApiErrorResponse(
+                code: Response::HTTP_UNAUTHORIZED,
+                message: $message
+            )
         );
 
         $event->setResponse(
@@ -74,23 +74,24 @@ final readonly class JWTEventService
             $jwtTokenExpiry = 0;
         }
 
-        $event->getResponse()->headers->setCookie($this->createCookie($token, $jwtTokenExpiry));
+        $event->getResponse()->headers->setCookie(
+            $this->cookieFactory->create(CookieName::ADMIN_BEARER, $token, $jwtTokenExpiry)
+        );
     }
 
     /** @return array<string, mixed> */
     private function createDataForApiResponse(User $user): array
     {
-        $data = [];
-        $data['user'] = UserSessionResponse::fromArray([
-            'id' => $user->getId(),
-            'email' => $user->getUserIdentifier(),
-            'firstname' => $user->getFirstname(),
-            'surname' => $user->getSurname(),
-            'roles' => $user->getRoles(),
-            'fullName' => $user->getFullname(),
-        ]);
-
-        return $data;
+        return [
+            'user' => new UserSessionResponse(
+                id: $user->getId(),
+                email: $user->getUserIdentifier(),
+                firstname: $user->getFirstname(),
+                surname: $user->getSurname(),
+                roles: $user->getRoles(),
+                fullName: $user->getFullname(),
+            )
+        ];
     }
 
     private function isApiRequest(?Request $request): bool
@@ -106,19 +107,6 @@ final readonly class JWTEventService
         return new ApiResponse(
             data: $data,
             error: $error,
-        );
-    }
-
-    public function createCookie(string $value, \DateTimeInterface|int $expire): Cookie
-    {
-        return new Cookie(
-            name: 'BEARER',
-            value: $value,
-            expire: $expire,
-            secure: 'prod' === $this->kernel->getEnvironment(),
-            httpOnly: true,
-            raw: true,
-            sameSite: 'strict'
         );
     }
 }

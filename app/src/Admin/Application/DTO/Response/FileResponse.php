@@ -15,7 +15,7 @@ class FileResponse
     ) {
     }
 
-    public static function fromArray(array $data): ResponseInterfaceData
+    public static function fromArray(array $data)
     {
         return new self(
             id: $data['id'] ?? null,

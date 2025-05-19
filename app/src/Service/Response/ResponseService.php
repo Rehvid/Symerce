@@ -10,8 +10,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 final readonly class ResponseService
 {
-    public function __construct(private SerializerInterface $serializer)
-    {
+    public function __construct(
+        private SerializerInterface $serializer
+    ) {
+
     }
 
     /**

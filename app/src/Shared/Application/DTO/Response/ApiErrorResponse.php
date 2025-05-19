@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 final readonly class ApiErrorResponse implements ResponseInterfaceData, \JsonSerializable
 {
     /** @param array<string, mixed>|null $details */
-    private function __construct(
+    public function __construct(
         private int $code = Response::HTTP_INTERNAL_SERVER_ERROR,
         private string $message = 'Something went wrong',
         private ?array $details = null,

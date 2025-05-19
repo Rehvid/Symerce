@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Listeners;
+namespace App\Shared\Infrastructure\EventListener;
 
 use App\Exceptions\RequestValidationException;
 use App\Service\Response\ApiResponse;

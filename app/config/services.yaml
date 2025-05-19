@@ -35,7 +35,7 @@ services:
         App\Service\DataPersister\Filler\Interface\EntityFillerInterface:
             tags: ['app.entity_filler']
 
-    App\Listeners\ExceptionListener:
+    App\Shared\Infrastructure\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 

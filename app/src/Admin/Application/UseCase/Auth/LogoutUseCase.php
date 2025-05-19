@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\UseCase\Auth;
 
-use App\Service\JWTEventService;
+use App\Admin\Infrastructure\Security\JWTEventService;
 use App\Shared\Application\UseCases\Base\QueryUseCaseInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

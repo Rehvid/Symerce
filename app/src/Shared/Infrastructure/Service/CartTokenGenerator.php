@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Service;
+declare(strict_types=1);
 
-use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
+namespace App\Shared\Infrastructure\Service;
+
 use App\Entity\Cart;
+use App\Shared\Domain\Repository\CartRepositoryInterface;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -11,12 +13,10 @@ final readonly class CartTokenGenerator
 {
     private const string DELIMITER = '_';
 
-
     public function __construct(
         private RequestStack   $requestStack,
-        private CartDoctrineRepository $cartRepository
+        private CartRepositoryInterface $cartRepository
     ) {
-
     }
 
     public function generate(): string
