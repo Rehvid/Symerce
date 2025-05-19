@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
 use App\Entity\DeliveryTime;
 use App\Enums\DirectionType;
 use App\Enums\OrderByField;
@@ -11,7 +12,7 @@ use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class DeliveryTimeRepository extends AbstractRepository
+class DeliveryTimeDoctrineRepository extends AbstractRepository implements DeliveryTimeRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,
@@ -46,5 +47,15 @@ class DeliveryTimeRepository extends AbstractRepository
         $alias = $this->getAlias();
 
         return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
+    }
+
+    public function getMaxOrder(): int
+    {
+        $alias = $this->getAlias();
+
+        return (int) $this->createQueryBuilder($alias)
+            ->select("MAX($alias.order)")
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

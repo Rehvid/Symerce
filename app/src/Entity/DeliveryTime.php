@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Infrastructure\Repository\DeliveryTimeDoctrineRepository;
 use App\Enums\DeliveryType;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
-use App\Repository\DeliveryTimeRepository;
 use App\Traits\ActiveTrait;
 use App\Traits\OrderTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DeliveryTimeRepository::class)]
+#[ORM\Entity(repositoryClass: DeliveryTimeDoctrineRepository::class)]
 class DeliveryTime implements OrderSortableInterface, IdentifiableEntityInterface
 {
     use ActiveTrait;

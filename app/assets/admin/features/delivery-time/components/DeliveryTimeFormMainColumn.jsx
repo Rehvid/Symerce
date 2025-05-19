@@ -4,6 +4,7 @@ import Select from '@/admin/components/form/controls/Select';
 import { Controller } from 'react-hook-form';
 import NumberIcon from '@/images/icons/number.svg';
 import LabelNameIcon from '@/images/icons/label-name.svg';
+import Switch from '@/admin/components/form/controls/Switch';
 
 const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }) => {
     return (
@@ -55,8 +56,8 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }
                 render={({ field }) => (
                     <div>
                         <Select
-                            label="Producent"
-                            options={formData?.types || []}
+                            label="Rodzaj dostawy"
+                            options={formData?.availableTypes || []}
                             selected={field.value}
                             onChange={(value) => {
                                 field.onChange(value);
@@ -65,6 +66,7 @@ const DeliveryTimeFormMainColumn = ({ register, fieldErrors, formData, control }
                     </div>
                 )}
             />
+            <Switch label="Aktywny?" {...register('isActive')} />
         </>
     );
 };

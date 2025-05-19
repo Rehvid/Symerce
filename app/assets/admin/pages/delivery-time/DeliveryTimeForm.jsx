@@ -29,8 +29,8 @@ const DeliveryTimeForm = () => {
     );
 
     useEffect(() => {
-        const endPoint = params.id ? `admin/delivery-time/${params.id}/form-data` : 'admin/delivery-time/form-data';
-        const formFieldNames = params.id ? ['label', 'minDays', 'maxDays', 'type'] : [];
+        const endPoint = params.id ? `admin/delivery-time/${params.id}` : 'admin/delivery-time/store-data';
+        const formFieldNames = params.id ? ['label', 'minDays', 'maxDays', 'type', 'isActive'] : [];
 
         fetchFormData(endPoint, HTTP_METHODS.GET, formFieldNames);
     }, []);
