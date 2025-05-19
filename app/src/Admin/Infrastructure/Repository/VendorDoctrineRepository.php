@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Entity\Vendor;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
@@ -11,7 +12,7 @@ use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-class VendorRepository extends AbstractRepository
+class VendorDoctrineRepository extends AbstractRepository implements VendorRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,

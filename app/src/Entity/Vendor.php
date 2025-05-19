@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Contract\HasFileInterface;
+use App\Admin\Infrastructure\Repository\VendorDoctrineRepository;
 use App\Interfaces\IdentifiableEntityInterface;
-use App\Repository\VendorRepository;
 use App\Traits\ActiveTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: VendorRepository::class)]
-class Vendor implements IdentifiableEntityInterface
+#[ORM\Entity(repositoryClass: VendorDoctrineRepository::class)]
+class Vendor implements IdentifiableEntityInterface, HasFileInterface
 {
     use ActiveTrait;
 
@@ -49,11 +50,21 @@ class Vendor implements IdentifiableEntityInterface
 
     public function getImage(): ?File
     {
-        return $this->image;
+        return $this->getFile();
     }
 
     public function setImage(?File $image): void
     {
         $this->image = $image;
+    }
+
+    public function setFile(File $file): void
+    {
+        $this->image = $file;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->image;
     }
 }
