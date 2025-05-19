@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Mapper\Admin;
 
-use App\DTO\Admin\Response\AttributeValue\AttributeValueFormResponseDTO;
-use App\DTO\Admin\Response\AttributeValue\AttributeValueIndexResponseDTO;
+use App\Admin\Application\DTO\Response\AttributeValue\AttributeValueFormResponse;
+use App\Admin\Application\DTO\Response\AttributeValue\AttributeValueListResponse;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\Entity\AttributeValue;
 use App\Mapper\Helper\ResponseMapperHelper;
@@ -28,7 +28,7 @@ final readonly class AttributeValueResponseMapper implements ResponseMapperInter
 
     private function createAttributeValueIndex(AttributeValue $attributeValue): ResponseInterfaceData
     {
-        return AttributeValueIndexResponseDTO::fromArray([
+        return AttributeValueListResponse::fromArray([
             'id' => $attributeValue->getId(),
             'value' => $attributeValue->getValue(),
         ]);
@@ -39,7 +39,7 @@ final readonly class AttributeValueResponseMapper implements ResponseMapperInter
         /** @var AttributeValue $attributeValue */
         $attributeValue = $data['entity'];
 
-        $response = AttributeValueFormResponseDTO::fromArray([
+        $response = AttributeValueFormResponse::fromArray([
             'value' => $attributeValue->getValue(),
         ]);
 

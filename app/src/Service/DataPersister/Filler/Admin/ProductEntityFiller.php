@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\DataPersister\Filler\Admin;
 
+use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
 use App\DTO\Admin\Request\FileRequestDTO;
 use App\DTO\Admin\Request\PersistableInterface;
 use App\DTO\Admin\Request\Product\SaveProductRequestDTO;
@@ -15,7 +16,6 @@ use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Entity\Tag;
 use App\Entity\Vendor;
-use App\Repository\AttributeRepository;
 use App\Service\DataPersister\Filler\Base\BaseEntityFiller;
 use App\Service\FileService;
 use App\Service\SluggerService;
@@ -199,7 +199,7 @@ final class ProductEntityFiller extends BaseEntityFiller
         }
 
         if (!empty($ids)) {
-            /** @var AttributeRepository $attributeRepository */
+            /** @var AttributeDoctrineRepository $attributeRepository */
             $attributeRepository = $this->entityManager->getRepository(Attribute::class);
 
             return $attributeRepository->getAttributeValuesByAttributes($ids);

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Repository\AttributeValueRepositoryInterface;
 use App\Entity\AttributeValue;
 use App\Enums\DirectionType;
 use App\Enums\OrderByField;
@@ -11,7 +12,7 @@ use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
 use Doctrine\ORM\QueryBuilder;
 
-class AttributeValueRepository extends AbstractRepository
+class AttributeValueDoctrineRepository extends AbstractRepository implements AttributeValueRepositoryInterface
 {
     protected function getEntityClass(): string
     {
@@ -44,5 +45,15 @@ class AttributeValueRepository extends AbstractRepository
         }
 
         return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
+    }
+
+    public function getMaxOrder(): int
+    {
+        $alias = $this->getAlias();
+
+        return (int) $this->createQueryBuilder($alias)
+            ->select("MAX($alias.order)")
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
