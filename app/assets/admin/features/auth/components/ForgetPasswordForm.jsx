@@ -32,7 +32,7 @@ const ForgetPasswordForm = () => {
         <ApiForm
             handleSubmit={handleSubmit}
             setError={setError}
-            apiConfig={createApiConfig('auth/forgot-password', HTTP_METHODS.POST)}
+            apiConfig={createApiConfig('admin/auth/forgot-password', HTTP_METHODS.POST)}
             apiRequestCallbacks={apiRequestCallbacks}
             additionalAlerts={alert}
         >

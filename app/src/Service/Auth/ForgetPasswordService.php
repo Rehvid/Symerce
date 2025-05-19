@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Auth;
 
 use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
+use App\Admin\Infrastructure\Repository\UserTokenRepository;
 use App\DTO\Admin\Request\User\ForgotPasswordRequestDTO;
 use App\DTO\Admin\Request\UserToken\StoreUserTokenRequestDTO;
 use App\DTO\Admin\Response\Mail\MailResponseDTO;
@@ -24,8 +25,8 @@ final readonly class ForgetPasswordService
     public function __construct(
         private MailService            $mailService,
         private UserDoctrineRepository $userRepository,
-        private PersisterManager       $persisterManager,
         private UrlGeneratorInterface  $urlGenerator,
+        private UserTokenRepository     $userTokenRepository,
     ) {
 
     }
@@ -53,13 +54,14 @@ final readonly class ForgetPasswordService
 
     private function deleteOldUserTokens(User $user): void
     {
-
         $forgetPasswordTokens = $user->getTokens()->filter(
             /** @phpstan-ignore-next-line */
             fn (UserToken $userToken) => TokenType::FORGOT_PASSWORD === $userToken->getTokenType()
         );
 
-        $this->persisterManager->deleteCollection($forgetPasswordTokens);
+        foreach ($forgetPasswordTokens as $token) {
+            $this->userTokenRepository->remove($token); //TODO: Add collection remove
+        }
     }
 
     /**
@@ -68,14 +70,15 @@ final readonly class ForgetPasswordService
      */
     private function createUserToken(User $user): object
     {
-        $persist = PersistableDTOFactory::create(StoreUserTokenRequestDTO::class, [
-            'user' => $user,
-            'token' => Guid::uuid4()->toString(),
-            'tokenType' => TokenType::FORGOT_PASSWORD,
-            'expiresAt' => (new \DateTime())->add(new \DateInterval('PT1H')),
-        ]);
+        $userToken = new UserToken();
+        $userToken->setUser($user);
+        $userToken->setToken(Guid::uuid4()->toString());
+        $userToken->setTokenType(TokenType::FORGOT_PASSWORD);
+        $userToken->setExpiresAt((new \DateTime())->add(new \DateInterval('PT1H')));
 
-        return $this->persisterManager->persist($persist);
+        $this->userTokenRepository->save($userToken);
+
+        return $userToken;
     }
 
     private function generateLink(string $token): string

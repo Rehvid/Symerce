@@ -27,7 +27,7 @@ const ResetPasswordForm = ({ token }) => {
     return (
         <ApiForm
             handleSubmit={handleSubmit}
-            apiConfig={createApiConfig(`auth/${token}/reset-password`, HTTP_METHODS.PUT)}
+            apiConfig={createApiConfig(`admin/auth/${token}/reset-password`, HTTP_METHODS.PUT)}
             setError={setError}
             apiRequestCallbacks={apiRequestCallbacks}
         >

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Auth;
 
+use App\Admin\Infrastructure\Repository\UserTokenRepository;
 use App\DTO\Admin\Request\UserToken\StoreUserTokenRequestDTO;
 use App\Entity\UserToken;
 use App\Enums\TokenType;
 use App\Factory\PersistableDTOFactory;
-use App\Repository\UserTokenRepository;
 use App\Service\DataPersister\Persisters\Admin\UserToken\UserTokenCreatePersister;
 use App\Tests\ApiTestCase;
 use Ramsey\Uuid\Guid\Guid;
