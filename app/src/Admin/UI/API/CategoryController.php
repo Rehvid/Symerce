@@ -29,18 +29,14 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/categories', name: 'category_')]
-final class CategoryController extends AbstractCrudController implements UpdateOrderControllerInterface
+final class CategoryController extends AbstractCrudController
 {
-    use UpdateOrderControllerTrait;
-
     public function __construct(
         private readonly ListCategoryUseCase        $listCategoryUseCase,
         private readonly GetByIdCategoryUseCase     $getByIdCategoryUseCase,
         private readonly CreateCategoryUseCase      $createCategoryUseCase,
         private readonly UpdateCategoryUseCase      $updateCategoryUseCase,
         private readonly DeleteCategoryUseCase      $deleteCategoryUseCase,
-        private readonly EntityManagerInterface     $entityManager,
-        private readonly CategoryDoctrineRepository $categoryRepository,
         RequestDtoResolver                          $requestDtoResolver,
         TranslatorInterface                         $translator
     ) {
@@ -90,15 +86,5 @@ final class CategoryController extends AbstractCrudController implements UpdateO
     protected function getUpdateRequestDtoClass(): string
     {
         return SaveCategoryRequest::class;
-    }
-
-    public function getOrderSortableRepository(): OrderSortableRepositoryInterface|AbstractRepository
-    {
-        return $this->categoryRepository;
-    }
-
-    public function getEntityManager(): EntityManagerInterface
-    {
-        return $this->entityManager;
     }
 }

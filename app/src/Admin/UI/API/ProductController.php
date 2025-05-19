@@ -29,9 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/products', name: 'products_')]
-final class ProductController extends AbstractCrudController implements UpdateOrderControllerInterface
+final class ProductController extends AbstractCrudController
 {
-    use UpdateOrderControllerTrait;
 
     public function __construct(
         private readonly CreateProductUseCase $createProductUseCase,

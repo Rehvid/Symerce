@@ -16,7 +16,7 @@ const AttributeList = () => {
     const { defaultFilters, defaultSort } = useListDefaultQueryParams();
     const [filters, setFilters] = useState(defaultFilters);
 
-    const { draggableCallback } = useDraggable('admin/attributes/order');
+    const { draggableCallback } = useDraggable('admin/reorder/attribute');
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/attributes',
         filters,

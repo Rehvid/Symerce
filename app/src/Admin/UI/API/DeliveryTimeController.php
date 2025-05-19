@@ -29,18 +29,14 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/delivery-time', name: 'delivery_time_')]
-final class DeliveryTimeController extends AbstractCrudController implements UpdateOrderControllerInterface
+final class DeliveryTimeController extends AbstractCrudController
 {
-    use UpdateOrderControllerTrait;
-
     public function __construct(
         private readonly ListDeliveryTimeUseCase $listDeliveryTimeUseCase,
         private readonly CreateDeliveryTimeUseCase $createDeliveryTimeUseCase,
         private readonly UpdateDeliveryTimeUseCase $updateDeliveryTimeUseCase,
         private readonly DeleteDeliveryTimeUseCase $deleteDeliveryTimeUseCase,
         private readonly GetByIdDeliveryTimeUseCase $getByIdDeliveryTimeUseCase,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly DeliveryTimeDoctrineRepository $deliveryTimeDoctrineRepository,
         RequestDtoResolver $requestDtoResolver,
         TranslatorInterface $translator
     ) {
@@ -90,15 +86,5 @@ final class DeliveryTimeController extends AbstractCrudController implements Upd
     protected function getUpdateRequestDtoClass(): string
     {
         return SaveDeliveryTimeRequest::class;
-    }
-
-    public function getOrderSortableRepository(): OrderSortableRepositoryInterface|AbstractRepository
-    {
-        return $this->deliveryTimeDoctrineRepository;
-    }
-
-    public function getEntityManager(): EntityManagerInterface
-    {
-        return $this->entityManager;
     }
 }

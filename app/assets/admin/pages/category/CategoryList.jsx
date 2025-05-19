@@ -24,7 +24,7 @@ const CategoryList = () => {
         }),
     );
 
-    const { draggableCallback } = useDraggable('admin/categories/order');
+    const { draggableCallback } = useDraggable('admin/reorder/category');
     const { items, pagination, isLoading, removeItem, sort, setSort } = useListData(
         'admin/categories',
         filters,

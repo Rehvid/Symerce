@@ -26,11 +26,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/attributes/{attributeId}/values', name: 'attribute_value_')]
-final class AttributeValueController extends AbstractCrudController implements UpdateOrderControllerInterface
+final class AttributeValueController extends AbstractCrudController
 {
-
-    use UpdateOrderControllerTrait;
-
     public function __construct(
         private readonly ListAttributeValueUseCase $listAttributeValueUseCase,
         private readonly CreateAttributeValueUseCase $createAttributeValueUseCase,
@@ -78,15 +75,5 @@ final class AttributeValueController extends AbstractCrudController implements U
     protected function getUpdateRequestDtoClass(): string
     {
         return SaveAttributeValueRequest::class;
-    }
-
-    public function getOrderSortableRepository(): OrderSortableRepositoryInterface|AbstractRepository
-    {
-        return $this->repository;
-    }
-
-    public function getEntityManager(): EntityManagerInterface
-    {
-        return $this->entityManager;
     }
 }

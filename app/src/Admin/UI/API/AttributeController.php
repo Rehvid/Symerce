@@ -26,18 +26,14 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/attributes', name: 'attribute_')]
-final class AttributeController extends AbstractCrudController implements UpdateOrderControllerInterface
+final class AttributeController extends AbstractCrudController
 {
-    use UpdateOrderControllerTrait;
-
     public function __construct(
         private readonly ListAttributeUseCase $listAttributeUseCase,
         private readonly CreateAttributeUseCase $createAttributeUseCase,
         private readonly UpdateAttributeUseCase $updateAttributeUseCase,
         private readonly DeleteAttributeUseCase $deleteAttributeUseCase,
         private readonly GetByIdAttributeUseCase $getByIdAttributeUseCase,
-        private readonly EntityManagerInterface      $entityManager,
-        private readonly AttributeDoctrineRepository $attributeRepository,
         RequestDtoResolver                           $requestDtoResolver,
         TranslatorInterface                          $translator
     ) {
@@ -77,15 +73,5 @@ final class AttributeController extends AbstractCrudController implements Update
     protected function getUpdateRequestDtoClass(): string
     {
         return SaveAttributeRequest::class;
-    }
-
-    public function getOrderSortableRepository(): OrderSortableRepositoryInterface|AbstractRepository
-    {
-        return $this->attributeRepository;
-    }
-
-    public function getEntityManager(): EntityManagerInterface
-    {
-        return $this->entityManager;
     }
 }

@@ -27,7 +27,7 @@ const DeliveryTimeList = () => {
         }),
     );
 
-    const { draggableCallback } = useDraggable('admin/delivery-time/order');
+    const { draggableCallback } = useDraggable('admin/reorder/deliveryTime');
     const { items, pagination, isLoading, removeItem, sort, setSort, additionalData } = useListData(
         'admin/delivery-time',
         filters,
