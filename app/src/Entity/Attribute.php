@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
-use App\Repository\AttributeRepository;
 use App\Traits\OrderTrait;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AttributeRepository::class)]
+#[ORM\Entity(repositoryClass: AttributeDoctrineRepository::class)]
 class Attribute implements OrderSortableInterface, IdentifiableEntityInterface
 {
     use OrderTrait;

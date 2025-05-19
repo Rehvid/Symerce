@@ -31,7 +31,7 @@ const AttributeForm = () => {
 
     if (params.id) {
         useEffect(() => {
-            fetchFormData(`admin/attributes/${params.id}/form-data`, HTTP_METHODS.GET, ['name']);
+            fetchFormData(`admin/attributes/${params.id}`, HTTP_METHODS.GET, ['name']);
         }, []);
     }
 
