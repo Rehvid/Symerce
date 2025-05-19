@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
-use App\DTO\Admin\Request\OrderRequestDTO;
+use App\Admin\Application\DTO\Request\PositionChangeRequest;
 use App\DTO\Admin\Request\PersistableInterface;
 use App\Factory\PersistableDTOFactory;
 use App\Interfaces\OrderSortableInterface;
@@ -27,7 +27,7 @@ trait UpdateOrderControllerTrait
 
         $content = json_decode($request->getContent(), true);
 
-        $orderRequestDTO = PersistableDTOFactory::create(OrderRequestDTO::class, [
+        $orderRequestDTO = PersistableDTOFactory::create(PositionChangeRequest::class, [
             'movedId' => $content['movedId'] ?? null,
             'newPosition' => $content['newPosition'] ?? null,
             'oldPosition' => $content['oldPosition'] ?? null,
@@ -38,7 +38,7 @@ trait UpdateOrderControllerTrait
         return $this->createJsonResponse($translator);
     }
 
-    private function reorderEntities(OrderRequestDTO|PersistableInterface $orderRequestDTO): void
+    private function reorderEntities(PositionChangeRequest|PersistableInterface $orderRequestDTO): void
     {
         $this->adjustOrderPositions($orderRequestDTO->oldPosition, $orderRequestDTO->newPosition);
         $this->updateMovedEntityOrder($orderRequestDTO->movedId, $orderRequestDTO->newPosition);

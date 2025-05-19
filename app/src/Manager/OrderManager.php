@@ -8,17 +8,13 @@ use App\DTO\Shop\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Entity\Carrier;
 use App\Entity\Cart;
 use App\Entity\CartItem;
-use App\Entity\Customer;
-use App\Entity\Embeddables\ContactDetails;
 use App\Entity\Order;
-use App\Entity\OrderItem;
 use App\Entity\Payment;
 use App\Entity\PaymentMethod;
-use App\Enums\CheckoutStep;
-use App\Enums\PaymentStatus;
-use App\Model\OrderModelData;
 use App\Repository\OrderRepository;
 use App\Service\CartService;
+use App\Shared\Domain\Enums\CheckoutStep;
+use App\Shared\Domain\Enums\PaymentStatus;
 
 class OrderManager
 {

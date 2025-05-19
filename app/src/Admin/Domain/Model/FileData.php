@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Model;
 
-use App\Enums\FileMimeType;
+use App\Admin\Domain\Enums\FileMimeType;
 use InvalidArgumentException;
 
 final readonly class FileData

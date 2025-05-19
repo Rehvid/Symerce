@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Traits\CreatedAtTrait;
+use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
-use App\Traits\CreatedAtTrait;
-use App\Traits\UpdatedAtTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

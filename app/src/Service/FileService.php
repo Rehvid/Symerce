@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Admin\Domain\Enums\FileMimeType;
 use App\DTO\Admin\Request\FileRequestDTO;
 use App\Entity\File;
-use App\Enums\FileMimeType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 

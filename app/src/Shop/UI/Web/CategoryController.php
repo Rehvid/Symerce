@@ -10,7 +10,7 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Service\FileService;
 use App\Service\SettingManager;
-use App\ValueObject\Money;
+use App\Shared\Domain\ValueObject\Money;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Embeddables;
 
-use App\Traits\CreatedAtTrait;
-use App\Traits\UpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Twig;
+namespace App\Shop\Infrastructure\Twig;
 
 use App\Entity\Cart;
-use App\Enums\CookieName;
 use App\Service\CookieManager;
 use App\Service\SettingManager;
+use App\Shared\Domain\Enums\CookieName;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Enums\DecimalPrecision;
-use App\Enums\PaymentStatus;
-use App\Traits\CreatedAtTrait;
-use App\Traits\UpdatedAtTrait;
+use App\Admin\Domain\Traits\CreatedAtTrait;
+use App\Admin\Domain\Traits\UpdatedAtTrait;
+use App\Shared\Domain\Enums\DecimalPrecision;
+use App\Shared\Domain\Enums\PaymentStatus;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

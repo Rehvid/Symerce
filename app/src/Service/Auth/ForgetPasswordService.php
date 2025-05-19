@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Service\Auth;
 
 use App\Admin\Application\DTO\Request\Auth\ForgotPasswordRequest;
+use App\Admin\Domain\Enums\TokenType;
 use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Admin\Infrastructure\Repository\UserTokenRepository;
 use App\DTO\Admin\Response\Mail\MailResponseDTO;
 use App\Entity\User;
 use App\Entity\UserToken;
-use App\Enums\TokenType;
 use App\Exceptions\PersisterException;
 use App\Service\MailService;
 use Ramsey\Uuid\Guid\Guid;

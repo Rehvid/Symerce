@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Pagination;
 
-use App\Enums\DirectionType;
-use App\Enums\OrderByField;
+use App\Admin\Domain\Enums\OrderByField;
+use App\Shared\Domain\Enums\DirectionType;
 
 final readonly class PaginationFilters
 {

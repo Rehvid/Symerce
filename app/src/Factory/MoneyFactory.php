@@ -2,9 +2,8 @@
 
 namespace App\Factory;
 
-use App\Manager\OrderManager;
 use App\Service\SettingManager;
-use App\ValueObject\Money;
+use App\Shared\Domain\ValueObject\Money;
 
 final class MoneyFactory
 {

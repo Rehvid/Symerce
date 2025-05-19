@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Response\Setting;
 
-use App\DTO\Admin\Response\ResponseInterfaceData;
-use App\Enums\SettingValueType;
+use App\Admin\Domain\Enums\SettingValueType;
 
 readonly class SettingValueResponse
 {

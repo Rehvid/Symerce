@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DTO\Admin\Request;
 
-use App\Enums\FileMimeType;
+use App\Admin\Domain\Enums\FileMimeType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class FileRequestDTO implements PersistableInterface

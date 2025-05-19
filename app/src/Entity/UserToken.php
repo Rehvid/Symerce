@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Enums\TokenType;
 use App\Admin\Infrastructure\Repository\UserTokenRepository;
-use App\Enums\TokenType;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserTokenRepository::class)]

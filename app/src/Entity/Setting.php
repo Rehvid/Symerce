@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Traits\ActiveTrait;
+use App\Admin\Domain\Traits\CreatedAtTrait;
+use App\Admin\Domain\Traits\ProtectedTrait;
 use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
-use App\Enums\SettingType;
 use App\Interfaces\IdentifiableEntityInterface;
-use App\Traits\ActiveTrait;
-use App\Traits\CreatedAtTrait;
-use App\Traits\ProtectedTrait;
+use App\Shared\Domain\Enums\SettingType;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 

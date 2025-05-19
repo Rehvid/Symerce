@@ -8,12 +8,12 @@
 
     {% set meta = meta|default({}) %}
     {% set metaSettings = getMeta() %}
-    {% set metaTitle = metaSettings[enum('App\\Enums\\SettingType').META_SHOP_TITLE.name]|default('shop.meta.title'|trans) %}
+    {% set metaTitle = metaSettings[enum('App\\Shared\\Domain\\Enums\\SettingType').META_SHOP_TITLE.name]|default('shop.meta.title'|trans) %}
 
     {% block meta %}
-        {% set metaDescription = metaSettings[enum('App\\Enums\\SettingType').META_SHOP_DESCRIPTION.name]|default('shop.meta.description'|trans) %}
-        {% set metaOgTitle = metaSettings[enum('App\\Enums\\SettingType').META_SHOP_OG_TITLE.name]|default(metaTitle) %}
-        {% set metaOgDescription = metaSettings[enum('App\\Enums\\SettingType').META_SHOP_OG_DESCRIPTION.name]|default(metaDescription) %}
+        {% set metaDescription = metaSettings[enum('App\\Shared\\Domain\\Enums\\SettingType').META_SHOP_DESCRIPTION.name]|default('shop.meta.description'|trans) %}
+        {% set metaOgTitle = metaSettings[enum('App\\Shared\\Domain\\Enums\\SettingType').META_SHOP_OG_TITLE.name]|default(metaTitle) %}
+        {% set metaOgDescription = metaSettings[enum('App\\Shared\\Domain\\Enums\\SettingType').META_SHOP_OG_DESCRIPTION.name]|default(metaDescription) %}
 
         <meta name="description" content="{{ metaDescription }}">
         <meta property="og:title" content="{{ metaOgTitle }}" />

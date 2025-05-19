@@ -2,9 +2,9 @@
 
 namespace App\DataFixtures\FakeData;
 
+use App\Admin\Domain\Enums\DeliveryType;
 use App\Entity\Carrier;
 use App\Entity\DeliveryTime;
-use App\Enums\DeliveryType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

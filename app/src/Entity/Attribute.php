@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Traits\OrderTrait;
 use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
-use App\Traits\OrderTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

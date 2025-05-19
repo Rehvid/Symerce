@@ -10,7 +10,7 @@ use App\DTO\Shop\Response\Setting\SettingShopCategoryDTOResponse;
 use App\Entity\Category;
 use App\Entity\Currency;
 use App\Entity\Setting;
-use App\Enums\SettingType;
+use App\Shared\Domain\Enums\SettingType;
 use App\ValueObject\JsonData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

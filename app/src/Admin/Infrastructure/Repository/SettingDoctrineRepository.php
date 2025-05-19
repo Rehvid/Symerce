@@ -6,10 +6,10 @@ namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Repository\SettingRepositoryInterface;
 use App\Entity\Setting;
-use App\Enums\SettingType;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
+use App\Shared\Domain\Enums\SettingType;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 

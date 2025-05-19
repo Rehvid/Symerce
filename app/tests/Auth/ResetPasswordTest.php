@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Auth;
 
 use App\Admin\Application\DTO\Request\Auth\StoreUserTokenRequest;
+use App\Admin\Domain\Enums\TokenType;
 use App\Admin\Infrastructure\Repository\UserTokenRepository;
 use App\Entity\UserToken;
-use App\Enums\TokenType;
 use App\Factory\PersistableDTOFactory;
 use App\Service\DataPersister\Persisters\Admin\UserToken\UserTokenCreatePersister;
 use App\Tests\ApiTestCase;

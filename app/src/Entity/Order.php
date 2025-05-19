@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Embeddables\Address;
+use App\Admin\Domain\Traits\CreatedAtTrait;
+use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Entity\Embeddables\ContactDetails;
-use App\Enums\CheckoutStep;
-use App\Enums\DecimalPrecision;
-use App\Enums\OrderStatus;
 use App\Repository\OrderRepository;
-use App\Traits\CreatedAtTrait;
-use App\Traits\UpdatedAtTrait;
+use App\Shared\Domain\Enums\CheckoutStep;
+use App\Shared\Domain\Enums\DecimalPrecision;
+use App\Shared\Domain\Enums\OrderStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\HasLifecycleCallbacks]

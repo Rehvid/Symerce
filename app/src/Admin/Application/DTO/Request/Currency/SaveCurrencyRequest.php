@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Request\Currency;
 
-use App\Enums\DecimalPrecision;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
+use App\Shared\Domain\Enums\DecimalPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveCurrencyRequest implements RequestDtoInterface

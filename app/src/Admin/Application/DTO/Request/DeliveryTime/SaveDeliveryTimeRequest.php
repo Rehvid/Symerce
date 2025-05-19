@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Request\DeliveryTime;
 
-use App\Enums\DeliveryType;
+use App\Admin\Domain\Enums\DeliveryType;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 

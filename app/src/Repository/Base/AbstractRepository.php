@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Repository\Base;
 
+use App\Admin\Domain\Enums\OrderByField;
 use App\Admin\Domain\Repository\QueryRepositoryInterface;
 use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
-use App\Enums\DirectionType;
-use App\Enums\OrderByField;
 use App\Repository\Interface\OrderSortableRepositoryInterface;
 use App\Repository\Interface\PaginationRepositoryInterface;
 use App\Service\Pagination\PaginationFilters;
 use App\Service\Pagination\PaginationMeta;
+use App\Shared\Domain\Enums\DirectionType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;

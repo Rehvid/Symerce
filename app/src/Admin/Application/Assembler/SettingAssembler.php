@@ -9,14 +9,14 @@ use App\Admin\Application\DTO\Response\Setting\SettingCreateFormResponse;
 use App\Admin\Application\DTO\Response\Setting\SettingFormResponse;
 use App\Admin\Application\DTO\Response\Setting\SettingListResponse;
 use App\Admin\Application\DTO\Response\Setting\SettingValueResponse;
+use App\Admin\Domain\Enums\SettingValueType;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Admin\Domain\Repository\CurrencyRepositoryInterface;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\Entity\Category;
 use App\Entity\Currency;
 use App\Entity\Setting;
-use App\Enums\SettingType;
-use App\Enums\SettingValueType;
+use App\Shared\Domain\Enums\SettingType;
 use App\Utils\Utils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

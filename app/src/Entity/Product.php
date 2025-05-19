@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Traits\ActiveTrait;
+use App\Admin\Domain\Traits\CreatedAtTrait;
+use App\Admin\Domain\Traits\OrderTrait;
+use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Admin\Infrastructure\Repository\ProductDoctrineRepository;
-use App\Enums\DecimalPrecision;
 use App\Interfaces\ActivatableInterface;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
-use App\Traits\ActiveTrait;
-use App\Traits\CreatedAtTrait;
-use App\Traits\OrderTrait;
-use App\Traits\UpdatedAtTrait;
+use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

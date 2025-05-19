@@ -9,10 +9,10 @@ use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Product;
-use App\Enums\QuantityChangeType;
 use App\Exceptions\PersisterException;
 use App\Service\CartTokenGenerator;
 use App\Service\DataPersister\Filler\Base\BaseEntityFiller;
+use App\Shop\Domain\Enums\QuantityChangeType;
 use Doctrine\ORM\EntityManagerInterface;
 
 

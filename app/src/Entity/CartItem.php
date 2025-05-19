@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Enums\DecimalPrecision;
+use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Repository\CartItemRepository;
-use App\Traits\CreatedAtTrait;
+use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CartItemRepository::class)]

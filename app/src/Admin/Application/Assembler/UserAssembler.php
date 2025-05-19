@@ -8,9 +8,8 @@ use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\User\UserCreateFormResponse;
 use App\Admin\Application\DTO\Response\User\UserFormResponse;
 use App\Admin\Application\DTO\Response\User\UserListResponse;
-use App\DTO\Admin\Response\FileResponseDTO;
+use App\Admin\Domain\Enums\AdminRole;
 use App\Entity\User;
-use App\Enums\AdminRole;
 use App\Utils\Utils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

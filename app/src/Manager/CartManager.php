@@ -11,8 +11,8 @@ use App\DTO\Shop\Request\Cart\SaveCartRequest;
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Product;
-use App\Enums\QuantityChangeType;
 use App\Service\CartTokenGenerator;
+use App\Shop\Domain\Enums\QuantityChangeType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class CartManager

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Enums\OrderByField;
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
-use App\Enums\DirectionType;
-use App\Enums\OrderByField;
 use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
+use App\Shared\Domain\Enums\DirectionType;
 use Doctrine\ORM\QueryBuilder;
 
 class AttributeDoctrineRepository extends AbstractRepository implements AttributeRepositoryInterface

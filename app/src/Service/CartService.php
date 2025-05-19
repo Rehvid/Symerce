@@ -6,7 +6,6 @@ use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Order;
 use App\Entity\OrderItem;
-use App\ValueObject\Money;
 
 class CartService
 {

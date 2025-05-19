@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Enums\DeliveryType;
+use App\Admin\Domain\Traits\ActiveTrait;
+use App\Admin\Domain\Traits\OrderTrait;
 use App\Admin\Infrastructure\Repository\DeliveryTimeDoctrineRepository;
-use App\Enums\DeliveryType;
 use App\Interfaces\IdentifiableEntityInterface;
 use App\Interfaces\OrderSortableInterface;
-use App\Traits\ActiveTrait;
-use App\Traits\OrderTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 

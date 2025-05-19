@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Service;
 
-use App\Enums\FileMimeType;
+use App\Admin\Domain\Enums\FileMimeType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 

@@ -6,7 +6,7 @@ namespace App\DataFixtures\Bootstrap;
 
 use App\Entity\Currency;
 use App\Entity\Setting;
-use App\Enums\SettingType;
+use App\Shared\Domain\Enums\SettingType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

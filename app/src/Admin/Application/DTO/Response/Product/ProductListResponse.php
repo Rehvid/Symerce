@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Response\Product;
 
-use App\ValueObject\Money;
+use App\Shared\Domain\ValueObject\Money;
 
 final readonly class ProductListResponse
 {

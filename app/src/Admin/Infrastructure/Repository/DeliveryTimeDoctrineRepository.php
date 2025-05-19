@@ -2,13 +2,13 @@
 
 namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Enums\OrderByField;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
 use App\Entity\DeliveryTime;
-use App\Enums\DirectionType;
-use App\Enums\OrderByField;
 use App\Factory\FilterBuilderFactory;
 use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
+use App\Shared\Domain\Enums\DirectionType;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Admin\Domain\Contract\HasFileInterface;
+use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Infrastructure\Repository\VendorDoctrineRepository;
 use App\Interfaces\IdentifiableEntityInterface;
-use App\Traits\ActiveTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VendorDoctrineRepository::class)]

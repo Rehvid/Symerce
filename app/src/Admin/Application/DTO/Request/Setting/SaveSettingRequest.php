@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Request\Setting;
 
-use App\Enums\SettingType;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
+use App\Shared\Domain\Enums\SettingType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class SaveSettingRequest implements RequestDtoInterface

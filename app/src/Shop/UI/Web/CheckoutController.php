@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Shop\UI\Web;
 
 use App\Admin\Infrastructure\Repository\CartDoctrineRepository;
-use App\Enums\CheckoutStep;
-use App\Enums\CookieName;
 use App\Repository\OrderRepository;
+use App\Shared\Domain\Enums\CheckoutStep;
+use App\Shared\Domain\Enums\CookieName;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

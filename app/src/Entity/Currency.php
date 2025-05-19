@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Traits\ProtectedTrait;
 use App\Admin\Infrastructure\Repository\CurrencyDoctrineRepository;
-use App\Enums\DecimalPrecision;
 use App\Interfaces\IdentifiableEntityInterface;
-use App\Traits\ProtectedTrait;
+use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CurrencyDoctrineRepository::class)]

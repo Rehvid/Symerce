@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Traits\ActiveTrait;
+use App\Admin\Domain\Traits\CreatedAtTrait;
+use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Repository\CustomerRepository;
-use App\Traits\ActiveTrait;
-use App\Traits\CreatedAtTrait;
-use App\Traits\UpdatedAtTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
 #[ORM\HasLifecycleCallbacks]

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
+use App\Admin\Domain\Enums\FileMimeType;
 use App\DTO\Admin\Request\FileRequestDTO;
 use App\DTO\Admin\Request\PersistableInterface;
-use App\Enums\FileMimeType;
 use App\Factory\PersistableDTOFactory;
 
 trait FileRequestMapperTrait

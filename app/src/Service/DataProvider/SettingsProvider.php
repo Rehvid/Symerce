@@ -7,9 +7,9 @@ namespace App\Service\DataProvider;
 use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
 use App\DTO\Admin\Response\ProviderResponseDTO;
 use App\Entity\Setting;
-use App\Enums\SettingType;
 use App\Service\DataProvider\Interface\ReactDataInterface;
 use App\Service\SettingManager;
+use App\Shared\Domain\Enums\SettingType;
 
 readonly class SettingsProvider implements ReactDataInterface
 {

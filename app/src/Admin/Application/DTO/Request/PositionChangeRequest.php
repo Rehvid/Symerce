@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Admin\Request;
+namespace App\Admin\Application\DTO\Request;
 
+use App\DTO\Admin\Request\PersistableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class OrderRequestDTO implements PersistableInterface
+final readonly class PositionChangeRequest implements PersistableInterface
 {
     public function __construct(
         #[Assert\NotBlank]  public int $movedId,
