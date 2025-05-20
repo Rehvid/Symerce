@@ -10,6 +10,7 @@ use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Entity\User;
 use App\Service\FileService;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
+use App\Shared\Domain\Enums\CookieName;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ final readonly class AuthService
 
     public function verifyUserAuthorization(Request $request): AuthorizationResult
     {
-        $token = (string) $request->cookies->get('BEARER');
+        $token = (string) $request->cookies->get(CookieName::ADMIN_BEARER->value);
         if (!$token) {
             return $this->prepareResponseData(
                 statusCode: Response::HTTP_UNAUTHORIZED,

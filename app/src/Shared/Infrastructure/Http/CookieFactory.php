@@ -18,7 +18,7 @@ final readonly class CookieFactory
     public function create(CookieName $cookieName, string $value, \DateTimeInterface|int $expire): Cookie
     {
         return new Cookie(
-            name:     $cookieName->name,
+            name:     $cookieName->value,
             value:    $value,
             expire:   $expire,
             secure:   $this->kernel->getEnvironment() === 'prod',
