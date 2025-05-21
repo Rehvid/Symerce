@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\EventListener;
 
-use App\Exceptions\RequestValidationException;
 use App\Service\Response\ApiResponse;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
+use App\Shared\Infrastructure\Http\Exception\RequestValidationException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

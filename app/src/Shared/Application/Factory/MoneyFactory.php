@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Factory;
+declare(strict_types=1);
+
+namespace App\Shared\Application\Factory;
 
 use App\Service\SettingManager;
 use App\Shared\Domain\ValueObject\Money;
 
-final class MoneyFactory
+final readonly class MoneyFactory
 {
-    public function __construct(private readonly SettingManager $settingManager) {
-
+    public function __construct(
+        private  SettingManager $settingManager
+    ) {
     }
 
     public function create(string $amount): Money

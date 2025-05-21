@@ -11,10 +11,10 @@ use App\Entity\CartItem;
 use App\Entity\Order;
 use App\Entity\Payment;
 use App\Entity\PaymentMethod;
-use App\Repository\OrderRepository;
 use App\Service\CartService;
 use App\Shared\Domain\Enums\CheckoutStep;
 use App\Shared\Domain\Enums\PaymentStatus;
+use App\Shared\Infrastructure\Repository\OrderRepository;
 
 class OrderManager
 {

@@ -8,7 +8,7 @@ use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\PaymentMethod\PaymentMethodFormResponse;
 use App\Admin\Application\DTO\Response\PaymentMethod\PaymentMethodListResponse;
 use App\Entity\PaymentMethod;
-use App\Factory\MoneyFactory;
+use App\Shared\Application\Factory\MoneyFactory;
 
 final readonly class PaymentMethodAssembler
 {

@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
+use App\Admin\Infrastructure\Traits\ReorderRepositoryTrait;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class AttributeDoctrineRepository extends AbstractCriteriaRepository implements AttributeRepositoryInterface
 {
+    use ReorderRepositoryTrait;
+
     protected function getEntityClass(): string
     {
         return Attribute::class;
@@ -52,15 +55,5 @@ class AttributeDoctrineRepository extends AbstractCriteriaRepository implements 
         $qb->where($orX);
 
         return $qb->getQuery()->getResult();
-    }
-
-    public function getMaxOrder(): int
-    {
-        $alias = $this->getAlias();
-
-        return (int) $this->createQueryBuilder($alias)
-            ->select("MAX($alias.order)")
-            ->getQuery()
-            ->getSingleScalarResult();
     }
 }

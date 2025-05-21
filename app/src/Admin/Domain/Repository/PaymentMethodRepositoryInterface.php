@@ -6,7 +6,7 @@ namespace App\Admin\Domain\Repository;
 
 use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
-interface PaymentMethodRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
+interface PaymentMethodRepositoryInterface extends
+    QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, ReorderableRepositoryInterface
 {
-    public function getMaxOrder(): int;
 }

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Contract\OrderEntityInterface;
 use App\Admin\Domain\Traits\OrderTrait;
 use App\Admin\Infrastructure\Repository\AttributeValueDoctrineRepository;
-use App\Interfaces\IdentifiableEntityInterface;
-use App\Interfaces\OrderSortableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AttributeValueDoctrineRepository::class)]
-class AttributeValue implements OrderSortableInterface, IdentifiableEntityInterface
+class AttributeValue implements OrderEntityInterface
 {
     use OrderTrait;
 

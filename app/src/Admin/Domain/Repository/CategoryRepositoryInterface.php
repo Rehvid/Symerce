@@ -5,10 +5,11 @@ declare (strict_types = 1);
 namespace App\Admin\Domain\Repository;
 
 use App\Entity\Category;
+use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
-interface CategoryRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface
+interface CategoryRepositoryInterface
+    extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, ReorderableRepositoryInterface
 {
-    public function getMaxOrder(): int;
 
     /** @return Category[] */
     public function findAllOrdered(): array;

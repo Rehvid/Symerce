@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Contract\HasFileInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
-use App\Interfaces\IdentifiableEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['email'], message: 'This account already exists.')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, IdentifiableEntityInterface, \App\Admin\Domain\Contract\HasFileInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, HasFileInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;

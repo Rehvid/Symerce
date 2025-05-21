@@ -5,20 +5,14 @@ declare(strict_types=1);
 namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Repository\PaymentMethodRepositoryInterface;
+use App\Admin\Infrastructure\Traits\ReorderRepositoryTrait;
 use App\Entity\PaymentMethod;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class PaymentMethodDoctrineRepository extends AbstractCriteriaRepository implements PaymentMethodRepositoryInterface
 {
-    public function getMaxOrder(): int
-    {
-        $alias = $this->getAlias();
+    use ReorderRepositoryTrait;
 
-        return (int) $this->createQueryBuilder($alias)
-            ->select("MAX($alias.order)")
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
 
     protected function getEntityClass(): string
     {

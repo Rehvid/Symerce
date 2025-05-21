@@ -6,13 +6,12 @@ namespace App\Entity;
 
 use App\Admin\Domain\Traits\ProtectedTrait;
 use App\Admin\Infrastructure\Repository\CurrencyDoctrineRepository;
-use App\Interfaces\IdentifiableEntityInterface;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CurrencyDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Currency implements IdentifiableEntityInterface
+class Currency
 {
     use ProtectedTrait;
 

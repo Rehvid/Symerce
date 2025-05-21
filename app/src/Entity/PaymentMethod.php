@@ -9,11 +9,11 @@ use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\OrderTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Repository\PaymentMethodRepository;
+use App\Admin\Infrastructure\Repository\PaymentMethodDoctrineRepository;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PaymentMethodRepository::class)]
+#[ORM\Entity(repositoryClass: PaymentMethodDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class PaymentMethod implements HasFileInterface
 {

@@ -22,7 +22,7 @@ use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Entity\Tag;
 use App\Entity\Vendor;
-use App\Factory\MoneyFactory;
+use App\Shared\Application\Factory\MoneyFactory;
 use App\Utils\Utils;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

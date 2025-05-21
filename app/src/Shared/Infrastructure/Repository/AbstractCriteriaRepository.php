@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Repository;
 
-use App\Service\Pagination\PaginationMeta;
 use App\Shared\Application\DTO\Filter\FilterCondition;
 use App\Shared\Application\DTO\Filter\SearchCriteria;
+use App\Shared\Application\DTO\Pagination\PaginationMeta;
 use App\Shared\Application\DTO\Pagination\PaginationResult;
 use App\Shared\Domain\Enums\QueryOperator;
 use App\Shared\Domain\Repository\CriteriaRepositoryInterface;

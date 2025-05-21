@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Pagination;
+namespace App\Shared\Application\DTO\Pagination;
 
 final class PaginationMeta
 {

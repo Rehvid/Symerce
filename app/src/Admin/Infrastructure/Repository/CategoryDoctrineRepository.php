@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
+use App\Admin\Infrastructure\Traits\ReorderRepositoryTrait;
 use App\Entity\Category;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class CategoryDoctrineRepository extends AbstractCriteriaRepository implements CategoryRepositoryInterface
 {
+    use ReorderRepositoryTrait;
 
     protected function getEntityClass(): string
     {
@@ -19,16 +21,6 @@ class CategoryDoctrineRepository extends AbstractCriteriaRepository implements C
     protected function getAlias(): string
     {
         return 'c';
-    }
-
-    public function getMaxOrder(): int
-    {
-        $alias = $this->getAlias();
-
-        return (int) $this->createQueryBuilder($alias)
-            ->select("MAX($alias.order)")
-            ->getQuery()
-            ->getSingleScalarResult();
     }
 
     /** @return Category[] */

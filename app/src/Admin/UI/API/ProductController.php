@@ -11,10 +11,6 @@ use App\Admin\Application\UseCase\Product\GetByIdProductUseCase;
 use App\Admin\Application\UseCase\Product\GetProductCreateDataUseCase;
 use App\Admin\Application\UseCase\Product\ListProductUseCase;
 use App\Admin\Application\UseCase\Product\UpdateProductUseCase;
-use App\Admin\Infrastructure\Repository\ProductDoctrineRepository;
-use App\Interfaces\UpdateOrderControllerInterface;
-use App\Repository\Base\AbstractRepository;
-use App\Repository\Interface\OrderSortableRepositoryInterface;
 use App\Service\Response\ApiResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;
 use App\Shared\Application\UseCases\Base\DeleteUseCaseInterface;
@@ -22,8 +18,6 @@ use App\Shared\Application\UseCases\Base\GetByIdUseCaseInterface;
 use App\Shared\Application\UseCases\Base\ListUseCaseInterface;
 use App\Shared\Application\UseCases\Base\UpdateUseCaseInterface;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Traits\UpdateOrderControllerTrait;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -38,8 +32,6 @@ final class ProductController extends AbstractCrudController
         private readonly DeleteProductUseCase $deleteProductUseCase,
         private readonly ListProductUseCase $listProductUseCase,
         private readonly GetByIdProductUseCase  $getByIdProductUseCase,
-        private readonly EntityManagerInterface    $entityManager,
-        private readonly ProductDoctrineRepository $productRepository,
         RequestDtoResolver                         $requestDtoResolver,
         TranslatorInterface                        $translator
     ) {
@@ -54,16 +46,6 @@ final class ProductController extends AbstractCrudController
                 data: $useCase->execute()
             )
         );
-    }
-
-    public function getOrderSortableRepository(): OrderSortableRepositoryInterface|AbstractRepository
-    {
-        return $this->productRepository;
-    }
-
-    public function getEntityManager(): EntityManagerInterface
-    {
-        return $this->entityManager;
     }
 
     protected function getListUseCase(): ListUseCaseInterface

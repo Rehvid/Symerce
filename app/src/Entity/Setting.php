@@ -8,14 +8,13 @@ use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\ProtectedTrait;
 use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
-use App\Interfaces\IdentifiableEntityInterface;
 use App\Shared\Domain\Enums\SettingType;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SettingDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Setting implements IdentifiableEntityInterface
+class Setting
 {
     use CreatedAtTrait;
     use ActiveTrait;

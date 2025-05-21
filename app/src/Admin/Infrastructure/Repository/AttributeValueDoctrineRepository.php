@@ -6,6 +6,7 @@ namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Enums\OrderByField;
 use App\Admin\Domain\Repository\AttributeValueRepositoryInterface;
+use App\Admin\Infrastructure\Traits\ReorderRepositoryTrait;
 use App\Entity\AttributeValue;
 use App\Service\Pagination\PaginationFilters;
 use App\Shared\Domain\Enums\DirectionType;
@@ -14,6 +15,8 @@ use Doctrine\ORM\QueryBuilder;
 
 class AttributeValueDoctrineRepository extends AbstractCriteriaRepository implements AttributeValueRepositoryInterface
 {
+    use ReorderRepositoryTrait;
+
     protected function getEntityClass(): string
     {
         return AttributeValue::class;
@@ -22,38 +25,5 @@ class AttributeValueDoctrineRepository extends AbstractCriteriaRepository implem
     protected function getAlias(): string
     {
         return 'attribute_value';
-    }
-
-    protected function configureQueryForPagination(
-        QueryBuilder $queryBuilder,
-        PaginationFilters $paginationFilters
-    ): QueryBuilder {
-        $attributeId = $paginationFilters->getAdditionalData('attributeId');
-        if (null === $attributeId) {
-            return parent::configureQueryForPagination($queryBuilder, $paginationFilters);
-        }
-
-        $alias = $this->getAlias();
-
-        $queryBuilder
-            ->andWhere("$alias.attribute = :attributeId")
-            ->setParameter('attributeId', $attributeId)
-        ;
-
-        if ($paginationFilters->hasOrderBy()) {
-            return $queryBuilder;
-        }
-
-        return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
-    }
-
-    public function getMaxOrder(): int
-    {
-        $alias = $this->getAlias();
-
-        return (int) $this->createQueryBuilder($alias)
-            ->select("MAX($alias.order)")
-            ->getQuery()
-            ->getSingleScalarResult();
     }
 }

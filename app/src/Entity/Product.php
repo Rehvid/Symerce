@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Admin\Domain\Contract\OrderEntityInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\OrderTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Admin\Infrastructure\Repository\ProductDoctrineRepository;
-use App\Interfaces\ActivatableInterface;
-use App\Interfaces\IdentifiableEntityInterface;
-use App\Interfaces\OrderSortableInterface;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Product implements OrderSortableInterface, IdentifiableEntityInterface, ActivatableInterface
+class Product implements OrderEntityInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
