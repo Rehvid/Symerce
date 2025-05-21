@@ -4,24 +4,12 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
-use App\Admin\Domain\Enums\OrderByField;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Entity\Category;
-use App\Factory\FilterBuilderFactory;
-use App\Repository\Base\AbstractRepository;
-use App\Service\Pagination\PaginationFilters;
-use App\Shared\Domain\Enums\DirectionType;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
-class CategoryDoctrineRepository extends AbstractRepository implements CategoryRepositoryInterface
+class CategoryDoctrineRepository extends AbstractCriteriaRepository implements CategoryRepositoryInterface
 {
-    public function __construct(
-        ManagerRegistry $registry,
-        private readonly FilterBuilderFactory $filterBuilderFactory,
-    ) {
-        parent::__construct($registry);
-    }
 
     protected function getEntityClass(): string
     {
@@ -31,20 +19,6 @@ class CategoryDoctrineRepository extends AbstractRepository implements CategoryR
     protected function getAlias(): string
     {
         return 'c';
-    }
-
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, PaginationFilters $paginationFilters): QueryBuilder
-    {
-        $alias = $this->getAlias();
-
-        $filterBuilder = $this->filterBuilderFactory->create($queryBuilder, $paginationFilters, $alias);
-        $filterBuilder->applyIsActive();
-
-        if ($paginationFilters->hasOrderBy()) {
-            return $queryBuilder;
-        }
-
-        return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
     }
 
     public function getMaxOrder(): int
