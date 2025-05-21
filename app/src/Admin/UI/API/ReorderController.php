@@ -6,7 +6,7 @@ namespace App\Admin\UI\API;
 
 use App\Admin\Application\DTO\Request\PositionChangeRequest;
 use App\Admin\Application\UseCase\Reorder\ReorderPositionsUseCase;
-use App\Service\Response\ApiResponse;
+use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

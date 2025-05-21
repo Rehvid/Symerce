@@ -11,7 +11,7 @@ use App\Admin\Application\UseCase\Product\GetByIdProductUseCase;
 use App\Admin\Application\UseCase\Product\GetProductCreateDataUseCase;
 use App\Admin\Application\UseCase\Product\ListProductUseCase;
 use App\Admin\Application\UseCase\Product\UpdateProductUseCase;
-use App\Service\Response\ApiResponse;
+use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;
 use App\Shared\Application\UseCases\Base\DeleteUseCaseInterface;
 use App\Shared\Application\UseCases\Base\GetByIdUseCaseInterface;

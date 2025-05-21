@@ -20,7 +20,7 @@ final readonly class ResponseService
      * @param array<string, mixed> $headers
      */
     public function createJsonResponse(
-        ApiResponse $response,
+        ApiResponse|\App\Shared\Application\DTO\Response\ApiResponse $response,
         int $statusCode = Response::HTTP_OK,
         array $headers = []
     ): JsonResponse {

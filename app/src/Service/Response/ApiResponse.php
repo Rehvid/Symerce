@@ -6,6 +6,7 @@ namespace App\Service\Response;
 
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 
+/** @deprecated  */
 final readonly class ApiResponse
 {
     /**

@@ -6,9 +6,9 @@ namespace App\Admin\Infrastructure\Security;
 
 use App\Admin\Application\DTO\Response\User\UserSessionResponse;
 use App\Entity\User;
-use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
+use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\CookieFactory;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -35,7 +35,7 @@ final readonly class JWTEventService
         $this->setCookieForResponse($event, $token);
 
         $event->setData(
-            $this->createApiResponse($this->createDataForApiResponse($user))->toArray()
+            $this->createApiResponse($this->createDataForApiResponse($user))
         );
     }
 

@@ -2,51 +2,51 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Auth;
+namespace App\Admin\Application\Service\User;
 
 use App\Admin\Application\DTO\Request\Auth\ForgotPasswordRequest;
 use App\Admin\Domain\Enums\TokenType;
-use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
-use App\Admin\Infrastructure\Repository\UserTokenRepository;
+use App\Admin\Domain\Repository\UserRepositoryInterface;
+use App\Admin\Domain\Repository\UserTokenRepositoryInterface;
 use App\Entity\User;
 use App\Entity\UserToken;
-use App\Exceptions\PersisterException;
+use App\Shared\Application\DTO\Response\ApiErrorResponse;
+use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\DTO\Response\MailResponse;
 use App\Shared\Infrastructure\Mail\MailService;
 use Ramsey\Uuid\Guid\Guid;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final readonly class ForgetPasswordService
+final readonly class ForgetUserPasswordService
 {
     public function __construct(
-        private MailService            $mailService,
-        private UserDoctrineRepository $userRepository,
+        private MailService  $mailService,
+        private UserRepositoryInterface $userRepository,
         private UrlGeneratorInterface  $urlGenerator,
-        private UserTokenRepository     $userTokenRepository,
+        private UserTokenRepositoryInterface $userTokenRepository,
     ) {
-
     }
 
-    /**
-     * @throws PersisterException|\ReflectionException
-     */
-    public function sendMail(ForgotPasswordRequest $dto): void
+    public function execute(ForgotPasswordRequest $request): ApiResponse
     {
         /** @var User|null $user */
-        $user = $this->userRepository->loadUserByIdentifier($dto->email);
+        $user = $this->userRepository->loadUserByIdentifier($request->email);
         if (null === $user) {
-            throw new NotFoundHttpException('User not found');
+            return new ApiResponse(
+                error: new ApiErrorResponse(code: Response::HTTP_BAD_REQUEST, message: 'User Not found')
+            );
         }
 
         $this->deleteOldUserTokens($user);
 
-        /** @var UserToken $userToken */
         $userToken = $this->createUserToken($user);
 
         $link = $this->generateLink($userToken->getToken());
 
-        $this->send($dto->email, $link);
+        $this->send($request->email, $link);
+
+        return new ApiResponse();
     }
 
     private function deleteOldUserTokens(User $user): void
@@ -56,15 +56,9 @@ final readonly class ForgetPasswordService
             fn (UserToken $userToken) => TokenType::FORGOT_PASSWORD === $userToken->getTokenType()
         );
 
-        foreach ($forgetPasswordTokens as $token) {
-            $this->userTokenRepository->remove($token); //TODO: Add collection remove
-        }
+        $this->userTokenRepository->remove($forgetPasswordTokens);
     }
 
-    /**
-     * @throws PersisterException
-     * @throws \ReflectionException
-     */
     private function createUserToken(User $user): object
     {
         $userToken = new UserToken();
@@ -92,13 +86,13 @@ final readonly class ForgetPasswordService
 
     private function send(string $toEmail, string $link): void
     {
-        $this->mailService->sendMail(MailResponse::fromArray([
-            'toEmail' => $toEmail,
-            'subject' => 'Przypomnienie hasła',
-            'context' => [
+        $this->mailService->sendMail(new MailResponse(
+            toEmail: $toEmail,
+            subject: 'Przypomnienie hasła',
+            template: 'reset-password.html.twig',
+            context: [
                 'link' => '<a class="link" href="'.$link.'">Link do zresetowania hasła</a>',
             ],
-            'template' => 'reset-password.html.twig',
-        ]));
+        ));
     }
 }

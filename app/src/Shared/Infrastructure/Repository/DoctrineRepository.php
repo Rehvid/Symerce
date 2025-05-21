@@ -34,6 +34,15 @@ abstract class DoctrineRepository
         $this->getEntityManager()->flush();
     }
 
+    public function removeCollection(array $entities): void
+    {
+        foreach ($entities as $entity) {
+            $this->getEntityManager()->remove($entity);
+        }
+
+        $this->getEntityManager()->flush();
+    }
+
     public function findById(int|string $id): ?object
     {
         return $this->find($id);

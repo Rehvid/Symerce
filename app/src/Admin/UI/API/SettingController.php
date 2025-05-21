@@ -11,7 +11,7 @@ use App\Admin\Application\UseCase\Setting\GetByIdSettingUseCase;
 use App\Admin\Application\UseCase\Setting\GetSettingCreateDataUseCase;
 use App\Admin\Application\UseCase\Setting\ListSettingUseCase;
 use App\Admin\Application\UseCase\Setting\UpdateSettingUseCase;
-use App\Service\Response\ApiResponse;
+use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;
 use App\Shared\Application\UseCases\Base\DeleteUseCaseInterface;
 use App\Shared\Application\UseCases\Base\GetByIdUseCaseInterface;

@@ -19,4 +19,9 @@ class UserTokenRepository extends DoctrineRepository implements UserTokenReposit
     {
         return 'ut';
     }
+
+    public function findByToken(string $token): ?UserToken
+    {
+        return $this->findOneBy(['token' => $token]);
+    }
 }

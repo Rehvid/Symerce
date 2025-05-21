@@ -19,17 +19,17 @@ readonly final class MailService
     /**
      * @throws TransportExceptionInterface
      */
-    public function sendMail(MailResponse $mailResponseDTO): void
+    public function sendMail(MailResponse $mailResponse): void
     {
         $email = (new TemplatedEmail())
             ->from('admin@symerce.com')
-            ->to($mailResponseDTO->toEmail)
-            ->subject($mailResponseDTO->subject)
-            ->htmlTemplate('emails/'.$mailResponseDTO->template)
+            ->to($mailResponse->toEmail)
+            ->subject($mailResponse->subject)
+            ->htmlTemplate('emails/'.$mailResponse->template)
             ->locale('pl')
             ->context([
-                'context' => $mailResponseDTO->context,
-                'subject' => $mailResponseDTO->subject,
+                'context' => $mailResponse->context,
+                'subject' => $mailResponse->subject,
             ]);
 
         $this->mailer->send($email);
