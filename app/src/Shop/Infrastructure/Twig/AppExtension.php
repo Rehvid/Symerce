@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Shop\Infrastructure\Twig;
 
 use App\Entity\Cart;
-use App\Service\CookieManager;
 use App\Shared\Application\Service\SettingsService;
 use App\Shared\Domain\Enums\CookieName;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Shared\Domain\Repository\CartRepositoryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -16,8 +16,8 @@ class AppExtension extends AbstractExtension
 {
     public function __construct(
         private readonly SettingsService        $settingManager,
-        private readonly CookieManager          $cookieManager,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly  RequestStack $requestStack,
+        private readonly CartRepositoryInterface $cartRepository,
     ) {
     }
 
@@ -68,11 +68,11 @@ class AppExtension extends AbstractExtension
 
     public function getCart(): ?Cart
     {
-        $cookie = $this->cookieManager->get(CookieName::SHOP_CART->value);
+        $cookie = $this->requestStack->getCurrentRequest()?->cookies->get(CookieName::SHOP_CART->value);
         if (!$cookie) {
             return null;
         }
 
-        return $this->entityManager->getRepository(Cart::class)->findOneBy(['token' => $cookie]);
+        return $this->cartRepository->findByToken($cookie);
     }
 }

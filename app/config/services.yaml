@@ -28,12 +28,6 @@ services:
     # please note that last definitions always *replace* previous ones
 
     _instanceof:
-        App\Service\DataPersister\Interface\CreatePersisterInterface:
-            tags: ['app.create_persister']
-        App\Service\DataPersister\Interface\UpdatePersisterInterface:
-            tags: ['app.update_persister']
-        App\Service\DataPersister\Filler\Interface\EntityFillerInterface:
-            tags: ['app.entity_filler']
         App\Admin\Application\Contract\ReactDataProviderInterface:
             tags: ['app.admin.react_data_provider']
 
@@ -45,12 +39,4 @@ services:
         arguments:
             $providers: !tagged_iterator app.admin.react_data_provider
 
-    App\Service\DataPersister\Manager\PersisterManager:
-        arguments:
-            $createPersisters: !tagged_iterator app.create_persister
-            $updatePersisters: !tagged_iterator app.update_persister
-
-    App\Service\DataPersister\Filler\Resolver\EntityFillerResolver:
-        arguments:
-            $fillers: !tagged_iterator app.entity_filler
 

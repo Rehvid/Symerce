@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\DTO\Shop\Request\Address\SaveAddressDeliveryRequest;
-use App\DTO\Shop\Request\Address\SaveAddressInvoiceRequest;
-use App\DTO\Shop\Request\Address\SaveAddressRequest;
 use App\Entity\DeliveryAddress;
 use App\Entity\Embeddables\Address;
 use App\Entity\InvoiceAddress;
+use App\Shop\Application\DTO\Request\Address\SaveAddressDeliveryRequest;
+use App\Shop\Application\DTO\Request\Address\SaveAddressInvoiceRequest;
+use App\Shop\Application\DTO\Request\Address\SaveAddressRequest;
 
+/** @deprecated */
 class AddressManager
 {
     public function createDeliveryAddress(SaveAddressDeliveryRequest $request): DeliveryAddress

@@ -9,8 +9,8 @@ use App\Admin\Application\DTO\Response\User\UserCreateFormResponse;
 use App\Admin\Application\DTO\Response\User\UserFormResponse;
 use App\Admin\Application\DTO\Response\User\UserListResponse;
 use App\Admin\Domain\Enums\AdminRole;
+use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Entity\User;
-use App\Utils\Utils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class UserAssembler
@@ -69,7 +69,7 @@ final readonly class UserAssembler
 
     private function getAvailableRoles(): array
     {
-        return Utils::buildSelectedOptions(
+        return ArrayUtils::buildSelectedOptions(
             AdminRole::cases(),
             fn (AdminRole $role) => $this->translator->trans('base.admin_role_type.' . strtolower($role->name)),
             fn (AdminRole $role) => $role->value,

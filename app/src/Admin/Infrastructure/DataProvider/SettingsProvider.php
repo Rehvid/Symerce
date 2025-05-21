@@ -23,29 +23,29 @@ readonly class SettingsProvider implements ReactDataProviderInterface
     public function getData(): array
     {
         $currency = $this->settingManager->findDefaultCurrency();
-        $defaultCurrency = ProviderResponse::fromArray([
-            'type' => SettingType::CURRENCY,
-            'value' => [
+        $defaultCurrency = new ProviderResponse(
+            type:  SettingType::CURRENCY,
+            value: [
                 'id' => $currency->getId(),
                 'name' => $currency->getName(),
                 'symbol' => $currency->getSymbol(),
                 'code' => $currency->getCode(),
                 'roundingPrecision' => $currency->getRoundingPrecision(),
             ],
-        ]);
+        );
 
         $settings = $this->settingRepository->findAllExcludingTypes([
             SettingType::CURRENCY->value,
         ]);
         $result = array_map(function (Setting $setting) {
-            return ProviderResponse::fromArray([
-                'type' => $setting->getType(),
-                'value' => [
+            return new ProviderResponse(
+                type: $setting->getType(),
+                value: [
                     'id' => $setting->getId(),
                     'name' => $setting->getName(),
                     'value' => $setting->getValue(),
                 ],
-            ]);
+            );
         }, $settings);
 
         return [

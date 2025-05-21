@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Mapper\Shop;
 
-use App\DTO\Shop\Response\Cart\CartItemResponse;
-use App\DTO\Shop\Response\Cart\CartResponse;
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Service\FileService;
+use App\Shop\Application\DTO\Response\Cart\CartItemResponse;
+use App\Shop\Application\DTO\Response\Cart\CartResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+
+/** @deprecated */
 final class CartMapper
 {
     public function __construct(

@@ -14,6 +14,7 @@ use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
 use App\Admin\Domain\Repository\TagRepositoryInterface;
 use App\Admin\Domain\Repository\VendorRepositoryInterface;
+use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
 use App\Entity\Category;
@@ -23,7 +24,6 @@ use App\Entity\ProductImage;
 use App\Entity\Tag;
 use App\Entity\Vendor;
 use App\Shared\Application\Factory\MoneyFactory;
-use App\Utils\Utils;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final readonly class ProductAssembler
@@ -167,7 +167,7 @@ final readonly class ProductAssembler
         /** @var Category[] $categories */
         $categories = $this->categoryRepository->findAll();
 
-        return Utils::buildSelectedOptions(
+        return ArrayUtils::buildSelectedOptions(
             $categories,
             fn (Category $category) => $category->getName(),
             fn (Category $category) => (string) $category->getId(),
@@ -182,7 +182,7 @@ final readonly class ProductAssembler
         /** @var Vendor[] $vendors */
         $vendors = $this->vendorRepository->findAll();
 
-        return Utils::buildSelectedOptions(
+        return ArrayUtils::buildSelectedOptions(
             $vendors,
             fn (Vendor $vendor) => $vendor->getName(),
             fn (Vendor $vendor) => (string) $vendor->getId(),
@@ -197,7 +197,7 @@ final readonly class ProductAssembler
         /** @var Tag[] $tags */
         $tags = $this->tagRepository->findAll();
 
-        return Utils::buildSelectedOptions(
+        return ArrayUtils::buildSelectedOptions(
             $tags,
             fn ($tag) => $tag->getName(),
             fn (Tag $tag) => (string) $tag->getId(),
@@ -212,7 +212,7 @@ final readonly class ProductAssembler
         /** @var DeliveryTime[] $deliveryTimes */
         $deliveryTimes = $this->deliveryTimeRepository->findAll();
 
-        return Utils::buildSelectedOptions(
+        return ArrayUtils::buildSelectedOptions(
             $deliveryTimes,
             fn (DeliveryTime $deliveryTime) => $deliveryTime->getLabel(),
             fn (DeliveryTime $deliveryTime) => (string) $deliveryTime->getId(),
@@ -229,7 +229,7 @@ final readonly class ProductAssembler
 
         $data = [];
         foreach ($attributes as $key => $attribute) {
-            $data[$key]['options'] = Utils::buildSelectedOptions(
+            $data[$key]['options'] = ArrayUtils::buildSelectedOptions(
                 $attribute->getValues()->toArray(),
                 fn (AttributeValue $attributeValue) => $attributeValue->getValue(),
                 fn (AttributeValue $attributeValue) => (string) $attributeValue->getId(),

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\DTO\Shop\Request\Checkout\SaveCheckoutAddressRequest;
-use App\DTO\Shop\Request\ContactDetails\SaveContactDetailsRequest;
 use App\Entity\Embeddables\ContactDetails;
+use App\Shop\Application\DTO\Request\ContactDetails\SaveContactDetailsRequest;
 
+
+/** @deprecated */
 class ContactDetailsManager
 {
     public function createContactDetails(SaveContactDetailsRequest $request): ContactDetails

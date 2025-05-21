@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\API;
 
-use App\DTO\Shop\Request\Checkout\SaveCheckoutAddressRequest;
+use App\Admin\Application\Service\FileService;
 use App\Entity\Carrier;
 use App\Entity\Order;
 use App\Entity\PaymentMethod;
-use App\Service\FileService;
-use App\Service\Response\ApiResponse;
 use App\Service\Response\ResponseService;
+use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\Factory\MoneyFactory;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use App\Shared\Infrastructure\Repository\CartDoctrineRepository;
 use App\Shared\Infrastructure\Repository\OrderRepository;
+use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Shop\Application\UseCase\Checkout\ConfirmationOrderUseCase;
 use App\Shop\Application\UseCase\Checkout\SaveCarrierUseCase;
 use App\Shop\Application\UseCase\Checkout\SaveCheckoutAddressUseCase;
@@ -35,7 +35,6 @@ class CheckoutController extends AbstractController
         private readonly CartDoctrineRepository $cartRepository,
         private readonly OrderRepository        $orderRepository,
         private readonly EntityManagerInterface $entityManager,
-        private readonly ResponseService        $responseService,
     ){
     }
 
@@ -51,7 +50,7 @@ class CheckoutController extends AbstractController
 
         $useCase->execute($addressRequest, $cart, $this->getOrderByRequest($request));
 
-        return $this->responseService->createJsonResponse(new ApiResponse());
+        return $this->json(new ApiResponse());
     }
 
     #[Route('/save-carrier/{carrierId}', name: 'save_carrier', methods: ['POST'])]
@@ -68,7 +67,7 @@ class CheckoutController extends AbstractController
 
         $useCase->execute($carrier, $order);
 
-        return $this->responseService->createJsonResponse(new ApiResponse());
+        return $this->json(new ApiResponse());
     }
 
     #[Route('/save-payment/{paymentMethodId}', name: 'save_payment', methods: ['POST'])]
@@ -85,7 +84,7 @@ class CheckoutController extends AbstractController
 
         $useCase->execute($paymentMethod, $order);
 
-        return $this->responseService->createJsonResponse(new ApiResponse());
+        return $this->json(new ApiResponse());
     }
 
     #[Route('/payment/form-options', name: 'payment_form_options', methods: ['GET'])]
@@ -107,9 +106,11 @@ class CheckoutController extends AbstractController
             ];
         }, $paymentMethods);
 
-        return $this->responseService->createJsonResponse(new ApiResponse([
-            'paymentMethods' => $data
-        ]));
+        return $this->json(
+            data: new ApiResponse([
+                'paymentMethods' => $data
+            ])
+        );
     }
 
     #[Route('/carriers/form-options', name: 'carriers_form_options', methods: ['GET'])]
@@ -132,9 +133,11 @@ class CheckoutController extends AbstractController
             ];
         }, $carriers);
 
-        return $this->responseService->createJsonResponse(new ApiResponse([
-            'carriers' => $data,
-        ]));
+        return $this->json(
+            data: new ApiResponse([
+                'carriers' => $data,
+            ])
+        );
     }
 
     #[Route('/confirmation/data', name: 'confirmation_data', methods: ['GET'])]
@@ -181,11 +184,11 @@ class CheckoutController extends AbstractController
             ],
         ];
 
-
-
-        return $this->responseService->createJsonResponse(new ApiResponse([
-            'data' => $data
-        ]));
+        return $this->json(
+            data: new ApiResponse([
+                'data' => $data
+            ])
+        );
     }
 
     #[Route('/confirmation/', name: 'confirmation', methods: ['POST'])]
@@ -198,7 +201,7 @@ class CheckoutController extends AbstractController
 
         $useCase->execute($order);
 
-        return $this->responseService->createJsonResponse(new ApiResponse());
+        return $this->json(new ApiResponse());
     }
 
     private function getOrderByRequest(Request $request): ?Order

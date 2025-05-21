@@ -9,8 +9,8 @@ use App\Admin\Application\DTO\Response\DeliveryTime\DeliveryTimeCreateFormRespon
 use App\Admin\Application\DTO\Response\DeliveryTime\DeliveryTimeFormResponse;
 use App\Admin\Application\DTO\Response\DeliveryTime\DeliveryTimeListResponse;
 use App\Admin\Domain\Enums\DeliveryType;
+use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Entity\DeliveryTime;
-use App\Utils\Utils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class DeliveryTimeAssembler
@@ -83,7 +83,7 @@ final readonly class DeliveryTimeAssembler
      */
     private function buildTranslatedOptionsForDeliverTypeEnum(): array
     {
-        return Utils::buildSelectedOptions(
+        return ArrayUtils::buildSelectedOptions(
             items: DeliveryType::translatedOptions(),
             labelCallback: fn (DeliveryType $type) => $this->translator->trans("base.delivery_type.{$type->value}"),
             valueCallback: fn (DeliveryType $type) => $type->value,

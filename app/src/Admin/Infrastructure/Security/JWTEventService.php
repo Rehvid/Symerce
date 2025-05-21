@@ -6,12 +6,12 @@ namespace App\Admin\Infrastructure\Security;
 
 use App\Admin\Application\DTO\Response\User\UserSessionResponse;
 use App\Entity\User;
-use App\Service\Response\ResponseService;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\CookieFactory;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,6 @@ final readonly class JWTEventService
     private int $tokenTtl;
 
     public function __construct(
-        private ResponseService $responseService,
         private ParameterBagInterface $params,
         private CookieFactory $cookieFactory,
     ) {
@@ -35,7 +34,7 @@ final readonly class JWTEventService
         $this->setCookieForResponse($event, $token);
 
         $event->setData(
-            $this->createApiResponse($this->createDataForApiResponse($user))
+            [$this->createApiResponse($this->createDataForApiResponse($user))]
         );
     }
 
@@ -62,7 +61,7 @@ final readonly class JWTEventService
         );
 
         $event->setResponse(
-            $this->responseService->createJsonResponse($apiResponse, Response::HTTP_UNAUTHORIZED)
+            new JsonResponse($apiResponse, Response::HTTP_UNAUTHORIZED)
         );
     }
 

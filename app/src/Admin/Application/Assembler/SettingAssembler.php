@@ -12,12 +12,12 @@ use App\Admin\Application\DTO\Response\Setting\SettingValueResponse;
 use App\Admin\Domain\Enums\SettingValueType;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Admin\Domain\Repository\CurrencyRepositoryInterface;
+use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\Entity\Category;
 use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Shared\Domain\Enums\SettingType;
-use App\Utils\Utils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class SettingAssembler
@@ -86,7 +86,7 @@ final readonly class SettingAssembler
 
         return new SettingValueResponse(
             type: SettingValueType::SELECT,
-            value: Utils::buildSelectedOptions(
+            value: ArrayUtils::buildSelectedOptions(
                 $values,
                 fn (Currency $currency) => $currency->getName(),
                 fn (Currency $currency) => $currency->getId()
@@ -101,7 +101,7 @@ final readonly class SettingAssembler
 
         return new SettingValueResponse(
             type: SettingValueType::MULTI_SELECT,
-            value: Utils::buildSelectedOptions(
+            value: ArrayUtils::buildSelectedOptions(
                 $values,
                 fn (Category $category) => $category->getName(),
                 fn (Category $category) => $category->getId(),
@@ -130,7 +130,7 @@ final readonly class SettingAssembler
      */
     private function buildTranslatedOptionsForSettingTypeEnum(array $types): array
     {
-        return Utils::buildSelectedOptions(
+        return ArrayUtils::buildSelectedOptions(
             items: $types,
             labelCallback: fn (SettingType $type) => $this->translator->trans("base.setting_type.{$type->value}"),
             valueCallback: fn (SettingType $type) => $type->value,

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\DTO\Response;
 
-use App\DTO\Admin\Response\ResponseInterfaceData;
+
 use Symfony\Component\HttpFoundation\Response;
 
-final readonly class ApiErrorResponse implements ResponseInterfaceData, \JsonSerializable
+final readonly class ApiErrorResponse implements  \JsonSerializable
 {
     /** @param array<string, mixed>|null $details */
     public function __construct(

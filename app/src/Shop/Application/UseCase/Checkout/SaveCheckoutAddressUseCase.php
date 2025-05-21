@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Checkout;
 
-use App\DTO\Shop\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Entity\Cart;
 use App\Entity\Order;
 use App\Manager\OrderManager;
+use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
 
 
 class SaveCheckoutAddressUseCase

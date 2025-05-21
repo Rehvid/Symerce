@@ -4,84 +4,28 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\Web;
 
-use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
-use App\DTO\Shop\Response\Category\CategoryIndexResponseDTO;
 use App\Entity\Category;
-use App\Entity\Product;
-use App\Service\FileService;
-use App\Shared\Application\Service\SettingsService;
-use App\Shared\Domain\ValueObject\Money;
+use App\Shop\Application\UseCase\Category\GetByIdCategoryUseCase;
+use App\Shop\Application\UseCase\Category\ListCategoryUseCase;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-class CategoryController extends AbstractShopController
+final class CategoryController extends AbstractController
 {
-    public function __construct(
-        private readonly CategoryDoctrineRepository $categoryRepository,
-        private readonly FileService                $fileService,
-        private readonly SettingsService            $settingManager,
-        TranslatorInterface                         $translator
-    ) {
-        parent::__construct($translator);
-    }
 
     #[Route('/kategorie', name: 'shop.categories', methods: ['GET'])]
-    public function index(): Response
+    public function list(ListCategoryUseCase $useCase): Response
     {
-        $categories = $this->categoryRepository->findBy(['isActive' => true], ['order' => 'ASC']);
-
-        $data = array_map(function (Category $category) {
-            return CategoryIndexResponseDTO::fromArray([
-                'name' => $category->getName(),
-                'slug' => $category->getSlug(),
-                'productCount' => $category->getProducts()->count(),
-                'imagePath' => $this->fileService->preparePublicPathToFile($category->getImage()?->getPath()),
-            ]);
-        }, $categories);
-
-        return $this->render('shop/category/index.html.twig', [
-            'categories' => $data
-        ]);
+        return $this->render('shop/category/index.html.twig', $useCase->execute());
     }
 
     #[Route('/kategoria/{slug}', name: 'shop.category_show', methods: ['GET'])]
-    public function show(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category): Response
-    {
-        $this->ensurePageIsActive($category);
-
-
-        //TODO: Create responseMapper and DTO
-        $subcategories = array_map(function (Category $category) {
-            return [
-                'name' => $category->getName(),
-                'href' => $this->generateUrl('shop.category_show', ['slug' => $category->getSlug()]),
-                'image' => $this->fileService->preparePublicPathToFile($category->getImage()?->getPath()),
-            ];
-        }, $category->getChildren()->toArray());
-
-        $currency = $this->settingManager->findDefaultCurrency();
-
-        $products = array_map(function (Product $product) use ($category, $currency) {
-            $discountPrice = $product->getDiscountPrice() === null
-                ? null
-                : (new Money($product->getDiscountPrice(), $currency))->getFormattedAmountWithSymbol();
-
-            return [
-                'name' => $product->getName(),
-                'url' => $this->generateUrl('shop.product_show', ['slugCategory' => $category->getSlug(),'slug' => $product->getSlug()]),
-                'thumbnail' => $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile()?->getPath()),
-                'discountPrice' => $discountPrice,
-                'regularPrice' => (new Money($product->getRegularPrice(), $currency))->getFormattedAmountWithSymbol(),
-                'hasPromotion' => $discountPrice !== null,
-            ];
-        }, $category->getProducts()->toArray());
-
-        return $this->render('shop/category/show.html.twig', [
-            'category' => $category,
-            'subcategories' => $subcategories,
-            'products' => $products,
-        ]);
+    public function show(
+        #[MapEntity(mapping: ['slug' => 'slug'])] Category $category,
+        GetByIdCategoryUseCase $useCase
+    ): Response {
+        return $this->render('shop/category/show.html.twig', $useCase->execute($category));
     }
 }

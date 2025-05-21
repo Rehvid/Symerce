@@ -47,4 +47,6 @@ abstract class DoctrineRepository
     {
         return $this->find($id);
     }
+
+
 }

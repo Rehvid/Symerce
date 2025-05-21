@@ -4,24 +4,25 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\DTO\Shop\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Entity\Carrier;
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Order;
 use App\Entity\Payment;
 use App\Entity\PaymentMethod;
-use App\Service\CartService;
 use App\Shared\Domain\Enums\CheckoutStep;
 use App\Shared\Domain\Enums\PaymentStatus;
 use App\Shared\Infrastructure\Repository\OrderRepository;
+use App\Shop\Application\Assembler\CartAssembler;
+use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
 
+/** @deprecated */
 class OrderManager
 {
     public function __construct(
-        private readonly CartService $cartService,
-        private readonly OrderRepository $orderRepository,
-        private readonly AddressManager $addressManager,
+        private readonly CartAssembler         $cartService,
+        private readonly OrderRepository       $orderRepository,
+        private readonly AddressManager        $addressManager,
         private readonly ContactDetailsManager $contactDetailsManager,
     ) {
     }

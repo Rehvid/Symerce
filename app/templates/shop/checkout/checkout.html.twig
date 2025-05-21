@@ -8,7 +8,7 @@
 
     {% set meta = meta|default({}) %}
     {% set metaSettings = getMeta() %}
-    {% set metaTitle = metaSettings[enum('App\\Shared\Domain\Enums\\SettingType').META_SHOP_TITLE.name]|default('shop.meta.title'|trans) %}
+    {% set metaTitle = metaSettings[enum('App\\Shared\\Domain\\Enums\\SettingType').META_SHOP_TITLE.name]|default('shop.meta.title'|trans) %}
 
     {% block meta %}
         {% set metaDescription = metaSettings[enum('App\\Shared\\Domain\\Enums\\SettingType').META_SHOP_DESCRIPTION.name]|default('shop.meta.description'|trans) %}
@@ -20,13 +20,13 @@
         <meta property="og:description" content="{{ metaOgDescription }}" />
     {% endblock %}
 
-    {% if enum('App\\Enums\\CheckoutStep').ADDRESS == step %}
+    {% if enum('App\\Shared\\Domain\\Enums\\CheckoutStep').ADDRESS == step %}
         <title>{{ 'shop.common.address'|trans }}</title>
-    {% elseif enum('App\\Enums\\CheckoutStep').PAYMENT == step %}
+    {% elseif enum('App\\Shared\\Domain\\Enums\\CheckoutStep').PAYMENT == step %}
         <title>{{ 'shop.common.payment'|trans }}</title>
-    {% elseif enum('App\\Enums\\CheckoutStep').CONFIRMATION == step %}
+    {% elseif enum('App\\Shared\\Domain\\Enums\\CheckoutStep').CONFIRMATION == step %}
         <title>{{ 'shop.common.confirmation'|trans }}</title>
-    {% elseif enum('App\\Enums\\CheckoutStep').THANK_YOU == step %}
+    {% elseif enum('App\\Shared\\Domain\\Enums\\CheckoutStep').THANK_YOU == step %}
         <title>{{ 'shop.common.thank_you'|trans }}</title>
     {% endif %}
 
