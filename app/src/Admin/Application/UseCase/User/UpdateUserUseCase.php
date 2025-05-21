@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\User;
 
 use App\Admin\Application\Hydrator\UserHydrator;
+use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Repository\UserRepositoryInterface;
-use App\Entity\User;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Application\UseCases\Base\UpdateUseCaseInterface;

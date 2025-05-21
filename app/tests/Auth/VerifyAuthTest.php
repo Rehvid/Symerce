@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Auth;
 
-use App\Entity\User;
+use App\Admin\Domain\Entity\User;
 use App\Tests\ApiTestCase;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\BrowserKit\Cookie;

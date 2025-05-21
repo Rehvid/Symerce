@@ -8,7 +8,7 @@ use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\Carrier\CarrierFormResponse;
 use App\Admin\Application\DTO\Response\Carrier\CarrierListResponse;
 use App\Admin\Application\Service\FileService;
-use App\Entity\Carrier;
+use App\Admin\Domain\Entity\Carrier;
 use App\Shared\Application\Factory\MoneyFactory;
 
 final readonly class CarrierAssembler

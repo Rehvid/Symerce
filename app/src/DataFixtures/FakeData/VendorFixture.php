@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures\FakeData;
 
-use App\Entity\Vendor;
+use App\Admin\Domain\Entity\Vendor;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;

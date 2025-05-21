@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Setting\SaveSettingRequest;
-use App\Entity\Setting;
+use App\Admin\Domain\Entity\Setting;
 use App\Shared\Domain\Enums\SettingType;
 
 final readonly class SettingHydrator

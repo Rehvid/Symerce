@@ -7,7 +7,7 @@ namespace App\Admin\Application\Assembler;
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\Vendor\VendorFormResponse;
 use App\Admin\Application\DTO\Response\Vendor\VendorListResponse;
-use App\Entity\Vendor;
+use App\Admin\Domain\Entity\Vendor;
 
 final readonly class VendorAssembler
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\Web;
 
-use App\Entity\Category;
+use App\Admin\Domain\Entity\Category;
 use App\Shop\Application\UseCase\Category\GetByIdCategoryUseCase;
 use App\Shop\Application\UseCase\Category\ListCategoryUseCase;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;

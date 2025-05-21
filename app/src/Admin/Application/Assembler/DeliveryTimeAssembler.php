@@ -8,9 +8,9 @@ use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\DeliveryTime\DeliveryTimeCreateFormResponse;
 use App\Admin\Application\DTO\Response\DeliveryTime\DeliveryTimeFormResponse;
 use App\Admin\Application\DTO\Response\DeliveryTime\DeliveryTimeListResponse;
+use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Enums\DeliveryType;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
-use App\Entity\DeliveryTime;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class DeliveryTimeAssembler

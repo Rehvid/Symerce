@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Repository\UserRepositoryInterface;
-use App\Entity\User;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;

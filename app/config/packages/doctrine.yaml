@@ -24,6 +24,25 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+            Admin:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Admin/Domain/Entity'
+                prefix: 'App\Admin\Domain\Entity'
+                alias: Admin
+            Shop:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Shop/Domain/Entity'
+                prefix: 'App\Shop\Domain\Entity'
+                alias: Shop
+            Shared:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Shared/Domain/Entity'
+                prefix: 'App\Shared\Domain\Entity'
+                alias: Shared
+
         controller_resolver:
             auto_mapping: false
 

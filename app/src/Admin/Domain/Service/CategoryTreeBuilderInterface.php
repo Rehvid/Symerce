@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Service;
 
-use App\Entity\Category;
+use App\Admin\Domain\Entity\Category;
 
 interface CategoryTreeBuilderInterface
 {

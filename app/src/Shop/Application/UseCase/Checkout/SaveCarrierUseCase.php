@@ -2,13 +2,13 @@
 
 namespace App\Shop\Application\UseCase\Checkout;
 
-use App\Entity\Carrier;
-use App\Entity\Order;
-use App\Manager\OrderManager;
+use App\Admin\Domain\Entity\Carrier;
+use App\Shared\Domain\Entity\Order;
+use App\Shop\Application\Service\OrderCheckoutService;
 
 final class SaveCarrierUseCase
 {
-    public function __construct(private readonly OrderManager $orderManager)
+    public function __construct(private readonly OrderCheckoutService $orderManager)
     {
     }
 

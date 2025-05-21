@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\DTO\Response\Product;
 
-use App\Entity\Vendor;
+use App\Admin\Domain\Entity\Vendor;
 use Doctrine\Common\Collections\Collection;
 
 final readonly class ProductShowResponse

@@ -8,9 +8,9 @@ use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\User\UserCreateFormResponse;
 use App\Admin\Application\DTO\Response\User\UserFormResponse;
 use App\Admin\Application\DTO\Response\User\UserListResponse;
+use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Enums\AdminRole;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
-use App\Entity\User;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class UserAssembler

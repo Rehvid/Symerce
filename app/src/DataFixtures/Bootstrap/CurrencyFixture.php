@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\Bootstrap;
 
+use App\Admin\Domain\Entity\Currency;
 use App\DataFixtures\Data\CurrencyData;
-use App\Entity\Currency;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;

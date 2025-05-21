@@ -6,8 +6,8 @@ namespace App\Admin\Infrastructure\DataProvider;
 
 use App\Admin\Application\Contract\ReactDataProviderInterface;
 use App\Admin\Application\DTO\Response\ProviderResponse;
+use App\Admin\Domain\Entity\Setting;
 use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
-use App\Entity\Setting;
 use App\Shared\Application\Service\SettingsService;
 use App\Shared\Domain\Enums\SettingType;
 

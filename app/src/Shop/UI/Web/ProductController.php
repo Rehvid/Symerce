@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\Web;
 
-use App\Entity\Product;
+use App\Admin\Domain\Entity\Product;
 use App\Shop\Application\UseCase\Product\GetByIdProductUseCase;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

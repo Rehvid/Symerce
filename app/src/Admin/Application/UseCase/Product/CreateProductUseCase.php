@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\UseCase\Product;
 
-use App\Admin\Application\Assembler\ProductAssembler;
 use App\Admin\Application\Hydrator\ProductHydrator;
+use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Repository\ProductRepositoryInterface;
-use App\Entity\Product;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;

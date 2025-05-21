@@ -6,8 +6,8 @@ namespace App\Admin\Application\UseCase\PaymentMethod;
 
 use App\Admin\Application\DTO\Request\PaymentMethod\SavePaymentMethodRequest;
 use App\Admin\Application\Hydrator\PaymentMethodHydrator;
+use App\Admin\Domain\Entity\PaymentMethod;
 use App\Admin\Domain\Repository\PaymentMethodRepositoryInterface;
-use App\Entity\PaymentMethod;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;

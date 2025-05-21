@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace App\Shop\Application\Assembler;
 
 use App\Admin\Application\Service\FileService;
+use App\Admin\Domain\Entity\Product;
+use App\Admin\Domain\Entity\ProductImage;
 use App\Admin\Domain\Repository\CarrierRepositoryInterface;
-use App\Entity\Category;
-use App\Entity\Product;
-use App\Entity\ProductImage;
 use App\Shared\Application\Factory\MoneyFactory;
 use App\Shared\Application\Service\SettingsService;
 use App\Shared\Domain\Enums\SettingType;
-use App\Shared\Domain\ValueObject\Money;
 use App\Shop\Application\DTO\Response\Product\ProductShowResponse;
 
 final readonly class ProductAssembler

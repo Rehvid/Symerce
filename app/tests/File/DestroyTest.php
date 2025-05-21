@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\File;
 
+use App\Admin\Domain\Entity\File;
 use App\Admin\Domain\Enums\FileMimeType;
-use App\Entity\File;
 use App\Tests\ApiTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

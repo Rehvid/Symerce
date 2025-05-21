@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Service;
 
+use App\Admin\Domain\Entity\Category;
+use App\Admin\Domain\Entity\Currency;
+use App\Admin\Domain\Entity\Setting;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Admin\Domain\Repository\CurrencyRepositoryInterface;
 use App\Admin\Domain\Repository\SettingRepositoryInterface;
 use App\Admin\Domain\ValueObject\JsonData;
-use App\Entity\Category;
-use App\Entity\Currency;
-use App\Entity\Setting;
 use App\Shared\Domain\Enums\SettingType;
 use App\Shop\Application\DTO\Response\SettingShopCategoryResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

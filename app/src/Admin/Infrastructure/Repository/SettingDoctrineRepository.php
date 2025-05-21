@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Entity\Setting;
 use App\Admin\Domain\Repository\SettingRepositoryInterface;
-use App\Entity\Setting;
 use App\Shared\Domain\Enums\SettingType;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 

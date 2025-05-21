@@ -5,8 +5,8 @@ declare (strict_types = 1);
 namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\DeliveryTime\SaveDeliveryTimeRequest;
+use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Enums\DeliveryType;
-use App\Entity\DeliveryTime;
 
 final readonly class DeliveryTimeHydrator
 {

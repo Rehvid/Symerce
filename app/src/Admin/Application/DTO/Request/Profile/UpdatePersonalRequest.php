@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Request\Profile;
 
+use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Model\FileData;
-use App\Entity\User;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Validator\UniqueEntityField as CustomAssertUniqueEmail;

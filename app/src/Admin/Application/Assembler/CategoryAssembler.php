@@ -9,7 +9,7 @@ use App\Admin\Application\DTO\Response\Category\CategoryFormResponse;
 use App\Admin\Application\DTO\Response\Category\CategoryListResponse;
 use App\Admin\Application\DTO\Response\Category\CategoryTreeResponse;
 use App\Admin\Application\Provider\CategoryTreeProvider;
-use App\Entity\Category;
+use App\Admin\Domain\Entity\Category;
 
 final readonly class CategoryAssembler
 {

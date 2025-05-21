@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Product\SaveProductRequest;
+use App\Admin\Domain\Entity\Attribute;
+use App\Admin\Domain\Entity\AttributeValue;
+use App\Admin\Domain\Entity\Category;
+use App\Admin\Domain\Entity\DeliveryTime;
+use App\Admin\Domain\Entity\Product;
+use App\Admin\Domain\Entity\Tag;
+use App\Admin\Domain\Entity\Vendor;
 use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
 use App\Admin\Infrastructure\Slug\SluggerService;
 use App\DTO\Admin\Request\FileRequestDTO;
-use App\Entity\Attribute;
-use App\Entity\AttributeValue;
-use App\Entity\Category;
-use App\Entity\DeliveryTime;
-use App\Entity\Product;
-use App\Entity\Tag;
-use App\Entity\Vendor;
 use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class ProductHydrator

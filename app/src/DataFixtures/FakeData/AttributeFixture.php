@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures\FakeData;
 
-use App\Entity\Attribute;
-use App\Entity\AttributeValue;
+use App\Admin\Domain\Entity\Attribute;
+use App\Admin\Domain\Entity\AttributeValue;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;

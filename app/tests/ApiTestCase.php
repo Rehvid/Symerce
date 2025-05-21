@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\Admin\Domain\Entity\User;
 use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\DTO\Admin\Request\User\StoreRegisterUserRequestDTO;
-use App\Entity\User;
 use App\Service\DataPersister\Persisters\Admin\User\UserRegisterCreatePersister;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

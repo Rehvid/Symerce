@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Cart;
 
-use App\Entity\Cart;
+use App\Shared\Domain\Entity\Cart;
 use App\Shop\Application\DTO\Request\Cart\ChangeQuantityProductRequest;
 use App\Shop\Application\DTO\Response\Cart\CartSaveResponse;
 use App\Shop\Application\Service\CartService;

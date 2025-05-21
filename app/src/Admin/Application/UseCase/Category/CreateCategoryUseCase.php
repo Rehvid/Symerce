@@ -6,8 +6,8 @@ namespace App\Admin\Application\UseCase\Category;
 
 use App\Admin\Application\DTO\Request\Category\SaveCategoryRequest;
 use App\Admin\Application\Hydrator\CategoryHydrator;
+use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
-use App\Entity\Category;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;

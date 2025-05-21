@@ -2,8 +2,8 @@
 
 namespace App\Admin\Infrastructure\Repository;
 
+use App\Admin\Domain\Entity\Carrier;
 use App\Admin\Domain\Repository\CarrierRepositoryInterface;
-use App\Entity\Carrier;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class CarrierDoctrineRepository extends AbstractCriteriaRepository implements CarrierRepositoryInterface

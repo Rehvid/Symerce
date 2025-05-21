@@ -2,19 +2,24 @@
 
 namespace App\Shop\Application\Assembler;
 
-use App\Entity\Cart;
-use App\Entity\CartItem;
-use App\Entity\Order;
-use App\Entity\OrderItem;
+use App\Admin\Application\Service\FileService;
 use App\Shared\Application\Service\SettingsService;
+use App\Shared\Domain\Entity\Cart;
+use App\Shared\Domain\Entity\CartItem;
+use App\Shared\Domain\Entity\Order;
+use App\Shared\Domain\Entity\OrderItem;
+use App\Shop\Application\DTO\Response\Cart\CartItemResponse;
+use App\Shop\Application\DTO\Response\Cart\CartResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class CartAssembler
+final readonly class CartAssembler
 {
      public function __construct(
-         private readonly SettingsService $settingManager,
+         private SettingsService $settingManager,
+         private UrlGeneratorInterface $urlGenerator,
+         private FileService $fileService
      ) {
      }
-
 
     public function transformCartItemToOrderItem(Order $order, CartItem $cartItem): OrderItem
     {
@@ -43,5 +48,41 @@ class CartAssembler
         }
 
         return $total;
+    }
+
+    public function mapCartToResponse(Cart $cart): CartResponse
+    {
+        $cartItemResponses = array_map(
+            fn(CartItem $item) => $this->mapCartItemToResponse($item),
+            $cart->getItems()->toArray()
+        );
+
+        return new CartResponse(
+            id: $cart->getId(),
+            cartItems: $cartItemResponses,
+        );
+    }
+
+    public function mapCartItemToResponse(CartItem $cartItem): CartItemResponse
+    {
+        $product = $cartItem->getProduct();
+        return new CartItemResponse(
+            id: $cartItem->getId(),
+            quantity: $cartItem->getQuantity(),
+            price: $cartItem->getPrice(),
+            productId: $product->getId(),
+            productName: $product->getName(),
+            productUrl: $this->urlGenerator->generate(
+                'shop.product_show',
+                [
+                    'slug' => $product->getSlug(),
+                    'slugCategory' => $product->getCategories()->first()->getSlug()
+                ],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
+            productImage: $this->fileService->preparePublicPathToFile(
+                $product->getThumbnailImage()?->getFile()?->getPath()
+            ),
+        );
     }
 }

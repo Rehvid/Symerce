@@ -7,7 +7,7 @@ namespace App\Admin\Application\Assembler;
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\PaymentMethod\PaymentMethodFormResponse;
 use App\Admin\Application\DTO\Response\PaymentMethod\PaymentMethodListResponse;
-use App\Entity\PaymentMethod;
+use App\Admin\Domain\Entity\PaymentMethod;
 use App\Shared\Application\Factory\MoneyFactory;
 
 final readonly class PaymentMethodAssembler

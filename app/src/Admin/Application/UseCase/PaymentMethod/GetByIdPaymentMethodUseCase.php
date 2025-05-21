@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\PaymentMethod;
 
 use App\Admin\Application\Assembler\PaymentMethodAssembler;
+use App\Admin\Domain\Entity\PaymentMethod;
 use App\Admin\Domain\Repository\PaymentMethodRepositoryInterface;
-use App\Entity\PaymentMethod;
 use App\Shared\Application\UseCases\Base\GetByIdUseCaseInterface;
 use Doctrine\ORM\EntityNotFoundException;
 

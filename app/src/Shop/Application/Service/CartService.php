@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Service;
 
+use App\Admin\Domain\Entity\Product;
 use App\Admin\Infrastructure\Repository\ProductDoctrineRepository;
-use App\Entity\Cart;
-use App\Entity\CartItem;
-use App\Entity\Product;
+use App\Shared\Domain\Entity\Cart;
+use App\Shared\Domain\Entity\CartItem;
 use App\Shared\Infrastructure\Repository\CartDoctrineRepository;
 use App\Shared\Infrastructure\Service\CartTokenGenerator;
 use App\Shop\Application\DTO\Request\Cart\ChangeQuantityProductRequest;
@@ -168,3 +168,7 @@ final readonly class CartService
         return $this->productRepository->find($productId);
     }
 }
+
+
+
+

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Service;
 
-use App\Entity\Cart;
+use App\Shared\Domain\Entity\Cart;
 use App\Shared\Domain\Repository\CartRepositoryInterface;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\HttpFoundation\RequestStack;

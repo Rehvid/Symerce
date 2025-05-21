@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Category;
 
+use App\Admin\Domain\Entity\Category;
 use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\DTO\Admin\Request\Category\SaveCategoryRequestDTO;
-use App\Entity\Category;
 use App\Factory\PersistableDTOFactory;
 use App\Service\DataPersister\Persisters\Admin\Category\CategoryCreatePersister;
 use App\Tests\ApiTestCase;

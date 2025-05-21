@@ -7,7 +7,7 @@ namespace App\Admin\Application\Assembler;
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\Tag\TagFormResponse;
 use App\Admin\Application\DTO\Response\Tag\TagListResponse;
-use App\Entity\Tag;
+use App\Admin\Domain\Entity\Tag;
 
 final readonly class TagAssembler
 {

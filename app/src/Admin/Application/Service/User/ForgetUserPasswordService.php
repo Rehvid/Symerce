@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Admin\Application\Service\User;
 
 use App\Admin\Application\DTO\Request\Auth\ForgotPasswordRequest;
+use App\Admin\Domain\Entity\User;
+use App\Admin\Domain\Entity\UserToken;
 use App\Admin\Domain\Enums\TokenType;
 use App\Admin\Domain\Repository\UserRepositoryInterface;
 use App\Admin\Domain\Repository\UserTokenRepositoryInterface;
-use App\Entity\User;
-use App\Entity\UserToken;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\DTO\Response\MailResponse;

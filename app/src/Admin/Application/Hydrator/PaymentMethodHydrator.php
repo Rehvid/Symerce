@@ -6,7 +6,7 @@ namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\PaymentMethod\SavePaymentMethodRequest;
 use App\Admin\Application\Service\FileService;
-use App\Entity\PaymentMethod;
+use App\Admin\Domain\Entity\PaymentMethod;
 
 
 final readonly class PaymentMethodHydrator

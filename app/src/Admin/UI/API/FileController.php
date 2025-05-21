@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\UI\API;
 
 use App\Admin\Application\UseCase\File\DeleteFileUseCase;
-use App\Entity\File;
+use App\Admin\Domain\Entity\File;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\Tag;
 
 use App\Admin\Application\Hydrator\TagHydrator;
+use App\Admin\Domain\Entity\Tag;
 use App\Admin\Domain\Repository\TagRepositoryInterface;
-use App\Entity\Tag;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;

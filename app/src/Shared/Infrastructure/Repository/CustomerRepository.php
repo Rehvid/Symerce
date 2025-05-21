@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Repository;
 
-use App\Entity\Customer;
+use App\Shop\Domain\Entity\Customer;
 
 class CustomerRepository extends DoctrineRepository
 {

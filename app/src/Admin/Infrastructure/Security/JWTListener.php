@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Security;
 
-use App\Entity\User;
+use App\Admin\Domain\Entity\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationFailureEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTExpiredEvent;

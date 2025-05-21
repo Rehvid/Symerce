@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures\FakeData;
 
-use App\Entity\Tag;
+use App\Admin\Domain\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;

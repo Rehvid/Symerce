@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Admin\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Application\DTO\Response\Attribute\AttributeFormResponse;
 use App\Admin\Application\DTO\Response\AttributeValue\AttributeValueFormResponse;
 use App\Admin\Application\DTO\Response\AttributeValue\AttributeValueListResponse;
-use App\Entity\AttributeValue;
+use App\Admin\Domain\Entity\AttributeValue;
 
 final readonly class AttributeValueAssembler
 {

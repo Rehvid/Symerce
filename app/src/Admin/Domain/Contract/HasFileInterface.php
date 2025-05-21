@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Contract;
 
-use App\Entity\File;
+use App\Admin\Domain\Entity\File;
 
 interface HasFileInterface
 {

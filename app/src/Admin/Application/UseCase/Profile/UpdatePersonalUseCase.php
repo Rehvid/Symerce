@@ -7,8 +7,8 @@ namespace App\Admin\Application\UseCase\Profile;
 use App\Admin\Application\Assembler\ProfileAssembler;
 use App\Admin\Application\DTO\Request\Profile\UpdatePersonalRequest;
 use App\Admin\Application\Hydrator\ProfilePersonalHydrator;
+use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Repository\UserRepositoryInterface;
-use App\Entity\User;
 
 final readonly class UpdatePersonalUseCase
 {

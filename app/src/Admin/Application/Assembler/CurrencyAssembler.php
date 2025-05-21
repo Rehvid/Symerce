@@ -7,7 +7,7 @@ namespace App\Admin\Application\Assembler;
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\Currency\CurrencyFormResponse;
 use App\Admin\Application\DTO\Response\Currency\CurrencyListResponse;
-use App\Entity\Currency;
+use App\Admin\Domain\Entity\Currency;
 
 final readonly class CurrencyAssembler
 {

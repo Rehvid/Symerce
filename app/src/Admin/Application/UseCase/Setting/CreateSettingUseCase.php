@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\Setting;
 
 use App\Admin\Application\Hydrator\SettingHydrator;
+use App\Admin\Domain\Entity\Setting;
 use App\Admin\Domain\Repository\SettingRepositoryInterface;
-use App\Entity\Setting;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\Attribute;
 
 use App\Admin\Application\Hydrator\AttributeHydrator;
+use App\Admin\Domain\Entity\Attribute;
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
-use App\Entity\Attribute;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Application\UseCases\Base\CreateUseCaseInterface;

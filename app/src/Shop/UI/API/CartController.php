@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\API;
 
-use App\Entity\CartItem;
 use App\Service\CookieManager;
 use App\Service\Response\ResponseService;
 use App\Shared\Application\DTO\Response\ApiResponse;
+use App\Shared\Domain\Entity\CartItem;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\CookieFactory;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;

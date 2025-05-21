@@ -6,7 +6,7 @@ namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\User\SaveUseRequest;
 use App\Admin\Application\Service\FileService;
-use App\Entity\User;
+use App\Admin\Domain\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final readonly class UserHydrator

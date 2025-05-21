@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Checkout;
 
-use App\Entity\Order;
-use App\Entity\PaymentMethod;
-use App\Manager\OrderManager;
+use App\Admin\Domain\Entity\PaymentMethod;
+use App\Shared\Domain\Entity\Order;
+use App\Shop\Application\Service\OrderCheckoutService;
 
 final class SavePaymentMethodUseCase
 {
-    public function __construct(private readonly OrderManager $orderManager) {}
+    public function __construct(private readonly OrderCheckoutService $orderManager) {}
 
     public function execute(PaymentMethod $paymentMethod, Order $order): Order
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Repository;
 
-use App\Entity\Setting;
+use App\Admin\Domain\Entity\Setting;
 use App\Shared\Domain\Enums\SettingType;
 use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
