@@ -9,7 +9,7 @@ use App\DTO\Shop\Response\Category\CategoryIndexResponseDTO;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Service\FileService;
-use App\Service\SettingManager;
+use App\Shared\Application\Service\SettingsService;
 use App\Shared\Domain\ValueObject\Money;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ class CategoryController extends AbstractShopController
     public function __construct(
         private readonly CategoryDoctrineRepository $categoryRepository,
         private readonly FileService                $fileService,
-        private readonly SettingManager             $settingManager,
+        private readonly SettingsService            $settingManager,
         TranslatorInterface                         $translator
     ) {
         parent::__construct($translator);

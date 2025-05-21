@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Domain\Repository;
 
 use App\Entity\Setting;
+use App\Shared\Domain\Enums\SettingType;
 use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
 interface SettingRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
@@ -20,4 +21,6 @@ interface SettingRepositoryInterface extends QueryRepositoryInterface, ReadWrite
      * @return Setting[]
      */
     public function findAllMetaSettings(): array;
+
+    public function findByType(SettingType $type): ?Setting;
 }

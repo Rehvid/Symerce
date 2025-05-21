@@ -6,11 +6,12 @@ use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Order;
 use App\Entity\OrderItem;
+use App\Shared\Application\Service\SettingsService;
 
 class CartService
 {
      public function __construct(
-         private readonly SettingManager $settingManager,
+         private readonly SettingsService $settingManager,
      )
      {
      }

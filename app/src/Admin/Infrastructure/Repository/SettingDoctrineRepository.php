@@ -52,4 +52,9 @@ class SettingDoctrineRepository extends AbstractCriteriaRepository implements Se
             ->getQuery()
             ->getResult();
     }
+
+    public function findByType(SettingType $type): ?Setting
+    {
+        return $this->findOneBy(['type' => $type]);
+    }
 }

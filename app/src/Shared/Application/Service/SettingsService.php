@@ -2,41 +2,39 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Shared\Application\Service;
 
+use App\Admin\Domain\Repository\CategoryRepositoryInterface;
+use App\Admin\Domain\Repository\CurrencyRepositoryInterface;
+use App\Admin\Domain\Repository\SettingRepositoryInterface;
 use App\Admin\Domain\ValueObject\JsonData;
-use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
-use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
-use App\DTO\Shop\Response\Setting\SettingShopCategoryDTOResponse;
 use App\Entity\Category;
 use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Shared\Domain\Enums\SettingType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Shop\Application\DTO\Response\SettingShopCategoryResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class SettingManager
+final readonly class SettingsService
 {
-    private SettingDoctrineRepository $settingRepository;
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly UrlGeneratorInterface $urlGenerator,
+        private SettingRepositoryInterface $settingRepository,
+        private CategoryRepositoryInterface $categoryRepository,
+        private CurrencyRepositoryInterface $currencyRepository,
+        private UrlGeneratorInterface $urlGenerator,
     ) {
-        /** @var SettingDoctrineRepository $settingRepository */
-        $settingRepository = $this->entityManager->getRepository(Setting::class);
-        $this->settingRepository = $settingRepository;
     }
 
     public function get(SettingType $type): ?Setting
     {
-        return $this->settingRepository->findOneBy(['type' => $type]);
+        return $this->settingRepository->findByType($type);
     }
 
     public function findDefaultCurrency(): Currency
     {
         /** @var Setting|null $setting */
-        $setting = $this->settingRepository->findOneBy(['type' => SettingType::CURRENCY]);
+        $setting = $this->get(SettingType::CURRENCY);
 
         if (null === $setting) {
             throw new \LogicException('Default Currency not found');
@@ -44,7 +42,8 @@ final class SettingManager
 
         $value = new JsonData($setting->getValue());
 
-        $currency = $this->entityManager->getRepository(Currency::class)->find($value->get('id'));
+        /** @var Currency $currency */
+        $currency = $this->currencyRepository->findById($value->get('id'));
 
         if (null === $currency) {
             throw new \LogicException('Default Currency not found');
@@ -70,7 +69,7 @@ final class SettingManager
     public function getShopCategories(): array
     {
         /** @var ?Setting $menuSettings */
-        $menuSettings = $this->settingRepository->findOneBy(['type' => SettingType::SHOP_CATEGORIES]);
+        $menuSettings = $this->get(SettingType::SHOP_CATEGORIES);
 
         if (null === $menuSettings) {
             return [];
@@ -83,23 +82,23 @@ final class SettingManager
             $idCategories[] = $value['id'];
         }
 
-        /** @var CategoryDoctrineRepository $categoryRepository */
-        $categoryRepository = $this->entityManager->getRepository(Category::class);
-
         /** @var Category[] $categories */
-        $categories = $categoryRepository->findBy(['id' => $idCategories, 'isActive' => true]);
+        $categories = $this->categoryRepository->findBy(['id' => $idCategories, 'isActive' => true]);
 
         if (empty($categories)) {
             return [];
         }
 
-        return array_map(function (Category $category) {
-            $url = $this->urlGenerator->generate('shop.category_show', ['slug' => $category->getSlug()]);
+        return array_map(fn (Category $category)  => $this->createSettingShopCategoryResponse($category), $categories);
+    }
 
-            return SettingShopCategoryDTOResponse::fromArray([
-                'name' => $category->getName(),
-                'url' => $url,
-            ]);
-        }, $categories);
+    private function createSettingShopCategoryResponse(Category $category): SettingShopCategoryResponse
+    {
+        $url = $this->urlGenerator->generate('shop.category_show', ['slug' => $category->getSlug()]);
+
+        return new SettingShopCategoryResponse(
+            name: $category->getName(),
+            url: $url
+        );
     }
 }

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Factory;
 
-use App\Service\SettingManager;
+use App\Shared\Application\Service\SettingsService;
 use App\Shared\Domain\ValueObject\Money;
 
 final readonly class MoneyFactory
 {
     public function __construct(
-        private  SettingManager $settingManager
+        private  SettingsService $settingManager
     ) {
     }
 

@@ -8,7 +8,7 @@ use App\Admin\Infrastructure\Repository\CarrierDoctrineRepository;
 use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Service\FileService;
-use App\Service\SettingManager;
+use App\Shared\Application\Service\SettingsService;
 use App\Shared\Domain\Enums\SettingType;
 use App\Shared\Domain\ValueObject\Money;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ProductController extends AbstractShopController
 {
     public function __construct(
-        private readonly SettingManager            $settingManager,
+        private readonly SettingsService           $settingManager,
         private readonly FileService               $fileService,
         private readonly CarrierDoctrineRepository $carrierRepository,
         TranslatorInterface                        $translator

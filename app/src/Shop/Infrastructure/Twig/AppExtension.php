@@ -6,7 +6,7 @@ namespace App\Shop\Infrastructure\Twig;
 
 use App\Entity\Cart;
 use App\Service\CookieManager;
-use App\Service\SettingManager;
+use App\Shared\Application\Service\SettingsService;
 use App\Shared\Domain\Enums\CookieName;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
@@ -15,8 +15,8 @@ use Twig\TwigFunction;
 class AppExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly SettingManager $settingManager,
-        private readonly CookieManager $cookieManager,
+        private readonly SettingsService        $settingManager,
+        private readonly CookieManager          $cookieManager,
         private readonly EntityManagerInterface $entityManager,
     ) {
     }
