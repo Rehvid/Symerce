@@ -6,9 +6,9 @@ namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Repository\TagRepositoryInterface;
 use App\Entity\Tag;
-use App\Repository\Base\AbstractRepository;
+use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
-class TagDoctrineRepository extends AbstractRepository implements TagRepositoryInterface
+class TagDoctrineRepository extends AbstractCriteriaRepository implements TagRepositoryInterface
 {
     protected function getEntityClass(): string
     {
