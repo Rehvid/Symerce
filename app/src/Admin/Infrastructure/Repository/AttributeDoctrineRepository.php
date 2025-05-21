@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
-use App\Admin\Domain\Enums\OrderByField;
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
 use App\Entity\Attribute;
 use App\Entity\AttributeValue;
-use App\Repository\Base\AbstractRepository;
-use App\Service\Pagination\PaginationFilters;
-use App\Shared\Domain\Enums\DirectionType;
-use Doctrine\ORM\QueryBuilder;
+use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
-class AttributeDoctrineRepository extends AbstractRepository implements AttributeRepositoryInterface
+class AttributeDoctrineRepository extends AbstractCriteriaRepository implements AttributeRepositoryInterface
 {
     protected function getEntityClass(): string
     {
@@ -56,17 +52,6 @@ class AttributeDoctrineRepository extends AbstractRepository implements Attribut
         $qb->where($orX);
 
         return $qb->getQuery()->getResult();
-    }
-
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, PaginationFilters $paginationFilters): QueryBuilder
-    {
-        if ($paginationFilters->hasOrderBy()) {
-            return $queryBuilder;
-        }
-
-        $alias = $this->getAlias();
-
-        return $queryBuilder->orderBy("$alias.".OrderByField::ORDER->value, DirectionType::ASC->value);
     }
 
     public function getMaxOrder(): int
