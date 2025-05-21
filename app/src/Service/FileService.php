@@ -10,6 +10,7 @@ use App\Entity\File;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
+/** @deprecated  use FileService from Shared */
 readonly class FileService
 {
     public function __construct(
@@ -28,16 +29,5 @@ readonly class FileService
             ? null
             : $baseUrl.'files/'.$filePath
         ;
-    }
-
-    public function getLogoPublicPath(): string
-    {
-        /** @var string $baseUrl */
-        $baseUrl = $this->parameterBag->get('app.base_url');
-
-        /** @var string $brandLogoShort */
-        $brandLogoShort = $this->parameterBag->get('app.brand_logo_short');
-
-        return $baseUrl.$brandLogoShort;
     }
 }

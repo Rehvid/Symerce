@@ -50,6 +50,17 @@ final readonly class FileStorageService
     }
 
 
+    public function getLogoPublicPath(): string
+    {
+        /** @var string $baseUrl */
+        $baseUrl = $this->parameterBag->get('app.base_url');
+
+        /** @var string $brandLogoShort */
+        $brandLogoShort = $this->parameterBag->get('app.brand_logo_short');
+
+        return $baseUrl.$brandLogoShort;
+    }
+
     private function generateFileName(FileMimeType $mimeType): string
     {
         return bin2hex(random_bytes(16)) . '_' . time() . '.' . strtolower($mimeType->name);

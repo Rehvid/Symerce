@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Admin\Domain\ValueObject\JsonData;
 use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
 use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
 use App\DTO\Shop\Response\Setting\SettingShopCategoryDTOResponse;
@@ -11,7 +12,6 @@ use App\Entity\Category;
 use App\Entity\Currency;
 use App\Entity\Setting;
 use App\Shared\Domain\Enums\SettingType;
-use App\ValueObject\JsonData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

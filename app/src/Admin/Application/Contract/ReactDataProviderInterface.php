@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Service\DataProvider\Interface;
+namespace App\Admin\Application\Contract;
 
-interface ReactDataInterface
+interface ReactDataProviderInterface
 {
     /** @return array<int, mixed> */
     public function getData(): array;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ValueObject;
+namespace App\Admin\Domain\ValueObject;
 
 final class JsonData
 {
@@ -23,7 +23,7 @@ final class JsonData
         $this->data = $this->transformJsonToArray($value);
     }
 
-    public function getRaw(): string
+    public function getJson(): string
     {
         return $this->rawJson;
     }

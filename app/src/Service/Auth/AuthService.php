@@ -6,9 +6,9 @@ namespace App\Service\Auth;
 
 use App\Admin\Application\DTO\Response\FileResponse;
 use App\Admin\Application\DTO\Response\User\UserSessionResponse;
+use App\Admin\Application\Service\FileService;
 use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Entity\User;
-use App\Service\FileService;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Domain\Enums\CookieName;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;

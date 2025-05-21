@@ -34,10 +34,16 @@ services:
             tags: ['app.update_persister']
         App\Service\DataPersister\Filler\Interface\EntityFillerInterface:
             tags: ['app.entity_filler']
+        App\Admin\Application\Contract\ReactDataProviderInterface:
+            tags: ['app.admin.react_data_provider']
 
     App\Shared\Infrastructure\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    App\Admin\Application\Provider\ReactDataProvider:
+        arguments:
+            $providers: !tagged_iterator app.admin.react_data_provider
 
     App\Service\DataPersister\Manager\PersisterManager:
         arguments:

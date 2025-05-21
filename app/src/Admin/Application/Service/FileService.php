@@ -48,6 +48,11 @@ final readonly class FileService
         return $this->fileStorageService->preparePublicPathToFile($filePath);
     }
 
+    public function getLogoPublicPath(): ?string
+    {
+        return $this->fileStorageService->getLogoPublicPath();
+    }
+
     private function hydrate(HasFileInterface $entity, FileData $fileData, File $currentFile): void
     {
         $path = $this->fileStorageService->saveFile($fileData->content, $fileData->type);
