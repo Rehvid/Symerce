@@ -4,20 +4,10 @@ namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Repository\CarrierRepositoryInterface;
 use App\Entity\Carrier;
-use App\Factory\FilterBuilderFactory;
-use App\Repository\Base\AbstractRepository;
-use App\Service\Pagination\PaginationFilters;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
-class CarrierDoctrineRepository extends AbstractRepository implements CarrierRepositoryInterface
+class CarrierDoctrineRepository extends AbstractCriteriaRepository implements CarrierRepositoryInterface
 {
-    public function __construct(
-        ManagerRegistry $registry,
-        private readonly FilterBuilderFactory $filterBuilderFactory,
-    ) {
-        parent::__construct($registry);
-    }
 
     /** @return array<int, mixed> */
     public function findLowestAndHighestFee(): array
@@ -40,16 +30,5 @@ class CarrierDoctrineRepository extends AbstractRepository implements CarrierRep
     protected function getAlias(): string
     {
         return 'carrier';
-    }
-
-    protected function configureQueryForPagination(QueryBuilder $queryBuilder, PaginationFilters $paginationFilters): QueryBuilder
-    {
-        $filterBuilder = $this->filterBuilderFactory->create($queryBuilder, $paginationFilters, $this->getAlias());
-
-        $filterBuilder
-            ->applyIsActive()
-            ->applyBetweenValue('fee');
-
-        return parent::configureQueryForPagination($queryBuilder, $paginationFilters);
     }
 }
