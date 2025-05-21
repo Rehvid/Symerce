@@ -47,7 +47,7 @@ final readonly class SearchFilterParser implements RequestParserInterface
     {
         $requestKeys = $filterDefinition->getRequestNames();
 
-        $hasAny = array_filter($requestKeys, fn(string $key) => $request->query->has($key));
+        $hasAny = array_filter($requestKeys, fn(string $key) => $request->get($key));
         if (empty($hasAny)) {
             return null;
         }
@@ -56,7 +56,7 @@ final readonly class SearchFilterParser implements RequestParserInterface
             return $filterDefinition->castFromRequest($request);
         }
 
-        $rawValue = $request->query->get($requestKeys[0]);
+        $rawValue = $request->get($requestKeys[0]);
         return $filterDefinition->castValue($rawValue);
     }
 }
