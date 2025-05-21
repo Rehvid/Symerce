@@ -6,11 +6,9 @@ namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Repository\PaymentMethodRepositoryInterface;
 use App\Entity\PaymentMethod;
-use App\Repository\Base\AbstractRepository;
-use App\Shared\Infrastructure\Repository\DoctrineRepository;
+use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
-//TODO: Refactor Filters
-class PaymentMethodDoctrineRepository extends AbstractRepository implements PaymentMethodRepositoryInterface
+class PaymentMethodDoctrineRepository extends AbstractCriteriaRepository implements PaymentMethodRepositoryInterface
 {
     public function getMaxOrder(): int
     {
@@ -31,6 +29,5 @@ class PaymentMethodDoctrineRepository extends AbstractRepository implements Paym
     {
         return 'pm';
     }
-
 
 }

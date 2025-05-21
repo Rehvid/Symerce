@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Repository;
 
-interface PaymentMethodRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface
+use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
+
+interface PaymentMethodRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
 {
     public function getMaxOrder(): int;
 }
