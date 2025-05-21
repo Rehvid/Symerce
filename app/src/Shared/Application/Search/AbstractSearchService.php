@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Search;
 
+use App\Shared\Application\Contract\SearchParserFactoryInterface;
 use App\Shared\Application\Contract\SearchServiceInterface;
 use App\Shared\Application\DTO\Filter\SearchCriteria;
 use App\Shared\Application\DTO\Pagination\PaginationResult;
@@ -14,7 +15,9 @@ abstract class AbstractSearchService implements SearchServiceInterface
 {
     public function __construct(
         protected readonly CriteriaRepositoryInterface $repository,
-    ) {}
+        protected readonly SearchParserFactoryInterface $parserFactory,
+    ) {
+    }
 
     public function search(SearchCriteria $criteria): PaginationResult
     {

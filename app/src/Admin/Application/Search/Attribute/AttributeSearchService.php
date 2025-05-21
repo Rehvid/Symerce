@@ -7,25 +7,20 @@ use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
 use App\Shared\Application\DTO\Filter\SearchCriteria;
 use App\Shared\Application\Parser\SearchRequestParser;
 use App\Shared\Application\Search\AbstractSearchService;
-use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 final class AttributeSearchService extends AbstractSearchService
 {
-    private SearchRequestParser $parser;
 
     public function __construct(
         AttributeDoctrineRepository $repository,
         AttributeSearchParserFactory $parserFactory,
     ) {
-        parent::__construct($repository);
-
-        $this->parser = $parserFactory->create();
+        parent::__construct($repository, $parserFactory);
     }
-
 
     public function buildSearchCriteria(Request $request): SearchCriteria
     {
-       return $this->parser->parse($request);
+       return $this->parserFactory->create()->parse($request);
     }
 }
