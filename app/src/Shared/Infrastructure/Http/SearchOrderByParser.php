@@ -14,7 +14,9 @@ final readonly class SearchOrderByParser implements RequestParserInterface
     private const string ORDER_BY_FIELD_SEPARATOR = '.';
 
     public function __construct(
-        private array $allowedSortFields = []
+        private array $allowedSortFields = [],
+        private ?DirectionType $defaultDirection = null,
+        private ?string $defaultSortField = null,
     ) {
     }
 
@@ -24,6 +26,7 @@ final readonly class SearchOrderByParser implements RequestParserInterface
         $direction = $this->getDirectionValueFromRequest($request);
 
         if (null === $direction || null === $orderBy) {
+            $this->sortByDefault($builder);
             return;
         }
 
@@ -56,5 +59,14 @@ final readonly class SearchOrderByParser implements RequestParserInterface
         }
 
         return DirectionType::tryFrom($direction);
+    }
+
+    private function sortByDefault(SearchCriteriaBuilder $builder): void
+    {
+        if (null === $this->defaultDirection || null === $this->defaultSortField) {
+            return;
+        }
+
+        $builder->sortBy($this->defaultSortField, $this->defaultDirection);
     }
 }

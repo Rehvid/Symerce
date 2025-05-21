@@ -7,6 +7,7 @@ namespace App\Admin\Application\Search\Attribute;
 use App\Shared\Application\Contract\SearchParserFactoryInterface;
 use App\Shared\Application\Filter\BasicFilterDefinition;
 use App\Shared\Application\Parser\SearchRequestParser;
+use App\Shared\Domain\Enums\DirectionType;
 use App\Shared\Domain\Enums\QueryOperator;
 use App\Shared\Infrastructure\Http\SearchFilterParser;
 use App\Shared\Infrastructure\Http\SearchOrderByParser;
@@ -23,7 +24,7 @@ final readonly class AttributeSearchParserFactory implements SearchParserFactory
         ];
 
         return new SearchRequestParser([
-            new SearchOrderByParser($allowedSortFields),
+            new SearchOrderByParser($allowedSortFields, DirectionType::ASC, 'order'),
             new SearchFilterParser($allowedFilters),
             new SearchPaginationParser(),
         ]);

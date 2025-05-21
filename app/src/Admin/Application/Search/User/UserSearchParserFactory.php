@@ -9,6 +9,7 @@ use App\Shared\Application\Filter\BasicFilterDefinition;
 use App\Shared\Application\Filter\BoolFilterDefinition;
 use App\Shared\Application\Filter\RangeFilterDefinition;
 use App\Shared\Application\Parser\SearchRequestParser;
+use App\Shared\Domain\Enums\DirectionType;
 use App\Shared\Domain\Enums\QueryOperator;
 use App\Shared\Infrastructure\Http\SearchFilterParser;
 use App\Shared\Infrastructure\Http\SearchOrderByParser;
@@ -25,7 +26,7 @@ final readonly class UserSearchParserFactory implements SearchParserFactoryInter
         ];
 
         return new SearchRequestParser([
-            new SearchOrderByParser($allowedSortFields),
+            new SearchOrderByParser($allowedSortFields, DirectionType::ASC, 'id'),
             new SearchFilterParser($allowedFilters),
             new SearchPaginationParser(),
         ]);
