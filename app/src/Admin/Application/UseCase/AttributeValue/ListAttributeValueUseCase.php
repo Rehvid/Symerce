@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\AttributeValue;
 
 use App\Admin\Application\Assembler\AttributeValueAssembler;
+use App\Admin\Application\Search\AttributeValue\AttributeSearchValueService;
 use App\Admin\Infrastructure\Repository\AttributeValueDoctrineRepository;
 use App\Service\Pagination\PaginationService;
 use App\Shared\Application\DTO\Response\ApiResponse;
@@ -14,14 +15,22 @@ use Symfony\Component\HttpFoundation\Request;
 final readonly class ListAttributeValueUseCase implements ListUseCaseInterface
 {
     public function __construct(
-        private AttributeValueDoctrineRepository $repository,
+        private AttributeSearchValueService $searchService,
         private AttributeValueAssembler          $assembler,
-        private PaginationService         $paginationService,
     ) {
     }
 
     public function execute(Request $request): mixed
     {
+        $paginationResult = $this->searchService->search(
+            $this->searchService->buildSearchCriteria($request)
+        );
+
+        return new ApiResponse(
+            data: $this->assembler->toListResponse($paginationResult->items),
+            meta: $paginationResult->paginationMeta->toArray(),
+        );
+
         $paginationResponse = $this->paginationService->buildPaginationResponse(
             $request,
             $this->repository,

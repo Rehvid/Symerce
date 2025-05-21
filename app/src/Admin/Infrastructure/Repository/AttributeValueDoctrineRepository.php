@@ -7,12 +7,12 @@ namespace App\Admin\Infrastructure\Repository;
 use App\Admin\Domain\Enums\OrderByField;
 use App\Admin\Domain\Repository\AttributeValueRepositoryInterface;
 use App\Entity\AttributeValue;
-use App\Repository\Base\AbstractRepository;
 use App\Service\Pagination\PaginationFilters;
 use App\Shared\Domain\Enums\DirectionType;
+use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class AttributeValueDoctrineRepository extends AbstractRepository implements AttributeValueRepositoryInterface
+class AttributeValueDoctrineRepository extends AbstractCriteriaRepository implements AttributeValueRepositoryInterface
 {
     protected function getEntityClass(): string
     {
