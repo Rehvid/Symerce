@@ -17,6 +17,7 @@ use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Entity\ProductImage;
 use App\Admin\Domain\Entity\Tag;
 use App\Admin\Domain\Entity\Vendor;
+use App\Admin\Domain\Enums\ReductionType;
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
@@ -73,6 +74,7 @@ final readonly class ProductAssembler
             ? $this->moneyFactory->create($product->getDiscountPrice())->getFormattedAmount()
             : '0';
 
+        $promotion = $product->getPromotions()->first();
 
         $response = new ProductFormResponse(
              ...$this->getOptions(),
@@ -90,7 +92,11 @@ final readonly class ProductAssembler
             attributes: $this->getAttributesForFormDataResponse($product),
             images: $product->getImages()->map(
                 fn (ProductImage $productImage) => $this->createProductImageResponse($productImage)
-            )->toArray()
+            )->toArray(),
+            promotionIsActive: $promotion && $promotion->isActive(),
+            promotionReduction: $promotion ? $promotion->getReduction() : null,
+            promotionReductionType: $promotion ? $promotion->getType()->value : null,
+            promotionDateRange: $promotion ? [$promotion->getStartsAt(), $promotion->getEndsAt()] : [],
          );
 
 
@@ -156,6 +162,7 @@ final readonly class ProductAssembler
             'optionTags' => $this->getTags(),
             'optionDeliveryTimes' => $this->getDeliveryTimes(),
             'optionAttributes' => $this->getAttributes(),
+            'promotionTypes' => $this->getPromotionTypes()
         ];
     }
 
@@ -239,5 +246,14 @@ final readonly class ProductAssembler
         }
 
         return $data;
+    }
+
+    private function getPromotionTypes(): array
+    {
+        return ArrayUtils::buildSelectedOptions(
+            ReductionType::cases(),
+            fn (ReductionType $reductionType) => $reductionType->value,
+            fn (ReductionType $reductionType) => $reductionType->value,
+        );
     }
 }

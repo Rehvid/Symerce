@@ -20,6 +20,7 @@ readonly class ProductCreateFormResponse
         public ?array $optionVendors,
         public ?array $optionDeliveryTimes,
         public ?array $optionAttributes,
+        public ?array $promotionTypes
     ) {
     }
 }

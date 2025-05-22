@@ -45,12 +45,7 @@ class Product implements OrderEntityInterface
     )]
     private string $regularPrice;
 
-    #[ORM\Column(
-        type: 'decimal',
-        precision: DecimalPrecision::MAXIMUM_PRECISION->value,
-        scale: DecimalPrecision::MAXIMUM_SCALE->value,
-        nullable: true
-    )]
+
     private ?string $discountPrice = null;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['unsigned' => true, 'default' => 0])]
@@ -81,12 +76,20 @@ class Product implements OrderEntityInterface
     #[ORM\JoinTable(name: 'product_attribute_value')]
     private Collection $attributeValues;
 
+    #[ORM\OneToMany(targetEntity: Promotion::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $promotions;
+
+    #[ORM\OneToMany(targetEntity: ProductPriceHistory::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $priceHistory;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->attributeValues = new ArrayCollection();
+        $this->promotions = new ArrayCollection();
+        $this->priceHistory = new ArrayCollection();
     }
 
     public function getId(): int
@@ -136,7 +139,7 @@ class Product implements OrderEntityInterface
 
     public function getDiscountPrice(): ?string
     {
-        return $this->discountPrice;
+        return $this->regularPrice;
     }
 
     public function getVendor(): ?Vendor
@@ -227,11 +230,6 @@ class Product implements OrderEntityInterface
         $this->regularPrice = $regularPrice;
     }
 
-    public function setDiscountPrice(?string $discountPrice): void
-    {
-        $this->discountPrice = $discountPrice;
-    }
-
     public function setDescription(?string $description): void
     {
         $this->description = $description;
@@ -264,6 +262,43 @@ class Product implements OrderEntityInterface
 
     public function getCurrentPrice(): string
     {
-        return $this->discountPrice ?? $this->regularPrice;
+        return $this->regularPrice;
+    }
+
+    public function addPromotion(Promotion $promotion): void
+    {
+        if (!$this->promotions->contains($promotion)) {
+            $this->promotions->add($promotion);
+        }
+    }
+
+    public function removePromotion(Promotion $promotion): void
+    {
+        if ($this->promotions->contains($promotion)) {
+            $this->promotions->removeElement($promotion);
+        }
+    }
+
+    public function getPromotions(): Collection
+    {
+        return $this->promotions;
+    }
+    public function addPriceHistory(ProductPriceHistory $priceHistory): void
+    {
+        if (!$this->priceHistory->contains($priceHistory)) {
+            $this->priceHistory->add($priceHistory);
+        }
+    }
+
+    public function removePriceHistory(ProductPriceHistory $priceHistory): void
+    {
+        if ($this->priceHistory->contains($priceHistory)) {
+            $this->priceHistory->removeElement($priceHistory);
+        }
+    }
+
+    public function getProductPriceHistory(): Collection
+    {
+        return $this->priceHistory;
     }
 }

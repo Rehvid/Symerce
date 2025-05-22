@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Request\Product;
 
-use App\DTO\Admin\Request\PersistableInterface;
+use App\Admin\Domain\ValueObject\DateVO;
+use App\Shared\Application\Contract\ArrayHydratableInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
-use App\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
+use App\Shared\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-final class SaveProductRequest implements RequestDtoInterface
+
+final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableInterface
 {
     /**
      * @param array<int, mixed>         $categories
@@ -25,7 +26,6 @@ final class SaveProductRequest implements RequestDtoInterface
         #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] #[CustomAssertCurrencyPrecision]  public string $regularPrice,
         #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] public string|int $quantity,
         public bool $isActive,
-        public ?string $discountPrice = null,
         public array $categories = [],
         public array $tags = [],
         public array $images = [],
@@ -35,25 +35,42 @@ final class SaveProductRequest implements RequestDtoInterface
         public ?string $slug = null,
         public ?string $description = null,
         public ?array $thumbnail = null,
+        public ?SaveProductPromotionRequest $productPromotionRequest = null,
     ) {
     }
 
-    #[Assert\Callback]
-    public function validate(ExecutionContextInterface $context): void
+    public static function fromArray(array $data): ArrayHydratableInterface
     {
-        $validator = $context->getValidator();
-        if (null !== $this->discountPrice && '' !== $this->discountPrice) {
-            $violations = $validator->validate($this->discountPrice, [
-                new Assert\Type('numeric'),
-                new Assert\GreaterThanOrEqual(0),
-                new CustomAssertCurrencyPrecision(),
-            ]);
-
-            foreach ($violations as $violation) {
-                $context->buildViolation((string) $violation->getMessage())
-                    ->atPath('discountPrice')
-                    ->addViolation();
-            }
+        $promotionIsActive = $data['promotionIsActive'] ?? false;
+        $productPromotionRequest = null;
+        if ($promotionIsActive) {
+            $promotionDateRange = $data['promotionDateRange'] ?? null;
+            $productPromotionRequest = new SaveProductPromotionRequest(
+                isActive: $promotionIsActive,
+                reductionType: $data['promotionReductionType'],
+                reduction: $data['promotionReduction'],
+                startDate: new DateVO($promotionDateRange ? $promotionDateRange[0] : ''),
+                endDate: new DateVO($promotionDateRange ? $promotionDateRange[1] : ''),
+            );
         }
+
+
+
+        return new self(
+            name: $data['name'],
+            regularPrice: $data['regularPrice'],
+            quantity: $data['quantity'],
+            isActive: $data['isActive'],
+            categories: $data['categories'],
+            tags: $data['tags'],
+            images: $data['images'],
+            attributes: $data['attributes'],
+            deliveryTime: $data['deliveryTime'],
+            vendor: $data['vendor'],
+            slug: $data['slug'],
+            description: $data['description'],
+            thumbnail: $data['thumbnail'] ?? null,
+            productPromotionRequest: $productPromotionRequest
+        );
     }
 }

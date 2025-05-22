@@ -18,6 +18,7 @@ const ProductForm = () => {
         setValue,
         setError,
         control,
+        watch,
         formState: { errors: fieldErrors },
     } = useForm({
         mode: 'onBlur',
@@ -47,6 +48,10 @@ const ProductForm = () => {
                   'deliveryTime',
                   'attributes',
                   'images',
+                  "promotionIsActive",
+                  "promotionDateRange",
+                  "promotionReduction",
+                  "promotionReductionType"
               ]
             : [];
 
@@ -69,6 +74,8 @@ const ProductForm = () => {
         return modifyValues;
     };
 
+
+
     return (
         <ApiForm
             apiConfig={getApiConfig()}
@@ -87,6 +94,7 @@ const ProductForm = () => {
                         setValue={setValue}
                         setFormData={setFormData}
                         formData={formData}
+                        watch={watch}
                     />
                 }
                 sideColumn={

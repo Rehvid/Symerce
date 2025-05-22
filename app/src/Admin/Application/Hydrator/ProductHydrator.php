@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\Hydrator;
 
+use App\Admin\Application\DTO\Request\Product\SaveProductPromotionRequest;
 use App\Admin\Application\DTO\Request\Product\SaveProductRequest;
 use App\Admin\Domain\Entity\Attribute;
 use App\Admin\Domain\Entity\AttributeValue;
 use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Entity\Product;
+use App\Admin\Domain\Entity\Promotion;
 use App\Admin\Domain\Entity\Tag;
 use App\Admin\Domain\Entity\Vendor;
+use App\Admin\Domain\Enums\ReductionType;
 use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
 use App\Admin\Infrastructure\Slug\SluggerService;
 use App\DTO\Admin\Request\FileRequestDTO;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 
+
+//TODO: Refactor
 final readonly class ProductHydrator
 {
     public function __construct(
@@ -35,15 +41,16 @@ final readonly class ProductHydrator
         $product->setRegularPrice($request->regularPrice);
         $product->setQuantity((int) $request->quantity);
 
-        if (null !== $request->discountPrice && '' !== $request->discountPrice) {
-            $product->setDiscountPrice($request->discountPrice);
-        }
 
         $this->fillCategories($request, $product);
         $this->fillAttributeValues($request, $product);
         $this->fillTags($request, $product);
         $this->fillDeliveryTime($request, $product);
         $this->fillImages($request, $product);
+        if ($request->productPromotionRequest) {
+            $this->addPromotion($request->productPromotionRequest, $product);
+        }
+
 
         return $product;
     }
@@ -178,5 +185,18 @@ final readonly class ProductHydrator
 //
 //            $product->addImage($productImage);
 //        }
+    }
+
+    private function addPromotion(SaveProductPromotionRequest $request, Product $product): void
+    {
+        $promotion = new Promotion();
+        $promotion->setProduct($product);
+        $promotion->setType(ReductionType::tryFrom($request->reductionType));
+        $promotion->setReduction($request->reduction);
+        $promotion->setActive($request->isActive);
+        $promotion->setStartsAt($request->startDate->get());
+        $promotion->setEndsAt($request->endDate->get());
+
+        $product->addPromotion($promotion);
     }
 }

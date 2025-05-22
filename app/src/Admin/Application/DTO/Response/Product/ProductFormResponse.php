@@ -21,6 +21,7 @@ final readonly class ProductFormResponse extends ProductCreateFormResponse
         ?array $optionVendors,
         ?array $optionDeliveryTimes,
         ?array $optionAttributes,
+        ?array $promotionTypes,
         public string $name,
         public ?string $slug,
         public ?string $description,
@@ -33,8 +34,12 @@ final readonly class ProductFormResponse extends ProductCreateFormResponse
         public ?array $tags = [],
         public ?array $categories = [],
         public ?array $attributes = [],
-        public ?array $images = []
+        public ?array $images = [],
+        public ?bool $promotionIsActive = false,
+        public ?string $promotionReduction = null,
+        public ?string $promotionReductionType = null,
+        public array $promotionDateRange = []
     ) {
-        parent::__construct($optionTags, $optionCategories, $optionVendors, $optionDeliveryTimes, $optionAttributes);
+        parent::__construct($optionTags, $optionCategories, $optionVendors, $optionDeliveryTimes, $optionAttributes, $promotionTypes);
     }
 }
