@@ -33,6 +33,12 @@ class ProductStock
     #[ORM\Column(type: 'boolean', options: ['default' => true])]
     private bool $visibleInStore = true;
 
+    #[ORM\Column(length: 64, unique: true, nullable: true)]
+    private ?string $sku = null;
+
+    #[ORM\Column(length: 13, unique: true, nullable: true)]
+    private ?string $ean13 = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -113,5 +119,25 @@ class ProductStock
         }
 
         return $this->availableQuantity >= $this->maximumStockLevel;
+    }
+
+    public function getSku(): ?string
+    {
+        return $this->sku;
+    }
+
+    public function setSku(?string $sku): void
+    {
+        $this->sku = $sku;
+    }
+
+    public function getEan13(): ?string
+    {
+        return $this->ean13;
+    }
+
+    public function setEan13(?string $ean13): void
+    {
+        $this->ean13 = $ean13;
     }
 }
