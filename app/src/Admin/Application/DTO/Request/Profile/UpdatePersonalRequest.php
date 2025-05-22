@@ -8,7 +8,7 @@ use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Model\FileData;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
-use App\Validator\UniqueEntityField as CustomAssertUniqueEmail;
+use App\Shared\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class UpdatePersonalRequest implements RequestDtoInterface, ArrayHydratableInterface

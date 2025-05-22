@@ -9,9 +9,9 @@ use App\Admin\Domain\Enums\AdminRole;
 use App\Admin\Domain\Model\FileData;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
-use App\Validator\RepeatPassword as CustomAssertRepeatPassword;
-use App\Validator\StrongPassword as CustomAssertStrongPassword;
-use App\Validator\UniqueEntityField as CustomAssertUniqueEmail;
+use App\Shared\Infrastructure\Validator\RepeatPassword as CustomAssertRepeatPassword;
+use App\Shared\Infrastructure\Validator\StrongPassword as CustomAssertStrongPassword;
+use App\Shared\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Validator;
+namespace App\Shared\Infrastructure\Validator;
 
 use App\Shared\Application\Service\SettingsService;
 use Symfony\Component\Validator\Constraint;

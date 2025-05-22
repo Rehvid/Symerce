@@ -7,7 +7,7 @@ namespace App\Admin\Application\DTO\Request\Carrier;
 use App\Admin\Domain\Model\FileData;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
-use App\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
+use App\Shared\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveCarrierRequest implements ArrayHydratableInterface, RequestDtoInterface
