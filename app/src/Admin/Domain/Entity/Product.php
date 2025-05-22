@@ -82,6 +82,14 @@ class Product implements OrderEntityInterface
     #[ORM\OneToMany(targetEntity: ProductPriceHistory::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $priceHistory;
 
+
+    #[ORM\OneToOne(targetEntity: ProductStock::class, mappedBy: "product", cascade: ["persist", "remove"])]
+    private ProductStock $stock;
+
+    #[ORM\ManyToOne(targetEntity: Category::class)]
+    #[ORM\JoinColumn(name: 'main_category_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?Category $mainCategory = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -300,5 +308,35 @@ class Product implements OrderEntityInterface
     public function getProductPriceHistory(): Collection
     {
         return $this->priceHistory;
+    }
+
+    public function getPriceHistory(): Collection
+    {
+        return $this->priceHistory;
+    }
+
+    public function setPriceHistory(Collection $priceHistory): void
+    {
+        $this->priceHistory = $priceHistory;
+    }
+
+    public function getStock(): ProductStock
+    {
+        return $this->stock;
+    }
+
+    public function setStock(ProductStock $stock): void
+    {
+        $this->stock = $stock;
+    }
+
+    public function getMainCategory(): ?Category
+    {
+        return $this->mainCategory;
+    }
+
+    public function setMainCategory(?Category $mainCategory): void
+    {
+        $this->mainCategory = $mainCategory;
     }
 }

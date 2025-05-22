@@ -24,7 +24,7 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
     public function __construct(
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $name,
         #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] #[CustomAssertCurrencyPrecision]  public string $regularPrice,
-        #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] public string|int $quantity,
+        public SaveProductStockRequest $productStockRequest,
         public bool $isActive,
         public array $categories = [],
         public array $tags = [],
@@ -59,7 +59,13 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
         return new self(
             name: $data['name'],
             regularPrice: $data['regularPrice'],
-            quantity: $data['quantity'],
+            productStockRequest: new SaveProductStockRequest(
+                availableQuantity: $data['stockAvailableQuantity'],
+                lowStockThreshold: $data['stockLowStockThreshold'] ?? null,
+                maxStockLevel: $data['stockMaximumStockLevel'] ?? null,
+                notifyOnLowStock: $data['stockNotifyOnLowStock'],
+                visibleInStore: $data['stockVisibleInStore'],
+            ),
             isActive: $data['isActive'],
             categories: $data['categories'],
             tags: $data['tags'],

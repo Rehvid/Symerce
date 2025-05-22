@@ -96,32 +96,56 @@ const ProductFormMainColumn = ({ register, fieldErrors, control, formData, setVa
                 render={({ field }) => <Textarea value={field.value} onChange={field.onChange} title="Opis" />}
             />
 
+          <div className="mt-3 flex flex-col w-full gap-[2rem]">
+            <Heading level="h3">Magazyn</Heading>
             <Input
-                {...register('regularPrice', {
-                    ...validationRules.required(),
-                    ...validationRules.numeric(currency.roundingPrecision),
-                })}
-                type="text"
-                id="regular-price"
-                label="Cena regularna"
-                hasError={!!fieldErrors?.regularPrice}
-                errorMessage={fieldErrors?.regularPrice?.message}
-                isRequired
-                icon={<CurrencyIcon className="w-[24px] h-[24px]" />}
+              {...register('stockAvailableQuantity', {
+                ...validationRules.required(),
+                ...validationRules.min(0),
+              })}
+              type="number"
+              id="stockAvailableQuantity"
+              label="Dostępna ilość"
+              hasError={!!fieldErrors?.stockAvailableQuantity}
+              errorMessage={fieldErrors?.stockAvailableQuantity?.message}
+              isRequired
+              icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
             />
+            <Input
+              {...register('stockLowStockThreshold')}
+              type="number"
+              id="stockLowStockThreshold"
+              label="Próg, poniżej którego jest alert (puste oznacza brak alertu, nawet jeżeli zanzaczony jest checbkox)"
+              hasError={!!fieldErrors?.stockLowStockThreshold}
+              errorMessage={fieldErrors?.stockLowStockThreshold?.message}
+              icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
+            />
+            <Input
+              {...register('stockMaximumStockLevel')}
+              type="number"
+              id="stockMaximumStockLevel"
+              label="Opcjonalny limit magazynu (puste oznacza bez limitu)"
+              hasError={!!fieldErrors?.stockMaximumStockLevel}
+              errorMessage={fieldErrors?.stockMaximumStockLevel?.message}
+              icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
+            />
+            <Switch label="Powiadom o niskim stanie" {...register('stockNotifyOnLowStock')} />
+            <Switch label="Wyświetl na sklepie informację o niskim stanie" {...register('stockVisibleInStore')} />
+          </div>
+
 
             <Input
-                {...register('quantity', {
-                    ...validationRules.required(),
-                    ...validationRules.min(0),
-                })}
-                type="number"
-                id="quantity"
-                label="Ilość"
-                hasError={!!fieldErrors?.quantity}
-                errorMessage={fieldErrors?.quantity?.message}
-                isRequired
-                icon={<NumberIcon className="text-gray-500 w-[24px] h-[24px]" />}
+              {...register('regularPrice', {
+                ...validationRules.required(),
+                ...validationRules.numeric(currency.roundingPrecision),
+              })}
+              type="text"
+              id="regular-price"
+              label="Cena regularna"
+              hasError={!!fieldErrors?.regularPrice}
+              errorMessage={fieldErrors?.regularPrice?.message}
+              isRequired
+              icon={<CurrencyIcon className="w-[24px] h-[24px]" />}
             />
 
             <Switch label="Dodaj promocje" {...register('promotionIsActive')} />

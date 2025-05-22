@@ -6,11 +6,13 @@ namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Product\SaveProductPromotionRequest;
 use App\Admin\Application\DTO\Request\Product\SaveProductRequest;
+use App\Admin\Application\DTO\Request\Product\SaveProductStockRequest;
 use App\Admin\Domain\Entity\Attribute;
 use App\Admin\Domain\Entity\AttributeValue;
 use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Entity\Product;
+use App\Admin\Domain\Entity\ProductStock;
 use App\Admin\Domain\Entity\Promotion;
 use App\Admin\Domain\Entity\Tag;
 use App\Admin\Domain\Entity\Vendor;
@@ -39,7 +41,6 @@ final readonly class ProductHydrator
         $product->setActive($request->isActive);
         $product->setDescription($request->description);
         $product->setRegularPrice($request->regularPrice);
-        $product->setQuantity((int) $request->quantity);
 
 
         $this->fillCategories($request, $product);
@@ -51,6 +52,7 @@ final readonly class ProductHydrator
             $this->addPromotion($request->productPromotionRequest, $product);
         }
 
+        $this->addProductStock($request->productStockRequest, $product);
 
         return $product;
     }
@@ -198,5 +200,18 @@ final readonly class ProductHydrator
         $promotion->setEndsAt($request->endDate->get());
 
         $product->addPromotion($promotion);
+    }
+
+    private function addProductStock(SaveProductStockRequest $request, Product $product): void
+    {
+        $newProductStock = new ProductStock();
+        $newProductStock->setProduct($product);
+        $newProductStock->setAvailableQuantity((int) $request->availableQuantity);
+        $newProductStock->setLowStockThreshold(is_string($request->lowStockThreshold) ? (int) $request->lowStockThreshold : null);
+        $newProductStock->setMaximumStockLevel(is_string($request->maxStockLevel) ? (int) $request->maxStockLevel : null);
+        $newProductStock->setNotifyOnLowStock($request->notifyOnLowStock);
+        $newProductStock->setVisibleInStore($request->visibleInStore);
+
+        $product->setStock($newProductStock);
     }
 }
