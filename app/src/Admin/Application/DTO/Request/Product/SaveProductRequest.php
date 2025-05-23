@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Request\Product;
 
+use App\Admin\Domain\Model\ProductFileData;
 use App\Admin\Domain\ValueObject\DateVO;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
@@ -17,7 +18,7 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
      * @param array<int, mixed>         $categories
      * @param array<int, mixed>         $tags
      * @param array<int, mixed>         $deliveryTimes
-     * @param array<int, mixed>         $images
+     * @param ProductFileData[]         $images
      * @param array<string, mixed>      $attributes
      * @param array<string, mixed>|null $thumbnail
      */
@@ -25,6 +26,7 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $name,
         #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] #[CustomAssertCurrencyPrecision]  public string $regularPrice,
         public SaveProductStockRequest $productStockRequest,
+        public int $mainCategory,
         public bool $isActive,
         public array $categories = [],
         public array $tags = [],
@@ -51,11 +53,20 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
                 reduction: $data['promotionReduction'],
                 startDate: new DateVO($promotionDateRange ? $promotionDateRange[0] : ''),
                 endDate: new DateVO($promotionDateRange ? $promotionDateRange[1] : ''),
+                source: $data['promotionSource'] ?? null,
             );
         }
 
+        $images = $data['images'] ?? [];
+        if (!empty($images)) {
+            $productFileImages = [];
+            foreach ($images as $image) {
+                $productFileImages[] = ProductFileData::fromArray($image);
+            }
+            $images = $productFileImages;
+        }
 
-
+        dd($images);
         return new self(
             name: $data['name'],
             regularPrice: $data['regularPrice'],
@@ -65,11 +76,14 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
                 maxStockLevel: $data['stockMaximumStockLevel'] ?? null,
                 notifyOnLowStock: $data['stockNotifyOnLowStock'],
                 visibleInStore: $data['stockVisibleInStore'],
+                ean13: $data['ean13'] ?? null,
+                sku: $data['sku'] ?? null,
             ),
+            mainCategory: $data['mainCategory'],
             isActive: $data['isActive'],
             categories: $data['categories'],
             tags: $data['tags'],
-            images: $data['images'],
+            images: $images,
             attributes: $data['attributes'],
             deliveryTime: $data['deliveryTime'],
             vendor: $data['vendor'],

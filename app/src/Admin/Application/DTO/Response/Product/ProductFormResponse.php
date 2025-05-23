@@ -38,7 +38,14 @@ final readonly class ProductFormResponse extends ProductCreateFormResponse
         public ?bool $promotionIsActive = false,
         public ?string $promotionReduction = null,
         public ?string $promotionReductionType = null,
-        public array $promotionDateRange = []
+        public array $promotionDateRange = [],
+        public int $stockAvailableQuantity = 0,
+        public ?int $stockLowStockThreshold = null,
+        public ?int $stockMaximumStockLevel = null,
+        public bool $stockNotifyOnLowStock = true,
+        public bool $stockVisibleInStore = true,
+        public ?string $stockSku = null,
+        public ?string $stockEan13 = null,
     ) {
         parent::__construct($optionTags, $optionCategories, $optionVendors, $optionDeliveryTimes, $optionAttributes, $promotionTypes);
     }

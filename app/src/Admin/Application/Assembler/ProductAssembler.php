@@ -75,6 +75,7 @@ final readonly class ProductAssembler
             : '0';
 
         $promotion = $product->getPromotions()->first();
+        $stock = $product->getStock();
 
         $response = new ProductFormResponse(
              ...$this->getOptions(),
@@ -88,7 +89,7 @@ final readonly class ProductAssembler
             deliveryTime: (string) $product->getDeliveryTime()?->getId(),
             vendor: (string) $product->getVendor()?->getId(),
             tags: $product->getTags()->map(fn (Tag $tag) => (string) $tag->getId())->toArray(),
-            categories: $product->getCategories()->map(fn (Category $category) => (string) $category->getId())->toArray(),
+            categories: $product->getCategories()->map(fn (Category $category) => $category->getId())->toArray(),
             attributes: $this->getAttributesForFormDataResponse($product),
             images: $product->getImages()->map(
                 fn (ProductImage $productImage) => $this->createProductImageResponse($productImage)
@@ -97,6 +98,13 @@ final readonly class ProductAssembler
             promotionReduction: $promotion ? $promotion->getReduction() : null,
             promotionReductionType: $promotion ? $promotion->getType()->value : null,
             promotionDateRange: $promotion ? [$promotion->getStartsAt(), $promotion->getEndsAt()] : [],
+            stockAvailableQuantity: $stock->getAvailableQuantity(),
+            stockLowStockThreshold: $stock->getLowStockThreshold(),
+            stockMaximumStockLevel: $stock->getMaximumStockLevel(),
+            stockNotifyOnLowStock: $stock->isNotifyOnLowStock(),
+            stockVisibleInStore: $stock->isVisibleInStore(),
+            stockEan13: $stock->getEan13(),
+            stockSku: $stock->getSku(),
          );
 
 
@@ -177,7 +185,7 @@ final readonly class ProductAssembler
         return ArrayUtils::buildSelectedOptions(
             $categories,
             fn (Category $category) => $category->getName(),
-            fn (Category $category) => (string) $category->getId(),
+            fn (Category $category) =>  $category->getId(),
         );
     }
 
@@ -207,7 +215,7 @@ final readonly class ProductAssembler
         return ArrayUtils::buildSelectedOptions(
             $tags,
             fn ($tag) => $tag->getName(),
-            fn (Tag $tag) => (string) $tag->getId(),
+            fn (Tag $tag) => $tag->getId(),
         );
     }
 

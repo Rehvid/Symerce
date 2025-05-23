@@ -12,5 +12,5 @@ interface QueryRepositoryInterface
     public function findById(string|int $id): ?object;
 
     /** @return object[] */
-    public function findBy(array $criteria, array $sortCriteria): array;
+    public function findBy(array $criteria, array $sortCriteria = []): array;
 }

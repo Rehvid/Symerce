@@ -13,6 +13,8 @@ final readonly class SaveProductStockRequest
         public string|int|null $maxStockLevel = null,
         public bool $notifyOnLowStock = false,
         public bool $visibleInStore = false,
+        public ?int $ean13 = null,
+        public ?int $sku = null,
     ) {
     }
 }

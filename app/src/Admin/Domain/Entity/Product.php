@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Domain\Entity;
 
 use App\Admin\Domain\Contract\OrderEntityInterface;
+use App\Admin\Domain\Enums\PromotionSource;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\OrderTrait;
@@ -82,9 +83,8 @@ class Product implements OrderEntityInterface
     #[ORM\OneToMany(targetEntity: ProductPriceHistory::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $priceHistory;
 
-
     #[ORM\OneToOne(targetEntity: ProductStock::class, mappedBy: "product", cascade: ["persist", "remove"])]
-    private ProductStock $stock;
+    private ?ProductStock $stock = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(name: 'main_category_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
@@ -320,8 +320,17 @@ class Product implements OrderEntityInterface
         $this->priceHistory = $priceHistory;
     }
 
+    public function hasStock(): bool
+    {
+        return $this->stock !== null;
+    }
+
     public function getStock(): ProductStock
     {
+        if (!$this->hasStock()) {
+            throw new \LogicException('Product stock is not initialized.');
+        }
+
         return $this->stock;
     }
 
@@ -338,5 +347,18 @@ class Product implements OrderEntityInterface
     public function setMainCategory(?Category $mainCategory): void
     {
         $this->mainCategory = $mainCategory;
+    }
+
+    public function getPromotionForProductTab(): ?Promotion
+    {
+        $promotion = $this->promotions->filter(
+            fn(Promotion $promotion) => $promotion->getSource() === PromotionSource::PRODUCT_TAB
+        )->first();
+
+        if (!$promotion) {
+            return null;
+        }
+
+        return $promotion;
     }
 }

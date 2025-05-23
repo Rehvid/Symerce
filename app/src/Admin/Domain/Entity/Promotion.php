@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Entity;
 
+use App\Admin\Domain\Enums\PromotionSource;
 use App\Admin\Domain\Enums\ReductionType;
 use App\Admin\Domain\Repository\PromotionRepositoryInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
@@ -25,7 +26,7 @@ class Promotion
 
     #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'promotions')]
     #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private Product $product;
+    private ?Product $product = null;
 
     #[ORM\Column(type: 'date')]
     private \DateTimeInterface $startsAt;
@@ -58,12 +59,15 @@ class Promotion
     #[ORM\Column(type: 'integer', nullable: true, options: ['unsigned' => true])]
     private int $priority = 1;
 
+    #[ORM\Column(type: 'string', enumType: PromotionSource::class)]
+    private ?PromotionSource $source;
+
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setProduct(Product $product): void
+    public function setProduct(?Product $product): void
     {
         $this->product = $product;
     }
@@ -129,7 +133,7 @@ class Promotion
         $this->priority = $priority;
     }
 
-    public function getProduct(): Product
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
@@ -162,5 +166,15 @@ class Promotion
     public function getUsagePerUser(): ?int
     {
         return $this->usagePerUser;
+    }
+
+    public function getSource(): ?PromotionSource
+    {
+        return $this->source;
+    }
+
+    public function setSource(?PromotionSource $source): void
+    {
+        $this->source = $source;
     }
 }

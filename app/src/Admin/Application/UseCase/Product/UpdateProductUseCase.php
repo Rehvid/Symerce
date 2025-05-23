@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\UseCase\Product;
 
-use App\Admin\Application\Hydrator\ProductHydrator;
+use App\Admin\Application\Hydrator\Product\ProductHydrator;
 use App\Admin\Domain\Repository\ProductRepositoryInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;

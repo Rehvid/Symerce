@@ -6,7 +6,6 @@ namespace App\Admin\Application\Assembler\Helper;
 
 use App\Admin\Application\DTO\Response\FileResponse;
 use App\Admin\Application\Service\FileService;
-use App\DTO\Admin\Response\ResponseInterfaceData;
 
 final readonly class ResponseHelperAssembler
 {
@@ -21,13 +20,13 @@ final readonly class ResponseHelperAssembler
         return ['formData' => $data];
     }
 
-    public function toFileResponse(?int $id, ?string $name, ?string $filePath): ResponseInterfaceData
+    public function toFileResponse(?int $id, ?string $name, ?string $filePath): FileResponse
     {
-        return FileResponse::fromArray([
-            'id' => $id,
-            'name' => $name,
-            'preview' => $this->fileService->preparePublicPathToFile($filePath),
-        ]);
+        return new FileResponse(
+            id: $id,
+            name: $name,
+            preview: $this->fileService->preparePublicPathToFile($filePath),
+        );
     }
 
     public function buildPublicFilePath(?string $filePath): ?string
