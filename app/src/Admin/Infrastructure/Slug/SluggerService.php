@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Slug;
 
+use App\Admin\Application\Contract\SluggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
-final readonly class SluggerService
+final readonly class SluggerService implements SluggerInterface
 {
     private const string LIMITER = '-';
     private const int MAX_ATTEMPTS = 3;
@@ -19,7 +20,7 @@ final readonly class SluggerService
     ) {
     }
 
-    public function slugify(string $value): string
+    private function slugify(string $value): string
     {
         return $this->slugger->slug($value)->lower()->toString();
     }
