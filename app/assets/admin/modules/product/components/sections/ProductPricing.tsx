@@ -1,7 +1,6 @@
 import React from 'react';
 import FormSection from '@admin/shared/components/form/FormSection';
 import { Control, UseFormRegister, UseFormWatch, Controller, FieldErrors } from 'react-hook-form';
-import { ProductFormData } from '@admin/modules/product/components/ProductFormBody';
 import InputLabel from '@admin/shared/components/form/input/InputLabel';
 import InputField from '@admin/shared/components/form/input/InputField';
 import { validationRules } from '@admin/utils/validationRules';
@@ -13,13 +12,14 @@ import Error from '@admin/shared/components/Error';
 import CurrencyIcon from '@/images/icons/currency.svg';
 import NumberIcon from '@/images/icons/number.svg';
 import DatePicker from 'react-datepicker';
+import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
 
 interface ProductPricingProps {
-  register: UseFormRegister<ProductFormData>;
-  control: Control<ProductFormData>;
-  watch: UseFormWatch<ProductFormData>;
-  formData?: ProductFormData;
-  fieldErrors: FieldErrors<ProductFormData>;
+  register: UseFormRegister<ProductFormDataInterface>;
+  control: Control<ProductFormDataInterface>;
+  watch: UseFormWatch<ProductFormDataInterface>;
+  formData?: ProductFormDataInterface;
+  fieldErrors: FieldErrors<ProductFormDataInterface>;
 }
 
 const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, watch, formData, control}) => {

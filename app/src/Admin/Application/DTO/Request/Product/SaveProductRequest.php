@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Request\Product;
 
+use App\Admin\Domain\Model\FileData;
 use App\Admin\Domain\Model\ProductFileData;
 use App\Admin\Domain\ValueObject\DateVO;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
@@ -18,7 +19,7 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
      * @param array<int, mixed>         $categories
      * @param array<int, mixed>         $tags
      * @param array<int, mixed>         $deliveryTimes
-     * @param ProductFileData[]         $images
+     * @param SaveProductImageRequest[]         $images
      * @param array<string, mixed>      $attributes
      * @param array<string, mixed>|null $thumbnail
      */
@@ -36,7 +37,6 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
         public ?string $vendor = null,
         public ?string $slug = null,
         public ?string $description = null,
-        public ?array $thumbnail = null,
         public ?SaveProductPromotionRequest $productPromotionRequest = null,
     ) {
     }
@@ -59,14 +59,25 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
 
         $images = $data['images'] ?? [];
         if (!empty($images)) {
-            $productFileImages = [];
+            $saveProductImageCollection = [];
             foreach ($images as $image) {
-                $productFileImages[] = ProductFileData::fromArray($image);
+                $id = $image['id'] ?? null;
+                if (null === $id) {
+                    $saveProductImageCollection[] = new SaveProductImageRequest(
+                        isThumbnail: $image['isThumbnail'] ?? false,
+                        uploadData: FileData::fromArray($image),
+                    );
+                } else {
+                    $saveProductImageCollection[] = new SaveProductImageRequest(
+                        fileId: $id,
+                        isThumbnail: $image['isThumbnail'] ?? false,
+                    );
+                }
             }
-            $images = $productFileImages;
+            $images = $saveProductImageCollection;
         }
 
-        dd($images);
+
         return new self(
             name: $data['name'],
             regularPrice: $data['regularPrice'],
@@ -89,7 +100,6 @@ final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableIn
             vendor: $data['vendor'],
             slug: $data['slug'],
             description: $data['description'],
-            thumbnail: $data['thumbnail'] ?? null,
             productPromotionRequest: $productPromotionRequest
         );
     }

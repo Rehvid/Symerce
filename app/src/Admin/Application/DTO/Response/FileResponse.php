@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Response;
 
-use App\DTO\Admin\Response\ResponseInterfaceData;
-
 class FileResponse
 {
     public function __construct(

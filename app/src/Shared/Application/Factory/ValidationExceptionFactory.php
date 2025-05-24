@@ -4,7 +4,6 @@ declare (strict_types = 1);
 
 namespace App\Shared\Application\Factory;
 
-
 use App\Shared\Infrastructure\Http\Exception\RequestValidationException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

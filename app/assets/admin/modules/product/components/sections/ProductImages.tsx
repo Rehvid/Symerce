@@ -5,17 +5,24 @@ import { useDropzoneLogic } from '@admin/hooks/useDropzoneLogic';
 import ProductDropzoneThumbnail from '@admin/features/product/components/ProductDropzoneThumbnail';
 import Dropzone from '@admin/components/form/dropzone/Dropzone';
 import { UseFormSetValue } from 'react-hook-form';
-import { ProductFormData } from '@admin/modules/product/components/ProductFormBody';
-
+import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import { FileResponseInterface } from '@admin/shared/interfaces/FileResponseInterface';
+import ProductDropzoneThumbnailList from '@admin/modules/product/components/ProductDropzoneThumbnailList';
 
 interface ProductImagesProps {
-  setValue: UseFormSetValue<ProductFormData>;
-  formData?: ProductFormData;
+  setValue: UseFormSetValue<ProductFormDataInterface>;
+  formData?: ProductFormDataInterface;
 }
 
+interface ProductFileResponse extends FileResponseInterface {
+  isThumbnail: boolean,
+  type: string,
+  uuid: string,
+}
+
+
 const ProductImages : React.FC<ProductImagesProps> = ({formData, setValue}) => {
-  const [productImages, setProductImages] = useState([]);
-  const [thumbnail, setThumbnail] = useState(null);
+  const [productImages, setProductImages] = useState<ProductFileResponse>([]);
   const maximumFiles = 5;
 
   useEffect(() => {
@@ -25,6 +32,10 @@ const ProductImages : React.FC<ProductImagesProps> = ({formData, setValue}) => {
     }
   }, [formData?.images]);
 
+  useEffect(() => {
+    setValue('images', productImages);
+  }, [productImages]);
+
   const setDropzoneValue = (newImages) => {
     setProductImages(newImages);
     setValue('images', newImages);
@@ -33,26 +44,35 @@ const ProductImages : React.FC<ProductImagesProps> = ({formData, setValue}) => {
   const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, null, productImages, maximumFiles);
 
   const setMainThumbnail = (file) => {
-    setThumbnail(file);
-    setValue('thumbnail', file);
+    setProductImages(prevProductImages =>
+      prevProductImages.map((productImage) => ({
+        ...productImage,
+        isThumbnail: productImage.uuid === file.uuid,
+      }))
+    );
   };
+
 
   return (
     <FormSection title="Zdjęcia" >
       <Dropzone onDrop={onDrop} errors={errors}>
         {productImages.length > 0 && (
-          <div className="flex flex-wrap gap-5 mt-5">
-            {productImages.map((file, key) => (
-              <ProductDropzoneThumbnail
-                key={key}
-                index={key}
-                file={file}
-                removeFile={removeFile}
-                setMainThumbnail={setMainThumbnail}
-                thumbnail={thumbnail}
-              />
-            ))}
-          </div>
+          <ProductDropzoneThumbnailList
+            setMainThumbnail={setMainThumbnail}
+            files={productImages}
+            setFiles={setProductImages}
+          />
+          // <div className="flex flex-wrap gap-5 mt-5">
+          //   {productImages.map((productImage, key) => (
+          //     <ProductDropzoneThumbnail
+          //       key={key}
+          //       index={key}
+          //       file={productImage}
+          //       removeFile={removeFile}
+          //       setMainThumbnail={setMainThumbnail}
+          //     />
+          //   ))}
+          // </div>
         )}
       </Dropzone>
     </FormSection>

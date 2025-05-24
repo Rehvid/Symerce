@@ -8,11 +8,11 @@ import NumberIcon from '@/images/icons/number.svg';
 import { validationRules } from '@admin/utils/validationRules';
 import Description from '@admin/shared/components/Description';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ProductFormData } from '@admin/modules/product/components/ProductFormBody';
+import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
 
 interface ProductStockProps {
-  fieldErrors: FieldErrors<ProductFormData>;
-  register: UseFormRegister<ProductFormData>;
+  fieldErrors: FieldErrors<ProductFormDataInterface>;
+  register: UseFormRegister<ProductFormDataInterface>;
 }
 
 const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register}) => {

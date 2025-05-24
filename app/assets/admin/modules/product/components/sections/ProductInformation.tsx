@@ -9,13 +9,13 @@ import LabelNameIcon from '@/images/icons/label-name.svg';
 import InputField from '@admin/shared/components/form/input/InputField';
 import { Control, FieldErrors, UseFormRegister, Controller } from 'react-hook-form';
 import RichTextEditor from '@admin/shared/components/form/input/RichTextEditor';
-import { ProductFormData } from '@admin/modules/product/components/ProductFormBody';
 import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
+import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
 
 interface ProductInformationProps {
-    register: UseFormRegister<ProductFormData>,
-    fieldErrors: FieldErrors<ProductFormData>;
-    control: Control<ProductFormData>;
+    register: UseFormRegister<ProductFormDataInterface>,
+    fieldErrors: FieldErrors<ProductFormDataInterface>;
+    control: Control<ProductFormDataInterface>;
 }
 
 const ProductInformation: React.FC<ProductInformationProps> = ({register, fieldErrors, control}) => {

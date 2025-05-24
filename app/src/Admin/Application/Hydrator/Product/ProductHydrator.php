@@ -49,7 +49,7 @@ final readonly class ProductHydrator
         $product->setDescription($request->description);
         $product->setRegularPrice($request->regularPrice);
 
-        $this->productCategoryHydrator->hydrate($request->categories, $product);
+        $this->productCategoryHydrator->hydrate($request->categories, $request->mainCategory, $product);
         $this->productTagHydrator->hydrate($request->tags, $product);
         $this->productAttributeValueHydrator->hydrate($request->attributes, $product);
         $this->productImageHydrator->hydrate($request->images, $product);

@@ -1,16 +1,16 @@
 import React from 'react';
 import FormSection from '@admin/shared/components/form/FormSection';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import { ProductFormData } from '@admin/modules/product/components/ProductFormBody';
 import FormGroup from '@admin/shared/components/form/FormGroup';
 import InputLabel from '@admin/shared/components/form/input/InputLabel';
 import { validationRules } from '@admin/utils/validationRules';
 import Select from '@admin/shared/components/form/select/Select';
+import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
 
 interface ProductLogisticsProps {
-  control: Control<ProductFormData>;
-  fieldErrors: FieldErrors<ProductFormData>;
-  formData?: ProductFormData;
+  control: Control<ProductFormDataInterface>;
+  fieldErrors: FieldErrors<ProductFormDataInterface>;
+  formData?: ProductFormDataInterface;
 }
 
 const ProductLogistics: React.FC<ProductLogisticsProps> = ({ control, fieldErrors, formData }) => {

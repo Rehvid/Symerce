@@ -4,60 +4,70 @@ declare (strict_types = 1);
 
 namespace App\Admin\Application\Hydrator\Product;
 
+use App\Admin\Application\DTO\Request\Product\SaveProductImageRequest;
 use App\Admin\Application\Hydrator\FileHydrator;
-use App\Admin\Domain\Entity\File;
 use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Entity\ProductImage;
 use App\Admin\Domain\Model\FileData;
 use App\Admin\Infrastructure\Service\FileStorageService;
+use App\Shared\Application\Factory\ValidationExceptionFactory;
+use Doctrine\Common\Collections\Collection;
 
 final readonly class ProductImageHydrator
 {
     public function __construct(
         private FileStorageService $fileStorageService,
         private FileHydrator $fileHydrator,
+        private ValidationExceptionFactory $validationExceptionFactory
     ) {
 
     }
 
     public function hydrate(array $imageRequestData, Product $product): void
     {
-        $unique = $this->getNewImagesForCreate($imageRequestData, $product);
+        $images = $product->getImages();
 
-        foreach ($unique as $imageRequest) {
-            $this->handleImageRequest($imageRequest, $product);
+        /** @var SaveProductImageRequest $imageRequest */
+        foreach ($imageRequestData as $position => $imageRequest) {
+            $productImage = $this->getProductImage($imageRequest, $images, $product);
+            $productImage->setIsThumbnail($imageRequest->isThumbnail);
+            $productImage->setOrder($position);
         }
     }
 
-    /** @return array<int, mixed> */
-    private function getNewImagesForCreate(array $imageRequestData, Product $product): array
+    private function getProductImage(SaveProductImageRequest $imageRequest, Collection $images, Product $product): ProductImage
     {
-        $existingImages = $product->getImages();
-        $existingImageIds = $existingImages->map(fn (ProductImage $productImage) => $productImage->getFile()->getId());
-        return array_filter($imageRequestData, function ($image) use ($existingImageIds) {
-            $id = $image['id'] ?? null;
+        if ($imageRequest->fileId) {
+            $image = $images->filter(
+                fn (ProductImage $image) => $image->getFile()->getId() === $imageRequest->fileId
+            )->first();
 
-            return empty($id) || !$existingImageIds->contains($id);
-        });
+            if (!$image) {
+                $this->validationExceptionFactory->createNotFound('productImage');
+            }
+
+            return $image;
+        }
+
+         if ($imageRequest->uploadData !== null) {
+            return $this->createProductImage($imageRequest->uploadData, $product);
+        }
+
+
+         $this->validationExceptionFactory->createNotFound('productImage');
     }
 
-    private function handleImageRequest(array $imageRequest, Product $product): void
+    private function createProductImage(FileData $fileData, Product $product): ProductImage
     {
-        $fileData = FileData::fromArray($imageRequest);
         $file = $this->fileHydrator->hydrate(
             $fileData,
             $this->fileStorageService->saveFile($fileData->content, $fileData->type)
         );
-        $this->createProductImage($file, $product);
-    }
 
-    private function createProductImage(File $file, Product $product): void
-    {
         $productImage = new ProductImage();
         $productImage->setFile($file);
         $productImage->setProduct($product);
-        $productImage->setIsThumbnail(false);
 
-        $product->addImage($productImage);
+        return $productImage;
     }
 }

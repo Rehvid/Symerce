@@ -70,7 +70,7 @@ class Product implements OrderEntityInterface
     private DeliveryTime $deliveryTime;
 
     #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['isThumbnail' => 'DESC'])]
+    #[ORM\OrderBy(['order' => 'ASC'])]
     private Collection $images;
 
     #[ORM\ManyToMany(targetEntity: AttributeValue::class)]

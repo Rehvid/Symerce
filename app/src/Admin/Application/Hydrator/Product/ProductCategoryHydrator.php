@@ -14,13 +14,16 @@ final readonly class ProductCategoryHydrator
         private CategoryRepositoryInterface $repository,
     ) {}
 
-    public function hydrate(array $categoryIds, Product $product): void
+    public function hydrate(array $categoryIds, int $mainCategoryId, Product $product): void
     {
         /** @var $categoryEntities Category[] */
         $categoryEntities = $this->repository->findBy(['id' => $categoryIds]);
         $product->getCategories()->clear();
 
         foreach ($categoryEntities as $category) {
+            if ($category->getId() === $mainCategoryId) {
+                $product->setMainCategory($category);
+            }
             $product->addCategory($category);
         }
     }

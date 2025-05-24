@@ -31,6 +31,7 @@ final readonly class ProductFormResponse extends ProductCreateFormResponse
         public bool $isActive,
         public ?string $deliveryTime,
         public ?string $vendor,
+        public int $mainCategory,
         public ?array $tags = [],
         public ?array $categories = [],
         public ?array $attributes = [],

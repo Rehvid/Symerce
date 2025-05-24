@@ -13,30 +13,24 @@ import ProductLogistics from '@admin/modules/product/components/sections/Product
 import ProductPricing from '@admin/modules/product/components/sections/ProductPricing';
 import ProductStock from '@admin/modules/product/components/sections/ProductStock';
 import ProductAttributes from '@admin/modules/product/components/sections/ProductAttributes';
+import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
 
-export interface ProductFormData {
-  name: string,
-  slug?: string
-  description?: string
-  isActive: boolean
-}
 
 interface ProductFormBodyProps {
-  register: UseFormRegister<ProductFormData>;
-  control: Control<ProductFormData>;
-  watch: UseFormWatch<ProductFormData>;
-  setValue: UseFormSetValue<ProductFormData>;
-  fieldErrors: FieldErrors<ProductFormData>;
-  formData?: ProductFormData;
-  setFormData?: React.Dispatch<React.SetStateAction<ProductFormData>>;
+  register: UseFormRegister<ProductFormDataInterface>;
+  control: Control<ProductFormDataInterface>;
+  watch: UseFormWatch<ProductFormDataInterface>;
+  setValue: UseFormSetValue<ProductFormDataInterface>;
+  fieldErrors: FieldErrors<ProductFormDataInterface>;
+  formData?: ProductFormDataInterface;
 }
 
-const ProductFormBody: React.FC<ProductFormBodyProps> = ({register, control, watch, setValue, fieldErrors, formData, setFormData}) => {
+const ProductFormBody: React.FC<ProductFormBodyProps> = ({register, control, watch, setValue, fieldErrors, formData}) => {
   return (
     <>
       <ProductImages setValue={setValue} formData={formData} />
       <ProductInformation register={register} fieldErrors={fieldErrors} control={control} />
-      <ProductCategorization control={control} fieldErrors={fieldErrors} formData={formData} />
+      <ProductCategorization control={control} fieldErrors={fieldErrors} formData={formData} watch={watch} />
       <ProductLogistics control={control} fieldErrors={fieldErrors} formData={formData} />
       <ProductPricing register={register} control={control} watch={watch} formData={formData} fieldErrors={fieldErrors} />
       <ProductStock register={register} fieldErrors={fieldErrors} />

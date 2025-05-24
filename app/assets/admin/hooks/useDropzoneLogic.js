@@ -73,6 +73,7 @@ export const useDropzoneLogic = (
                     name: file.name,
                     preview: file.preview,
                     content: base64,
+                    uuid: crypto.randomUUID(),
                 };
             }),
         );

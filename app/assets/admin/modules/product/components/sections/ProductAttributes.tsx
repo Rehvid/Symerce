@@ -3,12 +3,12 @@ import { Control, Controller } from 'react-hook-form';
 import FormSection from '@admin/shared/components/form/FormSection';
 import FormGroup from '@admin/shared/components/form/FormGroup';
 import MultiSelect from '@admin/shared/components/form/select/MultiSelect';
-import { ProductFormData } from '@admin/modules/product/components/ProductFormBody';
 import InputLabel from '@admin/shared/components/form/input/InputLabel';
+import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
 
 interface ProductAttributesProps {
-  control: Control<ProductFormData>;
-  formData?: ProductFormData;
+  control: Control<ProductFormDataInterface>;
+  formData?: ProductFormDataInterface;
 }
 
 const ProductAttributes: React.FC<ProductAttributesProps> = ({formData, control}) => {

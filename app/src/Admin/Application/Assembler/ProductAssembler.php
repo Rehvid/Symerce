@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
+use App\Admin\Application\DTO\Response\FileResponse;
 use App\Admin\Application\DTO\Response\Product\ProductCreateFormResponse;
 use App\Admin\Application\DTO\Response\Product\ProductFormResponse;
 use App\Admin\Application\DTO\Response\Product\ProductImageResponse;
@@ -84,6 +85,7 @@ final readonly class ProductAssembler
             description: $product->getDescription(),
             regularPrice: $this->moneyFactory->create($product->getRegularPrice())->getFormattedAmount(),
             discountPrice: $discountPrice,
+            mainCategory: $product->getMainCategory()?->getId() ?? null,
             quantity: $product->getQuantity(),
             isActive: $product->isActive(),
             deliveryTime: (string) $product->getDeliveryTime()?->getId(),
@@ -132,7 +134,7 @@ final readonly class ProductAssembler
 
         return new ProductImageResponse(
             id: $file->getId(),
-            name: $file->getOriginalName(),
+            name: $file->getName(),
             preview: $this->responseHelperAssembler->buildPublicFilePath($file->getPath()),
             isThumbnail: $productImage->isThumbnail(),
         );
