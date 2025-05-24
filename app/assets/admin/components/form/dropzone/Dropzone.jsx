@@ -7,13 +7,14 @@ const Dropzone = ({ onDrop, errors, variant = 'sideColumn', containerClasses = '
         sideColumn: `dropzone max-w-full  min-h-[130px] rounded-md`,
         mainColumn: `max-w-lg min-h-[200px]`,
         avatar: 'rounded-full h-40 w-40',
+        multiple: 'max-w-[200px] rounded-lg'
     };
 
     return (
         <section className={`container ${containerClasses}`}>
             <div
                 {...getRootProps({
-                    className: `${variants[variant] ?? ''} flex flex-col gap-2 px-4 py-2 justify-center items-center border border-dashed ${errors && errors.message ? 'border-red-500 hover:border-red-700 hover:border-2' : 'border-gray-300 hover:border-primary-stronger'} hover:scale-[105%] transition-all cursor-pointer`,
+                    className: `${variants[variant] ?? ''} flex flex-col gap-2 px-4 py-2 justify-center items-center border border-dashed ${errors && errors.message ? 'border-red-500 hover:border-red-700 hover:border-2' : 'border-gray-300 hover:border-primary-stronger'} transition-all cursor-pointer`,
                 })}
             >
                 <div>
