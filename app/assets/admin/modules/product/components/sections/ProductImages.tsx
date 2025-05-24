@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import FormSection from '@admin/shared/components/form/FormSection';
 import { normalizeFiles } from '@admin/utils/helper';
 import { useDropzoneLogic } from '@admin/hooks/useDropzoneLogic';
-import ProductDropzoneThumbnail from '@admin/features/product/components/ProductDropzoneThumbnail';
 import Dropzone from '@admin/components/form/dropzone/Dropzone';
 import { UseFormSetValue } from 'react-hook-form';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
