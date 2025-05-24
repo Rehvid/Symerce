@@ -28,7 +28,7 @@ class Product implements OrderEntityInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string')]
     private string $name;
@@ -100,7 +100,7 @@ class Product implements OrderEntityInterface
         $this->priceHistory = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

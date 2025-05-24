@@ -36,9 +36,6 @@ const ProductCategorization : React.FC<ProductCategorizationProps> = ({ control,
     }
   }, [watch().categories]);
 
-  console.log(formData);
-
-
   return (
     <FormSection title="Kategoryzacja" forceOpen={hasAnyFieldError(fieldErrors, ['mainCategory'])} >
       <FormGroup

@@ -55,6 +55,7 @@ const ProductForm = () => {
         'categories',
         'tags',
         'vendor',
+        'attributes',
         'deliveryTime',
         'regularPrice',
         'promotionIsActive',
@@ -77,6 +78,7 @@ const ProductForm = () => {
   if (!isFormInitialize) {
     return <FormSkeleton rowsCount={12} />;
   }
+
 
   return (
     <FormWrapper

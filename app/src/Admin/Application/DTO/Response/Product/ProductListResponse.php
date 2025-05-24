@@ -12,7 +12,7 @@ final readonly class ProductListResponse
         public int $id,
         public string $name,
         public ?string $image,
-        public Money $discountedPrice,
+        public ?Money $discountedPrice,
         public Money $regularPrice,
         public bool $isActive,
         public int $quantity,

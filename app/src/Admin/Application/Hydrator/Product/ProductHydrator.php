@@ -40,18 +40,19 @@ final readonly class ProductHydrator
 
     public function hydrate(SaveProductRequest $request, Product $product): Product
     {
-
         /** @var DeliveryTime|null $deliveryTime */
         $deliveryTime = $this->deliveryTimeRepository->findById($request->deliveryTime);
         if (null === $deliveryTime) {
             $this->validationExceptionFactory->createNotFound('deliveryTime');
         }
 
-        $currentProductPrice = $this->moneyFactory->create($product->getRegularPrice());
-        $requestProductPrice = $this->moneyFactory->create($request->regularPrice);
-        $regularPriceChanged = !$currentProductPrice->equal($requestProductPrice);
-
-        //TODO
+        if ($product->getId() === null) {
+            $regularPriceChanged = true;
+        } else {
+            $currentProductPrice = $this->moneyFactory->create($product->getRegularPrice());
+            $requestProductPrice = $this->moneyFactory->create($request->regularPrice);
+            $regularPriceChanged = !$currentProductPrice->equal($requestProductPrice);
+        }
 
         $product->setVendor($this->vendorRepository->findById($request->vendor));
         $product->setDeliveryTime($deliveryTime);

@@ -32,6 +32,7 @@ final readonly class ProductImageHydrator
             $productImage = $this->getProductImage($imageRequest, $images, $product);
             $productImage->setIsThumbnail($imageRequest->isThumbnail);
             $productImage->setOrder($position);
+            $product->addImage($productImage);
         }
     }
 
@@ -67,6 +68,7 @@ final readonly class ProductImageHydrator
         $productImage = new ProductImage();
         $productImage->setFile($file);
         $productImage->setProduct($product);
+
 
         return $productImage;
     }

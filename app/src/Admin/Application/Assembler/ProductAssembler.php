@@ -13,6 +13,7 @@ use App\Admin\Domain\Entity\AttributeValue;
 use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Entity\Product;
+use App\Admin\Domain\Entity\Promotion;
 use App\Admin\Domain\Entity\Tag;
 use App\Admin\Domain\Entity\Vendor;
 use App\Admin\Domain\Enums\ReductionType;
@@ -86,7 +87,15 @@ final readonly class ProductAssembler
             ? null
             : $this->responseHelperAssembler->buildPublicFilePath($product->getThumbnailImage()->getFile()->getPath());
 
-        $discountPrice = $this->moneyFactory->create($product->getDiscountPrice() ?? '0');
+        $regularPrice = $this->moneyFactory->create($product->getRegularPrice());
+
+        $discountPrice = null;
+        $promotion = $product->getPromotionForProductTab();
+        if ($promotion !== null) {
+            $discountPrice = $promotion->getType() === ReductionType::PERCENT
+                ? $regularPrice->subtractPercentage($promotion->getReduction())
+                : $regularPrice->subtract($promotion->getReduction());
+        }
 
         return new ProductListResponse(
             id: $product->getId(),
@@ -95,7 +104,7 @@ final readonly class ProductAssembler
             discountedPrice: $discountPrice,
             regularPrice: $this->moneyFactory->create($product->getRegularPrice()),
             isActive: $product->isActive(),
-            quantity: $product->getQuantity(),
+            quantity: $product->getStock()->getAvailableQuantity(),
             showUrl: $this->urlGenerator->generate('shop.product_show', [
                 'slug' => $product->getSlug(),
                 'slugCategory' => $product->getCategories()->first()->getSlug(),
@@ -189,7 +198,7 @@ final readonly class ProductAssembler
             $data[$key]['options'] = ArrayUtils::buildSelectedOptions(
                 $attribute->getValues()->toArray(),
                 fn (AttributeValue $attributeValue) => $attributeValue->getValue(),
-                fn (AttributeValue $attributeValue) => (string) $attributeValue->getId(),
+                fn (AttributeValue $attributeValue) => $attributeValue->getId(),
             );
             $data[$key]['label'] = $attribute->getName();
             $data[$key]['name'] = 'attribute_'.$attribute->getId();

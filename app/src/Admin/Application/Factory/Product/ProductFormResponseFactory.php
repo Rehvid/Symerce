@@ -36,7 +36,7 @@ final readonly class ProductFormResponseFactory
             deliveryTime: (string) $product->getDeliveryTime()?->getId(),
             vendor: (string) $product->getVendor()?->getId(),
             mainCategory: $product->getMainCategory()?->getId(),
-            tags: $product->getTags()->map(fn (Tag $tag) => (string) $tag->getId())->toArray(),
+            tags: $product->getTags()->map(fn (Tag $tag) => $tag->getId())->toArray(),
             categories: $product->getCategories()->map(fn (Category $category) => $category->getId())->toArray(),
             attributes: $this->getAttributesForFormDataResponse($product),
             images: $product->getImages()->map(
@@ -75,7 +75,7 @@ final readonly class ProductFormResponseFactory
             $attributeId = $attributeValue->getAttribute()->getId();
             $index = 'attribute_'.$attributeId;
 
-            $productAttributes[$index][] = (string) $attributeValue->getId();
+            $productAttributes[$index][] = $attributeValue->getId();
 
             return $productAttributes;
         })->toArray();
