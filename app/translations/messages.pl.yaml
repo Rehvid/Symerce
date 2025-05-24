@@ -6,6 +6,8 @@ base:
     not_exist_field: 'Pole nie zostało znalezione'
     too_many_decimal_places: 'Podana wartość zawiera zbyt wiele miejsc po przecinku. Maksymalnie {{ precision }}.'
     not_found: "Nie znaleziono %entity%. Sprawdź poprawność danych i spróbuj ponownie."
+  common:
+    workday: 'dni robocze'
   setting_type:
     custom: 'Niestanradowe'
     currency: 'Waluta'

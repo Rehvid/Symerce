@@ -177,10 +177,11 @@ final readonly class ProductAssembler
     {
         /** @var DeliveryTime[] $deliveryTimes */
         $deliveryTimes = $this->deliveryTimeRepository->findAll();
+        $workDay = $this->translator->trans('base.common.workday');
 
         return ArrayUtils::buildSelectedOptions(
             $deliveryTimes,
-            fn (DeliveryTime $deliveryTime) => $deliveryTime->getLabel(),
+            fn (DeliveryTime $deliveryTime) => $deliveryTime->getLabel() . " ( {$deliveryTime->getMinDays()} - {$deliveryTime->getMaxDays()}  $workDay )",
             fn (DeliveryTime $deliveryTime) => (string) $deliveryTime->getId(),
         );
     }

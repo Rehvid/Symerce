@@ -12,11 +12,12 @@ final readonly class ProductStockHydrator
 {
     public function hydrate(SaveProductStockRequest $request, Product $product, ?ProductStock $productStock = null): ProductStock
     {
+
         $productStock = $productStock ?? new ProductStock();
         $productStock->setProduct($product);
         $productStock->setAvailableQuantity((int) $request->availableQuantity);
-        $productStock->setLowStockThreshold(is_string($request->lowStockThreshold) ? (int) $request->lowStockThreshold : null);
-        $productStock->setMaximumStockLevel(is_string($request->maxStockLevel) ? (int) $request->maxStockLevel : null);
+        $productStock->setLowStockThreshold(!$request->lowStockThreshold ? null : (int) $request->lowStockThreshold);
+        $productStock->setMaximumStockLevel(!$request->maxStockLevel ? null : (int) $request->maxStockLevel);
         $productStock->setNotifyOnLowStock($request->notifyOnLowStock);
         $productStock->setVisibleInStore($request->visibleInStore);
         $productStock->setEan13($request->ean13);
