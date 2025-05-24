@@ -13,6 +13,14 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "checkJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["assets/*"],
+      "@shared/*": ["assets/shared/*"],
+      "@admin/*": ["assets/admin/*"],
+      "@shop/*": ["assets/shop/*"]
+    }
   }
 }

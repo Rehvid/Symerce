@@ -16,18 +16,18 @@ if (ENTRY === 'admin' || ENTRY === 'all') {
     Encore.addEntry('admin/app', './assets/admin/index.jsx');
 }
 if (ENTRY === 'shop' || ENTRY === 'all') {
-    Encore
-      .addEntry('shop/app', './assets/shop/app.js')
-      .addEntry('shop/filter', './assets/shop/common/filter.js')
-      .addEntry('shop/dropdown', './assets/shop/common/dropdown.js')
-      .addEntry('shop/category', './assets/shop/category/index.js')
-      .addEntry('shop/product', './assets/shop/product/index.js')
-      .addEntry('shop/cart', './assets/shop/cart/index.js')
-      .addEntry('shop/checkout', './assets/shop/checkout/index.js')
-
-      .addEntry('shop/style', './assets/shop/styles/app.css')
-      .addEntry('shop/swiper-style', './assets/shop/styles/swiper.css')
-    ;
+    // Encore
+    //   .addEntry('shop/app', './assets/shop/app.js')
+    //   .addEntry('shop/filter', './assets/shop/common/filter.js')
+    //   .addEntry('shop/dropdown', './assets/shop/common/dropdown.js')
+    //   .addEntry('shop/category', './assets/shop/category/index.js')
+    //   .addEntry('shop/product', './assets/shop/product/index.js')
+    //   .addEntry('shop/cart', './assets/shop/cart/index.js')
+    //   .addEntry('shop/checkout', './assets/shop/checkout/index.js')
+    //
+    //   .addEntry('shop/style', './assets/shop/styles/app.css')
+    //   .addEntry('shop/swiper-style', './assets/shop/styles/swiper.css')
+    // ;
 }
 
 Encore
@@ -49,6 +49,9 @@ Encore
     .addPlugin(new Dotenv())
     .addAliases({
         '@': path.resolve(__dirname, 'assets'),
+        '@shared': path.resolve(__dirname, 'assets/shared'),
+        '@admin': path.resolve(__dirname, 'assets/admin'),
+        '@shop': path.resolve(__dirname, 'assets/shop'),
     })
 ;
 
