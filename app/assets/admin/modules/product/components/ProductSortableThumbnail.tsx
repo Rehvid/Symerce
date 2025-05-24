@@ -4,7 +4,6 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
 import PhotoIcon from '@/images/icons/photos.svg';
-import DropzonePreview from '@admin/components/form/dropzone/DropzonePreview';
 
 const ProductSortableThumbnail = ({ file, removeFile, setMainThumbnail, isMainThumbnail }) => {
   const {
@@ -21,34 +20,36 @@ const ProductSortableThumbnail = ({ file, removeFile, setMainThumbnail, isMainTh
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes}>
-      {/* Drag handle - tu łapiesz tylko drag */}
-      <div {...listeners} className="cursor-grab p-1">
-        {/* Możesz tu dodać ikonę "przesuń" lub cały thumbnail, jeśli chcesz */}
-        <PhotoIcon className="text-gray-400" />
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      className={`
+      rounded-md bg-white shadow-sm
+      transition-all duration-200 ease-in-out
+      ${transform ? 'ring-2 ring-primary/50 opacity-80' : ''}
+    `}
+    >
+      <div
+        {...listeners}
+        className="cursor-grab p-2 text-center"
+        title="Przeciągnij, aby zmienić kolejność"
+      >
+        <PhotoIcon className="text-gray-400 w-5 h-5 mx-auto" />
       </div>
 
-      {/* Reszta komponentu bez listeners - tutaj działa kliknięcie */}
       <DropzoneThumbnail
         file={file}
         removeFile={removeFile}
         isMainThumbnail={isMainThumbnail}
         variant="multiple"
       >
-        <DropzonePreview
-          renderModal={() => <ModalFile preview={file.preview} name={file.name} />}
-          removeFile={removeFile}
-          file={file}
-          additionalClasses="rounded-lg"
-        >
-          {/* Twoje children (np. ikona do ustawiania miniatury) */}
-          <span
-            className="block cursor-pointer"
-            onClick={() => setMainThumbnail(file)}
-          >
-            <PhotoIcon className="text-white scale-125%" />
-          </span>
-        </DropzonePreview>
+      <span
+        className="block cursor-pointer"
+        onClick={() => setMainThumbnail(file)}
+      >
+        <PhotoIcon className="text-white w-[30px] h-[30px]" />
+      </span>
       </DropzoneThumbnail>
     </div>
   );
