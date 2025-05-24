@@ -16,6 +16,8 @@ enum SettingType: string
 
     case PRODUCT_REFUND = 'product_refund';
 
+    case USE_PRODUCT_PRICE_HISTORY = 'use_product_price_history';
+
     /**
      * @return array<int, string>
      */

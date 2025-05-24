@@ -42,7 +42,6 @@ const SettingForm = () => {
     }
 
     const { isProtected } = formData;
-
     return (
         <ApiForm
             apiConfig={getApiConfig()}
@@ -59,6 +58,7 @@ const SettingForm = () => {
                         fieldErrors={fieldErrors}
                         formData={formData}
                         control={control}
+                        setValue={setValue}
                     />
                 }
             />

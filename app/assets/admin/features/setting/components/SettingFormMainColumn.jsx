@@ -9,8 +9,9 @@ import { isValidEnumValue } from '@/admin/utils/helper';
 import { SETTING_VALUE_TYPES } from '@/admin/constants/settingValueConstants';
 import SettingValueTypeMultiSelect from '@/admin/features/setting/components/types/SettingValueTypeMultiSelect';
 import Switch from '@/admin/components/form/controls/Switch';
+import SettingValueTypeBoolean from '@admin/features/setting/components/types/SettingValueTypeBoolean';
 
-const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, control }) => {
+const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, control, setValue }) => {
     const settingValue = formData?.settingValue;
 
     const renderSettingValueType = () => {
@@ -35,6 +36,10 @@ const SettingFormMainColumn = ({ isProtected, register, fieldErrors, formData, c
                         fieldErrors={fieldErrors}
                     />
                 );
+            case SETTING_VALUE_TYPES.BOOLEAN:
+                return (
+                  <SettingValueTypeBoolean setValue={setValue} formData={formData} />
+                )
             default:
                 return null;
         }

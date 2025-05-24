@@ -66,6 +66,11 @@ final readonly class SettingAssembler
         if (SettingType::SHOP_CATEGORIES === $setting->getType()) {
             $settingValue = $this->settingValueResponseDTOForShopCategories();
         }
+        if (SettingType::USE_PRODUCT_PRICE_HISTORY === $setting->getType()) {
+            $settingValue = new SettingValueResponse(
+                type: SettingValueType::BOOLEAN
+            );
+        }
 
         return $this->responseHelperAssembler->wrapFormResponse(
             new SettingFormResponse(
