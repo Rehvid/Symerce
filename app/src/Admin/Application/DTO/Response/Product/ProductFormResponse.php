@@ -12,7 +12,6 @@ final readonly class ProductFormResponse
         public ?string $slug,
         public ?string $description,
         public string $regularPrice,
-        public ?string $discountPrice,
         public int $quantity,
         public bool $isActive,
         public ?string $deliveryTime,

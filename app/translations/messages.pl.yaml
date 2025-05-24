@@ -15,6 +15,7 @@ base:
     meta_shop_og_description: 'Open Graph opis sklepu'
     shop_categories: 'Kategorie wyświetlane w sklepie'
     product_refund: 'Ilość dni do zwrotu'
+    use_product_price_history: 'Historia cen produktu'
   delivery_type:
     standard: 'Dostawa standardowa'
     express: 'Dostawa ekspresowa'
@@ -22,6 +23,9 @@ base:
   admin_role_type:
     admin: 'Administrator'
     employee: 'Pracownik'
+  reduction_type:
+    amount: 'Kwota'
+    percent: 'Procent'
   messages:
     errors:
       validation_failed: 'Wystąpił błąd walidacji.'

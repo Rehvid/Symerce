@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace App\Admin\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Application\DTO\Response\FileResponse;
 use App\Admin\Application\DTO\Response\Product\ProductFormContext;
-use App\Admin\Application\DTO\Response\Product\ProductFormResponse;
-use App\Admin\Application\DTO\Response\Product\ProductImageResponse;
 use App\Admin\Application\DTO\Response\Product\ProductListResponse;
+use App\Admin\Application\Factory\Product\ProductFormResponseFactory;
 use App\Admin\Domain\Entity\Attribute;
 use App\Admin\Domain\Entity\AttributeValue;
 use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Entity\ProductImage;
 use App\Admin\Domain\Entity\Tag;
 use App\Admin\Domain\Entity\Vendor;
 use App\Admin\Domain\Enums\ReductionType;
@@ -27,18 +24,21 @@ use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Shared\Application\Factory\MoneyFactory;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class ProductAssembler
 {
     public function __construct(
         private MoneyFactory $moneyFactory,
         private UrlGeneratorInterface $urlGenerator,
+        private TranslatorInterface $translator,
         private ResponseHelperAssembler $responseHelperAssembler,
         private CategoryRepositoryInterface $categoryRepository,
         private VendorRepositoryInterface $vendorRepository,
         private TagRepositoryInterface $tagRepository,
         private DeliveryTimeRepositoryInterface $deliveryTimeRepository,
         private AttributeRepositoryInterface $attributeRepository,
+        private ProductFormResponseFactory $productFormResponseFactory,
     ) {}
 
     /**
@@ -71,75 +71,13 @@ final readonly class ProductAssembler
      */
     public function toFormDataResponse(Product $product): array
     {
-        $discountPrice = $product->getDiscountPrice()
-            ? $this->moneyFactory->create($product->getDiscountPrice())->getFormattedAmount()
-            : '0';
-
-        $promotion = $product->getPromotions()->first();
-        $stock = $product->getStock();
-
-        $response = new ProductFormResponse(
-            name: $product->getName(),
-            slug: $product->getSlug(),
-            description: $product->getDescription(),
-            regularPrice: $this->moneyFactory->create($product->getRegularPrice())->getFormattedAmount(),
-            discountPrice: $discountPrice,
-            quantity: $product->getQuantity(),
-            isActive: $product->isActive(),
-            deliveryTime: (string) $product->getDeliveryTime()?->getId(),
-            vendor: (string) $product->getVendor()?->getId(),
-            mainCategory: $product->getMainCategory()?->getId(),
-            tags: $product->getTags()->map(fn (Tag $tag) => (string) $tag->getId())->toArray(),
-            categories: $product->getCategories()->map(fn (Category $category) => $category->getId())->toArray(),
-            attributes: $this->getAttributesForFormDataResponse($product),
-            images: $product->getImages()->map(
-                fn (ProductImage $productImage) => $this->createProductImageResponse($productImage)
-            )->toArray(),
-            promotionIsActive: $promotion && $promotion->isActive(),
-            promotionReduction: $promotion ? $promotion->getReduction() : null,
-            promotionReductionType: $promotion ? $promotion->getType()->value : null,
-            promotionDateRange: $promotion ? [$promotion->getStartsAt(), $promotion->getEndsAt()] : [],
-            stockAvailableQuantity: $stock->getAvailableQuantity(),
-            stockLowStockThreshold: $stock->getLowStockThreshold(),
-            stockMaximumStockLevel: $stock->getMaximumStockLevel(),
-            stockNotifyOnLowStock: $stock->isNotifyOnLowStock(),
-            stockVisibleInStore: $stock->isVisibleInStore(),
-            stockSku: $stock->getSku(),
-            stockEan13: $stock->getEan13(),
-         );
+        $productFormResponse = $this->productFormResponseFactory->fromProduct($product);
 
         $context = new ProductFormContext(
             ...$this->getOptions()
         );
 
-         return $this->responseHelperAssembler->wrapFormResponse($response, $context);
-    }
-
-    private function getAttributesForFormDataResponse(Product $product): array
-    {
-        $productAttributes = [];
-        $product->getAttributeValues()->map(function (AttributeValue $attributeValue) use (&$productAttributes) {
-            $attributeId = $attributeValue->getAttribute()->getId();
-            $index = 'attribute_'.$attributeId;
-
-            $productAttributes[$index][] = (string) $attributeValue->getId();
-
-            return $productAttributes;
-        })->toArray();
-
-        return $productAttributes;
-    }
-
-    private function createProductImageResponse(ProductImage $productImage): ProductImageResponse
-    {
-        $file = $productImage->getFile();
-
-        return new ProductImageResponse(
-            id: $file->getId(),
-            name: $file->getName(),
-            preview: $this->responseHelperAssembler->buildPublicFilePath($file->getPath()),
-            isThumbnail: $productImage->isThumbnail(),
-        );
+         return $this->responseHelperAssembler->wrapFormResponse($productFormResponse, $context);
     }
 
     private function createProductListResponse(Product $product): ProductListResponse
@@ -264,7 +202,7 @@ final readonly class ProductAssembler
     {
         return ArrayUtils::buildSelectedOptions(
             ReductionType::cases(),
-            fn (ReductionType $reductionType) => $reductionType->value,
+            fn (ReductionType $reductionType) => $this->translator->trans('base.reduction_type.' . $reductionType->value),
             fn (ReductionType $reductionType) => $reductionType->value,
         );
     }

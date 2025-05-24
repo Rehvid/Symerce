@@ -64,14 +64,53 @@ final readonly class Money implements \JsonSerializable
         );
     }
 
-    public function subtract(Money $money): self
+    public function subtract(Money|string|int|float $value): self
     {
-        $this->checkCurrencyCompatibility($money);
+        if ($value instanceof self) {
+            $this->checkCurrencyCompatibility($value);
+            $subtrahend = $value->getAmount();
+            $scale = $value->currency->getRoundingPrecision();
+        } elseif (is_numeric($value)) {
+            $subtrahend = (string) $value;
+            $scale = $this->currency->getRoundingPrecision();
+        } else {
+            throw new \InvalidArgumentException('Value for subtraction must be numeric or Money instance.');
+        }
 
-        return new self(
-            bcsub($this->getAmount(), $money->getAmount(), $this->currency->getRoundingPrecision()),
-            $this->currency
+        $result = bcsub(
+            $this->getAmount(),
+            $subtrahend,
+            $scale
         );
+
+        return new self($result, $this->currency);
+    }
+
+    public function subtractPercentage(float|int|string $percent): self
+    {
+        if (!is_numeric((string) $percent)) {
+        throw new \InvalidArgumentException('Percentage must be numeric.');
+    }
+        $scale = $this->currency->getRoundingPrecision();
+
+        $multiplier = bcdiv(
+        bcsub('100', (string) $percent, $scale + 2),
+            '100',
+            $scale + 2
+        );
+
+        $result = bcmul(
+        $this->getAmount(),
+            $multiplier,
+            $scale
+        );
+
+        return new self($result, $this->currency);
+    }
+
+    public function equal(Money $money): bool
+    {
+        return $this->getFormattedAmount() === $money->getFormattedAmount();
     }
 
     private function checkCurrencyCompatibility(Money $money): void

@@ -4,12 +4,14 @@ declare (strict_types = 1);
 
 namespace App\Admin\Domain\Entity;
 
+use App\Admin\Domain\Repository\ProductPriceHistoryRepositoryInterface;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ProductPriceHistoryRepositoryInterface::class)]
+#[ORM\HasLifecycleCallbacks]
 class ProductPriceHistory
 {
     use CreatedAtTrait;

@@ -11,10 +11,12 @@ use App\Admin\Application\Hydrator\PromotionHydrator;
 use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
+use App\Admin\Domain\Repository\SettingRepositoryInterface;
 use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Admin\Infrastructure\Slug\SluggerService;
+use App\Shared\Application\Factory\MoneyFactory;
 use App\Shared\Application\Factory\ValidationExceptionFactory;
-
+use App\Shared\Domain\Enums\SettingType;
 
 
 final readonly class ProductHydrator
@@ -23,24 +25,33 @@ final readonly class ProductHydrator
         private VendorRepositoryInterface       $vendorRepository,
         private DeliveryTimeRepositoryInterface $deliveryTimeRepository,
         private SluggerService                 $sluggerService,
+        private MoneyFactory $moneyFactory,
+        private ValidationExceptionFactory $validationExceptionFactory,
         private PromotionHydrator               $promotionHydrator,
         private ProductStockHydrator            $productStockHydrator,
         private ProductCategoryHydrator         $productCategoryHydrator,
         private ProductTagHydrator              $productTagHydrator,
         private ProductAttributeValueHydrator   $productAttributeValueHydrator,
         private ProductImageHydrator            $productImageHydrator,
-        private ValidationExceptionFactory $validationExceptionFactory
+        private ProductPriceHydrator            $productPriceHydrator,
     ) {
 
     }
 
     public function hydrate(SaveProductRequest $request, Product $product): Product
     {
+
         /** @var DeliveryTime|null $deliveryTime */
         $deliveryTime = $this->deliveryTimeRepository->findById($request->deliveryTime);
         if (null === $deliveryTime) {
             $this->validationExceptionFactory->createNotFound('deliveryTime');
         }
+
+        $currentProductPrice = $this->moneyFactory->create($product->getRegularPrice());
+        $requestProductPrice = $this->moneyFactory->create($request->regularPrice);
+        $regularPriceChanged = !$currentProductPrice->equal($requestProductPrice);
+
+        //TODO
 
         $product->setVendor($this->vendorRepository->findById($request->vendor));
         $product->setDeliveryTime($deliveryTime);
@@ -49,12 +60,16 @@ final readonly class ProductHydrator
         $product->setDescription($request->description);
         $product->setRegularPrice($request->regularPrice);
 
+        if ($request->productPromotionRequest === null && $regularPriceChanged) {
+            $this->productPriceHydrator->hydrate($product);
+        }
+
         $this->productCategoryHydrator->hydrate($request->categories, $request->mainCategory, $product);
         $this->productTagHydrator->hydrate($request->tags, $product);
         $this->productAttributeValueHydrator->hydrate($request->attributes, $product);
         $this->productImageHydrator->hydrate($request->images, $product);
 
-        $this->handlePromotion($request->productPromotionRequest, $product);
+        $this->handlePromotion($request->productPromotionRequest, $product, $regularPriceChanged);
         $this->saveProductStock($request->productStockRequest, $product);
 
         return $product;
@@ -77,25 +92,52 @@ final readonly class ProductHydrator
     }
     //TODO: end
 
-    private function handlePromotion(?SaveProductPromotionRequest $request, Product $product): void
+    private function handlePromotion(?SaveProductPromotionRequest $request, Product $product, bool $regularPriceChanged): void
     {
-        $promotion = $product->getPromotionForProductTab();
-        if (null === $request) {
-            if (null !== $promotion) {
-                $product->removePromotion($promotion);
-            }
+        $existingPromotion = $product->getPromotionForProductTab();
+
+        $hasPromotion = $existingPromotion !== null;
+        $shouldRemove = $request === null && $hasPromotion;
+
+        if ($shouldRemove) {
+            $product->removePromotion($existingPromotion);
             return;
         }
 
-        $this->savePromotion($request, $product);
+        if ($request !== null) {
+            $this->savePromotion($request, $product, $regularPriceChanged);
+            return;
+        }
+
+
+        if ($regularPriceChanged && $hasPromotion) {
+            $this->productPriceHydrator->hydrate($product, $existingPromotion);
+        }
     }
 
-    private function savePromotion(SaveProductPromotionRequest $request, Product $product): void
+    private function savePromotion(SaveProductPromotionRequest $request, Product $product, bool $regularPriceChanged): void
     {
-        $promotion = $this->promotionHydrator->hydrate($request, $product->getPromotionForProductTab());
-        $promotion->setProduct($product);
+        $promotionProduct = $product->getPromotionForProductTab();
+        if (null === $promotionProduct) {
+            $promotion = $this->promotionHydrator->hydrate($request, $promotionProduct);
+            $promotion->setProduct($product);
 
-        $product->addPromotion($promotion);
+            $product->addPromotion($promotion);
+            $this->productPriceHydrator->hydrate($product, $promotion);
+            return;
+        }
+
+        $currentReduction = $this->moneyFactory->create($promotionProduct->getReduction());
+        $incomingReduction = $this->moneyFactory->create($request->reduction);
+
+        $typeChanged = $promotionProduct->getType()->value !== $request->reductionType;
+        $valueChanged = !$currentReduction->equal($incomingReduction);
+
+        $this->promotionHydrator->hydrate($request, $promotionProduct);
+
+        if ($typeChanged || $valueChanged || $regularPriceChanged) {
+            $this->productPriceHydrator->hydrate($product, $promotionProduct);
+        }
     }
 
     private function saveProductStock(SaveProductStockRequest $request, Product $product): void
