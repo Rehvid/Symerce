@@ -37,7 +37,7 @@ final readonly class CategoryAssembler
 
     public function toCreateFormDataResponse(): array
     {
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new CategoryTreeResponse(
                 tree: $this->treeProvider->provide()
             )
@@ -57,7 +57,7 @@ final readonly class CategoryAssembler
             ? null
             : $this->responseHelperAssembler->toFileResponse($image->getId(), $name, $image->getPath());
 
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new CategoryFormResponse(
                 name: $category->getName(),
                 slug: $category->getSlug(),

@@ -15,9 +15,18 @@ final readonly class ResponseHelperAssembler
     /**
      * @return array<string, mixed>
      */
-    public function wrapAsFormData(mixed $data): array
+    public function wrapFormResponse(mixed $data = null, mixed $context = null): array
     {
-        return ['formData' => $data];
+        if ($data !== null) {
+            $response['formData'] = $data;
+        }
+
+
+        if ($context !== null) {
+            $response['formContext'] = $context;
+        }
+
+        return $response;
     }
 
     public function toFileResponse(?int $id, ?string $name, ?string $filePath): FileResponse

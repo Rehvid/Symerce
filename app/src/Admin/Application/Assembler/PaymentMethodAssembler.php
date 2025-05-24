@@ -44,7 +44,7 @@ final readonly class PaymentMethodAssembler
             ? null
             : $this->responseHelperAssembler->toFileResponse($image->getId(), $name, $image->getPath());
 
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new PaymentMethodFormResponse(
                 code: $paymentMethod->getCode(),
                 name: $name,

@@ -25,7 +25,7 @@ final readonly class AttributeAssembler
 
     public function toFormDataResponse(Attribute $attribute): array
     {
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new AttributeFormResponse(
                 name: $attribute->getName(),
             ),

@@ -37,7 +37,7 @@ final readonly class UserAssembler
 
     public function toCreateFormDataResponse(): array
     {
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new UserCreateFormResponse(
                 availableRoles: $this->getAvailableRoles(),
             ),
@@ -54,7 +54,7 @@ final readonly class UserAssembler
             ? null
             : $this->responseHelperAssembler->toFileResponse($image->getId(), $user->getFullName(), $image->getPath());
 
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new UserFormResponse(
                 firstname: $user->getFirstname(),
                 surname: $user->getSurname(),

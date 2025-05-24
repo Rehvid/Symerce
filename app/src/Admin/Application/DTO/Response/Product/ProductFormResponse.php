@@ -4,24 +4,10 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Response\Product;
 
-use App\DTO\Admin\Response\ResponseInterfaceData;
-
-final readonly class ProductFormResponse extends ProductCreateFormResponse
+final readonly class ProductFormResponse
 {
-    /**
-     * @param array<int, mixed>|null $tags
-     * @param array<int, mixed>|null $categories
-     * @param array<int, mixed>|null $attributes
-     * @param array<int, mixed>|null $deliveryTimes
-     * @param array<int, mixed>|null $images
-     */
+
     public function __construct(
-        ?array $optionTags,
-        ?array $optionCategories,
-        ?array $optionVendors,
-        ?array $optionDeliveryTimes,
-        ?array $optionAttributes,
-        ?array $promotionTypes,
         public string $name,
         public ?string $slug,
         public ?string $description,
@@ -48,6 +34,5 @@ final readonly class ProductFormResponse extends ProductCreateFormResponse
         public ?string $stockSku = null,
         public ?string $stockEan13 = null,
     ) {
-        parent::__construct($optionTags, $optionCategories, $optionVendors, $optionDeliveryTimes, $optionAttributes, $promotionTypes);
     }
 }

@@ -25,7 +25,7 @@ final readonly class TagAssembler
 
     public function toFormDataResponse(Tag $tag): array
     {
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new TagFormResponse(
                 name: $tag->getName(),
             ),

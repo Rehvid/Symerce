@@ -36,7 +36,7 @@ final readonly class CurrencyAssembler
      */
     public function toFormDataResponse(Currency $currency): array
     {
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new CurrencyFormResponse(
                 name: $currency->getName(),
                 symbol: $currency->getSymbol(),

@@ -6,7 +6,7 @@ namespace App\Admin\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\FileResponse;
-use App\Admin\Application\DTO\Response\Product\ProductCreateFormResponse;
+use App\Admin\Application\DTO\Response\Product\ProductFormContext;
 use App\Admin\Application\DTO\Response\Product\ProductFormResponse;
 use App\Admin\Application\DTO\Response\Product\ProductImageResponse;
 use App\Admin\Application\DTO\Response\Product\ProductListResponse;
@@ -59,8 +59,8 @@ final readonly class ProductAssembler
     {
         $this->getOptions();
 
-        return $this->responseHelperAssembler->wrapAsFormData(
-            new ProductCreateFormResponse(
+        return $this->responseHelperAssembler->wrapFormResponse(
+            context: new ProductFormContext(
                 ...$this->getOptions()
             ),
         );
@@ -79,17 +79,16 @@ final readonly class ProductAssembler
         $stock = $product->getStock();
 
         $response = new ProductFormResponse(
-             ...$this->getOptions(),
             name: $product->getName(),
             slug: $product->getSlug(),
             description: $product->getDescription(),
             regularPrice: $this->moneyFactory->create($product->getRegularPrice())->getFormattedAmount(),
             discountPrice: $discountPrice,
-            mainCategory: $product->getMainCategory()?->getId() ?? null,
             quantity: $product->getQuantity(),
             isActive: $product->isActive(),
             deliveryTime: (string) $product->getDeliveryTime()?->getId(),
             vendor: (string) $product->getVendor()?->getId(),
+            mainCategory: $product->getMainCategory()?->getId(),
             tags: $product->getTags()->map(fn (Tag $tag) => (string) $tag->getId())->toArray(),
             categories: $product->getCategories()->map(fn (Category $category) => $category->getId())->toArray(),
             attributes: $this->getAttributesForFormDataResponse($product),
@@ -105,12 +104,15 @@ final readonly class ProductAssembler
             stockMaximumStockLevel: $stock->getMaximumStockLevel(),
             stockNotifyOnLowStock: $stock->isNotifyOnLowStock(),
             stockVisibleInStore: $stock->isVisibleInStore(),
-            stockEan13: $stock->getEan13(),
             stockSku: $stock->getSku(),
+            stockEan13: $stock->getEan13(),
          );
 
+        $context = new ProductFormContext(
+            ...$this->getOptions()
+        );
 
-         return $this->responseHelperAssembler->wrapAsFormData($response);
+         return $this->responseHelperAssembler->wrapFormResponse($response, $context);
     }
 
     private function getAttributesForFormDataResponse(Product $product): array

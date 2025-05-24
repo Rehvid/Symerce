@@ -46,7 +46,7 @@ final readonly class SettingAssembler
 
     public function toCreateFormDataResponse(): array
     {
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new SettingCreateFormResponse(
                 availableTypes: $this->buildTranslatedOptionsForSettingTypeEnum(SettingType::translatedOptions()),
                 settingValue: new SettingValueResponse(type: SettingValueType::PLAIN_TEXT)
@@ -67,7 +67,7 @@ final readonly class SettingAssembler
             $settingValue = $this->settingValueResponseDTOForShopCategories();
         }
 
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new SettingFormResponse(
                 name: $setting->getName(),
                 type: $setting->getType()->value,

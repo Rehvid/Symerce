@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Application\DTO\Response\Product;
 
 
-readonly class ProductCreateFormResponse
+readonly class ProductFormContext
 {
     /**
      * @param array<int, mixed> $optionTags

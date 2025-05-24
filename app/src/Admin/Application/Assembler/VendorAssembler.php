@@ -33,7 +33,7 @@ final readonly class VendorAssembler
         $file = $vendor->getFile();
         $name = $vendor->getName();
 
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new VendorFormResponse(
                 name: $name,
                 isActive: $vendor->isActive(),

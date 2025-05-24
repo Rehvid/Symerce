@@ -43,7 +43,7 @@ final readonly class CarrierAssembler
             ? null
             : $this->responseHelperAssembler->toFileResponse($image->getId(), $name, $image->getPath());
 
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new CarrierFormResponse(
                 name: $name,
                 fee: $this->moneyFactory->create($carrier->getFee()),

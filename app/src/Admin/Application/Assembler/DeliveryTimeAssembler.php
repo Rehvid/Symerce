@@ -41,7 +41,7 @@ final readonly class DeliveryTimeAssembler
 
     public function toCreateFormDataResponse(): array
     {
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new DeliveryTimeCreateFormResponse(
                 availableTypes: $this->buildTranslatedOptionsForDeliverTypeEnum(),
             ),
@@ -53,7 +53,7 @@ final readonly class DeliveryTimeAssembler
      */
     public function toFormDataResponse(DeliveryTime $deliveryTime): array
     {
-        return $this->responseHelperAssembler->wrapAsFormData(
+        return $this->responseHelperAssembler->wrapFormResponse(
             new DeliveryTimeFormResponse(
                 label: $deliveryTime->getLabel(),
                 minDays: $deliveryTime->getMinDays(),
