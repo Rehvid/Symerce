@@ -24,12 +24,17 @@ export const isValidEnumValue = (enumObject, value) => {
 };
 
 export const normalizeFiles = (input) => {
+    const assignUuid = (file) => ({
+        ...file,
+        uuid: file.uuid ?? crypto.randomUUID(),
+    });
+
     if (Array.isArray(input)) {
-        return input.filter((file) => file && file.id !== null);
+        return input.filter((file) => file && file.id !== null).map(assignUuid);
     }
 
     if (input && typeof input === 'object' && input.id !== null) {
-        return [input];
+        return [assignUuid(input)];
     }
 
     return [];
