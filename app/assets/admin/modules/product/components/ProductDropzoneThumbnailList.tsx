@@ -1,10 +1,7 @@
 import ProductSortableThumbnail from '@admin/modules/product/components/ProductSortableThumbnail';
-import PhotoIcon from '@/images/icons/photos.svg';
 import { useSensors, useSensor, PointerSensor, DndContext, closestCenter, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useState } from 'react';
-
-
 
 const ProductDropzoneThumbnailList = ({ files, setFiles, setMainThumbnail, removeFile }) => {
   const sensors = useSensors(useSensor(PointerSensor));
@@ -37,7 +34,7 @@ const ProductDropzoneThumbnailList = ({ files, setFiles, setMainThumbnail, remov
             <ProductSortableThumbnail
               key={file.uuid}
               file={file}
-              removeFile={() => setFiles(prev => prev.filter(f => f.uuid !== file.uuid))}
+              removeFile={removeFile}
               setMainThumbnail={setMainThumbnail}
               isMainThumbnail={file.isThumbnail}
             />
@@ -47,8 +44,8 @@ const ProductDropzoneThumbnailList = ({ files, setFiles, setMainThumbnail, remov
 
       <DragOverlay>
         {activeFile ? (
-          <div className="w-24 h-24 rounded-md border border-gray-300 bg-white flex items-center justify-center shadow-md">
-            <PhotoIcon className="text-gray-400 w-8 h-8" />
+          <div className="rounded-lg border border-gray-300 bg-white shadow-md w-full h-full">
+            <img className={`rounded-lg mx-auto object-cover w-full h-full`} src={activeFile.preview} alt={activeFile.name} />
           </div>
         ) : null}
       </DragOverlay>

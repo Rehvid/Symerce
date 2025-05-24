@@ -14,6 +14,7 @@ import ProductPricing from '@admin/modules/product/components/sections/ProductPr
 import ProductStock from '@admin/modules/product/components/sections/ProductStock';
 import ProductAttributes from '@admin/modules/product/components/sections/ProductAttributes';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import { FormContextInterface } from '@admin/shared/interfaces/FormContextInterface';
 
 
 interface ProductFormBodyProps {
@@ -23,18 +24,19 @@ interface ProductFormBodyProps {
   setValue: UseFormSetValue<ProductFormDataInterface>;
   fieldErrors: FieldErrors<ProductFormDataInterface>;
   formData?: ProductFormDataInterface;
+  formContext?: FormContextInterface;
 }
 
-const ProductFormBody: React.FC<ProductFormBodyProps> = ({register, control, watch, setValue, fieldErrors, formData}) => {
+const ProductFormBody: React.FC<ProductFormBodyProps> = ({register, control, watch, setValue, fieldErrors, formData, formContext}) => {
   return (
     <>
       <ProductImages setValue={setValue} formData={formData} />
       <ProductInformation register={register} fieldErrors={fieldErrors} control={control} />
-      <ProductCategorization control={control} fieldErrors={fieldErrors} formData={formData} watch={watch} />
-      <ProductLogistics control={control} fieldErrors={fieldErrors} formData={formData} />
-      <ProductPricing register={register} control={control} watch={watch} formData={formData} fieldErrors={fieldErrors} />
+      <ProductCategorization control={control} fieldErrors={fieldErrors} formData={formContext} watch={watch} />
+      <ProductLogistics control={control} fieldErrors={fieldErrors} formData={formContext} />
+      <ProductPricing register={register} control={control} watch={watch} formData={formContext} fieldErrors={fieldErrors} />
       <ProductStock register={register} fieldErrors={fieldErrors} />
-      <ProductAttributes control={control} fieldErrors={fieldErrors} formData={formData} />
+      <ProductAttributes control={control} fieldErrors={fieldErrors} formData={formContext} />
     </>
   )
 }

@@ -3,7 +3,8 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
-import PhotoIcon from '@/images/icons/photos.svg';
+import SortableIcon from '@/images/icons/grip-vertical.svg';
+import PhotoIcon from '@/images/icons/photos.svg'
 
 const ProductSortableThumbnail = ({ file, removeFile, setMainThumbnail, isMainThumbnail }) => {
   const {
@@ -24,19 +25,10 @@ const ProductSortableThumbnail = ({ file, removeFile, setMainThumbnail, isMainTh
       ref={setNodeRef}
       style={style}
       {...attributes}
-      className={`
-      rounded-md bg-white shadow-sm
-      transition-all duration-200 ease-in-out
-      ${transform ? 'ring-2 ring-primary/50 opacity-80' : ''}
+      className={` transition-all duration-200 ease-in-out relative
+      ${transform ? 'opacity-50' : ''}
     `}
     >
-      <div
-        {...listeners}
-        className="cursor-grab p-2 text-center"
-        title="Przeciągnij, aby zmienić kolejność"
-      >
-        <PhotoIcon className="text-gray-400 w-5 h-5 mx-auto" />
-      </div>
 
       <DropzoneThumbnail
         file={file}
@@ -44,12 +36,19 @@ const ProductSortableThumbnail = ({ file, removeFile, setMainThumbnail, isMainTh
         isMainThumbnail={isMainThumbnail}
         variant="multiple"
       >
+        <div
+          {...listeners}
+          className="cursor-grab"
+        >
+          <SortableIcon className="text-white w-[30px] h-[30px] mx-auto" />
+        </div>
       <span
         className="block cursor-pointer"
         onClick={() => setMainThumbnail(file)}
       >
-        <PhotoIcon className="text-white w-[30px] h-[30px]" />
+         <PhotoIcon className="text-white w-[30px] h-[30px] mx-auto" />
       </span>
+
       </DropzoneThumbnail>
     </div>
   );

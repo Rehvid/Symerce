@@ -29,7 +29,7 @@ const ProductForm = () => {
   const baseApiUrl = 'admin/products';
   const redirectSuccessUrl = '/admin/products';
   const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, formData, getFormData } = useFormInitializer<ProductFormDataInterface>();
+  const { isFormInitialize, formData, formContext, getFormData } = useFormInitializer<ProductFormDataInterface>();
 
   const modifySubmitValues = (values: ProductFormDataInterface) => {
     const modifyValues = { ...values };
@@ -94,6 +94,7 @@ const ProductForm = () => {
           setValue={setValue}
           fieldErrors={fieldErrors}
           formData={formData}
+          formContext={formContext}
         />
       </FormApiLayout>
     </FormWrapper>

@@ -55,26 +55,19 @@ const ProductImages : React.FC<ProductImagesProps> = ({formData, setValue}) => {
 
   return (
     <FormSection title="Zdjęcia" >
-      <Dropzone onDrop={onDrop} errors={errors}>
-        {productImages.length > 0 && (
-          <ProductDropzoneThumbnailList
-            setMainThumbnail={setMainThumbnail}
-            files={productImages}
-            setFiles={setProductImages}
-          />
-          // <div className="flex flex-wrap gap-5 mt-5">
-          //   {productImages.map((productImage, key) => (
-          //     <ProductDropzoneThumbnail
-          //       key={key}
-          //       index={key}
-          //       file={productImage}
-          //       removeFile={removeFile}
-          //       setMainThumbnail={setMainThumbnail}
-          //     />
-          //   ))}
-          // </div>
-        )}
-      </Dropzone>
+      <div className="border border-gray-100 rounded-lg">
+        <Dropzone onDrop={onDrop} errors={errors} containerClasses=" flex gap-5 p-5" variant="multiple">
+          {productImages.length > 0 && (
+            <ProductDropzoneThumbnailList
+              setMainThumbnail={setMainThumbnail}
+              files={productImages}
+              setFiles={setProductImages}
+              removeFile={removeFile}
+            />
+          )}
+        </Dropzone>
+      </div>
+
     </FormSection>
   )
 }
