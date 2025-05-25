@@ -32,7 +32,7 @@ readonly final class ReorderEntityService implements ReorderEntityServiceInterfa
 
     private function resolveEntityClass(string $name): string
     {
-        $class = 'App\\Entity\\' . ucfirst($name);
+        $class = 'App\\Admin\\Domain\\Entity\\' . ucfirst($name);
         if (!class_exists($class)) {
             throw new \InvalidArgumentException("Entity class {$class} does not exist.");
         }

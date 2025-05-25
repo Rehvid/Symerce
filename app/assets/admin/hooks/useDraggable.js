@@ -12,6 +12,7 @@ const useDraggable = (endpoint) => {
     const apiConfig = createApiConfig(endpoint, HTTP_METHODS.PUT);
 
     const draggableCallback = (items) => {
+        console.log(items);
         apiConfig.setBody(prepareDraggableDataToUpdateOrder(items));
         handleApiRequest(apiConfig, {
             onSuccess: ({ message }) => {

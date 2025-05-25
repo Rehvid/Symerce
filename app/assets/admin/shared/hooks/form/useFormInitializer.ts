@@ -6,6 +6,7 @@ import { createApiConfig } from '@shared/api/ApiConfig';
 import { UseFormSetValue } from 'react-hook-form';
 import { FieldModifier } from '@admin/shared/types/fieldModifier';
 import { UseFormInitializerReturn } from '@admin/shared/hooks/form/useFormInitializer.types';
+import { FormContextInterface } from '@admin/shared/interfaces/FormContextInterface';
 
 
 const useFormInitializer =  <T extends FormDataInterface = FormDataInterface>(): UseFormInitializerReturn<T>  => {
@@ -13,6 +14,7 @@ const useFormInitializer =  <T extends FormDataInterface = FormDataInterface>():
 
   const [isFormInitialize, setIsFormInitialize] = useState<boolean>(true);
   const [formData, setFormData] = useState<T>({} as T);
+  const [formContext, setFormContext] = useState<FormContextInterface>();
 
   const getFormData = (
     endpoint: string,
@@ -24,7 +26,8 @@ const useFormInitializer =  <T extends FormDataInterface = FormDataInterface>():
 
     handleApiRequest(createApiConfig(endpoint, HttpMethod.GET), {
       onSuccess: ({ data }) => {
-        const { formData: formFieldsData } = data;
+        const { formData: formFieldsData, formContext } = data;
+        setFormContext(formContext);
         handleSuccessGetFormData(formFieldsData, formFieldNames, fieldModifiers, setValue);
         setIsFormInitialize(true);
       },
@@ -55,7 +58,7 @@ const useFormInitializer =  <T extends FormDataInterface = FormDataInterface>():
     });
   }
 
-  return { isFormInitialize, formData, getFormData }
+  return { isFormInitialize, formData, formContext, getFormData }
 }
 
 export default useFormInitializer;

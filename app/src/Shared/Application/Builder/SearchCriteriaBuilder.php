@@ -51,6 +51,7 @@ final class SearchCriteriaBuilder
             sortDirection: $this->sortDirection,
             limit:         $this->limit,
             offset:        $this->offset,
+            page:          $this->page
         );
     }
 }

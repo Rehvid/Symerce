@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { isOnlyPaginationInDataTable } from '@/admin/utils/helper';
 
+
 const TableBody = ({ data, useDraggable, draggableCallback, pagination, filters }) => {
     const [items, setItems] = useState(data);
     const [draggedItemIndex, setDraggedItemIndex] = useState(null);
@@ -78,8 +79,9 @@ const TableBody = ({ data, useDraggable, draggableCallback, pagination, filters 
         }
 
         const page = pagination?.page ?? 1;
-        const pageSize = pagination?.offset ?? 10;
+        const pageSize = pagination?.limit ?? 10;
 
+        console.log(pagination);
         const oldPosition = (page - 1) * pageSize + draggedItemIndex;
         const newPosition = (page - 1) * pageSize + dragOverItemIndex;
 

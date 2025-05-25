@@ -15,7 +15,7 @@ const routesConfig = [
     },
     {
         path: 'products',
-        component: lazy(() => import('@/admin/pages/product/ProductList')),
+        component: lazy(() => import('@admin/pages/product/ProductList')),
         roles: ['user', 'admin'],
     },
     {

@@ -59,3 +59,18 @@ body {
 }
 
 
+.data-table {
+    border-spacing: 0 15px;
+}
+
+.data-table tr {
+    border-radius: 1.25rem;
+}
+
+.data-table tr td:first-child {
+    border-radius: 0.625rem 0 0 0.625rem; /* lewy górny i lewy dolny */
+}
+
+.data-table tr td:last-child {
+    border-radius: 0 0.625rem 0.625rem 0; /* prawy górny i prawy dolny */
+}
