@@ -26,7 +26,7 @@ const SideBarNavigation = () => (
         <Submenu
             buttonLabel={
                 <span className="flex gap-2 items-center">
-                    <ProductIcon className="w-[24px] h-[24px]" /> Produkty
+                    <ProductIcon className="w-[24px] h-[24px]" /> Katalog Produktów
                 </span>
             }
         >
@@ -60,10 +60,20 @@ const SideBarNavigation = () => (
         <PaymentIcon className="w-[24px] h-[24px]" />
         <span>Płatności</span>
       </NavigationItem>
+      <Submenu
+        buttonLabel={
+          <span className="flex gap-2 items-center">
+              <UsersIcon className="w-[24px] h-[24px]" /> Osoby
+            </span>
+        }
+      >
         <NavigationItem to={'users'}>
-            <UsersIcon className="w-[24px] h-[24px]" />
-            <span>Users</span>
+            <span>Użytkownicy</span>
         </NavigationItem>
+        <NavigationItem to={'customers'}>
+          <span>Klienci</span>
+        </NavigationItem>
+      </Submenu>
         <Submenu
           buttonLabel={
             <span className="flex gap-2 items-center">

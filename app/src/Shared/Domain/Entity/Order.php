@@ -12,7 +12,6 @@ use App\Shared\Domain\Enums\CheckoutStep;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use App\Shared\Domain\Enums\OrderStatus;
 use App\Shared\Infrastructure\Repository\OrderRepository;
-use App\Shop\Domain\Entity\Customer;
 use App\Shop\Domain\Entity\Embeddables\ContactDetails;
 use App\Shop\Domain\Entity\Payment;
 use Doctrine\Common\Collections\ArrayCollection;

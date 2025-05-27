@@ -61,4 +61,9 @@ class ContactDetails
     {
         $this->surname = $surname;
     }
+
+    public function getFullName(): string
+    {
+        return $this->firstname . ' '  . $this->surname;
+    }
 }

@@ -228,6 +228,21 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/country/CountryForm')),
         roles: ['admin'],
     },
+    {
+        path: 'customers',
+        component: lazy(() => import('@admin/pages/customer/CustomerList')),
+        roles: ['user', 'admin'],
+    },
+    {
+        path: 'customers/create',
+        component: lazy(() => import('@/admin/pages/customer/CustomerForm')),
+        roles: ['admin'],
+    },
+    {
+        path: 'customers/:id/edit',
+        component: lazy(() => import('@/admin/pages/customer/CustomerForm')),
+        roles: ['admin'],
+    },
 ];
 
 const withProtection = (requiredRoles, Component) => (

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Repository;
 
-use App\Shop\Domain\Entity\Customer;
+use App\Shared\Domain\Entity\Customer;
+use App\Shared\Domain\Repository\CustomerRepositoryInterface;
 
-class CustomerRepository extends DoctrineRepository
+class CustomerDoctrineRepository extends AbstractCriteriaRepository implements CustomerRepositoryInterface
 {
 
     protected function getEntityClass(): string
