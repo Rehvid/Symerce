@@ -8,7 +8,7 @@ use App\Shared\Domain\Entity\Order;
 use App\Shared\Domain\Repository\OrderRepositoryInterface;
 
 
-class OrderRepository extends DoctrineRepository implements OrderRepositoryInterface
+class OrderRepository extends AbstractCriteriaRepository implements OrderRepositoryInterface
 {
 
     public function findByToken(?string $token): ?Order

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Hydrator;
 
-use App\Shop\Application\DTO\Request\Address\SaveAddressRequest;
+use App\Shared\Application\DTO\Request\Address\SaveAddressRequest;
 use App\Shop\Domain\Entity\Embeddables\Address;
 
 final readonly class AddressHydrator

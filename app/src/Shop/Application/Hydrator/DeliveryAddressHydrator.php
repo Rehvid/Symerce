@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Hydrator;
 
+use App\Shared\Application\DTO\Request\Address\SaveAddressDeliveryRequest;
 use App\Shared\Domain\Entity\DeliveryAddress;
-use App\Shop\Application\DTO\Request\Address\SaveAddressDeliveryRequest;
 
 final readonly class DeliveryAddressHydrator
 {

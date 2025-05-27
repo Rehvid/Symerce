@@ -5,10 +5,12 @@ import Heading from '@admin/components/common/Heading';
 interface FormSectionProps {
   children: React.ReactNode;
   title: string;
-  forceOpen?: boolean
+  forceOpen?: boolean,
+  useDefaultGap: boolean,
+  contentContainerClasses?: string
 }
 
-const FormSection: React.FC<FormSectionProps> = ({ children, title, forceOpen }) => {
+const FormSection: React.FC<FormSectionProps> = ({ children, title, forceOpen, useDefaultGap = true, contentContainerClasses = '' }) => {
   const [showContent, setShowContent] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const FormSection: React.FC<FormSectionProps> = ({ children, title, forceOpen })
         <ChevronIcon className={`h-[16px] w-[16px] ${showContent ? 'rotate-180' : ''} `} />
         <Heading level="h3">{title}</Heading>
       </div>
-      <div className={`py-4 flex flex-col gap-[2rem] ${showContent ? '' : 'hidden'}`}>
+      <div className={`py-4 flex flex-col ${useDefaultGap ? 'gap-[2rem]' : ''} ${showContent ? '' : 'hidden'} ${contentContainerClasses} `}>
         {children}
       </div>
     </section>

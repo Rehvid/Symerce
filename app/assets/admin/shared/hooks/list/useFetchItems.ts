@@ -2,7 +2,7 @@ import { createApiConfig } from '@shared/api/ApiConfig';
 import { HttpMethod } from '@admin/shared/enums/httpEnums';
 import { useApi } from '@admin/hooks/useApi';
 import { useCreateNotification } from '@admin/hooks/useCreateNotification';
-import { ApiResponse } from '@admin/shared/types/ApiResponse';
+import { ApiResponse } from '@admin/shared/types/apiResponse';
 import { AlertType } from '@admin/shared/enums/alertType';
 
 export const useFetchItems = <T>() => {

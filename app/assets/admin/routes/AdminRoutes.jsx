@@ -193,6 +193,26 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/payment-method/PaymentMethodForm')),
         roles: ['admin'],
     },
+    {
+        path: 'orders',
+        component: lazy(() => import('@admin/pages/order/OrderList')),
+        roles: ['user', 'admin'],
+    },
+    {
+        path: 'orders/create',
+        component: lazy(() => import('@/admin/pages/order/OrderForm')),
+        roles: ['admin'],
+    },
+    {
+        path: 'orders/:id/edit',
+        component: lazy(() => import('@/admin/pages/order/OrderForm')),
+        roles: ['admin'],
+    },
+    {
+        path: 'orders/:id/details',
+        component: lazy(() => import('@admin/pages/order/OrderDetail')),
+        roles: ['admin'],
+    },
 ];
 
 const withProtection = (requiredRoles, Component) => (

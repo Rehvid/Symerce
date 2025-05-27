@@ -20,7 +20,13 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     ref
   ) => {
 
-    const inputClasses = `peer w-full h-[46px] rounded-lg border border-gray-300 bg-white py-2.5 pl-[16px] pr-[60px] text-sm text-gray-800 shadow-theme-xs transition-all placeholder:text-gray-400 focus:ring-4 ${
+
+
+    const inputClasses = `peer w-full h-[46px] rounded-lg border border-gray-300 py-2.5 pl-[16px] pr-[60px] text-sm text-gray-800 shadow-theme-xs transition-all placeholder:text-gray-400 focus:ring-4 
+    ${
+      rest.disabled ? 'bg-gray-100 cursor-not-allowed ' : 'bg-white'
+    }
+    ${
       hasError
         ? 'border-red-500 text-red-900 focus:border-1 focus:outline-hidden focus:ring-red-100'
         : 'focus:border-primary focus:border-1 focus:outline-hidden focus:ring-primary-light'

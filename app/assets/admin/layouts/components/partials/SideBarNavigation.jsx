@@ -3,6 +3,7 @@ import DashboardIcon from '@/images/icons/dashboard.svg';
 import FoldersIcon from '@/images/icons/folders.svg';
 import Submenu from '@/admin/layouts/components/navigation/Submenu';
 import ProductIcon from '@/images/icons/assembly.svg';
+import ShoppingCartIcon from '@/images/icons/shopping-cart.svg';
 import TagIcon from '@/images/icons/tag.svg';
 import CarrierIcon from '@/images/icons/carrier.svg';
 import DeliveryTimeIcon from '@/images/icons/delivery-time.svg';
@@ -62,6 +63,17 @@ const SideBarNavigation = () => (
             <UsersIcon className="w-[24px] h-[24px]" />
             <span>Users</span>
         </NavigationItem>
+        <Submenu
+          buttonLabel={
+            <span className="flex gap-2 items-center">
+              <ShoppingCartIcon className="w-[24px] h-[24px]" /> Zamówienia
+            </span>
+          }
+        >
+          <NavigationItem to={'orders'}>
+            <span>Zamówienia</span>
+          </NavigationItem>
+        </Submenu>
         <NavigationItem to={'settings'}>
             <SettingIcon className="w-[24px] h-[24px]" />
             <span>Ustawienia</span>

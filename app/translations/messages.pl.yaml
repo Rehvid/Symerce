@@ -28,6 +28,19 @@ base:
   reduction_type:
     amount: 'Kwota'
     percent: 'Procent'
+  order_status_type:
+    new: 'Nowe'
+    waiting_for_payment: 'Oczekuje na płatność'
+    paid: 'Opłacone'
+    shipped: 'Wysłane'
+    delivered: 'Dostarczone'
+    cancelled: 'Anulowane'
+  checkout_type:
+    address: 'Adres'
+    shipping: 'Dostawa'
+    payment: 'Płatność'
+    confirmation: 'Potwierdzenie'
+    thank_you: 'Podziękowanie'
   messages:
     errors:
       validation_failed: 'Wystąpił błąd walidacji.'

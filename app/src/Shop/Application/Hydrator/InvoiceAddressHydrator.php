@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Hydrator;
 
+use App\Shared\Application\DTO\Request\Address\SaveAddressInvoiceRequest;
 use App\Shared\Domain\Entity\InvoiceAddress;
-use App\Shop\Application\DTO\Request\Address\SaveAddressInvoiceRequest;
 
 final readonly class InvoiceAddressHydrator
 {
