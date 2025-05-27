@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Admin\Application\Search\Country;
+
+use App\Shared\Application\Contract\SearchParserFactoryInterface;
+use App\Shared\Application\Filter\BasicFilterDefinition;
+use App\Shared\Application\Filter\BoolFilterDefinition;
+use App\Shared\Application\Parser\SearchRequestParser;
+use App\Shared\Domain\Enums\DirectionType;
+use App\Shared\Domain\Enums\QueryOperator;
+use App\Shared\Infrastructure\Http\SearchFilterParser;
+use App\Shared\Infrastructure\Http\SearchOrderByParser;
+use App\Shared\Infrastructure\Http\SearchPaginationParser;
+
+final readonly class CountrySearchParserFactory implements SearchParserFactoryInterface
+{
+
+    public function create(): SearchRequestParser
+    {
+        $allowedSortFields = ['id', 'name', 'code'];
+        $allowedFilters = [
+            new BasicFilterDefinition('name',  QueryOperator::LIKE, ['search']),
+        ];
+
+        return new SearchRequestParser([
+            new SearchOrderByParser($allowedSortFields, DirectionType::DESC, 'id'),
+            new SearchFilterParser($allowedFilters),
+            new SearchPaginationParser(),
+        ]);
+    }
+}

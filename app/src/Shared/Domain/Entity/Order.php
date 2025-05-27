@@ -36,8 +36,8 @@ class Order
     #[ORM\Column(type: 'guid', unique: true)]
     private string $uuid;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $cartToken;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $cartToken;
 
     #[ORM\ManyToOne(targetEntity: DeliveryAddress::class, cascade: ['persist'])]
     #[ORM\JoinColumn(name: "delivery_address_id", referencedColumnName: "id", nullable: true)]
@@ -208,12 +208,12 @@ class Order
         }
     }
 
-    public function getCartToken(): string
+    public function getCartToken(): ?string
     {
         return $this->cartToken;
     }
 
-    public function setCartToken(string $cartToken): void
+    public function setCartToken(?string $cartToken): void
     {
         $this->cartToken = $cartToken;
     }

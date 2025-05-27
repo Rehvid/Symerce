@@ -11,6 +11,7 @@ import CurrencyIcon from '@/images/icons/currency.svg';
 import UsersIcon from '@/images/icons/users.svg';
 import SettingIcon from '@/images/icons/settings.svg';
 import PaymentIcon from '@/images/icons/payment.svg';
+import WorldIcon from '@/images/icons/world.svg';
 
 const SideBarNavigation = () => (
     <ul className="flex flex-col gap-4">
@@ -78,6 +79,10 @@ const SideBarNavigation = () => (
             <SettingIcon className="w-[24px] h-[24px]" />
             <span>Ustawienia</span>
         </NavigationItem>
+      <NavigationItem to={'countries'}>
+        <WorldIcon className="w-[24px] h-[24px]" />
+        <span>Kraje</span>
+      </NavigationItem>
     </ul>
 );
 
