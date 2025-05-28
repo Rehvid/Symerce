@@ -31,6 +31,16 @@ services:
         App\Admin\Application\Contract\ReactDataProviderInterface:
             tags: ['app.admin.react_data_provider']
 
+        App\Shared\Application\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+
+        App\Shared\Application\Query\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
+
+
+
     App\Shared\Infrastructure\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
@@ -38,5 +48,4 @@ services:
     App\Admin\Application\Provider\ReactDataProvider:
         arguments:
             $providers: !tagged_iterator app.admin.react_data_provider
-
 
