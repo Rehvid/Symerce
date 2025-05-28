@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Infrastructure\Repository;
+namespace App\Admin\Country\Infrastructure\Repository;
 
 use App\Admin\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Admin\Domain\Entity\Country;
