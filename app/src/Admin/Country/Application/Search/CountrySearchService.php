@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\Search\Country;
+namespace App\Admin\Country\Application\Search;
 
-use App\Admin\Domain\Repository\CountryRepositoryInterface;
+use App\Admin\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Shared\Application\DTO\Filter\SearchCriteria;
 use App\Shared\Application\Search\AbstractSearchService;
 use Symfony\Component\HttpFoundation\Request;

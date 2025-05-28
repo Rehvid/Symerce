@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\Admin\Application\DTO\Response\Country;
+namespace App\Admin\Country\Application\Dto\Response;
 
 final readonly class CountryListResponse
 {

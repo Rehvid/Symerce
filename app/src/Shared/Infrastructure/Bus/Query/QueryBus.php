@@ -6,6 +6,7 @@ namespace App\Shared\Infrastructure\Bus\Query;
 
 use App\Shared\Application\Query\QueryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 final readonly class QueryBus implements QueryBusInterface
 {
@@ -14,8 +15,15 @@ final readonly class QueryBus implements QueryBusInterface
     ) {}
 
 
-    public function ask(QueryInterface $query): void
+    public function ask(QueryInterface $query): mixed
     {
-        $this->messageBus->dispatch($query);
+        $envelope = $this->messageBus->dispatch($query);
+        $stamp = $envelope->last(HandledStamp::class);
+
+        if (!$stamp) {
+            throw new \RuntimeException('Not found handler for query');
+        }
+
+        return $stamp->getResult();
     }
 }

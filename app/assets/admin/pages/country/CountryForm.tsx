@@ -29,7 +29,7 @@ const CountryForm = () => {
   useEffect(() => {
     if (params.id) {
       const endpoint = `admin/countries/${params.id}`;
-      const formFieldNames = ['name', 'code', 'isActive']
+      const formFieldNames = ['id', 'name', 'code', 'isActive']
 
       getFormData(endpoint, setValue, formFieldNames);
     }

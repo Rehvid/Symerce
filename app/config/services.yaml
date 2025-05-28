@@ -49,3 +49,10 @@ services:
         arguments:
             $providers: !tagged_iterator app.admin.react_data_provider
 
+    App\Shared\Infrastructure\Bus\Command\CommandBus:
+        arguments:
+            - '@command.bus'
+
+    App\Shared\Infrastructure\Bus\Query\QueryBus:
+        arguments:
+            - '@query.bus'

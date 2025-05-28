@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Admin\Country\Application\Dto\Response;
+
+final readonly class CountryFormResponse
+{
+    public function __construct(
+        public int $id,
+        public string $name,
+        public string $code,
+        public bool $isActive,
+    ) {}
+}

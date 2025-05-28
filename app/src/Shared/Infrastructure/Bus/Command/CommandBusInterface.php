@@ -9,4 +9,5 @@ use App\Shared\Application\Command\CommandInterface;
 interface CommandBusInterface
 {
     public function dispatch(CommandInterface $command): void;
+    public function handle(CommandInterface $command): mixed;
 }

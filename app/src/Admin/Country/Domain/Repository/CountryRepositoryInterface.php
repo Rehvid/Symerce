@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Domain\Repository;
+namespace App\Admin\Country\Domain\Repository;
 
+use App\Admin\Domain\Repository\QueryRepositoryInterface;
+use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
 use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
 

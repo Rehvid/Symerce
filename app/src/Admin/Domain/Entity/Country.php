@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Entity;
 
-use App\Admin\Domain\Repository\CountryRepositoryInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CountryRepositoryInterface::class)]
+#[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 class Country
 {

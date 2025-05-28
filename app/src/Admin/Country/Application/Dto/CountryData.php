@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\DTO\Response\Country;
+namespace App\Admin\Country\Application\Dto;
 
-final readonly class CountryFormResponse
+final readonly class CountryData
 {
     public function __construct(
-        public string $name,
         public string $code,
+        public string $name,
         public bool $isActive,
     ) {}
 }

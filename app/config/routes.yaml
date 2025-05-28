@@ -12,6 +12,10 @@ shop_web_controllers:
     resource: ../src/Shop/UI/Web/
     type: attribute
 
+domain_controllers:
+    resource: '../src/'
+    type: attribute
+
 shop_api_controllers:
     resource: ../src/Shop/UI/API/
     type: attribute

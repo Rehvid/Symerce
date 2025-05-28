@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\Search\Country;
+namespace App\Admin\Country\Application\Search;
 
 use App\Shared\Application\Contract\SearchParserFactoryInterface;
 use App\Shared\Application\Filter\BasicFilterDefinition;
-use App\Shared\Application\Filter\BoolFilterDefinition;
 use App\Shared\Application\Parser\SearchRequestParser;
 use App\Shared\Domain\Enums\DirectionType;
 use App\Shared\Domain\Enums\QueryOperator;
@@ -19,7 +18,7 @@ final readonly class CountrySearchParserFactory implements SearchParserFactoryIn
 
     public function create(): SearchRequestParser
     {
-        $allowedSortFields = ['id', 'name', 'code'];
+        $allowedSortFields = ['id', 'name', 'code', 'isActive'];
         $allowedFilters = [
             new BasicFilterDefinition('name',  QueryOperator::LIKE, ['search']),
         ];
