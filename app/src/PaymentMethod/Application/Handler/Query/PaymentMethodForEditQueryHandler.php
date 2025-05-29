@@ -9,7 +9,7 @@ use App\PaymentMethod\Application\Query\GetPaymentMethodForEditQuery;
 use App\Shared\Application\Query\QueryHandlerInterface;
 
 
-final readonly class GetPaymentMethodForEditHandler implements QueryHandlerInterface
+final readonly class PaymentMethodForEditQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private PaymentMethodAssembler $paymentMethodAssembler,

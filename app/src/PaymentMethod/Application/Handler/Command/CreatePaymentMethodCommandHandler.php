@@ -11,7 +11,7 @@ use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 
-final readonly class CreatePaymentMethodHandler implements CommandHandlerInterface
+final readonly class CreatePaymentMethodCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private PaymentMethodRepositoryInterface $repository,

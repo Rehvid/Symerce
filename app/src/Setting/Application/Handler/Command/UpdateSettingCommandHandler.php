@@ -12,7 +12,7 @@ use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 
 
-final readonly class UpdateSettingHandler implements CommandHandlerInterface
+final readonly class UpdateSettingCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private SettingRepositoryInterface $repository,

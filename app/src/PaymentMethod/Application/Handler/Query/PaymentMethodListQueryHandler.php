@@ -10,7 +10,7 @@ use App\PaymentMethod\Application\Search\PaymentMethodSearchService;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\Query\QueryHandlerInterface;
 
-final readonly class GetPaymentMethodListHandler implements QueryHandlerInterface
+final readonly class PaymentMethodListQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private PaymentMethodSearchService $searchService,

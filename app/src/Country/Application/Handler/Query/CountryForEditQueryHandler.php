@@ -9,7 +9,7 @@ use App\Country\Application\Query\GetCountryForEditQuery;
 use App\Shared\Application\Query\QueryHandlerInterface;
 
 
-final readonly class GetCountryForEditHandler implements QueryHandlerInterface
+final readonly class CountryForEditQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private CountryAssembler $assembler

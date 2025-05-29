@@ -10,7 +10,7 @@ use App\Country\Application\Search\CountrySearchService;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\Query\QueryHandlerInterface;
 
-final readonly class GetCountryListHandler implements QueryHandlerInterface
+final readonly class CountryListQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private CountryAssembler $assembler,

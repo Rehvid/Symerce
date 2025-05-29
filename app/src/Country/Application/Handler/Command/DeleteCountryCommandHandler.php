@@ -8,7 +8,7 @@ use App\Country\Application\Command\DeleteCountryCommand;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 
-final readonly class DeleteCountryHandler implements CommandHandlerInterface
+final readonly class DeleteCountryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private CountryRepositoryInterface $repository

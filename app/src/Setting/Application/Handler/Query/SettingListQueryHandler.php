@@ -10,7 +10,7 @@ use App\Setting\Application\Search\SettingSearchService;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\Query\QueryHandlerInterface;
 
-final readonly class GetSettingListHandler implements QueryHandlerInterface
+final readonly class SettingListQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private SettingSearchService $searchService,

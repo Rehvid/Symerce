@@ -10,7 +10,7 @@ use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 
-final readonly class UpdateCountryHandler implements CommandHandlerInterface
+final readonly class UpdateCountryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private CountryRepositoryInterface $repository,
