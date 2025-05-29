@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Auth;
 
 use App\Admin\Domain\Entity\User;
-use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
 use App\Tests\ApiTestCase;
+use App\User\Infrastructure\Repository\UserDoctrineRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

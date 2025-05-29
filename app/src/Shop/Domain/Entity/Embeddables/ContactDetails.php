@@ -19,8 +19,8 @@ class ContactDetails
     #[ORM\Column(type: "string", length: 255, unique: true)]
     private string $email;
 
-    #[ORM\Column(type: "string", length: 25)]
-    private string $phone;
+    #[ORM\Column(type: "string", length: 25, nullable: true)]
+    private ?string $phone;
 
     public function getFirstname(): string
     {
@@ -42,12 +42,12 @@ class ContactDetails
         $this->email = $email;
     }
 
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setPhone(string $phone): void
+    public function setPhone(?string $phone): void
     {
         $this->phone = $phone;
     }

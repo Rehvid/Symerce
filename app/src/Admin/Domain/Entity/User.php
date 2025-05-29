@@ -8,7 +8,7 @@ use App\Admin\Domain\Contract\HasFileInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Admin\Infrastructure\Repository\UserDoctrineRepository;
+use App\User\Infrastructure\Repository\UserDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -54,6 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, HasFile
     #[ORM\ManyToOne(targetEntity: File::class, cascade:['persist'])]
     #[ORM\JoinColumn(name: 'avatar_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?File $avatar = null;
+
 
     public function __construct()
     {

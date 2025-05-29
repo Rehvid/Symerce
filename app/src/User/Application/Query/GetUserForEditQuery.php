@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\User\Application\Query;
+
+use App\Admin\Domain\Entity\User;
+use App\Shared\Application\Query\QueryInterface;
+
+final readonly class GetUserForEditQuery implements QueryInterface
+{
+    public function __construct(
+        public User $user,
+    ) {
+    }
+}

@@ -6,7 +6,7 @@ namespace App\Admin\Application\UseCase\Profile;
 
 use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
 use App\Admin\Domain\Entity\User;
-use App\Admin\Domain\Repository\UserRepositoryInterface;
+use App\User\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final readonly class UpdateSecurityUseCase

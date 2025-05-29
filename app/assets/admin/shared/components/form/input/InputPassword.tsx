@@ -8,7 +8,6 @@ type InputPasswordProps = {
   hasError?: boolean;
   errorMessage?: string;
   isRequired?: boolean;
-  // Dla integracji z react-hook-form lub innymi bibliotekami
   [key: string]: any;
 };
 

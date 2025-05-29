@@ -4,9 +4,10 @@ import { useUser } from '@/admin/hooks/useUser';
 const ProtectedRoute = ({ children, requiredRoles }) => {
     const { user } = useUser();
 
-    if (!requiredRoles.every((requiredRole) => user.roles.includes(requiredRole))) {
-        return <Navigate to={'/admin/forbidden'} replace />;
-    }
+
+    // if (!requiredRoles.every((requiredRole) => user.roles.includes(requiredRole))) {
+    //     return <Navigate to={'/admin/forbidden'} replace />;
+    // }
 
     return children;
 };

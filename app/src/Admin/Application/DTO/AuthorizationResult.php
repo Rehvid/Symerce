@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO;
 
-use App\Admin\Application\DTO\Response\User\UserSessionResponse;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
+use App\User\Application\Dto\Response\UserSessionResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 final readonly class AuthorizationResult

@@ -2,6 +2,7 @@ import { Route } from 'react-router-dom';
 import { lazy } from 'react';
 import ProtectedRoute from '@/admin/routes/ProtectedRoute';
 import { paymentMethodRoutes } from '@admin/modules/paymentMethod/paymentMethod.routes';
+import { userRoutes } from '@admin/modules/user/user.routes';
 
 const routesConfig = [
     {
@@ -89,21 +90,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/category/CategoryForm')),
         roles: ['user', 'admin'],
     },
-    {
-        path: 'users',
-        component: lazy(() => import('@/admin/pages/user/UserList')),
-        roles: ['admin'],
-    },
-    {
-        path: 'users/create',
-        component: lazy(() => import('@/admin/pages/user/UserForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'users/:id/edit',
-        component: lazy(() => import('@/admin/pages/user/UserForm')),
-        roles: ['admin'],
-    },
+    ...userRoutes,
     {
         path: 'settings',
         component: lazy(() => import('@/admin/pages/setting/SettingList')),

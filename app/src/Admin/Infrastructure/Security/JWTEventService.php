@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Security;
 
-use App\Admin\Application\DTO\Response\User\UserSessionResponse;
 use App\Admin\Domain\Entity\User;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\CookieFactory;
+use App\User\Application\Dto\Response\UserSessionResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
