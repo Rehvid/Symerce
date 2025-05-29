@@ -35,12 +35,12 @@ readonly class SettingsProvider implements ReactDataProviderInterface
             ],
         );
 
-        $settings = $this->settingRepository->findAllExcludingTypes([
+        $settings = $this->settingRepository->findAllExcludingKeys([
             SettingType::PRODUCT->value,
         ]);
         $result = array_map(function (Setting $setting) {
             return new ProviderResponse(
-                type: $setting->getType(),
+                settingKey: $setting->getKey(),
                 value: [
                     'id' => $setting->getId(),
                     'name' => $setting->getName(),

@@ -4,4 +4,5 @@ export interface UploadFileInterface {
   content: string,
   size: number,
   type: string,
+  uuid: string
 }

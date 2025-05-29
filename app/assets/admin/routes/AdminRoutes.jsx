@@ -1,6 +1,7 @@
 import { Route } from 'react-router-dom';
 import { lazy } from 'react';
 import ProtectedRoute from '@/admin/routes/ProtectedRoute';
+import { paymentMethodRoutes } from '@admin/modules/paymentMethod/paymentMethod.routes';
 
 const routesConfig = [
     {
@@ -178,21 +179,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/currency/CurrencyForm')),
         roles: ['admin'],
     },
-    {
-        path: 'payment-methods',
-        component: lazy(() => import('@/admin/pages/payment-method/PaymentMethodList')),
-        roles: ['admin'],
-    },
-    {
-        path: 'payment-methods/create',
-        component: lazy(() => import('@/admin/pages/payment-method/PaymentMethodForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'payment-methods/:id/edit',
-        component: lazy(() => import('@/admin/pages/payment-method/PaymentMethodForm')),
-        roles: ['admin'],
-    },
+    ...paymentMethodRoutes,
     {
         path: 'orders',
         component: lazy(() => import('@admin/pages/order/OrderList')),

@@ -9,7 +9,7 @@ use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\OrderTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Admin\Infrastructure\Repository\PaymentMethodDoctrineRepository;
+use App\PaymentMethod\Infrastructure\Repository\PaymentMethodDoctrineRepository;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
