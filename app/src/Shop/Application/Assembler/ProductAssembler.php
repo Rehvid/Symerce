@@ -8,9 +8,10 @@ use App\Admin\Application\Service\FileService;
 use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Entity\ProductImage;
 use App\Admin\Domain\Repository\CarrierRepositoryInterface;
+use App\Setting\Domain\Enums\SettingKey;
+use App\Setting\Domain\Enums\SettingType;
 use App\Shared\Application\Factory\MoneyFactory;
 use App\Shared\Application\Service\SettingsService;
-use App\Shared\Domain\Enums\SettingType;
 use App\Shop\Application\DTO\Response\Product\ProductShowResponse;
 
 final readonly class ProductAssembler
@@ -87,7 +88,7 @@ final readonly class ProductAssembler
         $hasPromotion = $discountPrice !== null;
         $quantity = $product->getQuantity();
 
-        $productRefund = $this->settingsService->get(SettingType::PRODUCT_REFUND)?->getValue();
+        $productRefund = $this->settingsService->getByKey(SettingKey::PRODUCT_REFUND_POLICY)?->getValue();
 
         return new ProductShowResponse(
             id: $product->getId(),

@@ -11,12 +11,10 @@ use App\Admin\Application\Hydrator\PromotionHydrator;
 use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
-use App\Admin\Domain\Repository\SettingRepositoryInterface;
 use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Admin\Infrastructure\Slug\SluggerService;
 use App\Shared\Application\Factory\MoneyFactory;
 use App\Shared\Application\Factory\ValidationExceptionFactory;
-use App\Shared\Domain\Enums\SettingType;
 
 
 final readonly class ProductHydrator

@@ -6,7 +6,7 @@ namespace App\DataFixtures\Bootstrap;
 
 use App\Admin\Domain\Entity\Currency;
 use App\Admin\Domain\Entity\Setting;
-use App\Shared\Domain\Enums\SettingType;
+use App\Setting\Domain\Enums\SettingType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -47,12 +47,12 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
         ];
 
         $setting = new Setting();
-        $setting->setType(SettingType::CURRENCY);
-        $setting->setValue((string) json_encode($value));
-        $setting->setName('Domyślna waluta');
-        $setting->setIsProtected(true);
-        $setting->setActive(true);
-        $setting->setIsJson(true);
+//        $setting->setType(SettingType::CURRENCY);
+//        $setting->setValue((string) json_encode($value));
+//        $setting->setName('Domyślna waluta');
+//        $setting->setIsProtected(true);
+//        $setting->setActive(true);
+//        $setting->setIsJson(true);
 
         $manager->persist($setting);
         $manager->flush();
@@ -61,11 +61,11 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
     private function loadMetaShopTitleSetting(ObjectManager $manager): void
     {
         $setting = new Setting();
-        $setting->setType(SettingType::META_SHOP_TITLE);
-        $setting->setValue('Symerce - Sklep');
-        $setting->setName('Tytuł SEO sklepu');
-        $setting->setIsProtected(true);
-        $setting->setActive(true);
+//        $setting->setType(SettingType::META_SHOP_TITLE);
+//        $setting->setValue('Symerce - Sklep');
+//        $setting->setName('Tytuł SEO sklepu');
+//        $setting->setIsProtected(true);
+//        $setting->setActive(true);
 
         $manager->persist($setting);
         $manager->flush();
@@ -74,11 +74,11 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
     private function loadMetaShopDescriptionSetting(ObjectManager $manager): void
     {
         $setting = new Setting();
-        $setting->setType(SettingType::META_SHOP_DESCRIPTION);
-        $setting->setValue('Symerce to sklep internetowy, w którym znajdziesz starannie wyselekcjonowane produkty i wygodne zakupy online');
-        $setting->setName('Opis SEO sklepu');
-        $setting->setIsProtected(true);
-        $setting->setActive(true);
+//        $setting->setType(SettingType::META_SHOP_DESCRIPTION);
+//        $setting->setValue('Symerce to sklep internetowy, w którym znajdziesz starannie wyselekcjonowane produkty i wygodne zakupy online');
+//        $setting->setName('Opis SEO sklepu');
+//        $setting->setIsProtected(true);
+//        $setting->setActive(true);
 
         $manager->persist($setting);
         $manager->flush();
@@ -87,11 +87,11 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
     private function loadMetaShopOgTitleSetting(ObjectManager $manager): void
     {
         $setting = new Setting();
-        $setting->setType(SettingType::META_SHOP_OG_TITLE);
-        $setting->setValue('Sklep Internetowy dla Ciebie');
-        $setting->setName('Tytuł ogólny (og:title) sklepu');
-        $setting->setIsProtected(true);
-        $setting->setActive(true);
+//        $setting->setType(SettingType::META_SHOP_OG_TITLE);
+//        $setting->setValue('Sklep Internetowy dla Ciebie');
+//        $setting->setName('Tytuł ogólny (og:title) sklepu');
+//        $setting->setIsProtected(true);
+//        $setting->setActive(true);
 
         $manager->persist($setting);
         $manager->flush();
@@ -100,9 +100,9 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
     private function loadMetaShopOgDescriptionSetting(ObjectManager $manager): void
     {
         $setting = new Setting();
-        $setting->setType(SettingType::META_SHOP_OG_DESCRIPTION);
-        $setting->setValue('Zakupy online jeszcze nigdy nie były tak wygodne. Sprawdź bogatą ofertę produktów w sklepie Symerce.');
-        $setting->setName('Opis ogólny (og:description) sklepu');
+//        $setting->setType(SettingType::META_SHOP_OG_DESCRIPTION);
+//        $setting->setValue('Zakupy online jeszcze nigdy nie były tak wygodne. Sprawdź bogatą ofertę produktów w sklepie Symerce.');
+//        $setting->setName('Opis ogólny (og:description) sklepu');
         $setting->setIsProtected(true);
         $setting->setActive(true);
 
@@ -113,9 +113,9 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
     private function loadShopCategoriesSetting(ObjectManager $manager): void
     {
         $setting = new Setting();
-        $setting->setType(SettingType::SHOP_CATEGORIES);
-        $setting->setValue('[]');
-        $setting->setName('Kategorie wyświetlane w sklepie (maks. 8)');
+//        $setting->setType(SettingType::SHOP_CATEGORIES);
+//        $setting->setValue('[]');
+//        $setting->setName('Kategorie wyświetlane w sklepie (maks. 8)');
         $setting->setIsProtected(true);
         $setting->setActive(true);
         $setting->setIsJson(true);
@@ -127,9 +127,9 @@ class SettingFixture extends Fixture implements FixtureGroupInterface, Dependent
     private function loadProductRefundSetting(ObjectManager $manager): void
     {
         $setting = new Setting();
-        $setting->setType(SettingType::PRODUCT_REFUND);
-        $setting->setName('Produkt dni do zwortu');
-        $setting->setValue("14");
+//        $setting->setType(SettingType::PRODUCT_REFUND);
+//        $setting->setName('Produkt dni do zwortu');
+//        $setting->setValue("14");
         $setting->setActive(true);
         $setting->setIsJson(false);
         $setting->setIsProtected(true);

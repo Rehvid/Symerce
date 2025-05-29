@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Admin\Application\DTO\Response\Setting;
 
-use App\DTO\Admin\Response\ResponseInterfaceData;
 
-final readonly class SettingFormResponse extends SettingCreateFormResponse
+use App\Setting\Application\Dto\SettingField;
+
+final readonly class SettingFormResponse
 {
-    /** @param array<int, mixed>  $types */
+
     public function __construct(
-        public string                $name,
-        public string                $type,
-        public string                $value,
-        public bool                  $isProtected,
-        array                        $availableTypes,
-        ?SettingValueResponse $settingValue,
+        public SettingField $settingField,
+        public bool $isActive,
+        public string $name,
     ) {
-        parent::__construct($availableTypes, $settingValue);
+
     }
 }

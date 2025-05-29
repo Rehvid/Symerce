@@ -12,7 +12,6 @@ final readonly class SettingListResponse
         public string $name,
         public string $type,
         public bool $isActive,
-        public bool $isProtected,
     ) {
     }
 }

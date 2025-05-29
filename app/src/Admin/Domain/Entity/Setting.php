@@ -7,9 +7,10 @@ namespace App\Admin\Domain\Entity;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\ProtectedTrait;
-use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
-use App\Shared\Domain\Enums\SettingType;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
+use App\Setting\Domain\Enums\SettingKey;
+use App\Setting\Domain\Enums\SettingType;
+use App\Setting\Domain\Enums\SettingValueType;
+use App\Setting\Infrastructure\Repository\SettingDoctrineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SettingDoctrineRepository::class)]
@@ -31,11 +32,15 @@ class Setting
     #[ORM\Column(type: 'text')]
     private string $value;
 
+    #[ORM\Column(type: 'string', enumType: SettingKey::class)]
+    private SettingKey $key;
+
     #[ORM\Column(type: 'string', enumType: SettingType::class)]
     private SettingType $type;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => false])]
-    private bool $isJson = false;
+    #[ORM\Column(type: 'string', enumType: SettingValueType::class)]
+    private SettingValueType $valueType;
+
 
     public function getId(): int
     {
@@ -77,21 +82,23 @@ class Setting
         $this->value = $value;
     }
 
-    public function isJson(): bool
+    public function getKey(): SettingKey
     {
-        return $this->isJson;
+        return $this->key;
     }
 
-    public function setIsJson(bool $isJson): void
+    public function setKey(SettingKey $key): void
     {
-        $this->isJson = $isJson;
+        $this->key = $key;
     }
 
-    #[ORM\PreUpdate]
-    public function preventUpdateIfProtected(PreUpdateEventArgs $event): void
+    public function getValueType(): SettingValueType
     {
-        if ($this->isProtected && ($event->hasChangedField('name') || $event->hasChangedField('type'))) {
-            throw new \RuntimeException(sprintf('Cannot update protected setting: "%s"', $this->name));
-        }
+        return $this->valueType;
+    }
+
+    public function setValueType(SettingValueType $valueType): void
+    {
+        $this->valueType = $valueType;
     }
 }

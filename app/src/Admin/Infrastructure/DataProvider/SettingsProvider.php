@@ -7,9 +7,10 @@ namespace App\Admin\Infrastructure\DataProvider;
 use App\Admin\Application\Contract\ReactDataProviderInterface;
 use App\Admin\Application\DTO\Response\ProviderResponse;
 use App\Admin\Domain\Entity\Setting;
-use App\Admin\Infrastructure\Repository\SettingDoctrineRepository;
+use App\Setting\Domain\Enums\SettingKey;
+use App\Setting\Domain\Enums\SettingType;
+use App\Setting\Infrastructure\Repository\SettingDoctrineRepository;
 use App\Shared\Application\Service\SettingsService;
-use App\Shared\Domain\Enums\SettingType;
 
 readonly class SettingsProvider implements ReactDataProviderInterface
 {
@@ -24,7 +25,7 @@ readonly class SettingsProvider implements ReactDataProviderInterface
     {
         $currency = $this->settingManager->findDefaultCurrency();
         $defaultCurrency = new ProviderResponse(
-            type:  SettingType::CURRENCY,
+            settingKey:  SettingKey::CURRENCY,
             value: [
                 'id' => $currency->getId(),
                 'name' => $currency->getName(),
@@ -35,7 +36,7 @@ readonly class SettingsProvider implements ReactDataProviderInterface
         );
 
         $settings = $this->settingRepository->findAllExcludingTypes([
-            SettingType::CURRENCY->value,
+            SettingType::PRODUCT->value,
         ]);
         $result = array_map(function (Setting $setting) {
             return new ProviderResponse(

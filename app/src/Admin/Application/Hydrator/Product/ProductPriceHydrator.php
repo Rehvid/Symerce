@@ -8,9 +8,12 @@ use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Entity\ProductPriceHistory;
 use App\Admin\Domain\Entity\Promotion;
 use App\Admin\Domain\Enums\ReductionType;
-use App\Admin\Domain\Repository\SettingRepositoryInterface;
+use App\Setting\Domain\Enums\SettingKey;
+use App\Setting\Domain\Enums\SettingType;
+use App\Setting\Domain\Enums\SettingValueType;
+use App\Setting\Domain\Repository\SettingRepositoryInterface;
+use App\Setting\Domain\ValueObject\SettingValueVO;
 use App\Shared\Application\Factory\MoneyFactory;
-use App\Shared\Domain\Enums\SettingType;
 
 
 final readonly class ProductPriceHydrator
@@ -53,11 +56,13 @@ final readonly class ProductPriceHydrator
 
     private function useProductPriceHistory(): bool
     {
-        $setting = $this->settingRepository->findByType(SettingType::USE_PRODUCT_PRICE_HISTORY);
+        $setting = $this->settingRepository->findByKey(SettingKey::ENABLE_PRICE_HISTORY);
+
         if ($setting === null) {
             return false;
         }
-        return $setting->getValue() === 'false' ? false : true;
+
+        return (new SettingValueVO(SettingValueType::BOOLEAN, $setting->getValue()))->getValue();
     }
 
 }

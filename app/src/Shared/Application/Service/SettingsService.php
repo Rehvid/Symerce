@@ -9,11 +9,13 @@ use App\Admin\Domain\Entity\Currency;
 use App\Admin\Domain\Entity\Setting;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Admin\Domain\Repository\CurrencyRepositoryInterface;
-use App\Admin\Domain\Repository\SettingRepositoryInterface;
 use App\Admin\Domain\ValueObject\JsonData;
-use App\Shared\Domain\Enums\SettingType;
+use App\Setting\Domain\Enums\SettingKey;
+use App\Setting\Domain\Enums\SettingType;
+use App\Setting\Domain\Repository\SettingRepositoryInterface;
 use App\Shop\Application\DTO\Response\SettingShopCategoryResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 
 final readonly class SettingsService
 {
@@ -26,24 +28,22 @@ final readonly class SettingsService
     ) {
     }
 
-    public function get(SettingType $type): ?Setting
+    public function getByKey(SettingKey $type): ?Setting
     {
-        return $this->settingRepository->findByType($type);
+        return $this->settingRepository->findByKey($type);
     }
 
     public function findDefaultCurrency(): Currency
     {
         /** @var Setting|null $setting */
-        $setting = $this->get(SettingType::CURRENCY);
+        $setting = $this->getByKey(SettingKey::CURRENCY);
 
         if (null === $setting) {
             throw new \LogicException('Default Currency not found');
         }
 
-        $value = new JsonData($setting->getValue());
-
         /** @var Currency $currency */
-        $currency = $this->currencyRepository->findById($value->get('id'));
+        $currency = $this->currencyRepository->findById($setting->getValue());
 
         if (null === $currency) {
             throw new \LogicException('Default Currency not found');
@@ -55,7 +55,7 @@ final readonly class SettingsService
     /** @return array<string, string> */
     public function getMeta(): array
     {
-        $metaSettings = $this->settingRepository->findAllMetaSettings();
+        $metaSettings = $this->settingRepository->findByType(SettingType::SEO);
 
         $settings = [];
         foreach ($metaSettings as $setting) {
@@ -69,7 +69,7 @@ final readonly class SettingsService
     public function getShopCategories(): array
     {
         /** @var ?Setting $menuSettings */
-        $menuSettings = $this->get(SettingType::SHOP_CATEGORIES);
+        $menuSettings = $this->getByKey(SettingKey::SHOP_CATEGORIES);
 
         if (null === $menuSettings) {
             return [];
