@@ -10,7 +10,7 @@ import CustomerFormBody from '@admin/modules/customer/components/CustomerFormBod
 import { CustomerFormDataInterface } from '@admin/modules/customer/interfaces/CustomerFormDataInterface';
 
 
-const CustomerForm = () => {
+const CustomerFormPage = () => {
   const params = useParams();
   const {
     register,
@@ -74,4 +74,4 @@ const CustomerForm = () => {
   );
 }
 
-export default CustomerForm;
+export default CustomerFormPage;

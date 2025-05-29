@@ -9,7 +9,7 @@ import { ProductFormDataInterface } from '@admin/modules/product/interfaces/Prod
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import FormWrapper from '@admin/shared/components/form/FormWrapper';
 
-const ProductForm = () => {
+const ProductFormPage = () => {
   const params = useParams();
   const {
     register,
@@ -103,4 +103,4 @@ const ProductForm = () => {
   );
 }
 
-export default ProductForm;
+export default ProductFormPage;

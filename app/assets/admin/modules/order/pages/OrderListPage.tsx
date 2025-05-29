@@ -17,7 +17,7 @@ import TableRowEditAction from '@admin/components/table/Partials/TableRow/TableR
 import TableRowDetailAction from '@admin/shared/components/table/partials/table-row/TableRowDetailAction';
 
 
-const OrderList = () => {
+const OrderListPage = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
 
   const [filters, setFilters] = useState<OrderListFiltersInterface>(
@@ -90,4 +90,4 @@ const OrderList = () => {
   );
 }
 
-export default OrderList;
+export default OrderListPage;

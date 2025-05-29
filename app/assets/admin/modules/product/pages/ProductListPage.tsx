@@ -23,7 +23,7 @@ import { ProductListFiltersInterface } from '@admin/modules/product/interfaces/P
 import { ProductListItemInterface } from '@admin/modules/product/interfaces/ProductListItemInterface';
 
 
-const ProductList = () => {
+const ProductListPage = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
 
   const [filters, setFilters] = useState<ProductListFiltersInterface>(
@@ -117,4 +117,4 @@ const ProductList = () => {
   );
 }
 
-export default ProductList;
+export default ProductListPage;

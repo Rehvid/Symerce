@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import SettingFormBody from '@admin/modules/setting/components/SettingFormBody';
 import { SettingInputType } from '@admin/modules/setting/enums/settingInputType';
 
-const SettingForm = () => {
+const SettingFormPage = () => {
   const params = useParams();
   const {
     register,
@@ -87,4 +87,4 @@ const SettingForm = () => {
   );
 }
 
-export default SettingForm;
+export default SettingFormPage;

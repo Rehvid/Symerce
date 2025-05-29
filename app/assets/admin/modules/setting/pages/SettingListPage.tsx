@@ -13,7 +13,7 @@ import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/components/ListHeader';
 import TableRowEditAction from '@admin/components/table/Partials/TableRow/TableRowEditAction';
 
-const SettingList = () => {
+const SettingListPage = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
 
   const [filters, setFilters] = useState<SettingListFiltersInterface>(
@@ -71,4 +71,4 @@ const SettingList = () => {
   );
 }
 
-export default SettingList;
+export default SettingListPage;

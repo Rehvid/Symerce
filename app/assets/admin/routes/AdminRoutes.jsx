@@ -3,6 +3,11 @@ import { lazy } from 'react';
 import ProtectedRoute from '@/admin/routes/ProtectedRoute';
 import { paymentMethodRoutes } from '@admin/modules/paymentMethod/paymentMethod.routes';
 import { userRoutes } from '@admin/modules/user/user.routes';
+import { countryRoutes } from '@admin/modules/country/country.routes';
+import { customerRoutes } from '@admin/modules/customer/customer.routes';
+import { orderRoutes } from '@admin/modules/order/order.routes';
+import { settingRoutes } from '@admin/modules/setting/setting.routes';
+import { productRoutes } from '@admin/modules/product/product.routes';
 
 const routesConfig = [
     {
@@ -14,21 +19,6 @@ const routesConfig = [
         path: 'dashboard',
         component: lazy(() => import('@/admin/pages/Dashboard')),
         roles: ['user', 'admin'],
-    },
-    {
-        path: 'products',
-        component: lazy(() => import('@admin/pages/product/ProductList')),
-        roles: ['user', 'admin'],
-    },
-    {
-        path: 'products/create',
-        component: lazy(() => import('@/admin/pages/product/ProductForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'products/:id/edit',
-        component: lazy(() => import('@/admin/pages/product/ProductForm')),
-        roles: ['admin'],
     },
     {
         path: 'products/attributes',
@@ -90,22 +80,6 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/category/CategoryForm')),
         roles: ['user', 'admin'],
     },
-    ...userRoutes,
-    {
-        path: 'settings',
-        component: lazy(() => import('@/admin/pages/setting/SettingList')),
-        roles: ['admin'],
-    },
-    {
-        path: 'settings/create',
-        component: lazy(() => import('@/admin/pages/setting/SettingForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'settings/:id/edit',
-        component: lazy(() => import('@/admin/pages/setting/SettingForm')),
-        roles: ['admin'],
-    },
     {
         path: 'tags',
         component: lazy(() => import('@/admin/pages/tag/TagList')),
@@ -151,72 +125,13 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
         roles: ['admin'],
     },
-    {
-        path: 'currencies',
-        component: lazy(() => import('@/admin/pages/currency/CurrencyList')),
-        roles: ['admin'],
-    },
-    {
-        path: 'currencies/create',
-        component: lazy(() => import('@/admin/pages/currency/CurrencyForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'currencies/:id/edit',
-        component: lazy(() => import('@/admin/pages/currency/CurrencyForm')),
-        roles: ['admin'],
-    },
+    ...productRoutes,
+    ...settingRoutes,
+    ...userRoutes,
+    ...countryRoutes,
     ...paymentMethodRoutes,
-    {
-        path: 'orders',
-        component: lazy(() => import('@admin/pages/order/OrderList')),
-        roles: ['user', 'admin'],
-    },
-    {
-        path: 'orders/create',
-        component: lazy(() => import('@/admin/pages/order/OrderForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'orders/:id/edit',
-        component: lazy(() => import('@/admin/pages/order/OrderForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'orders/:id/details',
-        component: lazy(() => import('@admin/pages/order/OrderDetail')),
-        roles: ['admin'],
-    },
-    {
-        path: 'countries',
-        component: lazy(() => import('@admin/pages/country/CountryList')),
-        roles: ['user', 'admin'],
-    },
-    {
-        path: 'countries/create',
-        component: lazy(() => import('@/admin/pages/country/CountryForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'countries/:id/edit',
-        component: lazy(() => import('@/admin/pages/country/CountryForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'customers',
-        component: lazy(() => import('@admin/pages/customer/CustomerList')),
-        roles: ['user', 'admin'],
-    },
-    {
-        path: 'customers/create',
-        component: lazy(() => import('@/admin/pages/customer/CustomerForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'customers/:id/edit',
-        component: lazy(() => import('@/admin/pages/customer/CustomerForm')),
-        roles: ['admin'],
-    },
+    ...orderRoutes,
+    ...customerRoutes
 ];
 
 const withProtection = (requiredRoles, Component) => (

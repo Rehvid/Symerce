@@ -9,7 +9,7 @@ import FormWrapper from '@admin/shared/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import CountryFormBody from '@admin/modules/country/components/CountryFormBody';
 
-const CountryForm = () => {
+const CountryFormPage = () => {
   const params = useParams();
   const {
     register,
@@ -53,4 +53,4 @@ const CountryForm = () => {
   );
 }
 
-export default CountryForm;
+export default CountryFormPage;

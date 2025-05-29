@@ -9,7 +9,7 @@ import FormApiLayout from '@admin/layouts/FormApiLayout';
 import OrderFormBody from '@admin/modules/order/components/form/OrderFormBody';
 import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
 
-const OrderForm = () => {
+const OrderFormPage = () => {
   const params = useParams();
   const {
     register,
@@ -91,4 +91,4 @@ const OrderForm = () => {
   );
 }
 
-export default OrderForm;
+export default OrderFormPage;

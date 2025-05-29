@@ -8,7 +8,7 @@ import { useApi } from '@admin/hooks/useApi';
 import { ApiResponse } from '@admin/shared/types/apiResponse';
 import { OrderDetailInterface } from '@admin/modules/order/interfaces/OrderDetailInterface';
 
-const OrderDetail = ({}) => {
+const OrderDetailPage = ({}) => {
   const params = useParams<{id: string}>();
   const { handleApiRequest } = useApi();
   const [items, setItems] = useState<OrderDetailInterface | null>(null)
@@ -32,4 +32,4 @@ const OrderDetail = ({}) => {
     </>
   )
 }
-export default OrderDetail;
+export default OrderDetailPage;
