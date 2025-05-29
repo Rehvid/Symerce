@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Domain\Entity;
 
 use App\Admin\Domain\Traits\ProtectedTrait;
-use App\Admin\Infrastructure\Repository\CurrencyDoctrineRepository;
+use App\Currency\Infrastructure\Repository\CurrencyDoctrineRepository;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
