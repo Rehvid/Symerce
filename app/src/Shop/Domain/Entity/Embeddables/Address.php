@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Shop\Domain\Entity\Embeddables;
 
+use App\Admin\Domain\Entity\Country;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Embeddable]
+#[ORM\Entity]
 class Address
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+    private int $id;
+
     #[ORM\Column(type: "string", length: 255)]
     private string $street;
 
@@ -18,8 +24,9 @@ class Address
     #[ORM\Column(type: "string", length: 100)]
     private string $postalCode;
 
-    #[ORM\Column(type: "string", length: 100)]
-    private string $country;
+    #[ORM\ManyToOne(targetEntity: Country::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private Country $country;
 
     public function getStreet(): string
     {
@@ -41,16 +48,6 @@ class Address
         $this->city = $city;
     }
 
-    public function getCountry(): string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): void
-    {
-        $this->country = $country;
-    }
-
     public function getPostalCode(): string
     {
         return $this->postalCode;
@@ -59,5 +56,15 @@ class Address
     public function setPostalCode(string $postalCode): void
     {
         $this->postalCode = $postalCode;
+    }
+
+    public function getCountry(): Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(Country $country): void
+    {
+        $this->country = $country;
     }
 }

@@ -8,8 +8,7 @@ use App\Admin\Domain\Entity\UserToken;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Shared\Infrastructure\Repository\CustomerDoctrineRepository;
-use App\Shop\Domain\Entity\Embeddables\ContactDetails;
+use App\Customer\Infrastructure\Repository\CustomerDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,7 +30,6 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'bigint')]
     private int $id;
 
-
     #[ORM\Column(type: 'string', length: 255)]
     private string $password;
 
@@ -43,16 +41,19 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserToken::class, mappedBy:'user', cascade:['remove'])]
     private Collection $tokens;
 
-    #[ORM\ManyToOne(targetEntity: DeliveryAddress::class, cascade:['persist'])]
-    #[ORM\JoinColumn(name: "delivery_address_id", referencedColumnName: "id")]
-    private ?DeliveryAddress $deliveryAddress;
+    #[ORM\OneToOne(targetEntity: DeliveryAddress::class, cascade:['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(name: "delivery_address_id",  referencedColumnName: "id", nullable: true, onDelete: "CASCADE")]
+    private ?DeliveryAddress $deliveryAddress = null;
 
-    #[ORM\ManyToOne(targetEntity: InvoiceAddress::class, cascade:['persist'])]
-    #[ORM\JoinColumn(name: "invoice_address_id", referencedColumnName: "id")]
-    private ?InvoiceAddress $invoiceAddress;
+    #[ORM\OneToOne(targetEntity: InvoiceAddress::class, cascade:['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(name: "invoice_address_id", referencedColumnName: "id", nullable: true, onDelete: "CASCADE")]
+    private ?InvoiceAddress $invoiceAddress = null;
 
-    #[ORM\Embedded(class: ContactDetails::class, columnPrefix: false)]
-    private ContactDetails $contactDetails;
+    #[ORM\ManyToOne(targetEntity: ContactDetails::class, cascade:['persist', 'remove'])]
+    private ?ContactDetails $contactDetails = null;
+
+    #[ORM\Column(type: "string", length: 255, unique: true)]
+    private string $email;
 
     public function __construct()
     {
@@ -82,7 +83,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         /* @phpstan-ignore-next-line */
-        return $this->contactDetails->getEmail();
+        return $this->getEmail();
     }
 
 
@@ -137,13 +138,23 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         $this->invoiceAddress = $invoiceAddress;
     }
 
-    public function getContactDetails(): ContactDetails
+    public function getContactDetails(): ?ContactDetails
     {
         return $this->contactDetails;
     }
 
-    public function setContactDetails(ContactDetails $contactDetails): void
+    public function setContactDetails(?ContactDetails $contactDetails): void
     {
         $this->contactDetails = $contactDetails;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
     }
 }

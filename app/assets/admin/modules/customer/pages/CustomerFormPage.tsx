@@ -18,6 +18,7 @@ const CustomerFormPage = () => {
     setValue,
     setError,
     watch,
+    control,
     formState: { errors: fieldErrors },
   } = useForm<CustomerFormDataInterface>({
     mode: 'onBlur',
@@ -26,12 +27,12 @@ const CustomerFormPage = () => {
   const baseApiUrl = 'admin/customers';
   const redirectSuccessUrl = '/admin/customers';
   const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData } = useFormInitializer<CustomerFormDataInterface>();
+  const { isFormInitialize, getFormData, formData, formContext } = useFormInitializer<CustomerFormDataInterface>();
+  const isEditMode = params.id ?? false;
 
   useEffect(() => {
-    if (params.id) {
-      const endpoint = `admin/customers/${params.id}`;
-      const formFieldNames = [
+      const endpoint = isEditMode ? `admin/customers/${params.id}` : `admin/customers/store-data`;
+      const formFieldNames = isEditMode ? [
         'firstname',
         'surname',
         'email',
@@ -42,23 +43,38 @@ const CustomerFormPage = () => {
         'street',
         'postalCode',
         'city',
+        'country',
         'deliveryInstructions',
         'invoiceStreet',
         'invoicePostalCode',
         'invoiceCompanyName',
         'invoiceCompanyTaxId',
-        'invoiceCity'
-      ]
+        'invoiceCity',
+        'invoiceCountry'
+      ] : [];
 
       getFormData(endpoint, setValue, formFieldNames);
-    }
   }, []);
 
   if (!isFormInitialize) {
     return <FormSkeleton rowsCount={12} />;
   }
 
-  const isEditMode = params.id ?? false;
+  console.log(watch());
+
+  const modifySubmitValues = (values: CustomerFormDataInterface) => {
+      const data = {...values};
+
+      if (typeof data.country === 'object' && data.country !== null) {
+        data.country = values.country?.value;
+      }
+      if (typeof data.invoiceCountry=== 'object' && data.invoiceCountry !== null) {
+        data.invoiceCountry = values?.invoiceCountry.value;
+      }
+
+      return data;
+  }
+
 
   return (
     <FormWrapper
@@ -66,9 +82,18 @@ const CustomerFormPage = () => {
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
+      modifySubmitValues={modifySubmitValues}
     >
       <FormApiLayout pageTitle={params.id ? 'Edytuj klienta' : 'Dodaj klienta'}>
-        <CustomerFormBody register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} watch={watch} />
+        <CustomerFormBody
+          register={register}
+          fieldErrors={fieldErrors}
+          isEditMode={isEditMode}
+          watch={watch}
+          control={control}
+          formData={formData}
+          formContext={formContext}
+        />
       </FormApiLayout>
     </FormWrapper>
   );

@@ -12,7 +12,6 @@ use App\Shared\Domain\Enums\CheckoutStep;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use App\Shared\Domain\Enums\OrderStatus;
 use App\Shared\Infrastructure\Repository\OrderRepository;
-use App\Shop\Domain\Entity\Embeddables\ContactDetails;
 use App\Shop\Domain\Entity\Payment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -76,7 +75,8 @@ class Order
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'order', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $orderItems;
 
-    #[ORM\Embedded(class: ContactDetails::class, columnPrefix: false)]
+    #[ORM\ManyToOne(targetEntity: InvoiceAddress::class, cascade:['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ContactDetails $contactDetails;
 
     #[ORM\Column(type: 'string', enumType: CheckoutStep::class)]

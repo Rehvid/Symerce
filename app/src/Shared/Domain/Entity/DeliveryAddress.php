@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
-class DeliveryAddress extends Address
+class DeliveryAddress
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -21,14 +21,15 @@ class DeliveryAddress extends Address
     #[ORM\Column(type: "integer")]
     private int $id;
 
-    #[ORM\Embedded(class: Address::class, columnPrefix: false)]
-    private Address $address;
+    #[ORM\OneToOne(targetEntity: Address::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(name: "address_id", referencedColumnName: "id", onDelete: "CASCADE")]
+    private ?Address $address = null;
 
     #[ORM\Column(type: "text", nullable: true)]
     private ?string $deliveryInstructions;
 
 
-    public function getAddress(): Address
+    public function getAddress(): ?Address
     {
         return $this->address;
     }

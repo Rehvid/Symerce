@@ -4,18 +4,26 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Hydrator;
 
-use App\Shared\Application\DTO\Request\Address\SaveAddressRequest;
+use App\Shared\Application\DTO\AddressData;
+use App\Shared\Application\Factory\ValidationExceptionFactory;
 use App\Shop\Domain\Entity\Embeddables\Address;
 
 final readonly class AddressHydrator
 {
-    public function hydrate(SaveAddressRequest $request, ?Address $address = null): Address
+    public function __construct(
+        private ValidationExceptionFactory $validationExceptionFactory,
+    ) {}
+
+    public function hydrate(AddressData $data, ?Address $address = null): Address
     {
         $address = $address ?? new Address();
-        $address->setCountry($request->country);
-        $address->setCity($request->city);
-        $address->setStreet($request->street);
-        $address->setPostalCode($request->postalCode);
+        if (null === $data->country) {
+            $this->validationExceptionFactory->createNotFound('country');
+        }
+        $address->setCountry($data->country);
+        $address->setCity($data->city);
+        $address->setStreet($data->street);
+        $address->setPostalCode($data->postalCode);
 
         return $address;
     }

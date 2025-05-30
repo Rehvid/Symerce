@@ -56,18 +56,13 @@ const CustomerInformation = ({register, fieldErrors, isEditMode}) => (
       />
     </FormGroup>
     <FormGroup
-      label={<InputLabel isRequired={true} label="Telefon" htmlFor="phone"  />}
+      label={<InputLabel label="Telefon" htmlFor="phone"  />}
     >
       <InputField
         type="text"
         id="phone"
-        hasError={!!fieldErrors?.phone}
-        errorMessage={fieldErrors?.phone?.message}
         icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-        {...register('phone', {
-          ...validationRules.required(),
-          ...validationRules.minLength(3),
-        })}
+        {...register('phone')}
       />
     </FormGroup>
     <FormGroup

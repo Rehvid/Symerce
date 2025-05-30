@@ -21,8 +21,9 @@ class InvoiceAddress
     #[ORM\Column(type: "integer")]
     private int $id;
 
-    #[ORM\Embedded(class: Address::class, columnPrefix: false)]
-    private Address $address;
+    #[ORM\OneToOne(targetEntity: Address::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(name: "address_id", referencedColumnName: "id", onDelete: "CASCADE")]
+    private ?Address $address = null;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $companyTaxId;
@@ -55,7 +56,7 @@ class InvoiceAddress
         $this->id = $id;
     }
 
-    public function getAddress(): Address
+    public function getAddress(): ?Address
     {
         return $this->address;
     }
