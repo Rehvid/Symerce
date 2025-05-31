@@ -6,7 +6,7 @@ namespace App\Admin\Application\Hydrator\Product;
 
 use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Entity\Tag;
-use App\Admin\Domain\Repository\TagRepositoryInterface;
+use App\Tag\Domain\Repository\TagRepositoryInterface;
 
 final readonly class ProductTagHydrator
 {

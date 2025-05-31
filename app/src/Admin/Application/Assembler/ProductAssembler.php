@@ -13,17 +13,16 @@ use App\Admin\Domain\Entity\AttributeValue;
 use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Entity\Promotion;
 use App\Admin\Domain\Entity\Tag;
 use App\Admin\Domain\Entity\Vendor;
 use App\Admin\Domain\Enums\ReductionType;
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
 use App\Admin\Domain\Repository\CategoryRepositoryInterface;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
-use App\Admin\Domain\Repository\TagRepositoryInterface;
 use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Shared\Application\Factory\MoneyFactory;
+use App\Tag\Domain\Repository\TagRepositoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

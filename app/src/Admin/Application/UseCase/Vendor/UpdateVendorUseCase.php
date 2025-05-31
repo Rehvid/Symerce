@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\UseCase\Vendor;
 
-use App\Admin\Application\Hydrator\TagHydrator;
 use App\Admin\Application\Hydrator\VendorHydrator;
-use App\Admin\Domain\Repository\TagRepositoryInterface;
 use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Application\DTO\Response\IdResponse;

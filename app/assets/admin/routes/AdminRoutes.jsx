@@ -9,6 +9,7 @@ import { orderRoutes } from '@admin/modules/order/order.routes';
 import { settingRoutes } from '@admin/modules/setting/setting.routes';
 import { productRoutes } from '@admin/modules/product/product.routes';
 import { currencyRoutes } from '@admin/modules/currency/currency.routes';
+import { tagRoutes } from '@admin/modules/tag/tag.routes';
 
 const routesConfig = [
     {
@@ -81,21 +82,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/category/CategoryForm')),
         roles: ['user', 'admin'],
     },
-    {
-        path: 'tags',
-        component: lazy(() => import('@/admin/pages/tag/TagList')),
-        roles: ['admin'],
-    },
-    {
-        path: 'tags/create',
-        component: lazy(() => import('@/admin/pages/tag/TagForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'tags/:id/edit',
-        component: lazy(() => import('@/admin/pages/tag/TagForm')),
-        roles: ['admin'],
-    },
+
     {
         path: 'carriers',
         component: lazy(() => import('@/admin/pages/carrier/CarrierList')),
@@ -126,6 +113,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
         roles: ['admin'],
     },
+    ...tagRoutes,
     ...currencyRoutes,
     ...productRoutes,
     ...settingRoutes,
