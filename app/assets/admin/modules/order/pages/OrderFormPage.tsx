@@ -8,6 +8,7 @@ import FormWrapper from '@admin/shared/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import OrderFormBody from '@admin/modules/order/components/form/OrderFormBody';
 import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
+import { CustomerFormDataInterface } from '@admin/modules/customer/interfaces/CustomerFormDataInterface';
 
 const OrderFormPage = () => {
   const params = useParams();
@@ -21,10 +22,6 @@ const OrderFormPage = () => {
     formState: { errors: fieldErrors },
   } = useForm<OrderFormDataInterface>({
     mode: 'onBlur',
-    defaultValues: {
-      cartToken: 'should not be mandatory!',
-      deliveryCarrier: 'PL'
-    }
   });
 
   const baseApiUrl = 'admin/orders';
@@ -51,12 +48,14 @@ const OrderFormPage = () => {
           'postalCode',
           'city',
           'deliveryInstructions',
+          'country',
           'invoiceStreet',
           'invoicePostalCode',
           'invoiceCity',
-          'companyName',
-          'companyTaxId',
-          'products'
+          'invoiceCountry',
+          'invoiceCompanyName',
+          'invoiceCompanyTaxId',
+          'products',
         ]
         : [];
 
@@ -67,6 +66,18 @@ const OrderFormPage = () => {
     return <FormSkeleton rowsCount={12} />;
   }
 
+  const modifySubmitValues = (values: OrderFormDataInterface) => {
+    const data = {...values};
+
+    if (typeof data.country === 'object' && data.country !== null) {
+      data.country = values.country?.value;
+    }
+    if (typeof data.invoiceCountry=== 'object' && data.invoiceCountry !== null) {
+      data.invoiceCountry = values?.invoiceCountry.value;
+    }
+
+    return data;
+  }
 
   return (
     <FormWrapper
@@ -74,6 +85,7 @@ const OrderFormPage = () => {
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
+      modifySubmitValues={modifySubmitValues}
     >
       <FormApiLayout pageTitle={params.id ? 'Edytuj zamówienie' : 'Dodaj zamówienie'}>
         <OrderFormBody

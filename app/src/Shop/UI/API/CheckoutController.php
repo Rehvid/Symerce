@@ -14,7 +14,7 @@ use App\Shared\Domain\Entity\Order;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use App\Shared\Infrastructure\Repository\CartDoctrineRepository;
-use App\Shared\Infrastructure\Repository\OrderRepository;
+use App\Shared\Infrastructure\Repository\OrderDoctrineRepository;
 use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Shop\Application\UseCase\Checkout\ConfirmationOrderUseCase;
 use App\Shop\Application\UseCase\Checkout\SaveCarrierUseCase;
@@ -31,10 +31,10 @@ use Symfony\Component\Routing\Attribute\Route;
 class CheckoutController extends AbstractController
 {
     public function __construct(
-        private readonly RequestDtoResolver     $requestDtoResolver,
-        private readonly CartDoctrineRepository $cartRepository,
-        private readonly OrderRepository        $orderRepository,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly RequestDtoResolver      $requestDtoResolver,
+        private readonly CartDoctrineRepository  $cartRepository,
+        private readonly OrderDoctrineRepository $orderRepository,
+        private readonly EntityManagerInterface  $entityManager,
     ){
     }
 

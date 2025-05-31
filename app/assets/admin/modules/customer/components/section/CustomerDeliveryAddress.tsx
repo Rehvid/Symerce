@@ -14,7 +14,6 @@ const CustomerDeliveryAddress = ({register, fieldErrors, control, formContext, f
   const availableOptions = formContext?.availableCountries;
   const selectedOption = availableOptions?.find(option => option.value === formData?.country);
 
-  console.log(selectedOption);
 
   return (
     <FormSection title="Adres dostawy">

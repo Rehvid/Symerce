@@ -8,17 +8,17 @@ use App\Admin\Domain\Entity\Carrier;
 use App\Admin\Domain\Entity\PaymentMethod;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Shared\Domain\Enums\CheckoutStep;
+use App\Order\Domain\Enums\CheckoutStep;
+use App\Order\Domain\Enums\OrderStatus;
 use App\Shared\Domain\Enums\DecimalPrecision;
-use App\Shared\Domain\Enums\OrderStatus;
-use App\Shared\Infrastructure\Repository\OrderRepository;
+use App\Shared\Infrastructure\Repository\OrderDoctrineRepository;
 use App\Shop\Domain\Entity\Payment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 
-#[ORM\Entity(repositoryClass: OrderRepository::class)]
+#[ORM\Entity(repositoryClass: OrderDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'orders')]
 class Order
@@ -37,12 +37,12 @@ class Order
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $cartToken;
 
-    #[ORM\ManyToOne(targetEntity: DeliveryAddress::class, cascade: ['persist'])]
-    #[ORM\JoinColumn(name: "delivery_address_id", referencedColumnName: "id", nullable: true)]
+    #[ORM\OneToOne(targetEntity: DeliveryAddress::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(name: 'delivery_address_id', referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
     private ?DeliveryAddress $deliveryAddress = null;
 
-    #[ORM\ManyToOne(targetEntity: InvoiceAddress::class, cascade: ['persist'])]
-    #[ORM\JoinColumn(name: "invoice_address_id", referencedColumnName: "id", nullable: true)]
+    #[ORM\OneToOne(targetEntity: InvoiceAddress::class, cascade: ['persist', 'remove'], orphanRemoval: true,)]
+    #[ORM\JoinColumn(name: 'invoice_address_id', referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
     private ?InvoiceAddress $invoiceAddress = null;
 
     #[ORM\ManyToOne(targetEntity: Customer::class)]
@@ -68,19 +68,21 @@ class Order
     #[ORM\JoinColumn(name: "payment_method_id", referencedColumnName: "id", nullable: true)]
     private ?PaymentMethod $paymentMethod = null;
 
-
     #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: 'order', cascade: ['persist', 'remove'])]
     private Collection $payments;
 
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'order', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $orderItems;
 
-    #[ORM\ManyToOne(targetEntity: InvoiceAddress::class, cascade:['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(targetEntity: ContactDetails::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\JoinColumn(name: 'contact_details_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private ContactDetails $contactDetails;
 
     #[ORM\Column(type: 'string', enumType: CheckoutStep::class)]
     private CheckoutStep $checkoutStep;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $email;
 
     public function __construct()
     {
@@ -247,4 +249,16 @@ class Order
     {
         $this->checkoutStep = $checkoutStep;
     }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+
 }

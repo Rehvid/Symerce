@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\Web;
 
-use App\Shared\Domain\Enums\CheckoutStep;
+use App\Order\Domain\Enums\CheckoutStep;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

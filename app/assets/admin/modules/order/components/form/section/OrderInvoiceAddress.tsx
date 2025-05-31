@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormSection from '@admin/shared/components/form/FormSection';
 import FormGroup from '@admin/shared/components/form/FormGroup';
 import InputLabel from '@admin/shared/components/form/input/InputLabel';
 import InputField from '@admin/shared/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/utils/validationRules';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
+import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
 
 interface OrderInvoiceAddressProps {
   register: UseFormRegister<OrderFormDataInterface>,
   fieldErrors: FieldErrors<OrderFormDataInterface>;
 }
 
-const OrderInvoiceAddress: React.FC<OrderInvoiceAddressProps> = ({register, fieldErrors}) => {
+const OrderInvoiceAddress: React.FC<OrderInvoiceAddressProps> = ({register, fieldErrors, control, formContext, formData}) => {
+  const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);
+  const availableOptions = formContext.availableCountries;
+  const selectedOption = availableOptions?.find(option => option.value === formData?.invoiceCountry);
+
   return (
     <FormSection title="Faktura">
       <FormGroup
@@ -65,19 +70,20 @@ const OrderInvoiceAddress: React.FC<OrderInvoiceAddressProps> = ({register, fiel
       </FormGroup>
 
       <FormGroup
-        label={<InputLabel label="Nazwa firmy" htmlFor="CompanyId"  />}
+        label={<InputLabel label="Nazwa firmy" htmlFor="invoiceCompanyName"  />}
       >
         <InputField
           type="text"
-          id="invoiceCompanyId"
-          hasError={!!fieldErrors?.invoiceCompanyId}
-          errorMessage={fieldErrors?.invoiceCompanyId?.message}
+          id="invoiceCompanyName"
+          hasError={!!fieldErrors?.invoiceCompanyName}
+          errorMessage={fieldErrors?.invoiceCompanyName?.message}
           icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
+          {...register('invoiceCompanyName')}
         />
       </FormGroup>
 
       <FormGroup
-        label={<InputLabel label="NIP" htmlFor="CompanyTaxId"  />}
+        label={<InputLabel label="NIP" htmlFor="invoiceCompanyTaxId"  />}
       >
         <InputField
           type="text"
@@ -85,6 +91,31 @@ const OrderInvoiceAddress: React.FC<OrderInvoiceAddressProps> = ({register, fiel
           hasError={!!fieldErrors?.invoiceCompanyTaxId}
           errorMessage={fieldErrors?.invoiceCompanyTaxId?.message}
           icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
+          {...register('invoiceCompanyTaxId')}
+        />
+      </FormGroup>
+
+      <FormGroup label={<InputLabel label="Kraj" />}>
+        <Controller
+          name="invoiceCountry"
+          control={control}
+          defaultValue={selectedOption}
+          rules={{
+            ...validationRules.required()
+          }}
+          render={({ field, fieldState }) => (
+            <ReactSelect
+              options={availableOptions}
+              value={isDefaultOptionSelected ? field.value : selectedOption}
+              onChange={(option) => {
+                setIsDefaultOptionSelected(true);
+                field.onChange(option);
+              }}
+              hasError={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+            />
+          )}
+
         />
       </FormGroup>
     </FormSection>

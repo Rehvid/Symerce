@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Hydrator;
 
-use App\Shared\Application\DTO\Request\ContactDetails\SaveContactDetailsRequest;
+use App\Shared\Application\DTO\ContactDetailsData;
 use App\Shared\Domain\Entity\ContactDetails;
 
 final readonly class ContactDetailsHydrator
 {
-    public function hydrate(SaveContactDetailsRequest $request, ?ContactDetails $contactDetails = null): ContactDetails
+    public function hydrate(ContactDetailsData $data, ?ContactDetails $contactDetails = null): ContactDetails
     {
         $contactDetails = $contactDetails ?? new ContactDetails();
-        $contactDetails->setPhone($request->phone);
-        $contactDetails->setFirstname($request->firstname);
-        $contactDetails->setSurname($request->surname);
+        $contactDetails->setPhone($data->phone);
+        $contactDetails->setFirstname($data->firstname);
+        $contactDetails->setSurname($data->surname);
 
         return $contactDetails;
     }

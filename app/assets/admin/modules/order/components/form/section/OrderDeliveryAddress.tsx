@@ -6,15 +6,20 @@ import { validationRules } from '@admin/utils/validationRules';
 import InputField from '@admin/shared/components/form/input/InputField';
 import InputLabel from '@admin/shared/components/form/input/InputLabel';
 import Switch from '@admin/shared/components/form/input/Switch';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
+import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
 
 interface OrderDeliveryAddressProps {
   register: UseFormRegister<OrderFormDataInterface>,
   fieldErrors: FieldErrors<OrderFormDataInterface>;
 }
 
-const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({register, fieldErrors}) => {
+const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({register, fieldErrors, control, formContext, formData}) => {
+  const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);
+  const availableOptions = formContext?.availableCountries;
+  const selectedOption = availableOptions?.find(option => option.value === formData?.country);
+
   return (
     <FormSection title="Adres dostawy">
         <FormGroup
@@ -62,6 +67,30 @@ const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({register, fi
             ...validationRules.required(),
             ...validationRules.minLength(3),
           })}
+        />
+      </FormGroup>
+
+      <FormGroup label={<InputLabel label="Kraj" isRequired={true} />}>
+        <Controller
+          name="country"
+          control={control}
+          defaultValue={selectedOption}
+          rules={{
+            ...validationRules.required()
+          }}
+          render={({ field, fieldState }) => (
+            <ReactSelect
+              options={availableOptions}
+              value={isDefaultOptionSelected ? field.value : selectedOption}
+              onChange={(option) => {
+                setIsDefaultOptionSelected(true);
+                field.onChange(option);
+              }}
+              hasError={fieldState.invalid}
+              errorMessage={fieldState.error?.message}
+            />
+          )}
+
         />
       </FormGroup>
 

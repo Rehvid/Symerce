@@ -7,9 +7,9 @@ namespace App\Shop\Domain\Entity;
 use App\Admin\Domain\Entity\PaymentMethod;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
+use App\Order\Domain\Enums\PaymentStatus;
 use App\Shared\Domain\Entity\Order;
 use App\Shared\Domain\Enums\DecimalPrecision;
-use App\Shared\Domain\Enums\PaymentStatus;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

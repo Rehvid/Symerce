@@ -42,15 +42,9 @@ const OrderFormBody: React.FC<OrderFormBodyProps> = ({
         register={register}
         fieldErrors={fieldErrors}
       />
-      <OrderDeliveryAddress
-        register={register}
-        fieldErrors={fieldErrors}
-      />
+      <OrderDeliveryAddress register={register} fieldErrors={fieldErrors} formContext={formContext} formData={formData} control={control} />
       {watch().isInvoice && (
-        <OrderInvoiceAddress
-          register={register}
-          fieldErrors={fieldErrors}
-        />
+        <OrderInvoiceAddress register={register} fieldErrors={fieldErrors} formContext={formContext} formData={formData} control={control} />
       )}
       <OrderShippingAndPayment
         register={register}

@@ -6,10 +6,10 @@ namespace App\Shop\Application\Service;
 
 use App\Admin\Domain\Entity\Carrier;
 use App\Admin\Domain\Entity\PaymentMethod;
+use App\Order\Domain\Enums\CheckoutStep;
 use App\Shared\Domain\Entity\Cart;
 use App\Shared\Domain\Entity\CartItem;
 use App\Shared\Domain\Entity\Order;
-use App\Shared\Domain\Enums\CheckoutStep;
 use App\Shared\Domain\Repository\OrderRepositoryInterface;
 use App\Shop\Application\Assembler\CartAssembler;
 use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
