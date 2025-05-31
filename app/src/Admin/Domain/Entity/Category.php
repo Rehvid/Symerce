@@ -10,7 +10,7 @@ use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\OrderTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Admin\Infrastructure\Repository\CategoryDoctrineRepository;
+use App\Category\Infrastructure\Repository\CategoryDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,7 +34,7 @@ class Category implements OrderEntityInterface,  HasFileInterface
     #[ORM\Column(type: 'string')]
     private string $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $slug;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -53,6 +53,12 @@ class Category implements OrderEntityInterface,  HasFileInterface
     #[ORM\ManyToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?File $image = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $metaTitle = null;
+
+    #[ORM\Column(type: 'string', length: 500, nullable: true)]
+    private ?string $metaDescription = null;
 
     public function __construct()
     {
@@ -147,5 +153,25 @@ class Category implements OrderEntityInterface,  HasFileInterface
     public function getFile(): ?File
     {
         return $this->image;
+    }
+
+    public function getMetaTitle(): ?string
+    {
+        return $this->metaTitle;
+    }
+
+    public function setMetaTitle(?string $metaTitle): void
+    {
+        $this->metaTitle = $metaTitle;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(?string $metaDescription): void
+    {
+        $this->metaDescription = $metaDescription;
     }
 }

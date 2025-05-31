@@ -6,7 +6,7 @@ namespace App\Admin\Application\Hydrator\Product;
 
 use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Repository\CategoryRepositoryInterface;
+use App\Category\Domain\Repository\CategoryRepositoryInterface;
 
 final readonly class ProductCategoryHydrator
 {

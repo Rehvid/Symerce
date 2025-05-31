@@ -1,0 +1,21 @@
+import { AdminRouteInterface } from '@admin/shared/interfaces/AdminRouteInterface';
+import { lazy } from 'react';
+import { AdminRole } from '@admin/shared/enums/adminRole';
+
+export const categoryRoutes: AdminRouteInterface[] = [
+  {
+    path: 'categories',
+    component: lazy(() => import('@admin/modules/category/pages/CategoryListPage')),
+    roles: [AdminRole.ADMIN],
+  },
+  {
+    path: 'categories/create',
+    component: lazy(() => import('@admin/modules/category/pages/CategoryFormPage')),
+    roles: [AdminRole.ADMIN],
+  },
+  {
+    path: 'categories/:id/edit',
+    component: lazy(() => import('@admin/modules/category/pages/CategoryFormPage')),
+    roles: [AdminRole.ADMIN],
+  },
+]

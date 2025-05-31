@@ -7,7 +7,7 @@ namespace App\Shop\Application\Assembler;
 use App\Admin\Application\Service\FileService;
 use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Repository\CategoryRepositoryInterface;
+use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Shared\Application\Factory\MoneyFactory;
 use App\Shop\Application\DTO\Response\Category\CategoryListResponse;
 use App\Shop\Application\DTO\Response\Category\CategorySubcategoryListResponse;
