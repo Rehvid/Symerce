@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\Hydrator;
 
-use App\Admin\Domain\Entity\File;
 use App\Admin\Domain\Model\FileData;
+use App\Common\Domain\Entity\File;
 
 final readonly class FileHydrator
 {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\User\Ui\Api\Controller;
 
-use App\Admin\Domain\Entity\User;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;

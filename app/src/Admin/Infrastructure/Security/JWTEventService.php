@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Security;
 
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Domain\Enums\CookieName;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\Infrastructure\Repository;
 
-use App\Shared\Domain\Entity\CartItem;
+use App\Common\Domain\Entity\CartItem;
 use App\Shared\Infrastructure\Repository\DoctrineRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

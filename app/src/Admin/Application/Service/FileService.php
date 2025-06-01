@@ -5,10 +5,10 @@ declare(strict_types = 1);
 namespace App\Admin\Application\Service;
 
 use App\Admin\Domain\Contract\HasFileInterface;
-use App\Admin\Domain\Entity\File;
 use App\Admin\Domain\Model\FileData;
 use App\Admin\Domain\Repository\FileRepositoryInterface;
 use App\Admin\Infrastructure\Service\FileStorageService;
+use App\Common\Domain\Entity\File;
 
 final readonly class FileService
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Category;
 
-use App\Admin\Domain\Entity\Category;
 use App\Category\Infrastructure\Repository\CategoryDoctrineRepository;
+use App\Common\Domain\Entity\Category;
 use App\DTO\Admin\Request\Category\SaveCategoryRequestDTO;
 use App\Factory\PersistableDTOFactory;
 use App\Service\DataPersister\Persisters\Admin\Category\CategoryCreatePersister;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Country\Application\Dto\Request;
 
-use App\Admin\Domain\Entity\Country;
+use App\Common\Domain\Entity\Country;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueCode;
 use Symfony\Component\Validator\Constraints as Assert;

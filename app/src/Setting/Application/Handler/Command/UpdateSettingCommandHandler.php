@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\Setting;
+use App\Common\Domain\Entity\Setting;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Setting\Application\Command\UpdateSettingCommand;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 
 final readonly class UpdateSettingCommandHandler implements CommandHandlerInterface

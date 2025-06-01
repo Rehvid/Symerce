@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\Carrier;
 
 use App\Admin\Application\Assembler\CarrierAssembler;
-use App\Admin\Domain\Entity\Carrier;
 use App\Admin\Domain\Repository\CarrierRepositoryInterface;
+use App\Common\Domain\Entity\Carrier;
 use App\Shared\Application\UseCases\Base\GetByIdUseCaseInterface;
 use Doctrine\ORM\EntityNotFoundException;
 

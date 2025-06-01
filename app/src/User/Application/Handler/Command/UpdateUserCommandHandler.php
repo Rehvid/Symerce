@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\User\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 use App\User\Application\Command\UpdateUserCommand;
 use App\User\Application\Hydrator\UserHydrator;
 use App\User\Domain\Repository\UserRepositoryInterface;

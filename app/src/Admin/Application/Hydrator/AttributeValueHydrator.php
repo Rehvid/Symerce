@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\AttributeValue\SaveAttributeValueRequest;
-use App\Admin\Domain\Entity\AttributeValue;
+use App\Common\Domain\Entity\AttributeValue;
 
 final readonly class AttributeValueHydrator
 {

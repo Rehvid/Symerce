@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\Bootstrap;
 
-use App\Admin\Domain\Entity\Currency;
-use App\Admin\Domain\Entity\Setting;
-use App\Setting\Domain\Enums\SettingType;
+use App\Common\Domain\Entity\Currency;
+use App\Common\Domain\Entity\Setting;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

@@ -3,11 +3,11 @@
 namespace App\Shop\Application\Assembler;
 
 use App\Admin\Application\Service\FileService;
+use App\Common\Domain\Entity\Cart;
+use App\Common\Domain\Entity\CartItem;
+use App\Common\Domain\Entity\Order;
+use App\Common\Domain\Entity\OrderItem;
 use App\Shared\Application\Service\SettingsService;
-use App\Shared\Domain\Entity\Cart;
-use App\Shared\Domain\Entity\CartItem;
-use App\Shared\Domain\Entity\Order;
-use App\Shared\Domain\Entity\OrderItem;
 use App\Shop\Application\DTO\Response\Cart\CartItemResponse;
 use App\Shop\Application\DTO\Response\Cart\CartResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

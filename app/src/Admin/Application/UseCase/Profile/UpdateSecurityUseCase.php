@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\Profile;
 
 use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 use App\User\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Currency\Infrastructure\Repository;
 
-use App\Admin\Domain\Entity\Currency;
+use App\Common\Domain\Entity\Currency;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 

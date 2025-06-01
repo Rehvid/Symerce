@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\PaymentMethod;
 use App\PaymentMethod\Application\Command\CreatePaymentMethodCommand;
 use App\PaymentMethod\Application\Hydrator\PaymentMethodHydrator;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;

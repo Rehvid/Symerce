@@ -6,6 +6,10 @@ namespace App\Order\Application\Factory;
 
 use App\Admin\Application\Service\FileService;
 use App\Admin\Domain\ValueObject\DateVO;
+use App\Common\Domain\Entity\Embeddables\Address;
+use App\Common\Domain\Entity\Order;
+use App\Common\Domain\Entity\OrderItem;
+use App\Common\Domain\Entity\Payment;
 use App\Order\Application\Dto\Response\OrderDetail\OrderDetailAddressResponse;
 use App\Order\Application\Dto\Response\OrderDetail\OrderDetailContactResponse;
 use App\Order\Application\Dto\Response\OrderDetail\OrderDetailDeliveryAddressResponse;
@@ -20,10 +24,6 @@ use App\Order\Application\Dto\Response\OrderDetail\OrderDetailShippingResponse;
 use App\Order\Application\Dto\Response\OrderDetail\OrderDetailSummaryResponse;
 use App\Order\Application\Service\OrderPriceCalculator;
 use App\Shared\Application\Factory\MoneyFactory;
-use App\Shared\Domain\Entity\Order;
-use App\Shared\Domain\Entity\OrderItem;
-use App\Shop\Domain\Entity\Embeddables\Address;
-use App\Shop\Domain\Entity\Payment;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

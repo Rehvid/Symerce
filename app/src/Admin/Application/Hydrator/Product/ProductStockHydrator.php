@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Application\Hydrator\Product;
 
 use App\Admin\Application\DTO\Request\Product\SaveProductStockRequest;
-use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Entity\ProductStock;
+use App\Common\Domain\Entity\Product;
+use App\Common\Domain\Entity\ProductStock;
 
 final readonly class ProductStockHydrator
 {

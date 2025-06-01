@@ -2,7 +2,6 @@
 
 namespace App\Country\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\Country;
 use App\Country\Application\Command\CreateCountryCommand;
 use App\Country\Application\Hydrator\CountryHydrator;
 use App\Country\Domain\Repository\CountryRepositoryInterface;

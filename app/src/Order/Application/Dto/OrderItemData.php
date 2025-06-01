@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Dto;
 
-use App\Admin\Domain\Entity\Product;
+use App\Common\Domain\Entity\Product;
 
 final readonly class OrderItemData
 {

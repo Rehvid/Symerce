@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\Hydrator\Product;
 
-use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Entity\Tag;
+use App\Common\Domain\Entity\Product;
+use App\Common\Domain\Entity\Tag;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
 
 final readonly class ProductTagHydrator

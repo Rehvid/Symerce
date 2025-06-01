@@ -5,14 +5,13 @@ declare (strict_types=1);
 namespace App\Customer\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Domain\Entity\Country;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
+use App\Common\Domain\Entity\Country;
+use App\Common\Domain\Entity\Customer;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Customer\Application\Dto\Response\CustomerFormContext;
 use App\Customer\Application\Dto\Response\CustomerFormResponse;
 use App\Customer\Application\Dto\Response\CustomerListResponse;
-use App\Shared\Domain\Entity\Customer;
-use App\User\Application\Dto\Response\UserFormContext;
 
 final readonly class CustomerAssembler
 {

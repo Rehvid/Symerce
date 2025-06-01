@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Order\Infrastructure\Repository;
 
-use App\Shared\Domain\Entity\Order;
+use App\Common\Domain\Entity\Order;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Shop\Application\Hydrator;
 
 
+use App\Common\Domain\Entity\ContactDetails;
 use App\Shared\Application\DTO\ContactDetailsData;
-use App\Shared\Domain\Entity\ContactDetails;
 
 final readonly class ContactDetailsHydrator
 {

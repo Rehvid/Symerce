@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Country\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Domain\Entity\Country;
+use App\Common\Domain\Entity\Country;
 use App\Country\Application\Dto\Response\CountryFormResponse;
 use App\Country\Application\Dto\Response\CountryListResponse;
 

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Hydrator;
 
-use App\Admin\Domain\Entity\Country;
+use App\Common\Domain\Entity\Country;
+use App\Common\Domain\Entity\Embeddables\Address;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Shared\Application\DTO\AddressData;
-use App\Shared\Application\Factory\ValidationExceptionFactory;
-use App\Shared\Domain\Exception\EntityNotFoundException;
-use App\Shop\Domain\Entity\Embeddables\Address;
 
 final readonly class AddressHydrator
 {

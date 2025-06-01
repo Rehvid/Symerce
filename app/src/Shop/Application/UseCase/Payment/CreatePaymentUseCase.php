@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Payment;
 
-use App\Admin\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Entity\Order;
+use App\Common\Domain\Entity\Payment;
+use App\Common\Domain\Entity\PaymentMethod;
 use App\Order\Domain\Enums\PaymentStatus;
-use App\Shared\Domain\Entity\Order;
-use App\Shop\Domain\Entity\Payment;
 
 final readonly class CreatePaymentUseCase
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\Hydrator;
 
-use App\Admin\Domain\Entity\Setting;
+use App\Common\Domain\Entity\Setting;
 use App\Setting\Application\Dto\Request\UpdateSettingRequest;
 use App\Setting\Domain\Enums\SettingType;
 

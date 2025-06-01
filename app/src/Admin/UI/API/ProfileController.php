@@ -8,7 +8,7 @@ use App\Admin\Application\DTO\Request\Profile\UpdatePersonalRequest;
 use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
 use App\Admin\Application\UseCase\Profile\UpdatePersonalUseCase;
 use App\Admin\Application\UseCase\Profile\UpdateSecurityUseCase;
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

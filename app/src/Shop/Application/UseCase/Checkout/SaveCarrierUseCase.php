@@ -2,8 +2,8 @@
 
 namespace App\Shop\Application\UseCase\Checkout;
 
-use App\Admin\Domain\Entity\Carrier;
-use App\Shared\Domain\Entity\Order;
+use App\Common\Domain\Entity\Carrier;
+use App\Common\Domain\Entity\Order;
 use App\Shop\Application\Service\OrderCheckoutService;
 
 final class SaveCarrierUseCase

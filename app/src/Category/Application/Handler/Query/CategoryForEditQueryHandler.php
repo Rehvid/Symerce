@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Handler\Query;
 
-use App\Admin\Domain\Entity\Category;
 use App\Category\Application\Assembler\CategoryAssembler;
 use App\Category\Application\Query\GetCategoryForEditQuery;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
+use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class CategoryForEditQueryHandler implements QueryHandlerInterface
 {

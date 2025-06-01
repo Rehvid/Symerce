@@ -14,7 +14,6 @@ use App\Customer\Application\Query\GetCustomerForEditQuery;
 use App\Customer\Application\Query\GetCustomerListQuery;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Entity\Customer;
 use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Shared\Infrastructure\Http\RequestDtoResolver;

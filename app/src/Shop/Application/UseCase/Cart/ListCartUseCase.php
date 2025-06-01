@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Cart;
 
+use App\Common\Domain\Entity\Cart;
 use App\Mapper\Shop\CartMapper;
-use App\Shared\Domain\Entity\Cart;
 use App\Shop\Application\Assembler\CartAssembler;
 use App\Shop\Application\DTO\Response\Cart\CartResponse;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Repository;
 
-use App\Shared\Domain\Entity\Cart;
+use App\Common\Domain\Entity\Cart;
 use App\Shared\Domain\Repository\CartRepositoryInterface;
 
 class CartDoctrineRepository extends DoctrineRepository implements CartRepositoryInterface

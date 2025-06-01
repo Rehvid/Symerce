@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\User\Application\Hydrator;
 
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 use App\User\Application\Dto\UserData;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 

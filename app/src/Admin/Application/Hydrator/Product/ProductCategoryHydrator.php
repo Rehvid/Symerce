@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\Hydrator\Product;
 
-use App\Admin\Domain\Entity\Category;
-use App\Admin\Domain\Entity\Product;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
+use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Entity\Product;
 
 final readonly class ProductCategoryHydrator
 {

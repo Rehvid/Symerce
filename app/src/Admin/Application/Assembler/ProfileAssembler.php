@@ -6,7 +6,7 @@ namespace App\Admin\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\Profile\PersonalResponse;
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 
 final readonly class ProfileAssembler
 {

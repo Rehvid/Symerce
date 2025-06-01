@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tag\Application\Handler\Query;
 
-use App\Admin\Domain\Entity\Tag;
+use App\Common\Domain\Entity\Tag;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 use App\Tag\Application\Assembler\TagAssembler;
 use App\Tag\Application\Query\GetTagForEditQuery;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class TagForEditQueryHandler implements QueryHandlerInterface
 {

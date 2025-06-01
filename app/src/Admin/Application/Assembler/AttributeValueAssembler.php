@@ -7,7 +7,7 @@ namespace App\Admin\Application\Assembler;
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\AttributeValue\AttributeValueFormResponse;
 use App\Admin\Application\DTO\Response\AttributeValue\AttributeValueListResponse;
-use App\Admin\Domain\Entity\AttributeValue;
+use App\Common\Domain\Entity\AttributeValue;
 
 final readonly class AttributeValueAssembler
 {

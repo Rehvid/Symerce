@@ -7,11 +7,11 @@ namespace App\Admin\Application\Factory\Product;
 use App\Admin\Application\DTO\Response\Product\ProductFormResponse;
 use App\Admin\Application\DTO\Response\Product\ProductImageResponse;
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Entity\AttributeValue;
-use App\Admin\Domain\Entity\Category;
-use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Entity\ProductImage;
-use App\Admin\Domain\Entity\Tag;
+use App\Common\Domain\Entity\AttributeValue;
+use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Entity\Product;
+use App\Common\Domain\Entity\ProductImage;
+use App\Common\Domain\Entity\Tag;
 use App\Shared\Application\Factory\MoneyFactory;
 
 final readonly class ProductFormResponseFactory

@@ -4,13 +4,13 @@ declare (strict_types = 1);
 
 namespace App\Country\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\Country;
+use App\Common\Domain\Entity\Country;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Country\Application\Command\UpdateCountryCommand;
 use App\Country\Application\Hydrator\CountryHydrator;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class UpdateCountryCommandHandler implements CommandHandlerInterface
 {

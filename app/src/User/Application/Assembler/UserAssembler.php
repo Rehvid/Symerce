@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\User\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Enums\AdminRole;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
+use App\Common\Domain\Entity\User;
 use App\User\Application\Dto\Response\UserFormContext;
 use App\User\Application\Dto\Response\UserFormResponse;
 use App\User\Application\Dto\Response\UserListResponse;

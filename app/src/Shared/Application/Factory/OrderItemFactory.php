@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Factory;
 
-use App\Admin\Domain\Entity\Product;
-use App\Shared\Domain\Entity\Order;
-use App\Shared\Domain\Entity\OrderItem;
+use App\Common\Domain\Entity\Order;
+use App\Common\Domain\Entity\OrderItem;
+use App\Common\Domain\Entity\Product;
 use App\Shared\Domain\Service\ProductPriceCalculator;
 
 final readonly class OrderItemFactory

@@ -6,7 +6,7 @@ namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Carrier\SaveCarrierRequest;
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Entity\Carrier;
+use App\Common\Domain\Entity\Carrier;
 
 final readonly class CarrierHydrator
 {

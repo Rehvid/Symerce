@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Cart;
 
+use App\Common\Domain\Entity\Cart;
+use App\Common\Domain\Entity\CartItem;
 use App\DTO\Admin\Response\ResponseInterfaceData;
-use App\Shared\Domain\Entity\Cart;
-use App\Shared\Domain\Entity\CartItem;
 use App\Shop\Application\DTO\Response\Cart\CartSaveResponse;
 use App\Shop\Application\Service\CartService;
 

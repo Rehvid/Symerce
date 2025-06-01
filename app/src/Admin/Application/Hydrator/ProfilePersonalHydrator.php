@@ -6,7 +6,7 @@ namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Profile\UpdatePersonalRequest;
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 
 final readonly class ProfilePersonalHydrator
 {

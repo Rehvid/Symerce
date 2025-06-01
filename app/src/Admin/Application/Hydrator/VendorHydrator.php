@@ -6,7 +6,7 @@ namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Vendor\SaveVendorRequest;
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Entity\Vendor;
+use App\Common\Domain\Entity\Vendor;
 
 final readonly class VendorHydrator
 {

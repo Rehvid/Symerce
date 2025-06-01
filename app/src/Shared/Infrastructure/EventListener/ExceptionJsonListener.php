@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\EventListener;
 
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 use App\Shared\Infrastructure\Http\Exception\RequestValidationException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

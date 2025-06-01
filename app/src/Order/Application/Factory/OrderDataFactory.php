@@ -4,11 +4,12 @@ declare (strict_types = 1);
 
 namespace App\Order\Application\Factory;
 
-use App\Admin\Domain\Entity\Carrier;
-use App\Admin\Domain\Entity\Country;
-use App\Admin\Domain\Entity\PaymentMethod;
 use App\Admin\Domain\Repository\CarrierRepositoryInterface;
 use App\Admin\Domain\Repository\ProductRepositoryInterface;
+use App\Common\Domain\Entity\Carrier;
+use App\Common\Domain\Entity\Country;
+use App\Common\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Order\Application\Dto\OrderData;
 use App\Order\Application\Dto\OrderItemData;
@@ -22,7 +23,6 @@ use App\Shared\Application\DTO\ContactDetailsData;
 use App\Shared\Application\DTO\Request\Address\SaveAddressRequest;
 use App\Shared\Application\DTO\Request\ContactDetails\SaveContactDetailsRequest;
 use App\Shared\Application\Factory\ValidationExceptionFactory;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 final readonly class OrderDataFactory

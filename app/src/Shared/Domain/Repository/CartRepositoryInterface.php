@@ -6,7 +6,7 @@ namespace App\Shared\Domain\Repository;
 
 use App\Admin\Domain\Repository\QueryRepositoryInterface;
 use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
-use App\Shared\Domain\Entity\Cart;
+use App\Common\Domain\Entity\Cart;
 
 interface CartRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface
 {

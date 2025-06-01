@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
-use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Repository\ProductRepositoryInterface;
 use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
+use App\Common\Domain\Entity\Product;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class ProductDoctrineRepository extends AbstractCriteriaRepository implements ProductRepositoryInterface

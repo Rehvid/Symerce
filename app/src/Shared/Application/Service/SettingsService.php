@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Service;
 
-use App\Admin\Domain\Entity\Category;
-use App\Admin\Domain\Entity\Currency;
-use App\Admin\Domain\Entity\Setting;
 use App\Admin\Domain\ValueObject\JsonData;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
+use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Entity\Currency;
+use App\Common\Domain\Entity\Setting;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;

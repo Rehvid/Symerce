@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\DTO\Request\Auth;
 
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 use App\Shared\Infrastructure\Validator\ExistsInDatabase as CustomAssertExistField;
 use Symfony\Component\Validator\Constraints as Assert;
 

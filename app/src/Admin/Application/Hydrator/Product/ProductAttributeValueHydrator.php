@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\Hydrator\Product;
 
-use App\Admin\Domain\Entity\AttributeValue;
-use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
+use App\Common\Domain\Entity\AttributeValue;
+use App\Common\Domain\Entity\Product;
 
 final readonly class ProductAttributeValueHydrator
 {

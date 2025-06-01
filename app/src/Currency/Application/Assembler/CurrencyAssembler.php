@@ -5,7 +5,7 @@ declare (strict_types = 1);
 namespace App\Currency\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Domain\Entity\Currency;
+use App\Common\Domain\Entity\Currency;
 use App\Currency\Application\Dto\Response\CurrencyFormResponse;
 use App\Currency\Application\Dto\Response\CurrencyListResponse;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Country\Infrastructure\Repository;
 
-use App\Admin\Domain\Entity\Country;
+use App\Common\Domain\Entity\Country;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Product;
 
-use App\Admin\Domain\Entity\Product;
+use App\Common\Domain\Entity\Product;
 use App\Shop\Application\Assembler\ProductAssembler;
 
 final readonly class GetByIdProductUseCase

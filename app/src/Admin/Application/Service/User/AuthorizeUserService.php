@@ -9,7 +9,7 @@ use App\Admin\Application\Contract\TokenProviderInterface;
 use App\Admin\Application\DTO\AuthorizationResult;
 use App\Admin\Application\DTO\Response\FileResponse;
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\User\Application\Dto\Response\UserSessionResponse;
 use App\User\Domain\Repository\UserRepositoryInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 use App\DTO\Admin\Request\User\StoreRegisterUserRequestDTO;
 use App\Service\DataPersister\Persisters\Admin\User\UserRegisterCreatePersister;
 use App\User\Infrastructure\Repository\UserDoctrineRepository;

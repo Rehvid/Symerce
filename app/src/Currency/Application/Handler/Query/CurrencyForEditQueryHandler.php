@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Handler\Query;
 
-use App\Admin\Domain\Entity\Currency;
+use App\Common\Domain\Entity\Currency;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Currency\Application\Assembler\CurrencyAssembler;
 use App\Currency\Application\Query\GetCurrencyForEditQuery;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class CurrencyForEditQueryHandler implements QueryHandlerInterface
 {

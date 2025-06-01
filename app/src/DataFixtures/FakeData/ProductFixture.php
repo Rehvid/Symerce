@@ -2,12 +2,12 @@
 
 namespace App\DataFixtures\FakeData;
 
-use App\Admin\Domain\Entity\Attribute;
-use App\Admin\Domain\Entity\Category;
-use App\Admin\Domain\Entity\DeliveryTime;
-use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Entity\Tag;
-use App\Admin\Domain\Entity\Vendor;
+use App\Common\Domain\Entity\Attribute;
+use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Entity\DeliveryTime;
+use App\Common\Domain\Entity\Product;
+use App\Common\Domain\Entity\Tag;
+use App\Common\Domain\Entity\Vendor;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Collections\Collection;

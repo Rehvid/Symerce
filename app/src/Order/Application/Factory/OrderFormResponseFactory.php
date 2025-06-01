@@ -4,9 +4,9 @@ declare (strict_types = 1);
 
 namespace App\Order\Application\Factory;
 
+use App\Common\Domain\Entity\Order;
+use App\Common\Domain\Entity\OrderItem;
 use App\Order\Application\Dto\Response\OrderFormResponse;
-use App\Shared\Domain\Entity\Order;
-use App\Shared\Domain\Entity\OrderItem;
 
 final readonly class OrderFormResponseFactory
 {

@@ -4,11 +4,11 @@ declare (strict_types = 1);
 
 namespace App\Customer\Application\Hydrator;
 
+use App\Common\Domain\Entity\Customer;
+use App\Common\Domain\Entity\DeliveryAddress;
+use App\Common\Domain\Entity\InvoiceAddress;
 use App\Customer\Application\Dto\CustomerData;
 use App\Shared\Application\Hydrator\AddressHydrator;
-use App\Shared\Domain\Entity\Customer;
-use App\Shared\Domain\Entity\DeliveryAddress;
-use App\Shared\Domain\Entity\InvoiceAddress;
 use App\Shop\Application\Hydrator\ContactDetailsHydrator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 

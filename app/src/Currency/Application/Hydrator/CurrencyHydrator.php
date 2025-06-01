@@ -4,7 +4,7 @@ declare (strict_types=1);
 
 namespace App\Currency\Application\Hydrator;
 
-use App\Admin\Domain\Entity\Currency;
+use App\Common\Domain\Entity\Currency;
 use App\Currency\Application\Dto\CurrencyData;
 
 final readonly class CurrencyHydrator

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Factory;
 
-use App\Admin\Domain\Entity\Category;
 use App\Category\Application\Dto\CategoryData;
 use App\Category\Application\Dto\Request\SaveCategoryRequest;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
-use App\Shared\Application\Factory\ValidationExceptionFactory;
-use App\Shared\Domain\Exception\EntityNotFoundException;
+use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Exception\EntityNotFoundException;
 
 final readonly class CategoryDataFactory
 {

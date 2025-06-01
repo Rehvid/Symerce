@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Setting\Ui\Api\Controller;
 
-use App\Admin\Domain\Entity\Setting;
 use App\Setting\Application\Command\UpdateSettingCommand;
 use App\Setting\Application\Dto\Request\UpdateSettingRequest;
-use App\Setting\Application\Dto\SettingData;
 use App\Setting\Application\Factory\SettingDataFactory;
 use App\Setting\Application\Query\GetSettingForEditQuery;
 use App\Setting\Application\Query\GetSettingListQuery;

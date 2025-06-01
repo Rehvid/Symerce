@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
-use App\Admin\Domain\Entity\UserToken;
 use App\Admin\Domain\Repository\UserTokenRepositoryInterface;
+use App\Common\Domain\Entity\UserToken;
 use App\Shared\Infrastructure\Repository\DoctrineRepository;
 
 class UserTokenRepository extends DoctrineRepository implements UserTokenRepositoryInterface

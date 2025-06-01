@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Handler\Query;
 
-use App\Admin\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\PaymentMethod\Application\Assembler\PaymentMethodAssembler;
 use App\PaymentMethod\Application\Query\GetPaymentMethodForEditQuery;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 
 final readonly class PaymentMethodForEditQueryHandler implements QueryHandlerInterface

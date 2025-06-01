@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
-use App\Admin\Domain\Entity\ProductPriceHistory;
 use App\Admin\Domain\Repository\ProductPriceHistoryRepositoryInterface;
-
+use App\Common\Domain\Entity\ProductPriceHistory;
 use App\Shared\Infrastructure\Repository\DoctrineRepository;
 
 

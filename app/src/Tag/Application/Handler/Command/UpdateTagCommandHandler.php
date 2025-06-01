@@ -4,14 +4,13 @@ declare (strict_types=1);
 
 namespace App\Tag\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\Tag;
+use App\Common\Domain\Entity\Tag;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 use App\Tag\Application\Command\UpdateTagCommand;
 use App\Tag\Application\Hydrator\TagHydrator;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class UpdateTagCommandHandler implements CommandHandlerInterface
 {

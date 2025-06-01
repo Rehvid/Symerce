@@ -7,7 +7,7 @@ namespace App\Setting\Application\Assembler;
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\Setting\SettingFormResponse;
 use App\Admin\Application\DTO\Response\Setting\SettingListResponse;
-use App\Admin\Domain\Entity\Setting;
+use App\Common\Domain\Entity\Setting;
 use App\Setting\Application\Factory\SettingFieldFactory;
 
 final readonly class SettingAssembler

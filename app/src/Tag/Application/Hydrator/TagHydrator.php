@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tag\Application\Hydrator;
 
-use App\Admin\Domain\Entity\Tag;
-use App\Tag\Application\Dto\Request\SaveTagRequest;
+use App\Common\Domain\Entity\Tag;
 use App\Tag\Application\Dto\TagData;
 
 final readonly class TagHydrator

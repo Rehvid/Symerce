@@ -8,11 +8,11 @@ use App\Admin\Application\DTO\Request\Product\SaveProductPromotionRequest;
 use App\Admin\Application\DTO\Request\Product\SaveProductRequest;
 use App\Admin\Application\DTO\Request\Product\SaveProductStockRequest;
 use App\Admin\Application\Hydrator\PromotionHydrator;
-use App\Admin\Domain\Entity\DeliveryTime;
-use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
 use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Admin\Infrastructure\Slug\SluggerService;
+use App\Common\Domain\Entity\DeliveryTime;
+use App\Common\Domain\Entity\Product;
 use App\Shared\Application\Factory\MoneyFactory;
 use App\Shared\Application\Factory\ValidationExceptionFactory;
 

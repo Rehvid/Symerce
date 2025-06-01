@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tag\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Domain\Entity\Tag;
+use App\Common\Domain\Entity\Tag;
 use App\Tag\Application\Dto\Response\TagFormResponse;
 use App\Tag\Application\Dto\Response\TagListResponse;
 

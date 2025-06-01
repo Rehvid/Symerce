@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Dto;
 
-use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Model\FileData;
+use App\Common\Domain\Entity\Category;
 
 final readonly class CategoryData
 {

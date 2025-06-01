@@ -4,8 +4,8 @@ declare (strict_types = 1);
 
 namespace App\Order\Application\Dto;
 
-use App\Admin\Domain\Entity\Carrier;
-use App\Admin\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Entity\Carrier;
+use App\Common\Domain\Entity\PaymentMethod;
 use App\Order\Domain\Enums\CheckoutStep;
 use App\Order\Domain\Enums\OrderStatus;
 use App\Shared\Application\DTO\AddressData;

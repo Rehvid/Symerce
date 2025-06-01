@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\DTO\Request\ContactDetails;
 
-use App\Admin\Domain\Entity\User;
+use App\Common\Domain\Entity\User;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;

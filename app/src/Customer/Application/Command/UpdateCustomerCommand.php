@@ -6,7 +6,6 @@ namespace App\Customer\Application\Command;
 
 use App\Customer\Application\Dto\CustomerData;
 use App\Shared\Application\Command\CommandInterface;
-use App\Shared\Domain\Entity\Customer;
 
 final readonly class UpdateCustomerCommand implements CommandInterface
 {

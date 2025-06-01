@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Repository;
 
-use App\Admin\Domain\Entity\Vendor;
 use App\Admin\Domain\Repository\VendorRepositoryInterface;
+use App\Common\Domain\Entity\Vendor;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class VendorDoctrineRepository extends AbstractCriteriaRepository implements VendorRepositoryInterface

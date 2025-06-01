@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures\Bootstrap;
 
-use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Enums\AdminRole;
+use App\Common\Domain\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;

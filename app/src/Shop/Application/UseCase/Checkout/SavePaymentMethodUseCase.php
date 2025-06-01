@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Checkout;
 
-use App\Admin\Domain\Entity\PaymentMethod;
-use App\Shared\Domain\Entity\Order;
+use App\Common\Domain\Entity\Order;
+use App\Common\Domain\Entity\PaymentMethod;
 use App\Shop\Application\Service\OrderCheckoutService;
 
 final class SavePaymentMethodUseCase

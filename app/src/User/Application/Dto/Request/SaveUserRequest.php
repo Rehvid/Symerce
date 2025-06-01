@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\User\Application\Dto\Request;
 
-use App\Admin\Domain\Entity\User;
 use App\Admin\Domain\Enums\AdminRole;
 use App\Admin\Domain\Model\FileData;
+use App\Common\Domain\Entity\User;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Infrastructure\Validator\RepeatPassword as CustomAssertRepeatPassword;

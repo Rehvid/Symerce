@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Dto\Response;
 
-use App\Admin\Domain\Entity\Country;
-
 final readonly class CustomerFormResponse
 {
     public function __construct(

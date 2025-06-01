@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Currency\Ui\Api\Controller;
 
-use App\Admin\Domain\Entity\Currency;
 use App\Currency\Application\Command\CreateCurrencyCommand;
 use App\Currency\Application\Command\DeleteCurrencyCommand;
 use App\Currency\Application\Command\UpdateCurrencyCommand;
-use App\Currency\Application\Dto\CurrencyData;
 use App\Currency\Application\Dto\Request\SaveCurrencyRequest;
 use App\Currency\Application\Factory\CurrencyDataFactory;
 use App\Currency\Application\Query\GetCurrencyForEditQuery;

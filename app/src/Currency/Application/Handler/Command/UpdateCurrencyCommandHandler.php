@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\Currency;
+use App\Common\Domain\Entity\Currency;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Currency\Application\Command\UpdateCurrencyCommand;
 use App\Currency\Application\Hydrator\CurrencyHydrator;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class UpdateCurrencyCommandHandler implements CommandHandlerInterface
 {

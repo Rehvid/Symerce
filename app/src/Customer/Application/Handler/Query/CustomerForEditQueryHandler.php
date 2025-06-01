@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Handler\Query;
 
+use App\Common\Domain\Entity\Customer;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Customer\Application\Assembler\CustomerAssembler;
 use App\Customer\Application\Query\GetCustomerForEditQuery;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use App\Shared\Domain\Entity\Customer;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class CustomerForEditQueryHandler implements QueryHandlerInterface
 {

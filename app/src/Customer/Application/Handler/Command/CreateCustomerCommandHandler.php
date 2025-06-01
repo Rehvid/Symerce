@@ -9,7 +9,6 @@ use App\Customer\Application\Hydrator\CustomerHydrator;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Entity\Customer;
 use App\Shared\Domain\Enums\CustomerRole;
 
 final readonly class CreateCustomerCommandHandler implements CommandHandlerInterface

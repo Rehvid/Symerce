@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Category\Application\Hydrator;
 
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Entity\Category;
 use App\Admin\Domain\Model\FileData;
 use App\Category\Application\Dto\CategoryData;
+use App\Common\Domain\Entity\Category;
 
 final readonly class CategoryHydrator
 {

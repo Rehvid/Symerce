@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\PaymentMethod\Application\Command\UpdatePaymentMethodCommand;
 use App\PaymentMethod\Application\Hydrator\PaymentMethodHydrator;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class UpdatePaymentMethodCommandHandler implements CommandHandlerInterface
 {

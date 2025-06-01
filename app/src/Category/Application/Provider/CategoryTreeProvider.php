@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Provider;
 
-use App\Admin\Domain\Entity\Category;
 use App\Category\Domain\Service\CategoryTreeBuilderInterface;
+use App\Common\Domain\Entity\Category;
 
 final readonly class CategoryTreeProvider
 {

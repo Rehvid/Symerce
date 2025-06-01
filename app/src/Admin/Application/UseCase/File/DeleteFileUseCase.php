@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Admin\Application\UseCase\File;
 
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Entity\File;
+use App\Common\Domain\Entity\File;
 
 final readonly class DeleteFileUseCase
 {

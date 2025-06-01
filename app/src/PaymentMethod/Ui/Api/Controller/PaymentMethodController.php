@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Ui\Api\Controller;
 
-use App\Admin\Domain\Entity\PaymentMethod;
 use App\PaymentMethod\Application\Command\CreatePaymentMethodCommand;
 use App\PaymentMethod\Application\Command\DeletePaymentMethodCommand;
 use App\PaymentMethod\Application\Command\UpdatePaymentMethodCommand;
-use App\PaymentMethod\Application\Dto\PaymentMethodData;
 use App\PaymentMethod\Application\Dto\Request\SavePaymentMethodRequest;
 use App\PaymentMethod\Application\Factory\PaymentMethodDataFactory;
 use App\PaymentMethod\Application\Query\GetPaymentMethodForEditQuery;

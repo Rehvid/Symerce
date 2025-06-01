@@ -4,12 +4,11 @@ declare (strict_types = 1);
 
 namespace App\Admin\Application\Hydrator\Product;
 
-use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Entity\ProductPriceHistory;
-use App\Admin\Domain\Entity\Promotion;
 use App\Admin\Domain\Enums\ReductionType;
+use App\Common\Domain\Entity\Product;
+use App\Common\Domain\Entity\ProductPriceHistory;
+use App\Common\Domain\Entity\Promotion;
 use App\Setting\Domain\Enums\SettingKey;
-use App\Setting\Domain\Enums\SettingType;
 use App\Setting\Domain\Enums\SettingValueType;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
 use App\Setting\Domain\ValueObject\SettingValueVO;

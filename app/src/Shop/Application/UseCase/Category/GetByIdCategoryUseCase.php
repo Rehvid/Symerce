@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Category;
 
-use App\Admin\Domain\Entity\Category;
+use App\Common\Domain\Entity\Category;
 use App\Shop\Application\Assembler\CategoryAssembler;
 
 final readonly class GetByIdCategoryUseCase

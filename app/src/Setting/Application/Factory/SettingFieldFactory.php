@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Factory;
 
-use App\Admin\Domain\Entity\Category;
-use App\Admin\Domain\Entity\Currency;
-use App\Admin\Domain\Entity\Setting;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
+use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Entity\Currency;
+use App\Common\Domain\Entity\Setting;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
 use App\Setting\Application\Dto\SettingField;
 use App\Setting\Domain\Enums\SettingInputType;

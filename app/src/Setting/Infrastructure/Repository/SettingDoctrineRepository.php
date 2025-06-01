@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Setting\Infrastructure\Repository;
 
-use App\Admin\Domain\Entity\Setting;
+use App\Common\Domain\Entity\Setting;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;

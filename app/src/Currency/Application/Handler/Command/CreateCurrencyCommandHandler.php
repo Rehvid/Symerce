@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Handler\Command;
 
-use App\Admin\Domain\Entity\Currency;
 use App\Currency\Application\Command\CreateCurrencyCommand;
 use App\Currency\Application\Hydrator\CurrencyHydrator;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;

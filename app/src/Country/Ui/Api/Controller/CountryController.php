@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Country\Ui\Api\Controller;
 
-use App\Admin\Domain\Entity\Country;
 use App\Country\Application\Command\CreateCountryCommand;
 use App\Country\Application\Command\DeleteCountryCommand;
 use App\Country\Application\Command\UpdateCountryCommand;
-use App\Country\Application\Dto\CountryData;
 use App\Country\Application\Dto\Request\SaveCountryRequest;
 use App\Country\Application\Factory\CountryDataFactory;
 use App\Country\Application\Query\GetCountryForEditQuery;

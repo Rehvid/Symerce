@@ -6,10 +6,10 @@ namespace App\Admin\Application\Hydrator\Product;
 
 use App\Admin\Application\DTO\Request\Product\SaveProductImageRequest;
 use App\Admin\Application\Hydrator\FileHydrator;
-use App\Admin\Domain\Entity\Product;
-use App\Admin\Domain\Entity\ProductImage;
 use App\Admin\Domain\Model\FileData;
 use App\Admin\Infrastructure\Service\FileStorageService;
+use App\Common\Domain\Entity\Product;
+use App\Common\Domain\Entity\ProductImage;
 use App\Shared\Application\Factory\ValidationExceptionFactory;
 use Doctrine\Common\Collections\Collection;
 

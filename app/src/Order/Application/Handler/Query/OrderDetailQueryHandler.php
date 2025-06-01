@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Handler\Query;
 
+use App\Common\Domain\Entity\Order;
 use App\Order\Application\Assembler\OrderAssembler;
 use App\Order\Application\Query\GetOrderDetailQuery;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use App\Shared\Domain\Entity\Order;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class OrderDetailQueryHandler implements QueryHandlerInterface

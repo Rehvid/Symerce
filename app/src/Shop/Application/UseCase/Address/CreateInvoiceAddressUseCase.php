@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Address;
 
+use App\Common\Domain\Entity\Embeddables\Address;
+use App\Common\Domain\Entity\InvoiceAddress;
 use App\Shared\Application\DTO\Request\Address\SaveAddressInvoiceRequest;
-use App\Shared\Domain\Entity\InvoiceAddress;
 use App\Shop\Application\Hydrator\AddressHydrator;
 use App\Shop\Application\Hydrator\InvoiceAddressHydrator;
-use App\Shop\Domain\Entity\Embeddables\Address;
 
 final readonly class CreateInvoiceAddressUseCase
 {

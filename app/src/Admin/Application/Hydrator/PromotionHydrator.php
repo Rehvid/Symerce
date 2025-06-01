@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Admin\Application\Hydrator;
 
 use App\Admin\Application\DTO\Request\Product\SaveProductPromotionRequest;
-use App\Admin\Domain\Entity\Promotion;
 use App\Admin\Domain\Enums\PromotionSource;
 use App\Admin\Domain\Enums\ReductionType;
+use App\Common\Domain\Entity\Promotion;
 
 final readonly class PromotionHydrator
 {

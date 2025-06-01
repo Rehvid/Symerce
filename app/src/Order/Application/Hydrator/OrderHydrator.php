@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Hydrator;
 
+use App\Common\Domain\Entity\DeliveryAddress;
+use App\Common\Domain\Entity\InvoiceAddress;
+use App\Common\Domain\Entity\Order;
+use App\Common\Domain\Entity\OrderItem;
 use App\Order\Application\Dto\OrderData;
 use App\Order\Application\Dto\OrderItemData;
 use App\Order\Application\Service\OrderPriceCalculator;
 use App\Shared\Application\Factory\OrderItemFactory;
 use App\Shared\Application\Hydrator\AddressHydrator;
 use App\Shared\Application\Hydrator\ContactDetailsHydrator;
-use App\Shared\Domain\Entity\DeliveryAddress;
-use App\Shared\Domain\Entity\InvoiceAddress;
-use App\Shared\Domain\Entity\Order;
-use App\Shared\Domain\Entity\OrderItem;
 use App\Shared\Domain\Service\ProductPriceCalculator;
 
 final readonly class OrderHydrator

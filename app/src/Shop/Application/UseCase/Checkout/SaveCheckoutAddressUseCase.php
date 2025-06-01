@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Checkout;
 
-use App\Shared\Domain\Entity\Cart;
-use App\Shared\Domain\Entity\Order;
+use App\Common\Domain\Entity\Cart;
+use App\Common\Domain\Entity\Order;
 use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Shop\Application\Service\OrderCheckoutService;
 

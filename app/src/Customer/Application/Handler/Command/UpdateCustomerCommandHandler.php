@@ -4,13 +4,13 @@ declare (strict_types=1);
 
 namespace App\Customer\Application\Handler\Command;
 
+use App\Common\Domain\Entity\Customer;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Customer\Application\Command\UpdateCustomerCommand;
 use App\Customer\Application\Hydrator\CustomerHydrator;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Entity\Customer;
-use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class UpdateCustomerCommandHandler implements CommandHandlerInterface
 {
