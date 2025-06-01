@@ -83,8 +83,8 @@ class Product implements PositionEntityInterface
     #[ORM\OneToMany(targetEntity: ProductPriceHistory::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $priceHistory;
 
-    #[ORM\OneToOne(targetEntity: ProductStock::class, mappedBy: "product", cascade: ["persist", "remove"])]
-    private ?ProductStock $stock = null;
+    #[ORM\OneToMany(targetEntity: ProductStock::class, mappedBy: 'product', cascade: ['persist'], orphanRemoval: true)]
+    private Collection $productStocks;
 
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(name: 'main_category_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]

@@ -12,9 +12,9 @@ class ProductStock
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
-    private int $id;
+    private ?int $id = null;
 
-    #[ORM\OneToOne(targetEntity: Product::class, inversedBy: "stock")]
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'productStocks')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Product $product;
 
@@ -39,7 +39,14 @@ class ProductStock
     #[ORM\Column(length: 13, unique: true, nullable: true)]
     private ?string $ean13 = null;
 
-    public function getId(): int
+    #[ORM\ManyToOne(targetEntity: Warehouse::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private ?Warehouse $warehouse = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $restockDate = null;
+
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -139,5 +146,25 @@ class ProductStock
     public function setEan13(?string $ean13): void
     {
         $this->ean13 = $ean13;
+    }
+
+    public function getWarehouse(): ?Warehouse
+    {
+        return $this->warehouse;
+    }
+
+    public function setWarehouse(?Warehouse $warehouse): void
+    {
+        $this->warehouse = $warehouse;
+    }
+
+    public function getRestockDate(): ?\DateTime
+    {
+        return $this->restockDate;
+    }
+
+    public function setRestockDate(?\DateTime $restockDate): void
+    {
+        $this->restockDate = $restockDate;
     }
 }

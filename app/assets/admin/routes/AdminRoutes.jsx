@@ -12,6 +12,7 @@ import { currencyRoutes } from '@admin/modules/currency/currency.routes';
 import { tagRoutes } from '@admin/modules/tag/tag.routes';
 import { categoryRoutes } from '@admin/modules/category/category.routes';
 import { brandRoutes } from '@admin/modules/brand/brand.routes';
+import { warehouseRoutes } from '@admin/modules/warehouse/warehouse.routes';
 
 const routesConfig = [
     {
@@ -99,6 +100,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
         roles: ['admin'],
     },
+    ...warehouseRoutes,
     ...brandRoutes,
     ...categoryRoutes,
     ...tagRoutes,

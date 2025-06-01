@@ -67,4 +67,9 @@ class Address
     {
         $this->country = $country;
     }
+
+    public function getFullAddress(): string
+    {
+        return sprintf('%s, %s %s', $this->street, $this->postalCode, $this->city);
+    }
 }
