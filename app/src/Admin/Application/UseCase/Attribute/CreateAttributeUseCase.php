@@ -22,7 +22,7 @@ final readonly class CreateAttributeUseCase implements CreateUseCaseInterface
     public function execute(RequestDtoInterface $requestDto): mixed
     {
         $attribute = new Attribute();
-        $attribute->setOrder($this->repository->getMaxOrder() + 1);
+        $attribute->setPosition($this->repository->getMaxPosition() + 1);
 
         $this->hydrator->hydrate($requestDto, $attribute);
         $this->repository->save($attribute);

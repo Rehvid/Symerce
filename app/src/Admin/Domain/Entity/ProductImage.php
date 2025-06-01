@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Entity;
 
-use App\Admin\Domain\Traits\OrderTrait;
+use App\Admin\Domain\Traits\PositionTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 class ProductImage
 {
-    use OrderTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

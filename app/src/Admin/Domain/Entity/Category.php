@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Admin\Domain\Entity;
 
 use App\Admin\Domain\Contract\HasFileInterface;
-use App\Admin\Domain\Contract\OrderEntityInterface;
+use App\Admin\Domain\Contract\PositionEntityInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\OrderTrait;
+use App\Admin\Domain\Traits\PositionTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Category\Infrastructure\Repository\CategoryDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,12 +19,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: CategoryDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
-class Category implements OrderEntityInterface,  HasFileInterface
+class Category implements PositionEntityInterface,  HasFileInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
     use ActiveTrait;
-    use OrderTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

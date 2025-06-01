@@ -6,12 +6,12 @@ namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Entity\DeliveryTime;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
-use App\Admin\Infrastructure\Traits\ReorderRepositoryTrait;
+use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class DeliveryTimeDoctrineRepository extends AbstractCriteriaRepository implements DeliveryTimeRepositoryInterface
 {
-    use ReorderRepositoryTrait;
+    use PositionRepositoryTrait;
 
     protected function getEntityClass(): string
     {

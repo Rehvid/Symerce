@@ -55,7 +55,7 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
             $product->setDiscountPrice($data['discountPrice']);
             $product->setQuantity($data['quantity']);
             $product->setActive($data['isActive']);
-            $product->setOrder($data['order']);
+            $product->setPosition($data['order']);
             $product->setCreatedAt($data['created_at'] ?? new \DateTime());
             $product->setUpdatedAt($data['updated_at'] ?? new \DateTime());
 

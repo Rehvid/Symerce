@@ -33,7 +33,7 @@ final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
             $excludedIds[] = $currentCategory->getId();
         }
 
-        $categories = $this->categoryRepository->findAllOrdered();
+        $categories = $this->categoryRepository->findAllSortedByPosition();
         foreach ($categories as $category) {
             $id = $category->getId();
 

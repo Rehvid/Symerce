@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Entity;
 
-use App\Admin\Domain\Contract\OrderEntityInterface;
-use App\Admin\Domain\Traits\OrderTrait;
+use App\Admin\Domain\Contract\PositionEntityInterface;
+use App\Admin\Domain\Traits\PositionTrait;
 use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AttributeDoctrineRepository::class)]
-class Attribute implements OrderEntityInterface
+class Attribute implements PositionEntityInterface
 {
-    use OrderTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

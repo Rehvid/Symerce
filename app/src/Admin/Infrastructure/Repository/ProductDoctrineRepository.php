@@ -6,12 +6,12 @@ namespace App\Admin\Infrastructure\Repository;
 
 use App\Admin\Domain\Entity\Product;
 use App\Admin\Domain\Repository\ProductRepositoryInterface;
-use App\Admin\Infrastructure\Traits\ReorderRepositoryTrait;
+use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class ProductDoctrineRepository extends AbstractCriteriaRepository implements ProductRepositoryInterface
 {
-    use ReorderRepositoryTrait;
+    use PositionRepositoryTrait;
 
     protected function getEntityClass(): string
     {

@@ -7,7 +7,7 @@ namespace App\Admin\Domain\Repository;
 use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
 interface AttributeValueRepositoryInterface
-    extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface, ReorderableRepositoryInterface
+    extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {
 
 }

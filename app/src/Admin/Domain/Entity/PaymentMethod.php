@@ -7,7 +7,7 @@ namespace App\Admin\Domain\Entity;
 use App\Admin\Domain\Contract\HasFileInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\OrderTrait;
+use App\Admin\Domain\Traits\PositionTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\PaymentMethod\Infrastructure\Repository\PaymentMethodDoctrineRepository;
 use App\Shared\Domain\Enums\DecimalPrecision;
@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 class PaymentMethod implements HasFileInterface
 {
     use ActiveTrait;
-    use OrderTrait;
+    use PositionTrait;
     use CreatedAtTrait;
     use UpdatedAtTrait;
 

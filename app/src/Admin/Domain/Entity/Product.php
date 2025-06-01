@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Entity;
 
-use App\Admin\Domain\Contract\OrderEntityInterface;
+use App\Admin\Domain\Contract\PositionEntityInterface;
 use App\Admin\Domain\Enums\PromotionSource;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\OrderTrait;
+use App\Admin\Domain\Traits\PositionTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Admin\Infrastructure\Repository\ProductDoctrineRepository;
 use App\Shared\Domain\Enums\DecimalPrecision;
@@ -18,12 +18,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Product implements OrderEntityInterface
+class Product implements PositionEntityInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
     use ActiveTrait;
-    use OrderTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

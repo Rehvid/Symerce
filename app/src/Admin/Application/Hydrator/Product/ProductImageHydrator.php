@@ -31,7 +31,7 @@ final readonly class ProductImageHydrator
         foreach ($imageRequestData as $position => $imageRequest) {
             $productImage = $this->getProductImage($imageRequest, $images, $product);
             $productImage->setIsThumbnail($imageRequest->isThumbnail);
-            $productImage->setOrder($position);
+            $productImage->setPosition($position);
             $product->addImage($productImage);
         }
     }

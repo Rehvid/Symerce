@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Traits;
 
-trait ReorderRepositoryTrait
+trait PositionRepositoryTrait
 {
     /** @return array<int, mixed> */
     public function findItemsInOrderRange(int $oldOrder, int $newOrder): array
@@ -33,7 +33,7 @@ trait ReorderRepositoryTrait
             ;
     }
 
-    public function getMaxOrder(): int
+    public function getMaxPosition(): int
     {
         $alias = $this->getAlias();
 

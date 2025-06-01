@@ -6,7 +6,7 @@ namespace App\Admin\Application\UseCase\Reorder;
 
 use App\Admin\Application\Contract\ReorderEntityServiceInterface;
 use App\Admin\Application\DTO\Request\PositionChangeRequest;
-use App\Admin\Application\Service\ReorderEntityService;
+use App\Admin\Application\Service\PositionEntityService;
 
 final readonly class ReorderPositionsUseCase
 {

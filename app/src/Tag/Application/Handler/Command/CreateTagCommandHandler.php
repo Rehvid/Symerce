@@ -20,7 +20,7 @@ final readonly class CreateTagCommandHandler implements CommandHandlerInterface
     public function __invoke(CreateTagCommand $command): IdResponse
     {
         $tag = $this->hydrator->hydrate($command->data);
-        $tag->setOrder($this->repository->getMaxOrder() + 1);
+        $tag->setPosition($this->repository->getMaxPosition() + 1);
 
         $this->repository->save($tag);
 

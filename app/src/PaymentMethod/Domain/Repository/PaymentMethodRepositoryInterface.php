@@ -6,10 +6,10 @@ namespace App\PaymentMethod\Domain\Repository;
 
 use App\Admin\Domain\Repository\QueryRepositoryInterface;
 use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
-use App\Admin\Domain\Repository\ReorderableRepositoryInterface;
+use App\Admin\Domain\Repository\PositionRepositoryInterface;
 use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
 interface PaymentMethodRepositoryInterface extends
-    QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, ReorderableRepositoryInterface
+    QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {
 }

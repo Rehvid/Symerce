@@ -31,7 +31,7 @@ final readonly class CreateAttributeValueUseCase implements CreateUseCaseInterfa
         }
 
         $attributeValue = new AttributeValue();
-        $attributeValue->setOrder($this->repository->getMaxOrder() + 1);
+        $attributeValue->setPosition($this->repository->getMaxPosition() + 1);
         $attributeValue->setAttribute($attribute);
 
 

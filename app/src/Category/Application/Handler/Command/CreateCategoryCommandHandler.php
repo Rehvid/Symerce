@@ -23,7 +23,7 @@ final readonly class CreateCategoryCommandHandler implements CommandHandlerInter
     public function __invoke(CreateCategoryCommand $command): IdResponse
     {
         $category = $this->hydrator->hydrate($command->data);
-        $category->setOrder($this->repository->getMaxOrder() + 1);
+        $category->setPosition($this->repository->getMaxPosition() + 1);
         $category->setSlug(
             $this->slugService->makeUnique(
                 fallback: $category->getName(),

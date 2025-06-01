@@ -28,7 +28,7 @@ final readonly class DeliveryTimeParserFactory implements SearchParserFactoryInt
         ];
 
         return new SearchRequestParser([
-            new SearchOrderByParser($allowedSortFields, DirectionType::ASC, 'order'),
+            new SearchOrderByParser($allowedSortFields, DirectionType::ASC, 'position'),
             new SearchFilterParser($allowedFilters),
             new SearchPaginationParser(),
         ]);

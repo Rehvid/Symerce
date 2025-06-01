@@ -22,7 +22,7 @@ class AttributeFixture  extends Fixture implements FixtureGroupInterface
         foreach ($data as $k => $attribute) {
             $attributeEntity = new Attribute();
             $attributeEntity->setName($attribute['attribute']);
-            $attributeEntity->setOrder($k);
+            $attributeEntity->setPosition($k);
 
             $manager->persist($attributeEntity);
 
@@ -30,7 +30,7 @@ class AttributeFixture  extends Fixture implements FixtureGroupInterface
                 $attributeValue = new AttributeValue();
                 $attributeValue->setAttribute($attributeEntity);
                 $attributeValue->setValue($option);
-                $attributeValue->setOrder($key);
+                $attributeValue->setPosition($key);
                 $manager->persist($attributeValue);
             }
 

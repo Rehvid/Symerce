@@ -26,7 +26,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
             $category->setDescription($categoryData['description']);
             $category->setCreatedAt(new \DateTime($categoryData['createdAt']));
             $category->setUpdatedAt(new \DateTime($categoryData['updatedAt']));
-            $category->setOrder($categoryData['order']);
+            $category->setPosition($categoryData['order']);
 
             foreach ($categoryData['children'] as $childData) {
 
@@ -36,7 +36,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                 $childCategory->setDescription($childData['description']);
                 $childCategory->setCreatedAt(new \DateTime($childData['createdAt']));
                 $childCategory->setUpdatedAt(new \DateTime($childData['updatedAt']));
-                $childCategory->setOrder($childData['order']);
+                $childCategory->setPosition($childData['order']);
                 $childCategory->setParent($category);
 
                 $category->addChildren($childCategory);

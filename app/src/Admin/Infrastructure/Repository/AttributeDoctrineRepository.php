@@ -7,12 +7,12 @@ namespace App\Admin\Infrastructure\Repository;
 use App\Admin\Domain\Entity\Attribute;
 use App\Admin\Domain\Entity\AttributeValue;
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
-use App\Admin\Infrastructure\Traits\ReorderRepositoryTrait;
+use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class AttributeDoctrineRepository extends AbstractCriteriaRepository implements AttributeRepositoryInterface
 {
-    use ReorderRepositoryTrait;
+    use PositionRepositoryTrait;
 
     protected function getEntityClass(): string
     {

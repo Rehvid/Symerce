@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Category\Infrastructure\Repository;
 
 use App\Admin\Domain\Entity\Category;
-use App\Admin\Infrastructure\Traits\ReorderRepositoryTrait;
+use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class CategoryDoctrineRepository extends AbstractCriteriaRepository implements CategoryRepositoryInterface
 {
-    use ReorderRepositoryTrait;
+    use PositionRepositoryTrait;
 
     protected function getEntityClass(): string
     {
@@ -24,8 +24,8 @@ class CategoryDoctrineRepository extends AbstractCriteriaRepository implements C
     }
 
     /** @return Category[] */
-    public function findAllOrdered(): array
+    public function findAllSortedByPosition(): array
     {
-        return $this->findBy([], ['order' => 'ASC']);
+        return $this->findBy([], ['position' => 'ASC']);
     }
 }

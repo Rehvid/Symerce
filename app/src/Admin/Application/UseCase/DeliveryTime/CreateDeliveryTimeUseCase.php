@@ -22,7 +22,7 @@ final readonly class CreateDeliveryTimeUseCase implements CreateUseCaseInterface
     public function execute(RequestDtoInterface $requestDto): mixed
     {
         $deliveryTime = new DeliveryTime();
-        $deliveryTime->setOrder($this->repository->getMaxOrder() + 1);
+        $deliveryTime->setPosition($this->repository->getMaxPosition() + 1);
 
         $this->hydrator->hydrate($requestDto, $deliveryTime);
         $this->repository->save($deliveryTime);

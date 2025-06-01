@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Entity;
 
-use App\Admin\Domain\Contract\OrderEntityInterface;
+use App\Admin\Domain\Contract\PositionEntityInterface;
 use App\Admin\Domain\Enums\DeliveryType;
 use App\Admin\Domain\Traits\ActiveTrait;
-use App\Admin\Domain\Traits\OrderTrait;
+use App\Admin\Domain\Traits\PositionTrait;
 use App\Admin\Infrastructure\Repository\DeliveryTimeDoctrineRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DeliveryTimeDoctrineRepository::class)]
-class DeliveryTime implements OrderEntityInterface
+class DeliveryTime implements PositionEntityInterface
 {
     use ActiveTrait;
-    use OrderTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -6,11 +6,11 @@ namespace App\Admin\Application\Service;
 
 use App\Admin\Application\Contract\ReorderEntityServiceInterface;
 use App\Admin\Application\DTO\Request\PositionChangeRequest;
-use App\Admin\Domain\Contract\OrderEntityInterface;
-use App\Admin\Domain\Repository\ReorderableRepositoryInterface;
+use App\Admin\Domain\Contract\PositionEntityInterface;
+use App\Admin\Domain\Repository\PositionRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-readonly final class ReorderEntityService implements ReorderEntityServiceInterface
+readonly final class PositionEntityService implements ReorderEntityServiceInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -20,7 +20,7 @@ readonly final class ReorderEntityService implements ReorderEntityServiceInterfa
     public function reorderEntityPositions(PositionChangeRequest $request, string $entityName): void
     {
         $repository = $this->entityManager->getRepository($this->resolveEntityClass($entityName));
-        if (!$repository instanceof ReorderableRepositoryInterface) {
+        if (!$repository instanceof PositionRepositoryInterface) {
             throw new \LogicException('Repository must implement ReorderableRepositoryInterface to use ReorderEntityService');
         }
 
@@ -40,28 +40,28 @@ readonly final class ReorderEntityService implements ReorderEntityServiceInterfa
         return $class;
     }
 
-    private function adjustOrderPositions(ReorderableRepositoryInterface $repository, int $oldOrder, int $newOrder): void
+    private function adjustOrderPositions(PositionRepositoryInterface $repository, int $oldOrder, int $newOrder): void
     {
-        /** @var OrderEntityInterface[] $entities */
+        /** @var PositionEntityInterface[] $entities */
         $entities = $repository->findItemsInOrderRange($oldOrder, $newOrder);
 
         foreach ($entities as $entity) {
-            $entity->setOrder(
+            $entity->setPosition(
                 $oldOrder < $newOrder
-                    ? $entity->getOrder() - 1
-                    : $entity->getOrder() + 1
+                    ? $entity->getPosition() - 1
+                    : $entity->getPosition() + 1
             );
         }
     }
 
-    private function updateMovedEntityOrder(ReorderableRepositoryInterface $repository, $movedId, int $newOrder): void
+    private function updateMovedEntityOrder(PositionRepositoryInterface $repository, $movedId, int $newOrder): void
     {
-        /** @var OrderEntityInterface|null $movedEntity */
+        /** @var PositionEntityInterface|null $movedEntity */
         $movedEntity = $repository->find($movedId);
         if (!$movedEntity) {
             throw new \RuntimeException("Not found movedId $movedId");
         }
 
-        $movedEntity->setOrder($newOrder);
+        $movedEntity->setPosition($newOrder);
     }
 }

@@ -7,6 +7,6 @@ namespace App\Admin\Domain\Repository;
 use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
 interface DeliveryTimeRepositoryInterface extends
-    ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface, ReorderableRepositoryInterface
+    ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {
 }

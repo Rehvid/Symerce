@@ -23,7 +23,7 @@ final readonly class CreateProductUseCase implements CreateUseCaseInterface
     public function execute(RequestDtoInterface $requestDto): mixed
     {
         $product = new Product();
-        $product->setOrder($this->productRepository->getMaxOrder() + 1);
+        $product->setPosition($this->productRepository->getMaxPosition() + 1);
         $product->setSlug($this->hydrator->saveSlug($requestDto->name, $requestDto->slug));
 
         $this->hydrator->hydrate($requestDto, $product);
