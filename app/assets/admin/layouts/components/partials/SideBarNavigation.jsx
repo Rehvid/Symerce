@@ -36,10 +36,10 @@ const SideBarNavigation = () => (
             <NavigationItem to={'products/attributes'}>
                 <span>Atrybuty</span>
             </NavigationItem>
-            <NavigationItem to={'products/vendors'}>
-                <span>Producenci</span>
-            </NavigationItem>
         </Submenu>
+        <NavigationItem to={'brands'}>
+          <span>Marki</span>
+        </NavigationItem>
         <NavigationItem to={'tags'}>
             <TagIcon className="w-[24px] h-[24px]" />
             <span>Tagi</span>

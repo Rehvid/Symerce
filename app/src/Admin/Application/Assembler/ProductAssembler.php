@@ -11,8 +11,8 @@ use App\Admin\Application\Factory\Product\ProductFormResponseFactory;
 use App\Admin\Domain\Enums\ReductionType;
 use App\Admin\Domain\Repository\AttributeRepositoryInterface;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
-use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
+use App\Brand\Domain\Repository\BrandRepositoryInterface;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Domain\Entity\Attribute;
 use App\Common\Domain\Entity\AttributeValue;
@@ -20,7 +20,7 @@ use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Entity\DeliveryTime;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\Tag;
-use App\Common\Domain\Entity\Vendor;
+use App\Common\Domain\Entity\Brand;
 use App\Shared\Application\Factory\MoneyFactory;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -29,16 +29,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final readonly class ProductAssembler
 {
     public function __construct(
-        private MoneyFactory $moneyFactory,
-        private UrlGeneratorInterface $urlGenerator,
-        private TranslatorInterface $translator,
-        private ResponseHelperAssembler $responseHelperAssembler,
-        private CategoryRepositoryInterface $categoryRepository,
-        private VendorRepositoryInterface $vendorRepository,
-        private TagRepositoryInterface $tagRepository,
+        private MoneyFactory                    $moneyFactory,
+        private UrlGeneratorInterface           $urlGenerator,
+        private TranslatorInterface             $translator,
+        private ResponseHelperAssembler         $responseHelperAssembler,
+        private CategoryRepositoryInterface     $categoryRepository,
+        private BrandRepositoryInterface        $vendorRepository,
+        private TagRepositoryInterface          $tagRepository,
         private DeliveryTimeRepositoryInterface $deliveryTimeRepository,
-        private AttributeRepositoryInterface $attributeRepository,
-        private ProductFormResponseFactory $productFormResponseFactory,
+        private AttributeRepositoryInterface    $attributeRepository,
+        private ProductFormResponseFactory      $productFormResponseFactory,
     ) {}
 
     /**
@@ -144,13 +144,13 @@ final readonly class ProductAssembler
      */
     private function getVendors(): array
     {
-        /** @var Vendor[] $vendors */
+        /** @var Brand[] $vendors */
         $vendors = $this->vendorRepository->findAll();
 
         return ArrayUtils::buildSelectedOptions(
             $vendors,
-            fn (Vendor $vendor) => $vendor->getName(),
-            fn (Vendor $vendor) => (string) $vendor->getId(),
+            fn (Brand $vendor) => $vendor->getName(),
+            fn (Brand $vendor) => (string) $vendor->getId(),
         );
     }
 

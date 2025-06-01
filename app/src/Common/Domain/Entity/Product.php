@@ -52,9 +52,9 @@ class Product implements PositionEntityInterface
     #[ORM\Column(type: 'integer', nullable: false, options: ['unsigned' => true, 'default' => 0])]
     private int $quantity = 0;
 
-    #[ORM\ManyToOne(targetEntity: Vendor::class)]
-    #[ORM\JoinColumn(name: 'vendor_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private ?Vendor $vendor;
+    #[ORM\ManyToOne(targetEntity: Brand::class)]
+    #[ORM\JoinColumn(name: 'brand_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?Brand $brand;
 
     /** @var Collection<int, Category> */
     #[ORM\ManyToMany(targetEntity: Category::class)]
@@ -150,7 +150,7 @@ class Product implements PositionEntityInterface
         return $this->regularPrice;
     }
 
-    public function getVendor(): ?Vendor
+    public function getVendor(): ?Brand
     {
         return $this->vendor;
     }
@@ -223,9 +223,9 @@ class Product implements PositionEntityInterface
         return $thumbnailImage;
     }
 
-    public function setVendor(?Vendor $vendor): void
+    public function setVendor(?Brand $brand): void
     {
-        $this->vendor = $vendor;
+        $this->brand = $brand;
     }
 
     public function setSlug(string $slug): void

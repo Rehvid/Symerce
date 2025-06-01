@@ -9,8 +9,8 @@ use App\Admin\Application\DTO\Request\Product\SaveProductRequest;
 use App\Admin\Application\DTO\Request\Product\SaveProductStockRequest;
 use App\Admin\Application\Hydrator\PromotionHydrator;
 use App\Admin\Domain\Repository\DeliveryTimeRepositoryInterface;
-use App\Admin\Domain\Repository\VendorRepositoryInterface;
 use App\Admin\Infrastructure\Slug\SluggerService;
+use App\Brand\Domain\Repository\BrandRepositoryInterface;
 use App\Common\Domain\Entity\DeliveryTime;
 use App\Common\Domain\Entity\Product;
 use App\Shared\Application\Factory\MoneyFactory;
@@ -20,11 +20,11 @@ use App\Shared\Application\Factory\ValidationExceptionFactory;
 final readonly class ProductHydrator
 {
     public function __construct(
-        private VendorRepositoryInterface       $vendorRepository,
+        private BrandRepositoryInterface        $vendorRepository,
         private DeliveryTimeRepositoryInterface $deliveryTimeRepository,
-        private SluggerService                 $sluggerService,
-        private MoneyFactory $moneyFactory,
-        private ValidationExceptionFactory $validationExceptionFactory,
+        private SluggerService                  $sluggerService,
+        private MoneyFactory                    $moneyFactory,
+        private ValidationExceptionFactory      $validationExceptionFactory,
         private PromotionHydrator               $promotionHydrator,
         private ProductStockHydrator            $productStockHydrator,
         private ProductCategoryHydrator         $productCategoryHydrator,

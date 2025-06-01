@@ -7,7 +7,7 @@ use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Entity\DeliveryTime;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\Tag;
-use App\Common\Domain\Entity\Vendor;
+use App\Common\Domain\Entity\Brand;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Collections\Collection;
@@ -40,8 +40,8 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
         $categories = $manager->getRepository(Category::class)->findAll();
         $deliveryTimes = $manager->getRepository(DeliveryTime::class)->findAll();
         $tags = $manager->getRepository(Tag::class)->findAll();
-        /** @var Vendor[]|Collection $vendors */
-        $vendors = $manager->getRepository(Vendor::class)->findAll();
+        /** @var Brand[]|Collection $vendors */
+        $vendors = $manager->getRepository(Brand::class)->findAll();
 
         /** @var Attribute[]|Collection $attributes */
         $attributes = $manager->getRepository(Attribute::class)->findAll();

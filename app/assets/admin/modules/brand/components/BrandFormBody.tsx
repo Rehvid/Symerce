@@ -1,0 +1,60 @@
+import FormSection from '@admin/shared/components/form/FormSection';
+import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
+import FormGroup from '@admin/shared/components/form/FormGroup';
+import InputLabel from '@admin/shared/components/form/input/InputLabel';
+import InputField from '@admin/shared/components/form/input/InputField';
+import LabelNameIcon from '@/images/icons/label-name.svg';
+import { validationRules } from '@admin/utils/validationRules';
+import Switch from '@admin/shared/components/form/input/Switch';
+import React, { useState } from 'react';
+import { normalizeFiles } from '@admin/utils/helper';
+import { UploadFileInterface } from '@admin/shared/interfaces/UploadFileInterface';
+import { useDropzoneLogic } from '@admin/hooks/useDropzoneLogic';
+import Dropzone from '@admin/components/form/dropzone/Dropzone';
+import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
+
+const BrandFormBody = ({register, fieldErrors, setValue, formData}) => {
+  const [thumbnail, setThumbnail] = useState<any>(normalizeFiles(formData?.thumbnail));
+
+  const setDropzoneValue = (image: UploadFileInterface) => {
+    setValue('thumbnail', image);
+    setThumbnail(image);
+  };
+
+  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, thumbnail);
+
+  return (
+    <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
+      <FormGroup  label={<InputLabel label="Miniaturka"  />} >
+        <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
+          {thumbnail.length > 0 &&
+            thumbnail.map((file, key) => (
+              <DropzoneThumbnail file={file} removeFile={removeFile} variant="single" key={key} index={key} />
+            ))}
+        </Dropzone>
+      </FormGroup>
+
+      <FormGroup
+        label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name"  />}
+      >
+        <InputField
+          type="text"
+          id="name"
+          hasError={!!fieldErrors?.name}
+          errorMessage={fieldErrors?.name?.message}
+          icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
+          {...register('name', {
+            ...validationRules.required(),
+            ...validationRules.minLength(2),
+          })}
+        />
+      </FormGroup>
+
+      <FormGroup label={ <InputLabel label="Aktywny?" /> }>
+        <Switch {...register('isActive')} />
+      </FormGroup>
+    </FormSection>
+  )
+}
+
+export default BrandFormBody;

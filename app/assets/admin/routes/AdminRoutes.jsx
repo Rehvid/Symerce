@@ -11,6 +11,7 @@ import { productRoutes } from '@admin/modules/product/product.routes';
 import { currencyRoutes } from '@admin/modules/currency/currency.routes';
 import { tagRoutes } from '@admin/modules/tag/tag.routes';
 import { categoryRoutes } from '@admin/modules/category/category.routes';
+import { brandRoutes } from '@admin/modules/brand/brand.routes';
 
 const routesConfig = [
     {
@@ -53,21 +54,21 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueForm')),
         roles: ['admin'],
     },
-    {
-        path: 'products/vendors',
-        component: lazy(() => import('@/admin/pages/product/vendor/VendorList')),
-        roles: ['user', 'admin'],
-    },
-    {
-        path: 'products/vendors/create',
-        component: lazy(() => import('@/admin/pages/product/vendor/VendorForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'products/vendors/:id/edit',
-        component: lazy(() => import('@/admin/pages/product/vendor/VendorForm')),
-        roles: ['admin'],
-    },
+    // {
+    //     path: 'products/vendors',
+    //     component: lazy(() => import('@/admin/pages/product/vendor/VendorList')),
+    //     roles: ['user', 'admin'],
+    // },
+    // {
+    //     path: 'products/vendors/create',
+    //     component: lazy(() => import('@/admin/pages/product/vendor/VendorForm')),
+    //     roles: ['admin'],
+    // },
+    // {
+    //     path: 'products/vendors/:id/edit',
+    //     component: lazy(() => import('@/admin/pages/product/vendor/VendorForm')),
+    //     roles: ['admin'],
+    // },
     {
         path: 'carriers',
         component: lazy(() => import('@/admin/pages/carrier/CarrierList')),
@@ -98,6 +99,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
         roles: ['admin'],
     },
+    ...brandRoutes,
     ...categoryRoutes,
     ...tagRoutes,
     ...currencyRoutes,

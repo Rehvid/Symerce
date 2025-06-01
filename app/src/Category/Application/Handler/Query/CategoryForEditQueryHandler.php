@@ -20,7 +20,7 @@ final readonly class CategoryForEditQueryHandler implements QueryHandlerInterfac
 
     public function __invoke(GetCategoryForEditQuery $query): array
     {
-        /** @var Category $category */
+        /** @var ?Category $category */
         $category = $this->repository->findById($query->categoryId);
         if (null === $category) {
             throw EntityNotFoundException::for(Category::class, $query->categoryId);
