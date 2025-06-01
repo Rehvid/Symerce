@@ -13,6 +13,7 @@ import { tagRoutes } from '@admin/modules/tag/tag.routes';
 import { categoryRoutes } from '@admin/modules/category/category.routes';
 import { brandRoutes } from '@admin/modules/brand/brand.routes';
 import { warehouseRoutes } from '@admin/modules/warehouse/warehouse.routes';
+import { carrierRoutes } from '@admin/modules/carrier/carrier.routes';
 
 const routesConfig = [
     {
@@ -56,50 +57,21 @@ const routesConfig = [
         roles: ['admin'],
     },
     // {
-    //     path: 'products/vendors',
-    //     component: lazy(() => import('@/admin/pages/product/vendor/VendorList')),
-    //     roles: ['user', 'admin'],
-    // },
-    // {
-    //     path: 'products/vendors/create',
-    //     component: lazy(() => import('@/admin/pages/product/vendor/VendorForm')),
+    //     path: 'delivery-time',
+    //     component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeList')),
     //     roles: ['admin'],
     // },
     // {
-    //     path: 'products/vendors/:id/edit',
-    //     component: lazy(() => import('@/admin/pages/product/vendor/VendorForm')),
+    //     path: 'delivery-time/create',
+    //     component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
     //     roles: ['admin'],
     // },
-    {
-        path: 'carriers',
-        component: lazy(() => import('@/admin/pages/carrier/CarrierList')),
-        roles: ['admin'],
-    },
-    {
-        path: 'carriers/create',
-        component: lazy(() => import('@/admin/pages/carrier/CarrierForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'carriers/:id/edit',
-        component: lazy(() => import('@/admin/pages/carrier/CarrierForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'delivery-time',
-        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeList')),
-        roles: ['admin'],
-    },
-    {
-        path: 'delivery-time/create',
-        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'delivery-time/:id/edit',
-        component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
-        roles: ['admin'],
-    },
+    // {
+    //     path: 'delivery-time/:id/edit',
+    //     component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
+    //     roles: ['admin'],
+    // },
+    ...carrierRoutes,
     ...warehouseRoutes,
     ...brandRoutes,
     ...categoryRoutes,

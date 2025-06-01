@@ -8,19 +8,15 @@ use App\Admin\Domain\Contract\HasFileInterface;
 use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Admin\Infrastructure\Repository\CarrierDoctrineRepository;
+use App\Carrier\Infrastructure\Repository\CarrierDoctrineRepository;
 use App\Shared\Domain\Enums\DecimalPrecision;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CarrierDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Carrier implements HasFileInterface
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
-    use ActiveTrait;
+    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,21 +29,21 @@ class Carrier implements HasFileInterface
     #[ORM\Column(
         type: 'decimal',
         precision: DecimalPrecision::MAXIMUM_PRECISION->value,
-        scale: DecimalPrecision::MAXIMUM_SCALE->value
+        scale: DecimalPrecision::MAXIMUM_SCALE->value,
+        nullable: true
     )]
-    private string $fee;
+    private ?string $fee = null;
 
     #[ORM\ManyToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private ?File $image = null;
+    #[ORM\JoinColumn(name: 'thumbnail_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?File $thumbnail = null;
 
-    #[ORM\ManyToMany(targetEntity: DeliveryTime::class, mappedBy: 'carriers')]
-    private Collection $deliveryTimes;
+    #[ORM\Column(type: 'json', nullable: true)]
+    private ?array $externalData = null;
 
-    public function __construct()
-    {
-        $this->deliveryTimes = new ArrayCollection();
-    }
+    #[ORM\Column(type: 'boolean')]
+    private bool $isExternal = false;
+
 
     public function getId(): int
     {
@@ -79,23 +75,34 @@ class Carrier implements HasFileInterface
         return $this->getFile();
     }
 
-    public function setImage(?File $image): void
-    {
-        $this->image = $image;
-    }
-
-    public function getDeliveryTimes(): Collection
-    {
-        return $this->deliveryTimes;
-    }
 
     public function setFile(File $file): void
     {
-        $this->image = $file;
+        $this->thumbnail = $file;
     }
 
     public function getFile(): ?File
     {
-        return $this->image;
+        return $this->thumbnail;
+    }
+
+    public function getExternalData(): ?array
+    {
+        return $this->externalData;
+    }
+
+    public function setExternalData(?array $externalData): void
+    {
+        $this->externalData = $externalData;
+    }
+
+    public function isExternal(): bool
+    {
+        return $this->isExternal;
+    }
+
+    public function setIsExternal(bool $isExternal): void
+    {
+        $this->isExternal = $isExternal;
     }
 }

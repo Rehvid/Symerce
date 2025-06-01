@@ -11,9 +11,11 @@ final readonly class CarrierFormResponse
 {
     public function __construct(
         public string        $name,
-        public Money         $fee,
+        public string        $fee,
         public bool          $isActive,
-        public ?FileResponse $image,
+        public ?FileResponse $thumbnail,
+        public bool $isExternal,
+        public ?array $externalData,
     ) {
     }
 }

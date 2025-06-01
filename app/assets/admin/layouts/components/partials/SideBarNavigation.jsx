@@ -46,11 +46,11 @@ const SideBarNavigation = () => (
         </NavigationItem>
         <NavigationItem to={'carriers'}>
             <CarrierIcon className="w-[24px] h-[24px]" />
-            <span>Dostawcy</span>
+            <span>Przewoźnicy</span>
         </NavigationItem>
-        <NavigationItem to={'delivery-time'}>
+        <NavigationItem to={'warehouses'}>
             <DeliveryTimeIcon className="w-[24px] h-[24px]" />
-            <span>Czasy dostawy</span>
+            <span>Magazyny</span>
         </NavigationItem>
         <NavigationItem to={'currencies'}>
             <CurrencyIcon className="w-[24px] h-[24px]" />

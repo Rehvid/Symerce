@@ -16,22 +16,26 @@ final readonly class SaveCarrierRequest implements ArrayHydratableInterface, Req
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $name,
         #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] #[CustomAssertCurrencyPrecision] public string $fee,
         public bool $isActive,
+        public bool $isExternal,
+        public ?array $externalData,
         public ?FileData $fileData = null,
     ) {
     }
 
     public static function fromArray(array $data): ArrayHydratableInterface
     {
-        $image = $data['image'] ?? null;
+        $thumbnail = $data['thumbnail'] ?? null;
         $fileData = null;
-        if (!empty($image)) {
-            $fileData = FileData::fromArray($image[0]);
+        if (!empty($thumbnail)) {
+            $fileData = FileData::fromArray($thumbnail[0]);
         }
 
         return new self(
             name: $data['name'],
             fee: $data['fee'],
             isActive: $data['isActive'],
+            isExternal: $data['isExternal'] ?? false,
+            externalData: $data['externalData'] ?? null,
             fileData: $fileData,
         );
     }

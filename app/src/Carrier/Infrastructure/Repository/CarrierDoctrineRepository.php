@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Admin\Infrastructure\Repository;
+namespace App\Carrier\Infrastructure\Repository;
 
-use App\Admin\Domain\Repository\CarrierRepositoryInterface;
+use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Domain\Entity\Carrier;
 use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 

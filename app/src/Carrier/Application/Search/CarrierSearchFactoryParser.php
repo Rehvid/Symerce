@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace App\Admin\Application\Search\Carrier;
+namespace App\Carrier\Application\Search;
 
 use App\Shared\Application\Contract\SearchParserFactoryInterface;
 use App\Shared\Application\Filter\BasicFilterDefinition;

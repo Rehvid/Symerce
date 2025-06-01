@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Factory;
 
-use App\Admin\Domain\Repository\CarrierRepositoryInterface;
 use App\Admin\Domain\Repository\ProductRepositoryInterface;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
+use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Domain\Entity\Country;
 use App\Common\Domain\Entity\PaymentMethod;

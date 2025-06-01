@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\Assembler;
+namespace App\Carrier\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\DTO\Response\Carrier\CarrierFormResponse;
@@ -39,16 +39,18 @@ final readonly class CarrierAssembler
         $image = $carrier->getFile();
         $name = $carrier->getName();
 
-        $file = $image === null
+        $thumbnail = $image === null
             ? null
             : $this->responseHelperAssembler->toFileResponse($image->getId(), $name, $image->getPath());
 
         return $this->responseHelperAssembler->wrapFormResponse(
             new CarrierFormResponse(
                 name: $name,
-                fee: $this->moneyFactory->create($carrier->getFee()),
+                fee: $this->moneyFactory->create($carrier->getFee())->getFormattedAmount(),
                 isActive: $carrier->isActive(),
-                image: $file,
+                thumbnail: $thumbnail,
+                isExternal: $carrier->isExternal(),
+                externalData: $carrier->getExternalData(),
             ),
         );
     }

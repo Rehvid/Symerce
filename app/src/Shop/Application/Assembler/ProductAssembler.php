@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shop\Application\Assembler;
 
 use App\Admin\Application\Service\FileService;
-use App\Admin\Domain\Repository\CarrierRepositoryInterface;
+use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductImage;
 use App\Setting\Domain\Enums\SettingKey;
