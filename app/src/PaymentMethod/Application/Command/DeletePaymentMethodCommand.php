@@ -10,7 +10,7 @@ use App\Shared\Application\Command\CommandInterface;
 final readonly class DeletePaymentMethodCommand implements CommandInterface
 {
     public function __construct(
-        public PaymentMethod $paymentMethod
+        public int $paymentMethodId
     ) {
     }
 }

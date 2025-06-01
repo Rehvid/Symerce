@@ -6,6 +6,7 @@ namespace App\Tag\Application\Handler\Query;
 
 use App\Admin\Domain\Entity\Tag;
 use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 use App\Tag\Application\Assembler\TagAssembler;
 use App\Tag\Application\Query\GetTagForEditQuery;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
@@ -24,7 +25,7 @@ final readonly class TagForEditQueryHandler implements QueryHandlerInterface
         /** @var Tag|null $tag */
         $tag = $this->repository->findById($query->tagId);
         if (null === $tag) {
-            throw new NotFoundHttpException("Tag not found");
+            throw EntityNotFoundException::for(Tag::class, $query->tagId);
         }
 
         return $this->tagAssembler->toFormDataResponse($tag);

@@ -6,13 +6,10 @@ namespace App\Customer\Application\Hydrator;
 
 use App\Customer\Application\Dto\CustomerData;
 use App\Shared\Application\Hydrator\AddressHydrator;
-use App\Shared\Domain\Entity\ContactDetails;
 use App\Shared\Domain\Entity\Customer;
 use App\Shared\Domain\Entity\DeliveryAddress;
 use App\Shared\Domain\Entity\InvoiceAddress;
 use App\Shop\Application\Hydrator\ContactDetailsHydrator;
-use App\Shop\Domain\Entity\Embeddables\Address;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final readonly class CustomerHydrator
@@ -23,8 +20,10 @@ final readonly class CustomerHydrator
         private ContactDetailsHydrator $contactDetailsHydrator,
     ) {}
 
-    public function hydrate(CustomerData $data, Customer $customer): Customer
+    public function hydrate(CustomerData $data, ?Customer $customer = null): Customer
     {
+        $customer ??= new Customer();
+
         if (null !== $data->password) {
             $customer->setPassword($this->passwordHasher->hashPassword($customer, $data->password));
         }

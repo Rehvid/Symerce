@@ -10,6 +10,6 @@ use App\Shared\Application\Query\QueryInterface;
 final readonly class GetPaymentMethodForEditQuery implements QueryInterface
 {
     public function __construct(
-        public PaymentMethod $paymentMethod
+        public int $paymentMethodId
     ) {}
 }

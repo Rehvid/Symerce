@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\User\Application\Handler\Command;
 
+use App\Admin\Domain\Entity\User;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 use App\User\Application\Command\UpdateUserCommand;
 use App\User\Application\Hydrator\UserHydrator;
 use App\User\Domain\Repository\UserRepositoryInterface;
@@ -19,7 +21,13 @@ final readonly class UpdateUserCommandHandler implements CommandHandlerInterface
 
     public function __invoke(UpdateUserCommand $command): IdResponse
     {
-        $user = $this->hydrator->hydrate($command->userData, $command->user);
+        /** @var ?User $user */
+        $user = $this->repository->findById($command->userId);
+        if (null === $user) {
+            throw EntityNotFoundException::for(User::class, $command->userId);
+        }
+
+        $user = $this->hydrator->hydrate($command->data, $user);
 
         $this->repository->save($user);
 

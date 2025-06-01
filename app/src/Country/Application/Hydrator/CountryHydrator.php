@@ -9,8 +9,9 @@ use App\Country\Application\Dto\CountryData;
 
 final readonly class CountryHydrator
 {
-    public function hydrate(CountryData $countryData, Country $country): Country
+    public function hydrate(CountryData $countryData, ?Country $country = null): Country
     {
+        $country ??= new Country();
         $country->setCode($countryData->code);
         $country->setName($countryData->name);
         $country->setActive($countryData->isActive);

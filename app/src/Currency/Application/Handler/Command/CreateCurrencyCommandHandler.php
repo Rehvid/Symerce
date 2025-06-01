@@ -22,7 +22,7 @@ final readonly class CreateCurrencyCommandHandler implements CommandHandlerInter
 
     public function __invoke(CreateCurrencyCommand $command): IdResponse
     {
-        $currency = $this->hydrator->hydrate($command->data, new Currency());
+        $currency = $this->hydrator->hydrate($command->data);
 
         $this->repository->save($currency);
 

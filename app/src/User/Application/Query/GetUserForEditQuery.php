@@ -10,7 +10,7 @@ use App\Shared\Application\Query\QueryInterface;
 final readonly class GetUserForEditQuery implements QueryInterface
 {
     public function __construct(
-        public User $user,
+        public int $userId,
     ) {
     }
 }

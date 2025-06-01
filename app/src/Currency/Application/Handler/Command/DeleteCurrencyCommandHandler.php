@@ -16,6 +16,8 @@ final readonly class DeleteCurrencyCommandHandler implements CommandHandlerInter
 
     public function __invoke(DeleteCurrencyCommand $command): void
     {
-        $this->repository->remove($command->currency);
+        $this->repository->remove(
+            $this->repository->findById($command->currencyId)
+        );
     }
 }

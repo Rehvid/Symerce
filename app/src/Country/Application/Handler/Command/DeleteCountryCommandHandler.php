@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Country\Application\Handler\Command;
 
+
 use App\Country\Application\Command\DeleteCountryCommand;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
@@ -16,6 +17,8 @@ final readonly class DeleteCountryCommandHandler implements CommandHandlerInterf
 
     public function __invoke(DeleteCountryCommand $command): void
     {
-        $this->repository->remove($command->country);
+        $this->repository->remove(
+            $this->repository->findById($command->countryId)
+        );
     }
 }

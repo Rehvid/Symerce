@@ -79,17 +79,21 @@ final class CustomerController extends AbstractApiController
     }
 
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(Customer $customer): JsonResponse
+    public function show(int $id): JsonResponse
     {
         return $this->json(
             data: new ApiResponse(
-                $this->queryBus->ask(new GetCustomerForEditQuery($customer))
+                $this->queryBus->ask(
+                    new GetCustomerForEditQuery(
+                        customerId: $id
+                    )
+                )
             ),
         );
     }
 
     #[Route('/{id}', name: 'update', requirements: ['id' => '\d+'], methods: ['PUT'], format: 'json')]
-    public function update(Customer $customer, Request $request): JsonResponse
+    public function update(int $id, Request $request): JsonResponse
     {
         $customerRequest = $this->requestDtoResolver->mapAndValidate($request, SaveCustomerRequest::class);
 
@@ -97,7 +101,7 @@ final class CustomerController extends AbstractApiController
         $response = $this->commandBus->handle(
             new UpdateCustomerCommand(
                 data: $this->customerDataFactory->fromRequest($customerRequest),
-                customer: $customer
+                customerId: $id
             )
         );
 
@@ -111,9 +115,13 @@ final class CustomerController extends AbstractApiController
 
 
     #[Route('/{id}', name: 'destroy', requirements: ['id' => '\d+'], methods: ['DELETE'])]
-    public function destroy(Customer $customer): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        $this->commandBus->dispatch(new DeleteCustomerCommand($customer));
+        $this->commandBus->dispatch(
+            new DeleteCustomerCommand(
+                customerId: $id
+            )
+        );
 
         return $this->json(
             data: new ApiResponse(

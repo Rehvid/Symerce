@@ -8,18 +8,33 @@ use App\Admin\Domain\Entity\Setting;
 use App\Setting\Application\Command\UpdateSettingCommand;
 use App\Setting\Application\Dto\Request\UpdateSettingRequest;
 use App\Setting\Application\Dto\SettingData;
+use App\Setting\Application\Factory\SettingDataFactory;
 use App\Setting\Application\Query\GetSettingForEditQuery;
 use App\Setting\Application\Query\GetSettingListQuery;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\DTO\Response\IdResponse;
+use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use App\Shared\Ui\AbstractApiController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/api/admin/settings', name: 'api_admin_setting_')]
 final class SettingController extends AbstractApiController
 {
+    public function __construct(
+        RequestDtoResolver $requestDtoResolver,
+        TranslatorInterface $translator,
+        CommandBusInterface $commandBus,
+        QueryBusInterface $queryBus,
+        private readonly SettingDataFactory $settingDataFactory,
+    ) {
+        parent::__construct($requestDtoResolver, $translator, $commandBus, $queryBus);
+    }
+
     #[Route('', name: 'list', methods: ['GET'])]
     public function list(Request $request): JsonResponse
     {
@@ -29,20 +44,15 @@ final class SettingController extends AbstractApiController
     }
 
     #[Route('/{id}', name: 'update', requirements: ['id' => '\d+'], methods: ['PUT'], format: 'json')]
-    public function update(Setting $setting, Request $request): JsonResponse
+    public function update(int $id, Request $request): JsonResponse
     {
         $updateRequest = $this->requestDtoResolver->mapAndValidate($request, UpdateSettingRequest::class);
 
         /** @var IdResponse $response */
         $response = $this->commandBus->handle(
             new UpdateSettingCommand(
-                new SettingData(
-                    setting: $setting,
-                    name: $updateRequest->name,
-                    settingValueType: $updateRequest->settingValueType,
-                    value: $updateRequest->value,
-                    isActive: $updateRequest->isActive,
-                )
+                data: $this->settingDataFactory->fromRequest($updateRequest),
+                settingId: $id
             )
         );
 
@@ -55,11 +65,15 @@ final class SettingController extends AbstractApiController
     }
 
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(Setting $setting): JsonResponse
+    public function show(int $id): JsonResponse
     {
         return $this->json(
             data: new ApiResponse(
-                $this->queryBus->ask(new GetSettingForEditQuery($setting))
+                $this->queryBus->ask(
+                    new GetSettingForEditQuery(
+                        settingId: $id
+                    )
+                )
             ),
         );
     }

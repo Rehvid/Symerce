@@ -10,7 +10,7 @@ use App\User\Application\Dto\UserData;
 final readonly class CreateUserCommand implements CommandInterface
 {
     public function __construct(
-        public UserData $userData
+        public UserData $data
     ) {
     }
 }

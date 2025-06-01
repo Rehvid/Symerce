@@ -10,6 +10,6 @@ use App\Shared\Application\Query\QueryInterface;
 final readonly class GetCountryForEditQuery implements QueryInterface
 {
     public function __construct(
-        public Country $country
+        public int $countryId,
     ) {}
 }

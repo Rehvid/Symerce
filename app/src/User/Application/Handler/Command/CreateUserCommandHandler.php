@@ -21,7 +21,7 @@ final readonly class CreateUserCommandHandler implements CommandHandlerInterface
 
     public function __invoke(CreateUserCommand $command): IdResponse
     {
-        $user = $this->hydrator->hydrate($command->userData, new User());
+        $user = $this->hydrator->hydrate($command->data);
 
         $this->repository->save($user);
 

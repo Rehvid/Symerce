@@ -53,7 +53,11 @@ final class OrderController extends AbstractApiController
     {
         return $this->json(
             data: new ApiResponse(
-                data: $this->queryBus->ask(new GetOrderDetailQuery($id)),
+                data: $this->queryBus->ask(
+                    new GetOrderDetailQuery(
+                        orderId: $id
+                    )
+                ),
             )
         );
     }
@@ -95,7 +99,11 @@ final class OrderController extends AbstractApiController
     {
         return $this->json(
             data: new ApiResponse(
-                $this->queryBus->ask(new GetOrderForEditQuery($id))
+                $this->queryBus->ask(
+                    new GetOrderForEditQuery(
+                        orderId: $id
+                    )
+                )
             ),
         );
     }
@@ -109,7 +117,7 @@ final class OrderController extends AbstractApiController
         $response = $this->commandBus->handle(
             new UpdateOrderCommand(
                 data: $this->orderDataFactory->fromRequest($orderRequest),
-                id: $id,
+                orderId: $id,
             )
         );
 

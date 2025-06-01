@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Dto;
 
-use App\Admin\Domain\Entity\Setting;
+
+use App\Setting\Domain\ValueObject\SettingValueVO;
 
 final readonly class SettingData
 {
     public function __construct(
-        public Setting $setting,
         public string $name,
-        public string $settingValueType,
-        public mixed $value,
+        public SettingValueVO $settingValueVO,
         public bool $isActive
     ) {}
 }

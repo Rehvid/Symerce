@@ -11,21 +11,21 @@ use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
 use App\Shared\Application\Factory\ValidationExceptionFactory;
 use App\Shared\Domain\Entity\Order;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class UpdateOrderCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private OrderRepositoryInterface $repository,
         private OrderHydrator $hydrator,
-        private ValidationExceptionFactory $validationExceptionFactory
     ) {}
 
     public function __invoke(UpdateOrderCommand $command): IdResponse
     {
         /** @var ?Order $order */
-        $order = $this->repository->findById($command->id);
+        $order = $this->repository->findById($command->orderId);
         if (null === $order) {
-            $this->validationExceptionFactory->createNotFound('order');
+            throw EntityNotFoundException::for(Order::class, $command->orderId);
         }
 
         $order = $this->hydrator->hydrate($command->data, $order);

@@ -18,7 +18,7 @@ final readonly class CreateCountryCommandHandler implements CommandHandlerInterf
 
     public function __invoke(CreateCountryCommand $command): IdResponse
     {
-        $country = $this->hydrator->hydrate($command->countryData, new Country());
+        $country = $this->hydrator->hydrate($command->data);
 
         $this->repository->save($country);
 

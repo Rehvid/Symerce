@@ -10,6 +10,6 @@ use App\Shared\Application\Command\CommandInterface;
 final readonly class DeleteCountryCommand implements CommandInterface
 {
     public function __construct(
-        public Country $country
+        public int $countryId,
     ) {}
 }

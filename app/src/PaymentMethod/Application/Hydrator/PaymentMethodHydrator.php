@@ -16,8 +16,9 @@ final readonly class PaymentMethodHydrator
     ) {}
 
 
-    public function hydrate(PaymentMethodData $data, PaymentMethod $paymentMethod): PaymentMethod
+    public function hydrate(PaymentMethodData $data, ?PaymentMethod $paymentMethod = null): PaymentMethod
     {
+        $paymentMethod ??= new PaymentMethod();
         $paymentMethod->setActive($data->isActive);
         $paymentMethod->setName($data->name);
         $paymentMethod->setCode($data->code);

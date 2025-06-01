@@ -10,6 +10,7 @@ use App\Shared\Application\Command\CommandInterface;
 final readonly class UpdateSettingCommand implements CommandInterface
 {
     public function __construct(
-        public SettingData $settingData,
+        public SettingData $data,
+        public int $settingId,
     ) {}
 }

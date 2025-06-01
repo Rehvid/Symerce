@@ -10,7 +10,7 @@ use App\Shared\Application\Command\CommandInterface;
 final class DeleteUserCommand implements CommandInterface
 {
     public function __construct(
-        public User $user,
+        public int $userId
     ) {
     }
 }

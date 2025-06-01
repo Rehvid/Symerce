@@ -4,23 +4,27 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Factory;
 
+use App\Admin\Domain\Entity\Category;
 use App\Category\Application\Dto\CategoryData;
 use App\Category\Application\Dto\Request\SaveCategoryRequest;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Shared\Application\Factory\ValidationExceptionFactory;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class CategoryDataFactory
 {
     public function __construct(
         private CategoryRepositoryInterface $categoryRepository,
-        private ValidationExceptionFactory $validationExceptionFactory
     ) {}
 
     public function fromRequest(SaveCategoryRequest $categoryRequest): CategoryData
     {
-        $parentCategory = $this->categoryRepository->findById($categoryRequest->parentCategoryId);
+        $parentCategoryId = $categoryRequest->parentCategoryId;
+
+        /** @var ?Category $parentCategory */
+        $parentCategory = $this->categoryRepository->findById($parentCategoryId);
         if (null === $parentCategory) {
-            $this->validationExceptionFactory->createNotFound('parentCategoryId');
+            throw EntityNotFoundException::for(Category::class, $parentCategoryId);
         }
 
         return new CategoryData(

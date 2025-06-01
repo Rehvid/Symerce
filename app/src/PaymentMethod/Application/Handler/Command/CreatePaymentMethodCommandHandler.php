@@ -20,10 +20,8 @@ final readonly class CreatePaymentMethodCommandHandler implements CommandHandler
 
     public function __invoke(CreatePaymentMethodCommand $command): IdResponse
     {
-        $paymentMethod = new PaymentMethod();
+        $paymentMethod = $this->hydrator->hydrate($command->data);
         $paymentMethod->setOrder($this->repository->getMaxOrder() + 1);
-
-        $this->hydrator->hydrate($command->paymentMethodData, $paymentMethod);
 
         $this->repository->save($paymentMethod);
 

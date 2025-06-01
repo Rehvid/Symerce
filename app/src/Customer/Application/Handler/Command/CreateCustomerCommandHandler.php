@@ -21,10 +21,8 @@ final readonly class CreateCustomerCommandHandler implements CommandHandlerInter
 
     public function __invoke(CreateCustomerCommand $command): IdResponse
     {
-        $customer = new Customer();
+        $customer = $this->hydrator->hydrate($command->data);
         $customer->setRoles([CustomerRole::CUSTOMER]);
-
-        $customer = $this->hydrator->hydrate($command->data, $customer);
 
         $this->repository->save($customer);
 

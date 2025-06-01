@@ -6,6 +6,7 @@ namespace App\Shared\Infrastructure\EventListener;
 
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\Shared\Application\DTO\Response\ApiResponse;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 use App\Shared\Infrastructure\Http\Exception\RequestValidationException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,6 +37,11 @@ final readonly class ExceptionJsonListener
             return;
         }
 
+        if ($exception instanceof EntityNotFoundException) {
+            $this->handleEntityNotFoundException($event);
+            return;
+        }
+
         $this->handleException($event, $exception);
     }
 
@@ -51,6 +57,18 @@ final readonly class ExceptionJsonListener
         );
 
         $this->setEventResponse($event, $apiResponse, $exception->getStatusCode());
+    }
+
+    private function handleEntityNotFoundException(ExceptionEvent $event): void
+    {
+        $code = Response::HTTP_NOT_FOUND;
+
+        $apiResponse = $this->buildErrorResult(
+            message: $this->translator->trans('base.messages.errors.not_found'),
+            code: $code,
+        );
+
+        $this->setEventResponse($event, $apiResponse, $code);
     }
 
     private function handleRequestValidationException(ExceptionEvent $event, RequestValidationException $exception): void

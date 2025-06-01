@@ -16,6 +16,8 @@ final readonly class DeletePaymentMethodCommandHandler implements CommandHandler
 
     public function __invoke(DeletePaymentMethodCommand $command): void
     {
-        $this->repository->remove($command->paymentMethod);
+        $this->repository->remove(
+            $this->repository->findById($command->paymentMethodId)
+        );
     }
 }

@@ -11,7 +11,7 @@ final readonly class UpdateOrderCommand implements CommandInterface
 {
     public function __construct(
         public OrderData $data,
-        public int $id
+        public int $orderId
     ) {
     }
 }

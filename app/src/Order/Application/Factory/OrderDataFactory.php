@@ -4,7 +4,9 @@ declare (strict_types = 1);
 
 namespace App\Order\Application\Factory;
 
+use App\Admin\Domain\Entity\Carrier;
 use App\Admin\Domain\Entity\Country;
+use App\Admin\Domain\Entity\PaymentMethod;
 use App\Admin\Domain\Repository\CarrierRepositoryInterface;
 use App\Admin\Domain\Repository\ProductRepositoryInterface;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
@@ -20,6 +22,7 @@ use App\Shared\Application\DTO\ContactDetailsData;
 use App\Shared\Application\DTO\Request\Address\SaveAddressRequest;
 use App\Shared\Application\DTO\Request\ContactDetails\SaveContactDetailsRequest;
 use App\Shared\Application\Factory\ValidationExceptionFactory;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 final readonly class OrderDataFactory
@@ -36,14 +39,16 @@ final readonly class OrderDataFactory
 
     public function fromRequest(SaveOrderRequest $orderRequest): OrderData
     {
+        /** @var ?Carrier $carrier */
         $carrier = $this->carrierRepository->findById($orderRequest->carrierId);
         if (null === $carrier) {
-            $this->validationExceptionFactory->createNotFound('carrier');
+            throw EntityNotFoundException::for(Carrier::class, $orderRequest->carrierId);
         }
 
+        /** @var ?PaymentMethod $paymentMethod */
         $paymentMethod = $this->paymentMethodRepository->findById($orderRequest->paymentMethodId);
         if (null === $paymentMethod) {
-            $this->validationExceptionFactory->createNotFound('paymentMethod');
+            throw EntityNotFoundException::for(PaymentMethod::class, $orderRequest->paymentMethodId);
         }
 
         $addressDeliveryRequest = $orderRequest->saveAddressDeliveryRequest;
@@ -79,9 +84,10 @@ final readonly class OrderDataFactory
 
     private function createDeliveryAddressData(SaveAddressRequest $addressRequest): AddressData
     {
+        /** @var ?Country $country */
         $country = $this->countryRepository->findById($addressRequest->country);
         if (null === $country) {
-            $this->validationExceptionFactory->createNotFound('country');
+            throw EntityNotFoundException::for(Country::class, $addressRequest->country);
         }
 
         return $this->createAddressData($addressRequest, $country);

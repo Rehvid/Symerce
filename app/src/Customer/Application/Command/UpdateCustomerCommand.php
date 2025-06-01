@@ -12,6 +12,6 @@ final readonly class UpdateCustomerCommand implements CommandInterface
 {
     public function __construct(
         public CustomerData $data,
-        public Customer $customer,
+        public int $customerId,
     ) {}
 }

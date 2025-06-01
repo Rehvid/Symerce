@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Handler\Command;
 
+use App\Admin\Domain\Entity\Setting;
 use App\Setting\Application\Command\UpdateSettingCommand;
-use App\Setting\Domain\Enums\SettingValueType;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
-use App\Setting\Domain\ValueObject\SettingValueVO;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 
 
 final readonly class UpdateSettingCommandHandler implements CommandHandlerInterface
@@ -20,17 +20,16 @@ final readonly class UpdateSettingCommandHandler implements CommandHandlerInterf
 
     public function __invoke(UpdateSettingCommand $command): IdResponse
     {
-        $settingData = $command->settingData;
+        $setting = $this->repository->findById($command->settingId);
+        if (null === $setting) {
+            throw EntityNotFoundException::for(Setting::class, $command->settingId);
+        }
 
-        $settingValueVO = new SettingValueVO(
-            SettingValueType::from($settingData->settingValueType),
-            $settingData->value
-        );
+        $settingData = $command->data;
 
-        $setting = $settingData->setting;
         $setting->setActive($settingData->isActive);
         $setting->setName($settingData->name);
-        $setting->setValue($settingValueVO->getRawValue());
+        $setting->setValue($settingData->settingValueVO->getRawValue());
 
         $this->repository->save($setting);
 

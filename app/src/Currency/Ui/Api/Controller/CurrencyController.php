@@ -53,7 +53,9 @@ final class CurrencyController extends AbstractApiController
 
         /** @var IdResponse $response */
         $response = $this->commandBus->handle(
-            new CreateCurrencyCommand($this->currencyDataFactory->fromRequest($currencyRequest))
+            new CreateCurrencyCommand(
+                data: $this->currencyDataFactory->fromRequest($currencyRequest)
+            )
         );
 
         return $this->json(
@@ -66,7 +68,7 @@ final class CurrencyController extends AbstractApiController
     }
 
     #[Route('/{id}', name: 'update', requirements: ['id' => '\d+'], methods: ['PUT'], format: 'json')]
-    public function update(Currency $currency, Request $request): JsonResponse
+    public function update(int $id, Request $request): JsonResponse
     {
         $currencyRequest = $this->requestDtoResolver->mapAndValidate($request, SaveCurrencyRequest::class);
 
@@ -74,7 +76,7 @@ final class CurrencyController extends AbstractApiController
         $response = $this->commandBus->handle(
             new UpdateCurrencyCommand(
                 data: $this->currencyDataFactory->fromRequest($currencyRequest),
-                currency: $currency
+                currencyId: $id
             )
         );
 
@@ -87,19 +89,27 @@ final class CurrencyController extends AbstractApiController
     }
 
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(Currency $currency): JsonResponse
+    public function show(int $id): JsonResponse
     {
         return $this->json(
             data: new ApiResponse(
-                $this->queryBus->ask(new GetCurrencyForEditQuery($currency))
+                $this->queryBus->ask(
+                    new GetCurrencyForEditQuery(
+                        currencyId: $id
+                    )
+                )
             ),
         );
     }
 
     #[Route('/{id}', name: 'destroy', requirements: ['id' => '\d+'], methods: ['DELETE'])]
-    public function destroy(Currency $currency): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        $this->commandBus->dispatch(new DeleteCurrencyCommand($currency));
+        $this->commandBus->dispatch(
+            new DeleteCurrencyCommand(
+                currencyId: $id
+            )
+        );
 
         return $this->json(
             data: new ApiResponse(

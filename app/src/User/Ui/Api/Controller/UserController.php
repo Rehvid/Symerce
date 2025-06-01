@@ -64,7 +64,7 @@ final class UserController extends AbstractApiController
         /** @var IdResponse $response */
         $response = $this->commandBus->handle(
             new CreateUserCommand(
-               userData: $this->userDataFactory->fromRequest($userRequest),
+               data: $this->userDataFactory->fromRequest($userRequest),
             )
         );
 
@@ -78,15 +78,15 @@ final class UserController extends AbstractApiController
     }
 
     #[Route('/{id}', name: 'update', requirements: ['id' => '\d+'], methods: ['PUT'], format: 'json')]
-    public function update(User $user, Request $request): JsonResponse
+    public function update(int $id, Request $request): JsonResponse
     {
         $userRequest = $this->requestDtoResolver->mapAndValidate($request, SaveUserRequest::class);
 
         /** @var IdResponse $response */
         $response = $this->commandBus->handle(
             new UpdateUserCommand(
-                userData: $this->userDataFactory->fromRequest($userRequest),
-                user: $user
+                data: $this->userDataFactory->fromRequest($userRequest),
+                userId: $id
             )
         );
 
@@ -99,19 +99,27 @@ final class UserController extends AbstractApiController
     }
 
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(User $user): JsonResponse
+    public function show(int $id): JsonResponse
     {
         return $this->json(
             data: new ApiResponse(
-                $this->queryBus->ask(new GetUserForEditQuery($user))
+                $this->queryBus->ask(
+                    new GetUserForEditQuery(
+                        userId: $id
+                    )
+                )
             ),
         );
     }
 
     #[Route('/{id}', name: 'destroy', requirements: ['id' => '\d+'], methods: ['DELETE'])]
-    public function destroy(User $user): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
-        $this->commandBus->dispatch(new DeleteUserCommand($user));
+        $this->commandBus->dispatch(
+            new DeleteUserCommand(
+                userId: $id
+            )
+        );
 
         return $this->json(
             data: new ApiResponse(

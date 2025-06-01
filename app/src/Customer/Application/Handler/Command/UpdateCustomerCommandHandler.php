@@ -9,6 +9,8 @@ use App\Customer\Application\Hydrator\CustomerHydrator;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
+use App\Shared\Domain\Entity\Customer;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class UpdateCustomerCommandHandler implements CommandHandlerInterface
 {
@@ -20,7 +22,11 @@ final readonly class UpdateCustomerCommandHandler implements CommandHandlerInter
 
     public function __invoke(UpdateCustomerCommand $command): IdResponse
     {
-        $customer = $command->customer;
+        /** @var ?Customer $customer */
+        $customer = $this->repository->findById($command->customerId);
+        if (null === $customer) {
+            throw EntityNotFoundException::for(Customer::class, $command->customerId);
+        }
 
         $customer = $this->hydrator->hydrate($command->data, $customer);
 

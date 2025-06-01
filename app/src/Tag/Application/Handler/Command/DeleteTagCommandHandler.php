@@ -11,7 +11,7 @@ use App\Tag\Domain\Repository\TagRepositoryInterface;
 final readonly class DeleteTagCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly TagRepositoryInterface $repository
+        private TagRepositoryInterface $repository
     ) {}
 
     public function __invoke(DeleteTagCommand $command): void

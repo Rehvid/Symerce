@@ -50,7 +50,11 @@ final class TagController extends AbstractApiController
     {
         return $this->json(
             data: new ApiResponse(
-                $this->queryBus->ask(new GetTagForEditQuery($id))
+                $this->queryBus->ask(
+                    new GetTagForEditQuery(
+                        tagId: $id
+                    )
+                )
             ),
         );
     }

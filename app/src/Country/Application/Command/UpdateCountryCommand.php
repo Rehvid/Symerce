@@ -11,8 +11,8 @@ use App\Shared\Application\Command\CommandInterface;
 final readonly class UpdateCountryCommand implements CommandInterface
 {
     public function __construct(
-        public Country $country,
-        public CountryData $countryData,
+        public int $countryId,
+        public CountryData $data,
     ) {
     }
 }

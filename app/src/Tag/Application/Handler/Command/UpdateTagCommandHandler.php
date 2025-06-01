@@ -7,6 +7,7 @@ namespace App\Tag\Application\Handler\Command;
 use App\Admin\Domain\Entity\Tag;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 use App\Tag\Application\Command\UpdateTagCommand;
 use App\Tag\Application\Hydrator\TagHydrator;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
@@ -25,7 +26,7 @@ final readonly class UpdateTagCommandHandler implements CommandHandlerInterface
         $tag = $this->repository->findById($command->tagId);
 
         if (null === $tag) {
-            throw new NotFoundHttpException('Tag not found');
+            throw EntityNotFoundException::for(Tag::class, $command->tagId);
         }
 
         $tag = $this->hydrator->hydrate($command->data, $tag);

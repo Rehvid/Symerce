@@ -9,7 +9,7 @@ use App\Category\Application\Assembler\CategoryAssembler;
 use App\Category\Application\Query\GetCategoryForEditQuery;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class CategoryForEditQueryHandler implements QueryHandlerInterface
 {
@@ -20,10 +20,10 @@ final readonly class CategoryForEditQueryHandler implements QueryHandlerInterfac
 
     public function __invoke(GetCategoryForEditQuery $query): array
     {
-        /** @var ?Category $category */
+        /** @var Category $category */
         $category = $this->repository->findById($query->categoryId);
         if (null === $category) {
-            throw new NotFoundHttpException();
+            throw EntityNotFoundException::for(Category::class, $query->categoryId);
         }
 
         return $this->assembler->toFormDataResponse($category);

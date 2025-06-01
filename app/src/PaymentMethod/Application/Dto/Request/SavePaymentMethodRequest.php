@@ -21,7 +21,6 @@ final readonly class SavePaymentMethodRequest implements RequestDtoInterface, Ar
         public bool $isRequireWebhook,
         public array $config = [],
         public ?FileData $fileData = null,
-        public ?int $id = null,
     ) {}
 
     public static function fromArray(array $data): ArrayHydratableInterface
@@ -40,7 +39,6 @@ final readonly class SavePaymentMethodRequest implements RequestDtoInterface, Ar
             isRequireWebhook: $data['isRequireWebhook'],
             config: $data['config'] ?? [],
             fileData: $fileData,
-            id: $data['id'] ?? null,
         );
     }
 }

@@ -10,6 +10,6 @@ use App\Shared\Application\Command\CommandInterface;
 final readonly class CreateCountryCommand implements CommandInterface
 {
     public function __construct(
-        public CountryData $countryData,
+        public CountryData $data,
     ) {}
 }

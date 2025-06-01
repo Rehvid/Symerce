@@ -4,19 +4,29 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Handler\Query;
 
+use App\Admin\Domain\Entity\Currency;
 use App\Currency\Application\Assembler\CurrencyAssembler;
 use App\Currency\Application\Query\GetCurrencyForEditQuery;
+use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
 use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class CurrencyForEditQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private CurrencyAssembler $assembler,
+        private CurrencyRepositoryInterface $repository,
     ) {
     }
 
     public function __invoke(GetCurrencyForEditQuery $query): array
     {
-        return $this->assembler->toFormDataResponse($query->currency);
+        /** @var ?Currency $currency */
+        $currency = $this->repository->findById($query->currencyId);
+        if (null === $currency) {
+            throw EntityNotFoundException::for(Currency::class, $query->currencyId);
+        }
+
+        return $this->assembler->toFormDataResponse($currency);
     }
 }

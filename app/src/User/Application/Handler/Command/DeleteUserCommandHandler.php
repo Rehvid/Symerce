@@ -16,6 +16,8 @@ final readonly class DeleteUserCommandHandler implements CommandHandlerInterface
 
     public function __invoke(DeleteUserCommand $command): void
     {
-        $this->repository->remove($command->user);
+        $this->repository->remove(
+            $this->repository->findById($command->userId)
+        );
     }
 }

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Handler\Command;
 
+use App\Admin\Domain\Entity\Currency;
 use App\Currency\Application\Command\UpdateCurrencyCommand;
 use App\Currency\Application\Hydrator\CurrencyHydrator;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Application\DTO\Response\IdResponse;
+use App\Shared\Domain\Exception\EntityNotFoundException;
 
 final readonly class UpdateCurrencyCommandHandler implements CommandHandlerInterface
 {
@@ -20,7 +22,13 @@ final readonly class UpdateCurrencyCommandHandler implements CommandHandlerInter
 
     public function __invoke(UpdateCurrencyCommand $command): IdResponse
     {
-       $currency = $this->hydrator->hydrate($command->data, $command->currency);
+        /** @var ?Currency $currency */
+       $currency = $this->repository->findById($command->currencyId);
+       if (null === $currency) {
+           throw EntityNotFoundException::for(Currency::class, $command->currencyId);
+       }
+
+       $currency = $this->hydrator->hydrate($command->data, $currency);
 
        $this->repository->save($currency);
 

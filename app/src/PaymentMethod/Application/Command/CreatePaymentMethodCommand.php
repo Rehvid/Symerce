@@ -10,7 +10,7 @@ use App\Shared\Application\Command\CommandInterface;
 final readonly class CreatePaymentMethodCommand implements CommandInterface
 {
     public function __construct(
-        public PaymentMethodData $paymentMethodData
+        public PaymentMethodData $data
     ) {
 
     }

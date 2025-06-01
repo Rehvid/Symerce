@@ -11,8 +11,8 @@ use App\User\Application\Dto\UserData;
 final readonly class UpdateUserCommand implements CommandInterface
 {
     public function __construct(
-        public UserData $userData,
-        public User $user,
+        public UserData $data,
+        public int  $userId,
     ) {
     }
 }
