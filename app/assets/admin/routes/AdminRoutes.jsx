@@ -14,6 +14,7 @@ import { categoryRoutes } from '@admin/modules/category/category.routes';
 import { brandRoutes } from '@admin/modules/brand/brand.routes';
 import { warehouseRoutes } from '@admin/modules/warehouse/warehouse.routes';
 import { carrierRoutes } from '@admin/modules/carrier/carrier.routes';
+import { attributesRoutes } from '@admin/modules/attribute/attribute.routes';
 
 const routesConfig = [
     {
@@ -26,21 +27,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/Dashboard')),
         roles: ['user', 'admin'],
     },
-    {
-        path: 'products/attributes',
-        component: lazy(() => import('@/admin/pages/product/attribute/AttributeList')),
-        roles: ['user', 'admin'],
-    },
-    {
-        path: 'products/attributes/create',
-        component: lazy(() => import('@/admin/pages/product/attribute/AttributeForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'products/attributes/:id/edit',
-        component: lazy(() => import('@/admin/pages/product/attribute/AttributeForm')),
-        roles: ['admin'],
-    },
+
     {
         path: 'products/attributes/:attributeId/values',
         component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueList')),
@@ -56,21 +43,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueForm')),
         roles: ['admin'],
     },
-    // {
-    //     path: 'delivery-time',
-    //     component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeList')),
-    //     roles: ['admin'],
-    // },
-    // {
-    //     path: 'delivery-time/create',
-    //     component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
-    //     roles: ['admin'],
-    // },
-    // {
-    //     path: 'delivery-time/:id/edit',
-    //     component: lazy(() => import('@/admin/pages/delivery-time/DeliveryTimeForm')),
-    //     roles: ['admin'],
-    // },
+    ...attributesRoutes,
     ...carrierRoutes,
     ...warehouseRoutes,
     ...brandRoutes,

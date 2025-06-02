@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Common\Domain\Entity;
 
 use App\Admin\Domain\Contract\PositionEntityInterface;
+use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\PositionTrait;
-use App\Admin\Infrastructure\Repository\AttributeDoctrineRepository;
+use App\Attribute\Domain\Enums\AttributeType;
+use App\Attribute\Infrastructure\Repository\AttributeDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: AttributeDoctrineRepository::class)]
 class Attribute implements PositionEntityInterface
 {
-    use PositionTrait;
+    use PositionTrait, ActiveTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,7 +26,10 @@ class Attribute implements PositionEntityInterface
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
 
-    #[ORM\OneToMany(targetEntity: AttributeValue::class, mappedBy: 'attribute', cascade: ['remove'])]
+    #[ORM\Column(type: 'string', enumType: AttributeType::class)]
+    private AttributeType $type;
+
+    #[ORM\OneToMany(targetEntity: AttributeValue::class, mappedBy: 'attribute', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $values;
 
     public function __construct()
@@ -64,5 +69,15 @@ class Attribute implements PositionEntityInterface
         if ($this->values->contains($value)) {
             $this->values->removeElement($value);
         }
+    }
+
+    public function getType(): AttributeType
+    {
+        return $this->type;
+    }
+
+    public function setType(AttributeType $type): void
+    {
+        $this->type = $type;
     }
 }
