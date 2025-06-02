@@ -13,21 +13,21 @@ trait PositionRepositoryTrait
         $queryBuilder = $this->createQueryBuilder($alias);
 
         if ($oldOrder < $newOrder) {
-            return $queryBuilder->where("$alias.order > :oldOrder")
-                ->andWhere("$alias.order <= :newOrder")
+            return $queryBuilder->where("$alias.position > :oldOrder")
+                ->andWhere("$alias.position <= :newOrder")
                 ->setParameter('oldOrder', $oldOrder)
                 ->setParameter('newOrder', $newOrder)
-                ->orderBy("$alias.order", 'ASC')
+                ->orderBy("$alias.position", 'ASC')
                 ->getQuery()
                 ->getResult()
                 ;
         }
 
-        return $queryBuilder->where("$alias.order >= :newOrder")
-            ->andWhere("$alias.order < :oldOrder")
+        return $queryBuilder->where("$alias.position >= :newOrder")
+            ->andWhere("$alias.position < :oldOrder")
             ->setParameter('newOrder', $newOrder)
             ->setParameter('oldOrder', $oldOrder)
-            ->orderBy("$alias.order", 'DESC')
+            ->orderBy("$alias.position", 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -38,7 +38,7 @@ trait PositionRepositoryTrait
         $alias = $this->getAlias();
 
         return (int) $this->createQueryBuilder($alias)
-            ->select("MAX($alias.order)")
+            ->select("MAX($alias.position)")
             ->getQuery()
             ->getSingleScalarResult();
     }

@@ -6,7 +6,7 @@ namespace App\Common\Domain\Entity;
 
 use App\Admin\Domain\Contract\PositionEntityInterface;
 use App\Admin\Domain\Traits\PositionTrait;
-use App\Admin\Infrastructure\Repository\AttributeValueDoctrineRepository;
+use App\AttributeValue\Infrastructure\Repository\AttributeValueDoctrineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AttributeValueDoctrineRepository::class)]

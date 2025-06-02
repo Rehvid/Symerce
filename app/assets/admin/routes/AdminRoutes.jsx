@@ -15,6 +15,7 @@ import { brandRoutes } from '@admin/modules/brand/brand.routes';
 import { warehouseRoutes } from '@admin/modules/warehouse/warehouse.routes';
 import { carrierRoutes } from '@admin/modules/carrier/carrier.routes';
 import { attributesRoutes } from '@admin/modules/attribute/attribute.routes';
+import { attributeValuesRoutes } from '@admin/modules/attributeValue/attributeValue.routes';
 
 const routesConfig = [
     {
@@ -28,22 +29,8 @@ const routesConfig = [
         roles: ['user', 'admin'],
     },
 
-    {
-        path: 'products/attributes/:attributeId/values',
-        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueList')),
-        roles: ['user', 'admin'],
-    },
-    {
-        path: 'products/attributes/:attributeId/values/create',
-        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueForm')),
-        roles: ['admin'],
-    },
-    {
-        path: 'products/attributes/:attributeId/values/:id/edit',
-        component: lazy(() => import('@/admin/pages/product/attribute/attribute-value/AttributeValueForm')),
-        roles: ['admin'],
-    },
     ...attributesRoutes,
+    ...attributeValuesRoutes,
     ...carrierRoutes,
     ...warehouseRoutes,
     ...brandRoutes,
