@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\DTO\Response;
+namespace App\AdminEntry\Application\Dto\Response;
 
 use App\Setting\Domain\Enums\SettingKey;
-use App\Setting\Domain\Enums\SettingType;
 
 class ProviderResponse
 {

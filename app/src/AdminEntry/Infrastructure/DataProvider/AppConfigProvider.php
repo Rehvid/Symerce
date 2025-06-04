@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Infrastructure\DataProvider;
+namespace App\AdminEntry\Infrastructure\DataProvider;
 
-use App\Admin\Application\Contract\ReactDataProviderInterface;
+use App\AdminEntry\Application\Contract\ReactDataProviderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-readonly class AppConfigProvider implements ReactDataProviderInterface
+final readonly class AppConfigProvider implements ReactDataProviderInterface
 {
     public function __construct(
         private ParameterBagInterface $parameterBag,

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Infrastructure\DataProvider;
+namespace App\AdminEntry\Infrastructure\DataProvider;
 
-use App\Admin\Application\Contract\ReactDataProviderInterface;
-use App\Admin\Application\DTO\Response\ProviderResponse;
+use App\AdminEntry\Application\Contract\ReactDataProviderInterface;
+use App\AdminEntry\Application\Dto\Response\ProviderResponse;
 use App\Common\Domain\Entity\Setting;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;
 use App\Setting\Infrastructure\Repository\SettingDoctrineRepository;
 use App\Shared\Application\Service\SettingsService;
 
-readonly class SettingsProvider implements ReactDataProviderInterface
+final readonly class SettingsProvider implements ReactDataProviderInterface
 {
     public function __construct(
         private SettingDoctrineRepository $settingRepository,

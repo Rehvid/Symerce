@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\Provider;
+namespace App\AdminEntry\Application\Provider;
 
-use App\Admin\Application\Contract\ReactDataProviderInterface;
+use App\AdminEntry\Application\Contract\ReactDataProviderInterface;
 
 final readonly class ReactDataProvider
 {

@@ -28,7 +28,7 @@ services:
     # please note that last definitions always *replace* previous ones
 
     _instanceof:
-        App\Admin\Application\Contract\ReactDataProviderInterface:
+        App\AdminEntry\Application\Contract\ReactDataProviderInterface:
             tags: ['app.admin.react_data_provider']
 
         App\Shared\Application\Command\CommandHandlerInterface:
@@ -45,7 +45,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
-    App\Admin\Application\Provider\ReactDataProvider:
+    App\AdminEntry\Application\Provider\ReactDataProvider:
         arguments:
             $providers: !tagged_iterator app.admin.react_data_provider
 

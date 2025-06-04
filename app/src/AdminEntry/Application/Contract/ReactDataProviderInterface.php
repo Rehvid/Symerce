@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\Contract;
+namespace App\AdminEntry\Application\Contract;
 
 interface ReactDataProviderInterface
 {
