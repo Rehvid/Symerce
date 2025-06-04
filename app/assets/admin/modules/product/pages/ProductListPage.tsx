@@ -21,10 +21,16 @@ import useDraggable from '@admin/shared/hooks/list/useDraggable';
 import { useListData } from '@admin/shared/hooks/list/useListData';
 import { ProductListFiltersInterface } from '@admin/modules/product/interfaces/ProductListFiltersInterface';
 import { ProductListItemInterface } from '@admin/modules/product/interfaces/ProductListItemInterface';
+import { useData } from '@admin/hooks/useData';
+import AppLink from '@admin/components/common/AppLink';
+import HistoryIcon from '@/images/icons/history.svg'
 
 
 const ProductListPage = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+  const { data: globalData } = useData();
+  const enableProductHistory = globalData?.settings.find(setting => setting.settingKey === 'enable_price_history')?.value?.value;
+
 
   const [filters, setFilters] = useState<ProductListFiltersInterface>(
     filterEmptyValues({
@@ -54,6 +60,11 @@ const ProductListPage = () => {
   const renderActions = (item: ProductListItemInterface) => (
     <TableActions id={item.id} onDelete={() => removeItem(`admin/products/${item.id}`)} >
       <TableRowShowAction href={item.showUrl}/>
+      {enableProductHistory === '1' && (
+        <AppLink to={`${item.id}/price-history`}>
+          <HistoryIcon className="h-[24px] w-[24px] text-gray-500" />
+        </AppLink>
+      )}
     </TableActions>
   )
 

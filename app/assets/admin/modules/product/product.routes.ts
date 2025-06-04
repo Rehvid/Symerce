@@ -18,4 +18,9 @@ export const productRoutes: AdminRouteInterface[] = [
     component: lazy(() => import('@admin/modules/product/pages/ProductFormPage')),
     roles: [AdminRole.ADMIN],
   },
+  {
+    path: 'products/:id/price-history',
+    component: lazy(() => import('@admin/modules/product/pages/ProductPriceHistory')),
+    roles: [AdminRole.ADMIN],
+  },
 ]

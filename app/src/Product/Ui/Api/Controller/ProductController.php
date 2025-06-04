@@ -11,6 +11,7 @@ use App\Product\Application\Dto\Request\SaveProductRequest;
 use App\Product\Application\Factory\ProductDataFactory;
 use App\Product\Application\Query\GetProductCreationContextQuery;
 use App\Product\Application\Query\GetProductForEditQuery;
+use App\Product\Application\Query\GetProductHistoryQuery;
 use App\Product\Application\Query\GetProductListQuery;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Application\DTO\Response\IdResponse;
@@ -126,4 +127,19 @@ final class ProductController extends AbstractApiController
             )
         );
     }
+
+    #[Route('/{id}/product-history', name: 'show_product_history', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function showProductHistory(int $id): JsonResponse
+    {
+        return $this->json(
+            data: new ApiResponse(
+                $this->queryBus->ask(
+                    new GetProductHistoryQuery(
+                        productId: $id
+                    )
+                )
+            ),
+        );
+    }
+
 }

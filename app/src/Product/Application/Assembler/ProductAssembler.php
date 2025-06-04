@@ -6,8 +6,11 @@ namespace App\Product\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Domain\Enums\ReductionType;
+use App\Admin\Domain\ValueObject\DateVO;
 use App\Common\Domain\Entity\Product;
+use App\Common\Domain\Entity\ProductPriceHistory;
 use App\Product\Application\Dto\Response\ProductListResponse;
+use App\Product\Application\Dto\Response\ProductPriceHistoryResponse;
 use App\Product\Application\Factory\ProductFormContextFactory;
 use App\Product\Application\Factory\ProductFormResponseFactory;
 use App\Shared\Application\Factory\MoneyFactory;
@@ -53,6 +56,33 @@ final readonly class ProductAssembler
              data: $this->productFormResponseFactory->fromProduct($product),
              context: $this->productFormContextFactory->create()
          );
+    }
+
+    public function toProductHistoryResponse(Product $product): array
+    {
+        return [
+            'data' => array_map(
+                fn (ProductPriceHistory $history) => $this->createProductHistoryResponse($history, $product),
+                $product->getPriceHistory()->toArray()
+            )
+
+        ];
+    }
+
+    private function createProductHistoryResponse(ProductPriceHistory $productPriceHistory, Product $product): ProductPriceHistoryResponse
+    {
+        $discountPrice = null;
+        if (null !== $productPriceHistory->getDiscountPrice()) {
+            $discountPrice = $this->moneyFactory->create($productPriceHistory->getDiscountPrice())->getFormattedAmountWithSymbol();
+        }
+
+        return new ProductPriceHistoryResponse(
+            id: $productPriceHistory->getId(),
+            basePrice: $this->moneyFactory->create($productPriceHistory->getBasePrice())->getFormattedAmountWithSymbol(),
+            discountPrice: $discountPrice,
+            productId: $product->getId(),
+            createdAt: (new DateVO($productPriceHistory->getCreatedAt()))->formatRaw()
+        );
     }
 
     private function createProductListResponse(Product $product): ProductListResponse

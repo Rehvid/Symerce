@@ -32,8 +32,8 @@ final readonly class ProductFormResponseFactory
         return new ProductFormResponse(
             name: $product->getName(),
             slug: $product->getSlug(),
-            metaTitle: $product->getMetaTitle(),
-            metaDescription: $product->getMetaDescription(),
+            metaTitle: $product?->getMetaTitle(),
+            metaDescription: $product?->getMetaDescription(),
             description: $product->getDescription(),
             regularPrice: $this->moneyFactory->create($product->getRegularPrice())->getFormattedAmount(),
             isActive: $product->isActive(),
@@ -94,7 +94,7 @@ final readonly class ProductFormResponseFactory
             }
 
             $productAttributes[$index][] = new ProductFormAttributeResponse(
-                value: $attribute->getCustomValue() ?? '',
+                value: $attribute?->getCustomValue() ?? '',
                 isCustom: true
             );
         }

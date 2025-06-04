@@ -240,6 +240,11 @@ class Product implements PositionEntityInterface
         }
     }
 
+    public function getPriceHistory(): Collection
+    {
+        return $this->priceHistory;
+    }
+
     public function getMainCategory(): ?Category
     {
         return $this->mainCategory;
