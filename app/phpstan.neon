@@ -1,8 +1,10 @@
+includes:
+      - vendor/phpstan/phpstan-doctrine/extension.neon
+
 parameters:
   level: 8
   paths:
-      - src
+      - src/Common/Domain/Entity
   excludePaths:
       - tests/bootstrap.php
-      - %rootDir%/../../../src/Entity
-      - %rootDir%/../../../src/Traits
+
