@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\Service\User;
+namespace App\Authentication\Application\Service;
 
 use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
 use App\Admin\Domain\Repository\UserTokenRepositoryInterface;
@@ -22,7 +22,7 @@ final readonly class ResetUserPasswordService
     ) {
     }
 
-    public function execute(UpdateSecurityRequest $changePasswordRequestDTO, string $token): ApiResponse
+    public function execute(string $newPassword, string $token): ApiResponse
     {
         $userToken = $this->userTokenRepository->findByToken($token);
 
@@ -36,7 +36,7 @@ final readonly class ResetUserPasswordService
             return $this->buildErrorResult('User not found', Response::HTTP_BAD_REQUEST);
         }
 
-        $user->setPassword($this->passwordHasher->hashPassword($user, $changePasswordRequestDTO->password));
+        $user->setPassword($this->passwordHasher->hashPassword($user, $newPassword));
 
         $this->userRepository->save($user);
         $this->userTokenRepository->remove($userToken);

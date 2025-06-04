@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = async (onLogoutSuccess) => {
-        const apiConfig = createApiConfig('auth/logout', HTTP_METHODS.POST);
+        const apiConfig = createApiConfig('admin/auth/logout', HTTP_METHODS.POST);
 
         handleApiRequest(apiConfig, {
             onSuccess: () => {

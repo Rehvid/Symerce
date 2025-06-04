@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\UseCase\Auth;
+namespace App\Authentication\Application\Handler\Command;
 
-use App\Shared\Application\UseCases\Base\QueryUseCaseInterface;
+use App\Authentication\Application\Command\LogoutUserCommand;
+use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Domain\Enums\CookieName;
 use App\Shared\Infrastructure\Http\CookieFactory;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-final readonly class LogoutUserUseCase implements QueryUseCaseInterface
+final readonly class LogoutUserCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private CookieFactory $cookieFactory,
-    ) {
-    }
+    ) {}
 
-    public function execute(): JsonResponse
+    public function __invoke(LogoutUserCommand $command): Response
     {
         $response = new JsonResponse(['success' => true], Response::HTTP_OK);
         $response->headers->setCookie(

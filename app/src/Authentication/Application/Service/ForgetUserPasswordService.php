@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\Service\User;
+namespace App\Authentication\Application\Service;
 
-use App\Admin\Application\DTO\Request\Auth\ForgotPasswordRequest;
 use App\Admin\Domain\Enums\TokenType;
 use App\Admin\Domain\Repository\UserTokenRepositoryInterface;
 use App\Common\Domain\Entity\User;
@@ -28,10 +27,10 @@ final readonly class ForgetUserPasswordService
     ) {
     }
 
-    public function execute(ForgotPasswordRequest $request): ApiResponse
+    public function execute(string $email): ApiResponse
     {
         /** @var User|null $user */
-        $user = $this->userRepository->loadUserByIdentifier($request->email);
+        $user = $this->userRepository->loadUserByIdentifier($email);
         if (null === $user) {
             return new ApiResponse(
                 error: new ApiErrorResponse(code: Response::HTTP_BAD_REQUEST, message: 'User Not found')
@@ -44,7 +43,7 @@ final readonly class ForgetUserPasswordService
 
         $link = $this->generateLink($userToken->getToken());
 
-        $this->send($request->email, $link);
+        $this->send($email, $link);
 
         return new ApiResponse();
     }

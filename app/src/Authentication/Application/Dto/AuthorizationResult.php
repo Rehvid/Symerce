@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\DTO;
+namespace App\Authentication\Application\Dto;
 
 use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\User\Application\Dto\Response\UserSessionResponse;
