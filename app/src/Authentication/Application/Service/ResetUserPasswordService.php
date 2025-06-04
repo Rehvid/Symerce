@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Authentication\Application\Service;
 
-use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
 use App\Admin\Domain\Repository\UserTokenRepositoryInterface;
 use App\Common\Domain\Entity\User;
 use App\Shared\Application\DTO\Response\ApiErrorResponse;

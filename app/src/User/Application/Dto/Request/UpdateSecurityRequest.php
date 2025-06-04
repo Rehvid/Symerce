@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\DTO\Request\Profile;
+namespace App\User\Application\Dto\Request;
 
 use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Infrastructure\Validator\RepeatPassword as CustomAssertRepeatPassword;

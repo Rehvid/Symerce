@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\DTO\Response\Profile;
+namespace App\User\Application\Dto\Response;
 
 use App\Admin\Application\DTO\Response\FileResponse;
 

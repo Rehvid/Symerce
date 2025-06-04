@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Authentication\Application\Ui\Controller\Api\Admin;
 
-use App\Admin\Application\DTO\Request\Profile\UpdateSecurityRequest;
 use App\Admin\Application\UseCase\Auth\LogoutUserUseCase;
 use App\Admin\Application\UseCase\Auth\ResetUserPasswordUseCase;
 use App\Authentication\Application\Command\LogoutUserCommand;
@@ -15,9 +14,9 @@ use App\Authentication\Application\Dto\AuthorizationResult;
 use App\Authentication\Application\Dto\Request\ResetPasswordRequest;
 use App\Shared\Application\DTO\Response\ApiResponse;
 use App\Shared\Ui\AbstractApiController;
+use App\User\Application\Dto\Request\UpdateSecurityRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
 

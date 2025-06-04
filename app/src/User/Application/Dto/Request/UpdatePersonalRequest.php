@@ -2,29 +2,47 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\DTO\Request\Profile;
+namespace App\User\Application\Dto\Request;
 
 use App\Admin\Domain\Model\FileData;
 use App\Common\Domain\Entity\User;
 use App\Shared\Application\Contract\ArrayHydratableInterface;
-use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use App\Shared\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class UpdatePersonalRequest implements RequestDtoInterface, ArrayHydratableInterface
+final class UpdatePersonalRequest implements ArrayHydratableInterface
 {
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2)]
+    public string $firstname;
+
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2)]
+    public string $surname;
+
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[CustomAssertUniqueEmail(options: ['field' => 'email', 'className' => User::class])]
+    public string $email;
+
+    #[Assert\NotBlank]
+    public int $id;
+
+    public ?FileData $fileData;
 
 
     public function __construct(
-        #[Assert\NotBlank] #[Assert\Length(min: 2)] public readonly string $firstname,
-        #[Assert\NotBlank] #[Assert\Length(min: 2)] public readonly string $surname,
-        #[Assert\NotBlank]
-        #[Assert\Email]
-        #[CustomAssertUniqueEmail(options: ['field' => 'email', 'className' => User::class])]
-        public readonly string $email,
-        #[Assert\NotBlank] public readonly int $id,
-        public ?FileData $fileData = null,
+        string $firstname,
+        string $surname,
+        string $email,
+        int $id,
+        ?FileData $fileData = null,
     ) {
+        $this->firstname = $firstname;
+        $this->surname = $surname;
+        $this->email = $email;
+        $this->id = $id;
+        $this->fileData = $fileData;
     }
 
     public static function fromArray(array $data): ArrayHydratableInterface

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\Assembler;
+namespace App\User\Application\Assembler;
 
 use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Application\DTO\Response\Profile\PersonalResponse;
 use App\Common\Domain\Entity\User;
+use App\User\Application\Dto\Response\PersonalResponse;
 
 final readonly class ProfileAssembler
 {
