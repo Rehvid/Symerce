@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Warehouse\Application\Hydrator;
 
+use App\Common\Application\Hydrator\AddressHydrator;
 use App\Common\Domain\Entity\Warehouse;
-use App\Shared\Application\Hydrator\AddressHydrator;
 use App\Warehouse\Application\Dto\WarehouseData;
 
 final readonly class WarehouseHydrator

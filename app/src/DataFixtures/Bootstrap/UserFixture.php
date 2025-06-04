@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures\Bootstrap;
 
-use App\Admin\Domain\Enums\AdminRole;
 use App\Common\Domain\Entity\User;
+use App\User\Domain\Enums\UserRole;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -18,7 +18,7 @@ class UserFixture extends Fixture implements FixtureGroupInterface
         $user->setFirstname('Support');
         $user->setSurname('Symerce');
         $user->setPassword(password_hash('mdVN_8LlS@+0', PASSWORD_DEFAULT));
-        $user->setRoles([AdminRole::ROLE_ADMIN->value]);
+        $user->setRoles([UserRole::ROLE_ADMIN->value]);
         $user->setActive(true);
         $user->setCreatedAt(new \DateTime());
         $user->setUpdatedAt(new \DateTime());

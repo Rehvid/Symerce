@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Handler\Query;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Currency\Application\Assembler\CurrencyAssembler;
 use App\Currency\Application\Query\GetCurrencyListQuery;
 use App\Currency\Application\Search\CurrencySearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class CurrencyListQueryHandler implements QueryHandlerInterface
 {

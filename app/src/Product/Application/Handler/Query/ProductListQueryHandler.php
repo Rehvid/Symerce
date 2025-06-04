@@ -4,11 +4,11 @@ declare (strict_types=1);
 
 namespace App\Product\Application\Handler\Query;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Product\Application\Assembler\ProductAssembler;
 use App\Product\Application\Query\GetProductListQuery;
 use App\Product\Application\Search\ProductSearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class ProductListQueryHandler implements QueryHandlerInterface
 {

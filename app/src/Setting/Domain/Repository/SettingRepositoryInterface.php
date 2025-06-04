@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Setting\Domain\Repository;
 
-use App\Admin\Domain\Repository\QueryRepositoryInterface;
-use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
 use App\Common\Domain\Entity\Setting;
+use App\Common\Domain\Repository\CriteriaRepositoryInterface;
+use App\Common\Domain\Repository\QueryRepositoryInterface;
+use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;
-use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
 
 interface SettingRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
 {

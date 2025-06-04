@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Dto;
 
-use App\Shared\Domain\ValueObject\Money;
+use App\Common\Domain\ValueObject\MoneyVO;
 
 final readonly class OrderPriceSummary
 {
     public function __construct(
-        public ?Money $totalProductPrice,
-        public Money $total,
-        public ?Money $carrierFee,
-        public ?Money $paymentMethodFee
+        public ?MoneyVO $totalProductPrice,
+        public MoneyVO  $total,
+        public ?MoneyVO $carrierFee,
+        public ?MoneyVO $paymentMethodFee
     ) {
 
     }

@@ -4,12 +4,12 @@ declare (strict_types = 1);
 
 namespace App\Setting\Application\Handler\Query;
 
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Setting;
 use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Setting\Application\Assembler\SettingAssembler;
 use App\Setting\Application\Query\GetSettingForEditQuery;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class SettingForEditQueryHandler implements QueryHandlerInterface
 {

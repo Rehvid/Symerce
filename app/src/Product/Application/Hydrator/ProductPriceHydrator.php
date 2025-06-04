@@ -4,15 +4,15 @@ declare (strict_types = 1);
 
 namespace App\Product\Application\Hydrator;
 
-use App\Admin\Domain\Enums\ReductionType;
+use App\Common\Application\Factory\MoneyFactory;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductPriceHistory;
 use App\Common\Domain\Entity\Promotion;
+use App\Common\Domain\Enums\ReductionType;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingValueType;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
 use App\Setting\Domain\ValueObject\SettingValueVO;
-use App\Shared\Application\Factory\MoneyFactory;
 
 
 final readonly class ProductPriceHydrator

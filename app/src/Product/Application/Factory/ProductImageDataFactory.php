@@ -4,8 +4,8 @@ declare (strict_types = 1);
 
 namespace App\Product\Application\Factory;
 
-use App\Admin\Domain\Repository\FileRepositoryInterface;
 use App\Common\Domain\Entity\File;
+use App\Common\Domain\Repository\FileRepositoryInterface;
 use App\Product\Application\Dto\ProductImageData;
 use App\Product\Application\Dto\Request\SaveProductImageRequest;
 

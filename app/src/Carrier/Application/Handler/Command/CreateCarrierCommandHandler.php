@@ -7,9 +7,9 @@ namespace App\Carrier\Application\Handler\Command;
 use App\Carrier\Application\Command\CreateCarrierCommand;
 use App\Carrier\Application\Hydrator\CarrierHydrator;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Domain\Entity\Carrier;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class CreateCarrierCommandHandler implements CommandHandlerInterface
 {

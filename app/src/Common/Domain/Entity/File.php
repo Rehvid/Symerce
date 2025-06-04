@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Enums\FileMimeType;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Admin\Infrastructure\Repository\FileDoctrineRepository;
+use App\Common\Domain\Enums\FileMimeType;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
+use App\Common\Infrastructure\Repository\FileDoctrineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FileDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class File
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
+    use CreatedAtTrait, UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

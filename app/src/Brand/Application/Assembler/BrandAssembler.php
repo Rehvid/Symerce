@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Brand\Application\Assembler;
 
-use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Brand\Application\Dto\Response\BrandFormResponse;
 use App\Brand\Application\Dto\Response\BrandListResponse;
+use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Domain\Entity\Brand;
 
 final readonly class BrandAssembler

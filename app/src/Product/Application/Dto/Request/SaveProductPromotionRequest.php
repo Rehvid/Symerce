@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 namespace App\Product\Application\Dto\Request;
-use App\Admin\Domain\Enums\PromotionSource;
-use App\Admin\Domain\Enums\ReductionType;
-use App\Admin\Domain\ValueObject\DateVO;
-use App\Shared\Application\DTO\Request\RequestDtoInterface;
+use App\Common\Application\Dto\Request\RequestDtoInterface;
+use App\Common\Domain\Enums\PromotionSource;
+use App\Common\Domain\Enums\ReductionType;
+use App\Common\Domain\ValueObject\DateVO;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveProductPromotionRequest implements RequestDtoInterface

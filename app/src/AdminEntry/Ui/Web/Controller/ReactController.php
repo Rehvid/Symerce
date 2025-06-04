@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\AdminEntry\Ui\Web\Controller;
 
 use App\AdminEntry\Application\Query\GetAdminEntryListQuery;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

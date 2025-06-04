@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Warehouse\Application\Handler\Query;
 
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Warehouse\Application\Assembler\WarehouseAssembler;
 use App\Warehouse\Application\Query\GetWarehouseCreationContextQuery;
 

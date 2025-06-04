@@ -7,9 +7,9 @@ namespace App\AttributeValue\Application\Handler\Query;
 use App\AttributeValue\Application\Assembler\AttributeValueAssembler;
 use App\AttributeValue\Application\Query\GetAttributeValueForEditQuery;
 use App\AttributeValue\Domain\Repository\AttributeValueRepositoryInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\AttributeValue;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class AttributeValueForEditQueryHandler implements QueryHandlerInterface
 {

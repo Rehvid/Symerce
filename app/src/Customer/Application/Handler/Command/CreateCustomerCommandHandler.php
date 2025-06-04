@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Customer\Application\Command\CreateCustomerCommand;
 use App\Customer\Application\Hydrator\CustomerHydrator;
+use App\Customer\Domain\Enums\CustomerRole;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Domain\Enums\CustomerRole;
 
 final readonly class CreateCustomerCommandHandler implements CommandHandlerInterface
 {

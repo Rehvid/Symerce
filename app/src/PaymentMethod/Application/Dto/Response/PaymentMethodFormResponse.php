@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Dto\Response;
 
-use App\Admin\Application\DTO\Response\FileResponse;
+use App\Common\Application\Dto\Response\FileResponse;
 use App\DTO\Admin\Response\ResponseInterfaceData;
 
 final readonly class PaymentMethodFormResponse

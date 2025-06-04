@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Tests\Auth;
 
 use App\Admin\Application\DTO\Request\Auth\StoreUserTokenRequest;
-use App\Admin\Domain\Enums\TokenType;
-use App\Admin\Infrastructure\Repository\UserTokenRepository;
 use App\Common\Domain\Entity\UserToken;
 use App\Factory\PersistableDTOFactory;
 use App\Service\DataPersister\Persisters\Admin\UserToken\UserTokenCreatePersister;
 use App\Tests\ApiTestCase;
+use App\User\Domain\Enums\UserTokenType;
+use App\User\Infrastructure\Repository\UserTokenRepository;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +24,7 @@ class ResetPasswordTest extends ApiTestCase
         $persist = PersistableDTOFactory::create(StoreUserTokenRequest::class, [
             'user' => $user,
             'token' => Guid::uuid4()->toString(),
-            'tokenType' => TokenType::FORGOT_PASSWORD,
+            'tokenType' => UserTokenType::FORGOT_PASSWORD,
             'expiresAt' => (new \DateTime())->add(new \DateInterval('PT1H')),
         ]);
 

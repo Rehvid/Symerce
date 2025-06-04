@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Carrier\Application\Hydrator;
 
-use App\Admin\Application\DTO\Request\Carrier\SaveCarrierRequest;
-use App\Admin\Application\Service\FileService;
 use App\Carrier\Application\Dto\CarrierData;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\Carrier;
 
 final readonly class CarrierHydrator

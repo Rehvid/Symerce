@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Carrier\Application\Dto;
 
-use App\Admin\Domain\Model\FileData;
+use App\Common\Application\Dto\FileData;
 
 final readonly class CarrierData
 {

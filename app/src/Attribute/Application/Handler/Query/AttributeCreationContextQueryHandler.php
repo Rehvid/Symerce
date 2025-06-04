@@ -6,7 +6,7 @@ namespace App\Attribute\Application\Handler\Query;
 
 use App\Attribute\Application\Assembler\AttributeAssembler;
 use App\Attribute\Application\Query\GetAttributeCreationContextQuery;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 
 final readonly class AttributeCreationContextQueryHandler implements QueryHandlerInterface
 {

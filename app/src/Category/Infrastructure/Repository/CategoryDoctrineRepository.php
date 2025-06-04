@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Category\Infrastructure\Repository;
 
-use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Domain\Entity\Category;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Traits\PositionRepositoryTrait;
 
 class CategoryDoctrineRepository extends AbstractCriteriaRepository implements CategoryRepositoryInterface
 {

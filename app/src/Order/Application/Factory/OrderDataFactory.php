@@ -5,6 +5,11 @@ declare (strict_types = 1);
 namespace App\Order\Application\Factory;
 
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
+use App\Common\Application\Dto\AddressData;
+use App\Common\Application\Dto\ContactDetailsData;
+use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
+use App\Common\Application\Dto\Request\ContactDetails\SaveContactDetailsRequest;
+use App\Common\Application\Factory\ValidationExceptionFactory;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Domain\Entity\Country;
 use App\Common\Domain\Entity\PaymentMethod;
@@ -18,11 +23,6 @@ use App\Order\Domain\Enums\CheckoutStep;
 use App\Order\Domain\Enums\OrderStatus;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
-use App\Shared\Application\DTO\AddressData;
-use App\Shared\Application\DTO\ContactDetailsData;
-use App\Shared\Application\DTO\Request\Address\SaveAddressRequest;
-use App\Shared\Application\DTO\Request\ContactDetails\SaveContactDetailsRequest;
-use App\Shared\Application\Factory\ValidationExceptionFactory;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 final readonly class OrderDataFactory

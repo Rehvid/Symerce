@@ -4,11 +4,11 @@ declare (strict_types = 1);
 
 namespace App\Setting\Application\Handler\Query;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Setting\Application\Assembler\SettingAssembler;
 use App\Setting\Application\Query\GetSettingListQuery;
 use App\Setting\Application\Search\SettingSearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class SettingListQueryHandler implements QueryHandlerInterface
 {

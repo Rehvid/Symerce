@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Setting\Ui\Api\Controller;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
+use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Setting\Application\Command\UpdateSettingCommand;
 use App\Setting\Application\Dto\Request\UpdateSettingRequest;
 use App\Setting\Application\Factory\SettingDataFactory;
 use App\Setting\Application\Query\GetSettingForEditQuery;
 use App\Setting\Application\Query\GetSettingListQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

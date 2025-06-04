@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Factory;
 
-use App\Admin\Domain\Enums\ReductionType;
-use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use App\Brand\Domain\Repository\BrandRepositoryInterface;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
@@ -16,6 +14,8 @@ use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Entity\DeliveryTime;
 use App\Common\Domain\Entity\Tag;
 use App\Common\Domain\Entity\Warehouse;
+use App\Common\Domain\Enums\ReductionType;
+use App\Common\Infrastructure\Utils\ArrayUtils;
 use App\Product\Application\Dto\Response\Form\ProductFormContext;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
 use App\Warehouse\Domain\Repository\WarehouseRepositoryInterface;

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Shop\UI\API;
 
-use App\Admin\Application\Service\FileService;
 use App\Cart\Infrastructure\Repository\CartDoctrineRepository;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Factory\MoneyFactory;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Domain\Entity\Order;
 use App\Common\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Enums\CookieName;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Order\Infrastructure\Repository\OrderDoctrineRepository;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Factory\MoneyFactory;
-use App\Shared\Domain\Enums\CookieName;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Shop\Application\UseCase\Checkout\ConfirmationOrderUseCase;
 use App\Shop\Application\UseCase\Checkout\SaveCarrierUseCase;

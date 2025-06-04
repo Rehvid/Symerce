@@ -7,9 +7,9 @@ namespace App\Brand\Application\Handler\Query;
 use App\Brand\Application\Assembler\BrandAssembler;
 use App\Brand\Application\Query\GetBrandForEditQuery;
 use App\Brand\Domain\Repository\BrandRepositoryInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Brand;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 
 final readonly class BrandForEditQueryHandler implements QueryHandlerInterface

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tag\Application\Handler\Query;
 
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Tag\Application\Assembler\TagAssembler;
 use App\Tag\Application\Query\GetTagListQuery;
 use App\Tag\Application\Search\TagSearchService;

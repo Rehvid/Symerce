@@ -7,7 +7,7 @@ namespace App\Authentication\Application\Handler\Command;
 use App\Authentication\Application\Command\VerifyUserAuthorizationCommand;
 use App\Authentication\Application\Dto\AuthorizationResult;
 use App\Authentication\Application\Service\AuthorizeUserService;
-use App\Shared\Application\Command\CommandHandlerInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 
 
 final readonly class VerifyUserAuthorizationCommandHandler implements CommandHandlerInterface

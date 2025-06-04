@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Dto\Response;
 
-use App\Admin\Application\DTO\Response\FileResponse;
+use App\Common\Application\Dto\Response\FileResponse;
 
 final readonly class CategoryFormResponse
 {

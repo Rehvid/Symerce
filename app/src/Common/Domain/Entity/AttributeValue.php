@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Contract\PositionEntityInterface;
-use App\Admin\Domain\Traits\PositionTrait;
 use App\AttributeValue\Infrastructure\Repository\AttributeValueDoctrineRepository;
+use App\Common\Domain\Contracts\PositionEntityInterface;
+use App\Common\Domain\Traits\PositionTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AttributeValueDoctrineRepository::class)]

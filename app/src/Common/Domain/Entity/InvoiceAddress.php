@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Common\Domain\Entity\Embeddables\Address;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 class InvoiceAddress
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
+    use CreatedAtTrait, UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

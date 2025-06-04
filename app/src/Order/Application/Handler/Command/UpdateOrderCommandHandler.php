@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Domain\Entity\Order;
 use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Order\Application\Command\UpdateOrderCommand;
 use App\Order\Application\Hydrator\OrderHydrator;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class UpdateOrderCommandHandler implements CommandHandlerInterface
 {

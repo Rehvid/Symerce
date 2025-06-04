@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Product\Ui\Api\Controller;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
+use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Product\Application\Command\CreateProductCommand;
 use App\Product\Application\Command\DeleteProductCommand;
 use App\Product\Application\Command\UpdateProductCommand;
@@ -13,12 +17,8 @@ use App\Product\Application\Query\GetProductCreationContextQuery;
 use App\Product\Application\Query\GetProductForEditQuery;
 use App\Product\Application\Query\GetProductHistoryQuery;
 use App\Product\Application\Query\GetProductListQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

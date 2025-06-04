@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Command;
 
-use App\Shared\Application\Command\CommandInterface;
+use App\Common\Application\Command\Interfaces\CommandInterface;
 
 final readonly class DeleteProductCommand implements CommandInterface
 {

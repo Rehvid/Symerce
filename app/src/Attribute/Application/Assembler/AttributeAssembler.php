@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Attribute\Application\Assembler;
 
-use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Attribute\Application\Dto\Response\AttributeFormContextResponse;
 use App\Attribute\Application\Dto\Response\AttributeFormResponse;
 use App\Attribute\Application\Dto\Response\AttributeListResponse;
 use App\Attribute\Domain\Enums\AttributeType;
+use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Domain\Entity\Attribute;
+use App\Common\Infrastructure\Utils\ArrayUtils;
 
 final readonly class AttributeAssembler
 {

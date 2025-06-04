@@ -6,7 +6,7 @@ namespace App\Category\Application\Handler\Query;
 
 use App\Category\Application\Assembler\CategoryAssembler;
 use App\Category\Application\Query\GetCategoryCreationContextQuery;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 
 final readonly class CategoryCreationContextQueryHandler implements QueryHandlerInterface
 {

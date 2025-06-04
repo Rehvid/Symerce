@@ -4,9 +4,9 @@ declare (strict_types = 1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Repository\ProductPriceHistoryRepositoryInterface;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Shared\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Product\Domain\Repository\ProductPriceHistoryRepositoryInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 

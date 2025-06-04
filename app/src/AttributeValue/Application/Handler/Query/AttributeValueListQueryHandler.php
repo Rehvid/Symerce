@@ -7,8 +7,8 @@ namespace App\AttributeValue\Application\Handler\Query;
 use App\AttributeValue\Application\Assembler\AttributeValueAssembler;
 use App\AttributeValue\Application\Query\GetAttributeValueListQuery;
 use App\AttributeValue\Application\Search\AttributeSearchValueService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 
 final readonly class AttributeValueListQueryHandler implements QueryHandlerInterface
 {

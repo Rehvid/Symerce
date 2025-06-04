@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Command;
 
+use App\Common\Application\Command\Interfaces\CommandInterface;
 use App\PaymentMethod\Application\Dto\PaymentMethodData;
-use App\Shared\Application\Command\CommandInterface;
 
 final readonly class UpdatePaymentMethodCommand implements CommandInterface
 {

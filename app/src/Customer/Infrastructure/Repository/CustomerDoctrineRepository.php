@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Customer\Infrastructure\Repository;
 
 use App\Common\Domain\Entity\Customer;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 final class CustomerDoctrineRepository extends AbstractCriteriaRepository implements CustomerRepositoryInterface
 {

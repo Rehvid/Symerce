@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\AttributeValue\Infrastructure\Repository;
 
-use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
 use App\AttributeValue\Domain\Repository\AttributeValueRepositoryInterface;
 use App\Common\Domain\Entity\AttributeValue;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Traits\PositionRepositoryTrait;
 
 final class AttributeValueDoctrineRepository extends AbstractCriteriaRepository implements AttributeValueRepositoryInterface
 {

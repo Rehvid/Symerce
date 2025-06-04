@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Assembler;
 
-use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Domain\Enums\ReductionType;
-use App\Admin\Domain\ValueObject\DateVO;
+use App\Common\Application\Assembler\ResponseHelperAssembler;
+use App\Common\Application\Factory\MoneyFactory;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductPriceHistory;
+use App\Common\Domain\Enums\ReductionType;
+use App\Common\Domain\ValueObject\DateVO;
 use App\Product\Application\Dto\Response\ProductListResponse;
 use App\Product\Application\Dto\Response\ProductPriceHistoryResponse;
 use App\Product\Application\Factory\ProductFormContextFactory;
 use App\Product\Application\Factory\ProductFormResponseFactory;
-use App\Shared\Application\Factory\MoneyFactory;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final readonly class ProductAssembler

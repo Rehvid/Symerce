@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Shared\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

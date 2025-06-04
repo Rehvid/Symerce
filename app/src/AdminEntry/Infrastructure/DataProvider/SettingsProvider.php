@@ -6,11 +6,11 @@ namespace App\AdminEntry\Infrastructure\DataProvider;
 
 use App\AdminEntry\Application\Contract\ReactDataProviderInterface;
 use App\AdminEntry\Application\Dto\Response\ProviderResponse;
+use App\Common\Application\Service\SettingsService;
 use App\Common\Domain\Entity\Setting;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;
 use App\Setting\Infrastructure\Repository\SettingDoctrineRepository;
-use App\Shared\Application\Service\SettingsService;
 
 final readonly class SettingsProvider implements ReactDataProviderInterface
 {

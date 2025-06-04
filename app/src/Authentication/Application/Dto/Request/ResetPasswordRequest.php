@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Authentication\Application\Dto\Request;
 
 use App\Common\Domain\Entity\User;
-use App\Shared\Infrastructure\Validator\ExistsInDatabase as CustomAssertExistField;
+use App\Common\Infrastructure\Validator\ExistsInDatabase as CustomAssertExistField;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class ResetPasswordRequest

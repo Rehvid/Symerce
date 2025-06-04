@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Handler\Query;
 
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Product\Application\Assembler\ProductAssembler;
 use App\Product\Application\Query\GetProductCreationContextQuery;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class ProductCreationContextQueryHandler implements QueryHandlerInterface
 {

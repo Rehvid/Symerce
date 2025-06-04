@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Command;
 
-use App\Shared\Application\Command\CommandInterface;
+use App\Common\Application\Command\Interfaces\CommandInterface;
 
 final readonly class DeleteCurrencyCommand implements CommandInterface
 {

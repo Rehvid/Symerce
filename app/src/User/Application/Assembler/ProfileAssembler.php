@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\User\Application\Assembler;
 
-use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
+use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Domain\Entity\User;
 use App\User\Application\Dto\Response\PersonalResponse;
 

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Order\Ui\Api\Admin\Controller;
 
-use App\Customer\Application\Query\GetCustomerCreationContextQuery;
-use App\Customer\Application\Query\GetCustomerListQuery;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
+use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Order\Application\Command\CreateOrderCommand;
 use App\Order\Application\Command\DeleteOrderCommand;
 use App\Order\Application\Command\UpdateOrderCommand;
@@ -15,12 +17,8 @@ use App\Order\Application\Query\GetOrderCreationContextQuery;
 use App\Order\Application\Query\GetOrderDetailQuery;
 use App\Order\Application\Query\GetOrderForEditQuery;
 use App\Order\Application\Query\GetOrderListQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

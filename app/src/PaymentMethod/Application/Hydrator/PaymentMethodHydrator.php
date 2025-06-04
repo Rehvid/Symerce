@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Hydrator;
 
-use App\Admin\Application\Service\FileService;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\PaymentMethod;
 use App\PaymentMethod\Application\Dto\PaymentMethodData;
 

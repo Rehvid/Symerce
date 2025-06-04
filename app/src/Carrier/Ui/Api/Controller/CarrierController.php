@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Carrier\Ui\Api\Controller;
 
-use App\Admin\Application\DTO\Request\Carrier\SaveCarrierRequest;
 use App\Carrier\Application\Command\CreateCarrierCommand;
 use App\Carrier\Application\Command\DeleteCarrierCommand;
 use App\Carrier\Application\Command\UpdateCarrierCommand;
+use App\Carrier\Application\Dto\Request\SaveCarrierRequest;
 use App\Carrier\Application\Factory\CarrierDataFactory;
 use App\Carrier\Application\Query\GetCarrierForEditQuery;
 use App\Carrier\Application\Query\GetCarrierListQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
+use App\Common\Ui\Controller\Api\AbstractApiController;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

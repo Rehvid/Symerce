@@ -6,7 +6,7 @@ namespace App\Cart\Infrastructure\Repository;
 
 use App\Cart\Domain\Repository\CartRepositoryInterface;
 use App\Common\Domain\Entity\Cart;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 
 
 final class CartDoctrineRepository extends AbstractCriteriaRepository implements CartRepositoryInterface

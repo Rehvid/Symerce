@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Product\Application\Command\DeleteProductCommand;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
 
 final readonly class DeleteProductCommandHandler implements CommandHandlerInterface
 {

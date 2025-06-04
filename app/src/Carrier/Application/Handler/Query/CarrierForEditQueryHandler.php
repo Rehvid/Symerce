@@ -7,9 +7,9 @@ namespace App\Carrier\Application\Handler\Query;
 use App\Carrier\Application\Assembler\CarrierAssembler;
 use App\Carrier\Application\Query\GetCarrierForEditQuery;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class CarrierForEditQueryHandler implements QueryHandlerInterface
 {

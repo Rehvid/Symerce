@@ -4,23 +4,20 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Contract\HasFileInterface;
-use App\Admin\Domain\Traits\ActiveTrait;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\PositionTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
+use App\Common\Domain\Contracts\FileEntityInterface;
+use App\Common\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Traits\ActiveTrait;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\PositionTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
 use App\PaymentMethod\Infrastructure\Repository\PaymentMethodDoctrineRepository;
-use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PaymentMethodDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class PaymentMethod implements HasFileInterface
+class PaymentMethod implements FileEntityInterface
 {
-    use ActiveTrait;
-    use PositionTrait;
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
+    use ActiveTrait, PositionTrait, CreatedAtTrait, UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

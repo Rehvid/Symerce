@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Order\Domain\Repository;
 
-use App\Admin\Domain\Repository\QueryRepositoryInterface;
-use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
 use App\Common\Domain\Entity\Order;
-use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
+use App\Common\Domain\Repository\CriteriaRepositoryInterface;
+use App\Common\Domain\Repository\QueryRepositoryInterface;
+use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 
 interface OrderRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
 {

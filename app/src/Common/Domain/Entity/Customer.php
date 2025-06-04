@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Traits\ActiveTrait;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
+use App\Common\Domain\Traits\ActiveTrait;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
 use App\Customer\Infrastructure\Repository\CustomerDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,9 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'This account already exists.')]
 class Customer implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
-    use ActiveTrait;
+    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

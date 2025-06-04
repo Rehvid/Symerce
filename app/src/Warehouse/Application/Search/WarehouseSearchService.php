@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Warehouse\Application\Search;
 
-use App\Shared\Application\DTO\Filter\SearchCriteria;
-use App\Shared\Application\Search\AbstractSearchService;
+use App\Common\Application\Dto\Filter\SearchCriteria;
+use App\Common\Application\Service\AbstractSearchService;
 use App\Warehouse\Domain\Repository\WarehouseRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 

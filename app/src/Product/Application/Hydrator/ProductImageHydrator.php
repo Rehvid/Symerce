@@ -4,15 +4,12 @@ declare (strict_types = 1);
 
 namespace App\Product\Application\Hydrator;
 
-use App\Admin\Application\Hydrator\FileHydrator;
-use App\Admin\Domain\Model\FileData;
-use App\Admin\Infrastructure\Service\FileStorageService;
+use App\Common\Application\Dto\FileData;
+use App\Common\Application\Hydrator\FileHydrator;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductImage;
-use App\Common\Domain\Exception\EntityNotFoundException;
+use App\Common\Infrastructure\Service\FileStorageService;
 use App\Product\Application\Dto\ProductImageData;
-use App\Product\Application\Dto\Request\SaveProductImageRequest;
-use App\Shared\Application\Factory\ValidationExceptionFactory;
 use Doctrine\Common\Collections\Collection;
 
 final readonly class ProductImageHydrator

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Order\Application\Command\CreateOrderCommand;
 use App\Order\Application\Hydrator\OrderHydrator;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class CreateOrderCommandHandler implements CommandHandlerInterface
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\User\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Domain\Entity\User;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Command\CommandHandlerInterface;
 use App\User\Application\Command\UpdateUserProfileSecurityCommand;
 use App\User\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;

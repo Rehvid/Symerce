@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Factory;
 
-use App\Admin\Domain\ValueObject\DateVO;
 use App\Common\Domain\Entity\ProductStock;
 use App\Common\Domain\Entity\Warehouse;
 use App\Common\Domain\Exception\EntityNotFoundException;
+use App\Common\Domain\ValueObject\DateVO;
 use App\Product\Application\Dto\ProductDataStock;
 use App\Warehouse\Domain\Repository\WarehouseRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;

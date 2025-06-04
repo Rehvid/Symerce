@@ -2,11 +2,11 @@
 
 namespace App\Country\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Country\Application\Command\CreateCountryCommand;
 use App\Country\Application\Hydrator\CountryHydrator;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class CreateCountryCommandHandler implements CommandHandlerInterface
 {

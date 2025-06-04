@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Dto;
 
-use App\Admin\Domain\ValueObject\DateVO;
 use App\Common\Domain\Entity\ProductStock;
 use App\Common\Domain\Entity\Warehouse;
+use App\Common\Domain\ValueObject\DateVO;
 
 final readonly class ProductDataStock
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\User\Infrastructure\Repository;
 
 use App\Common\Domain\Entity\User;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\User\Domain\Repository\UserRepositoryInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;

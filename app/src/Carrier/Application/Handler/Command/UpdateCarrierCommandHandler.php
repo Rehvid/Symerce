@@ -7,10 +7,10 @@ namespace App\Carrier\Application\Handler\Command;
 use App\Carrier\Application\Command\UpdateCarrierCommand;
 use App\Carrier\Application\Hydrator\CarrierHydrator;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class UpdateCarrierCommandHandler implements CommandHandlerInterface
 {

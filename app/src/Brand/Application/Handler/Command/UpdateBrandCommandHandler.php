@@ -7,10 +7,10 @@ namespace App\Brand\Application\Handler\Command;
 use App\Brand\Application\Command\UpdateBrandCommand;
 use App\Brand\Application\Hydrator\BrandHydrator;
 use App\Brand\Domain\Repository\BrandRepositoryInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Domain\Entity\Brand;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class UpdateBrandCommandHandler implements CommandHandlerInterface
 {

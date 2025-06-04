@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Assembler;
 
-use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Application\DTO\Response\Setting\SettingFormResponse;
-use App\Admin\Application\DTO\Response\Setting\SettingListResponse;
+use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Domain\Entity\Setting;
+use App\Setting\Application\Dto\Response\SettingFormResponse;
+use App\Setting\Application\Dto\Response\SettingListResponse;
 use App\Setting\Application\Factory\SettingFieldFactory;
 
 final readonly class SettingAssembler

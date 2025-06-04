@@ -6,7 +6,7 @@ namespace App\Brand\Infrastructure\Repository;
 
 use App\Brand\Domain\Repository\BrandRepositoryInterface;
 use App\Common\Domain\Entity\Brand;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 
 class BrandDoctrineRepository extends AbstractCriteriaRepository implements BrandRepositoryInterface
 {

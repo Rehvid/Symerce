@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Handler\Query;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Order\Application\Assembler\OrderAssembler;
 use App\Order\Application\Query\GetOrderListQuery;
 use App\Order\Application\Search\OrderSearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class OrderListQueryHandler implements QueryHandlerInterface
 {

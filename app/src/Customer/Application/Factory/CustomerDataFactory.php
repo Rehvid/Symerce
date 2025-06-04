@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Factory;
 
+use App\Common\Application\Dto\AddressData;
+use App\Common\Application\Dto\ContactDetailsData;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Customer\Application\Dto\CustomerData;
 use App\Customer\Application\Dto\Request\SaveCustomerRequest;
-use App\Shared\Application\DTO\AddressData;
-use App\Shared\Application\DTO\ContactDetailsData;
 
 final readonly class CustomerDataFactory
 {

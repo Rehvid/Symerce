@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Traits\ActiveTrait;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Common\Domain\Entity\Embeddables\Address;
+use App\Common\Domain\Traits\ActiveTrait;
+use App\Common\Domain\Traits\CreatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\HasLifecycleCallbacks]

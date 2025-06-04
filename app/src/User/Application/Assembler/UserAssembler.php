@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\User\Application\Assembler;
 
-use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Domain\Enums\AdminRole;
-use App\Admin\Infrastructure\Utils\ArrayUtils;
+use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Domain\Entity\User;
+use App\Common\Infrastructure\Utils\ArrayUtils;
 use App\User\Application\Dto\Response\UserFormContext;
 use App\User\Application\Dto\Response\UserFormResponse;
 use App\User\Application\Dto\Response\UserListResponse;
+use App\User\Domain\Enums\UserRole;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class UserAssembler
@@ -72,9 +72,9 @@ final readonly class UserAssembler
     private function getAvailableRoles(): array
     {
         return ArrayUtils::buildSelectedOptions(
-            AdminRole::cases(),
-            fn (AdminRole $role) => $this->translator->trans('base.admin_role_type.' . strtolower($role->name)),
-            fn (AdminRole $role) => $role->value,
+            UserRole::cases(),
+            fn (UserRole $role) => $this->translator->trans('base.admin_role_type.' . strtolower($role->name)),
+            fn (UserRole $role) => $role->value,
         );
     }
 

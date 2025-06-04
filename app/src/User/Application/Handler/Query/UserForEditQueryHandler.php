@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\User\Application\Handler\Query;
 
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\User;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Query\QueryHandlerInterface;
 use App\User\Application\Assembler\UserAssembler;
 use App\User\Application\Query\GetUserForEditQuery;
 use App\User\Domain\Repository\UserRepositoryInterface;

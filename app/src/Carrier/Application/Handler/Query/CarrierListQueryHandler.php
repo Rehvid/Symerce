@@ -7,8 +7,8 @@ namespace App\Carrier\Application\Handler\Query;
 use App\Carrier\Application\Assembler\CarrierAssembler;
 use App\Carrier\Application\Query\GetCarrierListQuery;
 use App\Carrier\Application\Search\CarrierSearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 
 final readonly class CarrierListQueryHandler implements QueryHandlerInterface
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Currency\Application\Command\CreateCurrencyCommand;
 use App\Currency\Application\Hydrator\CurrencyHydrator;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class CreateCurrencyCommandHandler implements CommandHandlerInterface
 {

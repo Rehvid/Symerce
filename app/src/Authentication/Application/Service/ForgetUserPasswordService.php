@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Authentication\Application\Service;
 
-use App\Admin\Domain\Enums\TokenType;
-use App\Admin\Domain\Repository\UserTokenRepositoryInterface;
+use App\Common\Application\Dto\Response\ApiErrorResponse;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\MailResponse;
 use App\Common\Domain\Entity\User;
 use App\Common\Domain\Entity\UserToken;
-use App\Shared\Application\DTO\Response\ApiErrorResponse;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\MailResponse;
-use App\Shared\Infrastructure\Mail\MailService;
+use App\Common\Infrastructure\Mail\MailService;
+use App\User\Domain\Enums\UserTokenType;
 use App\User\Domain\Repository\UserRepositoryInterface;
+use App\User\Domain\Repository\UserTokenRepositoryInterface;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -52,7 +52,7 @@ final readonly class ForgetUserPasswordService
     {
         $forgetPasswordTokens = $user->getTokens()->filter(
             /** @phpstan-ignore-next-line */
-            fn (UserToken $userToken) => TokenType::FORGOT_PASSWORD === $userToken->getTokenType()
+            fn (UserToken $userToken) => UserTokenType::FORGOT_PASSWORD === $userToken->getTokenType()
         );
 
         $this->userTokenRepository->remove($forgetPasswordTokens);
@@ -63,7 +63,7 @@ final readonly class ForgetUserPasswordService
         $userToken = new UserToken();
         $userToken->setUser($user);
         $userToken->setToken(Guid::uuid4()->toString());
-        $userToken->setTokenType(TokenType::FORGOT_PASSWORD);
+        $userToken->setTokenType(UserTokenType::FORGOT_PASSWORD);
         $userToken->setExpiresAt((new \DateTime())->add(new \DateInterval('PT1H')));
 
         $this->userTokenRepository->save($userToken);

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Ui\Api\Controller;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
+use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\PaymentMethod\Application\Command\CreatePaymentMethodCommand;
 use App\PaymentMethod\Application\Command\DeletePaymentMethodCommand;
 use App\PaymentMethod\Application\Command\UpdatePaymentMethodCommand;
@@ -11,12 +15,8 @@ use App\PaymentMethod\Application\Dto\Request\SavePaymentMethodRequest;
 use App\PaymentMethod\Application\Factory\PaymentMethodDataFactory;
 use App\PaymentMethod\Application\Query\GetPaymentMethodForEditQuery;
 use App\PaymentMethod\Application\Query\GetPaymentMethodListQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

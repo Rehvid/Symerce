@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\User\Application\Handler\Query;
 
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\User\Application\Assembler\UserAssembler;
 use App\User\Application\Query\GetUserListQuery;
 use App\User\Application\Search\UserSearchService;

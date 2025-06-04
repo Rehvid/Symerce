@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Dto\Request;
 
-use App\Admin\Domain\Model\FileData;
 use App\Admin\Domain\Model\ProductFileData;
-use App\Admin\Domain\ValueObject\DateVO;
-use App\Shared\Application\Contract\ArrayHydratableInterface;
-use App\Shared\Application\DTO\Request\RequestDtoInterface;
-use App\Shared\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
+use App\Common\Application\Contracts\ArrayHydratableInterface;
+use App\Common\Application\Dto\FileData;
+use App\Common\Application\Dto\Request\RequestDtoInterface;
+use App\Common\Domain\ValueObject\DateVO;
+use App\Common\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Currency\Domain\Repository;
 
-use App\Admin\Domain\Repository\QueryRepositoryInterface;
-use App\Admin\Domain\Repository\ReadWriteRepositoryInterface;
-use App\Shared\Domain\Repository\CriteriaRepositoryInterface;
+use App\Common\Domain\Repository\CriteriaRepositoryInterface;
+use App\Common\Domain\Repository\QueryRepositoryInterface;
+use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 
 interface CurrencyRepositoryInterface extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface
 {

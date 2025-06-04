@@ -6,7 +6,7 @@ namespace App\AttributeValue\Application\Handler\Command;
 
 use App\AttributeValue\Application\Command\DeleteAttributeValueCommand;
 use App\AttributeValue\Domain\Repository\AttributeValueRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 
 final readonly class DeleteAttributeValueCommandHandler implements CommandHandlerInterface
 {

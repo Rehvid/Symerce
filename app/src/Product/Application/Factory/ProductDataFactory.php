@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Factory;
 
-use App\Admin\Domain\Enums\PromotionSource;
-use App\Admin\Domain\Enums\ReductionType;
 use App\Brand\Domain\Repository\BrandRepositoryInterface;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Domain\Entity\Brand;
 use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Entity\Tag;
+use App\Common\Domain\Enums\PromotionSource;
+use App\Common\Domain\Enums\ReductionType;
 use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Product\Application\Dto\ProductData;
 use App\Product\Application\Dto\ProductPromotionData;

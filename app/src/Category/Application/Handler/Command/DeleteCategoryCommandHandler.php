@@ -6,7 +6,7 @@ namespace App\Category\Application\Handler\Command;
 
 use App\Category\Application\Command\DeleteCategoryCommand;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 
 final readonly class DeleteCategoryCommandHandler implements CommandHandlerInterface
 {

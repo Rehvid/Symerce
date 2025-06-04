@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Setting\Infrastructure\Repository;
 
 use App\Common\Domain\Entity\Setting;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class SettingDoctrineRepository extends AbstractCriteriaRepository implements SettingRepositoryInterface
 {

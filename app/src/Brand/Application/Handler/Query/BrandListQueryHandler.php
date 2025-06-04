@@ -7,8 +7,8 @@ namespace App\Brand\Application\Handler\Query;
 use App\Brand\Application\Assembler\BrandAssembler;
 use App\Brand\Application\Query\GetBrandListQuery;
 use App\Brand\Application\Search\BrandSearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 
 final readonly class BrandListQueryHandler implements QueryHandlerInterface
 {

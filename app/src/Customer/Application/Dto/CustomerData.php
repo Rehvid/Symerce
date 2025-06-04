@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Dto;
 
-use App\Shared\Application\DTO\AddressData;
-use App\Shared\Application\DTO\ContactDetailsData;
+use App\Common\Application\Dto\AddressData;
+use App\Common\Application\Dto\ContactDetailsData;
 
 final readonly class CustomerData
 {

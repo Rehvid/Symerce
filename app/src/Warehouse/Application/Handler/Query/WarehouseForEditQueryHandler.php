@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Warehouse\Application\Handler\Query;
 
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Warehouse;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Query\QueryHandlerInterface;
 use App\Warehouse\Application\Assembler\WarehouseAssembler;
 use App\Warehouse\Application\Query\GetWarehouseForEditQuery;
-use App\Warehouse\Application\Query\GetWarehouseListQuery;
 use App\Warehouse\Domain\Repository\WarehouseRepositoryInterface;
 
 final readonly class WarehouseForEditQueryHandler implements QueryHandlerInterface

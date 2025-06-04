@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Assembler;
 
-use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Category\Application\Dto\Response\CategoryFormResponse;
 use App\Category\Application\Dto\Response\CategoryListResponse;
 use App\Category\Application\Dto\Response\CategoryTreeResponse;
 use App\Category\Application\Provider\CategoryTreeProvider;
+use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Domain\Entity\Category;
 
 final readonly class CategoryAssembler

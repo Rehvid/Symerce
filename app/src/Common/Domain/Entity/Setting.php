@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Traits\ActiveTrait;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\ProtectedTrait;
+use App\Common\Domain\Traits\ActiveTrait;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\ProtectedTrait;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;
 use App\Setting\Domain\Enums\SettingValueType;
@@ -17,9 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Setting
 {
-    use CreatedAtTrait;
-    use ActiveTrait;
-    use ProtectedTrait;
+    use CreatedAtTrait, ActiveTrait, ProtectedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

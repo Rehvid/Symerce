@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Warehouse\Application\Factory;
 
+use App\Common\Application\Dto\AddressData;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
-use App\Shared\Application\DTO\AddressData;
 use App\Warehouse\Application\Dto\Request\SaveWarehouseRequest;
 use App\Warehouse\Application\Dto\WarehouseData;
 

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Country\Application\Handler\Query;
 
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Country;
 use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Country\Application\Assembler\CountryAssembler;
 use App\Country\Application\Query\GetCountryForEditQuery;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 
 final readonly class CountryForEditQueryHandler implements QueryHandlerInterface

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Warehouse\Application\Dto;
 
-use App\Shared\Application\DTO\AddressData;
+use App\Common\Application\Dto\AddressData;
 
 final readonly class WarehouseData
 {

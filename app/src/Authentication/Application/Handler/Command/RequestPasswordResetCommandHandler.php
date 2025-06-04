@@ -6,8 +6,8 @@ namespace App\Authentication\Application\Handler\Command;
 
 use App\Authentication\Application\Command\RequestPasswordResetCommand;
 use App\Authentication\Application\Service\ForgetUserPasswordService;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\ApiResponse;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\ApiResponse;
 
 final readonly class RequestPasswordResetCommandHandler implements CommandHandlerInterface
 {

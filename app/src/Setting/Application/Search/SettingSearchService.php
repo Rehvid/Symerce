@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Search;
 
+use App\Common\Application\Dto\Filter\SearchCriteria;
+use App\Common\Application\Service\AbstractSearchService;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
-use App\Shared\Application\DTO\Filter\SearchCriteria;
-use App\Shared\Application\Search\AbstractSearchService;
 use Symfony\Component\HttpFoundation\Request;
 
 final class SettingSearchService extends AbstractSearchService

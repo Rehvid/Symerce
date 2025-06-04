@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
+use App\Common\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
 use App\Order\Domain\Enums\PaymentStatus;
-use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 class Payment
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
+    use CreatedAtTrait, UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

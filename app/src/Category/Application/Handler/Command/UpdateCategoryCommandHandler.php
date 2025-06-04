@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Handler\Command;
 
-use App\Admin\Application\Service\SlugService;
 use App\Category\Application\Command\UpdateCategoryCommand;
 use App\Category\Application\Hydrator\CategoryHydrator;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Service\SlugService;
 use App\Common\Domain\Entity\Category;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class UpdateCategoryCommandHandler implements CommandHandlerInterface

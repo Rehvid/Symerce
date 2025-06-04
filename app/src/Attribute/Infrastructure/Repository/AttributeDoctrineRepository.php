@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Attribute\Infrastructure\Repository;
 
-use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
 use App\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use App\Common\Domain\Entity\Attribute;
 use App\Common\Domain\Entity\AttributeValue;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Traits\PositionRepositoryTrait;
 
 class AttributeDoctrineRepository extends AbstractCriteriaRepository implements AttributeRepositoryInterface
 {

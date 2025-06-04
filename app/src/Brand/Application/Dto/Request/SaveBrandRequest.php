@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Brand\Application\Dto\Request;
 
-use App\Admin\Domain\Model\FileData;
-use App\Shared\Application\Contract\ArrayHydratableInterface;
-use App\Shared\Application\DTO\Request\RequestDtoInterface;
+use App\Common\Application\Contracts\ArrayHydratableInterface;
+use App\Common\Application\Dto\FileData;
+use App\Common\Application\Dto\Request\RequestDtoInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveBrandRequest implements ArrayHydratableInterface, RequestDtoInterface

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Service;
 
+use App\Common\Application\Factory\MoneyFactory;
 use App\Common\Domain\Entity\Order;
 use App\Common\Domain\Entity\OrderItem;
+use App\Common\Domain\ValueObject\MoneyVO;
 use App\Order\Application\Dto\OrderPriceSummary;
-use App\Shared\Application\Factory\MoneyFactory;
-use App\Shared\Domain\ValueObject\Money;
 
 final readonly class OrderPriceCalculator
 {
@@ -19,14 +19,14 @@ final readonly class OrderPriceCalculator
 
     public function calculatePriceSummary(Order $order): ?OrderPriceSummary
     {
-        /** @var Money|null $productTotalPrice */
+        /** @var MoneyVO|null $productTotalPrice */
         $productTotalPrice = $this->calculateOrderItemsTotal($order);
 
         if ($productTotalPrice === null) {
             return null;
         }
 
-        /** @var Money $totalPrice */
+        /** @var MoneyVO $totalPrice */
         $totalPrice = $productTotalPrice;
 
         $carrier = $order->getCarrier();
@@ -49,9 +49,9 @@ final readonly class OrderPriceCalculator
         );
     }
 
-    private function calculateOrderItemsTotal(Order $order): ?Money
+    private function calculateOrderItemsTotal(Order $order): ?MoneyVO
     {
-        /** @var Money|null $productTotalPrice */
+        /** @var MoneyVO|null $productTotalPrice */
         $productTotalPrice = null;
 
         /** @var OrderItem $orderItem */

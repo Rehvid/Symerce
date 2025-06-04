@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Shop\UI\API;
 
 use App\Cart\Infrastructure\Repository\CartDoctrineRepository;
+use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Domain\Entity\CartItem;
+use App\Common\Domain\Enums\CookieName;
+use App\Common\Infrastructure\Http\CookieFactory;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Service\CookieManager;
 use App\Service\Response\ResponseService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Domain\Enums\CookieName;
-use App\Shared\Infrastructure\Http\CookieFactory;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
 use App\Shop\Application\DTO\Request\Cart\ChangeQuantityProductRequest;
 use App\Shop\Application\DTO\Request\Cart\SaveCartRequest;
 use App\Shop\Application\DTO\Response\Cart\CartSaveResponse;

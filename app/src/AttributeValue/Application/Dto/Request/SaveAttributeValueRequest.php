@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\AttributeValue\Application\Dto\Request;
 
-use App\Shared\Application\DTO\Request\RequestDtoInterface;
+use App\Common\Application\Dto\Request\RequestDtoInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveAttributeValueRequest implements RequestDtoInterface

@@ -4,10 +4,10 @@ declare (strict_types=1);
 
 namespace App\Tag\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Domain\Entity\Tag;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 use App\Tag\Application\Command\UpdateTagCommand;
 use App\Tag\Application\Hydrator\TagHydrator;
 use App\Tag\Domain\Repository\TagRepositoryInterface;

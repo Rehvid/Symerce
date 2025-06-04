@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\PaymentMethod\Application\Command\CreatePaymentMethodCommand;
 use App\PaymentMethod\Application\Hydrator\PaymentMethodHydrator;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class CreatePaymentMethodCommandHandler implements CommandHandlerInterface
 {

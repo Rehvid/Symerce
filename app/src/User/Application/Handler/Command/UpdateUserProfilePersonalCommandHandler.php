@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\User\Application\Handler\Command;
 
 use App\Admin\Application\Hydrator\ProfilePersonalHydrator;
-use App\Admin\Application\Service\FileService;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\User;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Command\CommandHandlerInterface;
 use App\User\Application\Assembler\ProfileAssembler;
 use App\User\Application\Command\UpdateUserProfilePersonalCommand;
 use App\User\Domain\Repository\UserRepositoryInterface;

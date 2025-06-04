@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tag\Ui\Api\Controller;
 
-use App\Customer\Application\Query\GetCustomerForEditQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
+use App\Common\Ui\Controller\Api\AbstractApiController;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Tag\Application\Command\CreateTagCommand;
 use App\Tag\Application\Command\DeleteTagCommand;
 use App\Tag\Application\Command\UpdateTagCommand;

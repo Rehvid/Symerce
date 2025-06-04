@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tag\Infrastructure\Repository;
 
-use App\Admin\Infrastructure\Traits\PositionRepositoryTrait;
 use App\Common\Domain\Entity\Tag;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Traits\PositionRepositoryTrait;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
 
 final class TagDoctrineRepository extends AbstractCriteriaRepository implements TagRepositoryInterface

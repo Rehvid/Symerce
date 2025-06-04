@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace App\Tag\Application\Search;
 
-use App\Shared\Application\DTO\Filter\SearchCriteria;
-use App\Shared\Application\Search\AbstractSearchService;
+use App\Common\Application\Dto\Filter\SearchCriteria;
+use App\Common\Application\Service\AbstractSearchService;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Warehouse\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Domain\Entity\Warehouse;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 use App\Warehouse\Application\Command\UpdateWarehouseCommand;
 use App\Warehouse\Application\Hydrator\WarehouseHydrator;
 use App\Warehouse\Domain\Repository\WarehouseRepositoryInterface;

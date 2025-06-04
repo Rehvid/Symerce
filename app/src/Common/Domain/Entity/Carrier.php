@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Contract\HasFileInterface;
-use App\Admin\Domain\Traits\ActiveTrait;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Carrier\Infrastructure\Repository\CarrierDoctrineRepository;
-use App\Shared\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Contracts\FileEntityInterface;
+use App\Common\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Traits\ActiveTrait;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CarrierDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Carrier implements HasFileInterface
+class Carrier implements FileEntityInterface
 {
     use CreatedAtTrait, UpdatedAtTrait, ActiveTrait;
 

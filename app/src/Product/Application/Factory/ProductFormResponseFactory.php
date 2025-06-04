@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Factory;
 
-use App\Admin\Application\Service\FileService;
 use App\Common\Application\Dto\OptionItem;
+use App\Common\Application\Factory\MoneyFactory;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductAttribute;
@@ -16,7 +17,6 @@ use App\Product\Application\Dto\Response\Form\ProductFormAttributeResponse;
 use App\Product\Application\Dto\Response\Form\ProductFormImageResponse;
 use App\Product\Application\Dto\Response\Form\ProductFormResponse;
 use App\Product\Application\Dto\Response\Form\ProductFormStockResponse;
-use App\Shared\Application\Factory\MoneyFactory;
 
 final readonly class ProductFormResponseFactory
 {

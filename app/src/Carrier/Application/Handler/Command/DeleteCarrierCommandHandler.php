@@ -6,7 +6,7 @@ namespace App\Carrier\Application\Handler\Command;
 
 use App\Carrier\Application\Command\DeleteCarrierCommand;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 
 final readonly class DeleteCarrierCommandHandler implements CommandHandlerInterface
 {

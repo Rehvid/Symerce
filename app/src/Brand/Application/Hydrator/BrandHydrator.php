@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Brand\Application\Hydrator;
 
-use App\Admin\Application\Service\FileService;
 use App\Brand\Application\Dto\BrandData;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\Brand;
 
 final readonly class BrandHydrator

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Contract\HasFileInterface;
-use App\Admin\Domain\Contract\PositionEntityInterface;
-use App\Admin\Domain\Traits\ActiveTrait;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\PositionTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
 use App\Category\Infrastructure\Repository\CategoryDoctrineRepository;
+use App\Common\Domain\Contracts\FileEntityInterface;
+use App\Common\Domain\Contracts\PositionEntityInterface;
+use App\Common\Domain\Traits\ActiveTrait;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\PositionTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,12 +19,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: CategoryDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
-class Category implements PositionEntityInterface,  HasFileInterface
+class Category implements PositionEntityInterface,  FileEntityInterface
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
-    use ActiveTrait;
-    use PositionTrait;
+    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait, PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

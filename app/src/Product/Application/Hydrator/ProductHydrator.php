@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Hydrator;
 
+use App\Common\Application\Factory\MoneyFactory;
 use App\Common\Application\Hydrator\PromotionHydrator;
 use App\Common\Domain\Entity\Product;
 use App\Product\Application\Dto\ProductData;
 use App\Product\Application\Dto\ProductDataStock;
 use App\Product\Application\Dto\ProductPromotionData;
-use App\Shared\Application\Factory\MoneyFactory;
 
 final readonly class ProductHydrator
 {

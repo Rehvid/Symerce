@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shop\Infrastructure\Repository;
 
 use App\Common\Domain\Entity\CartItem;
-use App\Shared\Infrastructure\Repository\DoctrineRepository;
+use App\Common\Infrastructure\Repository\Abstract\DoctrineRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class CartItemRepository extends DoctrineRepository

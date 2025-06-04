@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Contract\HasFileInterface;
-use App\Admin\Domain\Traits\ActiveTrait;
 use App\Brand\Infrastructure\Repository\BrandDoctrineRepository;
+use App\Common\Domain\Contracts\FileEntityInterface;
+use App\Common\Domain\Traits\ActiveTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BrandDoctrineRepository::class)]
-class Brand implements HasFileInterface
+class Brand implements FileEntityInterface
 {
     use ActiveTrait;
 

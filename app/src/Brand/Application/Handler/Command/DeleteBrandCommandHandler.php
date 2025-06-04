@@ -6,7 +6,7 @@ namespace App\Brand\Application\Handler\Command;
 
 use App\Brand\Application\Command\DeleteBrandCommand;
 use App\Brand\Domain\Repository\BrandRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 
 final readonly class DeleteBrandCommandHandler implements CommandHandlerInterface
 {

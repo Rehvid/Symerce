@@ -1,9 +1,3 @@
-admin_ui_controllers:
-    resource: ../src/Admin/UI/API/
-    type: attribute
-    prefix: /api/admin
-    name_prefix: api_admin_
-
 shop_web_controllers:
     resource: ../src/Shop/UI/Web/
     type: attribute

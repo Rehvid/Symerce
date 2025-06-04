@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Handler\Command;
 
-use App\Admin\Application\Service\SlugService;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Service\SlugService;
 use App\Common\Domain\Entity\Product;
 use App\Product\Application\Command\CreateProductCommand;
 use App\Product\Application\Hydrator\ProductHydrator;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 final readonly class CreateProductCommandHandler implements CommandHandlerInterface
 {

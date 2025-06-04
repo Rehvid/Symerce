@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tag\Application\Handler\Command;
 
-use App\Shared\Application\Command\CommandHandlerInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Tag\Application\Command\DeleteTagCommand;
 use App\Tag\Domain\Repository\TagRepositoryInterface;
 

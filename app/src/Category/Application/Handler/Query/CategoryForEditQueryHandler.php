@@ -7,9 +7,9 @@ namespace App\Category\Application\Handler\Query;
 use App\Category\Application\Assembler\CategoryAssembler;
 use App\Category\Application\Query\GetCategoryForEditQuery;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class CategoryForEditQueryHandler implements QueryHandlerInterface
 {

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Shop\Infrastructure\Twig;
 
 use App\Cart\Domain\Repository\CartRepositoryInterface;
+use App\Common\Application\Service\SettingsService;
 use App\Common\Domain\Entity\Cart;
-use App\Shared\Application\Service\SettingsService;
-use App\Shared\Domain\Enums\CookieName;
+use App\Common\Domain\Enums\CookieName;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

@@ -7,9 +7,9 @@ namespace App\Attribute\Application\Handler\Query;
 use App\Attribute\Application\Assembler\AttributeAssembler;
 use App\Attribute\Application\Query\GetAttributeForEditQuery;
 use App\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Attribute;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class AttributeForEditQueryHandler implements QueryHandlerInterface
 {

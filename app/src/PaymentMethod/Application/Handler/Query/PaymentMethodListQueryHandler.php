@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Handler\Query;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\PaymentMethod\Application\Assembler\PaymentMethodAssembler;
 use App\PaymentMethod\Application\Query\GetPaymentMethodListQuery;
 use App\PaymentMethod\Application\Search\PaymentMethodSearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class PaymentMethodListQueryHandler implements QueryHandlerInterface
 {

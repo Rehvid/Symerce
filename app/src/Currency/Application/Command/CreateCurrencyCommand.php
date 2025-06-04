@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Currency\Application\Command;
 
+use App\Common\Application\Command\Interfaces\CommandInterface;
 use App\Currency\Application\Dto\CurrencyData;
-use App\Shared\Application\Command\CommandInterface;
 
 final readonly class CreateCurrencyCommand implements CommandInterface
 {

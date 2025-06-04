@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Warehouse\Infrastructure\Repository;
 
 use App\Common\Domain\Entity\Warehouse;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Warehouse\Domain\Repository\WarehouseRepositoryInterface;
 
 final class WarehouseDoctrineRepository extends AbstractCriteriaRepository implements WarehouseRepositoryInterface

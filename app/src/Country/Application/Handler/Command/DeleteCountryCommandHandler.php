@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Country\Application\Handler\Command;
 
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Country\Application\Command\DeleteCountryCommand;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
 
 final readonly class DeleteCountryCommandHandler implements CommandHandlerInterface
 {

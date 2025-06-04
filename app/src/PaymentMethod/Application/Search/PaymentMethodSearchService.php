@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Search;
 
+use App\Common\Application\Dto\Filter\SearchCriteria;
+use App\Common\Application\Service\AbstractSearchService;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
-use App\Shared\Application\DTO\Filter\SearchCriteria;
-use App\Shared\Application\Search\AbstractSearchService;
 use Symfony\Component\HttpFoundation\Request;
 
 final class PaymentMethodSearchService extends AbstractSearchService

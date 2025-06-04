@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Assembler;
 
-use App\Admin\Application\Service\FileService;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
+use App\Common\Application\Factory\MoneyFactory;
+use App\Common\Application\Service\FileService;
+use App\Common\Application\Service\SettingsService;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductImage;
 use App\Setting\Domain\Enums\SettingKey;
-use App\Shared\Application\Factory\MoneyFactory;
-use App\Shared\Application\Service\SettingsService;
 use App\Shop\Application\DTO\Response\Product\ProductShowResponse;
 
 final readonly class ProductAssembler

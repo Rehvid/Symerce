@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Dto\Request;
 
-use App\Setting\Domain\Enums\SettingType;
+use App\Common\Application\Dto\Request\RequestDtoInterface;
 use App\Setting\Domain\Enums\SettingValueType;
-use App\Shared\Application\DTO\Request\RequestDtoInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class UpdateSettingRequest implements RequestDtoInterface

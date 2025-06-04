@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Carrier\Application\Factory;
 
-use App\Admin\Application\DTO\Request\Carrier\SaveCarrierRequest;
 use App\Carrier\Application\Dto\CarrierData;
+use App\Carrier\Application\Dto\Request\SaveCarrierRequest;
 
 final readonly class CarrierDataFactory
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Order\Infrastructure\Repository;
 
 use App\Common\Domain\Entity\Order;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 
 final class OrderDoctrineRepository extends AbstractCriteriaRepository implements OrderRepositoryInterface

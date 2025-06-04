@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\User\Application\Dto\Request;
 
-use App\Admin\Domain\Enums\AdminRole;
-use App\Admin\Domain\Model\FileData;
+use App\Common\Application\Contracts\ArrayHydratableInterface;
+use App\Common\Application\Dto\FileData;
+use App\Common\Application\Dto\Request\RequestDtoInterface;
 use App\Common\Domain\Entity\User;
-use App\Shared\Application\Contract\ArrayHydratableInterface;
-use App\Shared\Application\DTO\Request\RequestDtoInterface;
-use App\Shared\Infrastructure\Validator\RepeatPassword as CustomAssertRepeatPassword;
-use App\Shared\Infrastructure\Validator\StrongPassword as CustomAssertStrongPassword;
-use App\Shared\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
+use App\Common\Infrastructure\Validator\RepeatPassword as CustomAssertRepeatPassword;
+use App\Common\Infrastructure\Validator\StrongPassword as CustomAssertStrongPassword;
+use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
+use App\User\Domain\Enums\UserRole;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -31,7 +31,7 @@ final readonly class SaveUserRequest implements RequestDtoInterface, ArrayHydrat
     public string $surname;
 
     #[Assert\NotBlank]
-    #[Assert\Choice(callback: [AdminRole::class, 'values'], multiple: true)]
+    #[Assert\Choice(callback: [UserRole::class, 'values'], multiple: true)]
     public array $roles;
 
     public ?string $phone;

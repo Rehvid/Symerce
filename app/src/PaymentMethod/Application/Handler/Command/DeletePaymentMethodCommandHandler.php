@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\PaymentMethod\Application\Command\DeletePaymentMethodCommand;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
 
 final readonly class DeletePaymentMethodCommandHandler implements CommandHandlerInterface
 {

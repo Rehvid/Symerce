@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
+use App\Common\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
 use App\Order\Domain\Enums\CheckoutStep;
 use App\Order\Domain\Enums\OrderStatus;
-use App\Shared\Domain\Enums\DecimalPrecision;
-use App\Shared\Infrastructure\Repository\OrderDoctrineRepository;
+use App\Order\Infrastructure\Repository\OrderDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,8 +20,7 @@ use Ramsey\Uuid\Uuid;
 #[ORM\Table(name: 'orders')]
 class Order
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
+    use CreatedAtTrait, UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

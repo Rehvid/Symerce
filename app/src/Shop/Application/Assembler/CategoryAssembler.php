@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Assembler;
 
-use App\Admin\Application\Service\FileService;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
+use App\Common\Application\Factory\MoneyFactory;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Entity\Product;
-use App\Shared\Application\Factory\MoneyFactory;
 use App\Shop\Application\DTO\Response\Category\CategoryListResponse;
 use App\Shop\Application\DTO\Response\Category\CategorySubcategoryListResponse;
 use App\Shop\Application\DTO\Response\Product\ProductListResponse;

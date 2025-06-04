@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Carrier\Application\Assembler;
 
-use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
-use App\Admin\Application\DTO\Response\Carrier\CarrierFormResponse;
-use App\Admin\Application\DTO\Response\Carrier\CarrierListResponse;
-use App\Admin\Application\Service\FileService;
+use App\Carrier\Application\Dto\Response\CarrierFormResponse;
+use App\Carrier\Application\Dto\Response\CarrierListResponse;
+use App\Common\Application\Assembler\ResponseHelperAssembler;
+use App\Common\Application\Factory\MoneyFactory;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\Carrier;
-use App\Shared\Application\Factory\MoneyFactory;
 
 final readonly class CarrierAssembler
 {

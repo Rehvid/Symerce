@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Authentication\Application\Handler\Command;
 
 use App\Authentication\Application\Command\LogoutUserCommand;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Domain\Enums\CookieName;
-use App\Shared\Infrastructure\Http\CookieFactory;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Domain\Enums\CookieName;
+use App\Common\Infrastructure\Http\CookieFactory;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 

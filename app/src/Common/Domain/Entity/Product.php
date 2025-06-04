@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Contract\PositionEntityInterface;
-use App\Admin\Domain\Enums\PromotionSource;
-use App\Admin\Domain\Traits\ActiveTrait;
-use App\Admin\Domain\Traits\CreatedAtTrait;
-use App\Admin\Domain\Traits\PositionTrait;
-use App\Admin\Domain\Traits\UpdatedAtTrait;
+use App\Common\Domain\Contracts\PositionEntityInterface;
+use App\Common\Domain\Enums\DecimalPrecision;
+use App\Common\Domain\Enums\PromotionSource;
+use App\Common\Domain\Traits\ActiveTrait;
+use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\PositionTrait;
+use App\Common\Domain\Traits\UpdatedAtTrait;
 use App\Product\Infrastructure\Repository\ProductDoctrineRepository;
-use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

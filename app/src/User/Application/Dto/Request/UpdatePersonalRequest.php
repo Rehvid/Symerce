@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\User\Application\Dto\Request;
 
-use App\Admin\Domain\Model\FileData;
+use App\Common\Application\Contracts\ArrayHydratableInterface;
+use App\Common\Application\Dto\FileData;
 use App\Common\Domain\Entity\User;
-use App\Shared\Application\Contract\ArrayHydratableInterface;
-use App\Shared\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
+use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class UpdatePersonalRequest implements ArrayHydratableInterface

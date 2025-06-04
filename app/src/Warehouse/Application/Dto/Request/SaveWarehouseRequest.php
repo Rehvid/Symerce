@@ -4,8 +4,8 @@ declare (strict_types = 1);
 
 namespace App\Warehouse\Application\Dto\Request;
 
-use App\Shared\Application\Contract\ArrayHydratableInterface;
-use App\Shared\Application\DTO\Request\Address\SaveAddressRequest;
+use App\Common\Application\Contracts\ArrayHydratableInterface;
+use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveWarehouseRequest implements ArrayHydratableInterface

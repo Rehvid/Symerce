@@ -7,8 +7,8 @@ namespace App\Category\Application\Handler\Query;
 use App\Category\Application\Assembler\CategoryAssembler;
 use App\Category\Application\Query\GetCategoryListQuery;
 use App\Category\Application\Search\CategorySearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 
 final readonly class CategoryListQueryHandler implements QueryHandlerInterface
 {

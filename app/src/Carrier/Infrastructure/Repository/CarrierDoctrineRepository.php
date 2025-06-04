@@ -4,7 +4,7 @@ namespace App\Carrier\Infrastructure\Repository;
 
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Domain\Entity\Carrier;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 
 class CarrierDoctrineRepository extends AbstractCriteriaRepository implements CarrierRepositoryInterface
 {

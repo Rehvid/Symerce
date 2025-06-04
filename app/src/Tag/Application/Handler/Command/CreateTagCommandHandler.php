@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tag\Application\Handler\Command;
 
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Tag\Application\Command\CreateTagCommand;
 use App\Tag\Application\Hydrator\TagHydrator;
 use App\Tag\Domain\Repository\TagRepositoryInterface;

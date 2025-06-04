@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Country\Infrastructure\Repository;
 
 use App\Common\Domain\Entity\Country;
+use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
-use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
 class CountryDoctrineRepository extends AbstractCriteriaRepository implements CountryRepositoryInterface
 {

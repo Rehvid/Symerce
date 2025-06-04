@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Country\Ui\Api\Controller;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
+use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Country\Application\Command\CreateCountryCommand;
 use App\Country\Application\Command\DeleteCountryCommand;
 use App\Country\Application\Command\UpdateCountryCommand;
@@ -11,12 +15,8 @@ use App\Country\Application\Dto\Request\SaveCountryRequest;
 use App\Country\Application\Factory\CountryDataFactory;
 use App\Country\Application\Query\GetCountryForEditQuery;
 use App\Country\Application\Query\GetCountryListQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

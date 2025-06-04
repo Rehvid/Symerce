@@ -6,8 +6,8 @@ namespace App\Cart\Ui\Controller\Admin\Api;
 
 use App\Cart\Application\Query\GetCartDetailQuery;
 use App\Cart\Application\Query\GetCartListQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Ui\Controller\Api\AbstractApiController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;

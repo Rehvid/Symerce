@@ -7,9 +7,9 @@ namespace App\Cart\Application\Handler;
 use App\Cart\Application\Assembler\CartAssembler;
 use App\Cart\Application\Query\GetCartDetailQuery;
 use App\Cart\Domain\Repository\CartRepositoryInterface;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Cart;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class CartDetailQueryHandler implements QueryHandlerInterface
 {

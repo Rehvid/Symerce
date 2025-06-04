@@ -7,9 +7,9 @@ namespace App\AttributeValue\Application\Handler\Command;
 use App\AttributeValue\Application\Command\CreateAttributeValueCommand;
 use App\AttributeValue\Application\Hydrator\AttributeValueHydrator;
 use App\AttributeValue\Domain\Repository\AttributeValueRepositoryInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Domain\Entity\AttributeValue;
-use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Application\DTO\Response\IdResponse;
 
 
 final readonly class CreateAttributeValueCommandHandler implements CommandHandlerInterface

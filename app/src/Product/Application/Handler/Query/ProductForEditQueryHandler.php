@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Handler\Query;
 
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Product\Application\Assembler\ProductAssembler;
 use App\Product\Application\Query\GetProductForEditQuery;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
-use App\Shared\Application\Query\QueryHandlerInterface;
 
 final readonly class ProductForEditQueryHandler implements QueryHandlerInterface
 {

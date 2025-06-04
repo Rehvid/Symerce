@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Authentication\Application\Service;
 
-use App\Admin\Domain\Repository\UserTokenRepositoryInterface;
+use App\Common\Application\Dto\Response\ApiErrorResponse;
+use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Domain\Entity\User;
-use App\Shared\Application\DTO\Response\ApiErrorResponse;
-use App\Shared\Application\DTO\Response\ApiResponse;
 use App\User\Domain\Repository\UserRepositoryInterface;
+use App\User\Domain\Repository\UserTokenRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 

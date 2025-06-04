@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Country\Application\Search;
 
-use App\Shared\Application\Contract\SearchParserFactoryInterface;
-use App\Shared\Application\Filter\BasicFilterDefinition;
-use App\Shared\Application\Parser\SearchRequestParser;
-use App\Shared\Domain\Enums\DirectionType;
-use App\Shared\Domain\Enums\QueryOperator;
-use App\Shared\Infrastructure\Http\SearchFilterParser;
-use App\Shared\Infrastructure\Http\SearchOrderByParser;
-use App\Shared\Infrastructure\Http\SearchPaginationParser;
+use App\Common\Application\Contracts\SearchParserFactoryInterface;
+use App\Common\Application\Filter\BasicFilterDefinition;
+use App\Common\Application\Parser\SearchRequestParser;
+use App\Common\Domain\Enums\DirectionType;
+use App\Common\Domain\Enums\QueryOperator;
+use App\Common\Infrastructure\Http\SearchFilterParser;
+use App\Common\Infrastructure\Http\SearchOrderByParser;
+use App\Common\Infrastructure\Http\SearchPaginationParser;
 
 final readonly class CountrySearchParserFactory implements SearchParserFactoryInterface
 {

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Authentication\Application\Service;
 
-use App\Admin\Application\Contract\TokenParserInterface;
-use App\Admin\Application\Contract\TokenProviderInterface;
-use App\Admin\Application\DTO\Response\FileResponse;
-use App\Admin\Application\Service\FileService;
 use App\Authentication\Application\Dto\AuthorizationResult;
+use App\Common\Application\Contracts\TokenParserInterface;
+use App\Common\Application\Contracts\TokenProviderInterface;
+use App\Common\Application\Dto\Response\ApiErrorResponse;
+use App\Common\Application\Dto\Response\FileResponse;
+use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\User;
-use App\Shared\Application\DTO\Response\ApiErrorResponse;
 use App\User\Application\Dto\Response\UserSessionResponse;
 use App\User\Domain\Repository\UserRepositoryInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\InvalidTokenException;

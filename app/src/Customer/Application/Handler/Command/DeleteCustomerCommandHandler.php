@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Handler\Command;
 
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Customer\Application\Command\DeleteCustomerCommand;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
-use App\Shared\Application\Command\CommandHandlerInterface;
 
 final readonly class DeleteCustomerCommandHandler implements CommandHandlerInterface
 {

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Currency\Ui\Api\Controller;
 
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Infrastructure\Http\RequestDtoResolver;
+use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Currency\Application\Command\CreateCurrencyCommand;
 use App\Currency\Application\Command\DeleteCurrencyCommand;
 use App\Currency\Application\Command\UpdateCurrencyCommand;
@@ -11,12 +15,8 @@ use App\Currency\Application\Dto\Request\SaveCurrencyRequest;
 use App\Currency\Application\Factory\CurrencyDataFactory;
 use App\Currency\Application\Query\GetCurrencyForEditQuery;
 use App\Currency\Application\Query\GetCurrencyListQuery;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\DTO\Response\IdResponse;
-use App\Shared\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Shared\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Http\RequestDtoResolver;
-use App\Shared\Ui\AbstractApiController;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

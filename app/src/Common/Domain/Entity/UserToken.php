@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
-use App\Admin\Domain\Enums\TokenType;
-use App\Admin\Infrastructure\Repository\UserTokenRepository;
+use App\User\Domain\Enums\UserTokenType;
+use App\User\Infrastructure\Repository\UserTokenRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserTokenRepository::class)]
@@ -43,7 +43,7 @@ class UserToken
         $this->user = $user;
     }
 
-    public function setTokenType(TokenType $tokenType): void
+    public function setTokenType(UserTokenType $tokenType): void
     {
         $this->tokenType = $tokenType->value;
     }
@@ -68,8 +68,8 @@ class UserToken
         return $this->expiresAt;
     }
 
-    public function getTokenType(): TokenType
+    public function getTokenType(): UserTokenType
     {
-        return TokenType::from($this->tokenType);
+        return UserTokenType::from($this->tokenType);
     }
 }

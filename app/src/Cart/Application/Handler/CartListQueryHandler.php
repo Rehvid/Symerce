@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Cart\Application\Handler;
 
-use App\Attribute\Application\Query\GetAttributeListQuery;
 use App\Cart\Application\Assembler\CartAssembler;
 use App\Cart\Application\Query\GetCartListQuery;
 use App\Cart\Application\Search\CartSearchService;
-use App\Shared\Application\DTO\Response\ApiResponse;
-use App\Shared\Application\Query\QueryHandlerInterface;
+use App\Common\Application\Dto\Response\ApiResponse;
+use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 
 final readonly class CartListQueryHandler implements QueryHandlerInterface
 {

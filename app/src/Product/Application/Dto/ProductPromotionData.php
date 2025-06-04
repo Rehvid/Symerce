@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Dto;
 
-use App\Admin\Domain\Enums\PromotionSource;
-use App\Admin\Domain\Enums\ReductionType;
-use App\Admin\Domain\ValueObject\DateVO;
+use App\Common\Domain\Enums\PromotionSource;
+use App\Common\Domain\Enums\ReductionType;
+use App\Common\Domain\ValueObject\DateVO;
 
 final readonly class ProductPromotionData
 {

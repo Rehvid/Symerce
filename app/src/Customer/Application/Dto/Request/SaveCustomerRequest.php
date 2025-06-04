@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Dto\Request;
 
-use App\Shared\Application\Contract\ArrayHydratableInterface;
-use App\Shared\Application\DTO\Request\Address\SaveAddressDeliveryRequest;
-use App\Shared\Application\DTO\Request\Address\SaveAddressInvoiceRequest;
-use App\Shared\Application\DTO\Request\Address\SaveAddressRequest;
-use App\Shared\Application\DTO\Request\ContactDetails\SaveContactDetailsRequest;
-use App\Shared\Application\DTO\Request\RequestDtoInterface;
+use App\Common\Application\Contracts\ArrayHydratableInterface;
+use App\Common\Application\Dto\Request\Address\SaveAddressDeliveryRequest;
+use App\Common\Application\Dto\Request\Address\SaveAddressInvoiceRequest;
+use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
+use App\Common\Application\Dto\Request\ContactDetails\SaveContactDetailsRequest;
 
 final readonly class SaveCustomerRequest implements ArrayHydratableInterface
 {

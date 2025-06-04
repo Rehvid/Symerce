@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\User\Application\Handler\Command;
 
-use App\Shared\Application\Command\CommandHandlerInterface;
+use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\User\Application\Command\DeleteUserCommand;
 use App\User\Domain\Repository\UserRepositoryInterface;
 
