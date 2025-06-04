@@ -100,7 +100,7 @@ const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, w
               }}
               render={({ field }) => (
                   <Select
-                    options={formData?.promotionTypes || []}
+                    options={formData?.availablePromotionTypes|| []}
                     selected={field.value}
                     onChange={(value) => {
                       field.onChange(value);

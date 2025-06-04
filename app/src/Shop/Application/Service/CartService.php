@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Service;
 
-use App\Admin\Infrastructure\Repository\ProductDoctrineRepository;
 use App\Common\Domain\Entity\Cart;
 use App\Common\Domain\Entity\CartItem;
 use App\Common\Domain\Entity\Product;
+use App\Product\Infrastructure\Repository\ProductDoctrineRepository;
 use App\Shared\Infrastructure\Repository\CartDoctrineRepository;
 use App\Shared\Infrastructure\Service\CartTokenGenerator;
 use App\Shop\Application\DTO\Request\Cart\ChangeQuantityProductRequest;

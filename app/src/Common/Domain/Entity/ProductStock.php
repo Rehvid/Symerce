@@ -27,24 +27,19 @@ class ProductStock
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $maximumStockLevel;
 
-    #[ORM\Column(type: 'boolean', options: ['default' => true])]
-    private bool $notifyOnLowStock = true;
-
-    #[ORM\Column(type: 'boolean', options: ['default' => true])]
-    private bool $visibleInStore = true;
-
-    #[ORM\Column(length: 64, unique: true, nullable: true)]
+    #[ORM\Column(length: 64,  nullable: true)]
     private ?string $sku = null;
 
-    #[ORM\Column(length: 13, unique: true, nullable: true)]
+    #[ORM\Column(length: 13, nullable: true)]
     private ?string $ean13 = null;
 
     #[ORM\ManyToOne(targetEntity: Warehouse::class)]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?Warehouse $warehouse = null;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTime $restockDate = null;
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeInterface $restockDate = null;
+
 
     public function getId(): ?int
     {
@@ -89,26 +84,6 @@ class ProductStock
     public function setMaximumStockLevel(?int $maximumStockLevel): void
     {
         $this->maximumStockLevel = $maximumStockLevel;
-    }
-
-    public function isNotifyOnLowStock(): bool
-    {
-        return $this->notifyOnLowStock;
-    }
-
-    public function setNotifyOnLowStock(bool $notifyOnLowStock): void
-    {
-        $this->notifyOnLowStock = $notifyOnLowStock;
-    }
-
-    public function isVisibleInStore(): bool
-    {
-        return $this->visibleInStore;
-    }
-
-    public function setVisibleInStore(bool $visibleInStore): void
-    {
-        $this->visibleInStore = $visibleInStore;
     }
 
     public function isLowStock(): bool
@@ -158,12 +133,12 @@ class ProductStock
         $this->warehouse = $warehouse;
     }
 
-    public function getRestockDate(): ?\DateTime
+    public function getRestockDate(): ?\DateTimeInterface
     {
         return $this->restockDate;
     }
 
-    public function setRestockDate(?\DateTime $restockDate): void
+    public function setRestockDate(?\DateTimeInterface $restockDate): void
     {
         $this->restockDate = $restockDate;
     }

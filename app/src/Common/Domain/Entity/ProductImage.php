@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
+use App\Admin\Domain\Contract\PositionEntityInterface;
 use App\Admin\Domain\Traits\PositionTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-class ProductImage
+class ProductImage implements PositionEntityInterface
 {
     use PositionTrait;
 

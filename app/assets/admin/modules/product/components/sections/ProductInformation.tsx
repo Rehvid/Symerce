@@ -11,6 +11,8 @@ import { Control, FieldErrors, UseFormRegister, Controller } from 'react-hook-fo
 import RichTextEditor from '@admin/shared/components/form/input/RichTextEditor';
 import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import Select from '@admin/shared/components/form/select/Select';
+import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
 
 interface ProductInformationProps {
     register: UseFormRegister<ProductFormDataInterface>,
@@ -18,7 +20,7 @@ interface ProductInformationProps {
     control: Control<ProductFormDataInterface>;
 }
 
-const ProductInformation: React.FC<ProductInformationProps> = ({register, fieldErrors, control}) => {
+const ProductInformation: React.FC<ProductInformationProps> = ({register, fieldErrors, control, formContext}) => {
     return (
       <FormSection title="Podstawowe informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
 
@@ -39,19 +41,6 @@ const ProductInformation: React.FC<ProductInformationProps> = ({register, fieldE
         </FormGroup>
 
         <FormGroup
-          label={<InputLabel label="Przyjazny URL" htmlFor="slug" />}
-          description={<Description>Automacznie generowany z nazwy, jeżeli nic nie zostanie podane.</Description>}
-        >
-            <InputField
-                type="text"
-                id="slug"
-                hasError={!!fieldErrors?.slug}
-                errorMessage={fieldErrors?.slug?.message}
-                {...register('slug')}
-            />
-        </FormGroup>
-
-        <FormGroup
           label={<InputLabel label="Opis" />}
         >
           <Controller
@@ -62,7 +51,29 @@ const ProductInformation: React.FC<ProductInformationProps> = ({register, fieldE
           />
         </FormGroup>
 
-        <FormGroup label={ <InputLabel label="Produkt widoczny na sklepie?" /> }>
+          <FormGroup
+            label={<InputLabel isRequired={true} label="Producent"  />}
+          >
+              <Controller
+                name="brand"
+                control={control}
+                defaultValue={null}
+                render={({ field, fieldState }) => (
+                    <ReactSelect
+                      options={formContext?.availableBrands || []}
+                      value={field.value}
+                      onChange={(option) => {
+                        field.onChange(option);
+                      }}
+                      hasError={fieldState.invalid}
+                      errorMessage={fieldState.error?.message}
+                    />
+                )}
+              />
+          </FormGroup>
+
+
+          <FormGroup label={ <InputLabel label="Produkt widoczny na sklepie?" /> }>
           <Switch {...register('isActive')} />
         </FormGroup>
 

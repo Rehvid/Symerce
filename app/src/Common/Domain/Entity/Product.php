@@ -10,7 +10,7 @@ use App\Admin\Domain\Traits\ActiveTrait;
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\PositionTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Admin\Infrastructure\Repository\ProductDoctrineRepository;
+use App\Product\Infrastructure\Repository\ProductDoctrineRepository;
 use App\Shared\Domain\Enums\DecimalPrecision;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,10 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Product implements PositionEntityInterface
 {
-    use CreatedAtTrait;
-    use UpdatedAtTrait;
-    use ActiveTrait;
-    use PositionTrait;
+    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait, PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -47,11 +44,6 @@ class Product implements PositionEntityInterface
     private string $regularPrice;
 
 
-    private ?string $discountPrice = null;
-
-    #[ORM\Column(type: 'integer', nullable: false, options: ['unsigned' => true, 'default' => 0])]
-    private int $quantity = 0;
-
     #[ORM\ManyToOne(targetEntity: Brand::class)]
     #[ORM\JoinColumn(name: 'brand_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Brand $brand;
@@ -65,17 +57,12 @@ class Product implements PositionEntityInterface
     #[ORM\JoinTable(name: 'product_tag')]
     private Collection $tags;
 
-    #[ORM\ManyToOne(targetEntity: DeliveryTime::class)]
-    #[ORM\JoinColumn(name: 'delivery_time_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private DeliveryTime $deliveryTime;
-
     #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['order' => 'ASC'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $images;
 
-    #[ORM\ManyToMany(targetEntity: AttributeValue::class)]
-    #[ORM\JoinTable(name: 'product_attribute_value')]
-    private Collection $attributeValues;
+    #[ORM\OneToMany(targetEntity: ProductAttribute::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $attributes;
 
     #[ORM\OneToMany(targetEntity: Promotion::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $promotions;
@@ -90,14 +77,21 @@ class Product implements PositionEntityInterface
     #[ORM\JoinColumn(name: 'main_category_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Category $mainCategory = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $metaTitle = null;
+
+    #[ORM\Column(type: 'string', length: 500, nullable: true)]
+    private ?string $metaDescription = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->tags = new ArrayCollection();
-        $this->attributeValues = new ArrayCollection();
         $this->promotions = new ArrayCollection();
         $this->priceHistory = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
+        $this->productStocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,12 +112,6 @@ class Product implements PositionEntityInterface
         }
     }
 
-    public function removeCategory(Category $category): void
-    {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
-        }
-    }
 
     public function getName(): string
     {
@@ -150,11 +138,6 @@ class Product implements PositionEntityInterface
         return $this->regularPrice;
     }
 
-    public function getVendor(): ?Brand
-    {
-        return $this->vendor;
-    }
-
     public function getTags(): Collection
     {
         return $this->tags;
@@ -177,25 +160,6 @@ class Product implements PositionEntityInterface
     public function getImages(): Collection
     {
         return $this->images;
-    }
-
-    public function getAttributeValues(): Collection
-    {
-        return $this->attributeValues;
-    }
-
-    public function addAttributeValue(AttributeValue $attributeValue): void
-    {
-        if (!$this->attributeValues->contains($attributeValue)) {
-            $this->attributeValues->add($attributeValue);
-        }
-    }
-
-    public function removeAttribute(AttributeValue $attributeValue): void
-    {
-        if ($this->attributeValues->contains($attributeValue)) {
-            $this->attributeValues->removeElement($attributeValue);
-        }
     }
 
     public function addImage(ProductImage $image): void
@@ -223,10 +187,7 @@ class Product implements PositionEntityInterface
         return $thumbnailImage;
     }
 
-    public function setVendor(?Brand $brand): void
-    {
-        $this->brand = $brand;
-    }
+
 
     public function setSlug(string $slug): void
     {
@@ -246,26 +207,6 @@ class Product implements PositionEntityInterface
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    public function getQuantity(): int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): void
-    {
-        $this->quantity = $quantity;
-    }
-
-    public function getDeliveryTime(): DeliveryTime
-    {
-        return $this->deliveryTime;
-    }
-
-    public function setDeliveryTime(DeliveryTime $deliveryTime): void
-    {
-        $this->deliveryTime = $deliveryTime;
     }
 
     public function getCurrentPrice(): string
@@ -291,52 +232,12 @@ class Product implements PositionEntityInterface
     {
         return $this->promotions;
     }
+
     public function addPriceHistory(ProductPriceHistory $priceHistory): void
     {
         if (!$this->priceHistory->contains($priceHistory)) {
             $this->priceHistory->add($priceHistory);
         }
-    }
-
-    public function removePriceHistory(ProductPriceHistory $priceHistory): void
-    {
-        if ($this->priceHistory->contains($priceHistory)) {
-            $this->priceHistory->removeElement($priceHistory);
-        }
-    }
-
-    public function getProductPriceHistory(): Collection
-    {
-        return $this->priceHistory;
-    }
-
-    public function getPriceHistory(): Collection
-    {
-        return $this->priceHistory;
-    }
-
-    public function setPriceHistory(Collection $priceHistory): void
-    {
-        $this->priceHistory = $priceHistory;
-    }
-
-    public function hasStock(): bool
-    {
-        return $this->stock !== null;
-    }
-
-    public function getStock(): ProductStock
-    {
-        if (!$this->hasStock()) {
-            throw new \LogicException('Product stock is not initialized.');
-        }
-
-        return $this->stock;
-    }
-
-    public function setStock(ProductStock $stock): void
-    {
-        $this->stock = $stock;
     }
 
     public function getMainCategory(): ?Category
@@ -360,5 +261,59 @@ class Product implements PositionEntityInterface
         }
 
         return $promotion;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): void
+    {
+        $this->brand = $brand;
+    }
+
+    public function getMetaTitle(): ?string
+    {
+        return $this->metaTitle;
+    }
+
+    public function setMetaTitle(?string $metaTitle): void
+    {
+        $this->metaTitle = $metaTitle;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(?string $metaDescription): void
+    {
+        $this->metaDescription = $metaDescription;
+    }
+
+    public function addStock(ProductStock $stock): void
+    {
+        if (!$this->productStocks->contains($stock)) {
+            $this->productStocks->add($stock);
+        }
+    }
+
+    public function getProductStocks(): Collection
+    {
+        return $this->productStocks;
+    }
+
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
+    }
+
+    public function addProductAttribute(ProductAttribute $attribute): void
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes->add($attribute);
+        }
     }
 }

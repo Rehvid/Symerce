@@ -9,7 +9,7 @@ import {
 import ProductImages from '@admin/modules/product/components/sections/ProductImages';
 import ProductInformation from '@admin/modules/product/components/sections/ProductInformation'
 import ProductCategorization from '@admin/modules/product/components/sections/ProductCategorization'
-import ProductLogistics from '@admin/modules/product/components/sections/ProductLogistics';
+import ProductSeo from '@admin/modules/product/components/sections/ProductSeo';
 import ProductPricing from '@admin/modules/product/components/sections/ProductPricing';
 import ProductStock from '@admin/modules/product/components/sections/ProductStock';
 import ProductAttributes from '@admin/modules/product/components/sections/ProductAttributes';
@@ -31,12 +31,12 @@ const ProductFormBody: React.FC<ProductFormBodyProps> = ({register, control, wat
   return (
     <>
       <ProductImages setValue={setValue} formData={formData} />
-      <ProductInformation register={register} fieldErrors={fieldErrors} control={control} />
+      <ProductInformation register={register} fieldErrors={fieldErrors} control={control} formContext={formContext} />
       <ProductCategorization control={control} fieldErrors={fieldErrors} formData={formContext} watch={watch} />
-      <ProductLogistics control={control} fieldErrors={fieldErrors} formData={formContext} />
+      <ProductSeo control={control} fieldErrors={fieldErrors} formData={formContext} register={register} />
       <ProductPricing register={register} control={control} watch={watch} formData={formContext} fieldErrors={fieldErrors} />
-      <ProductStock register={register} fieldErrors={fieldErrors} />
-      <ProductAttributes control={control} fieldErrors={fieldErrors} formData={formContext} />
+      <ProductStock register={register} fieldErrors={fieldErrors} control={control} formContext={formContext} />
+      <ProductAttributes control={control} fieldErrors={fieldErrors} formData={formContext} register={register} watch={watch} setValue={setValue} />
     </>
   )
 }

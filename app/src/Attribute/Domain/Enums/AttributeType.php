@@ -6,9 +6,9 @@ namespace App\Attribute\Domain\Enums;
 
 enum AttributeType: string
 {
-    case SELECT = 'select';
+    case RAW_TEXTAREA = 'raw_textarea';
+    case TEXTAREA = 'textarea';
     case TEXT = 'text';
     case NUMBER = 'number';
-    case BOOLEAN = 'boolean';
     case COLOR = 'color';
 }

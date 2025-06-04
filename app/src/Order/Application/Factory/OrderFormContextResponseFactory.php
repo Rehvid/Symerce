@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Factory;
 
-use App\Admin\Domain\Repository\ProductRepositoryInterface;
 use App\Admin\Infrastructure\Utils\ArrayUtils;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Domain\Entity\Carrier;
@@ -16,6 +15,7 @@ use App\Order\Application\Dto\Response\OrderFormContext;
 use App\Order\Domain\Enums\CheckoutStep;
 use App\Order\Domain\Enums\OrderStatus;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
+use App\Product\Domain\Repository\ProductRepositoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class OrderFormContextResponseFactory

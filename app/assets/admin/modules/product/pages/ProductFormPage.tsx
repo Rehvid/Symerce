@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import FormWrapper from '@admin/shared/components/form/FormWrapper';
+import { SettingFormDataInterface } from '@admin/modules/setting/interfaces/SettingFormDataInterface';
 
 const ProductFormPage = () => {
   const params = useParams();
@@ -35,9 +36,42 @@ const ProductFormPage = () => {
     const modifyValues = { ...values };
 
     if (modifyValues?.attributes) {
-      modifyValues.attributes = {
-        ...modifyValues.attributes,
-      };
+      const newAttributes: Record<string, { value: any; isCustom: boolean }> = {};
+
+      Object.entries(modifyValues.attributes).forEach(([key, attributeObj]) => {
+        const values: any[] = [];
+
+        if (typeof attributeObj === 'object') {
+          Object.entries(attributeObj).forEach(([innerKey, innerValue]) => {
+            values.push(innerValue?.value);
+          });
+        }
+
+        const isCustom = !!modifyValues.customAttributes?.[key];
+
+        newAttributes[key] = {
+          value: values,
+          isCustom,
+        };
+      });
+
+      modifyValues.attributes = newAttributes;
+
+      delete modifyValues.customAttributes;
+    }
+
+    if (modifyValues?.stocks) {
+      modifyValues?.stocks.map(stock => {
+        const restockDate = stock.restockDate;
+
+        stock.warehouseId = stock.warehouseId.value;
+        stock.restockDate = restockDate ? restockDate : null
+        return stock;
+      });
+    }
+
+    if (modifyValues?.brand) {
+      modifyValues.brand = modifyValues.brand.value;
     }
 
     return modifyValues;
@@ -49,36 +83,50 @@ const ProductFormPage = () => {
       ? [
         'name',
         'slug',
+        'metaTitle',
+        'metaDescription',
         'description',
         'isActive',
         'mainCategory',
         'categories',
         'tags',
-        'vendor',
+        'brand',
+        'stocks',
         'attributes',
-        'deliveryTime',
         'regularPrice',
         'promotionIsActive',
         'promotionDateRange',
         'promotionReduction',
         'promotionReductionType',
-        'stockAvailableQuantity',
-        'stockLowStockThreshold',
-        'stockMaximumStockLevel',
-        'stockEan13',
-        'stockSku',
-        'stockNotifyOnLowStock',
-        'stockVisibleInStore'
       ]
       : [];
 
-    getFormData(endpoint, setValue, formFieldNames);
+    const formFieldModifiers = [
+      {
+        fieldName: 'attributes',
+        action: (item) => {
+          Object.entries(item).forEach(([key, attributeObj]) => {
+            let isCustom = false;
+            attributeObj.forEach((attrb, keye) => {
+              isCustom = attrb.isCustom;
+              if (isCustom) {
+                setValue(`attributes[${key}].${keye}.value`, attrb.value);
+              } else {
+                setValue(`attributes[${key}].${keye}`, attrb.value);
+              }
+            })
+            setValue(`customAttributes[${key}]`, isCustom);
+          });
+        },
+      }
+    ]
+
+    getFormData(endpoint, setValue, formFieldNames, formFieldModifiers);
   }, []);
 
   if (!isFormInitialize) {
     return <FormSkeleton rowsCount={12} />;
   }
-
 
   return (
     <FormWrapper

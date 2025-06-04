@@ -13,6 +13,7 @@ enum SettingKey: string
     case SHOP_OG_DESCRIPTION = 'shop_og_description';
     case PRODUCT_REFUND_POLICY        = 'product_refund_policy';
     case ENABLE_PRICE_HISTORY         = 'enable_price_history';
+    case SHOW_INFORMATION_PRODUCT_LOW_STOCK = 'show_information_product_low_stock';
     case SHOP_CATEGORIES              = 'shop_categories';
 
     /**

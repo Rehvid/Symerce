@@ -6,9 +6,9 @@ interface FormGroupProps {
   description?: React.ReactNode;
 }
 
-const FormGroup: React.FC<FormGroupProps> = ({label, description, children}) => {
+const FormGroup: React.FC<FormGroupProps> = ({label, description, children, additionalClasses = ''}) => {
   return (
-    <div className="flex flex-col items-start lg:flex-row">
+    <div className={`flex flex-col items-start lg:flex-row ${additionalClasses}`}>
       <div className="w-full lg:mr-10 lg:w-64">
         {label}
         {description && <div className="mt-4">{description}</div>}

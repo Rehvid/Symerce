@@ -8,6 +8,7 @@ import { validationRules } from '@admin/utils/validationRules';
 import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
 import MultiSelect from '@admin/shared/components/form/select/MultiSelect';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import Description from '@admin/shared/components/Description';
 
 
 interface ProductCategorizationProps {
@@ -28,7 +29,7 @@ const ProductCategorization : React.FC<ProductCategorizationProps> = ({ control,
   useEffect(() => {
     const currentCategories = watch().categories;
     if (currentCategories && Array.isArray(currentCategories)) {
-      const filteredOptionCategories = formData?.optionCategories.filter(optionCategory =>
+      const filteredOptionCategories = formData?.availableCategories.filter(optionCategory =>
         currentCategories.includes(optionCategory.value)
       );
 
@@ -40,6 +41,7 @@ const ProductCategorization : React.FC<ProductCategorizationProps> = ({ control,
     <FormSection title="Kategoryzacja" forceOpen={hasAnyFieldError(fieldErrors, ['mainCategory'])} >
       <FormGroup
         label={<InputLabel isRequired={true} label="Główna kategoria" htmlFor="mainCategory"  />}
+        description={<Description> Wybór kategorii dodaje możliwe opcje, spośród których można wybrać główną kategorię produktu.</Description>}
       >
         <Controller
           name="mainCategory"
@@ -74,33 +76,13 @@ const ProductCategorization : React.FC<ProductCategorizationProps> = ({ control,
           }}
           render={({ field }) => (
               <MultiSelect
-                options={formData?.optionCategories || []}
+                options={formData?.availableCategories || []}
                 selected={field.value}
                 onChange={(value, checked) => {
                   const newValue = checked
                     ? [...field.value, value]
                     : field.value.filter((v) => v !== value);
 
-                  field.onChange(newValue);
-                }}
-              />
-          )}
-        />
-      </FormGroup>
-
-      <FormGroup label={<InputLabel label="Tagi" htmlFor="tags"  />} >
-        <Controller
-          name="tags"
-          control={control}
-          defaultValue={[]}
-          render={({ field }) => (
-              <MultiSelect
-                options={formData?.optionTags || []}
-                selected={field.value}
-                onChange={(value, checked) => {
-                  const newValue = checked
-                    ? [...field.value, value]
-                    : field.value.filter((v) => v !== value);
                   field.onChange(newValue);
                 }}
               />
