@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Shop\Application\Assembler;
+namespace App\Cart\Application\Assembler;
 
+use App\Admin\Application\Assembler\Helper\ResponseHelperAssembler;
 use App\Admin\Application\Service\FileService;
+use App\Admin\Domain\ValueObject\DateVO;
+use App\Cart\Application\Dto\Response\CartListResponse;
+use App\Cart\Application\Factory\CartDetailResponseFactory;
 use App\Common\Domain\Entity\Cart;
 use App\Common\Domain\Entity\CartItem;
 use App\Common\Domain\Entity\Order;
 use App\Common\Domain\Entity\OrderItem;
+use App\Order\Domain\Repository\OrderRepositoryInterface;
 use App\Shared\Application\Service\SettingsService;
 use App\Shop\Application\DTO\Response\Cart\CartItemResponse;
 use App\Shop\Application\DTO\Response\Cart\CartResponse;
@@ -17,10 +22,50 @@ final readonly class CartAssembler
      public function __construct(
          private SettingsService $settingManager,
          private UrlGeneratorInterface $urlGenerator,
-         private FileService $fileService
+         private FileService $fileService,
+         private ResponseHelperAssembler $responseHelperAssembler,
+         private OrderRepositoryInterface $orderRepository,
+         private CartDetailResponseFactory $cartDetailResponseFactory,
      ) {
      }
 
+     public function toListResponse(array $paginatedData): array
+     {
+         return $this->responseHelperAssembler->wrapListWithAdditionalData(
+             dataList: array_map(fn (Cart $cart) => $this->createCartListResponse($cart), $paginatedData)
+         );
+     }
+
+     private function createCartListResponse(Cart $cart): CartListResponse
+     {
+         /** @var ?Order $order */
+         $order = $this->orderRepository->findByToken($cart->getToken());
+         $customer = null;
+
+         if (null !== $cart->getCustomer()) {
+             $customer = $cart->getCustomer()->getContactDetails()?->getFullName();
+         }
+
+        return new CartListResponse(
+            id: $cart->getId(),
+            orderId: $order?->getId(),
+            customer: $customer,
+            total: $this->calculateTotalPrice($cart),
+            expiresAt: (new DateVO($cart->getExpiresAt()))->formatRaw(),
+            createdAt: (new DateVO($cart->getCreatedAt()))->formatRaw(),
+            updatedAt: (new DateVO($cart->getUpdatedAt()))->formatRaw(),
+        );
+     }
+
+     public function toDetailResponse(Cart $cart): array
+     {
+        return [
+            'data' => $this->cartDetailResponseFactory->fromCart($cart)
+        ];
+     }
+
+
+     /* @deprecated  */
     public function transformCartItemToOrderItem(Order $order, CartItem $cartItem): OrderItem
     {
         $orderItem = new OrderItem();
@@ -32,6 +77,8 @@ final readonly class CartAssembler
         return $orderItem;
     }
 
+
+    /* @deprecated  */
     public function calculateTotalPrice(Cart $cart): string
     {
         $currency = $this->settingManager->findDefaultCurrency();
@@ -50,6 +97,7 @@ final readonly class CartAssembler
         return $total;
     }
 
+    /* @deprecated  */
     public function mapCartToResponse(Cart $cart): CartResponse
     {
         $cartItemResponses = array_map(
@@ -63,6 +111,7 @@ final readonly class CartAssembler
         );
     }
 
+    /* @deprecated  */
     public function mapCartItemToResponse(CartItem $cartItem): CartItemResponse
     {
         $product = $cartItem->getProduct();

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Service;
 
+use App\Cart\Application\Assembler\CartAssembler;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Domain\Entity\Cart;
 use App\Common\Domain\Entity\CartItem;
@@ -11,7 +12,6 @@ use App\Common\Domain\Entity\Order;
 use App\Common\Domain\Entity\PaymentMethod;
 use App\Order\Domain\Enums\CheckoutStep;
 use App\Shared\Domain\Repository\OrderRepositoryInterface;
-use App\Shop\Application\Assembler\CartAssembler;
 use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Shop\Application\UseCase\Address\CreateDeliveryAddressUseCase;
 use App\Shop\Application\UseCase\Address\CreateInvoiceAddressUseCase;

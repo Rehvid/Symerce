@@ -16,6 +16,7 @@ import { warehouseRoutes } from '@admin/modules/warehouse/warehouse.routes';
 import { carrierRoutes } from '@admin/modules/carrier/carrier.routes';
 import { attributesRoutes } from '@admin/modules/attribute/attribute.routes';
 import { attributeValuesRoutes } from '@admin/modules/attributeValue/attributeValue.routes';
+import { cartRoutes } from '@admin/modules/cart/cart.routes';
 
 const routesConfig = [
     {
@@ -28,7 +29,7 @@ const routesConfig = [
         component: lazy(() => import('@/admin/pages/Dashboard')),
         roles: ['user', 'admin'],
     },
-
+    ...cartRoutes,
     ...attributesRoutes,
     ...attributeValuesRoutes,
     ...carrierRoutes,

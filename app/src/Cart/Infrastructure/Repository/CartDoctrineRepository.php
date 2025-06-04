@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Repository;
+namespace App\Cart\Infrastructure\Repository;
 
+use App\Cart\Domain\Repository\CartRepositoryInterface;
 use App\Common\Domain\Entity\Cart;
-use App\Shared\Domain\Repository\CartRepositoryInterface;
+use App\Shared\Infrastructure\Repository\AbstractCriteriaRepository;
 
-class CartDoctrineRepository extends DoctrineRepository implements CartRepositoryInterface
+
+final class CartDoctrineRepository extends AbstractCriteriaRepository implements CartRepositoryInterface
 {
     public function findByToken(?string $token): ?Cart
     {
@@ -21,6 +23,6 @@ class CartDoctrineRepository extends DoctrineRepository implements CartRepositor
 
     protected function getAlias(): string
     {
-        return 'c';
+        return 'cart';
     }
 }

@@ -6,7 +6,7 @@ namespace App\Common\Domain\Entity;
 
 use App\Admin\Domain\Traits\CreatedAtTrait;
 use App\Admin\Domain\Traits\UpdatedAtTrait;
-use App\Shared\Infrastructure\Repository\CartDoctrineRepository;
+use App\Cart\Infrastructure\Repository\CartDoctrineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,9 +23,9 @@ class Cart
     #[ORM\Column(type: 'bigint')]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: Customer::class)]
     #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
-    private ?User $user = null;
+    private ?Customer $customer = null;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $token;
@@ -41,10 +41,7 @@ class Cart
         $this->items = new ArrayCollection();
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+
 
     public function getId(): int
     {
@@ -105,5 +102,15 @@ class Cart
     public function setExpiresAt(?\DateTime $expiresAt): void
     {
         $this->expiresAt = $expiresAt;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): void
+    {
+        $this->customer = $customer;
     }
 }

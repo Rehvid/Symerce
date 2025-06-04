@@ -84,6 +84,9 @@ const SideBarNavigation = () => (
           <NavigationItem to={'orders'}>
             <span>Zamówienia</span>
           </NavigationItem>
+          <NavigationItem to={'carts'}>
+            <span>Koszyki zakupowe</span>
+          </NavigationItem>
         </Submenu>
         <NavigationItem to={'settings'}>
             <SettingIcon className="w-[24px] h-[24px]" />

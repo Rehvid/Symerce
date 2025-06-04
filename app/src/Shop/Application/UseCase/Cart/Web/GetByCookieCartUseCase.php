@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\UseCase\Cart\Web;
 
+use App\Cart\Domain\Repository\CartRepositoryInterface;
 use App\Shared\Domain\Enums\CookieName;
-use App\Shared\Domain\Repository\CartRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
