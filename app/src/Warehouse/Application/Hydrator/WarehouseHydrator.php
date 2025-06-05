@@ -10,15 +10,12 @@ use App\Warehouse\Application\Dto\WarehouseData;
 
 final readonly class WarehouseHydrator
 {
-    public function __construct(
-        private AddressHydrator $hydrator,
-    ) {}
+    public function __construct(private AddressHydrator $hydrator) {}
 
-    public function hydrate(WarehouseData $data, ?Warehouse $warehouse = null): Warehouse
+    public function hydrate(WarehouseData $data, Warehouse $warehouse): Warehouse
     {
         $address = $warehouse?->getAddress();
 
-        $warehouse ??= new Warehouse();
         $warehouse->setDescription($data->description);
         $warehouse->setName($data->name);
         $warehouse->setActive($data->isActive);

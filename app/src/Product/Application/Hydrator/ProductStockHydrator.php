@@ -12,9 +12,8 @@ use DateTimeImmutable;
 
 final readonly class ProductStockHydrator
 {
-    public function hydrate(ProductDataStock $data, Product $product, ?ProductStock $productStock = null): ProductStock
+    public function hydrate(ProductDataStock $data, Product $product, ProductStock $productStock): ProductStock
     {
-        $productStock = $productStock ?? new ProductStock();
         $productStock->setProduct($product);
         $productStock->setAvailableQuantity($data->availableQuantity);
         $productStock->setLowStockThreshold($data->lowStockThreshold);

@@ -4,6 +4,7 @@ namespace App\Country\Application\Handler\Command;
 
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Domain\Entity\Country;
 use App\Country\Application\Command\CreateCountryCommand;
 use App\Country\Application\Hydrator\CountryHydrator;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
@@ -17,7 +18,7 @@ final readonly class CreateCountryCommandHandler implements CommandHandlerInterf
 
     public function __invoke(CreateCountryCommand $command): IdResponse
     {
-        $country = $this->hydrator->hydrate($command->data);
+        $country = $this->hydrator->hydrate($command->data, new Country());
 
         $this->repository->save($country);
 

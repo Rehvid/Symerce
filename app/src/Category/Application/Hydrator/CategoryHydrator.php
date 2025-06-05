@@ -11,14 +11,10 @@ use App\Common\Domain\Entity\Category;
 
 final readonly class CategoryHydrator
 {
-    public function __construct(
-        private FileService $fileService,
-    ) {
-    }
+    public function __construct(private FileService $fileService) {}
 
-    public function hydrate(CategoryData $data, ?Category $category = null): Category
+    public function hydrate(CategoryData $data, Category $category): Category
     {
-        $category ??= new Category();
         $category->setActive($data->isActive);
         $category->setName($data->name);
         $category->setDescription($data->description);

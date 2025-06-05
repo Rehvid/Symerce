@@ -6,6 +6,7 @@ namespace App\PaymentMethod\Application\Handler\Command;
 
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Domain\Entity\PaymentMethod;
 use App\PaymentMethod\Application\Command\CreatePaymentMethodCommand;
 use App\PaymentMethod\Application\Hydrator\PaymentMethodHydrator;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
@@ -19,7 +20,7 @@ final readonly class CreatePaymentMethodCommandHandler implements CommandHandler
 
     public function __invoke(CreatePaymentMethodCommand $command): IdResponse
     {
-        $paymentMethod = $this->hydrator->hydrate($command->data);
+        $paymentMethod = $this->hydrator->hydrate($command->data, new PaymentMethod());
         $paymentMethod->setPosition($this->repository->getMaxPosition() + 1);
 
         $this->repository->save($paymentMethod);

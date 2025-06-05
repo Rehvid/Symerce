@@ -8,17 +8,13 @@ use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\PaymentMethod;
 use App\PaymentMethod\Application\Dto\PaymentMethodData;
 
-
 final readonly class PaymentMethodHydrator
 {
-    public function __construct(
-        private FileService $fileService
-    ) {}
+    public function __construct(private FileService $fileService) {}
 
 
-    public function hydrate(PaymentMethodData $data, ?PaymentMethod $paymentMethod = null): PaymentMethod
+    public function hydrate(PaymentMethodData $data, PaymentMethod $paymentMethod): PaymentMethod
     {
-        $paymentMethod ??= new PaymentMethod();
         $paymentMethod->setActive($data->isActive);
         $paymentMethod->setName($data->name);
         $paymentMethod->setCode($data->code);

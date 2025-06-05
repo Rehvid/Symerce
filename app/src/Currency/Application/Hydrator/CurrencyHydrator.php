@@ -9,12 +9,11 @@ use App\Currency\Application\Dto\CurrencyData;
 
 final readonly class CurrencyHydrator
 {
-    public function hydrate(CurrencyData $data, ? Currency $currency = null) : Currency
+    public function hydrate(CurrencyData $data, Currency $currency) : Currency
     {
-        $currency ??= new Currency();
         $currency->setName($data->name);
         $currency->setSymbol($data->symbol);
-        $currency->setRoundingPrecision((int) $data->roundingPrecision);
+        $currency->setRoundingPrecision($data->roundingPrecision);
         $currency->setCode($data->code);
 
         return $currency;

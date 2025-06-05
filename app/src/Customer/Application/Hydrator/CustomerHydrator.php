@@ -20,10 +20,8 @@ final readonly class CustomerHydrator
         private ContactDetailsHydrator $contactDetailsHydrator,
     ) {}
 
-    public function hydrate(CustomerData $data, ?Customer $customer = null): Customer
+    public function hydrate(CustomerData $data, Customer $customer): Customer
     {
-        $customer ??= new Customer();
-
         if (null !== $data->password) {
             $customer->setPassword($this->passwordHasher->hashPassword($customer, $data->password));
         }

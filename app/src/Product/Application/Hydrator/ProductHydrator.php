@@ -7,6 +7,7 @@ namespace App\Product\Application\Hydrator;
 use App\Common\Application\Factory\MoneyFactory;
 use App\Common\Application\Hydrator\PromotionHydrator;
 use App\Common\Domain\Entity\Product;
+use App\Common\Domain\Entity\ProductStock;
 use App\Product\Application\Dto\ProductData;
 use App\Product\Application\Dto\ProductDataStock;
 use App\Product\Application\Dto\ProductPromotionData;
@@ -114,7 +115,7 @@ final readonly class ProductHydrator
 
         foreach ($dataStocks as $dataStock) {
             $product->addStock(
-                $this->productStockHydrator->hydrate($dataStock, $product)
+                $this->productStockHydrator->hydrate($dataStock, $product, new ProductStock())
             );
         }
     }

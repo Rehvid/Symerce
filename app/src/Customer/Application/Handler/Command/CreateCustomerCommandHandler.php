@@ -6,6 +6,7 @@ namespace App\Customer\Application\Handler\Command;
 
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Domain\Entity\Customer;
 use App\Customer\Application\Command\CreateCustomerCommand;
 use App\Customer\Application\Hydrator\CustomerHydrator;
 use App\Customer\Domain\Enums\CustomerRole;
@@ -20,7 +21,7 @@ final readonly class CreateCustomerCommandHandler implements CommandHandlerInter
 
     public function __invoke(CreateCustomerCommand $command): IdResponse
     {
-        $customer = $this->hydrator->hydrate($command->data);
+        $customer = $this->hydrator->hydrate($command->data, new Customer());
         $customer->setRoles([CustomerRole::CUSTOMER]);
 
         $this->repository->save($customer);

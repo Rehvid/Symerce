@@ -28,9 +28,8 @@ final readonly class OrderHydrator
 
     }
 
-    public function hydrate(OrderData $data, ?Order $order = null): Order
+    public function hydrate(OrderData $data, Order $order): Order
     {
-        $order = $order ?? new Order();
         $order->setContactDetails($this->contactDetailsHydrator->hydrate($data->contactDetailsData));
         $order->setCarrier($data->carrier);
         $order->setPaymentMethod($data->paymentMethod);

@@ -17,10 +17,8 @@ final readonly class UserHydrator
     ) {
     }
 
-    public function hydrate(UserData $data, ?User $user = null): User
+    public function hydrate(UserData $data, User $user): User
     {
-        $user ??= new User();
-
         if (null !== $data->password) {
             $user->setPassword($this->passwordHasher->hashPassword($user, $data->password));
         }

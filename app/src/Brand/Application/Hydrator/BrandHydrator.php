@@ -10,14 +10,10 @@ use App\Common\Domain\Entity\Brand;
 
 final readonly class BrandHydrator
 {
-    public function __construct(
-        private FileService $fileService,
-    ) {
-    }
+    public function __construct(private FileService $fileService) {}
 
-    public function hydrate(BrandData $data, ?Brand $brand = null): Brand
+    public function hydrate(BrandData $data, Brand $brand): Brand
     {
-        $brand ??= new Brand();
         $brand->setName($data->name);
         $brand->setActive($data->isActive);
 

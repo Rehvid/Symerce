@@ -9,9 +9,8 @@ use App\Tag\Application\Dto\TagData;
 
 final readonly class TagHydrator
 {
-    public function hydrate(TagData $data, ?Tag $tag = null): Tag
+    public function hydrate(TagData $data, Tag $tag): Tag
     {
-        $tag ??= new Tag();
         $tag->setName($data->name);
         $tag->setBackgroundColor($data->backgroundColor);
         $tag->setTextColor($data->textColor);
