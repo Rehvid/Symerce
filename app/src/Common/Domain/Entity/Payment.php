@@ -14,11 +14,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Payment
 {
-    use CreatedAtTrait, UpdatedAtTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'payments')]
@@ -67,12 +68,12 @@ class Payment
         $this->id = $id;
     }
 
-    public function getOrder(): Order
+    public function getOrder(): ?Order
     {
         return $this->order;
     }
 
-    public function setOrder(Order $order): void
+    public function setOrder(?Order $order): void
     {
         $this->order = $order;
     }
@@ -96,7 +97,6 @@ class Payment
     {
         $this->status = $status;
     }
-
 
     public function getGatewayTransactionId(): ?string
     {

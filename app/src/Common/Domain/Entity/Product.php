@@ -20,7 +20,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Product implements PositionEntityInterface
 {
-    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait, PositionTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+    use ActiveTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -53,23 +56,29 @@ class Product implements PositionEntityInterface
     #[ORM\JoinTable(name: 'product_categories')]
     private Collection $categories;
 
+    /** @var Collection<int, Tag>  $tags */
     #[ORM\ManyToMany(targetEntity: Tag::class)]
     #[ORM\JoinTable(name: 'product_tag')]
     private Collection $tags;
 
+    /** @var Collection<int, ProductImage> */
     #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $images;
 
+    /** @var Collection<int, ProductAttribute> */
     #[ORM\OneToMany(targetEntity: ProductAttribute::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $attributes;
 
+    /** @var Collection<int, Promotion> */
     #[ORM\OneToMany(targetEntity: Promotion::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $promotions;
 
+    /** @var Collection<int, ProductPriceHistory> */
     #[ORM\OneToMany(targetEntity: ProductPriceHistory::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $priceHistory;
 
+    /** @var Collection<int, ProductStock> */
     #[ORM\OneToMany(targetEntity: ProductStock::class, mappedBy: 'product', cascade: ['persist'], orphanRemoval: true)]
     private Collection $productStocks;
 
@@ -112,7 +121,6 @@ class Product implements PositionEntityInterface
         }
     }
 
-
     public function getName(): string
     {
         return $this->name;
@@ -138,6 +146,7 @@ class Product implements PositionEntityInterface
         return $this->regularPrice;
     }
 
+    /** @return Collection<int, Tag> */
     public function getTags(): Collection
     {
         return $this->tags;
@@ -157,6 +166,7 @@ class Product implements PositionEntityInterface
         }
     }
 
+    /** @return Collection<int, ProductImage> */
     public function getImages(): Collection
     {
         return $this->images;
@@ -178,16 +188,12 @@ class Product implements PositionEntityInterface
 
     public function getThumbnailImage(): ?ProductImage
     {
-        $thumbnailImage = null;
-        $findThumbnail = $this->images->filter(fn (ProductImage $image) => $image->isThumbnail());
-        if ($findThumbnail->count() > 0) {
-            $thumbnailImage = $findThumbnail->first();
-        }
+        $thumbnail = $this->images
+            ->filter(fn (ProductImage $image) => $image->isThumbnail())
+            ->first();
 
-        return $thumbnailImage;
+        return $thumbnail instanceof ProductImage ? $thumbnail : null;
     }
-
-
 
     public function setSlug(string $slug): void
     {
@@ -228,6 +234,7 @@ class Product implements PositionEntityInterface
         }
     }
 
+    /** @return Collection<int, Promotion> */
     public function getPromotions(): Collection
     {
         return $this->promotions;
@@ -240,6 +247,7 @@ class Product implements PositionEntityInterface
         }
     }
 
+    /** @return Collection<int, ProductPriceHistory> */
     public function getPriceHistory(): Collection
     {
         return $this->priceHistory;
@@ -258,7 +266,7 @@ class Product implements PositionEntityInterface
     public function getPromotionForProductTab(): ?Promotion
     {
         $promotion = $this->promotions->filter(
-            fn(Promotion $promotion) => $promotion->getSource() === PromotionSource::PRODUCT_TAB
+            fn (Promotion $promotion) => PromotionSource::PRODUCT_TAB === $promotion->getSource()
         )->first();
 
         if (!$promotion) {
@@ -305,11 +313,13 @@ class Product implements PositionEntityInterface
         }
     }
 
+    /** @return Collection<int, ProductStock> */
     public function getProductStocks(): Collection
     {
         return $this->productStocks;
     }
 
+    /** @return Collection<int, ProductAttribute> */
     public function getAttributes(): Collection
     {
         return $this->attributes;

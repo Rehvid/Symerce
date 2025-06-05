@@ -12,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Warehouse
 {
-    use ActiveTrait, CreatedAtTrait;
+    use ActiveTrait;
+    use CreatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

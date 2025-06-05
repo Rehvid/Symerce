@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait ProtectedTrait
 {
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => '0'])]
     private bool $isProtected = false;
 
     public function isProtected(): bool

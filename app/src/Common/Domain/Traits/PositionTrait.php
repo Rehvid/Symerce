@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait PositionTrait
 {
-    #[ORM\Column(name: 'position', type: 'integer', nullable: false, options: ['default' => '0'])]
-    private int $position = 0;
+    #[ORM\Column(name: 'position', type: 'integer', nullable: false, options: ['default' => '999'])]
+    private int $position = 999;
 
     public function getPosition(): int
     {

@@ -7,17 +7,19 @@ namespace App\Common\Domain\Entity;
 use App\Common\Domain\Enums\DecimalPrecision;
 use App\Common\Domain\Enums\PromotionSource;
 use App\Common\Domain\Enums\ReductionType;
-use App\Common\Domain\Repository\PromotionRepositoryInterface;
 use App\Common\Domain\Traits\ActiveTrait;
 use App\Common\Domain\Traits\CreatedAtTrait;
 use App\Common\Domain\Traits\UpdatedAtTrait;
+use App\Common\Infrastructure\Repository\PromotionDoctrineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PromotionRepositoryInterface::class)]
+#[ORM\Entity(repositoryClass: PromotionDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Promotion
 {
-    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+    use ActiveTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -71,7 +73,6 @@ class Promotion
     {
         $this->product = $product;
     }
-
 
     public function setReduction(string $reduction): void
     {

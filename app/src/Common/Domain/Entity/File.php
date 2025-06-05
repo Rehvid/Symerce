@@ -14,7 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class File
 {
-    use CreatedAtTrait, UpdatedAtTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

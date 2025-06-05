@@ -17,7 +17,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class PaymentMethod implements FileEntityInterface
 {
-    use ActiveTrait, PositionTrait, CreatedAtTrait, UpdatedAtTrait;
+    use ActiveTrait;
+    use PositionTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -41,9 +44,9 @@ class PaymentMethod implements FileEntityInterface
     #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?File $image;
 
+    /** @var array<mixed, mixed>|null */
     #[ORM\Column(type: 'json', nullable: true)]
     private ?array $config = null;
-
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $requiresWebhook = false;
@@ -78,12 +81,12 @@ class PaymentMethod implements FileEntityInterface
         return $this->getFile();
     }
 
-
     public function getCode(): string
     {
         return $this->code;
     }
 
+    /** @return array<mixed, mixed>|null */
     public function getConfig(): ?array
     {
         return $this->config;
@@ -94,6 +97,7 @@ class PaymentMethod implements FileEntityInterface
         $this->code = $code;
     }
 
+    /** @param array<mixed, mixed>|null $config */
     public function setConfig(?array $config): void
     {
         $this->config = $config;

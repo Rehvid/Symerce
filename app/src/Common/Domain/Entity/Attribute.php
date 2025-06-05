@@ -16,7 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: AttributeDoctrineRepository::class)]
 class Attribute implements PositionEntityInterface
 {
-    use PositionTrait, ActiveTrait;
+    use PositionTrait;
+    use ActiveTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -29,6 +30,7 @@ class Attribute implements PositionEntityInterface
     #[ORM\Column(type: 'string', enumType: AttributeType::class)]
     private AttributeType $type;
 
+    /** @var Collection<int, AttributeValue> $values */
     #[ORM\OneToMany(targetEntity: AttributeValue::class, mappedBy: 'attribute', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $values;
 
@@ -52,6 +54,7 @@ class Attribute implements PositionEntityInterface
         $this->name = $name;
     }
 
+    /** @return Collection<int, AttributeValue> */
     public function getValues(): Collection
     {
         return $this->values;

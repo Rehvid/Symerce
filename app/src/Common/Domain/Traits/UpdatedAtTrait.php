@@ -8,23 +8,23 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait UpdatedAtTrait
 {
-    #[ORM\Column(type: 'datetime', nullable: false)]
-    private \DateTime $updatedAt;
+    #[ORM\Column(type: 'datetime_immutable', nullable: false)]
+    private \DateTimeImmutable $updatedAt;
 
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): void
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = \DateTimeImmutable::createFromInterface($updatedAt);
     }
 
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function updateTimestamp(): void
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }

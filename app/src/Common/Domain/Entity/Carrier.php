@@ -16,7 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Carrier implements FileEntityInterface
 {
-    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+    use ActiveTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,12 +40,12 @@ class Carrier implements FileEntityInterface
     #[ORM\JoinColumn(name: 'thumbnail_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?File $thumbnail = null;
 
+    /** @var array<mixed, mixed>|null */
     #[ORM\Column(type: 'json', nullable: true)]
     private ?array $externalData = null;
 
     #[ORM\Column(type: 'boolean')]
     private bool $isExternal = false;
-
 
     public function getId(): int
     {
@@ -60,12 +62,12 @@ class Carrier implements FileEntityInterface
         $this->name = $name;
     }
 
-    public function getFee(): string
+    public function getFee(): ?string
     {
         return $this->fee;
     }
 
-    public function setFee(string $fee): void
+    public function setFee(?string $fee): void
     {
         $this->fee = $fee;
     }
@@ -74,7 +76,6 @@ class Carrier implements FileEntityInterface
     {
         return $this->getFile();
     }
-
 
     public function setFile(File $file): void
     {
@@ -86,11 +87,13 @@ class Carrier implements FileEntityInterface
         return $this->thumbnail;
     }
 
+    /** @return array<mixed, mixed>|null */
     public function getExternalData(): ?array
     {
         return $this->externalData;
     }
 
+    /** @param array<mixed, mixed>|null $externalData */
     public function setExternalData(?array $externalData): void
     {
         $this->externalData = $externalData;

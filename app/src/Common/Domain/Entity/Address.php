@@ -11,16 +11,16 @@ class Address
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $street;
 
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $city;
 
-    #[ORM\Column(type: "string", length: 100)]
+    #[ORM\Column(type: 'string', length: 100)]
     private string $postalCode;
 
     #[ORM\ManyToOne(targetEntity: Country::class)]
@@ -70,5 +70,10 @@ class Address
     public function getFullAddress(): string
     {
         return sprintf('%s, %s %s', $this->street, $this->postalCode, $this->city);
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

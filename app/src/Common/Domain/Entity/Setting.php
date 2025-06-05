@@ -17,7 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Setting
 {
-    use CreatedAtTrait, ActiveTrait, ProtectedTrait;
+    use CreatedAtTrait;
+    use ActiveTrait;
+    use ProtectedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,7 +40,6 @@ class Setting
 
     #[ORM\Column(type: 'string', enumType: SettingValueType::class)]
     private SettingValueType $valueType;
-
 
     public function getId(): int
     {

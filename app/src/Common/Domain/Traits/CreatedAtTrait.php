@@ -8,22 +8,22 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait CreatedAtTrait
 {
-    #[ORM\Column(type: 'datetime', nullable: false)]
-    private \DateTime $createdAt;
+    #[ORM\Column(type: 'datetime_immutable', nullable: false)]
+    private \DateTimeImmutable $createdAt;
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): void
+    public function setCreatedAt(\DateTimeInterface $createdAt): void
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = \DateTimeImmutable::createFromInterface($createdAt);
     }
 
     #[ORM\PrePersist]
     public function initializeCreatedAtTimestamp(): void
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 }

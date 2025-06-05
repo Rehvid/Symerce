@@ -20,7 +20,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'This account already exists.')]
 class Customer implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+    use ActiveTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -39,17 +41,17 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $tokens;
 
     #[ORM\OneToOne(targetEntity: DeliveryAddress::class, cascade:['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\JoinColumn(name: "delivery_address_id",  referencedColumnName: "id", nullable: true, onDelete: "CASCADE")]
+    #[ORM\JoinColumn(name: 'delivery_address_id', referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
     private ?DeliveryAddress $deliveryAddress = null;
 
     #[ORM\OneToOne(targetEntity: InvoiceAddress::class, cascade:['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\JoinColumn(name: "invoice_address_id", referencedColumnName: "id", nullable: true, onDelete: "CASCADE")]
+    #[ORM\JoinColumn(name: 'invoice_address_id', referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
     private ?InvoiceAddress $invoiceAddress = null;
 
     #[ORM\ManyToOne(targetEntity: ContactDetails::class, cascade:['persist', 'remove'])]
     private ?ContactDetails $contactDetails = null;
 
-    #[ORM\Column(type: "string", length: 255, unique: true)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $email;
 
     public function __construct()
@@ -82,7 +84,6 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         /* @phpstan-ignore-next-line */
         return $this->getEmail();
     }
-
 
     public function setPassword(string $password): void
     {

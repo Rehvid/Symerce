@@ -20,11 +20,12 @@ use Ramsey\Uuid\Uuid;
 #[ORM\Table(name: 'orders')]
 class Order
 {
-    use CreatedAtTrait, UpdatedAtTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
+    #[ORM\Column(type: 'integer')]
     private int $id;
 
     #[ORM\Column(type: 'guid', unique: true)]
@@ -37,16 +38,16 @@ class Order
     #[ORM\JoinColumn(name: 'delivery_address_id', referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
     private ?DeliveryAddress $deliveryAddress = null;
 
-    #[ORM\OneToOne(targetEntity: InvoiceAddress::class, cascade: ['persist', 'remove'], orphanRemoval: true,)]
+    #[ORM\OneToOne(targetEntity: InvoiceAddress::class, cascade: ['persist', 'remove'], orphanRemoval: true, )]
     #[ORM\JoinColumn(name: 'invoice_address_id', referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
     private ?InvoiceAddress $invoiceAddress = null;
 
     #[ORM\ManyToOne(targetEntity: Customer::class)]
-    #[ORM\JoinColumn(name: "customer_id", referencedColumnName: "id", nullable: true)]
+    #[ORM\JoinColumn(name: 'customer_id', referencedColumnName: 'id', nullable: true)]
     private ?Customer $customer = null;
 
     #[ORM\ManyToOne(targetEntity: Carrier::class)]
-    #[ORM\JoinColumn(name: "carrier_id", referencedColumnName: "id", nullable: true)]
+    #[ORM\JoinColumn(name: 'carrier_id', referencedColumnName: 'id', nullable: true)]
     private ?Carrier $carrier = null;
 
     #[ORM\Column(
@@ -61,12 +62,14 @@ class Order
     private OrderStatus $status = OrderStatus::NEW;
 
     #[ORM\ManyToOne(targetEntity: PaymentMethod::class)]
-    #[ORM\JoinColumn(name: "payment_method_id", referencedColumnName: "id", nullable: true)]
+    #[ORM\JoinColumn(name: 'payment_method_id', referencedColumnName: 'id', nullable: true)]
     private ?PaymentMethod $paymentMethod = null;
 
+    /** @var Collection<int, Payment> */
     #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: 'order', cascade: ['persist', 'remove'])]
     private Collection $payments;
 
+    /** @var Collection<int, OrderItem> */
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'order', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $orderItems;
 
@@ -167,6 +170,7 @@ class Order
         $this->status = $status;
     }
 
+    /** @return Collection<int, Payment> */
     public function getPayments(): Collection
     {
         return $this->payments;
@@ -186,6 +190,7 @@ class Order
         }
     }
 
+    /** @return Collection<int, OrderItem> */
     public function getOrderItems(): Collection
     {
         return $this->orderItems;
@@ -215,13 +220,12 @@ class Order
         $this->cartToken = $cartToken;
     }
 
-
-    public function getContactDetails(): ?ContactDetails
+    public function getContactDetails(): ContactDetails
     {
         return $this->contactDetails;
     }
 
-    public function setContactDetails(?ContactDetails $contactDetails): void
+    public function setContactDetails(ContactDetails $contactDetails): void
     {
         $this->contactDetails = $contactDetails;
     }
@@ -255,6 +259,4 @@ class Order
     {
         $this->email = $email;
     }
-
-
 }

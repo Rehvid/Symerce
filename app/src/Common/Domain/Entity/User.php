@@ -21,7 +21,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'This account already exists.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, FileEntityInterface
 {
-    use CreatedAtTrait ,UpdatedAtTrait, ActiveTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+    use ActiveTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -52,7 +54,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, FileEnt
     #[ORM\ManyToOne(targetEntity: File::class, cascade:['persist'])]
     #[ORM\JoinColumn(name: 'avatar_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?File $avatar = null;
-
 
     public function __construct()
     {
@@ -158,7 +159,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, FileEnt
 
     public function getAvatar(): ?File
     {
-        return $this->getFile(); //TODO: Change it later
+        return $this->getFile(); // TODO: Change it later
     }
 
     public function setAvatar(?File $avatar): void

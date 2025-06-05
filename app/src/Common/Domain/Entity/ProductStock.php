@@ -27,7 +27,7 @@ class ProductStock
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $maximumStockLevel;
 
-    #[ORM\Column(length: 64,  nullable: true)]
+    #[ORM\Column(length: 64, nullable: true)]
     private ?string $sku = null;
 
     #[ORM\Column(length: 13, nullable: true)]
@@ -39,7 +39,6 @@ class ProductStock
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeInterface $restockDate = null;
-
 
     public function getId(): ?int
     {
@@ -88,15 +87,16 @@ class ProductStock
 
     public function isLowStock(): bool
     {
-        if ($this->lowStockThreshold === null) {
+        if (null === $this->lowStockThreshold) {
             return false;
         }
+
         return $this->availableQuantity <= $this->lowStockThreshold;
     }
 
     public function hasReachedMaxStock(): bool
     {
-        if ($this->maximumStockLevel === null) {
+        if (null === $this->maximumStockLevel) {
             return false;
         }
 

@@ -19,9 +19,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: CategoryDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
-class Category implements PositionEntityInterface,  FileEntityInterface
+class Category implements PositionEntityInterface, FileEntityInterface
 {
-    use CreatedAtTrait, UpdatedAtTrait, ActiveTrait, PositionTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
+    use ActiveTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,6 +40,7 @@ class Category implements PositionEntityInterface,  FileEntityInterface
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
+    /** @var Collection<int, Product> */
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
     private Collection $products;
 
@@ -44,6 +48,7 @@ class Category implements PositionEntityInterface,  FileEntityInterface
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Category $parent = null;
 
+    /** @var Collection<int, Category> */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     private Collection $children;
 
@@ -103,14 +108,10 @@ class Category implements PositionEntityInterface,  FileEntityInterface
         $this->slug = $slug;
     }
 
+    /** @return Collection<int, Product> */
     public function getProducts(): Collection
     {
         return $this->products;
-    }
-
-    public function setProducts(Collection $products): void
-    {
-        $this->products = $products;
     }
 
     public function getParent(): ?Category
@@ -123,6 +124,7 @@ class Category implements PositionEntityInterface,  FileEntityInterface
         $this->parent = $parent;
     }
 
+    /** @return Collection<int, Category> */
     public function getChildren(): Collection
     {
         return $this->children;

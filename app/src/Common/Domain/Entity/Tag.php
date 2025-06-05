@@ -13,7 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: TagDoctrineRepository::class)]
 class Tag implements PositionEntityInterface
 {
-    use ActiveTrait, PositionTrait;
+    use ActiveTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,7 +27,7 @@ class Tag implements PositionEntityInterface
     #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private ?string $backgroundColor;
 
-    #[ORM\Column(type: 'string', length: 32,nullable: true)]
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private ?string $textColor;
 
     public function getId(): ?int
@@ -63,6 +64,4 @@ class Tag implements PositionEntityInterface
     {
         $this->textColor = $textColor;
     }
-
-
 }

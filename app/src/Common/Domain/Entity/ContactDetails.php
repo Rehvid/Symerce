@@ -14,10 +14,10 @@ class ContactDetails
     #[ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $firstname;
 
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private string $surname;
 
     #[ORM\Column(type: 'string', length: 25, nullable: true)]
@@ -32,7 +32,6 @@ class ContactDetails
     {
         $this->firstname = $firstname;
     }
-
 
     public function getPhone(): ?string
     {
@@ -56,6 +55,6 @@ class ContactDetails
 
     public function getFullName(): string
     {
-        return $this->firstname . ' '  . $this->surname;
+        return $this->firstname.' '.$this->surname;
     }
 }

@@ -1,16 +1,15 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
 use App\Common\Domain\Enums\DecimalPrecision;
 use App\Common\Domain\Traits\CreatedAtTrait;
-use App\Product\Domain\Repository\ProductPriceHistoryRepositoryInterface;
+use App\Product\Infrastructure\Repository\ProductPriceHistoryRepositoryDoctrineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-
-#[ORM\Entity(repositoryClass: ProductPriceHistoryRepositoryInterface::class)]
+#[ORM\Entity(repositoryClass: ProductPriceHistoryRepositoryDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class ProductPriceHistory
 {
@@ -39,7 +38,6 @@ class ProductPriceHistory
         nullable: true
     )]
     private ?string $discountPrice;
-
 
     public function getId(): int
     {

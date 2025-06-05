@@ -15,7 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Cart
 {
-    use CreatedAtTrait, UpdatedAtTrait;
+    use CreatedAtTrait;
+    use UpdatedAtTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -29,7 +30,9 @@ class Cart
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $token;
 
-    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: "cart", cascade: ['persist', 'remove'], orphanRemoval: true)]
+
+    /** @var Collection<int, CartItem> */
+    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $items;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -40,13 +43,12 @@ class Cart
         $this->items = new ArrayCollection();
     }
 
-
-
     public function getId(): int
     {
         return $this->id;
     }
 
+    /** @return Collection<int, CartItem> */
     public function getItems(): Collection
     {
         return $this->items;
@@ -87,10 +89,12 @@ class Cart
         return $totalQuantity;
     }
 
-
     public function getCartItemByProductId(int $productId): ?CartItem
     {
-        return $this->items->filter(fn (CartItem $cartItem) => $cartItem->getProduct()->getId() === $productId)->first();
+        $filtered = $this->items->filter(fn (CartItem $cartItem) => $cartItem->getProduct()->getId() === $productId);
+        $firstItem = $filtered->first();
+
+        return $firstItem instanceof CartItem ? $firstItem : null;
     }
 
     public function getExpiresAt(): ?\DateTime
