@@ -8,9 +8,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveAttributeValueRequest
 {
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 1, max: 255)]
+    public string $value;
+
+    #[Assert\NotBlank]
+    public int $attributeId;
+
     public function __construct(
-        #[Assert\NotBlank] #[Assert\Length(min: 1)]  public string $value,
-        #[Assert\NotBlank]  public int $attributeId
+        string $value,
+        int $attributeId
     ) {
+        $this->value = $value;
+        $this->attributeId = $attributeId;
     }
 }

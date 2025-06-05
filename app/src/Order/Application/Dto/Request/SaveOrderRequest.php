@@ -9,22 +9,54 @@ use App\Common\Application\Dto\Request\Address\SaveAddressDeliveryRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressInvoiceRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
 use App\Common\Application\Dto\Request\ContactDetails\SaveContactDetailsRequest;
+use App\Order\Domain\Enums\CheckoutStep;
+use App\Order\Domain\Enums\OrderStatus;
+use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveOrderRequest implements ArrayHydratableInterface
 {
+    public SaveContactDetailsRequest  $saveContactDetailsRequest;
+    public SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
+
+    public int $paymentMethodId;
+
+    public int $carrierId;
+
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [CheckoutStep::class, 'values'])]
+    public string $checkoutStep;
+
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [OrderStatus::class, 'values'])]
+    public string $status;
+
+    public bool $isInvoice;
+
+    public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest;
+
+    public array $saveOrderProductRequestCollection;
+
     /** @param SaveOrderProductRequest[] $saveOrderProductRequestCollection */
     public function __construct(
-        public SaveContactDetailsRequest  $saveContactDetailsRequest,
-        public SaveAddressDeliveryRequest $saveAddressDeliveryRequest,
-        public int                        $paymentMethodId,
-        public int                        $carrierId,
-        public string $checkoutStep,
-        public string $status,
-        public bool $isInvoice = false,
-        public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest = null,
-        public array                      $saveOrderProductRequestCollection = []
+        SaveContactDetailsRequest  $saveContactDetailsRequest,
+        SaveAddressDeliveryRequest $saveAddressDeliveryRequest,
+        int $paymentMethodId,
+        int $carrierId,
+        string $checkoutStep,
+        string $status,
+        bool $isInvoice = false,
+        ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest = null,
+        array $saveOrderProductRequestCollection = []
     ) {
-
+        $this->saveContactDetailsRequest = $saveContactDetailsRequest;
+        $this->saveAddressDeliveryRequest = $saveAddressDeliveryRequest;
+        $this->paymentMethodId = $paymentMethodId;
+        $this->carrierId = $carrierId;
+        $this->checkoutStep = $checkoutStep;
+        $this->status = $status;
+        $this->isInvoice = $isInvoice;
+        $this->saveOrderProductRequestCollection = $saveOrderProductRequestCollection;
+        $this->saveAddressInvoiceRequest = $saveAddressInvoiceRequest;
     }
 
     public static function fromArray(array $data): ArrayHydratableInterface

@@ -12,17 +12,45 @@ use App\Common\Application\Dto\Request\ContactDetails\SaveContactDetailsRequest;
 
 final readonly class SaveCustomerRequest implements ArrayHydratableInterface
 {
+        public ?int $id;
+
+        public string $password;
+
+        public string $passwordConfirmation; //TODO: Move it to Request
+
+        public SaveContactDetailsRequest $saveContactDetailsRequest;
+
+        public ?SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
+
+        public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest;
+
+        public bool $isDelivery;
+
+        public bool $isInvoice;
+
+        public bool $isActive;
+
     public function __construct(
-        public ?int $id = null,
-        public string $password,
-        public string $passwordConfirmation,
-        public SaveContactDetailsRequest  $saveContactDetailsRequest,
-        public ?SaveAddressDeliveryRequest $saveAddressDeliveryRequest = null,
-        public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest = null,
-        public bool $isDelivery = false,
-        public bool $isInvoice = false,
-        public bool $isActive = false,
-    ) {}
+        string $password,
+        string $passwordConfirmation,
+        SaveContactDetailsRequest $saveContactDetailsRequest,
+        ?int $id = null,
+        ?SaveAddressDeliveryRequest $saveAddressDeliveryRequest = null,
+        ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest = null,
+        bool $isDelivery = false,
+        bool $isInvoice = false,
+        bool $isActive = false,
+    ) {
+        $this->password = $password;
+        $this->passwordConfirmation = $passwordConfirmation;
+        $this->saveContactDetailsRequest = $saveContactDetailsRequest;
+        $this->id = $id;
+        $this->saveAddressDeliveryRequest = $saveAddressDeliveryRequest;
+        $this->saveAddressInvoiceRequest = $saveAddressInvoiceRequest;
+        $this->isDelivery = $isDelivery;
+        $this->isInvoice = $isInvoice;
+        $this->isActive = $isActive;
+    }
 
     public static function fromArray(array $data): ArrayHydratableInterface
     {
@@ -66,10 +94,10 @@ final readonly class SaveCustomerRequest implements ArrayHydratableInterface
         }
 
         return new self(
-            id: $data['id'] ?? null,
             password: $password,
             passwordConfirmation: $passwordConfirmation,
             saveContactDetailsRequest: $saveContactDetailsRequest,
+            id: $data['id'] ?? null,
             saveAddressDeliveryRequest: $saveAddressDeliveryRequest,
             saveAddressInvoiceRequest: $saveAddressInvoiceRequest,
             isDelivery: $isDelivery,

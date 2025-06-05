@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Enums;
 
+use App\Common\Domain\Traits\EnumValuesTrait;
+
 enum ReductionType: string
 {
+    use EnumValuesTrait;
+
     case AMOUNT = 'amount';
     case PERCENT = 'percent';
 
-    /**
-     * @return array<int, string>
-     */
-    public static function values(): array
-    {
-        return array_map(fn (self $case) => $case->value, self::cases());
-    }
 }

@@ -13,11 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 final class UpdatePersonalRequest implements ArrayHydratableInterface
 {
     #[Assert\NotBlank]
-    #[Assert\Length(min: 2)]
+    #[Assert\Length(min: 2, max: 255)]
     public string $firstname;
 
     #[Assert\NotBlank]
-    #[Assert\Length(min: 2)]
+    #[Assert\Length(min: 2, max: 255)]
     public string $surname;
 
     #[Assert\NotBlank]
@@ -29,7 +29,6 @@ final class UpdatePersonalRequest implements ArrayHydratableInterface
     public int $id;
 
     public ?FileData $fileData;
-
 
     public function __construct(
         string $firstname,

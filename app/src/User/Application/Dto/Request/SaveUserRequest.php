@@ -41,6 +41,7 @@ final readonly class SaveUserRequest implements ArrayHydratableInterface
 
     public ?string $passwordConfirmation;
 
+    #[Assert\NotBlank]
     public bool $isActive;
 
     public ?FileData $fileData;

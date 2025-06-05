@@ -10,14 +10,36 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveProductPromotionRequest
 {
-    public function __construct(
-        public bool $isActive,
-        #[Assert\NotBlank] #[Assert\Choice(callback: [ReductionType::class, 'values'])]  public string $reductionType,
-        #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] public string $reduction,
-        #[Assert\NotBlank] #[Assert\Length(min: 10)]  public DateVO $startDate,
-        #[Assert\NotBlank] #[Assert\Length(min: 10)]  public DateVO $endDate,
-        #[Assert\NotBlank] #[Assert\Choice(callback: [PromotionSource::class, 'values'])]  public string $source,
-    ) {
+    #[Assert\NotBlank]
+    public bool $isActive;
 
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [ReductionType::class, 'values'])]
+    public string $reductionType;
+
+    #[Assert\GreaterThanOrEqual(0)]
+    #[Assert\Type('numeric')]
+    public string $reduction;
+
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10)]
+    public DateVO $startDate;
+
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10)]
+    public DateVO $endDate;
+
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [PromotionSource::class, 'values'])]
+    public string $source;
+
+    public function __construct(
+        bool $isActive,
+        string $reductionType,
+        string $reduction,
+        DateVO $startDate,
+        DateVO $endDate,
+        string $source,
+    ) {
     }
 }

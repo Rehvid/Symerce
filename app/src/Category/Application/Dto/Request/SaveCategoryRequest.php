@@ -10,17 +10,43 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveCategoryRequest implements ArrayHydratableInterface
 {
-    public function __construct(
-        #[Assert\NotBlank] #[Assert\Length(min: 3)] public string $name,
-        public bool $isActive,
-        public ?string $metaTitle = null,
-        public ?string $metaDescription = null,
-        public ?string $slug = null,
-        public int|string|null $parentCategoryId = null,
-        public ?string $description = null,
-        public ?FileData $fileData = null,
-    ) {
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
+    public string $name;
 
+    #[Assert\NotBlank]
+    public bool $isActive;
+
+    public ?string $metaTitle;
+
+    public ?string $metaDescription;
+
+    public ?string $slug; //TODO: Check it if is not null
+
+    public int|string|null $parentCategoryId;
+
+    public ?string $description;
+
+    public ?FileData $fileData;
+
+    public function __construct(
+        string $name,
+        bool $isActive,
+        ?string $metaTitle = null,
+        ?string $metaDescription = null,
+        ?string $slug = null,
+        int|string|null $parentCategoryId = null,
+        ?string $description = null,
+        ?FileData $fileData = null,
+    ) {
+        $this->name = $name;
+        $this->isActive = $isActive;
+        $this->metaTitle = $metaTitle;
+        $this->metaDescription = $metaDescription;
+        $this->slug = $slug;
+        $this->parentCategoryId = $parentCategoryId;
+        $this->description = $description;
+        $this->fileData = $fileData;
     }
 
     public static function fromArray(array $data): ArrayHydratableInterface

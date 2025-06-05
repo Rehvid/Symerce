@@ -8,11 +8,19 @@ use App\Common\Application\Dto\FileData;
 
 final readonly class SaveProductImageRequest
 {
-    public function __construct(
-        public int|string|null $fileId = null,
-        public bool $isThumbnail = false,
-        public ?FileData $uploadData = null,
-    ) {
+    public int|string|null $fileId;
 
+    public bool $isThumbnail;
+
+    public ?FileData $uploadData;
+
+    public function __construct(
+        int|string|null $fileId = null,
+        bool $isThumbnail = false,
+        ?FileData $uploadData = null,
+    ) {
+        $this->fileId = $fileId;
+        $this->isThumbnail = $isThumbnail;
+        $this->uploadData = $uploadData;
     }
 }

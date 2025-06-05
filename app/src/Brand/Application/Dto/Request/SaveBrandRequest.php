@@ -10,11 +10,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveBrandRequest implements ArrayHydratableInterface
 {
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
+    public string $name;
+
+    public bool $isActive;
+
+    public ?FileData $fileData;
+
     private function __construct(
-        #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $name,
-        public bool $isActive,
-        public ?FileData $fileData = null,
+        string $name,
+        bool $isActive,
+        ?FileData $fileData = null,
     ) {
+        $this->name = $name;
+        $this->isActive = $isActive;
+        $this->fileData = $fileData;
     }
 
     public static function fromArray(array $data): ArrayHydratableInterface

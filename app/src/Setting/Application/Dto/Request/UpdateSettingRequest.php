@@ -9,11 +9,28 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class UpdateSettingRequest
 {
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
+    public string $name;
+
+    #[Assert\NotBlank]
+    public mixed $value;
+    #[Assert\NotBlank]
+    #[Assert\Choice(callback: [SettingValueType::class, 'values'])]
+    public string $settingValueType;
+
+    #[Assert\NotBlank]
+    public bool $isActive;
+
     public function __construct(
-        #[Assert\NotBlank] #[Assert\Length(min: 3)] public string $name,
-        public mixed $value,
-        #[Assert\NotBlank] #[Assert\Choice(callback: [SettingValueType::class, 'values'])] public string $settingValueType,
-        public bool $isActive
+        string $name,
+        mixed $value,
+        string $settingValueType,
+        bool $isActive
     ) {
+        $this->name = $name;
+        $this->value = $value;
+        $this->settingValueType = $settingValueType;
+        $this->isActive = $isActive;
     }
 }

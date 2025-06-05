@@ -14,6 +14,43 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class SaveProductRequest implements ArrayHydratableInterface
 {
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
+    public string $name;
+
+    #[Assert\GreaterThanOrEqual(0)]
+    #[Assert\Type('numeric')]
+    #[CustomAssertCurrencyPrecision]
+    public string $regularPrice;
+
+
+    #[Assert\NotBlank]
+    public int $mainCategory;
+
+    #[Assert\NotBlank]
+    public bool $isActive;
+
+    public array $categories;
+
+    public array $tags;
+
+    public array $stocks;
+
+    public array $images;
+
+    public array $attributes;
+
+    public string|int|null $brand;
+
+    public ?string $slug;
+
+    public ?string $description;
+    public ?SaveProductPromotionRequest $productPromotionRequest;
+
+    public ?string $metaTitle;
+
+    public ?string $metaDescription;
+
     /**
      * @param array<int, mixed>         $categories
      * @param array<int, mixed>         $tags
@@ -21,22 +58,37 @@ final class SaveProductRequest implements ArrayHydratableInterface
      * @param array<string, mixed>      $attributes
      */
     public function __construct(
-        #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $name,
-        #[Assert\GreaterThanOrEqual(0)] #[Assert\Type('numeric')] #[CustomAssertCurrencyPrecision]  public string $regularPrice,
-        public array $stocks,
-        public int $mainCategory,
-        public bool $isActive,
-        public array $categories = [],
-        public array $tags = [],
-        public array $images = [],
-        public array $attributes = [],
-        public string|int|null $brand = null,
-        public ?string $slug = null,
-        public ?string $description = null,
-        public ?SaveProductPromotionRequest $productPromotionRequest = null,
-        public ?string $metaTitle = null,
-        public ?string $metaDescription = null,
+        string $name,
+        string $regularPrice,
+        array $stocks,
+        int $mainCategory,
+        bool $isActive,
+        array $categories = [],
+        array $tags = [],
+        array $images = [],
+        array $attributes = [],
+        string|int|null $brand = null,
+        ?string $slug = null,
+        ?string $description = null,
+        ?SaveProductPromotionRequest $productPromotionRequest = null,
+        ?string $metaTitle = null,
+        ?string $metaDescription = null,
     ) {
+        $this->name = $name;
+        $this->regularPrice = $regularPrice;
+        $this->stocks = $stocks;
+        $this->mainCategory = $mainCategory;
+        $this->isActive = $isActive;
+        $this->categories = $categories;
+        $this->tags = $tags;
+        $this->images = $images;
+        $this->attributes = $attributes;
+        $this->brand = $brand;
+        $this->slug = $slug;
+        $this->description = $description;
+        $this->productPromotionRequest = $productPromotionRequest;
+        $this->metaTitle = $metaTitle;
+        $this->metaDescription = $metaDescription;
     }
 
     public static function fromArray(array $data): ArrayHydratableInterface
