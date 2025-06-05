@@ -7,6 +7,8 @@ namespace App\AttributeValue\Application\Handler\Command;
 use App\AttributeValue\Application\Command\DeleteAttributeValueCommand;
 use App\AttributeValue\Domain\Repository\AttributeValueRepositoryInterface;
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Domain\Entity\AttributeValue;
+use App\Common\Domain\Exception\EntityNotFoundException;
 
 final readonly class DeleteAttributeValueCommandHandler implements CommandHandlerInterface
 {
@@ -16,8 +18,12 @@ final readonly class DeleteAttributeValueCommandHandler implements CommandHandle
 
     public function __invoke(DeleteAttributeValueCommand $command): void
     {
-        $this->repository->remove(
-            $this->repository->findById($command->attributeValueId)
-        );
+        /** @var ?AttributeValue $attributeValue */
+        $attributeValue = $this->repository->findById($command->attributeValueId);
+        if (null === $attributeValue) {
+            throw EntityNotFoundException::for(AttributeValue::class, $command->attributeValueId);
+        }
+
+        $this->repository->remove($attributeValue);
     }
 }

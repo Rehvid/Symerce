@@ -7,6 +7,9 @@ namespace App\Category\Application\Handler\Command;
 use App\Category\Application\Command\DeleteCategoryCommand;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Exception\EntityNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class DeleteCategoryCommandHandler implements CommandHandlerInterface
 {
@@ -16,8 +19,12 @@ final readonly class DeleteCategoryCommandHandler implements CommandHandlerInter
 
     public function __invoke(DeleteCategoryCommand $command): void
     {
-        $this->repository->remove(
-            $this->repository->findById($command->categoryId)
-        );
+        /** @var ?Category $category */
+        $category = $this->repository->findById($command->categoryId);
+        if (null === $category) {
+            throw EntityNotFoundException::for(Category::class, $command->categoryId);
+        }
+
+        $this->repository->remove($category);
     }
 }

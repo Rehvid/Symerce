@@ -7,6 +7,8 @@ namespace App\Carrier\Application\Handler\Command;
 use App\Carrier\Application\Command\DeleteCarrierCommand;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
+use App\Common\Domain\Entity\Carrier;
+use App\Common\Domain\Exception\EntityNotFoundException;
 
 final readonly class DeleteCarrierCommandHandler implements CommandHandlerInterface
 {
@@ -16,8 +18,12 @@ final readonly class DeleteCarrierCommandHandler implements CommandHandlerInterf
 
     public function __invoke(DeleteCarrierCommand $command): void
     {
-        $this->repository->remove(
-            $this->repository->findById($command->carrierId)
-        );
+        /** @var ?Carrier $carrier */
+        $carrier = $this->repository->findById($command->carrierId);
+        if (null === $carrier) {
+            throw EntityNotFoundException::for(Carrier::class, $command->carrierId);
+        }
+
+        $this->repository->remove($carrier);
     }
 }

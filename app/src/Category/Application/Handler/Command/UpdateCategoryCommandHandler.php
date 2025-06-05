@@ -11,6 +11,7 @@ use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Application\Service\SlugService;
 use App\Common\Domain\Entity\Category;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class UpdateCategoryCommandHandler implements CommandHandlerInterface
@@ -26,7 +27,7 @@ final readonly class UpdateCategoryCommandHandler implements CommandHandlerInter
         /** @var ?Category $category */
         $category = $this->repository->findById($command->categoryId);
         if (null === $category) {
-            throw new NotFoundHttpException('Category not found');
+            throw EntityNotFoundException::for(Category::class, $command->categoryId);
         }
         $data = $command->data;
 
