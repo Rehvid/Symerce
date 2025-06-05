@@ -6,7 +6,6 @@ namespace App\User\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
-use App\Common\Application\Dto\Request\RequestDtoInterface;
 use App\Common\Domain\Entity\User;
 use App\Common\Infrastructure\Validator\RepeatPassword as CustomAssertRepeatPassword;
 use App\Common\Infrastructure\Validator\StrongPassword as CustomAssertStrongPassword;
@@ -15,7 +14,7 @@ use App\User\Domain\Enums\UserRole;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-final readonly class SaveUserRequest implements RequestDtoInterface, ArrayHydratableInterface
+final readonly class SaveUserRequest implements ArrayHydratableInterface
 {
     #[Assert\NotBlank]
     #[Assert\Email]

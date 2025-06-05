@@ -6,10 +6,9 @@ namespace App\PaymentMethod\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
-use App\Common\Application\Dto\Request\RequestDtoInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SavePaymentMethodRequest implements RequestDtoInterface, ArrayHydratableInterface
+final readonly class SavePaymentMethodRequest implements ArrayHydratableInterface
 {
 
     /** @param array<string, mixed> $config */

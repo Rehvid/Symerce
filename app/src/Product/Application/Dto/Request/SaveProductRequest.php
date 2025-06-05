@@ -7,13 +7,12 @@ namespace App\Product\Application\Dto\Request;
 use App\Admin\Domain\Model\ProductFileData;
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
-use App\Common\Application\Dto\Request\RequestDtoInterface;
 use App\Common\Domain\ValueObject\DateVO;
 use App\Common\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
-final class SaveProductRequest implements RequestDtoInterface, ArrayHydratableInterface
+final class SaveProductRequest implements ArrayHydratableInterface
 {
     /**
      * @param array<int, mixed>         $categories

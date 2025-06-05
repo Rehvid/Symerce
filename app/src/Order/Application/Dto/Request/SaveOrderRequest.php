@@ -9,9 +9,8 @@ use App\Common\Application\Dto\Request\Address\SaveAddressDeliveryRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressInvoiceRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
 use App\Common\Application\Dto\Request\ContactDetails\SaveContactDetailsRequest;
-use App\Common\Application\Dto\Request\RequestDtoInterface;
 
-final readonly class SaveOrderRequest implements RequestDtoInterface, ArrayHydratableInterface
+final readonly class SaveOrderRequest implements ArrayHydratableInterface
 {
     /** @param SaveOrderProductRequest[] $saveOrderProductRequestCollection */
     public function __construct(

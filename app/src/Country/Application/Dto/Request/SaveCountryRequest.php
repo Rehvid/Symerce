@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Country\Application\Dto\Request;
 
-use App\Common\Application\Dto\Request\RequestDtoInterface;
 use App\Common\Domain\Entity\Country;
 use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueCode;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveCountryRequest implements RequestDtoInterface
+final readonly class SaveCountryRequest
 {
     public ?int $id;
 

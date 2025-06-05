@@ -6,11 +6,10 @@ namespace App\Carrier\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
-use App\Common\Application\Dto\Request\RequestDtoInterface;
 use App\Common\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveCarrierRequest implements ArrayHydratableInterface, RequestDtoInterface
+final readonly class SaveCarrierRequest implements ArrayHydratableInterface
 {
     public function __construct(
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $name,

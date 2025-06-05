@@ -32,7 +32,6 @@ final readonly class OrderDataFactory
         public CarrierRepositoryInterface $carrierRepository,
         public ProductRepositoryInterface $productRepository,
         public CountryRepositoryInterface $countryRepository,
-        public ValidationExceptionFactory $validationExceptionFactory
     ) {
 
     }

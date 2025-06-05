@@ -6,10 +6,9 @@ namespace App\Brand\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
-use App\Common\Application\Dto\Request\RequestDtoInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveBrandRequest implements ArrayHydratableInterface, RequestDtoInterface
+final readonly class SaveBrandRequest implements ArrayHydratableInterface
 {
     private function __construct(
         #[Assert\NotBlank] #[Assert\Length(min: 2)] public string $name,
