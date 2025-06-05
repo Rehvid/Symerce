@@ -6,6 +6,7 @@ namespace App\Setting\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Setting\Application\Command\UpdateSettingCommand;
@@ -15,6 +16,7 @@ use App\Setting\Application\Query\GetSettingForEditQuery;
 use App\Setting\Application\Query\GetSettingListQuery;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Setting\Application\Search\SettingSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -34,10 +36,18 @@ final class SettingController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        SettingSearchDefinition $definition,
+        SearchDataFactory $factory
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetSettingListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetSettingListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

@@ -6,6 +6,7 @@ namespace App\Country\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Country\Application\Command\CreateCountryCommand;
@@ -17,6 +18,8 @@ use App\Country\Application\Query\GetCountryForEditQuery;
 use App\Country\Application\Query\GetCountryListQuery;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Country\Application\Search\CountrySearchDefinition;
+use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +40,18 @@ final class CountryController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        CountrySearchDefinition $definition,
+        SearchDataFactory $factory,
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetCountryListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetCountryListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

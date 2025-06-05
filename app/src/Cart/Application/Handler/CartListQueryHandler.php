@@ -21,7 +21,7 @@ final readonly class CartListQueryHandler implements QueryHandlerInterface
     public function __invoke(GetCartListQuery $query): ApiResponse
     {
         $paginationResult = $this->searchService->search(
-            $this->searchService->buildSearchCriteria($query->request)
+            $this->searchService->buildSearchCriteria($query->searchData)
         );
 
         return new ApiResponse(

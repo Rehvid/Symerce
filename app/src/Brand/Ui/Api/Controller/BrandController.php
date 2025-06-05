@@ -11,12 +11,15 @@ use App\Brand\Application\Dto\Request\SaveBrandRequest;
 use App\Brand\Application\Factory\BrandDataFactory;
 use App\Brand\Application\Query\GetBrandForEditQuery;
 use App\Brand\Application\Query\GetBrandListQuery;
+use App\Brand\Application\Search\BrandSearchDefinition;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
+use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +40,18 @@ final class BrandController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        BrandSearchDefinition $definition,
+        SearchDataFactory $factory,
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetBrandListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetBrandListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

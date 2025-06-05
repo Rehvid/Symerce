@@ -12,8 +12,10 @@ use App\Attribute\Application\Factory\AttributeDataFactory;
 use App\Attribute\Application\Query\GetAttributeCreationContextQuery;
 use App\Attribute\Application\Query\GetAttributeForEditQuery;
 use App\Attribute\Application\Query\GetAttributeListQuery;
+use App\Attribute\Application\Search\AttributeSearchDefinition;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
@@ -38,10 +40,17 @@ final class AttributeController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
-    {
+    public function list(
+        Request $request,
+        AttributeSearchDefinition $definition,
+        SearchDataFactory $factory
+    ): JsonResponse {
         return $this->json(
-            data: $this->queryBus->ask(new GetAttributeListQuery($request)),
+            data: $this->queryBus->ask(
+                 new GetAttributeListQuery(
+                     searchData: $factory->fromRequest($request, $definition),
+                 )
+            ),
         );
     }
 

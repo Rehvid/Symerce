@@ -6,6 +6,9 @@ namespace App\Product\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
+use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
+use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Product\Application\Command\CreateProductCommand;
@@ -17,8 +20,7 @@ use App\Product\Application\Query\GetProductCreationContextQuery;
 use App\Product\Application\Query\GetProductForEditQuery;
 use App\Product\Application\Query\GetProductHistoryQuery;
 use App\Product\Application\Query\GetProductListQuery;
-use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
-use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Product\Application\Search\ProductSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,10 +41,17 @@ final class ProductController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
-    {
+    public function list(
+        Request $request,
+        ProductSearchDefinition $definition,
+        SearchDataFactory $factory,
+    ): JsonResponse {
         return $this->json(
-            data: $this->queryBus->ask(new GetProductListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetProductListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

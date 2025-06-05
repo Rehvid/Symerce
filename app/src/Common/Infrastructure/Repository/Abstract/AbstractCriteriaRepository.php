@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Common\Infrastructure\Repository\Abstract;
 
-use App\Common\Application\Dto\Filter\FilterCondition;
-use App\Common\Application\Dto\Filter\SearchCriteria;
 use App\Common\Application\Dto\Pagination\PaginationMeta;
 use App\Common\Application\Dto\Pagination\PaginationResult;
+use App\Common\Application\Search\Dto\FilterCondition;
+use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Domain\Enums\QueryOperator;
 use App\Common\Domain\Repository\CriteriaRepositoryInterface;
 use Doctrine\ORM\QueryBuilder;

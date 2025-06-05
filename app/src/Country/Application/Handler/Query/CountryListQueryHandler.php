@@ -20,7 +20,7 @@ final readonly class CountryListQueryHandler implements QueryHandlerInterface
     public function __invoke(GetCountryListQuery $query): ApiResponse
     {
         $paginationResult = $this->searchService->search(
-            $this->searchService->buildSearchCriteria($query->request)
+            $this->searchService->buildSearchCriteria($query->searchData)
         );
 
         return new ApiResponse(

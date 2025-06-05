@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Search;
 
-use App\Common\Application\Dto\Filter\SearchCriteria;
-use App\Common\Application\Service\AbstractSearchService;
+use App\Common\Application\Search\AbstractSearchService;
+use App\Common\Application\Search\Dto\SearchCriteria;
+use App\Common\Application\Search\Dto\SearchData;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,8 +20,8 @@ final class CustomerSearchService extends AbstractSearchService
         parent::__construct($repository, $parserFactory);
     }
 
-    public function buildSearchCriteria(Request $request): SearchCriteria
+    public function buildSearchCriteria(SearchData $searchData): SearchCriteria
     {
-        return $this->parserFactory->create()->parse($request);
+        return $this->parserFactory->create()->parse($searchData);
     }
 }

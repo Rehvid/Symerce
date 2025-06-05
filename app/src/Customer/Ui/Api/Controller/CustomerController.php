@@ -6,6 +6,7 @@ namespace App\Customer\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Customer\Application\Command\CreateCustomerCommand;
@@ -18,6 +19,8 @@ use App\Customer\Application\Query\GetCustomerForEditQuery;
 use App\Customer\Application\Query\GetCustomerListQuery;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Customer\Application\Search\CustomerSearchDefinition;
+use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +41,18 @@ final class CustomerController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        CustomerSearchDefinition $definition,
+        SearchDataFactory $factory,
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetCustomerListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetCustomerListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

@@ -6,6 +6,7 @@ namespace App\Tag\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
@@ -17,6 +18,7 @@ use App\Tag\Application\Dto\Request\SaveTagRequest;
 use App\Tag\Application\Factory\TagDataFactory;
 use App\Tag\Application\Query\GetTagForEditQuery;
 use App\Tag\Application\Query\GetTagListQuery;
+use App\Tag\Application\Search\TagSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +39,18 @@ final class TagController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        TagSearchDefinition $definition,
+        SearchDataFactory $factory
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetTagListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetTagListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

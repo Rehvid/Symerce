@@ -6,6 +6,7 @@ namespace App\Currency\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Currency\Application\Command\CreateCurrencyCommand;
@@ -17,6 +18,7 @@ use App\Currency\Application\Query\GetCurrencyForEditQuery;
 use App\Currency\Application\Query\GetCurrencyListQuery;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Currency\Application\Search\CurrencySearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +39,18 @@ final class CurrencyController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        CurrencySearchDefinition $definition,
+        SearchDataFactory $factory,
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetCurrencyListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetCurrencyListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

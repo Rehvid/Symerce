@@ -6,6 +6,7 @@ namespace App\PaymentMethod\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\PaymentMethod\Application\Command\CreatePaymentMethodCommand;
@@ -17,6 +18,7 @@ use App\PaymentMethod\Application\Query\GetPaymentMethodForEditQuery;
 use App\PaymentMethod\Application\Query\GetPaymentMethodListQuery;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
+use App\PaymentMethod\Application\Search\PaymentMethodSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +39,18 @@ final class PaymentMethodController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        PaymentMethodSearchDefinition $definition,
+        SearchDataFactory $factory
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetPaymentMethodListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetPaymentMethodListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

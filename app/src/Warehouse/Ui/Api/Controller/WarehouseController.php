@@ -6,6 +6,7 @@ namespace App\Warehouse\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
@@ -18,6 +19,7 @@ use App\Warehouse\Application\Factory\WarehouseDataFactory;
 use App\Warehouse\Application\Query\GetWarehouseCreationContextQuery;
 use App\Warehouse\Application\Query\GetWarehouseForEditQuery;
 use App\Warehouse\Application\Query\GetWarehouseListQuery;
+use App\Warehouse\Application\Search\WarehouseSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,16 +34,23 @@ final class WarehouseController extends AbstractApiController
         TranslatorInterface $translator,
         CommandBusInterface $commandBus,
         QueryBusInterface $queryBus,
-        private WarehouseDataFactory $warehouseDataFactory,
+        private readonly WarehouseDataFactory $warehouseDataFactory,
     ) {
         parent::__construct($requestDtoResolver, $translator, $commandBus, $queryBus);
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
-    {
+    public function list(
+        Request $request,
+        WarehouseSearchDefinition $definition,
+        SearchDataFactory $factory
+    ): JsonResponse {
         return $this->json(
-            data: $this->queryBus->ask(new GetWarehouseListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetWarehouseListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

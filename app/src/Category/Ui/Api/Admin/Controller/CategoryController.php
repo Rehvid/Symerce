@@ -12,12 +12,15 @@ use App\Category\Application\Factory\CategoryDataFactory;
 use App\Category\Application\Query\GetCategoryCreationContextQuery;
 use App\Category\Application\Query\GetCategoryForEditQuery;
 use App\Category\Application\Query\GetCategoryListQuery;
+use App\Category\Application\Search\CategorySearchDefinition;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +41,17 @@ final class CategoryController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
-    {
+    public function list(
+        Request $request,
+        CategorySearchDefinition $definition,
+        SearchDataFactory $factory,
+    ): JsonResponse{
         return $this->json(
-            data: $this->queryBus->ask(new GetCategoryListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetCategoryListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

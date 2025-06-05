@@ -6,6 +6,7 @@ namespace App\User\Ui\Api\Controller;
 
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
@@ -18,6 +19,7 @@ use App\User\Application\Factory\UserDataFactory;
 use App\User\Application\Query\GetUserCreationContextQuery;
 use App\User\Application\Query\GetUserForEditQuery;
 use App\User\Application\Query\GetUserListQuery;
+use App\User\Application\Search\UserSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +40,17 @@ final class UserController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
-    {
+    public function list(
+        Request $request,
+        UserSearchDefinition $definition,
+        SearchDataFactory $factory
+    ): JsonResponse {
         return $this->json(
-            data: $this->queryBus->ask(new GetUserListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetUserListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

@@ -11,12 +11,15 @@ use App\AttributeValue\Application\Dto\Request\SaveAttributeValueRequest;
 use App\AttributeValue\Application\Factory\AttributeValueDataFactory;
 use App\AttributeValue\Application\Query\GetAttributeValueForEditQuery;
 use App\AttributeValue\Application\Query\GetAttributeValueListQuery;
+use App\AttributeValue\Application\Search\AttributeValueSearchDefinition;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
+use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +40,18 @@ final class AttributeValueController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        AttributeValueSearchDefinition $definition,
+        SearchDataFactory $factory,
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetAttributeValueListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetAttributeValueListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 

@@ -11,12 +11,15 @@ use App\Carrier\Application\Dto\Request\SaveCarrierRequest;
 use App\Carrier\Application\Factory\CarrierDataFactory;
 use App\Carrier\Application\Query\GetCarrierForEditQuery;
 use App\Carrier\Application\Query\GetCarrierListQuery;
+use App\Carrier\Application\Search\CarrierSearchDefinition;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Dto\Response\IdResponse;
+use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
+use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +40,18 @@ final class CarrierController extends AbstractApiController
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
-    public function list(Request $request): JsonResponse
+    public function list(
+        Request $request,
+        CarrierSearchDefinition $definition,
+        SearchDataFactory $factory,
+    ): JsonResponse
     {
         return $this->json(
-            data: $this->queryBus->ask(new GetCarrierListQuery($request)),
+            data: $this->queryBus->ask(
+                new GetCarrierListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
+            ),
         );
     }
 
