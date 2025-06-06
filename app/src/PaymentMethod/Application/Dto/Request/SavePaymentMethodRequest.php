@@ -27,7 +27,6 @@ final readonly class SavePaymentMethodRequest implements ArrayHydratableInterfac
     #[CustomAssertUniqueCode(options: ['field' => 'code', 'className' => PaymentMethod::class])]
     public string $code;
 
-    #[Assert\NotBlank]
     public bool $isActive;
 
     #[Assert\NotBlank]

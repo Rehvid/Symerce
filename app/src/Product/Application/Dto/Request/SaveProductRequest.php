@@ -7,8 +7,10 @@ namespace App\Product\Application\Dto\Request;
 use App\Admin\Domain\Model\ProductFileData;
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
+use App\Common\Domain\Entity\Product;
 use App\Common\Domain\ValueObject\DateVO;
 use App\Common\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
+use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueSlug;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -24,10 +26,9 @@ final class SaveProductRequest implements ArrayHydratableInterface
     public string $regularPrice;
 
 
-    #[Assert\NotBlank]
+    #[Assert\GreaterThan(0)]
     public int $mainCategory;
 
-    #[Assert\NotBlank]
     public bool $isActive;
 
     public array $categories;
@@ -42,13 +43,34 @@ final class SaveProductRequest implements ArrayHydratableInterface
 
     public string|int|null $brand;
 
+    #[Assert\When(
+        expression: 'this.slug !== null',
+        constraints: [
+            new CustomAssertUniqueSlug(options: ['field' => 'slug', 'className' => Product::class]),
+            new Assert\Length(min: 2, max: 255),
+        ]
+    )]
     public ?string $slug;
 
+
     public ?string $description;
+
     public ?SaveProductPromotionRequest $productPromotionRequest;
 
+    #[Assert\When(
+        expression: 'this.metaTitle !== null',
+        constraints: [
+            new Assert\Length(min: 2, max: 255),
+        ]
+    )]
     public ?string $metaTitle;
 
+    #[Assert\When(
+        expression: 'this.metaDescription !== null',
+        constraints: [
+            new Assert\Length(min: 2, max: 500),
+        ]
+    )]
     public ?string $metaDescription;
 
     /**

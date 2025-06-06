@@ -18,8 +18,10 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
     public SaveContactDetailsRequest  $saveContactDetailsRequest;
     public SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
 
+    #[Assert\GreaterThan(0)]
     public int $paymentMethodId;
 
+    #[Assert\GreaterThan(0)]
     public int $carrierId;
 
     #[Assert\NotBlank]

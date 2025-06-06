@@ -10,6 +10,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveCountryRequest
 {
+    #[Assert\When(
+        expression: 'this.id !== null',
+        constraints: [
+            new Assert\GreaterThan(value: 0)
+        ]
+    )]
     public ?int $id;
 
     #[Assert\NotBlank]

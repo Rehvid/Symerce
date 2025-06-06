@@ -9,26 +9,33 @@ use App\Common\Application\Dto\Request\Address\SaveAddressDeliveryRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressInvoiceRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
 use App\Common\Application\Dto\Request\ContactDetails\SaveContactDetailsRequest;
+use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveCustomerRequest implements ArrayHydratableInterface
 {
-        public ?int $id;
+    #[Assert\When(
+        expression: 'this.id !== null',
+        constraints: [
+            new Assert\GreaterThan(value: 0)
+        ]
+    )]
+    public ?int $id;
 
-        public string $password;
+    public string $password;
 
-        public string $passwordConfirmation; //TODO: Move it to Request
+    public string $passwordConfirmation; //TODO: Move it to Request
 
-        public SaveContactDetailsRequest $saveContactDetailsRequest;
+    public SaveContactDetailsRequest $saveContactDetailsRequest;
 
-        public ?SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
+    public ?SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
 
-        public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest;
+    public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest;
 
-        public bool $isDelivery;
+    public bool $isDelivery;
 
-        public bool $isInvoice;
+    public bool $isInvoice;
 
-        public bool $isActive;
+    public bool $isActive;
 
     public function __construct(
         string $password,

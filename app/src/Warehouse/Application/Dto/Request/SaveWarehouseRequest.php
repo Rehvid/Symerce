@@ -16,7 +16,7 @@ final readonly class SaveWarehouseRequest implements ArrayHydratableInterface
 
     public ?string $description;
 
-    #[Assert\NotBlank]
+
     public bool $isActive;
 
     public SaveAddressRequest $addressRequest;

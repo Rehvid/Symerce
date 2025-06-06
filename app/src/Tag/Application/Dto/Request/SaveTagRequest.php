@@ -15,8 +15,20 @@ final readonly class SaveTagRequest
     #[Assert\NotBlank]
     public bool $isActive;
 
+    #[Assert\When(
+        expression: 'this.backgroundColor !== null',
+        constraints: [
+            new Assert\Length(min: 2, max: 255),
+        ]
+    )]
     public ?string $backgroundColor;
 
+    #[Assert\When(
+        expression: 'this.textColor !== null',
+        constraints: [
+            new Assert\Length(min: 2, max: 255),
+        ]
+    )]
     public ?string $textColor;
 
     public function __construct(

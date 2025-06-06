@@ -14,6 +14,7 @@ final readonly class SaveBrandRequest implements ArrayHydratableInterface
     #[Assert\Length(min: 2, max: 255)]
     public string $name;
 
+    #[Assert\NotBlank]
     public bool $isActive;
 
     public ?FileData $fileData;

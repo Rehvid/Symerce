@@ -19,7 +19,6 @@ final class UpdateSettingRequest
     #[Assert\Choice(callback: [SettingValueType::class, 'values'])]
     public string $settingValueType;
 
-    #[Assert\NotBlank]
     public bool $isActive;
 
     public function __construct(

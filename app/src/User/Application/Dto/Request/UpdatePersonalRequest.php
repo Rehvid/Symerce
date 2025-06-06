@@ -25,7 +25,7 @@ final class UpdatePersonalRequest implements ArrayHydratableInterface
     #[CustomAssertUniqueEmail(options: ['field' => 'email', 'className' => User::class])]
     public string $email;
 
-    #[Assert\NotBlank]
+    #[Assert\GreaterThan(0)]
     public int $id;
 
     public ?FileData $fileData;

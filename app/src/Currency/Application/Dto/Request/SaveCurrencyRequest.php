@@ -7,6 +7,8 @@ namespace App\Currency\Application\Dto\Request;
 use App\Common\Domain\Enums\DecimalPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
+
 final readonly class SaveCurrencyRequest
 {
     #[Assert\NotBlank]

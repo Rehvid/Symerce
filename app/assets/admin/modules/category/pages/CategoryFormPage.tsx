@@ -22,6 +22,9 @@ const CategoryFormPage = () => {
     formState: { errors: fieldErrors },
   } = useForm<UserFormDataInterface>({
     mode: 'onBlur',
+    defaultValues: {
+      id: Number(params.id) || null,
+    }
   });
 
   const baseApiUrl = 'admin/categories';
