@@ -3,12 +3,12 @@ import SideBar from '@/admin/layouts/components/SideBar';
 import TopBar from '@/admin/layouts/components/TopBar';
 import { NotificationProvider } from '@/admin/store/NotificationContext';
 import { ModalProvider } from '@/admin/store/ModalContext';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUser } from '@/admin/hooks/useUser';
 import { useAuth } from '@/admin/hooks/useAuth';
 import { useIsMobile } from '@/admin/hooks/useIsMobile';
 
-const AdminLayout = () => {
+const AdminLayout: React.FC  = () => {
     const isMobile = useIsMobile();
     const { isLoadingAuthorization, verifyAuth } = useAuth();
     const { isAuthenticated } = useUser();

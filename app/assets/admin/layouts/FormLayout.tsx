@@ -1,8 +1,15 @@
+import React, { ReactNode } from 'react';
 import FormFooterActions from '@/admin/components/form/FormFooterActions';
 import PageHeader from '@/admin/layouts/components/PageHeader';
 import Card from '@/admin/components/Card';
 
-const FormLayout = ({ mainColumn, sideColumn, pageTitle }) => {
+interface FormLayoutProps {
+    mainColumn: ReactNode;
+    sideColumn?: ReactNode;
+    pageTitle?: string;
+}
+
+const FormLayout: React.FC<FormLayoutProps> = ({ mainColumn, sideColumn, pageTitle }) => {
     return (
         <>
             {pageTitle && <PageHeader title={pageTitle} />}

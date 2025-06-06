@@ -9,25 +9,25 @@ import LogoutIcon from '@/images/icons/logout.svg';
 import { useAuth } from '@/admin/hooks/useAuth';
 import { useUser } from '@/admin/hooks/useUser';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const TopBarDropdown = () => {
+const TopBarDropdown: React.FC = () => {
     const { logout } = useAuth();
     const { user } = useUser();
     const navigate = useNavigate();
-    const [openDropdown, setOpenDropdown] = useState(false);
-    const [forceClose, setForceClose] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState<boolean>(false);
+    const [forceClose, setForceClose] = useState<boolean>(false);
 
     const handleLogout = () => {
         logout(() => navigate('/admin/public/login'));
     };
 
-    const onDropdownClick = () => {
+    const onDropdownClick = (): void => {
         setForceClose(false);
         setOpenDropdown((value) => !value);
     };
 
-    const handleForceClick = () => {
+    const handleForceClick = (): void => {
         setForceClose(true);
         setOpenDropdown(false);
     };
