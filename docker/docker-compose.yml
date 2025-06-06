@@ -47,6 +47,20 @@ services:
       - "1025:1025"
     networks:
       - symerce
+  webpack:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ../app:/app
+      - ../app/public:/app/public
+    command: sh -c "npm install && npm run dev-server"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - php
+      - nginx
+    networks:
+      - symerce
 
 networks:
   symerce:

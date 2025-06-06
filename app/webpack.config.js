@@ -3,6 +3,34 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const ENTRY = process.env.ENTRY || 'all';
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
+if (!Encore.isProduction()) {
+    Encore.addPlugin(new ReactRefreshWebpackPlugin());
+}
+
+Encore.configureDevServerOptions(options => {
+    options.hot = true;
+    options.liveReload = true;
+    options.port = 8080;
+    options.host = '0.0.0.0';
+    options.static = {
+        watch: false,
+    };
+    options.watchFiles = {
+        paths: ['src/**/*.php', 'templates/**/*'],
+    };
+    options.client = {
+        webSocketURL: 'ws://localhost:8080/ws'
+    };
+    options.proxy = [
+        {
+            context: ['/'],
+            target: 'http://localhost:4000',
+            changeOrigin: true,
+        }
+    ];
+});
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
@@ -33,6 +61,7 @@ if (ENTRY === 'shop' || ENTRY === 'all') {
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
+    .setManifestKeyPrefix('build/')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
@@ -45,7 +74,10 @@ Encore
     })
     .enableReactPreset()
     .enablePostCssLoader()
-    .enableTypeScriptLoader()
+    .enableTypeScriptLoader((tsConfig) => {
+      tsConfig.transpileOnly = true;
+    })
+    .disableCssExtraction(Encore.isDevServer())
     .addPlugin(new Dotenv())
     .addAliases({
         '@': path.resolve(__dirname, 'assets'),
