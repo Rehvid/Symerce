@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import FormSection from '@admin/shared/components/form/FormSection';
-import FormGroup from '@admin/shared/components/form/FormGroup';
+import FormSection from '@admin/common/components/form/FormSection';
+import FormGroup from '@admin/common/components/form/FormGroup';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
-import Select from '@admin/shared/components/form/select/Select';
-import { validationRules } from '@admin/utils/validationRules';
-import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
-import MultiSelect from '@admin/shared/components/form/select/MultiSelect';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
+import Select from '@admin/common/components/form/select/Select';
+import { validationRules } from '@admin/common/utils/validationRules';
+import { hasAnyFieldError } from '@admin/common/utils/formUtils';
+import MultiSelect from '@admin/common/components/form/select/MultiSelect';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
-import Description from '@admin/shared/components/Description';
+import Description from '@admin/common/components/Description';
 
 
 interface ProductCategorizationProps {

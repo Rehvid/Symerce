@@ -14,7 +14,7 @@ import ProductPricing from '@admin/modules/product/components/sections/ProductPr
 import ProductStock from '@admin/modules/product/components/sections/ProductStock';
 import ProductAttributes from '@admin/modules/product/components/sections/ProductAttributes';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
-import { FormContextInterface } from '@admin/shared/interfaces/FormContextInterface';
+import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
 
 
 interface ProductFormBodyProps {

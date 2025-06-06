@@ -1,5 +1,5 @@
 import React from 'react';
-import AppButton from '@/admin/components/common/AppButton';
+import Button from '@admin/common/components/Button';
 
 interface Tab {
     name: string;
@@ -18,14 +18,14 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ activeTab, setAct
     return (
         <ul className="flex flex-wrap gap-5 border-b border-gray-200">
             {tabs.map((tab, index) => (
-                <AppButton
+                <Button
                     variant="sideBar"
                     additionalClasses={`py-2 px-5 ${tab.name === activeTab ? activeClasses : ''}`}
                     key={index}
                     onClick={() => setActiveTab(tab.name)}
                 >
                     {tab.label}
-                </AppButton>
+                </Button>
             ))}
         </ul>
     );

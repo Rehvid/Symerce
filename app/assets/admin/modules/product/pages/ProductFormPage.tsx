@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ProductFormBody from '@admin/modules/product/components/ProductFormBody';
-import useApiFormSubmit from '@admin/shared/hooks/form/useApiFormSubmit';
-import useFormInitializer from '@admin/shared/hooks/form/useFormInitializer';
-import FormSkeleton from '@admin/components/skeleton/FormSkeleton';
+import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
+import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
+import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import { useEffect } from 'react';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
-import FormWrapper from '@admin/shared/components/form/FormWrapper';
+import FormWrapper from '@admin/common/components/form/FormWrapper';
 import { SettingFormDataInterface } from '@admin/modules/setting/interfaces/SettingFormDataInterface';
 
 const ProductFormPage = () => {

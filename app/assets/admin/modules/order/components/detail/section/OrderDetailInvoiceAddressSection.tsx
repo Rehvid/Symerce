@@ -1,4 +1,4 @@
-import FormSection from '@admin/shared/components/form/FormSection';
+import FormSection from '@admin/common/components/form/FormSection';
 import OrderLabelValue from '@admin/modules/order/components/detail/OrderLabelValue';
 import React from 'react';
 

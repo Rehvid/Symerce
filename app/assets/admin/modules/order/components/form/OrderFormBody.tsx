@@ -7,7 +7,7 @@ import OrderInformation from '@admin/modules/order/components/form/section/Order
 import OrderShippingAndPayment from '@admin/modules/order/components/form/section/OrderShippingAndPayment';
 import OrderProduct from '@admin/modules/order/components/form/section/OrderProduct';
 import { Control, FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { FormContextInterface } from '@admin/shared/interfaces/FormContextInterface';
+import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
 
 interface OrderFormBodyProps {
   register: UseFormRegister<OrderFormDataInterface>;

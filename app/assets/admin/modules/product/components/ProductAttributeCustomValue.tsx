@@ -1,8 +1,8 @@
 import { AttributeType } from '@admin/modules/attribute/enums/AttributeType';
-import InputField from '@admin/shared/components/form/input/InputField';
+import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { Controller } from 'react-hook-form';
-import RichTextEditor from '@admin/shared/components/form/input/RichTextEditor';
+import RichTextEditor from '@admin/common/components/form/input/RichTextEditor';
 import Chrome from '@uiw/react-color-chrome';
 import React from 'react';
 

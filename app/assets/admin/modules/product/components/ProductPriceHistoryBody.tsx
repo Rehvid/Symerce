@@ -1,6 +1,6 @@
 import React from 'react';
-import AppLink from '@admin/components/common/AppLink';
-import FormSection from '@admin/shared/components/form/FormSection';
+import Link from '@admin/common/components/Link';
+import FormSection from '@admin/common/components/form/FormSection';
 
 const ProductPriceHistoryBody = ({items}) => {
   return (
@@ -22,7 +22,7 @@ const ProductPriceHistoryBody = ({items}) => {
             <td className="py-6 px-4 text-center">{item.basePrice}</td>
             <td className="py-6 px-4 text-center">{item.discountPrice}</td>
             <td className="py-6 px-4 text-right">
-              <AppLink to={`/admin/products/${item.productId}/edit`} additionalClasses="text-center" >Produkt</AppLink>
+              <Link to={`/admin/products/${item.productId}/edit`} additionalClasses="text-center" >Produkt</Link>
             </td>
             <td className="py-6 px-4 text-right">{item.createdAt}</td>
           </tr>

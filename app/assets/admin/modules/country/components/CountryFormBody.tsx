@@ -1,15 +1,15 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { CountryFormDataInterface } from '@admin/modules/country/interfaces/CountryFormDataInterface';
 import React from 'react';
-import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
-import InputField from '@admin/shared/components/form/input/InputField';
+import { hasAnyFieldError } from '@admin/common/utils/formUtils';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
+import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/utils/validationRules';
-import Switch from '@admin/shared/components/form/input/Switch';
-import FormSection from '@admin/shared/components/form/FormSection';
-import Description from '@admin/shared/components/Description';
+import { validationRules } from '@admin/common/utils/validationRules';
+import Switch from '@admin/common/components/form/input/Switch';
+import FormSection from '@admin/common/components/form/FormSection';
+import Description from '@admin/common/components/Description';
 
 interface CountryFormBodyProps {
   register: UseFormRegister<CountryFormDataInterface>;

@@ -18,7 +18,7 @@ Encore.configureDevServerOptions(options => {
         watch: false,
     };
     options.watchFiles = {
-        paths: ['src/**/*.php', 'templates/**/*'],
+        paths: ['templates/**/*'],
     };
     options.client = {
         webSocketURL: 'ws://localhost:8080/ws'

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { createApiConfig } from '../../../../shared/api/ApiConfig';
 import { HTTP_METHODS } from '../../../../admin/constants/httpConstants';
 import RestApiClient from '../../../../shared/api/RestApiClient';
-import Card from '../../../../admin/components/Card';
+import Card from '@admin/common/components/Card';
 import IconPencil from '../../../../images/icons/pencil.svg';
 import { CheckoutStep } from '../../../enums/CheckoutStep';
 

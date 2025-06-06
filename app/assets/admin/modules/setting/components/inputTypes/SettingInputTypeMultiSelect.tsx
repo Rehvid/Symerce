@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
-import { validationRules } from '@admin/utils/validationRules';
-import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
+import { validationRules } from '@admin/common/utils/validationRules';
+import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 
 const SettingInputTypeMultiSelect = ({control, settingField}) => {
   return (

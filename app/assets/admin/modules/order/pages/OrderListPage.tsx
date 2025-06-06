@@ -1,20 +1,20 @@
-import useListDefaultQueryParams from '@admin/shared/hooks/list/useListDefaultQueryParams';
-import { useListData } from '@admin/shared/hooks/list/useListData';
+import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
+import { useListData } from '@admin/common/hooks/list/useListData';
 import { OrderListItemInterface } from '@admin/modules/order/interfaces/OrderListItemInterface';
 import { useState } from 'react';
-import { filterEmptyValues } from '@admin/utils/helper';
+import { filterEmptyValues } from '@admin/common/utils/helper';
 import { OrderListFiltersInterface } from '@admin/modules/order/interfaces/OrderListFiltersInterface';
-import TableSkeleton from '@admin/components/skeleton/TableSkeleton';
-import DataTable from '@admin/shared/components/table/DataTable';
+import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
+import DataTable from '@admin/common/components/table/DataTable';
 import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/components/ListHeader';
+import ListHeader from '@admin/common/components/ListHeader';
 import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
-import { TableColumn } from '@admin/shared/types/tableColumn';
+import { TableColumn } from '@admin/common/types/tableColumn';
 import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
 import TableRowMoney from '@admin/components/table/Partials/TableRow/TableRowMoney';
-import Badge from '@admin/components/common/Badge';
+import Badge from '@admin/common/components/Badge';
 import TableRowEditAction from '@admin/components/table/Partials/TableRow/TableRowEditAction';
-import TableRowDetailAction from '@admin/shared/components/table/partials/table-row/TableRowDetailAction';
+import TableRowDetailAction from '@admin/common/components/table/partials/table-row/TableRowDetailAction';
 
 
 const OrderListPage = () => {

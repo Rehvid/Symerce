@@ -1,4 +1,4 @@
-import { Money } from '@admin/shared/types/money';
+import { Money } from '@admin/common/types/money';
 
 export interface OrderListItemInterface {
   id: number,

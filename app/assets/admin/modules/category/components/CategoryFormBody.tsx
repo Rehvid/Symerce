@@ -1,20 +1,20 @@
-import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
+import { hasAnyFieldError } from '@admin/common/utils/formUtils';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
 import Dropzone from '@admin/components/form/dropzone/Dropzone';
 import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
-import FormGroup from '@admin/shared/components/form/FormGroup';
+import FormGroup from '@admin/common/components/form/FormGroup';
 import React, { useState } from 'react';
-import { useDropzoneLogic } from '@admin/hooks/useDropzoneLogic';
-import { UploadFileInterface } from '@admin/shared/interfaces/UploadFileInterface';
-import { normalizeFiles } from '@admin/utils/helper';
-import InputField from '@admin/shared/components/form/input/InputField';
+import { useDropzoneLogic } from '@admin/common/hooks/form/useDropzoneLogic';
+import { UploadFileInterface } from '@admin/common/interfaces/UploadFileInterface';
+import { normalizeFiles } from '@admin/common/utils/helper';
+import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/utils/validationRules';
-import Switch from '@admin/shared/components/form/input/Switch';
+import { validationRules } from '@admin/common/utils/validationRules';
+import Switch from '@admin/common/components/form/input/Switch';
 import { Controller } from 'react-hook-form';
-import RichTextEditor from '@admin/shared/components/form/input/RichTextEditor';
+import RichTextEditor from '@admin/common/components/form/input/RichTextEditor';
 import FormCategoryTree from '@admin/components/category-tree/FormCategoryTree';
-import FormSection from '@admin/shared/components/form/FormSection';
+import FormSection from '@admin/common/components/form/FormSection';
 
 
 const CategoryFormBody = ({register, fieldErrors, control, formData, formContext, params, watch, setValue}) => {

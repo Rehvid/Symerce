@@ -1,8 +1,8 @@
 import TrashIcon from '@/images/icons/trash.svg';
-import AppButton from '@/admin/components/common/AppButton';
-import { useModal } from '@/admin/hooks/useModal';
-import ModalHeader from '@/admin/components/modal/ModalHeader';
-import ModalBody from '@/admin/components/modal/ModalBody';
+import Button from '@admin/common/components/Button';
+import { useModal } from '@admin/common/context/ModalContext';
+import ModalHeader from '@admin/common/components/modal/ModalHeader';
+import ModalBody from '@admin/common/components/form/ModalBody';
 
 const TableRowDeleteAction = ({ onClick }) => {
     const { openModal, closeModal } = useModal();
@@ -25,20 +25,20 @@ const TableRowDeleteAction = ({ onClick }) => {
                 <ModalHeader title={title} />
                 <ModalBody>
                     <div className="flex flex-col gap-5">
-                        <AppButton
+                        <Button
                             variant="decline"
                             additionalClasses="px-4 py-2.5 font-bold  w-full text-center"
                             onClick={() => confirmClick()}
                         >
                             Potwierdź usunięcie
-                        </AppButton>
-                        <AppButton
+                        </Button>
+                        <Button
                             variant="secondary"
                             additionalClasses="px-4 py-2.5 font-bold w-full text-center "
                             onClick={closeModal}
                         >
                             Anuluj operację
-                        </AppButton>
+                        </Button>
                     </div>
                 </ModalBody>
             </>,
@@ -46,9 +46,9 @@ const TableRowDeleteAction = ({ onClick }) => {
     };
 
     return (
-        <AppButton onClick={handleClick} additionalClasses="text-gray-500">
+        <Button onClick={handleClick} additionalClasses="text-gray-500">
             <TrashIcon className="w-[24px] h-[24px]" />
-        </AppButton>
+        </Button>
     );
 };
 

@@ -1,19 +1,18 @@
 import { useForm } from 'react-hook-form';
 import { createApiConfig } from '@/shared/api/ApiConfig';
-import { useUser } from '@/admin/hooks/useUser';
-import { ALERT_TYPES } from '@/admin/constants/alertConstants';
-import { HTTP_METHODS } from '@/admin/constants/httpConstants';
-import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
+import { useUser } from '@admin/common/context/UserContext';
+import { useNotification } from '@admin/common/context/NotificationContext';
 import ApiForm from '@/admin/components/form/ApiForm';
-import ProfilePersonalFormMainColumn from '@/admin/features/profile/components/partials/ProfilePersonalFormMainColumn';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import React from 'react';
 import { ProfilePersonalFormData } from '@admin/modules/profile/interfaces/ProfilePersonalFormData';
+import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
+import ProfilePersonalFormMainColumn from '@admin/modules/profile/components/ProfilePersonalFormMainColumn';
 
 
 const ProfilePersonalForm: React.FC = () => {
     const { user, setUser } = useUser();
-    const { addNotification } = useCreateNotification();
+    const { addNotification } = useNotification();
     const {
         register,
         handleSubmit,
@@ -37,7 +36,7 @@ const ProfilePersonalForm: React.FC = () => {
                 ...prev,
                 ...currentUser,
             }));
-            addNotification(message, ALERT_TYPES.SUCCESS);
+            addNotification(message, NotificationType.SUCCESS);
         },
     };
 

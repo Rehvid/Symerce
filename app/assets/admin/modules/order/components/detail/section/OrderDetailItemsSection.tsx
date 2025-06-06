@@ -1,5 +1,5 @@
 import { OrderDetailInterface } from '@admin/modules/order/interfaces/OrderDetailInterface';
-import FormSection from '@admin/shared/components/form/FormSection';
+import FormSection from '@admin/common/components/form/FormSection';
 import React from 'react';
 import OrderDetailTableItem from '@admin/modules/order/components/detail/OrderDetailTableItem';
 

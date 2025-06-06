@@ -1,18 +1,18 @@
 import React from 'react';
-import FormSection from '@admin/shared/components/form/FormSection';
+import FormSection from '@admin/common/components/form/FormSection';
 import { Control, UseFormRegister, UseFormWatch, Controller, FieldErrors } from 'react-hook-form';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
-import InputField from '@admin/shared/components/form/input/InputField';
-import { validationRules } from '@admin/utils/validationRules';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import Switch from '@admin/shared/components/form/input/Switch';
-import { useData } from '@admin/hooks/useData';
-import Select from '@admin/shared/components/form/select/Select';
-import Error from '@admin/shared/components/Error';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
+import InputField from '@admin/common/components/form/input/InputField';
+import { validationRules } from '@admin/common/utils/validationRules';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import Switch from '@admin/common/components/form/input/Switch';
+import Select from '@admin/common/components/form/select/Select';
+import Error from '@admin/common/components/Error';
 import CurrencyIcon from '@/images/icons/currency.svg';
 import NumberIcon from '@/images/icons/number.svg';
 import DatePicker from 'react-datepicker';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import { useAppData } from '@admin/common/context/AppDataContext';
 
 interface ProductPricingProps {
   register: UseFormRegister<ProductFormDataInterface>;
@@ -23,7 +23,7 @@ interface ProductPricingProps {
 }
 
 const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, watch, formData, control}) => {
-  const { currency } = useData();
+  const { currency } = useAppData();
 
   return (
     <FormSection title="Cena">

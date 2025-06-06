@@ -10,6 +10,7 @@ use App\Common\Domain\Entity\User;
 use App\Common\Domain\Enums\CookieName;
 use App\Common\Infrastructure\Http\CookieFactory;
 use App\User\Application\Dto\Response\UserSessionResponse;
+use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -29,12 +30,16 @@ final readonly class JWTEventService
         $this->tokenTtl = $tokenTtl;
     }
 
-    public function handleJwtSuccess(mixed $event, User $user, string $token): void
+    public function handleJwtSuccess(AuthenticationSuccessEvent $event, User $user, string $token): void
     {
         $this->setCookieForResponse($event, $token);
 
+        $response = $this->createApiResponse(
+            $this->createDataForApiResponse($user)
+        );
+
         $event->setData(
-            [$this->createApiResponse($this->createDataForApiResponse($user))]
+            $this->createApiResponse($this->createDataForApiResponse($user))->jsonSerialize()
         );
     }
 

@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import { normalizeFiles } from '@admin/utils/helper';
-import { UploadFileInterface } from '@admin/shared/interfaces/UploadFileInterface';
-import { useDropzoneLogic } from '@admin/hooks/useDropzoneLogic';
-import FormSection from '@admin/shared/components/form/FormSection';
-import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
+import { normalizeFiles } from '@admin/common/utils/helper';
+import { UploadFileInterface } from '@admin/common/interfaces/UploadFileInterface';
+import { useDropzoneLogic } from '@admin/common/hooks/form/useDropzoneLogic';
+import FormSection from '@admin/common/components/form/FormSection';
+import { hasAnyFieldError } from '@admin/common/utils/formUtils';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
 import Dropzone from '@admin/components/form/dropzone/Dropzone';
 import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
-import InputField from '@admin/shared/components/form/input/InputField';
+import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/utils/validationRules';
-import Switch from '@admin/shared/components/form/input/Switch';
-import { DynamicFields } from '@admin/shared/components/form/DynamicFields';
+import { validationRules } from '@admin/common/utils/validationRules';
+import Switch from '@admin/common/components/form/input/Switch';
+import { DynamicFields } from '@admin/common/components/form/DynamicFields';
 import CurrencyIcon from '@/images/icons/currency.svg';
-import { useData } from '@admin/hooks/useData';
+import { useAppData } from '@admin/common/context/AppDataContext';
 
 const CarrierFormBody = ({register, fieldErrors, setValue, formData, watch, control}) => {
-  const { currency } = useData();
+  const { currency } = useAppData();
   const [thumbnail, setThumbnail] = useState<any>(normalizeFiles(formData?.thumbnail));
 
   const setDropzoneValue = (image: UploadFileInterface) => {

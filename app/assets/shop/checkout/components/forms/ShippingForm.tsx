@@ -3,7 +3,7 @@ import { createApiConfig } from '../../../../shared/api/ApiConfig';
 import { HTTP_METHODS } from '../../../../admin/constants/httpConstants';
 import RestApiClient from '../../../../shared/api/RestApiClient';
 import InputRadio from '../../../common/InputRadio';
-import { validationRules } from '../../../../admin/utils/validationRules';
+import { validationRules } from '@admin/common/utils/validationRules';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import PlaceholderImage from '../../../../images/placeholder-image.png';
 

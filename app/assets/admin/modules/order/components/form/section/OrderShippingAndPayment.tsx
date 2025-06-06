@@ -1,12 +1,12 @@
 import React from 'react';
-import FormSection from '@admin/shared/components/form/FormSection';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
+import FormSection from '@admin/common/components/form/FormSection';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import { validationRules } from '@admin/utils/validationRules';
-import Select from '@admin/shared/components/form/select/Select';
+import { validationRules } from '@admin/common/utils/validationRules';
+import Select from '@admin/common/components/form/select/Select';
 import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
-import { FormContextInterface } from '@admin/shared/interfaces/FormContextInterface';
+import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
 
 interface OrderShippingAndPaymentProps {
   control: Control<OrderFormDataInterface>;

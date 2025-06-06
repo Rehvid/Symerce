@@ -1,5 +1,5 @@
-import Card from '@/admin/components/Card';
-import Heading from '@/admin/components/common/Heading';
+import Card from '@admin/common/components/Card';
+import Heading from '@admin/common/components/Heading';
 
 const FormSidePanel = ({ sectionTitle, children }) => (
     <Card additionalClasses="xl:w-[400px] w-full h-full">

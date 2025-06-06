@@ -1,14 +1,14 @@
-import FormSection from '@admin/shared/components/form/FormSection';
+import FormSection from '@admin/common/components/form/FormSection';
 import React, { useEffect, useState } from 'react';
-import FormGroup from '@admin/shared/components/form/FormGroup';
+import FormGroup from '@admin/common/components/form/FormGroup';
 import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/utils/validationRules';
-import InputField from '@admin/shared/components/form/input/InputField';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
-import Switch from '@admin/shared/components/form/input/Switch';
+import { validationRules } from '@admin/common/utils/validationRules';
+import InputField from '@admin/common/components/form/input/InputField';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
+import Switch from '@admin/common/components/form/input/Switch';
 import { Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
-import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
+import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 
 interface OrderDeliveryAddressProps {
   register: UseFormRegister<OrderFormDataInterface>,

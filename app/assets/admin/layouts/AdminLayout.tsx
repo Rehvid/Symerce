@@ -1,12 +1,14 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import SideBar from '@/admin/layouts/components/SideBar';
 import TopBar from '@/admin/layouts/components/TopBar';
-import { NotificationProvider } from '@/admin/store/NotificationContext';
-import { ModalProvider } from '@/admin/store/ModalContext';
 import React, { useEffect, useState } from 'react';
-import { useUser } from '@/admin/hooks/useUser';
-import { useAuth } from '@/admin/hooks/useAuth';
-import { useIsMobile } from '@/admin/hooks/useIsMobile';
+
+
+import { useAuth } from '@admin/common/context/AuthroizationContext';
+import { useUser } from '@admin/common/context/UserContext';
+import { useIsMobile } from '@admin/common/hooks/useIsMobile';
+import { NotificationProvider } from '@admin/common/context/NotificationContext';
+import { ModalProvider } from '@admin/common/context/ModalContext';
 
 const AdminLayout: React.FC  = () => {
     const isMobile = useIsMobile();

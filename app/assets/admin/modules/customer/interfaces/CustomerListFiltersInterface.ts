@@ -1,4 +1,4 @@
-import { ListDefaultFiltersInterface } from '@admin/shared/interfaces/ListDefaultFiltersInterface';
+import { ListDefaultFiltersInterface } from '@admin/common/interfaces/ListDefaultFiltersInterface';
 
 export interface CustomerListFiltersInterface extends ListDefaultFiltersInterface {
   isActive: boolean,

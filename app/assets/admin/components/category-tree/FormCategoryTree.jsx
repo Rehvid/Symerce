@@ -1,6 +1,6 @@
-import Card from '@/admin/components/Card';
+import Card from '@admin/common/components/Card';
 import CategoryTree from '@/admin/components/category-tree/CategoryTree';
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 
 const FormCategoryTree = ({
     categories,

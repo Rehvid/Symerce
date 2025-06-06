@@ -1,15 +1,14 @@
-import { validationRules } from '@/admin/utils/validationRules';
+import { validationRules } from '@admin/common/utils/validationRules';
 import { useForm } from 'react-hook-form';
-import { useUser } from '@/admin/hooks/useUser';
-import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
-import { ALERT_TYPES } from '@/admin/constants/alertConstants';
-import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import ApiForm from '@/admin/components/form/ApiForm';
 import { createApiConfig } from '@/shared/api/ApiConfig';
 import InputPassword from '@/admin/components/form/controls/InputPassword';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import React from 'react';
 import { ProfileSecurityFormData } from '@admin/modules/profile/interfaces/ProfileSecurityFormData';
+import { useNotification } from '@admin/common/context/NotificationContext';
+import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
+import { useUser } from '@admin/common/context/UserContext';
 
 
 const ProfileSecurityForm: React.FC = () => {
@@ -22,11 +21,11 @@ const ProfileSecurityForm: React.FC = () => {
         mode: 'onBlur',
     });
     const { user } = useUser();
-    const { addNotification } = useCreateNotification();
+    const { addNotification } = useNotification();
 
     const apiRequestCallbacks = {
         onSuccess: ({ message }) => {
-            addNotification(message, ALERT_TYPES.SUCCESS);
+            addNotification(message, NotificationType.SUCCESS);
         },
     };
 
@@ -63,7 +62,6 @@ const ProfileSecurityForm: React.FC = () => {
                             })}
                         />
                     </>
-
                 </FormApiLayout>
             </ApiForm>
         </>

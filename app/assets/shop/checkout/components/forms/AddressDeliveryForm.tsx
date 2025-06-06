@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../../../common/Input';
-import { validationRules } from '../../../../admin/utils/validationRules';
+import { validationRules } from '@admin/common/utils/validationRules';
 import { CheckoutFormData } from '../steps/AddressStep';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import SectionStepTitle from '../SectionStepTitle';

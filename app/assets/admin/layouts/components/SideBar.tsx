@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Logo from '@/admin/components/Logo';
+import Logo from '@admin/common/components/Logo';
 import SideBarNavigation from '@/admin/layouts/components/partials/SideBarNavigation';
 
 interface SideBarProps {

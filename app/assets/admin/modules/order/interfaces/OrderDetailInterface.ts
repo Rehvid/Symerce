@@ -1,4 +1,4 @@
-import { Address } from '@admin/shared/types/address';
+import { Address } from '@admin/common/types/address';
 
 export interface OrderDetailInterface {
   information: {

@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { SettingFormDataInterface } from '@admin/modules/setting/interfaces/SettingFormDataInterface';
-import useApiFormSubmit from '@admin/shared/hooks/form/useApiFormSubmit';
-import useFormInitializer from '@admin/shared/hooks/form/useFormInitializer';
-import FormSkeleton from '@admin/components/skeleton/FormSkeleton';
-import FormWrapper from '@admin/shared/components/form/FormWrapper';
+import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
+import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
+import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
+import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import { useEffect } from 'react';
 import SettingFormBody from '@admin/modules/setting/components/SettingFormBody';

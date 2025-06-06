@@ -1,16 +1,16 @@
-import useListDefaultQueryParams from '@admin/shared/hooks/list/useListDefaultQueryParams';
+import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
 import { useState } from 'react';
-import { filterEmptyValues } from '@admin/utils/helper';
+import { filterEmptyValues } from '@admin/common/utils/helper';
 import { SettingListFiltersInterface } from '@admin/modules/setting/interfaces/SettingListFiltersInterface';
-import { useListData } from '@admin/shared/hooks/list/useListData';
+import { useListData } from '@admin/common/hooks/list/useListData';
 import { SettingListItemInterface } from '@admin/modules/setting/interfaces/SettingListItemInterface';
-import TableSkeleton from '@admin/components/skeleton/TableSkeleton';
-import { TableColumn } from '@admin/shared/types/tableColumn';
+import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
+import { TableColumn } from '@admin/common/types/tableColumn';
 import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
 import TableRowActiveBadge from '@admin/components/table/Partials/TableRow/TableRowActiveBadge';
-import DataTable from '@admin/shared/components/table/DataTable';
+import DataTable from '@admin/common/components/table/DataTable';
 import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/components/ListHeader';
+import ListHeader from '@admin/common/components/ListHeader';
 import TableRowEditAction from '@admin/components/table/Partials/TableRow/TableRowEditAction';
 
 const SettingListPage = () => {

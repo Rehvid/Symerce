@@ -1,4 +1,4 @@
-import Badge from '@/admin/components/common/Badge';
+import Badge from '@admin/common/components/Badge';
 
 const TableRowActiveBadge = ({ isActive }) => {
     const variant = isActive ? 'success' : 'error';

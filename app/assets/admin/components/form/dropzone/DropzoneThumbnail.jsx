@@ -1,5 +1,5 @@
 import DropzonePreview from '@/admin/components/form/dropzone/DropzonePreview';
-import ModalFile from '@/admin/components/modal/ModalFile';
+import ModalFile from '@admin/common/components/modal/ModalFile';
 
 const DropzoneThumbnail = ({ file, removeFile, index, variant, isMainThumbnail, children }) => {
     const variants = {

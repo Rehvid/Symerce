@@ -1,5 +1,5 @@
-import ModalHeader from '@/admin/components/modal/ModalHeader';
-import ModalBody from '@/admin/components/modal/ModalBody';
+import ModalHeader from '@admin/common/components/modal/ModalHeader';
+import ModalBody from '@admin/common/components/form/ModalBody';
 import Modal from '@/shop/components/Modal';
 import { POSITION_TYPES } from '@/admin/constants/positionConstants';
 import { useClickToggleBySelector } from '@/shop/hooks/useClickToggleBySelector';

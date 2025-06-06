@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { normalizeFiles } from '@admin/utils/helper';
-import { UploadFileInterface } from '@admin/shared/interfaces/UploadFileInterface';
-import { useDropzoneLogic } from '@admin/hooks/useDropzoneLogic';
-import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
+import { normalizeFiles } from '@admin/common/utils/helper';
+import { UploadFileInterface } from '@admin/common/interfaces/UploadFileInterface';
+import { useDropzoneLogic } from '@admin/common/hooks/form/useDropzoneLogic';
+import { hasAnyFieldError } from '@admin/common/utils/formUtils';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
 import Dropzone from '@admin/components/form/dropzone/Dropzone';
 import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
-import FormSection from '@admin/shared/components/form/FormSection';
-import InputField from '@admin/shared/components/form/input/InputField';
+import FormSection from '@admin/common/components/form/FormSection';
+import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/utils/validationRules';
+import { validationRules } from '@admin/common/utils/validationRules';
 import { Controller } from 'react-hook-form';
-import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
-import Switch from '@admin/shared/components/form/input/Switch';
-import InputPassword from '@admin/shared/components/form/input/InputPassword';
+import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
+import Switch from '@admin/common/components/form/input/Switch';
+import InputPassword from '@admin/common/components/form/input/InputPassword';
 
 const UserFormBody = ({formData, setValue, register, control, isEditMode, formContext, fieldErrors}) => {
   const [avatar, setAvatar] = useState<any>(normalizeFiles(formData?.avatar));

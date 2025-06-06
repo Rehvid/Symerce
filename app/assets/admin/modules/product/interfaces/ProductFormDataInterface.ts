@@ -1,4 +1,4 @@
-import { FormDataInterface } from '@admin/shared/interfaces/FormDataInterface';
+import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
 
 export interface ProductFormDataInterface extends FormDataInterface {
   name: string,

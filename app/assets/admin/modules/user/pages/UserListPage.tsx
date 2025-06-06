@@ -4,17 +4,17 @@ import UsersIcon from '@/images/icons/users.svg';
 import TableRowActiveBadge from '@admin/components/table/Partials/TableRow/TableRowActiveBadge';
 import TableActions from '@admin/components/table/Partials/TableActions';
 import { UserListItemInterface } from '@admin/modules/user/interfaces/UserListItemInterface';
-import { TableColumn } from '@admin/shared/types/tableColumn';
-import TableSkeleton from '@admin/components/skeleton/TableSkeleton';
-import useListDefaultQueryParams from '@admin/shared/hooks/list/useListDefaultQueryParams';
+import { TableColumn } from '@admin/common/types/tableColumn';
+import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
+import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
 import { ReactElement, useState } from 'react';
-import { filterEmptyValues } from '@admin/utils/helper';
-import { useListData } from '@admin/shared/hooks/list/useListData';
+import { filterEmptyValues } from '@admin/common/utils/helper';
+import { useListData } from '@admin/common/hooks/list/useListData';
 import { UserListFiltersInterface } from '@admin/modules/user/interfaces/UserListFiltersInterface';
 import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/components/ListHeader';
+import ListHeader from '@admin/common/components/ListHeader';
 import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
-import DataTable from '@admin/shared/components/table/DataTable';
+import DataTable from '@admin/common/components/table/DataTable';
 
 const UserListPage = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();

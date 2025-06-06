@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import Editor from '@/admin/components/editor/Editor';
+import Editor from '@admin/common/components/form/Editor';
 import DOMPurify from 'quill/formats/link';
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 
 const Textarea = ({ title, value, onChange, isRequired }) => {
     const quillRef = useRef();

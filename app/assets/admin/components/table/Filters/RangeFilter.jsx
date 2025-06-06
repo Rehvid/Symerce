@@ -1,6 +1,6 @@
 import Input from '@/admin/components/form/controls/Input';
 import { useState } from 'react';
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 import NumberIcon from '@/images/icons/number.svg';
 
 const RangeFilter = ({ filters, setFilters, nameFilter, label, icon = null }) => {

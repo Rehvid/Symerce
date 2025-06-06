@@ -1,6 +1,6 @@
 import { OrderDetailInterface } from '@admin/modules/order/interfaces/OrderDetailInterface';
 import React from 'react';
-import FormSection from '@admin/shared/components/form/FormSection';
+import FormSection from '@admin/common/components/form/FormSection';
 import OrderLabelValue from '@admin/modules/order/components/detail/OrderLabelValue';
 
 interface OrderDetailContactSectionProps {

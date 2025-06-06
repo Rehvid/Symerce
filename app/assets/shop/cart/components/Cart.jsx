@@ -5,7 +5,7 @@ import RestApiClient from '@/shared/api/RestApiClient';
 import SpinnerIcon from '@/images/icons/spinner.svg';
 import { CartItem } from '@/shop/cart/components/CartItem';
 import { updateCartCount } from '@/shop/cartManager';
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 
 const Cart = () => {
   const [items, setItems] = useState();

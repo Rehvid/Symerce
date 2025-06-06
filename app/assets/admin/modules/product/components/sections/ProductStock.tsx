@@ -1,18 +1,18 @@
 import React from 'react';
-import FormSection from '@admin/shared/components/form/FormSection';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
-import Switch from '@admin/shared/components/form/input/Switch';
-import InputField from '@admin/shared/components/form/input/InputField';
+import FormSection from '@admin/common/components/form/FormSection';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
+import Switch from '@admin/common/components/form/input/Switch';
+import InputField from '@admin/common/components/form/input/InputField';
 import NumberIcon from '@/images/icons/number.svg';
-import { validationRules } from '@admin/utils/validationRules';
-import Description from '@admin/shared/components/Description';
+import { validationRules } from '@admin/common/utils/validationRules';
+import Description from '@admin/common/components/Description';
 import { Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
-import { DynamicFields } from '@admin/shared/components/form/DynamicFields';
+import { DynamicFields } from '@admin/common/components/form/DynamicFields';
 import DatePicker from 'react-datepicker';
-import Error from '@admin/shared/components/Error';
-import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
+import Error from '@admin/common/components/Error';
+import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 
 interface ProductStockProps {
   fieldErrors: FieldErrors<ProductFormDataInterface>;

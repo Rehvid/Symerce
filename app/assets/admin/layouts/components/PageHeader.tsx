@@ -1,4 +1,4 @@
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 import React, { ReactNode } from 'react';
 
 interface PageHeaderProps {

@@ -2,9 +2,9 @@ import Dropdown from '@/admin/components/dropdown/Dropdown';
 import DropdownButton from '@/admin/components/dropdown/DropdownButton';
 import DropdownContent from '@/admin/components/dropdown/DropdownContent';
 import { useState } from 'react';
-import Badge from '@/admin/components/common/Badge';
+import Badge from '@admin/common/components/Badge';
 import ChevronIcon from '@/images/icons/chevron.svg';
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 
 const MultiSelect = ({ options, selected, label, isRequired, onChange, hasError, errorMessage }) => {
     const [openDropdown, setOpenDropdown] = useState(false);

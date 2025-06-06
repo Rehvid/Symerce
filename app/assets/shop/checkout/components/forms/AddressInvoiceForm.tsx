@@ -2,7 +2,7 @@ import React from 'react';
 import Input from '../../../common/Input';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { CheckoutFormData } from '../steps/AddressStep';
-import { validationRules } from '../../../../admin/utils/validationRules';
+import { validationRules } from '@admin/common/utils/validationRules';
 import SectionStepTitle from '../SectionStepTitle';
 
 type Props = {

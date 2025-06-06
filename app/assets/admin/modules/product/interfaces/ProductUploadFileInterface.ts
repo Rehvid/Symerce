@@ -1,4 +1,4 @@
-import { UploadFileInterface } from '@admin/shared/interfaces/UploadFileInterface';
+import { UploadFileInterface } from '@admin/common/interfaces/UploadFileInterface';
 
 export interface ProductUploadFileInterface extends UploadFileInterface {
   isThumbnail: boolean,

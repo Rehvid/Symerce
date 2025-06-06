@@ -1,5 +1,5 @@
 import NumberIcon from '@/images/icons/number.svg';
-import InputField from '@admin/shared/components/form/input/InputField';
+import InputField from '@admin/common/components/form/input/InputField';
 import React from 'react';
 
 const SettingInputTypeNumber = ({register}) => {

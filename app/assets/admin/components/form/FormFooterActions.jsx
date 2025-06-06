@@ -1,4 +1,4 @@
-import AppButton from '@/admin/components/common/AppButton';
+import Button from '@admin/common/components/Button';
 import { useNavigate } from 'react-router-dom';
 import ArrowLeftIcon from '@/images/icons/arrow-left.svg';
 import SaveIcon from '@/images/icons/device-floppy.svg';
@@ -10,7 +10,7 @@ const FormFooterActions = ({ children }) => {
             <div className="ml-[290px]">
                 <div className="flex items-center justify-end pr-[48px] gap-5">
                     {children}
-                    <AppButton
+                    <Button
                         variant="secondary"
                         type="button"
                         additionalClasses="px-5 py-3 flex gap-2"
@@ -20,11 +20,11 @@ const FormFooterActions = ({ children }) => {
                     >
                         <ArrowLeftIcon className="w-[24px] h-[24px]" />
                         Wstecz
-                    </AppButton>
-                    <AppButton variant="primary" type="submit" additionalClasses="px-5 py-3 flex gap-2">
+                    </Button>
+                    <Button variant="primary" type="submit" additionalClasses="px-5 py-3 flex gap-2">
                         <SaveIcon className="w-[24px] h-[24px]" />
                         Zapisz
-                    </AppButton>
+                    </Button>
                 </div>
             </div>
         </div>

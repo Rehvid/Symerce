@@ -1,4 +1,4 @@
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 import PlaceholderImage from '@/images/placeholder-image.png';
 import TrashIcon from '@/images/icons/trash.svg';
 import InputQuantity from '@/shop/components/InputQuantity';

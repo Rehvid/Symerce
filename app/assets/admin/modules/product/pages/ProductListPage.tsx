@@ -1,7 +1,7 @@
-import useListDefaultQueryParams from '@admin/shared/hooks/list/useListDefaultQueryParams';
+import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
 import { useState } from 'react';
-import { filterEmptyValues } from '@admin/utils/helper';
-import TableSkeleton from '@admin/components/skeleton/TableSkeleton';
+import { filterEmptyValues } from '@admin/common/utils/helper';
+import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import TableActions from '@admin/components/table/Partials/TableActions';
 import TableRowShowAction from '@admin/components/table/Partials/TableRow/TableRowShowAction';
 import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
@@ -13,22 +13,22 @@ import ActiveFilter from '@admin/components/table/Filters/ActiveFilter';
 import RangeFilter from '@admin/components/table/Filters/RangeFilter';
 import ExactValueFilter from '@admin/components/table/Filters/ExactValueFilter';
 import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/components/ListHeader';
+import ListHeader from '@admin/common/components/ListHeader';
 import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
-import DataTable from '@admin/shared/components/table/DataTable';
-import { TableColumn } from '@admin/shared/types/tableColumn';
-import useDraggable from '@admin/shared/hooks/list/useDraggable';
-import { useListData } from '@admin/shared/hooks/list/useListData';
+import DataTable from '@admin/common/components/table/DataTable';
+import { TableColumn } from '@admin/common/types/tableColumn';
+import useDraggable from '@admin/common/hooks/list/useDraggable';
+import { useListData } from '@admin/common/hooks/list/useListData';
 import { ProductListFiltersInterface } from '@admin/modules/product/interfaces/ProductListFiltersInterface';
 import { ProductListItemInterface } from '@admin/modules/product/interfaces/ProductListItemInterface';
-import { useData } from '@admin/hooks/useData';
-import AppLink from '@admin/components/common/AppLink';
+import Link from '@admin/common/components/Link';
 import HistoryIcon from '@/images/icons/history.svg'
+import { useAppData } from '@admin/common/context/AppDataContext';
 
 
 const ProductListPage = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const { data: globalData } = useData();
+  const { data: globalData } = useAppData();
   const enableProductHistory = globalData?.settings.find(setting => setting.settingKey === 'enable_price_history')?.value?.value;
 
 
@@ -61,9 +61,9 @@ const ProductListPage = () => {
     <TableActions id={item.id} onDelete={() => removeItem(`admin/products/${item.id}`)} >
       <TableRowShowAction href={item.showUrl}/>
       {enableProductHistory === '1' && (
-        <AppLink to={`${item.id}/price-history`}>
+        <Link to={`${item.id}/price-history`}>
           <HistoryIcon className="h-[24px] w-[24px] text-gray-500" />
-        </AppLink>
+        </Link>
       )}
     </TableActions>
   )

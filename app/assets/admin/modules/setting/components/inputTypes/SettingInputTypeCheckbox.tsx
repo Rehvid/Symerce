@@ -1,4 +1,4 @@
-import Switch from '@admin/shared/components/form/input/Switch';
+import Switch from '@admin/common/components/form/input/Switch';
 
 const SettingInputTypeCheckbox = ({register}) => {
   return (

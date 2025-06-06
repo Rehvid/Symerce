@@ -6,7 +6,7 @@ import ConfirmationStep from './components/steps/ConfirmationStep';
 import ThankYouStep from './components/steps/ThankYouStep'
 import ShippingStep from './components/steps/ShippingStep';
 import CheckoutProgress from './components/CheckoutProgress';
-import tableSkeleton from '../../admin/components/skeleton/TableSkeleton';
+import tableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 
 
 type Props = {

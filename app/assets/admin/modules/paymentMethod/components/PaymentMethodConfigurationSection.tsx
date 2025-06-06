@@ -1,8 +1,8 @@
-import FormSection from '@admin/shared/components/form/FormSection';
-import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
-import InputField from '@admin/shared/components/form/input/InputField';
-import { validationRules } from '@admin/utils/validationRules';
-import { DynamicFields } from '@admin/shared/components/form/DynamicFields';
+import FormSection from '@admin/common/components/form/FormSection';
+import { hasAnyFieldError } from '@admin/common/utils/formUtils';
+import InputField from '@admin/common/components/form/input/InputField';
+import { validationRules } from '@admin/common/utils/validationRules';
+import { DynamicFields } from '@admin/common/components/form/DynamicFields';
 import React from 'react';
 
 const PaymentMethodConfigurationSection = ({register, fieldErrors, control}) => (

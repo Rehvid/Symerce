@@ -1,8 +1,8 @@
 import { useClickToggleBySelector } from '@/shop/hooks/useClickToggleBySelector';
 import Modal from '@/shop/components/Modal';
 import { POSITION_TYPES } from '@/admin/constants/positionConstants';
-import ModalHeader from '@/admin/components/modal/ModalHeader';
-import ModalBody from '@/admin/components/modal/ModalBody';
+import ModalHeader from '@admin/common/components/modal/ModalHeader';
+import ModalBody from '@admin/common/components/form/ModalBody';
 import { useIsMobile } from '@/admin/hooks/useIsMobile';
 import { useEffect } from 'react';
 

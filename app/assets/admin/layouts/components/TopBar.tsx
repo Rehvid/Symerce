@@ -1,10 +1,9 @@
 import React, { ReactNode, useEffect } from 'react';
 import TopBarDropdown from '@/admin/layouts/components/partials/TopBarDropdown';
 import MenuIcon from '@/images/icons/menu.svg';
-import { useModal } from '@/admin/hooks/useModal';
-import ModalHeader from '@/admin/components/modal/ModalHeader';
-import ModalBody from '@/admin/components/modal/ModalBody';
-import { POSITION_TYPES } from '@/admin/constants/positionConstants';
+import { useModal } from '@admin/common/context/ModalContext';
+import ModalHeader from '@admin/common/components/modal/ModalHeader';
+import ModalBody from '@admin/common/components/form/ModalBody';
 
 interface TopBarProps {
     sideBarContent: ReactNode;

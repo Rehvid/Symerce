@@ -1,14 +1,14 @@
-import FormSection from '@admin/shared/components/form/FormSection';
-import { hasAnyFieldError } from '@admin/shared/utils/formUtils';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
-import InputField from '@admin/shared/components/form/input/InputField';
+import FormSection from '@admin/common/components/form/FormSection';
+import { hasAnyFieldError } from '@admin/common/utils/formUtils';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
+import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/utils/validationRules';
-import Switch from '@admin/shared/components/form/input/Switch';
+import { validationRules } from '@admin/common/utils/validationRules';
+import Switch from '@admin/common/components/form/input/Switch';
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
-import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
+import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 
 const AttributeFormBody = ({register, fieldErrors, formContext, formData, control}) => {
   const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);

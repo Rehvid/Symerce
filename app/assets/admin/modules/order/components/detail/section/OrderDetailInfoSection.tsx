@@ -1,7 +1,7 @@
 import React from 'react';
 import { OrderDetailInterface } from '@admin/modules/order/interfaces/OrderDetailInterface';
 import OrderLabelValue from '@admin/modules/order/components/detail/OrderLabelValue';
-import FormSection from '@admin/shared/components/form/FormSection';
+import FormSection from '@admin/common/components/form/FormSection';
 
 interface OrderDetailInfoSectionProps {
   information: OrderDetailInterface['information'];

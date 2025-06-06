@@ -1,15 +1,15 @@
 import React from 'react';
-import FormSection from '@admin/shared/components/form/FormSection';
+import FormSection from '@admin/common/components/form/FormSection';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
-import { validationRules } from '@admin/utils/validationRules';
-import Select from '@admin/shared/components/form/select/Select';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
+import { validationRules } from '@admin/common/utils/validationRules';
+import Select from '@admin/common/components/form/select/Select';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
-import MultiSelect from '@admin/shared/components/form/select/MultiSelect';
-import InputField from '@admin/shared/components/form/input/InputField';
+import MultiSelect from '@admin/common/components/form/select/MultiSelect';
+import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
-import Description from '@admin/shared/components/Description';
+import Description from '@admin/common/components/Description';
 
 interface ProductLogisticsProps {
   control: Control<ProductFormDataInterface>;

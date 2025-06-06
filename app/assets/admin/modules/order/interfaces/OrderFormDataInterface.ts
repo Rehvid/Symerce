@@ -1,5 +1,5 @@
-import { FormDataInterface } from '@admin/shared/interfaces/FormDataInterface';
-import { CheckoutItem } from '@admin/shared/types/checkoutItem';
+import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
+import { CheckoutItem } from '@admin/common/types/checkoutItem';
 
 export interface OrderFormDataInterface extends FormDataInterface {
   checkoutStep: string,

@@ -1,4 +1,4 @@
-import ModalBackground from '@/admin/components/modal/ModalBackground';
+import ModalBackground from '@admin/common/components/modal/ModalBackground';
 
 const Modal = ({ isOpen, position, children }) => {
     if (!isOpen) {

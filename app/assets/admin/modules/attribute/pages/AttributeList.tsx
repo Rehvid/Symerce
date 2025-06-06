@@ -1,21 +1,21 @@
-import useListDefaultQueryParams from '@admin/shared/hooks/list/useListDefaultQueryParams';
+import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
 import { ReactElement, useState } from 'react';
 import { BrandListFiltersInterface } from '@admin/modules/brand/interfaces/BrandListFiltersInterface';
-import { filterEmptyValues } from '@admin/utils/helper';
-import { useListData } from '@admin/shared/hooks/list/useListData';
-import TableSkeleton from '@admin/components/skeleton/TableSkeleton';
+import { filterEmptyValues } from '@admin/common/utils/helper';
+import { useListData } from '@admin/common/hooks/list/useListData';
+import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
 import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
 import TableRowActiveBadge from '@admin/components/table/Partials/TableRow/TableRowActiveBadge';
 import TableActions from '@admin/components/table/Partials/TableActions';
-import { TableColumn } from '@admin/shared/types/tableColumn';
+import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/components/ListHeader';
+import ListHeader from '@admin/common/components/ListHeader';
 import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
-import DataTable from '@admin/shared/components/table/DataTable';
+import DataTable from '@admin/common/components/table/DataTable';
 import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
 import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
-import AppLink from '@admin/components/common/AppLink';
+import Link from '@admin/common/components/Link';
 import EyeIcon from '@/images/icons/eye.svg';
 
 const AttributeList = () => {
@@ -40,9 +40,9 @@ const AttributeList = () => {
 
   const renderTableActions: ReactElement = (item) => (
     <TableActions id={item.id} onDelete={() => removeItem(`admin/attributes/${item.id}`)}>
-      <AppLink to={`${item.id}/values`} additionalClasses="text-gray-500">
+      <Link to={`${item.id}/values`} additionalClasses="text-gray-500">
         <EyeIcon className="w-[24px] h-[24px]" />
-      </AppLink>
+      </Link>
     </TableActions>
   )
 

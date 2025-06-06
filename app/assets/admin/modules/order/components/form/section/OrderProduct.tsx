@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import FormSection from '@admin/shared/components/form/FormSection';
-import { DynamicFields } from '@admin/shared/components/form/DynamicFields';
-import InputField from '@admin/shared/components/form/input/InputField';
-import Select from '@admin/shared/components/form/select/Select';
+import FormSection from '@admin/common/components/form/FormSection';
+import { DynamicFields } from '@admin/common/components/form/DynamicFields';
+import InputField from '@admin/common/components/form/input/InputField';
+import Select from '@admin/common/components/form/select/Select';
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { validationRules } from '@admin/utils/validationRules';
+import { validationRules } from '@admin/common/utils/validationRules';
 import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
-import { FormContextInterface } from '@admin/shared/interfaces/FormContextInterface';
+import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
 
 interface OrderProductProps {
   register: UseFormRegister<OrderFormDataInterface>;

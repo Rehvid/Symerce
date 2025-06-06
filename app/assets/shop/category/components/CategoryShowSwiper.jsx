@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import PlaceholderImage from '@/images/placeholder-image.png';
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 
 const CategoryShowSwiper = ({items}) => {
 

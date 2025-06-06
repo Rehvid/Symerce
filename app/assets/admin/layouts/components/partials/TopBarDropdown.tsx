@@ -3,11 +3,11 @@ import DropdownButton from '@/admin/components/dropdown/DropdownButton';
 import UserIcon from '@/images/icons/user.svg';
 import ChevronIcon from '@/images/icons/chevron.svg';
 import DropdownContent from '@/admin/components/dropdown/DropdownContent';
-import AppLink from '@/admin/components/common/AppLink';
-import AppButton from '@/admin/components/common/AppButton';
+import Link from '@admin/common/components/Link';
+import Button from '@admin/common/components/Button';
 import LogoutIcon from '@/images/icons/logout.svg';
-import { useAuth } from '@/admin/hooks/useAuth';
-import { useUser } from '@/admin/hooks/useUser';
+import { useAuth } from '@admin/common/context/AuthroizationContext';
+import { useUser } from '@admin/common/context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
@@ -61,7 +61,7 @@ const TopBarDropdown: React.FC = () => {
                 </div>
                 <ul className="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200">
                     <li>
-                        <AppLink
+                        <Link
                             to="profile"
                             variant="button"
                             additionalClasses="flex items-center gap-3 w-full px-3 py-2"
@@ -69,17 +69,17 @@ const TopBarDropdown: React.FC = () => {
                         >
                             <UserIcon className="w-[24px] h-[24px]" />
                             Edytuj profil
-                        </AppLink>
+                        </Link>
                     </li>
                 </ul>
-                <AppButton
+                <Button
                     onClick={handleLogout}
                     variant="link"
                     additionalClasses="w-full flex items-center gap-3 px-3 py-2 mt-3"
                 >
                     <LogoutIcon className="w-[24px] h-[24px]" />
                     <span>Wyloguj sie</span>
-                </AppButton>
+                </Button>
             </DropdownContent>
         </Dropdown>
     );

@@ -1,23 +1,23 @@
-import useListDefaultQueryParams from '@admin/shared/hooks/list/useListDefaultQueryParams';
+import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
 import { ReactElement, useState } from 'react';
 import { UserListFiltersInterface } from '@admin/modules/user/interfaces/UserListFiltersInterface';
-import { filterEmptyValues } from '@admin/utils/helper';
-import { useListData } from '@admin/shared/hooks/list/useListData';
+import { filterEmptyValues } from '@admin/common/utils/helper';
+import { useListData } from '@admin/common/hooks/list/useListData';
 import { UserListItemInterface } from '@admin/modules/user/interfaces/UserListItemInterface';
-import TableSkeleton from '@admin/components/skeleton/TableSkeleton';
+import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
 import TableRowImageWithText from '@admin/components/table/Partials/TableRow/TableRowImageWithText';
 import UsersIcon from '@/images/icons/users.svg';
 import TableRowActiveBadge from '@admin/components/table/Partials/TableRow/TableRowActiveBadge';
 import TableActions from '@admin/components/table/Partials/TableActions';
-import { TableColumn } from '@admin/shared/types/tableColumn';
+import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/components/ListHeader';
+import ListHeader from '@admin/common/components/ListHeader';
 import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
-import DataTable from '@admin/shared/components/table/DataTable';
+import DataTable from '@admin/common/components/table/DataTable';
 import TableRowShowAction from '@admin/components/table/Partials/TableRow/TableRowShowAction';
-import TableRowDetailAction from '@admin/shared/components/table/partials/table-row/TableRowDetailAction';
-import AppLink from '@admin/components/common/AppLink';
+import TableRowDetailAction from '@admin/common/components/table/partials/table-row/TableRowDetailAction';
+import Link from '@admin/common/components/Link';
 
 const CartList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -43,7 +43,7 @@ const CartList = () => {
     const { id, orderId, customer, total, createdAt, updatedAt, expiresAt } = item;
     return Object.values({
       id: <TableRowId id={id} />,
-      orderId: orderId ? <AppLink to={`/admin/orders/${orderId}/details`} >Zamówienie</AppLink> : '-',
+      orderId: orderId ? <Link to={`/admin/orders/${orderId}/details`} >Zamówienie</Link> : '-',
       customer,
       total,
       createdAt,

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
-import FormSection from '@admin/shared/components/form/FormSection';
-import FormGroup from '@admin/shared/components/form/FormGroup';
-import InputLabel from '@admin/shared/components/form/input/InputLabel';
+import FormSection from '@admin/common/components/form/FormSection';
+import FormGroup from '@admin/common/components/form/FormGroup';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
 import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
-import { DynamicFields } from '@admin/shared/components/form/DynamicFields';
-import Switch from '@admin/shared/components/form/input/Switch';
-import ReactSelect from '@admin/shared/components/form/reactSelect/ReactSelect';
+import { DynamicFields } from '@admin/common/components/form/DynamicFields';
+import Switch from '@admin/common/components/form/input/Switch';
+import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 import ProductAttributeCustomValue from '@admin/modules/product/components/ProductAttributeCustomValue';
 
 interface ProductAttributesProps {

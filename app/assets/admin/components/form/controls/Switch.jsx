@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '@/admin/components/common/Heading';
+import Heading from '@admin/common/components/Heading';
 
 const Switch = React.forwardRef(({ label, ...register }, ref) => {
     return (
