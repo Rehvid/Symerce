@@ -1,4 +1,4 @@
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@/admin/components/table/Filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@admin/common/components/table/partials/filters/PaginationFilter';
 import { SortDirection } from '@admin/common/enums/sortDirection';
 import { ListDefaultFiltersInterface } from '@admin/common/interfaces/ListDefaultFiltersInterface';
 import { SortInterface } from '@admin/common/interfaces/SortInterface';

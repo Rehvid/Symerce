@@ -1,5 +1,5 @@
-import Link from '../../../../common/components/Link';
-import PencilIcon from '../../../../../images/icons/pencil.svg';
+import Link from '../../../Link';
+import PencilIcon from '../../../../../../images/icons/pencil.svg';
 
 const TableRowEditAction = ({ to }) => {
     return (

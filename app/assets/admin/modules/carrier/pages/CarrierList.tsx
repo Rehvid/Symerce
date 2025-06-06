@@ -5,22 +5,22 @@ import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
-import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
-import TableRowImageWithText from '@admin/components/table/Partials/TableRow/TableRowImageWithText';
+import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
+import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
 import ProductIcon from '@/images/icons/assembly.svg';
-import TableRowActiveBadge from '@admin/components/table/Partials/TableRow/TableRowActiveBadge';
-import TableActions from '@admin/components/table/Partials/TableActions';
+import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
+import TableActions from '@admin/common/components/table/partials/TableActions';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
+import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
 import DataTable from '@admin/common/components/table/DataTable';
 import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
 import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
 import { CarrierListFiltersInterface } from '@admin/modules/carrier/interfaces/CarrierListFiltersInterface';
 import { CarrierListItemInterface } from '@admin/modules/carrier/interfaces/CarrierListItemInterface';
 import CarrierIcon from '@/images/icons/carrier.svg';
-import TableRowMoney from '@admin/components/table/Partials/TableRow/TableRowMoney';
+import TableRowMoney from '@admin/common/components/table/partials/tableRow/TableRowMoney';
 
 const CarrierList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();

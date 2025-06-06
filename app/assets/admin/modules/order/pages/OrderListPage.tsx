@@ -8,13 +8,13 @@ import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import DataTable from '@admin/common/components/table/DataTable';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
+import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
 import { TableColumn } from '@admin/common/types/tableColumn';
-import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
-import TableRowMoney from '@admin/components/table/Partials/TableRow/TableRowMoney';
+import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
+import TableRowMoney from '@admin/common/components/table/partials/tableRow/TableRowMoney';
 import Badge from '@admin/common/components/Badge';
-import TableRowEditAction from '@admin/components/table/Partials/TableRow/TableRowEditAction';
-import TableRowDetailAction from '@admin/common/components/table/partials/table-row/TableRowDetailAction';
+import TableRowEditAction from '@admin/common/components/table/partials/tableRow/TableRowEditAction';
+import TableRowDetailAction from '@admin/common/components/table/partials/tableRow/TableRowDetailAction';
 
 
 const OrderListPage = () => {

@@ -6,17 +6,17 @@ import {
 } from '@admin/modules/paymentMethod/interfaces/PaymentMethodListFiltersInterface';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { PaymentMethodListItemInterface } from '@admin/modules/paymentMethod/interfaces/PaymentMethodListItemInterface';
-import TableRowActiveBadge from '@admin/components/table/Partials/TableRow/TableRowActiveBadge';
-import TableActions from '@admin/components/table/Partials/TableActions';
-import TableRowImageWithText from '@admin/components/table/Partials/TableRow/TableRowImageWithText';
-import TableRowMoney from '@admin/components/table/Partials/TableRow/TableRowMoney';
+import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
+import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
+import TableRowMoney from '@admin/common/components/table/partials/tableRow/TableRowMoney';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
+import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
 import DataTable from '@admin/common/components/table/DataTable';
-import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
+import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
 import PaymentIcon from '@/images/icons/payment.svg';
 
 const PaymentMethodListPage = () => {

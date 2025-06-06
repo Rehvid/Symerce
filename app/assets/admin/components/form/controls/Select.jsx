@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Dropdown from '@/admin/components/dropdown/Dropdown';
+import Dropdown from '@admin/components/dropdown/Dropdown';
 import Heading from '@admin/common/components/Heading';
-import DropdownButton from '@/admin/components/dropdown/DropdownButton';
+import DropdownButton from '@admin/components/dropdown/DropdownButton';
 import Badge from '@admin/common/components/Badge';
 import ChevronIcon from '@/images/icons/chevron.svg';
-import DropdownContent from '@/admin/components/dropdown/DropdownContent';
+import DropdownContent from '@admin/components/dropdown/DropdownContent';
 
 const Select = ({
     options,

@@ -3,7 +3,7 @@ import FormFooterActions from '@admin/components/form/FormFooterActions';
 import React from 'react';
 
 interface FormApiLayout {
-  pageTitle: string,
+  pageTitle?: string,
   children: React.ReactNode,
 }
 

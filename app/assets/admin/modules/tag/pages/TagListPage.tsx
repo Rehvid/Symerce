@@ -3,17 +3,17 @@ import { ReactElement, useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { CountryListItemInterface } from '@admin/modules/country/interfaces/CountryListItemInterface';
-import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
-import TableActions from '@admin/components/table/Partials/TableActions';
+import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
+import TableActions from '@admin/common/components/table/partials/TableActions';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
+import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
 import DataTable from '@admin/common/components/table/DataTable';
 import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
 import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
-import TableRowActiveBadge from '@admin/components/table/Partials/TableRow/TableRowActiveBadge';
+import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
 
 const TagListPage = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();

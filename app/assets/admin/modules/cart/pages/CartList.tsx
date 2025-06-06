@@ -5,18 +5,18 @@ import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { UserListItemInterface } from '@admin/modules/user/interfaces/UserListItemInterface';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
-import TableRowId from '@admin/components/table/Partials/TableRow/TableRowId';
-import TableRowImageWithText from '@admin/components/table/Partials/TableRow/TableRowImageWithText';
+import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
+import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
 import UsersIcon from '@/images/icons/users.svg';
-import TableRowActiveBadge from '@admin/components/table/Partials/TableRow/TableRowActiveBadge';
-import TableActions from '@admin/components/table/Partials/TableActions';
+import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
+import TableActions from '@admin/common/components/table/partials/TableActions';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/components/table/Partials/TableToolbarButtons';
+import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
 import DataTable from '@admin/common/components/table/DataTable';
-import TableRowShowAction from '@admin/components/table/Partials/TableRow/TableRowShowAction';
-import TableRowDetailAction from '@admin/common/components/table/partials/table-row/TableRowDetailAction';
+import TableRowShowAction from '@admin/common/components/table/partials/tableRow/TableRowShowAction';
+import TableRowDetailAction from '@admin/common/components/table/partials/tableRow/TableRowDetailAction';
 import Link from '@admin/common/components/Link';
 
 const CartList = () => {

@@ -1,5 +1,5 @@
 import ChevronIcon from '@/images/icons/chevron.svg';
-import CategoryTreeInput from '@/admin/components/category-tree/CategoryTreeInput';
+import CategoryTreeInput from '@admin/components/category-tree/CategoryTreeInput';
 
 const CategoryTreeItem = ({
     category,

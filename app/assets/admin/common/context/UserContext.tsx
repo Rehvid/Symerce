@@ -3,7 +3,7 @@ import { AdminRole } from '@admin/common/enums/adminRole';
 import { FileResponseInterface } from '@admin/common/interfaces/FileResponseInterface';
 
 export interface User {
-    id?: string;
+    id?: string | number;
     firstname?: string;
     surname?: string;
     fullName?: string;
@@ -14,8 +14,8 @@ export interface User {
 }
 
 interface UserContextInterface {
-    user: User | null;
-    setUser: Dispatch<SetStateAction<User | null>>;
+    user: User;
+    setUser: Dispatch<SetStateAction<User>>;
     isAuthenticated: boolean;
     setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
 }

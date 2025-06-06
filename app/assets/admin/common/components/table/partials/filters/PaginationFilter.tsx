@@ -1,4 +1,4 @@
-import Select from '@/admin/components/form/controls/Select';
+import Select from '@admin/components/form/controls/Select';
 
 export const PAGINATION_FILTER_DEFAULT_OPTION = 10;
 

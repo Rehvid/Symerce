@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@admin/common/components/Button';
+import Button, { ButtonVariant } from '@admin/common/components/Button';
 
 interface Tab {
     name: string;
@@ -19,7 +19,7 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ activeTab, setAct
         <ul className="flex flex-wrap gap-5 border-b border-gray-200">
             {tabs.map((tab, index) => (
                 <Button
-                    variant="sideBar"
+                    variant={ButtonVariant.SideBar}
                     additionalClasses={`py-2 px-5 ${tab.name === activeTab ? activeClasses : ''}`}
                     key={index}
                     onClick={() => setActiveTab(tab.name)}

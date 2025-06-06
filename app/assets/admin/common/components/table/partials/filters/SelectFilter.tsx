@@ -1,4 +1,4 @@
-import Select from '@/admin/components/form/controls/Select';
+import Select from '@admin/components/form/controls/Select';
 import { useState } from 'react';
 
 const SelectFilter = ({ filters, setFilters, nameFilter, options, label = '' }) => {

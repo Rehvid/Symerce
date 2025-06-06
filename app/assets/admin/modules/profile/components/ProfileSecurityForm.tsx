@@ -1,7 +1,5 @@
 import { validationRules } from '@admin/common/utils/validationRules';
 import { useForm } from 'react-hook-form';
-import ApiForm from '@/admin/components/form/ApiForm';
-import { createApiConfig } from '@/shared/api/ApiConfig';
 import InputPassword from '@/admin/components/form/controls/InputPassword';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import React from 'react';
@@ -9,6 +7,8 @@ import { ProfileSecurityFormData } from '@admin/modules/profile/interfaces/Profi
 import { useNotification } from '@admin/common/context/NotificationContext';
 import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
 import { useUser } from '@admin/common/context/UserContext';
+import FormWrapper from '@admin/common/components/form/FormWrapper';
+import { HttpMethod } from '@admin/common/enums/httpEnums';
 
 
 const ProfileSecurityForm: React.FC = () => {
@@ -31,8 +31,9 @@ const ProfileSecurityForm: React.FC = () => {
 
     return (
         <>
-            <ApiForm
-                apiConfig={createApiConfig(`admin/profiles/${user.id}/security`, HTTP_METHODS.PUT)}
+            <FormWrapper
+                method={HttpMethod.PUT}
+                endpoint={`admin/profiles/${user.id}/security`}
                 handleSubmit={handleSubmit}
                 setError={setError}
                 apiRequestCallbacks={apiRequestCallbacks}
@@ -63,7 +64,7 @@ const ProfileSecurityForm: React.FC = () => {
                         />
                     </>
                 </FormApiLayout>
-            </ApiForm>
+            </FormWrapper>
         </>
     );
 };

@@ -1,5 +1,5 @@
-import SearchIcon from '../../../../images/icons/search.svg';
-import Input from '@/admin/components/form/controls/Input';
+import SearchIcon from '../../../../../../images/icons/search.svg';
+import Input from '@admin/components/form/controls/Input';
 import { useCallback, useState } from 'react';
 
 const SearchFilter = ({ filters, setFilters }) => {

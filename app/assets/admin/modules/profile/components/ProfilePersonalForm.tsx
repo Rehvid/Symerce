@@ -1,14 +1,13 @@
 import { useForm } from 'react-hook-form';
-import { createApiConfig } from '@/shared/api/ApiConfig';
 import { useUser } from '@admin/common/context/UserContext';
 import { useNotification } from '@admin/common/context/NotificationContext';
-import ApiForm from '@/admin/components/form/ApiForm';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import React from 'react';
 import { ProfilePersonalFormData } from '@admin/modules/profile/interfaces/ProfilePersonalFormData';
 import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
 import ProfilePersonalFormMainColumn from '@admin/modules/profile/components/ProfilePersonalFormMainColumn';
-
+import FormWrapper from '@admin/common/components/form/FormWrapper';
+import { HttpMethod } from '@admin/common/enums/httpEnums';
 
 const ProfilePersonalForm: React.FC = () => {
     const { user, setUser } = useUser();
@@ -42,8 +41,9 @@ const ProfilePersonalForm: React.FC = () => {
 
     return (
         <>
-            <ApiForm
-                apiConfig={createApiConfig(`admin/profiles/${user.id}/personal`, HTTP_METHODS.PUT)}
+            <FormWrapper
+                method={HttpMethod.PUT}
+                endpoint={`admin/profiles/${user.id}/personal`}
                 handleSubmit={handleSubmit}
                 setError={setError}
                 apiRequestCallbacks={apiRequestCallbacks}
@@ -57,7 +57,7 @@ const ProfilePersonalForm: React.FC = () => {
                         user={user}
                     />
                 </FormApiLayout>
-            </ApiForm>
+            </FormWrapper>
         </>
     );
 };

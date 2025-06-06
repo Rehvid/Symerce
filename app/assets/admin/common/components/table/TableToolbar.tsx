@@ -1,4 +1,4 @@
-import SearchFilter from '../../../components/table/Filters/SearchFilter';
+import SearchFilter from './partials/filters/SearchFilter';
 import Button from '@admin/common/components/Button';
 import { isOnlyPaginationInDataTable } from '@admin/common/utils/helper';
 import FilterIcon from '@/images/icons/filter.svg';

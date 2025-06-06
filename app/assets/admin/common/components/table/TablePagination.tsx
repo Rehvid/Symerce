@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import PaginationFilter from '@/admin/components/table/Filters/PaginationFilter';
+import PaginationFilter from '@admin/common/components/table/partials/filters/PaginationFilter';
 
 interface PaginationData {
     page: number;
