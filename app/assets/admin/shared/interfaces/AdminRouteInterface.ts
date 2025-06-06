@@ -1,7 +1,7 @@
-import { LazyExoticComponent, ReactElement } from 'react';
+import { ComponentType, LazyExoticComponent } from 'react';
 
 export interface AdminRouteInterface {
   path: string;
-  component: LazyExoticComponent<() => ReactElement>;
+  component: LazyExoticComponent<ComponentType<any>>;
   roles: string[];
 }

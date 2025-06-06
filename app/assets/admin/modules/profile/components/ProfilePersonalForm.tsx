@@ -5,10 +5,13 @@ import { ALERT_TYPES } from '@/admin/constants/alertConstants';
 import { HTTP_METHODS } from '@/admin/constants/httpConstants';
 import { useCreateNotification } from '@/admin/hooks/useCreateNotification';
 import ApiForm from '@/admin/components/form/ApiForm';
-import FormLayout from '@/admin/layouts/FormLayout';
 import ProfilePersonalFormMainColumn from '@/admin/features/profile/components/partials/ProfilePersonalFormMainColumn';
+import FormApiLayout from '@admin/layouts/FormApiLayout';
+import React from 'react';
+import { ProfilePersonalFormData } from '@admin/modules/profile/interfaces/ProfilePersonalFormData';
 
-const ProfilePersonalForm = () => {
+
+const ProfilePersonalForm: React.FC = () => {
     const { user, setUser } = useUser();
     const { addNotification } = useCreateNotification();
     const {
@@ -17,7 +20,7 @@ const ProfilePersonalForm = () => {
         setError,
         setValue,
         formState: { errors: fieldErrors },
-    } = useForm({
+    } = useForm<ProfilePersonalFormData>({
         mode: 'onBlur',
         defaultValues: {
             email: user.email,
@@ -46,17 +49,15 @@ const ProfilePersonalForm = () => {
                 setError={setError}
                 apiRequestCallbacks={apiRequestCallbacks}
             >
-                <FormLayout
-                    mainColumn={
-                        <ProfilePersonalFormMainColumn
-                            setValue={setValue}
-                            setUser={setUser}
-                            register={register}
-                            fieldErrors={fieldErrors}
-                            user={user}
-                        />
-                    }
-                />
+                <FormApiLayout>
+                    <ProfilePersonalFormMainColumn
+                        setValue={setValue}
+                        setUser={setUser}
+                        register={register}
+                        fieldErrors={fieldErrors}
+                        user={user}
+                    />
+                </FormApiLayout>
             </ApiForm>
         </>
     );

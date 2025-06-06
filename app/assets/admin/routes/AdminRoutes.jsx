@@ -1,5 +1,4 @@
 import { Route } from 'react-router-dom';
-import { lazy } from 'react';
 import ProtectedRoute from '@/admin/routes/ProtectedRoute';
 import { paymentMethodRoutes } from '@admin/modules/paymentMethod/paymentMethod.routes';
 import { userRoutes } from '@admin/modules/user/user.routes';
@@ -17,18 +16,12 @@ import { carrierRoutes } from '@admin/modules/carrier/carrier.routes';
 import { attributesRoutes } from '@admin/modules/attribute/attribute.routes';
 import { attributeValuesRoutes } from '@admin/modules/attributeValue/attributeValue.routes';
 import { cartRoutes } from '@admin/modules/cart/cart.routes';
+import { dashboardRoutes } from '@admin/modules/dashboard/dashboard.routes';
+import { profileRoutes } from '@admin/modules/profile/profile.routes';
 
 const routesConfig = [
-    {
-        path: 'profile',
-        component: lazy(() => import('@/admin/pages/Profile')),
-        roles: ['user', 'admin'],
-    },
-    {
-        path: 'dashboard',
-        component: lazy(() => import('@/admin/pages/Dashboard')),
-        roles: ['user', 'admin'],
-    },
+    ...profileRoutes,
+    ...dashboardRoutes,
     ...cartRoutes,
     ...attributesRoutes,
     ...attributeValuesRoutes,
@@ -44,7 +37,7 @@ const routesConfig = [
     ...countryRoutes,
     ...paymentMethodRoutes,
     ...orderRoutes,
-    ...customerRoutes
+    ...customerRoutes,
 ];
 
 const withProtection = (requiredRoles, Component) => (
