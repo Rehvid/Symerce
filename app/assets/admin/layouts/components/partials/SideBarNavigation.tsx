@@ -12,6 +12,7 @@ import UsersIcon from '@/images/icons/users.svg';
 import SettingIcon from '@/images/icons/settings.svg';
 import PaymentIcon from '@/images/icons/payment.svg';
 import WorldIcon from '@/images/icons/world.svg';
+import TrademarkIcon from '@/images/icons/trademark.svg';
 
 import { ComponentType, SVGProps  } from 'react';
 
@@ -49,6 +50,7 @@ const navigationConfig: NavItem[] = [
     {
         to: 'brands',
         label: 'Marki',
+        Icon: TrademarkIcon
     },
     {
         to: 'tags',
