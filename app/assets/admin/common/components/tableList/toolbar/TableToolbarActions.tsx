@@ -26,7 +26,12 @@ const TableToolbarActions: FC<TableToolbarActionsProps> = ({
         <div className="flex justify-between flex-wrap items-center mb-[1.5rem] gap-4">
             <div className="flex items-center justify-center gap-2">
                 <Heading level={HeadingLevel.H1}>{title}</Heading>
-                {totalItems && <Badge variant={BadgeVariant.Info}>{totalItems}</Badge>}
+                <span
+                    className="inline-flex items-center justify-center px-2 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800 "
+                    aria-label={`${totalItems} items`}
+                >
+                    {totalItems}
+                </span>
             </div>
             {createHref && (
                 <Button
