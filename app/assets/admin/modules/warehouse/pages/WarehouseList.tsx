@@ -5,9 +5,9 @@ import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
 import { CountryListItemInterface } from '@admin/modules/country/interfaces/CountryListItemInterface';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
@@ -39,7 +39,7 @@ const WarehouseList = () => {
       id: <TableRowId id={id} />,
       name,
       fullAddress,
-      active: <TableRowActiveBadge isActive={isActive} />,
+      active: <TableRowActive isActive={isActive} />,
       actions: <TableActions id={id} onDelete={() => removeItem(`admin/warehouses/${id}`)} />,
     });
   });

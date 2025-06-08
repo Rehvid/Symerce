@@ -3,4 +3,5 @@ export enum PositionType  {
     RIGHT = 'right',
     BOTTOM = 'bottom',
     TOP = 'top',
+    CENTER = 'center',
 }

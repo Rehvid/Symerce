@@ -5,11 +5,11 @@ import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableRowImageWithText from '@admin/common/components/tableList/tableRow/TableRowImageWithText';
 import ProductIcon from '@/images/icons/assembly.svg';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
@@ -20,7 +20,7 @@ import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFi
 import { CarrierListFiltersInterface } from '@admin/modules/carrier/interfaces/CarrierListFiltersInterface';
 import { CarrierListItemInterface } from '@admin/modules/carrier/interfaces/CarrierListItemInterface';
 import CarrierIcon from '@/images/icons/carrier.svg';
-import TableRowMoney from '@admin/common/components/table/partials/tableRow/TableRowMoney';
+import TableRowMoney from '@admin/common/components/tableList/tableRow/TableRowMoney';
 
 const CarrierList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -55,7 +55,7 @@ const CarrierList = () => {
           defaultIcon={<CarrierIcon className="text-primary mx-auto w-[24px] h-[24px]" />}
         />
       ),
-      active: <TableRowActiveBadge isActive={isActive} />,
+      active: <TableRowActive isActive={isActive} />,
       fee: <TableRowMoney amount={fee?.amount} symbol={fee?.symbol} />,
       actions: <TableActions id={id} onDelete={() => removeItem(`admin/carriers/${id}`)} />,
     });

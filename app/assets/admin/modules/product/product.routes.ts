@@ -5,7 +5,7 @@ import { AdminRole } from '@admin/common/enums/adminRole';
 export const productRoutes: AdminRouteInterface[] = [
   {
     path: 'products',
-    component: lazy(() => import('@admin/modules/product/pages/ProductListPage')),
+    component: lazy(() => import('@admin/modules/product/pages/ProductList')),
     roles: [AdminRole.ADMIN],
   },
   {

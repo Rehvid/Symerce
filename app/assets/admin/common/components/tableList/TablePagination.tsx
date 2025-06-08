@@ -1,27 +1,16 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import PaginationFilter from '@admin/common/components/table/partials/filters/PaginationFilter';
+import PaginationFilter from '@admin/common/components/tableList/filters/PaginationFilter';
+import { Pagination } from '@admin/common/interfaces/Pagination';
+import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-interface PaginationData {
-    page: number;
-    limit: number;
-    offset: number;
-    totalItems: number;
-    totalPages: number;
+interface TablePaginationProps<T extends TableFilters>  {
+    filters: T;
+    setFilters: React.Dispatch<React.SetStateAction<T>>
+    pagination: Pagination;
 }
 
-interface Filters {
-    page: number;
-    [key: string]: any;
-}
-
-interface TablePaginationProps {
-    filters: Filters;
-    setFilters: (filters: Filters) => void;
-    pagination: PaginationData;
-}
-
-const TablePagination: React.FC<TablePaginationProps> = ({ filters, setFilters, pagination }) => {
+const TablePagination = <T extends TableFilters> ({ filters, setFilters, pagination }: TablePaginationProps<T>) => {
     const currentRendered = pagination.totalItems > 0 ? pagination.offset + 1 : 0;
     const currentShowingItems = pagination.limit * pagination.page;
     const showed = currentShowingItems > pagination.totalItems ? pagination.totalItems : currentShowingItems;
@@ -34,7 +23,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({ filters, setFilters, 
     };
 
     return (
-        <div className="pt-5 px-2 border-t border-gray-100 flex flex-wrap flex-col-reverse w-full justify-center items-start gap-4 md:flex md:flex-row md:justify-between md:gap-2 md:items-baseline">
+        <div className="flex flex-wrap flex-col-reverse w-full justify-center items-start gap-4 md:flex md:flex-row md:justify-between md:gap-2 md:items-baseline">
             <PaginationFilter filters={filters} setFilters={setFilters} />
             {pagination.totalPages > 1 && (
                 <ReactPaginate

@@ -1,4 +1,4 @@
-import { ListDefaultFiltersInterface } from '@admin/common/interfaces/ListDefaultFiltersInterface';
+import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-export interface CategoryListFiltersInterface extends ListDefaultFiltersInterface {
+export interface CategoryListFiltersInterface extends TableFilters {
 }

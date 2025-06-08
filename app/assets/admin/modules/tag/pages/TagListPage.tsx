@@ -3,8 +3,8 @@ import { ReactElement, useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { CountryListItemInterface } from '@admin/modules/country/interfaces/CountryListItemInterface';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
@@ -13,7 +13,7 @@ import TableToolbarButtons from '@admin/common/components/table/partials/TableTo
 import DataTable from '@admin/common/components/table/DataTable';
 import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
 import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
 
 const TagListPage = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -36,7 +36,7 @@ const TagListPage = () => {
     return Object.values({
       id: <TableRowId id={id} />,
       name,
-      active: <TableRowActiveBadge isActive={isActive} />,
+      active: <TableRowActive isActive={isActive} />,
       actions: <TableActions id={id} onDelete={() => removeItem(`admin/tags/${id}`)} />,
     });
   });

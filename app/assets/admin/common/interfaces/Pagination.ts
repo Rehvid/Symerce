@@ -1,4 +1,4 @@
-export interface PaginationMetaInterface {
+export interface Pagination {
   limit: number,
   offset: number,
   page: number,

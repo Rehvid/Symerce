@@ -1,22 +1,11 @@
-import React from 'react';
 import { useNotification } from '@admin/common/context/NotificationContext';
 import { HttpMethod } from '@admin/common/enums/httpEnums';
 import { prepareDraggableDataToUpdateOrder } from '@admin/common/utils/helper';
-import { AlertType } from '@admin/common/enums/alertType';
 import { useAdminApi } from '@admin/common/context/AdminApiContext';
 import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
+import { DraggableItem } from '@admin/common/types/draggableItem';
 
-interface UseDraggableProps {
-  endpoint: string,
-}
-
-type DraggableItem = {
-  movedId: number,
-  newPosition: number,
-  oldPosition: number,
-}
-
-const useDraggable: React.FC<UseDraggableProps> = (endpoint) => {
+const useDraggable = (endpoint: string) => {
   const { handleApiRequest } = useAdminApi();
   const { addNotification } = useNotification();
 
@@ -29,11 +18,11 @@ const useDraggable: React.FC<UseDraggableProps> = (endpoint) => {
             onError: () => {
                 addNotification(
                     'Nie udało się zaktualizować pozycji w tabeli. Proszę spróbować ponownie.',
-                    AlertType.ERROR
+                    NotificationType.ERROR
                 );
             },
             onNetworkError: () => {
-                addNotification('Błąd sieci. Proszę spróbować ponownie.', AlertType.ERROR);
+                addNotification('Błąd sieci. Proszę spróbować ponownie.', NotificationType.ERROR);
             },
         });
     };

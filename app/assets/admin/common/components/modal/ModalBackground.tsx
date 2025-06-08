@@ -1,8 +1,8 @@
 import React, { useEffect, useState, ReactNode } from 'react';
-import { ModalPositionType } from '@admin/common/enums/modalPositionType';
+import { PositionType } from '@admin/common/enums/positionType';
 
 interface ModalBackgroundProps {
-    position: ModalPositionType;
+    position: PositionType;
     children: ReactNode;
 }
 
@@ -18,27 +18,27 @@ const ModalBackground: React.FC<ModalBackgroundProps> = ({ position, children })
     relative bg-white shadow-2xl min-w-[250px] max-h-3/4 transition-all duration-300 ease-in-out transform
   `;
 
-    const wrapperClasses: Record<ModalPositionType, string> = {
-        [ModalPositionType.CENTER]: 'mx-auto justify-center max-w-5xl items-center',
-        [ModalPositionType.LEFT]: 'justify-start',
-        [ModalPositionType.RIGHT]: 'justify-end h-full',
+    const wrapperClasses: Record<PositionType, string> = {
+        [PositionType.CENTER]: 'mx-auto justify-center max-w-5xl items-center',
+        [PositionType.LEFT]: 'justify-start',
+        [PositionType.RIGHT]: 'justify-end h-full',
     };
 
-    const modalClassesByPosition: Record<ModalPositionType, string> = {
-        [ModalPositionType.CENTER]: 'my-2',
-        [ModalPositionType.LEFT]: 'max-h-full',
-        [ModalPositionType.RIGHT]: 'max-h-full',
+    const modalClassesByPosition: Record<PositionType, string> = {
+        [PositionType.CENTER]: 'my-2',
+        [PositionType.LEFT]: 'max-h-full',
+        [PositionType.RIGHT]: 'max-h-full',
     };
 
-    const positionTransitionClasses: Record<ModalPositionType, string> = {
-        [ModalPositionType.LEFT]: animateIn ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0',
-        [ModalPositionType.CENTER]: animateIn
+    const positionTransitionClasses: Record<PositionType, string> = {
+        [PositionType.LEFT]: animateIn ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0',
+        [PositionType.CENTER]: animateIn
             ? 'translate-y-0 scale-100 opacity-100'
             : '-translate-y-6 scale-95 opacity-0',
-        [ModalPositionType.RIGHT]: animateIn ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 right-0',
+        [PositionType.RIGHT]: animateIn ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 right-0',
     };
 
-    const borderRadiusClass = position === ModalPositionType.CENTER ? 'rounded-lg' : '';
+    const borderRadiusClass = position === PositionType.CENTER ? 'rounded-lg' : '';
 
     return (
         <div className="h-full overflow-auto">

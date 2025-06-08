@@ -1,11 +1,11 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 import ModalBackground from '@admin/common/components/modal/ModalBackground';
-import { ModalPositionType } from '@admin/common/enums/modalPositionType';
+import { PositionType } from '@admin/common/enums/positionType';
 
 
 interface ModalContextType {
   isOpen: boolean;
-  openModal: (content: ReactNode, position?: ModalPositionType) => void;
+  openModal: (content: ReactNode, position?: PositionType) => void;
   closeModal: () => void;
 }
 
@@ -18,9 +18,9 @@ interface ModalProviderProps {
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(null);
-  const [position, setPosition] = useState<ModalPositionType>(ModalPositionType.CENTER);
+  const [position, setPosition] = useState<PositionType>(PositionType.CENTER);
 
-  const openModal = (content: ReactNode, newPosition: ModalPositionType = ModalPositionType.CENTER) => {
+  const openModal = (content: ReactNode, newPosition: PositionType = PositionType.CENTER) => {
     setModalContent(content);
     setPosition(newPosition);
     setIsOpen(true);

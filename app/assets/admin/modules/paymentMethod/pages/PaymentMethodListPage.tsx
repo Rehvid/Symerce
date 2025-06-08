@@ -6,17 +6,17 @@ import {
 } from '@admin/modules/paymentMethod/interfaces/PaymentMethodListFiltersInterface';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { PaymentMethodListItemInterface } from '@admin/modules/paymentMethod/interfaces/PaymentMethodListItemInterface';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
-import TableActions from '@admin/common/components/table/partials/TableActions';
-import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
-import TableRowMoney from '@admin/common/components/table/partials/tableRow/TableRowMoney';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
+import TableActions from '@admin/common/components/tableList/TableActions';
+import TableRowImageWithText from '@admin/common/components/tableList/tableRow/TableRowImageWithText';
+import TableRowMoney from '@admin/common/components/tableList/tableRow/TableRowMoney';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
 import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
 import DataTable from '@admin/common/components/table/DataTable';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
 import PaymentIcon from '@/images/icons/payment.svg';
 
 const PaymentMethodListPage = () => {
@@ -45,7 +45,7 @@ const PaymentMethodListPage = () => {
       />,
       code,
       fee: <TableRowMoney symbol={fee.symbol} amount={fee.amount} />,
-      active: <TableRowActiveBadge isActive={isActive} />,
+      active: <TableRowActive isActive={isActive} />,
       actions:  <TableActions id={id} onDelete={() => removeItem(`admin/payment-methods/${id}`)} />,
     });
   });

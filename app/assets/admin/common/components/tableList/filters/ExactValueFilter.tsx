@@ -1,37 +1,47 @@
-import React, { ChangeEvent, ReactNode, useState } from 'react';
+import React, { ChangeEvent, ReactNode, useState, useEffect } from 'react';
 import Input from '@admin/components/form/controls/Input';
 import Heading, { HeadingLevel } from '@admin/common/components/Heading';
 import NumberIcon from '@/images/icons/number.svg';
 import InputField from '@admin/common/components/form/input/InputField';
+import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-interface FiltersType {
-    [key: string]: any;
-}
 
-interface ExactValueFilterProps  {
-    filters: FiltersType;
-    setFilters: (filters: FiltersType) => void;
-    nameFilter: string;
+interface ExactValueFilterProps<T extends TableFilters>   {
+    filters: T;
+    setFilters: React.Dispatch<React.SetStateAction<T>>
+    nameFilter: keyof T & string;
     label?: string;
     icon?: ReactNode;
 }
 
-const ExactValueFilter: React.FC<ExactValueFilterProps> = ({
+const ExactValueFilter = <T extends TableFilters> ({
     filters,
     setFilters,
     nameFilter,
     label = '',
     icon = null,
-}) => {
-    const [exactValue, setExactValue] = useState<string>(filters[nameFilter] ?? '');
+}: ExactValueFilterProps<T>): React.ReactElement => {
+    const filterValue = filters[nameFilter];
+    const initialValue = filterValue !== undefined && filterValue !== null
+        ? String(filterValue)
+        : '';
+
+    const [exactValue, setExactValue] = useState<string>(initialValue);
+
+
+    useEffect(() => {
+        const value = filters[nameFilter];
+        setExactValue(value !== undefined && value !== null ? String(value) : '');
+    }, [filters, nameFilter]);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const trimValue = e.target.value.trim();
         setExactValue(trimValue);
 
         if (trimValue === '') {
-            const { [nameFilter]: _, ...rest } = filters;
-            setFilters({ ...rest, page: 1 });
+            const newFilters = { ...filters } as any;
+            delete newFilters[nameFilter];
+            setFilters({ ...newFilters, page: 1 } as T);
         } else {
             setFilters({
                 ...filters,

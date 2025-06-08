@@ -10,11 +10,11 @@ import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
 import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
 import { TableColumn } from '@admin/common/types/tableColumn';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableRowMoney from '@admin/common/components/table/partials/tableRow/TableRowMoney';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableRowMoney from '@admin/common/components/tableList/tableRow/TableRowMoney';
 import Badge from '@admin/common/components/Badge';
-import TableRowEditAction from '@admin/common/components/table/partials/tableRow/TableRowEditAction';
-import TableRowDetailAction from '@admin/common/components/table/partials/tableRow/TableRowDetailAction';
+import TableRowEditAction from '@admin/common/components/tableList/tableRow/TableRowEditAction';
+import TableRowDetailAction from '@admin/common/components/tableList/tableRow/TableRowDetailAction';
 
 
 const OrderListPage = () => {

@@ -1,8 +1,8 @@
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableRowImageWithText from '@admin/common/components/tableList/tableRow/TableRowImageWithText';
 import UsersIcon from '@/images/icons/users.svg';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import { UserListItemInterface } from '@admin/modules/user/interfaces/UserListItemInterface';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
@@ -48,7 +48,7 @@ const UserListPage = () => {
         />
       ),
       email,
-      active: <TableRowActiveBadge isActive={isActive} />,
+      active: <TableRowActive isActive={isActive} />,
       actions: <TableActions id={id} onDelete={() => removeItem(`admin/users/${item.id}`)} />,
     });
   });

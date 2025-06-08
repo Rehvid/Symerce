@@ -25,9 +25,7 @@ export const createApiClient = (baseUrl: string) => {
         options: RequestOptions = {}
     ): Promise<ApiResponse<T>> => {
         const { headers = {}, queryParams, body, onUnauthorized } = options;
-
         const url = constructUrl(baseUrl, endpoint, queryParams);
-
         const fetchOptions: RequestInit = {
             method,
             headers: { ...defaultHeaders, ...headers },
@@ -66,7 +64,7 @@ export const createApiClient = (baseUrl: string) => {
 
     return {
         get: <T>(endpoint: string, options?: Omit<RequestOptions, 'body'>) =>
-            sendRequest<T>('GET', endpoint, options),
+            sendRequest<T>('GET', endpoint, {...options}),
 
         post: <T>(endpoint: string, body?: any, options?: Omit<RequestOptions, 'body'>) =>
             sendRequest<T>('POST', endpoint, { ...options, body }),

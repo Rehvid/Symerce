@@ -2,11 +2,11 @@ import DataTable from '@admin/common/components/table/DataTable';
 import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
 import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
 import { TableColumn } from '@admin/common/types/tableColumn';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
-import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
+import TableRowImageWithText from '@admin/common/components/tableList/tableRow/TableRowImageWithText';
 import ProductIcon from '@/images/icons/assembly.svg';
 import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
 import { ReactElement, useState } from 'react';
@@ -47,7 +47,7 @@ const BrandListPage = () => {
         text={name}
         defaultIcon={<ProductIcon className="text-primary mx-auto" />}
       />,
-      active: <TableRowActiveBadge isActive={isActive} />,
+      active: <TableRowActive isActive={isActive} />,
       actions: <TableActions id={id} onDelete={() => removeItem(`admin/brands/${item.id}`)} />,
     });
   });

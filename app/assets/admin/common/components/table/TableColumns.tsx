@@ -1,5 +1,5 @@
 import { TableColumn } from '@admin/common/types/tableColumn';
-import { SortInterface } from '@admin/common/interfaces/SortInterface';
+import { Sort } from '@admin/common/interfaces/Sort';
 import React from 'react';
 import { SortDirection } from '@admin/common/enums/sortDirection';
 import SortAscendingIcon from '@/images/icons/sort-ascending.svg';
@@ -7,8 +7,8 @@ import SortDescendingIcon from '@/images/icons/sort-descending.svg';
 
 interface TableColumnsProps {
   columns: TableColumn[];
-  sort: SortInterface,
-  setSort: React.Dispatch<React.SetStateAction<SortInterface>>
+  sort: Sort,
+  setSort: React.Dispatch<React.SetStateAction<Sort>>
 }
 
 const TableColumns: React.FC<TableColumnsProps> = ({
@@ -41,7 +41,7 @@ const TableColumns: React.FC<TableColumnsProps> = ({
       return <SortAscendingIcon className="w-[20px] h-[20px] text-gray-400" />;
     }
 
-    return sort.direction === SORT_DIRECTION.ASC ? (
+    return sort.direction === SortDirection.ASC ? (
       <SortAscendingIcon className="w-[20px] h-[20px] text-primary" />
     ) : (
       <SortDescendingIcon className="w-[20px] h-[20px] text-primary" />
@@ -49,7 +49,7 @@ const TableColumns: React.FC<TableColumnsProps> = ({
   };
 
   return (
-    <thead >
+    <thead>
     <tr>
       {columns.map((col, index) => {
         const { label, orderBy, sortable = false } = col;

@@ -34,7 +34,11 @@ final readonly class RangeFilterDefinition implements FilterMultiDefinitionInter
 
     public function castValues(array $rawValues): array
     {
-        $returnValues = [];
+        $returnValues = [
+            'from' => null,
+            'to' => null
+        ];
+
 
         foreach ($rawValues as $key => $rawValue) {
             $rawValue = trim((string) $rawValue);
@@ -49,10 +53,6 @@ final readonly class RangeFilterDefinition implements FilterMultiDefinitionInter
             }
         }
 
-        if (count($returnValues) === 2) {
-            return $returnValues;
-        }
-
-        return [];
+        return $returnValues;
     }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { TableColumn } from '@admin/common/types/tableColumn';
-import { PaginationMetaInterface } from '@admin/common/interfaces/PaginationMetaInterface';
-import { SortInterface } from '@admin/common/interfaces/SortInterface';
+import { Pagination } from '@admin/common/interfaces/Pagination';
+import { Sort } from '@admin/common/interfaces/Sort';
 import Table from '@admin/common/components/table/Table';
-import TablePagination from '@admin/common/components/table/TablePagination';
+import TablePagination from '@admin/common/components/tableList/TablePagination';
 
 export interface DataTableProps<T, F extends Record<string, any>> {
   filters: F,
@@ -13,11 +13,11 @@ export interface DataTableProps<T, F extends Record<string, any>> {
   additionalToolbarContent?: React.ReactNode;
   columns: TableColumn[],
   items: T[],
-  pagination: PaginationMetaInterface,
+  pagination: Pagination,
   useDraggable?: boolean,
   draggableCallback?: (items: T[]) => void;
-  sort: SortInterface,
-  setSort: React.Disptach<React.SetStateAction<SortInterface>>,
+  sort: Sort,
+  setSort: React.Disptach<React.SetStateAction<Sort>>,
 }
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -48,7 +48,7 @@ const DataTable: React.FC<DataTableProps> = ({
     setSort={setSort}
     pagination={pagination}
   >
-    <TablePagination filters={filters} setFilters={setFilters} pagination={pagination} />
+    {/*<TablePagination filters={filters} setFilters={setFilters} pagination={pagination} />*/}
   </Table>
 )
 

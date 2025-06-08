@@ -5,18 +5,18 @@ import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { UserListItemInterface } from '@admin/modules/user/interfaces/UserListItemInterface';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableRowImageWithText from '@admin/common/components/tableList/tableRow/TableRowImageWithText';
 import UsersIcon from '@/images/icons/users.svg';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
 import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
 import DataTable from '@admin/common/components/table/DataTable';
-import TableRowShowAction from '@admin/common/components/table/partials/tableRow/TableRowShowAction';
-import TableRowDetailAction from '@admin/common/components/table/partials/tableRow/TableRowDetailAction';
+import TableRowShowAction from '@admin/common/components/tableList/tableRow/TableRowExternalLinkAction';
+import TableRowDetailAction from '@admin/common/components/tableList/tableRow/TableRowDetailAction';
 import Link from '@admin/common/components/Link';
 
 const CartList = () => {

@@ -1,10 +1,12 @@
 import React, { forwardRef, InputHTMLAttributes } from 'react';
 import Error from '@admin/common/components/Error';
+import clsx from 'clsx';
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   hasError?: boolean;
   errorMessage?: string;
   icon?: React.ReactNode;
+  containerClasses?: string;
 }
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
@@ -15,6 +17,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       className,
       icon,
       errorMessage,
+      containerClasses,
       ...rest
     },
     ref
@@ -34,7 +37,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     return (
       <>
-        <div className="relative">
+        <div className={clsx('relative', containerClasses)}>
           <input
             type={type}
             ref={ref}

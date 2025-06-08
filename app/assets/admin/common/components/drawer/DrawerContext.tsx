@@ -1,27 +1,32 @@
 import React, { createContext, FC, useContext, useRef, useState } from 'react';
-import useClickOutside from '@admin/common/hooks/useClickOutside';
 
 interface DrawerContextProps {
-    isOpen: boolean;
-    toggle: () => void;
+    activeDrawerId: string | null;
+    toggle: (drawerId: string) => void;
     close: () => void;
+    isOpen: (drawerId: string) => boolean;
     ref: React.RefObject<HTMLDivElement>;
 }
+
 
 const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
 
 export const DrawerProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [activeDrawerId, setActiveDrawerId] = useState<string | null>(null);
     const ref = useRef<HTMLDivElement>(null);
 
-    const toggle = () => setIsOpen(prevState => !prevState);
-    const close = () => setIsOpen(false);
+    const toggle = (drawerId: string) => {
+        setActiveDrawerId(current => current === drawerId ? null : drawerId);
+    };
 
-    useClickOutside(ref, close);
+    const close = () => setActiveDrawerId(null);
+
+    const isOpen = (drawerId: string) => activeDrawerId === drawerId;
+
 
     return (
-        <DrawerContext.Provider value={{ isOpen, toggle, close, ref }}>
-            {isOpen && (
+        <DrawerContext.Provider value={{ activeDrawerId, toggle, close, isOpen, ref }}>
+            {activeDrawerId && (
                 <div className="fixed inset-0 bg-black/85 bg-opacity-50 z-400" />
             )}
             {children}

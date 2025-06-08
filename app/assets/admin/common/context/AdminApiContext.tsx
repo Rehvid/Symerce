@@ -52,18 +52,30 @@ export const AdminApiProvider: React.FC<AdminApiProviderProps> = ({ baseUrl, chi
         } = options;
 
         try {
-            const response = await apiClient[method.toLowerCase() as keyof typeof apiClient](
-                endpoint,
-                body,
-                {
+            let response = null;
+            if (['get', 'delete'].includes(method.toLowerCase())) {
+                response = await apiClient[method.toLowerCase() as 'get' | 'delete'](endpoint, {
                     headers,
                     queryParams,
                     onUnauthorized: () => {
                         setIsAuthenticated(false);
-                        setUser(null);
+                        setUser({});
                     },
-                }
-            );
+                });
+            } else {
+                response = await apiClient[method.toLowerCase() as 'post' | 'put' | 'patch'](
+                    endpoint,
+                    body,
+                    {
+                        headers,
+                        queryParams,
+                        onUnauthorized: () => {
+                            setIsAuthenticated(false);
+                            setUser({});
+                        },
+                    }
+                );
+            }
 
             if (response.errors && Object.values(response.errors).length > 0) {
                 onError?.(response.errors);

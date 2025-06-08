@@ -1,13 +1,13 @@
-import { PAGINATION_FILTER_DEFAULT_OPTION } from '@admin/common/components/table/partials/filters/PaginationFilter';
+import { PAGINATION_FILTER_DEFAULT_OPTION } from '@admin/common/components/tableList/filters/PaginationFilter';
 import { SortDirection } from '@admin/common/enums/sortDirection';
-import { ListDefaultFiltersInterface } from '@admin/common/interfaces/ListDefaultFiltersInterface';
-import { SortInterface } from '@admin/common/interfaces/SortInterface';
+import { TableFilters } from '@admin/common/interfaces/TableFilters';
+import { Sort } from '@admin/common/interfaces/Sort';
 
 
 const useListDefaultQueryParams = () => {
   const params = new URLSearchParams(window.location.search);
 
-  const defaultFilters: ListDefaultFiltersInterface = {
+  const defaultFilters: TableFilters = {
     limit: Number(params.get('limit')) || PAGINATION_FILTER_DEFAULT_OPTION,
     page: Number(params.get('page')) || 1,
   };
@@ -16,9 +16,9 @@ const useListDefaultQueryParams = () => {
     defaultFilters.search = params.get('search');
   }
 
-  const defaultSort: SortInterface = {
+  const defaultSort: Sort = {
     orderBy: params.get('orderBy') || null,
-    direction: (params.get('direction') as  SortInterface ['direction']) || SortDirection.ASC,
+    direction: (params.get('direction') as  Sort ['direction']) || SortDirection.ASC,
   };
 
   const getCurrentParam = <T>(key: string, transform: (value: string) => T): T | null =>

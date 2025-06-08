@@ -1,6 +1,6 @@
-import { ListDefaultFiltersInterface } from '@admin/common/interfaces/ListDefaultFiltersInterface';
+import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-export interface CountryListFiltersInterface extends ListDefaultFiltersInterface {
+export interface CountryListFiltersInterface extends TableFilters {
   id: number,
   name: string,
   code: string,

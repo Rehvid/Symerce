@@ -1,8 +1,14 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 
+type SettingValue = {
+    id: number,
+    name: string,
+    [key: string]: any
+}
+
 interface Setting {
     settingKey: string;
-    value: string;
+    value: SettingValue;
 }
 
 interface AppData {
@@ -46,4 +52,11 @@ export const useAppData = (): AppDataContextInterface => {
         throw new Error('useAppData must be used within an AppDataProvider');
     }
     return context;
+};
+
+export const useSetting = (key: string): Setting | null => {
+    const { data } = useAppData();
+    if (!data.settings) return null;
+    const found = data.settings.find(setting => setting.settingKey === key);
+    return found ?? null;
 };

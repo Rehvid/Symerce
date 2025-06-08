@@ -2,32 +2,28 @@ import { useFetchItems } from '@admin/common/hooks/list/useFetchItems';
 import { useRemoveItem } from '@admin/common/hooks/list/useRemoveItem';
 import React, { useMemo, useState, useEffect } from 'react';
 import { useQueryParamsSync } from '@admin/common/hooks/list/useQueryParamsSync';
-import { PaginationMetaInterface } from '@admin/common/interfaces/PaginationMetaInterface';
+import { Pagination } from '@admin/common/interfaces/Pagination';
+import { Sort } from '@admin/common/interfaces/Sort';
+import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-
-
-type Filters = { page: number; [key: string]: any };
-type Sort = { orderBy: string | null; [key: string]: any };
-
-
-interface UseListDataProps {
+interface UseListDataProps<F extends TableFilters> {
   endpoint: string,
-  filters: Filters,
-  setFilters: React.Dispatch<React.SetStateAction<Filters>>,
+  filters: F,
+  setFilters: React.Dispatch<React.SetStateAction<F>>,
   defaultSort: Sort
 }
 
-export const useListData = <T,>({
+export const useListData = <T, F extends TableFilters>({
   endpoint,
   filters,
   setFilters,
   defaultSort,
-}: UseListDataProps) => {
+}: UseListDataProps <F>) => {
   const { fetchItems } = useFetchItems<T>();
   const { removeItem } = useRemoveItem();
   const [items, setItems] = useState<T[]>([]);
   const [additionalData, setAdditionalData] = useState<any>(null);
-  const [pagination, setPagination] = useState<PaginationMetaInterface | null>(null);
+  const [pagination, setPagination] = useState<Pagination | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [sort, setSort] = useState<Sort>(defaultSort);
 

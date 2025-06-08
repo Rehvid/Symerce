@@ -1,6 +1,6 @@
 import TableToolbar from '@admin/common/components/table/TableToolbar';
 import TableColumns from '@admin/common/components/table/TableColumns';
-import TableBody from '@admin/common/components/table/TableBody';
+import TableBody from '@admin/common/components/tableList/TableBody';
 import { DataTableProps } from '@admin/common/components/table/DataTable';
 import React from 'react';
 

@@ -5,9 +5,9 @@ import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
@@ -34,9 +34,6 @@ const AttributeList = () => {
     defaultSort,
   });
 
-  if (isLoading) {
-    return <TableSkeleton rowsCount={filters.limit} />;
-  }
 
   const renderTableActions: ReactElement = (item) => (
     <TableActions id={item.id} onDelete={() => removeItem(`admin/attributes/${item.id}`)}>
@@ -45,13 +42,16 @@ const AttributeList = () => {
       </Link>
     </TableActions>
   )
+    if (isLoading) {
+        return <TableSkeleton rowsCount={filters.limit} />;
+    }
 
   const data = items.map((item: BrandListItemInterface) => {
     const { id, name, isActive } = item;
     return Object.values({
       id: <TableRowId id={id} />,
       name,
-      active: <TableRowActiveBadge isActive={isActive} />,
+      active: <TableRowActive isActive={isActive} />,
       actions: renderTableActions(item),
     });
   });
@@ -69,7 +69,10 @@ const AttributeList = () => {
     </PageHeader>
   );
 
-  return (
+
+
+
+    return (
     <DataTable<TagListItemInterface, TagListFiltersInterface>
       filters={filters}
       setFilters={setFilters}

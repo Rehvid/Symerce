@@ -1,3 +1,5 @@
+import { DraggableItem } from '@admin/common/types/draggableItem';
+
 export interface DraggableData {
     movedId: string | null;
     oldPosition: number | null;
@@ -5,8 +7,8 @@ export interface DraggableData {
 }
 
 export const prepareDraggableDataToUpdateOrder = (
-    data: Partial<DraggableData>
-): DraggableData => {
+    data: DraggableItem
+): DraggableItem => {
     const { movedId = null, oldPosition = null, newPosition = null } = data;
 
     return {
@@ -91,4 +93,13 @@ export const constructUrl = (
         url += `?${query.toString()}`;
     }
     return url;
+};
+
+
+export const stringToBoolean = (value: string | undefined | null): boolean => {
+    if (!value) {
+        return false;
+    }
+    const val = value.trim().toLowerCase();
+    return val === 'true' || val === '1' || val === 'yes' || val === 'on';
 };

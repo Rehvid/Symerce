@@ -9,6 +9,7 @@ const ReactSelect = ({
   errorMessage,
   onChange,
   isMulti,
+    menuPlacement = 'bottom',
 }) => {
   return (
       <>
@@ -20,6 +21,7 @@ const ReactSelect = ({
           isClearable
           isMulti={isMulti}
           components={makeAnimated()}
+          menuPlacement={menuPlacement}
           styles={{
             control: (baseStyles, state) => ({
               ...baseStyles,

@@ -12,8 +12,8 @@ import TableToolbarButtons from '@admin/common/components/table/partials/TableTo
 import DataTable from '@admin/common/components/table/DataTable';
 import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
 import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
 
 const AttributeValueList = () => {

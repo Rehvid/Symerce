@@ -3,11 +3,11 @@ import { ReactElement, useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
-import TableRowId from '@admin/common/components/table/partials/tableRow/TableRowId';
-import TableRowImageWithText from '@admin/common/components/table/partials/tableRow/TableRowImageWithText';
+import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
+import TableRowImageWithText from '@admin/common/components/tableList/tableRow/TableRowImageWithText';
 import UsersIcon from '@/images/icons/users.svg';
-import TableRowActiveBadge from '@admin/common/components/table/partials/tableRow/TableRowActiveBadge';
-import TableActions from '@admin/common/components/table/partials/TableActions';
+import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
+import TableActions from '@admin/common/components/tableList/TableActions';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import PageHeader from '@admin/layouts/components/PageHeader';
 import ListHeader from '@admin/common/components/ListHeader';
@@ -16,7 +16,7 @@ import DataTable from '@admin/common/components/table/DataTable';
 import { CurrencyListFiltersInterface } from '@admin/modules/currency/interfaces/CurrencyListFiltersInterface';
 import { CurrencyListItemInterface } from '@admin/modules/currency/interfaces/CurrencyListItemInterface';
 import Badge from '@admin/common/components/Badge';
-import RangeFilter from '@admin/common/components/table/partials/filters/RangeFilter';
+import RangeFilter from '@admin/common/components/tableList/filters/RangeFilter';
 
 
 const CurrencyListPage = () => {
