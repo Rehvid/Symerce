@@ -7,10 +7,6 @@ import { HttpMethod } from '@admin/common/enums/httpEnums';
 import { useValidationErrors } from '@admin/common/hooks/form/useValidationErrors';
 
 
-type ApiConfig = {
-  setBody: (body: any) => void;
-};
-
 interface FormWrapperProps<T extends FieldValues> {
     method: HttpMethod;
     endpoint: string;
@@ -50,7 +46,7 @@ const FormWrapper = <T extends FieldValues>({
         await handleApiRequest(method, endpoint, {
             body: finalBody,
             onSuccess: (data, meta, message) => {
-                apiRequestCallbacks?.onSuccess?.(data, meta, message);
+                apiRequestCallbacks?.onSuccess?.({data, meta, message: message ?? ''});
             },
             onError: (errors) => {
                 apiRequestCallbacks?.onError?.(errors);

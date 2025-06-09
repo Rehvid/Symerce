@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
 import { HttpMethod } from '@admin/common/enums/httpEnums';
-import { UseFormSetValue } from 'react-hook-form';
+import { UseFormSetValue, Path, PathValue } from 'react-hook-form';
 import { FieldModifier } from '@admin/common/types/fieldModifier';
 import { UseFormInitializerReturn } from '@admin/common/hooks/form/useFormInitializer.types';
 import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
 import { useAdminApi } from '@admin/common/context/AdminApiContext';
 
 
-const useFormInitializer =  <T extends FormDataInterface = FormDataInterface>(): UseFormInitializerReturn<T>  => {
+const useFormInitializer = <T extends FormDataInterface = FormDataInterface>(): UseFormInitializerReturn<T>  => {
     const { handleApiRequest } = useAdminApi();
 
   const [isFormInitialize, setIsFormInitialize] = useState<boolean>(true);
@@ -63,7 +63,10 @@ const useFormInitializer =  <T extends FormDataInterface = FormDataInterface>():
                 }
 
                 if (value !== undefined && setValue) {
-                    setValue(fieldName, value);
+                    setValue(
+                        fieldName as unknown as Path<T>,
+                        value as PathValue<T, Path<T>>
+                    );
                 }
             }
         });

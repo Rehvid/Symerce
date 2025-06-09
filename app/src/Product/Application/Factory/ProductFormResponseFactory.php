@@ -38,7 +38,7 @@ final readonly class ProductFormResponseFactory
             regularPrice: $this->moneyFactory->create($product->getRegularPrice())->getFormattedAmount(),
             isActive: $product->isActive(),
             mainCategory: $product->getMainCategory()?->getId(),
-            brand: $this->getBrand($product),
+            brand: $product->getBrand()?->getId(),
             stocks: $this->getStocks($product),
             tags: $product->getTags()->map(fn (Tag $tag) => $tag->getId())->toArray(),
             categories: $product->getCategories()->map(fn (Category $category) => $category->getId())->toArray(),

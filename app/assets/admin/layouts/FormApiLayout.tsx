@@ -1,5 +1,5 @@
 import PageHeader from '@admin/layouts/components/PageHeader';
-import FormFooterActions from '@admin/components/form/FormFooterActions';
+import FormFooterActions from '@admin/common/components/form/FormFooterActions';
 import React from 'react';
 
 interface FormApiLayout {

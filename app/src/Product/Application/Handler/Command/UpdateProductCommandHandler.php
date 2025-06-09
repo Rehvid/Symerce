@@ -31,18 +31,18 @@ final readonly class UpdateProductCommandHandler implements CommandHandlerInterf
 
         $data = $command->data;
 
-        $category = $this->hydrator->hydrate($data, $product);
+        $product = $this->hydrator->hydrate($data, $product);
 
         if ($data->slug !== $product->getSlug()) {
             $product->setSlug($this->slugService->makeUnique(
-                fallback: $category->getSlug(),
+                fallback: $product->getSlug(),
                 proposed: $data->slug,
                 entityClass: Product::class
             ));
         }
 
-        $this->repository->save($category);
+        $this->repository->save($product);
 
-        return new IdResponse($category->getId());
+        return new IdResponse((int) $product->getId());
     }
 }

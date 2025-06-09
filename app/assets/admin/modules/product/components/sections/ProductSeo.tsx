@@ -1,23 +1,23 @@
 import React from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
-import { validationRules } from '@admin/common/utils/validationRules';
-import Select from '@admin/common/components/form/select/Select';
-import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
-import MultiSelect from '@admin/common/components/form/select/MultiSelect';
+import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import Description from '@admin/common/components/Description';
+import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 
 interface ProductLogisticsProps {
-  control: Control<ProductFormDataInterface>;
-  fieldErrors: FieldErrors<ProductFormDataInterface>;
-  formData?: ProductFormDataInterface;
+  control: Control<ProductFormData>;
+  fieldErrors: FieldErrors<ProductFormData>;
+  register: UseFormRegister<ProductFormData>;
+  formContext?: ProductFormContext;
 }
 
-const ProductSeo: React.FC<ProductLogisticsProps> = ({ control, fieldErrors, formData, register }) => {
+const ProductSeo: React.FC<ProductLogisticsProps> = ({ control, fieldErrors, formContext, register }) => {
   return (
     <FormSection title="SEO">
       <FormGroup
@@ -54,22 +54,11 @@ const ProductSeo: React.FC<ProductLogisticsProps> = ({ control, fieldErrors, for
 
 
       <FormGroup label={<InputLabel label="Tagi" htmlFor="tags"  />} >
-        <Controller
-          name="tags"
-          control={control}
-          defaultValue={[]}
-          render={({ field }) => (
-            <MultiSelect
-              options={formData?.availableTags || []}
-              selected={field.value}
-              onChange={(value, checked) => {
-                const newValue = checked
-                  ? [...field.value, value]
-                  : field.value.filter((v) => v !== value);
-                field.onChange(newValue);
-              }}
-            />
-          )}
+        <ControlledReactSelect
+            name="tags"
+            control={control}
+            options={formContext?.availableTags || []}
+            isMulti={true}
         />
       </FormGroup>
     </FormSection>

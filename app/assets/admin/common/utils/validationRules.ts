@@ -39,9 +39,9 @@ export const validationRules = {
     },
 }),
 
-    numeric: (maxDecimalPlaces: number): ValidationRule => ({
+    numeric: (maxDecimalPlaces?: number): ValidationRule => ({
     pattern: {
-        value: new RegExp(`^\\d+([,.]\\d{1,${maxDecimalPlaces}})?$`),
+        value: new RegExp(`^\\d+([,.]\\d{1,${maxDecimalPlaces ?? 2}})?$`),
         message: `Proszę podać liczbę z maksymalnie ${maxDecimalPlaces} miejscami po przecinku. Dozwolone separatory dziesiętne to kropka (.) lub przecinek (,).`,
     },
 }),

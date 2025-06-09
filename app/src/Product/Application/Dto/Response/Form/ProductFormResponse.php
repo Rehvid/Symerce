@@ -18,7 +18,7 @@ final readonly class ProductFormResponse
         public string $regularPrice,
         public bool $isActive,
         public int $mainCategory,
-        public ?OptionItem $brand,
+        public ?int $brand,
         public ?array $stocks,
         public ?array $tags = [],
         public ?array $categories = [],

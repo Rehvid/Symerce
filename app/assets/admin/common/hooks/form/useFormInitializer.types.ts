@@ -12,5 +12,5 @@ export type UseFormInitializerReturn<T extends FormDataInterface> = {
     formFieldNames?: (keyof T)[],
     fieldModifiers?: FieldModifier<T>[],
   ) => void;
-  formContext: FormContextInterface | undefined
+  formContext: any
 };

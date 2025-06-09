@@ -7,16 +7,21 @@ import InputField from '@admin/common/components/form/input/InputField';
 import NumberIcon from '@/images/icons/number.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
 import Description from '@admin/common/components/Description';
-import { Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import { Control, Controller, FieldErrors, Path, UseFormRegister } from 'react-hook-form';
+import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import { DynamicFields } from '@admin/common/components/form/DynamicFields';
 import DatePicker from 'react-datepicker';
 import Error from '@admin/common/components/Error';
 import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
+import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
+import { SelectOption } from '@admin/common/types/selectOption';
 
 interface ProductStockProps {
-  fieldErrors: FieldErrors<ProductFormDataInterface>;
-  register: UseFormRegister<ProductFormDataInterface>;
+  fieldErrors: FieldErrors<ProductFormData>;
+  register: UseFormRegister<ProductFormData>;
+  formContext?: ProductFormContext;
+  control: Control<ProductFormData>;
 }
 
 const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, control, formContext}) => {
@@ -24,9 +29,8 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
     <FormSection title="Magazyn">
 
       <DynamicFields
-        name={'stocks'}
+        name='stocks'
         control={control}
-        register={register}
         renderItem={(index, innerPrefix) => (
           <div className="space-y-2 flex flex-col gap-4">
             <FormGroup
@@ -38,7 +42,7 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
                 hasError={ !!fieldErrors?.stocks?.[index]?.availableQuantity}
                 errorMessage={ fieldErrors?.stocks?.[index]?.availableQuantity?.message}
                 icon={<NumberIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register(`${innerPrefix}.availableQuantity`, {
+                {...register(`${innerPrefix}.availableQuantity` as Path<ProductFormData>, {
                   ...validationRules.required(),
                   ...validationRules.min(0),
                 })}
@@ -53,7 +57,7 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
                 type="number"
                 id="stockLowStockThreshold"
                 icon={<NumberIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register(`${innerPrefix}.lowStockThreshold`)}
+                {...register(`${innerPrefix}.lowStockThreshold` as Path<ProductFormData>)}
               />
             </FormGroup>
 
@@ -65,7 +69,7 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
                 type="number"
                 id="stockMaximumStockLevel"
                 icon={<NumberIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register(`${innerPrefix}.maximumStockLevel`)}
+                {...register(`${innerPrefix}.maximumStockLevel` as Path<ProductFormData>)}
               />
             </FormGroup>
 
@@ -76,7 +80,7 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
                 type="text"
                 id="stockEan13"
                 icon={<NumberIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register(`${innerPrefix}.ean13`)}
+                {...register(`${innerPrefix}.ean13` as Path<ProductFormData>)}
               />
             </FormGroup>
 
@@ -87,12 +91,12 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
                 type="text"
                 id="stockSku"
                 icon={<NumberIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register(`${innerPrefix}.sku`)}
+                {...register(`${innerPrefix}.sku` as Path<ProductFormData>)}
               />
             </FormGroup>
 
             <Controller
-              name={`${innerPrefix}.restockDate`}
+              name={`${innerPrefix}.restockDate` as Path<ProductFormData>}
               control={control}
               render={({ field }) => (
                   <FormGroup
@@ -111,7 +115,6 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
                         className={`
                             w-full h-[46px] rounded-lg border border-gray-300 py-2.5 pl-[16px] pr-[60px] text-sm text-gray-800 transition-all 
                             focus:border-primary focus:border-1 focus:outline-hidden  focus:ring-primary-light
-                        }
                         `}
                       />
                     </div>
@@ -119,8 +122,9 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
               )}
             />
 
+
             <Controller
-              name={`${innerPrefix}.warehouseId`}
+              name={`${innerPrefix}.warehouseId` as Path<ProductFormData>}
               control={control}
               defaultValue={[]}
               rules={{
@@ -132,10 +136,10 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
                     label={ <InputLabel label="Magazyn" isRequired={true} />}
                   >
                     <ReactSelect
-                      options={formContext.availableWarehouses || []}
-                      value={field.value}
-                      onChange={(option) => {
-                        field.onChange(option);
+                      options={formContext?.availableWarehouses || []}
+                      value={formContext?.availableWarehouses?.find((option) => option.value === field.value) || null}
+                      onChange={(option: SelectOption | null) => {
+                          field.onChange((option as SelectOption | null)?.value ?? null);
                       }}
                       hasError={fieldState.invalid}
                       errorMessage={fieldState.error?.message}

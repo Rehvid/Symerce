@@ -4,13 +4,13 @@ import { normalizeFiles } from '@admin/common/utils/helper';
 import { useDropzoneLogic } from '@admin/common/hooks/form/useDropzoneLogic';
 import Dropzone from '@admin/components/form/dropzone/Dropzone';
 import { UseFormSetValue } from 'react-hook-form';
-import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import { FileResponseInterface } from '@admin/common/interfaces/FileResponseInterface';
 import ProductDropzoneThumbnailList from '@admin/modules/product/components/ProductDropzoneThumbnailList';
 
 interface ProductImagesProps {
-  setValue: UseFormSetValue<ProductFormDataInterface>;
-  formData?: ProductFormDataInterface;
+  setValue: UseFormSetValue<ProductFormData>;
+  formData?: ProductFormData;
 }
 
 interface ProductFileResponse extends FileResponseInterface {

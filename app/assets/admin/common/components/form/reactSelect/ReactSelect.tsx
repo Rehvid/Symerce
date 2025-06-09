@@ -1,14 +1,28 @@
-import Select from 'react-select';
+import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { SelectOption } from '@admin/common/types/selectOption';
 
-const ReactSelect = ({
+interface ReactSelectProps {
+    options: SelectOption[];
+    value: SelectOption | SelectOption[] | null;
+    hasError?: boolean;
+    errorMessage?: string;
+    onChange: (
+        newValue: SingleValue<SelectOption> | MultiValue<SelectOption>,
+        actionMeta: ActionMeta<SelectOption>
+    ) => void;
+    isMulti?: boolean;
+    menuPlacement?: 'auto' | 'bottom' | 'top';
+}
+
+const ReactSelect: React.FC<ReactSelectProps> = ({
   options,
   value,
   hasError,
   errorMessage,
   onChange,
-  isMulti,
+  isMulti = false,
     menuPlacement = 'bottom',
 }) => {
   return (

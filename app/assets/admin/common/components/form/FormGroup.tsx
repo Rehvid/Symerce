@@ -4,6 +4,7 @@ interface FormGroupProps {
   label: React.ReactNode;
   children: React.ReactNode;
   description?: React.ReactNode;
+  additionalClasses?: string;
 }
 
 const FormGroup: React.FC<FormGroupProps> = ({label, description, children, additionalClasses = ''}) => {

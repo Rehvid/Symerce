@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
 import Heading, { HeadingLevel } from '@admin/common/components/Heading';
+import { SelectOption } from '@admin/common/types/selectOption';
 
-interface SelectOption {
-    label: string;
-    value: any;
-}
+
 
 interface SelectFilterProps<T extends TableFilters> {
     filters: T;

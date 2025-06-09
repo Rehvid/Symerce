@@ -13,13 +13,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class ExceptionJsonListener
 {
     public function __construct(
         private LoggerInterface $logger,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private KernelInterface $kernel
     ) {
     }
 
@@ -66,6 +68,7 @@ final readonly class ExceptionJsonListener
         $apiResponse = $this->buildErrorResult(
             message: $this->translator->trans('base.messages.errors.not_found'),
             code: $code,
+            details: $this->kernel->getEnvironment() === 'prod' ? [] : $event->getThrowable()->getTrace()
         );
 
         $this->setEventResponse($event, $apiResponse, $code);

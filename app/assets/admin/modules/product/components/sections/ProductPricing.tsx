@@ -6,23 +6,24 @@ import InputField from '@admin/common/components/form/input/InputField';
 import { validationRules } from '@admin/common/utils/validationRules';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import Switch from '@admin/common/components/form/input/Switch';
-import Select from '@admin/common/components/form/select/Select';
 import Error from '@admin/common/components/Error';
 import CurrencyIcon from '@/images/icons/currency.svg';
 import NumberIcon from '@/images/icons/number.svg';
 import DatePicker from 'react-datepicker';
-import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import { useAppData } from '@admin/common/context/AppDataContext';
+import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 
 interface ProductPricingProps {
-  register: UseFormRegister<ProductFormDataInterface>;
-  control: Control<ProductFormDataInterface>;
-  watch: UseFormWatch<ProductFormDataInterface>;
-  formData?: ProductFormDataInterface;
-  fieldErrors: FieldErrors<ProductFormDataInterface>;
+  register: UseFormRegister<ProductFormData>;
+  control: Control<ProductFormData>;
+  watch: UseFormWatch<ProductFormData>;
+  formContext?: ProductFormContext;
+  fieldErrors: FieldErrors<ProductFormData>;
 }
 
-const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, watch, formData, control}) => {
+const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, watch, formContext, control}) => {
   const { currency } = useAppData();
 
   return (
@@ -38,7 +39,7 @@ const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, w
           icon={<CurrencyIcon className="text-gray-500 w-[16px] h-[16px]" />}
           {...register('regularPrice', {
             ...validationRules.required(),
-            ...validationRules.numeric(currency.roundingPrecision),
+            ...validationRules.numeric(currency?.roundingPrecision),
           })}
         />
       </FormGroup>
@@ -55,10 +56,9 @@ const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, w
             <Controller
               name="promotionDateRange"
               control={control}
-              defaultValue={[null, null]}
               rules={{
-                validate: (promotionDateRange) => {
-                  const [start, end] = promotionDateRange;
+              validate: (promotionDateRange: Date[] | undefined) => {
+                  const [start, end] = promotionDateRange || [];
                   if (!start || !end) {
                     return "Musisz wybrać oba terminy";
                   }
@@ -69,8 +69,8 @@ const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, w
                 <div className="w-full">
                   <DatePicker
                     selectsRange
-                    startDate={field.value[0]}
-                    endDate={field.value[1]}
+                    startDate={field.value?.[0] ?? null}
+                    endDate={field.value?.[1] ?? null}
                     placeholderText="Wybierz datę"
                     onChange={(date) => field.onChange(date)}
                     className={`
@@ -91,25 +91,13 @@ const ProductPricing: React.FC<ProductPricingProps> = ({register, fieldErrors, w
           <FormGroup
             label={ <InputLabel isRequired={true} label="Typ promocji" />}
           >
-            <Controller
-              name="promotionReductionType"
-              control={control}
-              defaultValue={null}
-              rules={{
-                ...validationRules.required(),
-              }}
-              render={({ field }) => (
-                  <Select
-                    options={formData?.availablePromotionTypes|| []}
-                    selected={field.value}
-                    onChange={(value) => {
-                      field.onChange(value);
-                    }}
-                    isRequired
-                    hasError={!!fieldErrors?.promotionReductionType}
-                    errorMessage={fieldErrors?.promotionReductionType?.message}
-                  />
-              )}
+            <ControlledReactSelect
+                name="promotionReductionType"
+                control={control}
+                rules={{
+                    ...validationRules.required(),
+                }}
+                options={formContext?.availablePromotionTypes || []}
             />
           </FormGroup>
           <FormGroup

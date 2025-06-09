@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Link from '@admin/common/components/Link';
 import FormSection from '@admin/common/components/form/FormSection';
+import { ProductPriceHistory } from '@admin/modules/product/interfaces/ProductPriceHistory';
 
-const ProductPriceHistoryBody = ({items}) => {
+interface ProductPriceHistoryBodyProps {
+    items: ProductPriceHistory[] | null
+}
+
+const ProductPriceHistoryBody: FC<ProductPriceHistoryBodyProps> = ({items}) => {
   return (
     <FormSection title="Historia">
       <table className="w-full border-seperate text-left">
@@ -16,7 +21,7 @@ const ProductPriceHistoryBody = ({items}) => {
         </tr>
         </thead>
         <tbody>
-        {items.map(item => (
+        {items?.map(item => (
           <tr className="mb-3 text-sm odd:bg-gray-50">
             <td className="py-6 px-4">{item.id}</td>
             <td className="py-6 px-4 text-center">{item.basePrice}</td>

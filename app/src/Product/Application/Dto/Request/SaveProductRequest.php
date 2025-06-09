@@ -16,6 +16,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class SaveProductRequest implements ArrayHydratableInterface
 {
+    #[Assert\When(
+        expression: 'this.id !== null',
+        constraints: [
+            new Assert\GreaterThan(value: 0)
+        ]
+    )]
+    public ?int $id;
+
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
     public string $name;
@@ -44,7 +52,7 @@ final class SaveProductRequest implements ArrayHydratableInterface
     public string|int|null $brand;
 
     #[Assert\When(
-        expression: 'this.slug !== null',
+        expression: 'this.slug !== null and this.slug != ""',
         constraints: [
             new CustomAssertUniqueSlug(options: ['field' => 'slug', 'className' => Product::class]),
             new Assert\Length(min: 2, max: 255),
@@ -58,7 +66,7 @@ final class SaveProductRequest implements ArrayHydratableInterface
     public ?SaveProductPromotionRequest $productPromotionRequest;
 
     #[Assert\When(
-        expression: 'this.metaTitle !== null',
+        expression: 'this.metaTitle !== null and this.metaTitle != ""',
         constraints: [
             new Assert\Length(min: 2, max: 255),
         ]
@@ -66,7 +74,7 @@ final class SaveProductRequest implements ArrayHydratableInterface
     public ?string $metaTitle;
 
     #[Assert\When(
-        expression: 'this.metaDescription !== null',
+        expression: 'this.metaDescription !== null and this.metaDescription != "" ',
         constraints: [
             new Assert\Length(min: 2, max: 500),
         ]
@@ -80,6 +88,7 @@ final class SaveProductRequest implements ArrayHydratableInterface
      * @param array<string, mixed>      $attributes
      */
     public function __construct(
+        ?int $id,
         string $name,
         string $regularPrice,
         array $stocks,
@@ -96,6 +105,7 @@ final class SaveProductRequest implements ArrayHydratableInterface
         ?string $metaTitle = null,
         ?string $metaDescription = null,
     ) {
+        $this->id = $id;
         $this->name = $name;
         $this->regularPrice = $regularPrice;
         $this->stocks = $stocks;
@@ -150,6 +160,7 @@ final class SaveProductRequest implements ArrayHydratableInterface
         }
 
         return new self(
+            id: $data['id'] ?? null,
             name: $data['name'],
             regularPrice: $data['regularPrice'],
             stocks: $data['stocks'],

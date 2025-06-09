@@ -1,41 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import FormGroup from '@admin/common/components/form/FormGroup';
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { Control, Controller, FieldErrors, useWatch } from 'react-hook-form';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import Select from '@admin/common/components/form/select/Select';
 import { validationRules } from '@admin/common/utils/validationRules';
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import MultiSelect from '@admin/common/components/form/select/MultiSelect';
-import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import Description from '@admin/common/components/Description';
+import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
+import { SelectOption } from '@admin/common/types/selectOption';
 
 
 interface ProductCategorizationProps {
-  control: Control<ProductFormDataInterface>;
-  fieldErrors: FieldErrors<ProductFormDataInterface>;
-  formData?: ProductFormDataInterface;
+  control: Control<ProductFormData>;
+  fieldErrors: FieldErrors<ProductFormData>;
+  formContext?: ProductFormContext;
 }
 
-type MainCategory = {
-  label: string,
-  value: number,
-}
+const ProductCategorization : React.FC<ProductCategorizationProps> = ({ control, fieldErrors, formContext }) => {
 
-const ProductCategorization : React.FC<ProductCategorizationProps> = ({ control, fieldErrors, formData, watch }) => {
-
-  const [mainCategories, setMainCategories] = useState<MainCategory[]>([]);
+  const [mainCategories, setMainCategories] = useState<SelectOption[]>([]);
+  const selectedCategories = useWatch({ control, name: 'categories' });
 
   useEffect(() => {
-    const currentCategories = watch().categories;
-    if (currentCategories && Array.isArray(currentCategories)) {
-      const filteredOptionCategories = formData?.availableCategories.filter(optionCategory =>
-        currentCategories.includes(optionCategory.value)
-      );
+      if (selectedCategories && Array.isArray(selectedCategories)) {
+          const filtered = formContext?.availableCategories.filter((cat) =>
+              selectedCategories.includes(cat.value)
+          );
 
-     setMainCategories(filteredOptionCategories);
-    }
-  }, [watch().categories]);
+          setMainCategories(filtered || []);
+      }
+  }, [selectedCategories]);
 
   return (
     <FormSection title="Kategoryzacja" forceOpen={hasAnyFieldError(fieldErrors, ['mainCategory'])} >
@@ -43,51 +41,29 @@ const ProductCategorization : React.FC<ProductCategorizationProps> = ({ control,
         label={<InputLabel isRequired={true} label="Główna kategoria" htmlFor="mainCategory"  />}
         description={<Description> Wybór kategorii dodaje możliwe opcje, spośród których można wybrać główną kategorię produktu.</Description>}
       >
-        <Controller
-          name="mainCategory"
-          control={control}
-          defaultValue={null}
-          rules={{
-            ...validationRules.required(),
-          }}
-          render={({ field }) => (
-              <Select
-                hasError={!!fieldErrors?.mainCategory}
-                errorMessage={fieldErrors?.mainCategory?.message}
-                options={mainCategories}
-                selected={field.value}
-                onChange={(value) => {
-                  field.onChange(value);
-                }}
-              />
-          )}
+        <ControlledReactSelect
+            name="mainCategory"
+            control={control}
+            options={mainCategories}
+            isMulti={false}
+            rules={{
+                ...validationRules.required(),
+            }}
         />
       </FormGroup>
 
       <FormGroup
         label={<InputLabel label="Kategorie" htmlFor="categories"  isRequired={true} />}
       >
-        <Controller
-          name="categories"
-          control={control}
-          defaultValue={[]}
-          rules={{
-            ...validationRules.required(),
-          }}
-          render={({ field }) => (
-              <MultiSelect
-                options={formData?.availableCategories || []}
-                selected={field.value}
-                onChange={(value, checked) => {
-                  const newValue = checked
-                    ? [...field.value, value]
-                    : field.value.filter((v) => v !== value);
-
-                  field.onChange(newValue);
-                }}
-              />
-          )}
-        />
+          <ControlledReactSelect
+              name="categories"
+              control={control}
+              options={formContext?.availableCategories || []}
+              isMulti={true}
+              rules={{
+                  ...validationRules.required(),
+              }}
+          />
       </FormGroup>
     </FormSection>
   )

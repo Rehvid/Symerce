@@ -10,12 +10,12 @@ export const productRoutes: AdminRouteInterface[] = [
   },
   {
     path: 'products/create',
-    component: lazy(() => import('@admin/modules/product/pages/ProductFormPage')),
+    component: lazy(() => import('@admin/modules/product/pages/ProductForm')),
     roles: [AdminRole.ADMIN],
   },
   {
     path: 'products/:id/edit',
-    component: lazy(() => import('@admin/modules/product/pages/ProductFormPage')),
+    component: lazy(() => import('@admin/modules/product/pages/ProductForm')),
     roles: [AdminRole.ADMIN],
   },
   {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import FormGroup from '@admin/common/components/form/FormGroup';
@@ -10,14 +10,17 @@ import InputField from '@admin/common/components/form/input/InputField';
 import { Control, FieldErrors, UseFormRegister, Controller } from 'react-hook-form';
 import RichTextEditor from '@admin/common/components/form/input/RichTextEditor';
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
-import { ProductFormDataInterface } from '@admin/modules/product/interfaces/ProductFormDataInterface';
+import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import Select from '@admin/common/components/form/select/Select';
 import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
+import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';
 
 interface ProductInformationProps {
-    register: UseFormRegister<ProductFormDataInterface>,
-    fieldErrors: FieldErrors<ProductFormDataInterface>;
-    control: Control<ProductFormDataInterface>;
+    register: UseFormRegister<ProductFormData>,
+    fieldErrors: FieldErrors<ProductFormData>;
+    control: Control<ProductFormData>;
+    formContext?: ProductFormContext
 }
 
 const ProductInformation: React.FC<ProductInformationProps> = ({register, fieldErrors, control, formContext}) => {
@@ -54,21 +57,14 @@ const ProductInformation: React.FC<ProductInformationProps> = ({register, fieldE
           <FormGroup
             label={<InputLabel isRequired={true} label="Producent"  />}
           >
-              <Controller
-                name="brand"
-                control={control}
-                defaultValue={null}
-                render={({ field, fieldState }) => (
-                    <ReactSelect
-                      options={formContext?.availableBrands || []}
-                      value={field.value}
-                      onChange={(option) => {
-                        field.onChange(option);
-                      }}
-                      hasError={fieldState.invalid}
-                      errorMessage={fieldState.error?.message}
-                    />
-                )}
+              <ControlledReactSelect
+                  rules={{
+                      ...validationRules.required()
+                  }}
+                  name="brand"
+                  control={control}
+                  options={formContext?.availableBrands}
+                  isMulti={false}
               />
           </FormGroup>
 
