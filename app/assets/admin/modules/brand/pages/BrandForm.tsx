@@ -7,30 +7,32 @@ import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import BrandFormBody from '@admin/modules/brand/components/BrandFormBody';
-import { BrandFormDataInterface } from '@admin/modules/brand/interfaces/BrandFormDataInterface';
+import { BrandFormData } from '@admin/modules/brand/interfaces/BrandFormData';
+import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 
-const BrandFormPage = () => {
-  const params = useParams();
-  const isEditMode = params.id ?? false;
+const BrandForm = () => {
   const {
     register,
     handleSubmit,
     setValue,
     setError,
     formState: { errors: fieldErrors },
-  } = useForm<BrandFormDataInterface>({
+  } = useForm<BrandFormData>({
     mode: 'onBlur',
   });
 
-  const baseApiUrl = 'admin/brands';
-  const redirectSuccessUrl = '/admin/brands';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData, formData } = useFormInitializer<BrandFormDataInterface>();
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/brands',
+        redirectSuccessUrl: '/admin/brands',
+    });
+    const requestConfig = getRequestConfig();
+
+    const { isFormInitialize, getFormData, formData } = useFormInitializer<BrandFormData>();
 
   useEffect(() => {
     if (isEditMode) {
-      const endpoint = `admin/brands/${params.id}`;
-      const formFieldNames  = ['name', 'isActive'];
+      const endpoint = `admin/brands/${entityId}`;
+      const formFieldNames = ['name', 'isActive'] satisfies (keyof BrandFormData)[];
 
       getFormData(endpoint, setValue, formFieldNames);
     }
@@ -43,7 +45,8 @@ const BrandFormPage = () => {
 
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
+      method={requestConfig.method}
+      endpoint={requestConfig.endpoint}
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
@@ -60,4 +63,4 @@ const BrandFormPage = () => {
   );
 }
 
-export default BrandFormPage;
+export default BrandForm;

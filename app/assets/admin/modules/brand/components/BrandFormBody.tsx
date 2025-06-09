@@ -6,14 +6,24 @@ import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
 import Switch from '@admin/common/components/form/input/Switch';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { normalizeFiles } from '@admin/common/utils/helper';
 import { UploadFileInterface } from '@admin/common/interfaces/UploadFileInterface';
 import Dropzone from '@admin/components/form/dropzone/Dropzone';
 import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
 import { useDropzoneLogic } from '@admin/common/hooks/form/useDropzoneLogic';
+import { BrandFormData } from '@admin/modules/brand/interfaces/BrandFormData';
+import {  FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
-const BrandFormBody = ({register, fieldErrors, setValue, formData}) => {
+
+interface BrandFormBodyProps {
+    formData: BrandFormData;
+    register: UseFormRegister<BrandFormData>;
+    setValue: UseFormSetValue<BrandFormData>;
+    fieldErrors: FieldErrors<BrandFormData>;
+}
+
+const BrandFormBody: FC<BrandFormBodyProps> = ({register, fieldErrors, setValue, formData}) => {
   const [thumbnail, setThumbnail] = useState<any>(normalizeFiles(formData?.thumbnail));
 
   const setDropzoneValue = (image: UploadFileInterface) => {
@@ -24,7 +34,7 @@ const BrandFormBody = ({register, fieldErrors, setValue, formData}) => {
   const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, thumbnail);
 
   return (
-    <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
+    <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])} useToggleContent={false}>
       <FormGroup  label={<InputLabel label="Miniaturka"  />} >
         <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
           {thumbnail.length > 0 &&

@@ -5,17 +5,17 @@ import { AdminRole } from '@admin/common/enums/adminRole';
 export const brandRoutes: AdminRouteInterface[] = [
   {
     path: 'brands',
-    component: lazy(() => import('@admin/modules/brand/pages/BrandListPage')),
+    component: lazy(() => import('@admin/modules/brand/pages/BrandList')),
     roles: [AdminRole.ADMIN],
   },
   {
     path: 'brands/create',
-    component: lazy(() => import('@admin/modules/brand/pages/BrandFormPage')),
+    component: lazy(() => import('@admin/modules/brand/pages/BrandForm')),
     roles: [AdminRole.ADMIN],
   },
   {
     path: 'brands/:id/edit',
-    component: lazy(() => import('@admin/modules/brand/pages/BrandFormPage')),
+    component: lazy(() => import('@admin/modules/brand/pages/BrandForm')),
     roles: [AdminRole.ADMIN],
   },
 ]

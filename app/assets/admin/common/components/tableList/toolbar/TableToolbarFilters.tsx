@@ -37,7 +37,7 @@ const TableToolbarFilters= <T extends TableFilters,> ({
                     <span className="font-medium">Filtry</span>
                 </div>
             </DrawerHeader>
-            <div className="flex flex-col gap-[1.5rem] p-4">{children}</div>
+            <div className="flex flex-col gap-[1.5rem] p-4 lg:min-w-80 min-w-3xs">{children}</div>
         </DrawerContent>
     );
 
