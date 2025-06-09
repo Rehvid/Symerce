@@ -34,16 +34,7 @@ const ControlledReactSelect = <T extends FieldValues>  ({
                         options={options}
                         isMulti={isMulti}
                         value={selected}
-                        onChange={(option: SelectOption) => {
-                            if (isMulti) {
-                                const selectedOptions = Array.isArray(option)
-                                    ? option.map((selectedOption) => selectedOption.value)
-                                    : [];
-                                field.onChange(selectedOptions);
-                            } else {
-                                field.onChange((option as SelectOption | null)?.value ?? null);
-                            }
-                        }}
+                        onChange={field.onChange}
                         hasError={fieldState.invalid}
                         errorMessage={fieldState.error?.message}
                     />

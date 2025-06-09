@@ -4,14 +4,11 @@ import React, { useState } from 'react';
 import { SelectOption } from '@admin/common/types/selectOption';
 
 interface ReactSelectProps {
-    options: SelectOption[];
-    value: SelectOption | SelectOption[] | null;
+    options: SelectOption[] | undefined;
+    value: SelectOption | SelectOption[] | null | undefined;
     hasError?: boolean;
     errorMessage?: string;
-    onChange: (
-        newValue: SingleValue<SelectOption> | MultiValue<SelectOption>,
-        actionMeta: ActionMeta<SelectOption>
-    ) => void;
+    onChange: (value: string | number | any | (string | number | any)[] | null) => void;
     isMulti?: boolean;
     menuPlacement?: 'auto' | 'bottom' | 'top';
 }
@@ -23,15 +20,28 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
   errorMessage,
   onChange,
   isMulti = false,
-    menuPlacement = 'bottom',
+  menuPlacement = 'bottom',
 }) => {
-  return (
+
+    const handleChange = (
+        option: SingleValue<SelectOption> | MultiValue<SelectOption>
+    ) => {
+        if (isMulti) {
+            const values = (option as SelectOption[]).map(opt => opt.value);
+            onChange(values);
+        } else {
+            onChange((option as SelectOption)?.value ?? null);
+        }
+    };
+
+
+    return (
       <>
         <Select
           options={options}
           value={value}
           placeholder="Wybierz opcje"
-          onChange={onChange}
+          onChange={handleChange}
           isClearable
           isMulti={isMulti}
           components={makeAnimated()}

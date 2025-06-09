@@ -9,7 +9,7 @@ import { SelectOption } from '@admin/common/types/selectOption';
 interface SelectFilterProps<T extends TableFilters> {
     filters: T;
     setFilters: React.Dispatch<React.SetStateAction<T>>;
-    nameFilter: keyof T & string;
+    nameFilter: string
     options: SelectOption[];
     label?: string;
     isMulti?: boolean;
@@ -31,21 +31,24 @@ const SelectFilter = <T extends TableFilters,>({
             return null;
         }
 
-        if (isMulti && Array.isArray(currentValue)) {
-            return options.filter(option => currentValue.includes(option.value));
-        }
-
-        return options.find(option => option.value === currentValue) || null;
+        return getOptionValue(currentValue);
     };
 
-    const [selectedOption, setSelectedOption] = useState<SelectOption | SelectOption[] | null>(getCurrentValue());
+    const getOptionValue = (selectedOption: any) => {
+        if (isMulti && Array.isArray(selectedOption)) {
+            return options.filter(option => selectedOption.includes(option.value));
+        }
+
+        return options.find(option => option.value === selectedOption) || null;
+    }
+
+    const [selectedOption, setSelectedOption] = useState<any>(getCurrentValue());
 
     useEffect(() => {
         setSelectedOption(getCurrentValue());
     }, [filters[nameFilter]]);
 
-    const handleChange = (selected: SelectOption | SelectOption[] | null) => {
-        setSelectedOption(selected);
+    const handleChange = (selected: any) => {
 
         if (selected === null) {
             const { [nameFilter]: _, ...rest } = filters;
@@ -60,13 +63,17 @@ const SelectFilter = <T extends TableFilters,>({
                 [nameFilter]: values,
                 page: 1,
             } as T);
-        } else if (!isMulti && selected) {
+        } else if (!isMulti) {
+            console.log("Selected", selected);
             setFilters({
                 ...filters,
-                [nameFilter]: (selected as SelectOption).value,
+                [nameFilter]: selected,
                 page: 1,
             } as T);
         }
+
+
+        setSelectedOption(getOptionValue(selected));
     };
 
     return (

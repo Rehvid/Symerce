@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useNotification } from '@admin/common/context/NotificationContext';
 import { ApiResponse } from '@admin/common/interfaces/ApiResponse';
 import { ApiResponseEntityWithId } from '@admin/common/interfaces/ApiResponseEntityWithId';
+import useEntityId from '@admin/common/hooks/useEntityId';
 
 interface UseFormSubmitProps {
   baseApiUrl: string,
@@ -21,9 +22,7 @@ const useApiFormSubmit = ({
 }: UseFormSubmitProps) => {
     const navigate = useNavigate();
     const { addNotification } = useNotification();
-    const params = useParams();
-    const entityId = params.id ? Number(params.id) : null;
-    const isEditMode = !!entityId;
+    const { entityId, hasEntityId: isEditMode } = useEntityId();
 
   const defaultApiSuccessCallback = {
     onSuccess: ({ data, message }: ApiResponse<ApiResponseEntityWithId>) => {
