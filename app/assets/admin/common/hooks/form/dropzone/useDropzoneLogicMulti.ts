@@ -1,38 +1,32 @@
 import { useState } from 'react';
-import { convertFileToBase64 } from '@admin/common/utils/helper';
 import { HttpMethod } from '@admin/common/enums/httpEnums';
 import { useAdminApi } from '@admin/common/context/AdminApiContext';
+import { UploadFile } from '@admin/common/interfaces/UploadFile';
+import { convertToUploadFile, formatSizeMB, isAcceptedSize, isAcceptedType } from '@admin/common/utils/fileUtils';
+import { FileMimeType } from '@admin/common/enums/fileMimeType';
 
-interface FileWithPreview extends File {
-    preview: string;
-    content?: string;
-    uuid?: string;
-    id?: number;
+interface DropzoneLogicMultiProps {
+    setValue: (files: UploadFile[]) => void;
+    value?: UploadFile[];
+    onSuccessRemove?: ((message: string) => void) | null;
+    maxFiles?: number;
+    maxSize?: number;
+    accept?: FileMimeType[];
 }
 
-interface Errors {
-    message?: string;
-}
-
-type UseDropzoneLogicReturn = {
-    onDrop: (acceptedFiles: File[]) => void;
-    removeFile: (file: FileWithPreview) => void;
-    errors: Errors;
-};
-
-export const useDropzoneLogic = (
-    setValue: (files: FileWithPreview[]) => void,
-    onSuccessRemove: ((message: string) => void) | null = null,
-    value: FileWithPreview[] = [],
+export const useDropzoneLogicMulti = ({
+    setValue,
+    value = [],
     maxFiles = 1,
     maxSize = 5,
-    accept: string[] = ['image/jpeg', 'image/png'],
-): UseDropzoneLogicReturn => {
-    const [errors, setErrors] = useState<Errors>({});
+    accept = [FileMimeType.JPEG, FileMimeType.PNG],
+    onSuccessRemove = null,
+}: DropzoneLogicMultiProps) => {
+    const [errors, setErrors] = useState<{ message?: string }>({});
     const { handleApiRequest } = useAdminApi();
 
     const onDrop = (acceptedFiles: File[]) => {
-        const currentFiles = value.length === 0 ? [] : [...value];
+        const currentFiles = [...value];
 
         if (currentFiles.length + acceptedFiles.length > maxFiles) {
             setErrors({
@@ -42,19 +36,16 @@ export const useDropzoneLogic = (
         }
 
         const filteredFiles = acceptedFiles.filter((file) => {
-            const isAcceptedType = accept.includes(file.type);
-            const isAcceptedSize = file.size <= maxSize * 1024 * 1024;
-
-            if (!isAcceptedType) {
+            if (!isAcceptedType(file, accept)) {
                 setErrors({
                     message: `Nieprawidłowy format pliku. Dozwolone: ${accept.join(', ')}`,
                 });
                 return false;
             }
 
-            if (!isAcceptedSize) {
+            if (!isAcceptedSize(file, maxSize)) {
                 setErrors({
-                    message: `Plik jest za duży. Maksymalny rozmiar to ${maxSize.toFixed(2)} MB`,
+                    message: `Plik jest za duży. Maksymalny rozmiar to ${formatSizeMB(maxSize)}`,
                 });
                 return false;
             }
@@ -71,23 +62,13 @@ export const useDropzoneLogic = (
         );
 
         setErrors({});
-        handleFilesChange(withPreview);
+        handleFilesChange(withPreview).catch((error) => {console.error(error)});
     };
 
-    const handleFilesChange = async (filesArray: FileWithPreview[]) => {
+    const handleFilesChange = async (filesArray: (File & { preview: string })[]) => {
         const processedFiles = await Promise.all(
             filesArray.map(async (file) => {
-                if (file.content) return file;
-
-                const base64 = await convertFileToBase64(file);
-                return {
-                    size: file.size,
-                    type: file.type,
-                    name: file.name,
-                    preview: file.preview,
-                    content: base64,
-                    uuid: crypto.randomUUID(),
-                } as FileWithPreview;
+                return await convertToUploadFile(file);
             }),
         );
 
@@ -95,7 +76,7 @@ export const useDropzoneLogic = (
         setValue(newValue);
     };
 
-    const removeFile =  async (file: FileWithPreview) => {
+    const removeFile = async (file: UploadFile) => {
         const updatedFiles = value.filter((item) => item !== file);
 
         if (file.id) {

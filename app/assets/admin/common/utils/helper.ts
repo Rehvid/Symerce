@@ -1,4 +1,5 @@
 import { DraggableItem } from '@admin/common/types/draggableItem';
+import { UploadFile } from '@admin/common/interfaces/UploadFile';
 
 export interface DraggableData {
     movedId: string | null;
@@ -41,22 +42,27 @@ interface FileWithId {
     [key: string]: any;
 }
 
-export const normalizeFiles = (input: FileWithId | FileWithId[] | null | undefined): FileWithId[] => {
-    const assignUuid = (file: FileWithId): FileWithId => ({
-        ...file,
-        uuid: file.uuid ?? crypto.randomUUID(),
-    });
+export const normalizeFiles = (files: UploadFile[] | null | undefined): UploadFile[] => {
+    if (!Array.isArray(files)) return [];
 
-    if (Array.isArray(input)) {
-        return input.filter((file) => file && file.id !== null).map(assignUuid);
-    }
-
-    if (input && typeof input === 'object' && input.id !== null) {
-        return [assignUuid(input)];
-    }
-
-    return [];
+    return files
+        .filter((file) => file && file.id != null)
+        .map((file) => ({
+            ...file,
+            uuid: file.uuid ?? crypto.randomUUID(),
+        }));
 };
+export const normalizeFile = (file: UploadFile | null | undefined): UploadFile | null => {
+    if (file && file.id != null) {
+        return {
+            ...file,
+            uuid: file.uuid ?? crypto.randomUUID(),
+        };
+    }
+    return null;
+};
+
+
 
 export const filterEmptyValues = <T extends Record<string, any>>(filters: T): Partial<T> => {
     const cleaned: Partial<T> = {};

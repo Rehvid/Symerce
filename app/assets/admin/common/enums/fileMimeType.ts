@@ -1,0 +1,16 @@
+export enum FileMimeType {
+    JPEG = 'image/jpeg',
+    PNG = 'image/png',
+    WEBP = 'image/webp',
+    GIF = 'image/gif',
+    SVG = 'image/svg+xml',
+    PDF = 'application/pdf',
+    DOC = 'application/msword',
+    DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    XLS = 'application/vnd.ms-excel',
+    XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    CSV = 'text/csv',
+    TXT = 'text/plain',
+    MP4 = 'video/mp4',
+    MP3 = 'audio/mpeg',
+}
