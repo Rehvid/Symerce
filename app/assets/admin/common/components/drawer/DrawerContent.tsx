@@ -1,60 +1,66 @@
 import React, { FC  } from 'react';
-import { useDrawer } from '@admin/common/components/drawer/DrawerContext';
 import { PositionType } from '@admin/common/enums/positionType';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 interface DrawerContentProps {
     children?: React.ReactNode;
     position: PositionType;
-    drawerId: string;
 }
 
-const DrawerContent: FC<DrawerContentProps> = ({ children, position, drawerId }) => {
-    const { isOpen, ref } = useDrawer();
+const DrawerContent: FC<DrawerContentProps> = ({ children, position }) => {
 
-    const isDrawerOpen = isOpen(drawerId);
-
-    const baseClasses = 'fixed z-[400] overflow-y-auto transition-transform bg-white';
+    const drawerVariants = {
+        [PositionType.LEFT]: {
+            initial: { x: '-100%' },
+            animate: { x: 0 },
+            exit: { x: '-100%' }
+        },
+        [PositionType.RIGHT]: {
+            initial: { x: '100%' },
+            animate: { x: 0 },
+            exit: { x: '100%' }
+        },
+        [PositionType.TOP]: {
+            initial: { y: '-100%' },
+            animate: { y: 0 },
+            exit: { y: '-100%' }
+        },
+        [PositionType.BOTTOM]: {
+            initial: { y: '100%' },
+            animate: { y: 0 },
+            exit: { y: '100%' }
+        },
+        [PositionType.CENTER]: {
+            initial: { y: '-200%', opacity: 0, scale: 0.95 },
+            animate: { y: '-50%', opacity: 1, scale: 1 },
+            exit: { y: '-200%', opacity: 0, scale: 0.95 }
+        }
+    };
 
     const positionClasses: Record<PositionType, string> = {
         [PositionType.LEFT]: 'top-0 left-0 h-screen max-w-96',
         [PositionType.RIGHT]: 'top-0 right-0 h-screen max-w-96',
         [PositionType.BOTTOM]: 'bottom-0 left-0 right-0 w-full',
         [PositionType.TOP]: 'top-0 left-0 right-0 w-full',
-        [PositionType.CENTER]: 'top-1/2 left-1/2 -translate-x-1/2 transform max-w-md rounded-xl shadow-xl',
+        [PositionType.CENTER]: 'top-1/2 left-1/2 -translate-x-1/2 transform max-w-4xl rounded-xl shadow-2xl',
     };
 
-    const transformClass = (() => {
-        switch (position) {
-            case PositionType.LEFT:
-                return isDrawerOpen ? 'translate-x-0' : '-translate-x-full';
-            case PositionType.RIGHT:
-                return isDrawerOpen ? 'translate-x-0' : 'translate-x-full';
-            case PositionType.BOTTOM:
-                return isDrawerOpen ? 'translate-y-0' : 'translate-y-full';
-            case PositionType.TOP:
-                return isDrawerOpen ? 'translate-y-0' : '-translate-y-full';
-            case PositionType.CENTER:
-                return clsx(
-                    'transform transition-all duration-300 ease-in-out',
-                    isDrawerOpen
-                        ? 'translate-y-[-50%] opacity-100 pointer-events-auto scale-100'
-                        : 'translate-y-[-200%] opacity-0 pointer-events-none scale-95'
-                );
-            default:
-                return '';
-        }
-    })();
-
     return (
-        <div
-            ref={ref}
+        <motion.div
             id="drawer"
-            className={clsx(baseClasses, positionClasses[position], transformClass)}
+            className={clsx(
+                'fixed z-[400] overflow-y-auto bg-white',
+                positionClasses[position]
+            )}
             tabIndex={-1}
+            initial={drawerVariants[position].initial}
+            animate={drawerVariants[position].animate}
+            exit={drawerVariants[position].exit}
+            transition={{ type: "spring", stiffness: 300, damping: 35, mass: 1 }}
         >
             {children}
-        </div>
+        </motion.div>
     );
 };
 

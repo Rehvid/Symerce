@@ -11,6 +11,7 @@ import { isOnlyPaginationInDataTable } from '@admin/common/utils/helper';
 import FilterResetIcon from '@/images/icons/filter-reset.svg';
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
 import { Sort } from '@admin/common/interfaces/Sort';
+import { useDrawer } from '@admin/common/components/drawer/DrawerContext';
 
 interface TableToolbarFilters<T extends TableFilters> {
     sort: Sort;
@@ -29,8 +30,10 @@ const TableToolbarFilters= <T extends TableFilters,> ({
     defaultFilters = { limit: 10, page: 1 },
     children,
 }: TableToolbarFilters<T>) => {
+    const {open} = useDrawer();
+
     const openFilters = (children: React.ReactNode) => (
-        <DrawerContent position={PositionType.RIGHT} drawerId="filters">
+        <>
             <DrawerHeader>
                 <div className="flex gap-2">
                     <FilterIcon className="w-[24px] h-[24px] text-gray-400 " />
@@ -38,7 +41,7 @@ const TableToolbarFilters= <T extends TableFilters,> ({
                 </div>
             </DrawerHeader>
             <div className="flex flex-col gap-[1.5rem] p-4 lg:min-w-80 min-w-3xs">{children}</div>
-        </DrawerContent>
+        </>
     );
 
     const resetFilters = () => {
@@ -69,17 +72,14 @@ const TableToolbarFilters= <T extends TableFilters,> ({
                 <SearchFilter filters={filters} setFilters={setFilters} />
                 {children && (
                     <>
-                        <DrawerTrigger drawerId="filters">
                             <Button
                                 variant={ButtonVariant.Secondary}
                                 additionalClasses="h-[46px] px-5 flex gap-2 mt-4 sm:mt-0 w-full sm:w-auto justify-center items-center"
+                                onClick={() => open('filters', openFilters(children), PositionType.RIGHT)}
                             >
                                 <FilterIcon />
                                 Filtry
                             </Button>
-                        </DrawerTrigger>
-
-                        {openFilters(children)}
                     </>
                 )}
             </div>
