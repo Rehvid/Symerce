@@ -1,6 +1,4 @@
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { PaymentMethodFormDataInterface } from '@admin/modules/paymentMethod/PaymentMethodFormDataInterface';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
 import { useEffect } from 'react';
@@ -8,9 +6,9 @@ import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import PaymentMethodFormBody from '@admin/modules/paymentMethod/components/PaymentMethodFormBody';
+import { PaymentMethodFormData } from '@admin/modules/paymentMethod/interfaces/PaymentMethodFormData';
 
-const PaymentMethodFormPage = () => {
-  const params = useParams();
+const PaymentMethodForm = () => {
   const {
     register,
     handleSubmit,
@@ -18,21 +16,25 @@ const PaymentMethodFormPage = () => {
     setError,
     control,
     formState: { errors: fieldErrors },
-  } = useForm<PaymentMethodFormDataInterface>({
+  } = useForm<PaymentMethodFormData>({
     mode: 'onBlur',
   });
 
-  const baseApiUrl = 'admin/payment-methods';
-  const redirectSuccessUrl = '/admin/payment-methods';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData, formData, setFormData } = useFormInitializer<PaymentMethodFormDataInterface>();
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/payment-methods',
+        redirectSuccessUrl: '/admin/payment-methods',
+    });
+    const requestConfig = getRequestConfig();
+
+  const { isFormInitialize, getFormData, formData, } = useFormInitializer<PaymentMethodFormData>();
 
   useEffect(() => {
-    if (params.id) {
-      const endpoint = `admin/payment-methods/${params.id}`;
-      const formFieldNames = ['name', 'isActive', 'code', 'fee', 'isRequireWebhook', 'config']
-
-      getFormData(endpoint, setValue, formFieldNames);
+    if (isEditMode) {
+      getFormData(
+          `admin/payment-methods/${entityId}`,
+          setValue,
+          ['name', 'isActive', 'code', 'fee', 'isRequireWebhook', 'config'] satisfies (keyof PaymentMethodFormData)[]
+      );
     }
   }, []);
 
@@ -42,23 +44,23 @@ const PaymentMethodFormPage = () => {
 
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
     >
-      <FormApiLayout pageTitle={params.id ? 'Edytuj metodę płatności' : 'Dodaj metodę płatności'}>
+      <FormApiLayout pageTitle={isEditMode ? 'Edytuj metodę płatności' : 'Dodaj metodę płatności'}>
         <PaymentMethodFormBody
           register={register}
           fieldErrors={fieldErrors}
           control={control}
           formData={formData}
           setValue={setValue}
-          setFormData={setFormData}
         />
       </FormApiLayout>
     </FormWrapper>
   );
 }
 
-export default PaymentMethodFormPage;
+export default PaymentMethodForm;

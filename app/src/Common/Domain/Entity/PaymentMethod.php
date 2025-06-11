@@ -42,7 +42,7 @@ class PaymentMethod implements FileEntityInterface
 
     #[ORM\ManyToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private ?File $image;
+    private ?File $image = null;
 
     /** @var array<mixed, mixed>|null */
     #[ORM\Column(type: 'json', nullable: true)]

@@ -8,37 +8,30 @@ import { validationRules } from '@admin/common/utils/validationRules';
 import Description from '@admin/common/components/Description';
 import CurrencyIcon from '@/images/icons/currency.svg';
 import Switch from '@admin/common/components/form/input/Switch';
-import React, { useState } from 'react';
-import Dropzone from '@admin/components/form/dropzone/Dropzone';
-import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
-import { normalizeFiles } from '@admin/common/utils/helper';
-import { useDropzoneLogic } from '@admin/common/hooks/form/useDropzoneLogic';
-import { UploadFileInterface } from '@admin/common/interfaces/UploadFileInterface';
+import React, { FC } from 'react';
 import { useAppData } from '@admin/common/context/AppDataContext';
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { PaymentMethodFormData } from '@admin/modules/paymentMethod/interfaces/PaymentMethodFormData';
+import SingleImageUploader from '@admin/common/components/form/SingleImageUploader';
 
-const PaymentMethodInformationSection = ({register, fieldErrors, formData, setValue}) => {
+interface PaymentMethodInformationSectionProps {
+    register: UseFormRegister<PaymentMethodFormData>;
+    fieldErrors: FieldErrors<PaymentMethodFormData>;
+    setValue: UseFormSetValue<PaymentMethodFormData>;
+    formData: PaymentMethodFormData;
+}
+
+const PaymentMethodInformationSection: FC<PaymentMethodInformationSectionProps> = ({register, fieldErrors, setValue, formData}) => {
   const { currency } = useAppData();
-  const [thumbnail, setThumbnail] = useState<any>(normalizeFiles(formData?.thumbnail))
-
-  const setDropzoneValue = (image: UploadFileInterface) => {
-    setValue('thumbnail', image);
-    setThumbnail(image);
-  };
-
-  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, thumbnail);
 
   return (
     <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-
-      <FormGroup  label={<InputLabel label="Miniaturka"  />} >
-        <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
-          {thumbnail.length > 0 &&
-            thumbnail.map((file, key) => (
-              <DropzoneThumbnail file={file} removeFile={removeFile} variant="single" key={key} index={key} />
-            ))}
-        </Dropzone>
-      </FormGroup>
-
+        <SingleImageUploader
+            label="Miniaturka"
+            fieldName="thumbnail"
+            setValue={setValue}
+            initialValue={formData?.thumbnail}
+        />
       <FormGroup
         label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name"  />}
       >
@@ -81,7 +74,7 @@ const PaymentMethodInformationSection = ({register, fieldErrors, formData, setVa
           icon={<CurrencyIcon className="text-gray-500 w-[16px] h-[16px]" />}
           {...register('fee', {
             ...validationRules.required(),
-            ...validationRules.numeric(currency.roundingPrecision),
+            ...validationRules.numeric(currency?.roundingPrecision),
           })}
         />
       </FormGroup>

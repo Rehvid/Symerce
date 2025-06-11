@@ -9,6 +9,7 @@ use App\DTO\Admin\Response\ResponseInterfaceData;
 
 final readonly class PaymentMethodFormResponse
 {
+    /** @param array<mixed, mixed> $config */
    public function __construct(
        public string                                  $code,
        public string                                  $name,
@@ -16,7 +17,7 @@ final readonly class PaymentMethodFormResponse
        public bool                                    $isActive,
        public bool                                    $isRequireWebhook,
        public FileResponse|null $thumbnail,
-       public array $config,
+       public ?array $config,
    ) {
 
    }
