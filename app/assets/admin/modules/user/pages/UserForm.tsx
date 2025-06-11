@@ -1,6 +1,5 @@
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { UserFormDataInterface } from '@admin/modules/user/interfaces/UserFormDataInterface';
+import { UserFormData } from '@admin/modules/user/interfaces/UserFormData';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
 import { useEffect } from 'react';
@@ -9,9 +8,13 @@ import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import UserFormBody from '@admin/modules/user/components/UserFormBody';
 
-const UserFormPage = () => {
-  const params = useParams();
-  const isEditMode = params.id ?? false;
+const UserForm = () => {
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/users',
+        redirectSuccessUrl: '/admin/users',
+    });
+    const requestConfig = getRequestConfig();
+
   const {
     register,
     handleSubmit,
@@ -19,23 +22,20 @@ const UserFormPage = () => {
     setError,
     control,
     formState: { errors: fieldErrors },
-  } = useForm<UserFormDataInterface>({
+  } = useForm<UserFormData>({
     mode: 'onBlur',
     defaultValues: {
-      id: isEditMode ? Number(params.id) : null
+      id: entityId
     }
   });
 
-  const baseApiUrl = 'admin/users';
-  const redirectSuccessUrl = '/admin/users';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData, formData, formContext } = useFormInitializer<UserFormDataInterface>();
+  const { isFormInitialize, getFormData, formData, formContext } = useFormInitializer<UserFormData>();
 
 
   useEffect(() => {
-    const endpoint = isEditMode ? `admin/users/${params.id}` : 'admin/users/store-data';
+    const endpoint = isEditMode ? `admin/users/${entityId}` : 'admin/users/store-data';
     const formFieldNames  = isEditMode
-      ? ['firstname', 'surname', 'email', 'roles', 'isActive']
+      ? ['firstname', 'surname', 'email', 'roles', 'isActive'] satisfies (keyof UserFormData)[]
       : []
 
     getFormData(endpoint, setValue, formFieldNames);
@@ -45,25 +45,15 @@ const UserFormPage = () => {
     return <FormSkeleton rowsCount={12} />;
   }
 
-  const modifySubmitValues = (values) => {
-    const data = {...values};
-
-    if (data.roles) {
-      data.roles = values.roles.map(role => role.value);
-    }
-
-    return data;
-  }
-
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
-      modifySubmitValues={modifySubmitValues}
     >
-      <FormApiLayout pageTitle={params.id ? 'Edytuj użytkownika' : 'Dodaj użytkownika'}>
+      <FormApiLayout pageTitle={isEditMode ? 'Edytuj użytkownika' : 'Dodaj użytkownika'}>
         <UserFormBody
           register={register}
           fieldErrors={fieldErrors}
@@ -78,4 +68,4 @@ const UserFormPage = () => {
   );
 }
 
-export default UserFormPage;
+export default UserForm;
