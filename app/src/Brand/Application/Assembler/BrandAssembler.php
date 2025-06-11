@@ -8,13 +8,19 @@ use App\Brand\Application\Dto\Response\BrandFormResponse;
 use App\Brand\Application\Dto\Response\BrandListResponse;
 use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Domain\Entity\Brand;
+use App\Product\Domain\Repository\ProductRepositoryInterface;
 
 final readonly class BrandAssembler
 {
     public function __construct(
         private ResponseHelperAssembler $responseHelperAssembler,
+        private ProductRepositoryInterface $productRepository,
     ) {}
 
+    /**
+     * @param array<integer,mixed> $paginatedData
+     * @return BrandListResponse[]
+     */
     public function toListResponse(array $paginatedData): array
     {
         $userListCollection = array_map(
@@ -44,10 +50,13 @@ final readonly class BrandAssembler
 
     private function createVendorListResponse(Brand $brand): BrandListResponse
     {
+        $brandId = $brand->getId();
+        
         return new BrandListResponse(
-            id: $brand->getId(),
+            id: $brandId,
             name: $brand->getName(),
             isActive: $brand->isActive(),
+            usedInProducts: $this->productRepository->countProductsByBrand($brandId),
             imagePath: $this->responseHelperAssembler->buildPublicFilePath($brand->getFile()?->getPath()),
         );
     }

@@ -42,17 +42,19 @@ const BrandList = () => {
   const rowData = items.map((item: BrandListItem) => [
         <TableRowId id={item.id} />,
         <TableRowImageWithText
-            imagePath={item.image}
+            imagePath={item.imagePath}
             text={item.name}
             defaultIcon={<ProductIcon className="text-primary mx-auto" />}
         />,
+        item.usedInProducts,
         <TableRowActive isActive={item.isActive} />,
         <TableActions id={item.id} onDelete={() => removeItem(`admin/brands/${item.id}`)} />,
     ]);
 
   const columns: TableColumn[] = [
     { orderBy: 'id', label: 'ID', sortable: true },
-    { orderBy: 'name', label: 'Nazwa', sortable: true },
+      { orderBy: 'name', label: 'Nazwa', sortable: true },
+      { orderBy: '', label: 'Użycie w produktach' },
     { orderBy: 'isActive', label: 'Aktywny', sortable: true },
     { orderBy: 'actions', label: 'Actions' },
   ];

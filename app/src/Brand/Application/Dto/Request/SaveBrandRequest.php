@@ -31,15 +31,10 @@ final readonly class SaveBrandRequest implements ArrayHydratableInterface
     public static function fromArray(array $data): ArrayHydratableInterface
     {
         $thumbnail = $data['thumbnail'] ?? null;
-        $fileData = null;
-        if (!empty($thumbnail)) {
-            $fileData = FileData::fromArray($thumbnail[0]);
-        }
-
         return new self(
             name: $data['name'],
             isActive: $data['isActive'],
-            fileData: $fileData,
+            fileData: $thumbnail ? FileData::fromArray($thumbnail) : null
         );
     }
 }

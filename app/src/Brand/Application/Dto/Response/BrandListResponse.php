@@ -10,6 +10,7 @@ final readonly class BrandListResponse
         public int $id,
         public string $name,
         public bool $isActive,
+        public int $usedInProducts = 0,
         public ?string $imagePath = null,
     ) {
     }

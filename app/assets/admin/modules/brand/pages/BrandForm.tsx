@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
@@ -8,7 +7,7 @@ import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import BrandFormBody from '@admin/modules/brand/components/BrandFormBody';
 import { BrandFormData } from '@admin/modules/brand/interfaces/BrandFormData';
-import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
+
 
 const BrandForm = () => {
   const {

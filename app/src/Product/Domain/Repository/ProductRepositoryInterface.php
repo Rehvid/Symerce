@@ -12,5 +12,5 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 interface ProductRepositoryInterface
     extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {
-
+    public function countProductsByBrand(int $brandId): int;
 }
