@@ -20,10 +20,8 @@ final readonly class SaveCarrierRequest implements ArrayHydratableInterface
     #[CustomAssertCurrencyPrecision]
     public string $fee;
 
-    #[Assert\NotBlank]
     public bool $isActive;
 
-    #[Assert\NotBlank]
     public bool $isExternal;
 
     /** @var array<int, mixed>  */
@@ -32,6 +30,7 @@ final readonly class SaveCarrierRequest implements ArrayHydratableInterface
     public ?FileData $fileData;
 
 
+    /** @param array<integer, mixed>  $externalData */
     public function __construct(
         string $name,
         string $fee,
@@ -51,10 +50,6 @@ final readonly class SaveCarrierRequest implements ArrayHydratableInterface
     public static function fromArray(array $data): ArrayHydratableInterface
     {
         $thumbnail = $data['thumbnail'] ?? null;
-        $fileData = null;
-        if (!empty($thumbnail)) {
-            $fileData = FileData::fromArray($thumbnail[0]);
-        }
 
         return new self(
             name: $data['name'],
@@ -62,7 +57,7 @@ final readonly class SaveCarrierRequest implements ArrayHydratableInterface
             isActive: $data['isActive'],
             isExternal: $data['isExternal'] ?? false,
             externalData: $data['externalData'] ?? null,
-            fileData: $fileData,
+            fileData: $thumbnail ? FileData::fromArray($thumbnail) : null,
         );
     }
 }

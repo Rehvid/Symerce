@@ -1,19 +1,15 @@
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { BrandFormDataInterface } from '@admin/modules/brand/interfaces/BrandFormDataInterface';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
 import { useEffect } from 'react';
 import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
-import { CarrierFormDataInterface } from '@admin/modules/carrier/interfaces/CarrierFormDataInterface';
+import { CarrierFormData } from '@admin/modules/carrier/interfaces/CarrierFormData';
 import CarrierFormBody from '@admin/modules/carrier/components/CarrierFormBody';
 
 
 const CarrierForm = () => {
-  const params = useParams();
-  const isEditMode = params.id ?? false;
   const {
     register,
     handleSubmit,
@@ -22,23 +18,25 @@ const CarrierForm = () => {
     watch,
     control,
     formState: { errors: fieldErrors },
-  } = useForm<CarrierFormDataInterface>({
+  } = useForm<CarrierFormData>({
     mode: 'onBlur',
   });
 
-  const baseApiUrl = 'admin/carriers';
-  const redirectSuccessUrl = '/admin/carriers';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData, formData } = useFormInitializer<CarrierFormDataInterface>();
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/carriers',
+        redirectSuccessUrl: '/admin/carriers',
+    });
+    const requestConfig = getRequestConfig();
+
+  const { isFormInitialize, getFormData, formData } = useFormInitializer<CarrierFormData>();
 
   useEffect(() => {
     if (isEditMode) {
-      const endpoint = `admin/carriers/${params.id}`;
-      const formFieldNames  = ['name', 'isActive', 'fee', 'isExternal', 'externalData'];
+      const endpoint = `admin/carriers/${entityId}`;
+      const formFieldNames  = ['name', 'isActive', 'fee', 'isExternal', 'externalData'] satisfies (keyof CarrierFormData)[];
 
       getFormData(endpoint, setValue, formFieldNames);
     }
-
   }, []);
 
   if (!isFormInitialize) {
@@ -47,7 +45,8 @@ const CarrierForm = () => {
 
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
@@ -58,7 +57,6 @@ const CarrierForm = () => {
           fieldErrors={fieldErrors}
           formData={formData}
           setValue={setValue}
-          watch={watch}
           control={control}
         />
       </FormApiLayout>

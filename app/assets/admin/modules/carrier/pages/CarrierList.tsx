@@ -1,65 +1,59 @@
 import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
-import { ReactElement, useState } from 'react';
-import { BrandListFiltersInterface } from '@admin/modules/brand/interfaces/BrandListFiltersInterface';
+import React, { useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
-import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
 import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
 import TableRowImageWithText from '@admin/common/components/tableList/tableRow/TableRowImageWithText';
-import ProductIcon from '@/images/icons/assembly.svg';
 import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
 import TableActions from '@admin/common/components/tableList/TableActions';
 import { TableColumn } from '@admin/common/types/tableColumn';
-import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
-import DataTable from '@admin/common/components/table/DataTable';
-import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
-import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
-import { CarrierListFiltersInterface } from '@admin/modules/carrier/interfaces/CarrierListFiltersInterface';
-import { CarrierListItemInterface } from '@admin/modules/carrier/interfaces/CarrierListItemInterface';
+import { CarrierTableFilters } from '@admin/modules/carrier/interfaces/CarrierTableFilters';
+import { CarrierListItem } from '@admin/modules/carrier/interfaces/CarrierListItem';
 import CarrierIcon from '@/images/icons/carrier.svg';
 import TableRowMoney from '@admin/common/components/tableList/tableRow/TableRowMoney';
+import TableToolbar from '@admin/common/components/tableList/TableToolbar';
+import TableToolbarActions from '@admin/common/components/tableList/toolbar/TableToolbarActions';
+import TableToolbarFilters from '@admin/common/components/tableList/toolbar/TableToolbarFilters';
+import ActiveFilter from '@admin/common/components/tableList/filters/ActiveFilter';
+import TableWrapper from '@admin/common/components/tableList/TableWrapper';
+import TableHead from '@admin/common/components/tableList/TableHead';
+import TableBody from '@admin/common/components/tableList/TableBody';
+import { Pagination } from '@admin/common/interfaces/Pagination';
+import TablePagination from '@admin/common/components/tableList/TablePagination';
+import RangeFilter from '@admin/common/components/tableList/filters/RangeFilter';
 
 const CarrierList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<CarrierListFiltersInterface>(
+  const [filters, setFilters] = useState<CarrierTableFilters>(
     filterEmptyValues({
       ...defaultFilters,
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
       feeFrom: getCurrentParam('feeFrom', (value) => Number(value)),
       feeTo: getCurrentParam('feeTo', (value) => Number(value)),
-    }),
+    }) as CarrierTableFilters,
   );
 
-  const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<CarrierListItemInterface>({
+    const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
+    const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<CarrierListItem, CarrierTableFilters>({
     endpoint: 'admin/carriers',
     filters,
     setFilters,
     defaultSort,
   });
 
-  if (isLoading) {
-    return <TableSkeleton rowsCount={filters.limit} />;
-  }
-
-  const data = items.map((item: CarrierListItemInterface) => {
-    const { id, imagePath, isActive, name, fee } = item;
-    return Object.values({
-      id: <TableRowId id={id} />,
-      name: (
+  const rowData = items.map((item: CarrierListItem) => [
+      <TableRowId id={item.id} />,
         <TableRowImageWithText
-          imagePath={imagePath}
-          text={name}
+          imagePath={item.imagePath}
+          text={item.name}
           defaultIcon={<CarrierIcon className="text-primary mx-auto w-[24px] h-[24px]" />}
-        />
-      ),
-      active: <TableRowActive isActive={isActive} />,
-      fee: <TableRowMoney amount={fee?.amount} symbol={fee?.symbol} />,
-      actions: <TableActions id={id} onDelete={() => removeItem(`admin/carriers/${id}`)} />,
-    });
-  });
+        />,
+
+      <TableRowActive isActive={item.isActive} />,
+       <TableRowMoney amount={item.fee?.amount} symbol={item.fee?.symbol} />,
+       <TableActions id={item.id} onDelete={() => removeItem(`admin/carriers/${item.id}`)} />,
+  ]);
 
   const columns: TableColumn[] = [
     { orderBy: 'id', label: 'ID', sortable: true },
@@ -69,24 +63,38 @@ const CarrierList = () => {
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-  const additionalToolbarContent: ReactElement = (
-    <PageHeader title={<ListHeader title="Przewoźnicy" totalItems={pagination.totalItems} />}>
-      <TableToolbarButtons />
-    </PageHeader>
-  );
+    if (!isComponentInit && isLoading) {
+        return <TableSkeleton rowsCount={filters.limit} />
+    }
+
+    if (!isComponentInit) {
+        setIsComponentInit(true);
+    }
 
   return (
-    <DataTable<CarrierListItemInterface, CarrierListFiltersInterface>
-      filters={filters}
-      setFilters={setFilters}
-      defaultFilters={defaultFilters}
-      sort={sort}
-      setSort={setSort}
-      columns={columns}
-      items={data}
-      pagination={pagination}
-      additionalToolbarContent={additionalToolbarContent}
-    />
+      <>
+          <TableToolbar>
+              <TableToolbarActions title="Lista przewoźników" totalItems={pagination?.totalItems} />
+              <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
+                  <ActiveFilter setFilters={setFilters} filters={filters} />
+                  <RangeFilter filters={filters} setFilters={setFilters} label="Opłata" nameFilter="fee" />
+              </TableToolbarFilters>
+          </TableToolbar>
+          <TableWrapper isLoading={isLoading}>
+              <TableHead sort={sort} setSort={setSort} columns={columns} />
+              <TableBody
+                  data={rowData}
+                  filters={filters}
+                  pagination={pagination as Pagination}
+              />
+          </TableWrapper>
+          <TablePagination
+              filters={filters}
+              setFilters={setFilters}
+              pagination={pagination as Pagination}
+          />
+      </>
+
   );
 }
 

@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
-import { normalizeFiles } from '@admin/common/utils/helper';
-import { UploadFileInterface } from '@admin/common/interfaces/UploadFileInterface';
-import { useDropzoneLogic } from '@admin/common/hooks/form/useDropzoneLogic';
+import React, { FC } from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
-import Dropzone from '@admin/components/form/dropzone/Dropzone';
-import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
@@ -15,28 +10,34 @@ import Switch from '@admin/common/components/form/input/Switch';
 import { DynamicFields } from '@admin/common/components/form/DynamicFields';
 import CurrencyIcon from '@/images/icons/currency.svg';
 import { useAppData } from '@admin/common/context/AppDataContext';
+import SingleImageUploader from '@admin/common/components/form/SingleImageUploader';
+import { Control, FieldErrors, Path, UseFormRegister, UseFormSetValue, useWatch } from 'react-hook-form';
+import { CarrierFormData } from '@admin/modules/carrier/interfaces/CarrierFormData';
 
-const CarrierFormBody = ({register, fieldErrors, setValue, formData, watch, control}) => {
+interface CarrierFormBodyProps {
+    register: UseFormRegister<CarrierFormData>,
+    setValue: UseFormSetValue<CarrierFormData>,
+    fieldErrors: FieldErrors<CarrierFormData>,
+    formData: CarrierFormData,
+    control: Control<CarrierFormData>;
+}
+
+const CarrierFormBody: FC<CarrierFormBodyProps> = ({register, fieldErrors, setValue, formData, control}) => {
   const { currency } = useAppData();
-  const [thumbnail, setThumbnail] = useState<any>(normalizeFiles(formData?.thumbnail));
 
-  const setDropzoneValue = (image: UploadFileInterface) => {
-    setValue('thumbnail', image);
-    setThumbnail(image);
-  };
-
-  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, thumbnail);
+    const isExternal = useWatch({
+        control,
+        name: 'isExternal',
+    });
 
   return (
     <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-      <FormGroup  label={<InputLabel label="Miniaturka"  />} >
-        <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
-          {thumbnail.length > 0 &&
-            thumbnail.map((file, key) => (
-              <DropzoneThumbnail file={file} removeFile={removeFile} variant="single" key={key} index={key} />
-            ))}
-        </Dropzone>
-      </FormGroup>
+        <SingleImageUploader
+            label="Miniaturka"
+            fieldName="thumbnail"
+            setValue={setValue}
+            initialValue={formData?.thumbnail}
+        />
 
       <FormGroup
         label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name"  />}
@@ -65,7 +66,7 @@ const CarrierFormBody = ({register, fieldErrors, setValue, formData, watch, cont
           icon={<CurrencyIcon className="text-gray-500 w-[16px] h-[16px]" />}
           {...register('fee', {
             ...validationRules.required(),
-            ...validationRules.numeric(currency.roundingPrecision),
+            ...validationRules.numeric(currency?.roundingPrecision),
           })}
         />
       </FormGroup>
@@ -80,38 +81,40 @@ const CarrierFormBody = ({register, fieldErrors, setValue, formData, watch, cont
         <Switch {...register('isExternal')} />
       </FormGroup>
 
-      {watch().isExternal && (
-        <FormGroup label={ <InputLabel label="Informacje dla zintegrowanego przewoźnika" /> } >
-          <DynamicFields
-            name="externalData"
-            control={control}
-            register={register}
-            renderItem={(index, namePrefix) => (
-              <div className="space-y-2 flex flex-col gap-4">
-                <InputField
-                  {...register(`${namePrefix}.key`, {
-                    ...validationRules.required(),
-                  })}
-                  placeholder="Klucz konfiguracji"
-                  type="text"
-                  hasError={!!fieldErrors?.config?.[index]?.key}
-                  errorMessage={fieldErrors?.config?.[index]?.key?.message}
-                />
-                <InputField
-                  {...register(`${namePrefix}.value`, {
-                    ...validationRules.required(),
-                  })}
-                  placeholder="Wartość konfiguracji"
-                  type="text"
-                  hasError={!!fieldErrors?.config?.[index]?.value}
-                  errorMessage={fieldErrors?.config?.[index]?.value?.message}
-                />
-              </div>
-            )}
-          />
-        </FormGroup>
+      {isExternal && (
+          <FormSection title="Informacje dla zintegrowanego przewoźnika" useToggleContent={false} forceOpen={hasAnyFieldError(fieldErrors, ['externalData'])}>
+              <DynamicFields
+                name="externalData"
+                control={control}
+                renderItem={(index, namePrefix) => (
+                  <div className="space-y-2 flex flex-col gap-4">
+                    <FormGroup label={<InputLabel isRequired={true} label="Nazwa"   />}>
+                        <InputField
+                          {...register(`${namePrefix}.key` as Path<CarrierFormData>, {
+                            ...validationRules.required(),
+                          }) }
+                          placeholder="Klucz konfiguracji"
+                          type="text"
+                          hasError={!!fieldErrors?.externalData?.[index]?.key}
+                          errorMessage={fieldErrors?.externalData?.[index]?.key?.message}
+                        />
+                    </FormGroup>
+                      <FormGroup label={<InputLabel isRequired={true} label="Wartość"   />}>
+                            <InputField
+                              {...register(`${namePrefix}.value` as Path<CarrierFormData>, {
+                                ...validationRules.required(),
+                              })}
+                              placeholder="Wartość konfiguracji"
+                              type="text"
+                              hasError={!!fieldErrors?.externalData?.[index]?.value}
+                              errorMessage={fieldErrors?.externalData?.[index]?.value?.message}
+                            />
+                      </FormGroup>
+                  </div>
+                )}
+              />
+        </FormSection>
       )}
-
     </FormSection>
   )
 }
