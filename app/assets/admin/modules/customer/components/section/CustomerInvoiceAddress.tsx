@@ -4,15 +4,20 @@ import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
-import React, { useState } from 'react';
-import { Controller } from 'react-hook-form';
-import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
+import React, { FC } from 'react';
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { CustomerFormData } from '@admin/modules/customer/interfaces/CustomerFormData';
+import { CustomerFormContext } from '@admin/modules/customer/interfaces/CustomerFormContext';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 
-const CustomerInvoiceAddress = ({fieldErrors, register, control, formContext, formData}) => {
-  const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);
-  const availableOptions = formContext.availableCountries;
-  const selectedOption = availableOptions?.find(option => option.value === formData?.invoiceCountry);
+interface CustomerInvoiceAddressProps {
+    register: UseFormRegister<CustomerFormData>,
+    fieldErrors: FieldErrors<CustomerFormData>,
+    control: Control<CustomerFormData>,
+    formContext: CustomerFormContext
+}
 
+const CustomerInvoiceAddress: FC<CustomerInvoiceAddressProps> = ({fieldErrors, register, control, formContext }) => {
 
   return (
     <FormSection title="Faktura">
@@ -70,8 +75,8 @@ const CustomerInvoiceAddress = ({fieldErrors, register, control, formContext, fo
         <InputField
           type="text"
           id="invoiceCompanyId"
-          hasError={!!fieldErrors?.invoiceCompanyId}
-          errorMessage={fieldErrors?.invoiceCompanyId?.message}
+          hasError={!!fieldErrors?.invoiceCompanyName}
+          errorMessage={fieldErrors?.invoiceCompanyName?.message}
           icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
           {...register('invoiceCompanyName')}
         />
@@ -91,27 +96,14 @@ const CustomerInvoiceAddress = ({fieldErrors, register, control, formContext, fo
       </FormGroup>
 
       <FormGroup label={<InputLabel label="Kraj" />}>
-        <Controller
-          name="invoiceCountry"
-          control={control}
-          defaultValue={selectedOption}
-          rules={{
-            ...validationRules.required()
-          }}
-          render={({ field, fieldState }) => (
-            <ReactSelect
-              options={availableOptions}
-              value={isDefaultOptionSelected ? field.value : selectedOption}
-              onChange={(option) => {
-                setIsDefaultOptionSelected(true);
-                field.onChange(option);
+          <ControlledReactSelect
+              name="invoiceCountry"
+              control={control}
+              options={formContext?.availableCountries}
+              rules={{
+                  ...validationRules.required()
               }}
-              hasError={fieldState.invalid}
-              errorMessage={fieldState.error?.message}
-            />
-          )}
-
-        />
+          />
       </FormGroup>
     </FormSection>
   )

@@ -5,16 +5,20 @@ import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
 import Switch from '@admin/common/components/form/input/Switch';
-import React, { useState } from 'react';
-import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
-import { Controller } from 'react-hook-form';
+import React, { FC} from 'react';
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { CustomerFormData } from '@admin/modules/customer/interfaces/CustomerFormData';
+import { CustomerFormContext } from '@admin/modules/customer/interfaces/CustomerFormContext';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 
-const CustomerDeliveryAddress = ({register, fieldErrors, control, formContext, formData}) => {
-  const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);
-  const availableOptions = formContext?.availableCountries;
-  const selectedOption = availableOptions?.find(option => option.value === formData?.country);
+interface CustomerDeliveryAddressProps {
+    register: UseFormRegister<CustomerFormData>,
+    fieldErrors: FieldErrors<CustomerFormData>,
+    control: Control<CustomerFormData>,
+    formContext: CustomerFormContext
+}
 
-
+const CustomerDeliveryAddress: FC<CustomerDeliveryAddressProps> = ({register, fieldErrors, control, formContext}) => {
   return (
     <FormSection title="Adres dostawy">
       <FormGroup
@@ -65,29 +69,15 @@ const CustomerDeliveryAddress = ({register, fieldErrors, control, formContext, f
         />
       </FormGroup>
 
-
       <FormGroup label={<InputLabel label="Kraj" isRequired={true} />}>
-        <Controller
-          name="country"
-          control={control}
-          defaultValue={selectedOption}
-          rules={{
-            ...validationRules.required()
-          }}
-          render={({ field, fieldState }) => (
-            <ReactSelect
-              options={availableOptions}
-              value={isDefaultOptionSelected ? field.value : selectedOption}
-              onChange={(option) => {
-                setIsDefaultOptionSelected(true);
-                field.onChange(option);
-              }}
-              hasError={fieldState.invalid}
-              errorMessage={fieldState.error?.message}
-            />
-          )}
-
-        />
+          <ControlledReactSelect
+              name="country"
+              control={control}
+              options={formContext?.availableCountries}
+              rules={{
+                ...validationRules.required()
+             }}
+          />
       </FormGroup>
 
       <FormGroup label={<InputLabel label="Dodać fakture?" />}>

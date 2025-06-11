@@ -1,4 +1,4 @@
-export interface CustomerListItemInterface {
+export interface CustomerListItem {
   id: number,
   fullName: string,
   email: string,

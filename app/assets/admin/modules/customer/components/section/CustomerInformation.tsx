@@ -4,11 +4,19 @@ import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
-import React from 'react';
+import React, { FC } from 'react';
 import InputPassword from '@admin/common/components/form/input/InputPassword';
 import Switch from '@admin/common/components/form/input/Switch';
+import { CustomerFormData } from '@admin/modules/customer/interfaces/CustomerFormData';
+import {  FieldErrors, UseFormRegister } from 'react-hook-form';
 
-const CustomerInformation = ({register, fieldErrors, isEditMode}) => (
+interface CustomerInformationProps {
+    register: UseFormRegister<CustomerFormData>,
+    isEditMode: boolean,
+    fieldErrors: FieldErrors<CustomerFormData>,
+}
+
+const CustomerInformation: FC<CustomerInformationProps> = ({register, fieldErrors, isEditMode}) => (
   <FormSection title="Informacje" >
     <FormGroup
       label={<InputLabel isRequired={true} label="Imie" htmlFor="firstname"  />}
