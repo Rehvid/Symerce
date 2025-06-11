@@ -1,6 +1,6 @@
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-export interface CountryListFiltersInterface extends TableFilters {
+export interface CountryTableFilters extends TableFilters {
   id: number,
   name: string,
   code: string,

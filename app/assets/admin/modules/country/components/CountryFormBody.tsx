@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { CountryFormDataInterface } from '@admin/modules/country/interfaces/CountryFormDataInterface';
+import { CountryFormData } from '@admin/modules/country/interfaces/CountryFormData';
 import React from 'react';
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import FormGroup from '@admin/common/components/form/FormGroup';
@@ -12,8 +12,8 @@ import FormSection from '@admin/common/components/form/FormSection';
 import Description from '@admin/common/components/Description';
 
 interface CountryFormBodyProps {
-  register: UseFormRegister<CountryFormDataInterface>;
-  fieldErrors: FieldErrors<CountryFormDataInterface>;
+  register: UseFormRegister<CountryFormData>;
+  fieldErrors: FieldErrors<CountryFormData>;
 }
 
 const CountryFormBody: React.FC<CountryFormBodyProps> = ({register, fieldErrors}) => {

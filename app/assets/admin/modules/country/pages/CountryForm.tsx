@@ -1,6 +1,5 @@
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { CountryFormDataInterface } from '@admin/modules/country/interfaces/CountryFormDataInterface';
+import { CountryFormData } from '@admin/modules/country/interfaces/CountryFormData';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
 import { useEffect } from 'react';
@@ -9,27 +8,32 @@ import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import CountryFormBody from '@admin/modules/country/components/CountryFormBody';
 
-const CountryFormPage = () => {
-  const params = useParams();
+
+const CountryForm = () => {
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/countries',
+        redirectSuccessUrl: '/admin/countries',
+    });
+    const requestConfig = getRequestConfig();
   const {
     register,
     handleSubmit,
     setValue,
     setError,
     formState: { errors: fieldErrors },
-  } = useForm<CountryFormDataInterface>({
+  } = useForm<CountryFormData>({
     mode: 'onBlur',
+    defaultValues: {
+        id: entityId
+    }
   });
 
-  const baseApiUrl = 'admin/countries';
-  const redirectSuccessUrl = '/admin/countries';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData } = useFormInitializer<CountryFormDataInterface>();
+  const { isFormInitialize, getFormData } = useFormInitializer<CountryFormData>();
 
   useEffect(() => {
-    if (params.id) {
-      const endpoint = `admin/countries/${params.id}`;
-      const formFieldNames = ['id', 'name', 'code', 'isActive']
+    if (isEditMode) {
+      const endpoint = `admin/countries/${entityId}`;
+      const formFieldNames = ['id', 'name', 'code', 'isActive'] satisfies (keyof CountryFormData)[];
 
       getFormData(endpoint, setValue, formFieldNames);
     }
@@ -41,16 +45,17 @@ const CountryFormPage = () => {
 
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
     >
-      <FormApiLayout pageTitle={params.id ? 'Edytuj kraj' : 'Dodaj kraj'}>
+      <FormApiLayout pageTitle={isEditMode ? 'Edytuj kraj' : 'Dodaj kraj'}>
         <CountryFormBody register={register} fieldErrors={fieldErrors} />
       </FormApiLayout>
     </FormWrapper>
   );
 }
 
-export default CountryFormPage;
+export default CountryForm;

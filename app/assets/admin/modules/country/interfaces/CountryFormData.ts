@@ -1,7 +1,7 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
 
-export interface CountryFormDataInterface extends FormDataInterface {
-  id?: string|number,
+export interface CountryFormData extends FormDataInterface {
+  id?: number | null,
   name?: string,
   code?: string,
   isActive: boolean,
