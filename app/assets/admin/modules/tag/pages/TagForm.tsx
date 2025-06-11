@@ -1,39 +1,37 @@
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { UserFormDataInterface } from '@admin/modules/user/interfaces/UserFormDataInterface';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
 import { useEffect } from 'react';
 import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
-import UserFormBody from '@admin/modules/user/components/UserFormBody';
 import TagFormBody from '@admin/modules/tag/components/TagFormBody';
+import { TagFormData } from '@admin/modules/tag/interfaces/TagFormData';
 
-const TagFormPage = () => {
-  const params = useParams();
-  const isEditMode = params.id ?? false;
+const TagForm = () => {
   const {
     register,
     handleSubmit,
     setValue,
     setError,
     control,
-    watch,
     formState: { errors: fieldErrors },
-  } = useForm<UserFormDataInterface>({
+  } = useForm<TagFormData>({
     mode: 'onBlur',
   });
 
-  const baseApiUrl = 'admin/tags';
-  const redirectSuccessUrl = '/admin/tags';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData } = useFormInitializer<UserFormDataInterface>();
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/tags',
+        redirectSuccessUrl: '/admin/tags',
+    });
+    const requestConfig = getRequestConfig();
+
+  const { isFormInitialize, getFormData } = useFormInitializer<TagFormData>();
 
   useEffect(() => {
     if (isEditMode) {
-      const endpoint = `admin/tags/${params.id}`;
-      const formFieldNames  = ['name', 'backgroundColor', 'textColor', 'isActive']
+      const endpoint = `admin/tags/${entityId}`;
+      const formFieldNames  = ['name', 'backgroundColor', 'textColor', 'isActive'] satisfies (keyof TagFormData)[]
 
       getFormData(endpoint, setValue, formFieldNames);
     }
@@ -46,7 +44,8 @@ const TagFormPage = () => {
 
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
@@ -62,4 +61,4 @@ const TagFormPage = () => {
   );
 }
 
-export default TagFormPage;
+export default TagForm;

@@ -5,12 +5,18 @@ import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
-import React  from 'react';
+import React, { FC } from 'react';
 import Chrome from '@uiw/react-color-chrome';
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
 import Switch from '@admin/common/components/form/input/Switch';
+import { TagFormData } from '@admin/modules/tag/interfaces/TagFormData';
 
-const TagFormBody = ({register, fieldErrors, control}) => {
+interface TagFormBodyProps {
+  register: UseFormRegister<TagFormData> ;
+  fieldErrors: FieldErrors<TagFormData>;
+  control: Control<TagFormData>;
+}
+const TagFormBody: FC<TagFormBodyProps> = ({register, fieldErrors, control}) => {
    return (
      <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
        <FormGroup
