@@ -1,5 +1,5 @@
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-export interface WarehouseListFiltersInterface extends TableFilters {
+export interface WarehouseTableFilters extends TableFilters {
 
 }

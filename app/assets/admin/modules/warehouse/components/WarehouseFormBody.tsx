@@ -4,15 +4,21 @@ import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
-import { Controller } from 'react-hook-form';
-import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
-import React, { useState } from 'react';
+import { Control,  FieldErrors, UseFormRegister } from 'react-hook-form';
+import React, { FC } from 'react';
 import Switch from '@admin/common/components/form/input/Switch';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
+import { WarehouseFormData } from '@admin/modules/warehouse/interfaces/WarehouseFormData';
+import { WarehouseFormContext } from '@admin/modules/warehouse/interfaces/WarehouseFormContext';
 
-const WarehouseFormBody = ({register, fieldErrors, control, formContext, formData}) => {
-  const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);
-  const availableOptions = formContext?.availableCountries;
-  const selectedOption = availableOptions?.find(option => option.value === formData?.country);
+interface WarehouseFormBodyProps {
+    register: UseFormRegister<WarehouseFormData>,
+    fieldErrors: FieldErrors<WarehouseFormData>,
+    control: Control<WarehouseFormData>,
+    formContext: WarehouseFormContext,
+}
+
+const WarehouseFormBody: FC<WarehouseFormBodyProps> = ({register, fieldErrors, control, formContext}) => {
 
   return (
     <FormSection title="Informacje" >
@@ -88,27 +94,11 @@ const WarehouseFormBody = ({register, fieldErrors, control, formContext, formDat
 
 
       <FormGroup label={<InputLabel label="Kraj" isRequired={true} />}>
-        <Controller
-          name="country"
-          control={control}
-          defaultValue={selectedOption}
-          rules={{
-            ...validationRules.required()
-          }}
-          render={({ field, fieldState }) => (
-            <ReactSelect
-              options={availableOptions}
-              value={isDefaultOptionSelected ? field.value : selectedOption}
-              onChange={(option) => {
-                setIsDefaultOptionSelected(true);
-                field.onChange(option);
-              }}
-              hasError={fieldState.invalid}
-              errorMessage={fieldState.error?.message}
-            />
-          )}
-
-        />
+          <ControlledReactSelect
+              name="country"
+              control={control}
+              options={formContext?.availableCountries}
+          />
       </FormGroup>
 
       <FormGroup label={ <InputLabel label="Aktywny?" /> }>

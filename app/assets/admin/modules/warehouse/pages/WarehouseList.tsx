@@ -1,80 +1,82 @@
 import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
-import { ReactElement, useState } from 'react';
-import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
+import React, { useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
-import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
-import { CountryListItemInterface } from '@admin/modules/country/interfaces/CountryListItemInterface';
 import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
 import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
 import TableActions from '@admin/common/components/tableList/TableActions';
-import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { TableColumn } from '@admin/common/types/tableColumn';
-import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
-import DataTable from '@admin/common/components/table/DataTable';
-import { WarehouseListFiltersInterface } from '@admin/modules/warehouse/interfaces/WarehouseListFiltersInterface';
-import { WarehouseListItemInterface } from '@admin/modules/warehouse/interfaces/WarehouseListItemInterface';
+import { WarehouseTableFilters } from '@admin/modules/warehouse/interfaces/WarehouseTableFilters';
+import { WarehouseListItem } from '@admin/modules/warehouse/interfaces/WarehouseListItem';
+import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
+import TableToolbar from '@admin/common/components/tableList/TableToolbar';
+import TableToolbarActions from '@admin/common/components/tableList/toolbar/TableToolbarActions';
+import TableToolbarFilters from '@admin/common/components/tableList/toolbar/TableToolbarFilters';
+import ActiveFilter from '@admin/common/components/tableList/filters/ActiveFilter';
+import TableWrapper from '@admin/common/components/tableList/TableWrapper';
+import TableHead from '@admin/common/components/tableList/TableHead';
+import TableBody from '@admin/common/components/tableList/TableBody';
+import { Pagination } from '@admin/common/interfaces/Pagination';
+import TablePagination from '@admin/common/components/tableList/TablePagination';
 
 const WarehouseList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<WarehouseListFiltersInterface>(
+  const [filters, setFilters] = useState<WarehouseTableFilters>(
     filterEmptyValues({
       ...defaultFilters,
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
-    }),
+    }) as WarehouseTableFilters,
   );
 
-  const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<WarehouseListItemInterface>({
+  const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<WarehouseListItem, WarehouseTableFilters>({
     endpoint: 'admin/warehouses',
     filters,
     setFilters,
     defaultSort,
   });
 
-  const data = items.map((item: WarehouseListItemInterface) => {
-    const { id, name, fullAddress, isActive } = item;
-    return Object.values({
-      id: <TableRowId id={id} />,
-      name,
-      fullAddress,
-      active: <TableRowActive isActive={isActive} />,
-      actions: <TableActions id={id} onDelete={() => removeItem(`admin/warehouses/${id}`)} />,
-    });
-  });
+  const rowData = items.map((item: WarehouseListItem) => [
+      <TableRowId id={item.id} />,
+      item.name,
+      item.fullAddress,
+      <TableRowActive isActive={item.isActive} />,
+      <TableActions id={item.id} onDelete={() => removeItem(`admin/warehouses/${item.id}`)} />,
+  ]);
 
-  if (isLoading) {
-    return <TableSkeleton rowsCount={filters.limit} />;
-  }
 
   const columns: TableColumn[] = [
     { orderBy: 'id', label: 'ID', sortable: true },
     { orderBy: 'name', label: 'Nazwa', sortable: true },
     { orderBy: 'fullAddress', label: 'Adres'},
-    { orderBy: 'isActive', label: 'Aktywny'},
+    { orderBy: 'isActive', label: 'Aktywny', sortable: true},
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-  const additionalToolbarContent: ReactElement = (
-    <PageHeader title={<ListHeader title="Magazyny" totalItems={pagination.totalItems} />}>
-      <TableToolbarButtons />
-    </PageHeader>
-  );
 
-  return (
-    <DataTable<WarehouseListItemInterface, WarehouseListFiltersInterface>
-      filters={filters}
-      setFilters={setFilters}
-      defaultFilters={defaultFilters}
-      sort={sort}
-      setSort={setSort}
-      columns={columns}
-      items={data}
-      pagination={pagination}
-      additionalToolbarContent={additionalToolbarContent}
-    />
-  );
+    return (
+        <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
+            <TableToolbar>
+                <TableToolbarActions title="Lista magazynów" totalItems={pagination?.totalItems} />
+                <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
+                    <ActiveFilter setFilters={setFilters} filters={filters} />
+                </TableToolbarFilters>
+            </TableToolbar>
+            <TableWrapper isLoading={isLoading}>
+                <TableHead sort={sort} setSort={setSort} columns={columns} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                />
+            </TableWrapper>
+            <TablePagination
+                filters={filters}
+                setFilters={setFilters}
+                pagination={pagination as Pagination}
+            />
+        </TableWithLoadingSkeleton>
+
+    );
 }
 
 export default WarehouseList;
