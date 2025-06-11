@@ -1,14 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { CustomerFormDataInterface } from '@admin/modules/customer/interfaces/CustomerFormDataInterface';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
 import { useEffect } from 'react';
 import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
-import CustomerFormBody from '@admin/modules/customer/components/CustomerFormBody';
 import AttributeFormBody from '@admin/modules/attribute/components/AttributeFormBody';
+import { AttributeFormData } from '@admin/modules/attribute/interfaces/AttributeFormData';
 
 const AttributeForm = () => {
   const params = useParams();
@@ -17,57 +16,47 @@ const AttributeForm = () => {
     handleSubmit,
     setValue,
     setError,
-    watch,
     control,
     formState: { errors: fieldErrors },
-  } = useForm<AttributeFormDataInterface>({
+  } = useForm<AttributeFormData>({
     mode: 'onBlur',
   });
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/attributes',
+        redirectSuccessUrl: '/admin/products/attributes',
+    });
+    const requestConfig = getRequestConfig();
 
-  const baseApiUrl = 'admin/attributes';
-  const redirectSuccessUrl = '/admin/products/attributes';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData, formData, formContext } = useFormInitializer<CustomerFormDataInterface>();
-  const isEditMode = params.id ?? false;
+  const { isFormInitialize, getFormData, formContext } = useFormInitializer<AttributeFormData>();
 
   useEffect(() => {
-    const endpoint = isEditMode ? `admin/attributes/${params.id}` : `admin/attributes/store-data`;
-    const formFieldNames = isEditMode ? ['type', 'name', 'isActive'] : [];
+    const formFieldNames = isEditMode ? ['type', 'name', 'isActive'] satisfies (keyof AttributeFormData)[] : [];
 
-    getFormData(endpoint, setValue, formFieldNames);
+    getFormData(
+        isEditMode ? `admin/attributes/${entityId}` : `admin/attributes/store-data`,
+        setValue,
+        formFieldNames
+    );
   }, []);
 
   if (!isFormInitialize) {
     return <FormSkeleton rowsCount={12} />;
   }
 
-  const modifySubmitValues = (values: CustomerFormDataInterface) => {
-    const data = {...values};
-
-    if (typeof data.type === 'object' && data.type !== null) {
-      data.type = values.type?.value;
-    }
-
-    return data;
-  }
-
 
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-      modifySubmitValues={modifySubmitValues}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
+        handleSubmit={handleSubmit}
+        setError={setError}
+        apiRequestCallbacks={defaultApiSuccessCallback}
     >
       <FormApiLayout pageTitle={params.id ? 'Edytuj atrybut' : 'Dodaj atrytbut'}>
         <AttributeFormBody
           register={register}
           fieldErrors={fieldErrors}
-          isEditMode={isEditMode}
-          watch={watch}
           control={control}
-          formData={formData}
           formContext={formContext}
         />
       </FormApiLayout>

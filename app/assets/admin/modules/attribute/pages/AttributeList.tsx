@@ -1,33 +1,38 @@
 import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
-import { ReactElement, useState } from 'react';
-import { BrandListFiltersInterface } from '@admin/modules/brand/interfaces/BrandListFiltersInterface';
+import React, { ReactElement, useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
-import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
 import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
 import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
 import TableActions from '@admin/common/components/tableList/TableActions';
 import { TableColumn } from '@admin/common/types/tableColumn';
-import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
-import DataTable from '@admin/common/components/table/DataTable';
-import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
-import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
 import Link from '@admin/common/components/Link';
 import EyeIcon from '@/images/icons/eye.svg';
+import { AttributeTableFilters } from '@admin/modules/attribute/interfaces/AttributeTableFilters';
+import TableToolbar from '@admin/common/components/tableList/TableToolbar';
+import TableToolbarActions from '@admin/common/components/tableList/toolbar/TableToolbarActions';
+import TableToolbarFilters from '@admin/common/components/tableList/toolbar/TableToolbarFilters';
+import ActiveFilter from '@admin/common/components/tableList/filters/ActiveFilter';
+import TableWrapper from '@admin/common/components/tableList/TableWrapper';
+import TableHead from '@admin/common/components/tableList/TableHead';
+import TableBody from '@admin/common/components/tableList/TableBody';
+import { Pagination } from '@admin/common/interfaces/Pagination';
+import TablePagination from '@admin/common/components/tableList/TablePagination';
+import { AttributeListItem } from '@admin/modules/attribute/interfaces/AttributeListItem';
 
 const AttributeList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<BrandListFiltersInterface>(
+  const [filters, setFilters] = useState<AttributeTableFilters>(
     filterEmptyValues({
       ...defaultFilters,
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
-    }),
+    }) as AttributeTableFilters,
   );
 
-  const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<BrandListFiltersInterface>({
+    const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
+
+    const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<AttributeListItem, AttributeTableFilters>({
     endpoint: 'admin/attributes',
     filters,
     setFilters,
@@ -35,26 +40,20 @@ const AttributeList = () => {
   });
 
 
-  const renderTableActions: ReactElement = (item) => (
+  const renderTableActions = (item: AttributeListItem): ReactElement  => (
     <TableActions id={item.id} onDelete={() => removeItem(`admin/attributes/${item.id}`)}>
-      <Link to={`${item.id}/values`} additionalClasses="text-gray-500">
-        <EyeIcon className="w-[24px] h-[24px]" />
+      <Link to={`${item.id}/values`} additionalClasses="inline-flex items-center justify-center w-8 h-8 rounded bg-gray-100 hover:bg-primary hover:text-white transition-colors text-gray-500">
+        <EyeIcon className="w-5 h-5" />
       </Link>
     </TableActions>
-  )
-    if (isLoading) {
-        return <TableSkeleton rowsCount={filters.limit} />;
-    }
+  );
 
-  const data = items.map((item: BrandListItemInterface) => {
-    const { id, name, isActive } = item;
-    return Object.values({
-      id: <TableRowId id={id} />,
-      name,
-      active: <TableRowActive isActive={isActive} />,
-      actions: renderTableActions(item),
-    });
-  });
+  const rowData = items.map((item: AttributeListItem) => [
+      <TableRowId id={item.id} />,
+      item.name,
+      <TableRowActive isActive={item.isActive} />,
+      renderTableActions(item),
+  ]);
 
   const columns: TableColumn[] = [
     { orderBy: 'id', label: 'ID', sortable: true },
@@ -63,27 +62,36 @@ const AttributeList = () => {
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-  const additionalToolbarContent: ReactElement = (
-    <PageHeader title={<ListHeader title="Atrybuty" totalItems={pagination.totalItems} />}>
-      <TableToolbarButtons />
-    </PageHeader>
-  );
+    if (!isComponentInit && isLoading) {
+        return <TableSkeleton rowsCount={filters.limit} />
+    }
 
-
-
+    if (!isComponentInit) {
+        setIsComponentInit(true);
+    }
 
     return (
-    <DataTable<TagListItemInterface, TagListFiltersInterface>
-      filters={filters}
-      setFilters={setFilters}
-      defaultFilters={defaultFilters}
-      sort={sort}
-      setSort={setSort}
-      columns={columns}
-      items={data}
-      pagination={pagination}
-      additionalToolbarContent={additionalToolbarContent}
-    />
+        <>
+            <TableToolbar>
+                <TableToolbarActions title="Lista atrybutów" totalItems={pagination?.totalItems} />
+                <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
+                    <ActiveFilter setFilters={setFilters} filters={filters} />
+                </TableToolbarFilters>
+            </TableToolbar>
+            <TableWrapper isLoading={isLoading}>
+                <TableHead sort={sort} setSort={setSort} columns={columns} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                />
+            </TableWrapper>
+            <TablePagination
+                filters={filters}
+                setFilters={setFilters}
+                pagination={pagination as Pagination}
+            />
+        </>
   );
 }
 

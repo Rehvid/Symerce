@@ -6,14 +6,21 @@ import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
 import Switch from '@admin/common/components/form/input/Switch';
-import React, { useState } from 'react';
-import { Controller } from 'react-hook-form';
-import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
+import React, { FC } from 'react';
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
+import { AttributeFormData } from '@admin/modules/attribute/interfaces/AttributeFormData';
+import { AttributeFormContext } from '@admin/modules/attribute/interfaces/AttributeFormContext';
 
-const AttributeFormBody = ({register, fieldErrors, formContext, formData, control}) => {
-  const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);
-  const availableOptions = formContext?.availableTypes;
-  const selectedOption = availableOptions?.find(option => option.value === formData?.type);
+interface AttributeFormBodyProps {
+    register: UseFormRegister<AttributeFormData>,
+    fieldErrors: FieldErrors<AttributeFormData>,
+    formContext: AttributeFormContext,
+    control: Control<AttributeFormData>,
+}
+
+const AttributeFormBody: FC<AttributeFormBodyProps> = ({register, fieldErrors, formContext, control}) => {
+
 
   return (
   <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
@@ -35,27 +42,14 @@ const AttributeFormBody = ({register, fieldErrors, formContext, formData, contro
     </FormGroup>
 
     <FormGroup label={<InputLabel label="Typ" isRequired={true} />}>
-      <Controller
-        name="type"
-        control={control}
-        defaultValue={selectedOption}
-        rules={{
-          ...validationRules.required()
-        }}
-        render={({ field, fieldState }) => (
-          <ReactSelect
-            options={availableOptions}
-            value={isDefaultOptionSelected ? field.value : selectedOption}
-            onChange={(option) => {
-              setIsDefaultOptionSelected(true);
-              field.onChange(option);
+        <ControlledReactSelect
+            name="type"
+            control={control}
+            options={formContext?.availableTypes}
+            rules={{
+                ...validationRules.required(),
             }}
-            hasError={fieldState.invalid}
-            errorMessage={fieldState.error?.message}
-          />
-        )}
-
-      />
+        />
     </FormGroup>
 
     <FormGroup label={ <InputLabel label="Aktywny?" /> }>
