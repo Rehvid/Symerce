@@ -1,43 +1,49 @@
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
-import Dropzone from '@admin/components/form/dropzone/Dropzone';
-import DropzoneThumbnail from '@admin/components/form/dropzone/DropzoneThumbnail';
 import FormGroup from '@admin/common/components/form/FormGroup';
-import React, { useState } from 'react';
-import { useDropzoneLogic } from '@admin/common/hooks/form/useDropzoneLogic';
-import { UploadFileInterface } from '@admin/common/interfaces/UploadFileInterface';
-import { normalizeFiles } from '@admin/common/utils/helper';
+import React, { FC } from 'react';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
 import Switch from '@admin/common/components/form/input/Switch';
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import RichTextEditor from '@admin/common/components/form/input/RichTextEditor';
-import FormCategoryTree from '@admin/components/category-tree/FormCategoryTree';
+import FormCategoryTree from '@admin/modules/category/components/categoryTree/FormCategoryTree';
 import FormSection from '@admin/common/components/form/FormSection';
+import SingleImageUploader from '@admin/common/components/form/SingleImageUploader';
+import { CategoryFormData } from '@admin/modules/category/interfaces/CategoryFormData';
+import { CategoryFormContext } from '@admin/modules/category/interfaces/CategoryFormContext';
 
+interface CategoryFormBodyProps {
+    register: UseFormRegister<CategoryFormData>;
+    fieldErrors: FieldErrors<CategoryFormData>;
+    control: Control<CategoryFormData>;
+    formData: CategoryFormData;
+    formContext: CategoryFormContext;
+    entityId: number | null;
+    watch: UseFormWatch<CategoryFormData>;
+    setValue: UseFormSetValue<CategoryFormData>;
+}
 
-const CategoryFormBody = ({register, fieldErrors, control, formData, formContext, params, watch, setValue}) => {
-  const [thumbnail, setThumbnail] = useState<any>(normalizeFiles(formData?.thumbnail));
-
-
-  const setDropzoneValue = (image: UploadFileInterface) => {
-    setValue('thumbnail', image);
-    setThumbnail(image);
-  };
-
-  const { onDrop, errors, removeFile } = useDropzoneLogic(setDropzoneValue, thumbnail);
+const CategoryFormBody: FC<CategoryFormBodyProps> = ({
+    register,
+    fieldErrors,
+    control,
+    formData,
+    formContext,
+    entityId,
+    watch,
+    setValue
+}) => {
 
  return (
    <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-     <FormGroup  label={<InputLabel label="Miniaturka"  />} >
-       <Dropzone onDrop={onDrop} errors={errors} containerClasses="relative max-w-lg" variant="mainColumn">
-         {thumbnail.length > 0 &&
-           thumbnail.map((file, key) => (
-             <DropzoneThumbnail file={file} removeFile={removeFile} variant="single" key={key} index={key} />
-           ))}
-       </Dropzone>
-     </FormGroup>
+       <SingleImageUploader
+           label="Miniaturka"
+           fieldName="thumbnail"
+           setValue={setValue}
+           initialValue={formData?.thumbnail}
+       />
 
      <FormGroup
        label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name"  />}
@@ -92,7 +98,6 @@ const CategoryFormBody = ({register, fieldErrors, control, formData, formContext
      >
        <Controller
          name="description"
-         id="description"
          control={control}
          defaultValue=""
          render={({ field }) => <RichTextEditor value={field.value ?? ''} onChange={field.onChange} />}
@@ -103,11 +108,12 @@ const CategoryFormBody = ({register, fieldErrors, control, formData, formContext
        label={<InputLabel isRequired={true} label="Kategoria nadrzędna"   />}
      >
        {formContext?.tree && formContext?.tree?.length > 0 && (
+         //   TODO: Resolve problem with not open tree if selected value is provided
          <FormCategoryTree
            hasError={!!fieldErrors?.parentCategoryId}
            errorMessage={fieldErrors?.parentCategoryId?.message}
            register={register('parentCategoryId')}
-           disabledCategoryId={params.id ?? null}
+           disabledCategoryId={entityId}
            categories={formContext.tree || []}
            selected={formData?.parentCategoryId}
            watch={watch}

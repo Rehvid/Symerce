@@ -1,6 +1,4 @@
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { UserFormDataInterface } from '@admin/modules/user/interfaces/UserFormDataInterface';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
 import { useEffect } from 'react';
@@ -8,10 +6,16 @@ import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import CategoryFormBody from '@admin/modules/category/components/CategoryFormBody';
+import { CategoryFormData } from '@admin/modules/category/interfaces/CategoryFormData';
 
-const CategoryFormPage = () => {
-  const params = useParams();
-  const isEditMode = params.id ?? false;
+
+const CategoryForm = () => {
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/categories',
+        redirectSuccessUrl: '/admin/categories',
+    });
+    const requestConfig = getRequestConfig();
+
   const {
     register,
     handleSubmit,
@@ -20,28 +24,30 @@ const CategoryFormPage = () => {
     control,
     watch,
     formState: { errors: fieldErrors },
-  } = useForm<UserFormDataInterface>({
+  } = useForm<CategoryFormData>({
     mode: 'onBlur',
     defaultValues: {
-      id: Number(params.id) || null,
+      id: entityId,
     }
   });
 
-  const baseApiUrl = 'admin/categories';
-  const redirectSuccessUrl = '/admin/categories';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData, formData, formContext } = useFormInitializer<UserFormDataInterface>();
+  const { isFormInitialize, getFormData, formData, formContext } = useFormInitializer<CategoryFormData>();
+
+    const getFormFieldNames = (hasId: boolean): (keyof CategoryFormData)[] => {
+        if (!hasId) return [];
+        return [
+            'name', 'isActive', 'description', 'parentCategoryId', 'slug', 'metaTitle', 'metaDescription'
+        ];
+    };
 
   useEffect(() => {
-    const endpoint = isEditMode ? `admin/categories/${params.id}` : 'admin/categories/store-data';
-    const formFieldNames = isEditMode
-      ? ['name', 'isActive', 'description', 'parentCategoryId', 'slug', 'metaTitle', 'metaDescription']
-      : [];
-
-    getFormData(endpoint, setValue, formFieldNames);
+    getFormData(
+        isEditMode ? `admin/categories/${entityId}` : 'admin/categories/store-data',
+        setValue,
+        getFormFieldNames(isEditMode)
+    );
   }, []);
 
-  console.log(formData);
 
   if (!isFormInitialize) {
     return <FormSkeleton rowsCount={12} />;
@@ -49,7 +55,8 @@ const CategoryFormPage = () => {
 
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}
@@ -61,7 +68,7 @@ const CategoryFormPage = () => {
           control={control}
           formData={formData}
           formContext={formContext}
-          params={params}
+          entityId={entityId}
           watch={watch}
           setValue={setValue}
         />
@@ -70,4 +77,4 @@ const CategoryFormPage = () => {
   );
 }
 
-export default CategoryFormPage;
+export default CategoryForm;

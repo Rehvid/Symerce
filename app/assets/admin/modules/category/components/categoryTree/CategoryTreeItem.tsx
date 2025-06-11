@@ -1,7 +1,22 @@
 import ChevronIcon from '@/images/icons/chevron.svg';
-import CategoryTreeInput from '@admin/components/category-tree/CategoryTreeInput';
+import CategoryTreeInput from '@admin/modules/category/components/categoryTree/CategoryTreeInput';
+import React from 'react';
+import { CategoryTreeItemInterface } from '@admin/modules/category/interfaces/CategoryTreeItemInterface';
+import { UseFormRegisterReturn, UseFormWatch } from 'react-hook-form';
+import { CategoryFormData } from '@admin/modules/category/interfaces/CategoryFormData';
 
-const CategoryTreeItem = ({
+interface CategoryTreeItemProps {
+    category: CategoryTreeItemInterface;
+    selected?: number | null;
+    disabledCategoryId?: number | null;
+    register: UseFormRegisterReturn<string>;
+    watch: UseFormWatch<CategoryFormData>;
+    nameWatchedValue: keyof CategoryFormData;
+    toggleOpen: (id: number | string) => void;
+    openCategories: (number | string)[];
+}
+
+const CategoryTreeItem: React.FC<CategoryTreeItemProps> = ({
     category,
     selected,
     toggleOpen,

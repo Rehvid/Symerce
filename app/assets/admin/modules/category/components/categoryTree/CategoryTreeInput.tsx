@@ -1,4 +1,18 @@
-const CategoryTreeInput = ({ selected, category, disabledCategoryId, register, watch, nameWatchedValue }) => {
+import { FC } from 'react';
+import { CategoryTreeItemInterface } from '@admin/modules/category/interfaces/CategoryTreeItemInterface';
+import { CategoryFormData } from '@admin/modules/category/interfaces/CategoryFormData';
+import { UseFormRegisterReturn, UseFormWatch } from 'react-hook-form';
+
+interface CategoryTreeInputProps {
+    selected?: number | null;
+    category: CategoryTreeItemInterface;
+    disabledCategoryId?: number | null;
+    register: UseFormRegisterReturn<string>;
+    watch: UseFormWatch<CategoryFormData>;
+    nameWatchedValue: keyof CategoryFormData;
+}
+
+const CategoryTreeInput: FC<CategoryTreeInputProps> = ({ selected, category, disabledCategoryId, register, watch, nameWatchedValue }) => {
     const isDisabled = disabledCategoryId === category.id;
     return (
         <label
