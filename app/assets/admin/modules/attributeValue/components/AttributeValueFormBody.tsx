@@ -1,14 +1,20 @@
-import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
-import React from 'react';
+import React, { FC } from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
+import { AttributeValueFormData } from '@admin/modules/attributeValue/interfaces/AttributeValueFormData';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-const AttributeValueFormBody = ({register, fieldErrors}) => (
-  <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
+interface AttributeValueFormBodyProps {
+    register: UseFormRegister<AttributeValueFormData>,
+    fieldErrors: FieldErrors<AttributeValueFormData>
+}
+
+const AttributeValueFormBody: FC<AttributeValueFormBodyProps> = ({register, fieldErrors}) => (
+  <FormSection title="Informacje">
 
     <FormGroup
       label={<InputLabel isRequired={true} label="Wartość" htmlFor="value"  />}

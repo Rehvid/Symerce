@@ -1,5 +1,4 @@
 import FormSection from '@admin/common/components/form/FormSection';
-import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
@@ -20,11 +19,8 @@ interface AttributeFormBodyProps {
 }
 
 const AttributeFormBody: FC<AttributeFormBodyProps> = ({register, fieldErrors, formContext, control}) => {
-
-
   return (
-  <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-
+  <FormSection title="Informacje"  >
     <FormGroup
       label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name"  />}
     >

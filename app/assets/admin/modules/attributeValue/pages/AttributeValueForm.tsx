@@ -2,12 +2,12 @@ import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
-import { CustomerFormDataInterface } from '@admin/modules/customer/interfaces/CustomerFormDataInterface';
 import { useEffect } from 'react';
 import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import AttributeValueFormBody from '@admin/modules/attributeValue/components/AttributeValueFormBody';
+import { AttributeValueFormData } from '@admin/modules/attributeValue/interfaces/AttributeValueFormData';
 
 const AttributeValueForm = () => {
   const params = useParams();
@@ -17,23 +17,24 @@ const AttributeValueForm = () => {
     setValue,
     setError,
     formState: { errors: fieldErrors },
-  } = useForm<AttributeFormDataInterface>({
+  } = useForm<AttributeValueFormData>({
     mode: 'onBlur',
     defaultValues: {
       attributeId: Number(params.attributeId) || null,
     },
   });
 
-  const baseApiUrl = `admin/attributes/${params.attributeId}/values`;
-  const redirectSuccessUrl = `/admin/products/attributes/${params.attributeId}/values`;
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, getFormData } = useFormInitializer<CustomerFormDataInterface>();
-  const isEditMode = params.id ?? false;
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: `admin/attributes/${params.attributeId}/values`,
+        redirectSuccessUrl: `/admin/products/attributes/${params.attributeId}/values`,
+    });
+    const requestConfig = getRequestConfig();
+    const { isFormInitialize, getFormData } = useFormInitializer<AttributeValueFormData>();
 
   useEffect(() => {
-    if (params.id) {
-      const endpoint = `admin/attributes/${params.attributeId}/values/${params.id}`;
-      const formFieldNames = isEditMode ? ['value'] : [];
+    if (isEditMode) {
+      const endpoint = `admin/attributes/${params.attributeId}/values/${entityId}`;
+      const formFieldNames = isEditMode ? ['value'] satisfies (keyof AttributeValueFormData)[] : [];
 
       getFormData(endpoint, setValue, formFieldNames);
     }
@@ -47,7 +48,8 @@ const AttributeValueForm = () => {
 
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
       handleSubmit={handleSubmit}
       setError={setError}
       apiRequestCallbacks={defaultApiSuccessCallback}

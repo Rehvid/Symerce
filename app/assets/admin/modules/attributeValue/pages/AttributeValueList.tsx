@@ -1,54 +1,53 @@
 import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
-import { ReactElement, useState } from 'react';
-import { BrandListFiltersInterface } from '@admin/modules/brand/interfaces/BrandListFiltersInterface';
+import React, {  useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { useParams } from 'react-router-dom';
 import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { TableColumn } from '@admin/common/types/tableColumn';
-import PageHeader from '@admin/layouts/components/PageHeader';
-import ListHeader from '@admin/common/components/ListHeader';
-import TableToolbarButtons from '@admin/common/components/table/partials/TableToolbarButtons';
-import DataTable from '@admin/common/components/table/DataTable';
-import { TagListItemInterface } from '@admin/modules/tag/interfaces/TagListItemInterface';
-import { TagListFiltersInterface } from '@admin/modules/tag/interfaces/TagListFiltersInterface';
 import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
 import TableActions from '@admin/common/components/tableList/TableActions';
-import { BrandListItemInterface } from '@admin/modules/brand/interfaces/BrandListItemInterface';
+import { AttributeTableFilters } from '@admin/modules/attribute/interfaces/AttributeTableFilters';
+import TableToolbar from '@admin/common/components/tableList/TableToolbar';
+import TableToolbarActions from '@admin/common/components/tableList/toolbar/TableToolbarActions';
+import TableToolbarFilters from '@admin/common/components/tableList/toolbar/TableToolbarFilters';
+import ActiveFilter from '@admin/common/components/tableList/filters/ActiveFilter';
+import TableWrapper from '@admin/common/components/tableList/TableWrapper';
+import TableHead from '@admin/common/components/tableList/TableHead';
+import TableBody from '@admin/common/components/tableList/TableBody';
+import { Pagination } from '@admin/common/interfaces/Pagination';
+import TablePagination from '@admin/common/components/tableList/TablePagination';
+import { AttributeValueListItem } from '@admin/modules/attributeValue/interfaces/AttributeValueListItem';
+import { AttributeValueTableFilters } from '@admin/modules/attributeValue/interfaces/AttributeValueTableFilters';
 
 const AttributeValueList = () => {
   const params = useParams();
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<BrandListFiltersInterface>(
+  const [filters, setFilters] = useState<AttributeTableFilters>(
     filterEmptyValues({
       ...defaultFilters,
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
-    }),
+    }) as AttributeTableFilters,
   );
 
-  const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<BrandListFiltersInterface>({
+    const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
+
+
+    const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<AttributeValueListItem,AttributeValueTableFilters>({
     endpoint: `admin/attributes/${params.attributeId}/values`,
     filters,
     setFilters,
     defaultSort,
   });
 
-  if (isLoading) {
-    return <TableSkeleton rowsCount={filters.limit} />;
-  }
-
-  const data = items.map((item: BrandListItemInterface) => {
-    const { id, value } = item;
-    return Object.values({
-      id: <TableRowId id={id} />,
-      value,
-      actions:
+  const rowData = items.map((item: AttributeValueListItem) => [
+       <TableRowId id={item.id} />,
+        item.value,
         <TableActions
-          id={id}
-          onDelete={() => removeItem(`admin/attributes/${params.attributeId}/values/${id}`)}
+          id={item.id}
+          onDelete={() => removeItem(`admin/attributes/${params.attributeId}/values/${item.id}`)}
         />,
-    });
-  });
+  ]);
 
   const columns: TableColumn[] = [
     { orderBy: 'id', label: 'ID', sortable: true },
@@ -56,24 +55,38 @@ const AttributeValueList = () => {
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-  const additionalToolbarContent: ReactElement = (
-    <PageHeader title={<ListHeader title="Grupa wartości" totalItems={pagination.totalItems} />}>
-      <TableToolbarButtons />
-    </PageHeader>
-  );
+  //TODO: Resolve problem with duplicated fragment
+    if (!isComponentInit && isLoading) {
+        return <TableSkeleton rowsCount={filters.limit} />
+    }
 
-  return (
-    <DataTable<TagListItemInterface, TagListFiltersInterface>
-      filters={filters}
-      setFilters={setFilters}
-      defaultFilters={defaultFilters}
-      sort={sort}
-      setSort={setSort}
-      columns={columns}
-      items={data}
-      pagination={pagination}
-      additionalToolbarContent={additionalToolbarContent}
-    />
+    if (!isComponentInit) {
+        setIsComponentInit(true);
+    }
+
+
+    return (
+        <>
+            <TableToolbar>
+                <TableToolbarActions title="Lista atrybutów" totalItems={pagination?.totalItems} />
+                <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
+                    <ActiveFilter setFilters={setFilters} filters={filters} />
+                </TableToolbarFilters>
+            </TableToolbar>
+            <TableWrapper isLoading={isLoading}>
+                <TableHead sort={sort} setSort={setSort} columns={columns} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                />
+            </TableWrapper>
+            <TablePagination
+                filters={filters}
+                setFilters={setFilters}
+                pagination={pagination as Pagination}
+            />
+        </>
   );
 }
 
