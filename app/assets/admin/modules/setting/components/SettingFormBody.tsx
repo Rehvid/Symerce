@@ -1,6 +1,6 @@
 import { Control, FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
-import { SettingFormDataInterface } from '@admin/modules/setting/interfaces/SettingFormDataInterface';
+import { SettingFormData } from '@admin/modules/setting/interfaces/SettingFormData';
 import React from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
@@ -15,23 +15,17 @@ import SettingValueInputType from '@admin/modules/setting/components/SettingValu
 
 
 interface SettingFormBodyProps {
-  register: UseFormRegister<SettingFormDataInterface>;
-  control: Control<SettingFormDataInterface>;
-  watch: UseFormWatch<SettingFormDataInterface>;
-  setValue: UseFormSetValue<SettingFormDataInterface>;
-  fieldErrors: FieldErrors<SettingFormDataInterface>;
-  formData?: SettingFormDataInterface;
-  formContext?: FormContextInterface;
+  register: UseFormRegister<SettingFormData>;
+  control: Control<SettingFormData>;
+  fieldErrors: FieldErrors<SettingFormData>;
+  formData: SettingFormData;
 }
 
 const SettingFormBody: React.FC<SettingFormBodyProps> = ({
  register,
  control,
- watch,
- setValue,
  fieldErrors,
  formData,
- formContext
 }) => {
   return (
     <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
@@ -52,7 +46,11 @@ const SettingFormBody: React.FC<SettingFormBodyProps> = ({
         />
       </FormGroup>
       <FormGroup label={<InputLabel label="Wartość" />} >
-        <SettingValueInputType register={register} fieldErrors={fieldErrors} control={control} formData={formData} />
+        <SettingValueInputType
+            register={register}
+            control={control}
+            formData={formData}
+        />
       </FormGroup>
       <FormGroup label={ <InputLabel label="Czy jest aktywne?" /> }>
         <Switch {...register('isActive')} />

@@ -1,14 +1,18 @@
 import React from 'react';
+import SettingValueInputTypeSelect from '@admin/modules/setting/components/inputTypes/SettingValueInputTypeSelect';
+import SettingValueInputTypeCheckbox from '@admin/modules/setting/components/inputTypes/SettingValueInputTypeCheckbox';
+import SettingValueInputTypeRawTextarea from '@admin/modules/setting/components/inputTypes/SettingValueInputTypeRawTextarea';
+import { Control, UseFormRegister } from 'react-hook-form';
+import { SettingFormData } from '@admin/modules/setting/interfaces/SettingFormData';
+import LabelNameIcon from '@/images/icons/label-name.svg';
+import NumberIcon from '@/images/icons/number.svg';
 import { SettingInputType } from '@admin/modules/setting/enums/settingInputType';
-import SettingInputTypeSelect from '@admin/modules/setting/components/inputTypes/SettingInputTypeSelect';
-import SettingInputTypeMultiSelect from '@admin/modules/setting/components/inputTypes/SettingInputTypeMultiSelect';
-import SettingInputTypeCheckbox from '@admin/modules/setting/components/inputTypes/SettingInputTypeCheckbox';
-import SettingInputTypeRawTextarea from '@admin/modules/setting/components/inputTypes/SettingInputTypeRawTextarea';
-import SettingInputTypeText from '@admin/modules/setting/components/inputTypes/SettingInputTypeText';
-import SettingInputTypeNumber from '@admin/modules/setting/components/inputTypes/SettingInputTypeNumber';
+import SettingValueInputFieldType from '@admin/modules/setting/components/inputTypes/SettingValueInputFieldType';
 
 interface SettingInputTypeProps {
-
+    register: UseFormRegister<SettingFormData>
+    control: Control<SettingFormData>
+    formData: SettingFormData
 }
 
 const SettingValueInputType: React.FC<SettingInputTypeProps> = ({register, control, formData}) => {
@@ -17,35 +21,45 @@ const SettingValueInputType: React.FC<SettingInputTypeProps> = ({register, contr
   switch (settingField?.inputType) {
     case SettingInputType.SELECT:
       return (
-        <SettingInputTypeSelect
+        <SettingValueInputTypeSelect
           control={control}
           settingField={settingField}
+          isMulti={false}
         />
       )
     case SettingInputType.MULTISELECT:
       return (
-        <SettingInputTypeMultiSelect
-          control={control}
-          settingField={settingField}
-        />
+          <SettingValueInputTypeSelect
+              control={control}
+              settingField={settingField}
+              isMulti={true}
+          />
       )
     case SettingInputType.CHECKBOX:
       return (
-        <SettingInputTypeCheckbox
+        <SettingValueInputTypeCheckbox
           register={register}
         />
       )
     case SettingInputType.RAW_TEXTAREA:
       return (
-        <SettingInputTypeRawTextarea register={register} />
+        <SettingValueInputTypeRawTextarea register={register} />
       )
     case SettingInputType.TEXT:
       return (
-        <SettingInputTypeText register={register} />
+        <SettingValueInputFieldType
+            register={register}
+            type="text"
+            icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
+        />
       )
     case SettingInputType.NUMBER:
       return (
-        <SettingInputTypeNumber register={register} />
+        <SettingValueInputFieldType
+            register={register}
+            type="number"
+            icon={<NumberIcon className="text-gray-500 w-[16px] h-[16px]" />}
+        />
       )
   }
 
