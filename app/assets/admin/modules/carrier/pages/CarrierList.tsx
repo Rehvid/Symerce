@@ -2,7 +2,6 @@ import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQu
 import React, { useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
-import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
 import TableRowImageWithText from '@admin/common/components/tableList/tableRow/TableRowImageWithText';
 import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
@@ -22,6 +21,7 @@ import TableBody from '@admin/common/components/tableList/TableBody';
 import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 import RangeFilter from '@admin/common/components/tableList/filters/RangeFilter';
+import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const CarrierList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -34,7 +34,6 @@ const CarrierList = () => {
     }) as CarrierTableFilters,
   );
 
-    const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<CarrierListItem, CarrierTableFilters>({
     endpoint: 'admin/carriers',
     filters,
@@ -63,16 +62,8 @@ const CarrierList = () => {
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-    if (!isComponentInit && isLoading) {
-        return <TableSkeleton rowsCount={filters.limit} />
-    }
-
-    if (!isComponentInit) {
-        setIsComponentInit(true);
-    }
-
   return (
-      <>
+      <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
           <TableToolbar>
               <TableToolbarActions title="Lista przewoźników" totalItems={pagination?.totalItems} />
               <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
@@ -93,7 +84,7 @@ const CarrierList = () => {
               setFilters={setFilters}
               pagination={pagination as Pagination}
           />
-      </>
+      </TableWithLoadingSkeleton>
 
   );
 }

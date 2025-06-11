@@ -2,7 +2,6 @@ import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQu
 import React, { ReactElement, useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
-import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
 import TableRowActive from '@admin/common/components/tableList/tableRow/TableRowActive';
 import TableActions from '@admin/common/components/tableList/TableActions';
@@ -20,6 +19,7 @@ import TableBody from '@admin/common/components/tableList/TableBody';
 import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 import { AttributeListItem } from '@admin/modules/attribute/interfaces/AttributeListItem';
+import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const AttributeList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -29,8 +29,6 @@ const AttributeList = () => {
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
     }) as AttributeTableFilters,
   );
-
-    const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
 
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<AttributeListItem, AttributeTableFilters>({
     endpoint: 'admin/attributes',
@@ -62,16 +60,9 @@ const AttributeList = () => {
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-    if (!isComponentInit && isLoading) {
-        return <TableSkeleton rowsCount={filters.limit} />
-    }
-
-    if (!isComponentInit) {
-        setIsComponentInit(true);
-    }
 
     return (
-        <>
+        <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
             <TableToolbar>
                 <TableToolbarActions title="Lista atrybutów" totalItems={pagination?.totalItems} />
                 <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
@@ -91,7 +82,7 @@ const AttributeList = () => {
                 setFilters={setFilters}
                 pagination={pagination as Pagination}
             />
-        </>
+        </TableWithLoadingSkeleton>
   );
 }
 

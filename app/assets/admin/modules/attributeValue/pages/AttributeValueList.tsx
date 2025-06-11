@@ -3,7 +3,6 @@ import React, {  useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { useParams } from 'react-router-dom';
-import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
 import TableActions from '@admin/common/components/tableList/TableActions';
@@ -19,6 +18,7 @@ import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 import { AttributeValueListItem } from '@admin/modules/attributeValue/interfaces/AttributeValueListItem';
 import { AttributeValueTableFilters } from '@admin/modules/attributeValue/interfaces/AttributeValueTableFilters';
+import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const AttributeValueList = () => {
   const params = useParams();
@@ -29,9 +29,6 @@ const AttributeValueList = () => {
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
     }) as AttributeTableFilters,
   );
-
-    const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
-
 
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<AttributeValueListItem,AttributeValueTableFilters>({
     endpoint: `admin/attributes/${params.attributeId}/values`,
@@ -55,18 +52,10 @@ const AttributeValueList = () => {
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-  //TODO: Resolve problem with duplicated fragment
-    if (!isComponentInit && isLoading) {
-        return <TableSkeleton rowsCount={filters.limit} />
-    }
-
-    if (!isComponentInit) {
-        setIsComponentInit(true);
-    }
 
 
     return (
-        <>
+        <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
             <TableToolbar>
                 <TableToolbarActions title="Lista atrybutów" totalItems={pagination?.totalItems} />
                 <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
@@ -86,7 +75,7 @@ const AttributeValueList = () => {
                 setFilters={setFilters}
                 pagination={pagination as Pagination}
             />
-        </>
+        </TableWithLoadingSkeleton>
   );
 }
 

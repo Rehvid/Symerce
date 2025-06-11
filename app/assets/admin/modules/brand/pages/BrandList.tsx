@@ -9,7 +9,6 @@ import React, { useState } from 'react';
 import { filterEmptyValues } from '@admin/common/utils/helper';
 import { useListData } from '@admin/common/hooks/list/useListData';
 import { BrandTableFilters } from '@admin/modules/brand/interfaces/BrandTableFilters';
-import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import TableToolbar from '@admin/common/components/tableList/TableToolbar';
 import TableToolbarActions from '@admin/common/components/tableList/toolbar/TableToolbarActions';
 import TableToolbarFilters from '@admin/common/components/tableList/toolbar/TableToolbarFilters';
@@ -20,6 +19,7 @@ import TableBody from '@admin/common/components/tableList/TableBody';
 import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 import TableActions from '@admin/common/components/tableList/TableActions';
+import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const BrandList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -30,7 +30,6 @@ const BrandList = () => {
     }) as BrandTableFilters,
   );
 
-  const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
   const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<BrandListItem, BrandTableFilters>({
     endpoint: 'admin/brands',
     filters,
@@ -59,16 +58,8 @@ const BrandList = () => {
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-    if (!isComponentInit && isLoading) {
-        return <TableSkeleton rowsCount={filters.limit} />
-    }
-
-    if (!isComponentInit) {
-        setIsComponentInit(true);
-    }
-
   return (
-      <>
+      <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
           <TableToolbar>
               <TableToolbarActions title="Lista marek" totalItems={pagination?.totalItems} />
               <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
@@ -88,7 +79,7 @@ const BrandList = () => {
               setFilters={setFilters}
               pagination={pagination as Pagination}
           />
-      </>
+      </TableWithLoadingSkeleton>
 
   );
 }
