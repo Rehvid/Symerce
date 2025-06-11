@@ -29,14 +29,14 @@ final readonly class SavePaymentMethodRequest implements ArrayHydratableInterfac
 
     public bool $isActive;
 
-    #[Assert\NotBlank]
     public bool $isRequireWebhook;
 
+    /** @var array<mixed, mixed>  */
     public ?array $config;
 
     public ?FileData $fileData;
 
-    /** @param array<string, mixed> $config */
+    /** @param array<mixed, mixed> $config */
     public function __construct(
         string $name,
         string $fee,
@@ -45,15 +45,19 @@ final readonly class SavePaymentMethodRequest implements ArrayHydratableInterfac
         bool $isRequireWebhook,
         array $config = [],
         ?FileData $fileData = null,
-    ) {}
+    ) {
+        $this->name = $name;
+        $this->fee = $fee;
+        $this->code = $code;
+        $this->isActive = $isActive;
+        $this->isRequireWebhook = $isRequireWebhook;
+        $this->config = $config;
+        $this->fileData = $fileData;
+    }
 
     public static function fromArray(array $data): ArrayHydratableInterface
     {
         $thumbnail = $data['thumbnail'] ?? null;
-        $fileData = null;
-        if (!empty($thumbnail)) {
-            $fileData = FileData::fromArray($thumbnail[0]);
-        }
 
         return new self(
             name: $data['name'],
@@ -62,7 +66,7 @@ final readonly class SavePaymentMethodRequest implements ArrayHydratableInterfac
             isActive: $data['isActive'],
             isRequireWebhook: $data['isRequireWebhook'],
             config: $data['config'] ?? [],
-            fileData: $fileData,
+            fileData: $thumbnail ? FileData::fromArray($thumbnail) : null,
         );
     }
 }
