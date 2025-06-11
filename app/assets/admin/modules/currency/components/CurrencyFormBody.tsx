@@ -3,14 +3,20 @@ import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
-import React from 'react';
-import { hasAnyFieldError } from '@admin/common/utils/formUtils';
+import React, { FC } from 'react';
 import NumberIcon from '@/images/icons/number.svg';
 import FormSection from '@admin/common/components/form/FormSection';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { CurrencyFormData } from '@admin/modules/currency/interfaces/CurrencyFormData';
 
-const CurrencyFormBody = ({register, fieldErrors}) => {
+interface CurrencyFormBodyProps {
+  register: UseFormRegister<CurrencyFormData>;
+  fieldErrors: FieldErrors<CurrencyFormData>;
+}
+
+const CurrencyFormBody: FC<CurrencyFormBodyProps> = ({register, fieldErrors}) => {
   return (
-    <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
+    <FormSection title="Informacje">
       <FormGroup
         label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name"  />}
       >
