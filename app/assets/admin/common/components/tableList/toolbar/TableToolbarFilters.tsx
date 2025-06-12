@@ -1,10 +1,8 @@
 import React  from 'react';
 import SearchFilter from '@admin/common/components/tableList/filters/SearchFilter';
-import DrawerTrigger from '@admin/common/components/drawer/DrawerTrigger';
 import Button, { ButtonVariant } from '@admin/common/components/Button';
 import FilterIcon from '@/images/icons/filter.svg';
 import SortResetIcon from '@/images/icons/sort-reset.svg';
-import DrawerContent from '@admin/common/components/drawer/DrawerContent';
 import { PositionType } from '@admin/common/enums/positionType';
 import DrawerHeader from '@admin/common/components/drawer/DrawerHeader';
 import { isOnlyPaginationInDataTable } from '@admin/common/utils/helper';
@@ -19,7 +17,7 @@ interface TableToolbarFilters<T extends TableFilters> {
     filters: T;
     setFilters: React.Dispatch<React.SetStateAction<T>>;
     defaultFilters: TableFilters;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 const TableToolbarFilters= <T extends TableFilters,> ({

@@ -1,6 +1,6 @@
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 import { AdminRole } from '@admin/common/enums/adminRole';
-import { FileResponseInterface } from '@admin/common/interfaces/FileResponseInterface';
+import { UploadFile } from '@admin/common/interfaces/UploadFile';
 
 export interface User {
     id?: string | number;
@@ -9,7 +9,7 @@ export interface User {
     fullName?: string;
     email?: string;
     roles?: AdminRole[];
-    avatar?: FileResponseInterface
+    avatar?: UploadFile
     [key: string]: any;
 }
 

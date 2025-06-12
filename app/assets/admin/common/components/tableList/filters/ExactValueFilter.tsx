@@ -1,5 +1,4 @@
 import React, { ChangeEvent, ReactNode, useState, useEffect } from 'react';
-import Input from '@admin/components/form/controls/Input';
 import Heading, { HeadingLevel } from '@admin/common/components/Heading';
 import NumberIcon from '@/images/icons/number.svg';
 import InputField from '@admin/common/components/form/input/InputField';

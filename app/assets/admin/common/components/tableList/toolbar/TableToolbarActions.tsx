@@ -9,7 +9,7 @@ interface TableToolbarActionsProps {
     title: string;
     children?: React.ReactNode;
     totalItems?: number;
-    createHref?: string;
+    createHref?: string | null;
     createButtonLabel?: string;
 }
 
