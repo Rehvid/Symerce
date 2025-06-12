@@ -22,4 +22,14 @@ final class ProductDoctrineRepository extends AbstractCriteriaRepository impleme
     {
         return 'product';
     }
+
+   public function countProductsByBrand(int $brandId): int
+   {
+       return (int) $this->createQueryBuilder('p')
+           ->select('COUNT(p.id)')
+           ->where('p.brand = :brandId')
+           ->setParameter('brandId', $brandId)
+           ->getQuery()
+           ->getSingleScalarResult();
+   }
 }

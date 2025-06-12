@@ -82,11 +82,7 @@ final readonly class SaveCategoryRequest implements ArrayHydratableInterface
 
     public static function fromArray(array $data): ArrayHydratableInterface
     {
-        $image = $data['thumbnail'] ?? null;
-        $fileData = null;
-        if (!empty($image)) {
-            $fileData = FileData::fromArray($image[0]);
-        }
+        $thumbnail = $data['thumbnail'] ?? null;
 
         return new self(
             name: $data['name'],
@@ -96,7 +92,7 @@ final readonly class SaveCategoryRequest implements ArrayHydratableInterface
             slug: $data['slug'],
             parentCategoryId: $data['parentCategoryId'],
             description: $data['description'],
-            fileData: $fileData,
+            fileData: $thumbnail ? FileData::fromArray($thumbnail) : null,
             id: $data['id'] ?? null
         );
     }
