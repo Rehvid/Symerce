@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@admin/common/components/Button';
+import Button, { ButtonVariant } from '@admin/common/components/Button';
 import { useNavigate } from 'react-router-dom';
 
 const NotFound: React.FC = () => {
@@ -13,7 +13,7 @@ const NotFound: React.FC = () => {
             </div>
             <Button
                 onClick={() => navigate('/admin/dashboard')}
-                variant="primary"
+                variant={ButtonVariant.Primary}
                 additionalClasses="py-3 px-5 uppercase"
             >
                 Wróć na stronę główną

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import Link from '@admin/common/components/Link';
+import Link, { AppLinkVariant } from '@admin/common/components/Link';
 
 interface NavigationItemProps {
     to: string;
@@ -11,7 +11,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({ children, to }) => {
         <li>
             <Link
                 to={to}
-                variant="sidebar"
+                variant={AppLinkVariant.Sidebar}
                 additionalClasses="flex items-center gap-2 py-2 px-5"
             >
                 {children}

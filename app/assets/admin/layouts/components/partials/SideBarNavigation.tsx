@@ -129,7 +129,7 @@ const SideBarNavigation = () => (
             }
 
             return (
-                <NavigationItem key={item.to} to={item.to}>
+                <NavigationItem key={item.to} to={item.to ?? ''}>
                     {item.Icon && <item.Icon className="w-[20px] h-[20px]" />}
                     <span> {item.label}</span>
                 </NavigationItem>

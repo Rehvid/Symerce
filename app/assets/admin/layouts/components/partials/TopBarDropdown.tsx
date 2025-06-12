@@ -1,10 +1,10 @@
-import Dropdown from '@admin/components/dropdown/Dropdown';
-import DropdownButton from '@admin/components/dropdown/DropdownButton';
+import Dropdown from '@admin/common/components/dropdown/Dropdown';
+import DropdownButton from '@admin/common/components/dropdown/DropdownButton';
 import UserIcon from '@/images/icons/user.svg';
 import ChevronIcon from '@/images/icons/chevron.svg';
-import DropdownContent from '@admin/components/dropdown/DropdownContent';
-import Link from '@admin/common/components/Link';
-import Button from '@admin/common/components/Button';
+import DropdownContent from '@admin/common/components/dropdown/DropdownContent';
+import Link, { AppLinkVariant } from '@admin/common/components/Link';
+import Button, { ButtonVariant } from '@admin/common/components/Button';
 import LogoutIcon from '@/images/icons/logout.svg';
 import { useAuth } from '@admin/common/context/AuthroizationContext';
 import { useUser } from '@admin/common/context/UserContext';
@@ -19,7 +19,7 @@ const TopBarDropdown: React.FC = () => {
     const [forceClose, setForceClose] = useState<boolean>(false);
 
     const handleLogout = () => {
-        logout(() => navigate('/admin/public/login'));
+        logout(() => navigate('/admin/public/login')).catch((error) => console.error(error));
     };
 
     const onDropdownClick = (): void => {
@@ -63,7 +63,7 @@ const TopBarDropdown: React.FC = () => {
                     <li>
                         <Link
                             to="profile"
-                            variant="button"
+                            variant={AppLinkVariant.Button}
                             additionalClasses="flex items-center gap-3 w-full px-3 py-2"
                             onClick={handleForceClick}
                         >
@@ -74,7 +74,7 @@ const TopBarDropdown: React.FC = () => {
                 </ul>
                 <Button
                     onClick={handleLogout}
-                    variant="link"
+                    variant={ButtonVariant.Link}
                     additionalClasses="w-full flex items-center gap-3 px-3 py-2 mt-3"
                 >
                     <LogoutIcon className="w-[24px] h-[24px]" />

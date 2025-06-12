@@ -1,21 +1,25 @@
-import React from 'react';
-import { useDropdown } from './DropdownContext';
+import React, { FC } from 'react';
 
 interface DropdownButtonProps {
-  children: React.ReactNode;
-  className?: string;
+    children: React.ReactNode;
+    toggleDropdown?: () => void;
+    onClickExtra?: () => void;
+    className?: string;
 }
 
-const DropdownButton: React.FC<DropdownButtonProps> = ({ children, className = '' }) => {
-  const { toggle } = useDropdown();
-  return (
-    <button
-      onClick={toggle}
-      className={className}
-      type="button"
-    >
-      {children}
-    </button>
-  );
-};
+const DropdownButton: FC<DropdownButtonProps> = ({ children, toggleDropdown, onClickExtra, className }) => {
+    const handleClick = () => {
+        toggleDropdown?.();
+        if (onClickExtra) {
+            onClickExtra();
+        }
+    };
+
+    return (
+        <div className={className} onClick={handleClick}>
+            {children}
+        </div>
+    );
+}
+
 export default DropdownButton;
