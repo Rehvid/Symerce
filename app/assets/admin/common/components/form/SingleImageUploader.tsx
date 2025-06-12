@@ -15,6 +15,7 @@ interface SingleImageUploaderProps {
     initialValue?: UploadFile | null;
     variant?: DropzoneVariant;
     containerClasses?: string;
+    onSuccessRemove?: ((message: string) => void) | null;
 }
 
 const SingleImageUploader = ({
@@ -22,6 +23,7 @@ const SingleImageUploader = ({
  fieldName,
  setValue,
  initialValue,
+ onSuccessRemove = null,
  variant = DropzoneVariant.Single,
  containerClasses = 'max-w-lg relative',
 }: SingleImageUploaderProps ) => {
@@ -34,6 +36,7 @@ const SingleImageUploader = ({
     const { onDrop, removeFile, errors } = useDropzoneLogicSingle({
         setValue: internalSetValue,
         value: file,
+        onSuccessRemove: onSuccessRemove
     });
 
     return (
