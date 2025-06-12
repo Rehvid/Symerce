@@ -41,7 +41,7 @@ Encore.configureLoaderRule('images', (loaderRule) => {
 });
 
 if (ENTRY === 'admin' || ENTRY === 'all') {
-    Encore.addEntry('admin/app', './assets/admin/index.jsx');
+    Encore.addEntry('admin/app', './assets/admin/index.tsx');
 }
 if (ENTRY === 'shop' || ENTRY === 'all') {
     // Encore
