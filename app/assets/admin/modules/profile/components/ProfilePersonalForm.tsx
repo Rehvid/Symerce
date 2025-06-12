@@ -5,7 +5,7 @@ import FormApiLayout from '@admin/layouts/FormApiLayout';
 import React from 'react';
 import { ProfilePersonalFormData } from '@admin/modules/profile/interfaces/ProfilePersonalFormData';
 import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
-import ProfilePersonalFormMainColumn from '@admin/modules/profile/components/ProfilePersonalFormMainColumn';
+import ProfilePersonalBodyForm from '@admin/modules/profile/components/ProfilePersonalBodyForm';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import { HttpMethod } from '@admin/common/enums/httpEnums';
 
@@ -29,7 +29,7 @@ const ProfilePersonalForm: React.FC = () => {
     });
 
     const apiRequestCallbacks = {
-        onSuccess: ({ data, message }) => {
+        onSuccess: ({ data, message }: {data: any, message: string}) => {
             const { user: currentUser } = data;
             setUser((prev) => ({
                 ...prev,
@@ -49,7 +49,7 @@ const ProfilePersonalForm: React.FC = () => {
                 apiRequestCallbacks={apiRequestCallbacks}
             >
                 <FormApiLayout>
-                    <ProfilePersonalFormMainColumn
+                    <ProfilePersonalBodyForm
                         setValue={setValue}
                         setUser={setUser}
                         register={register}

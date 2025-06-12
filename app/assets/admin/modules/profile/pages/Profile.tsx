@@ -33,7 +33,7 @@ const Profile: React.FC = () => {
             <div className="w-full">
                 <ProfileNavigation activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
             </div>
-            <div className="w-full">{tabs.find((tab) => tab.name === activeTab)?.element}</div>
+            <div className="w-full ">{tabs.find((tab) => tab.name === activeTab)?.element}</div>
         </>
     );
 };
