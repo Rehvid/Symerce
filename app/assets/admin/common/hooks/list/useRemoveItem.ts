@@ -18,8 +18,8 @@ export const useRemoveItem = () => {
         onReload: () => void
     ) => {
         await handleApiRequest(HttpMethod.DELETE, deleteEndpoint, {
-            onSuccess: ({ message }) => {
-                addNotification(message, NotificationType.SUCCESS);
+            onSuccess: ( data, meta, message) => { //TODO: Resolve problem
+                addNotification(message ?? '', NotificationType.SUCCESS);
 
                 const shouldGoBack = itemCount === 0 && currentPage > 1;
                 if (shouldGoBack) {
