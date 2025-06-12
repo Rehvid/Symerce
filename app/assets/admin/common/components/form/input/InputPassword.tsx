@@ -1,6 +1,6 @@
 import React, { useState, ForwardedRef } from 'react';
 import EyeIcon from '@/images/icons/eye.svg';
-import Input from '@/admin/components/form/controls/Input';
+import InputField from '@admin/common/components/form/input/InputField';
 
 type InputPasswordProps = {
   id: string;
@@ -20,10 +20,9 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputPasswordProps>(
     };
 
     return (
-      <Input
+      <InputField
         type={showPassword ? 'text' : 'password'}
         id={id}
-        label={label}
         hasError={hasError}
         errorMessage={errorMessage}
         icon={
@@ -34,7 +33,6 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputPasswordProps>(
             }`}
           />
         }
-        isRequired
         ref={ref}
         {...register}
       />
