@@ -6,5 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import App from './App';
 
 const container = document.getElementById('app');
-const root = createRoot(container);
-root.render(<App />);
+if (container) {
+    const root = createRoot(container);
+    root.render(<App />);
+}
+
