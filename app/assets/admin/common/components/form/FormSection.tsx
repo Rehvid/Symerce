@@ -22,7 +22,7 @@ const FormSection: React.FC<FormSectionProps> = ({
 }) => {
     const [isOpen, setIsOpen] = useState(true);
     const contentRef = useRef<HTMLDivElement>(null);
-    const [contentHeight, setContentHeight] = useState<number>(0);
+    const [contentHeight, setContentHeight] = useState<number | string>(0);
 
     useEffect(() => {
         if (forceOpen !== undefined) {
@@ -35,6 +35,14 @@ const FormSection: React.FC<FormSectionProps> = ({
             setContentHeight(contentRef.current.scrollHeight);
         }
     }, [children]);
+
+    useEffect(() => {
+        if (isOpen) {
+            setContentHeight('auto');
+        } else if (contentRef.current) {
+            setContentHeight(0);
+        }
+    }, [isOpen]);
 
     return (
         <section className="border border-gray-100 p-4 rounded-2xl mt-[2rem] bg-white">
@@ -56,23 +64,38 @@ const FormSection: React.FC<FormSectionProps> = ({
                 </div>
             )}
 
-            <AnimatePresence initial={false}>
-                <motion.div
-                    initial={false}
-                    animate={{ height: isOpen ? contentHeight : 0, opacity: isOpen ? 1 : 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    style={{ overflow: 'hidden' }}
+            {useToggleContent ? (
+                <AnimatePresence initial={false}>
+                    {isOpen && (
+                        <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: contentHeight === 'auto' ? 'auto' : contentHeight, opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.35, ease: 'easeInOut' }}
+                            style={{
+                                overflow: 'hidden'
+                            }}
+                        >
+                            <div
+                                ref={contentRef}
+                                className={`py-4 flex flex-col ${
+                                    useDefaultGap ? 'gap-[2rem]' : ''
+                                } ${contentContainerClasses}`}
+                            >
+                                {children}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            ) : (
+                <div
+                    className={`py-4 flex flex-col ${
+                        useDefaultGap ? 'gap-[2rem]' : ''
+                    } ${contentContainerClasses}`}
                 >
-                    <div
-                        ref={contentRef}
-                        className={`py-4 flex flex-col ${
-                            useDefaultGap ? 'gap-[2rem]' : ''
-                        } ${contentContainerClasses}`}
-                    >
-                        {children}
-                    </div>
-                </motion.div>
-            </AnimatePresence>
+                    {children}
+                </div>
+            )}
         </section>
     );
 };
