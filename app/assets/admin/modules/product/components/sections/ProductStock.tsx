@@ -2,7 +2,6 @@ import React from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
-import Switch from '@admin/common/components/form/input/Switch';
 import InputField from '@admin/common/components/form/input/InputField';
 import NumberIcon from '@/images/icons/number.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
@@ -11,11 +10,8 @@ import { Control, Controller, FieldErrors, Path, UseFormRegister } from 'react-h
 import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import { DynamicFields } from '@admin/common/components/form/DynamicFields';
 import DatePicker from 'react-datepicker';
-import Error from '@admin/common/components/Error';
-import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';
 import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
-import { SelectOption } from '@admin/common/types/selectOption';
 
 interface ProductStockProps {
   fieldErrors: FieldErrors<ProductFormData>;
@@ -122,33 +118,16 @@ const ProductStock: React.FC<ProductStockProps> = ({fieldErrors, register, contr
               )}
             />
 
-
-            <Controller
-              name={`${innerPrefix}.warehouseId` as Path<ProductFormData>}
-              control={control}
-              defaultValue={[]}
-              rules={{
-                ...validationRules.required()
-              }}
-              render={({ field, fieldState }) => {
-                return (
-                  <FormGroup
-                    label={ <InputLabel label="Magazyn" isRequired={true} />}
-                  >
-                    <ReactSelect
-                      options={formContext?.availableWarehouses || []}
-                      value={formContext?.availableWarehouses?.find((option) => option.value === field.value) || null}
-                      onChange={(option: SelectOption | null) => {
-                          field.onChange((option as SelectOption | null)?.value ?? null);
+              <FormGroup label={ <InputLabel label="Magazyn" isRequired={true} /> } >
+                  <ControlledReactSelect
+                      name={`${innerPrefix}.warehouseId` as Path<ProductFormData>}
+                      control={control}
+                      rules={{
+                          ...validationRules.required()
                       }}
-                      hasError={fieldState.invalid}
-                      errorMessage={fieldState.error?.message}
-                    />
-                  </FormGroup>
-                )
-
-              }}
-            />
+                      options={formContext?.availableWarehouses || []}
+                  />
+              </FormGroup>
 
           </div>
         )}

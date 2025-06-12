@@ -1,4 +1,5 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
+import { UploadFile } from '@admin/common/interfaces/UploadFile';
 
 interface Stock {
   availableQuantity: number,
@@ -13,6 +14,10 @@ interface Stock {
 export interface AttributeItem {
     isCustom: boolean;
     value: any;
+}
+
+export interface ProductImage extends UploadFile {
+    isThumbnail: boolean,
 }
 
 export interface ProductFormData extends FormDataInterface {
@@ -45,4 +50,5 @@ export interface ProductFormData extends FormDataInterface {
   stockNotifyOnLowStock?: boolean,
   stockVisibleInStore?: boolean,
   stocks: Stock[]
+  images: ProductImage[],
 }

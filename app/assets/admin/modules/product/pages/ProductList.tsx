@@ -1,7 +1,6 @@
 import useListDefaultQueryParams from '@admin/common/hooks/list/useListDefaultQueryParams';
 import React, { useState } from 'react';
 import { filterEmptyValues, stringToBoolean } from '@admin/common/utils/helper';
-import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import TableActions from '@admin/common/components/tableList/TableActions';
 import TableRowShowAction from '@admin/common/components/tableList/tableRow/TableRowExternalLinkAction';
 import TableRowId from '@admin/common/components/tableList/tableRow/TableRowId';
@@ -27,7 +26,8 @@ import TableBody from '@admin/common/components/tableList/TableBody';
 import { TableColumn } from '@admin/common/types/tableColumn';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 import { Pagination } from '@admin/common/interfaces/Pagination';
-import SuspenseFallback from '@admin/pages/SuspenseFallback';
+import TableWrapper from '@admin/common/components/tableList/TableWrapper';
+import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const ProductList = () => {
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -42,7 +42,7 @@ const ProductList = () => {
       quantity: getCurrentParam('quantity', (value) => Number(value)),
     }) as ProductTableFilters,
   );
-  const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
+
   const { draggableCallback } = useDraggable('admin/reorder/product');
 
 
@@ -93,16 +93,8 @@ const ProductList = () => {
     { orderBy: 'actions', label: 'Actions' },
   ];
 
-  if (!isComponentInit && isLoading) {
-      return <TableSkeleton rowsCount={filters.limit} />
-  }
-
-  if (!isComponentInit) {
-      setIsComponentInit(true);
-  }
-
   return (
-      <>
+      <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
           <TableToolbar>
               <TableToolbarActions title="Lista produktów" totalItems={pagination?.totalItems} />
               <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
@@ -112,32 +104,22 @@ const ProductList = () => {
                   <ExactValueFilter filters={filters} setFilters={setFilters} label="Ilość" nameFilter="quantity" />
               </TableToolbarFilters>
           </TableToolbar>
-          <div className={`relative rounded-xl bg-white shadow mb-5 mt-[1.5rem] ${isLoading ? 'pointer-events-none' : ''}`}>
-              <table className="table space-y-6 w-full rounded-xl border-separate border-spacing-0">
-                  <TableHead sort={sort} setSort={setSort} columns={columns} />
-                  <TableBody
-                      data={rowData}
-                      filters={filters}
-                      pagination={pagination as Pagination}
-                      useDraggable={true}
-                      draggableCallback={draggableCallback}
-                  />
-              </table>
-
-              {isLoading && (
-                  <div className="absolute inset-0 bg-black/85 flex rounded-xl  pt-6 w-full">
-                      <div className="flex items-center justify-center w-full">
-                          <SuspenseFallback />
-                      </div>
-                  </div>
-              )}
-          </div>
+          <TableWrapper isLoading={isLoading}>
+              <TableHead sort={sort} setSort={setSort} columns={columns} />
+              <TableBody
+                  data={rowData}
+                  filters={filters}
+                  pagination={pagination as Pagination}
+                  useDraggable={true}
+                  draggableCallback={draggableCallback}
+              />
+          </TableWrapper>
           <TablePagination
               filters={filters}
               setFilters={setFilters}
               pagination={pagination as Pagination}
           />
-      </>
+      </TableWithLoadingSkeleton>
 
   );
 }

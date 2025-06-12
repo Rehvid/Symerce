@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import FormGroup from '@admin/common/components/form/FormGroup';
-import { Control, Controller, FieldErrors, useWatch } from 'react-hook-form';
+import { Control, FieldErrors, useWatch } from 'react-hook-form';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
-import Select from '@admin/common/components/form/select/Select';
 import { validationRules } from '@admin/common/utils/validationRules';
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
-import MultiSelect from '@admin/common/components/form/select/MultiSelect';
 import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import Description from '@admin/common/components/Description';
 import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';

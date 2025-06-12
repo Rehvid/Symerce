@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React  from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import FormGroup from '@admin/common/components/form/FormGroup';
-import Description from '@admin/common/components/Description';
 import Switch from '@admin/common/components/form/input/Switch';
 import { validationRules } from '@admin/common/utils/validationRules';
 import LabelNameIcon from '@/images/icons/label-name.svg';
@@ -11,8 +10,6 @@ import { Control, FieldErrors, UseFormRegister, Controller } from 'react-hook-fo
 import RichTextEditor from '@admin/common/components/form/input/RichTextEditor';
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
-import Select from '@admin/common/components/form/select/Select';
-import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';
 
