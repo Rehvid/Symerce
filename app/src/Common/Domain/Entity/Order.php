@@ -259,4 +259,11 @@ class Order
     {
         $this->email = $email;
     }
+
+    public function getFullNameCustomer(): string
+    {
+        $fullName = $this->getContactDetails()->getFullName();
+
+        return $this->customer?->getContactDetails()?->getFullName() ?? $fullName;
+    }
 }

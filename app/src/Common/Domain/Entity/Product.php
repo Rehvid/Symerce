@@ -92,6 +92,9 @@ class Product implements PositionEntityInterface
     #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private ?string $metaDescription = null;
 
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'product')]
+    private Collection $orderItems;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -101,6 +104,7 @@ class Product implements PositionEntityInterface
         $this->priceHistory = new ArrayCollection();
         $this->attributes = new ArrayCollection();
         $this->productStocks = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -330,5 +334,15 @@ class Product implements PositionEntityInterface
         if (!$this->attributes->contains($attribute)) {
             $this->attributes->add($attribute);
         }
+    }
+
+    public function isInStock(): bool
+    {
+        $totalQuantity = 0;
+        foreach ($this->productStocks as $productStock) {
+            $totalQuantity += $productStock->getAvailableQuantity();
+        }
+
+        return $totalQuantity > 0;
     }
 }

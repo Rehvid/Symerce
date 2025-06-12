@@ -12,4 +12,7 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 interface OrderRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
 {
     public function findByToken(?string $token): ?Order;
+
+    public function findLatestOrders(int $limit): array;
+
 }

@@ -48,5 +48,8 @@ abstract class DoctrineRepository
         return $this->find($id);
     }
 
-
+    public function getCount(): int
+    {
+        return $this->count();
+    }
 }

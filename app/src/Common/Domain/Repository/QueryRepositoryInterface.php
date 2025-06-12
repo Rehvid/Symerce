@@ -13,4 +13,6 @@ interface QueryRepositoryInterface
 
     /** @return object[] */
     public function findBy(array $criteria, array $sortCriteria = []): array;
+
+    public function getCount(): int;
 }

@@ -17,6 +17,11 @@ final class OrderDoctrineRepository extends AbstractCriteriaRepository implement
         return $this->findOneBy(['cartToken' => $token]);
     }
 
+    public function findLatestOrders(int $limit): array
+    {
+        return $this->findBy([], ['createdAt' => 'DESC'], $limit);
+    }
+
     protected function getEntityClass(): string
     {
         return Order::class;

@@ -13,4 +13,6 @@ interface ProductRepositoryInterface
     extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {
     public function countProductsByBrand(int $brandId): int;
+
+    public function findBestSellingProducts(int $limit): array;
 }

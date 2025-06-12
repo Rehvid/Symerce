@@ -32,4 +32,18 @@ final class ProductDoctrineRepository extends AbstractCriteriaRepository impleme
            ->getQuery()
            ->getSingleScalarResult();
    }
+
+    public function findBestSellingProducts(int $limit): array
+    {
+        $alias = $this->getAlias();
+
+        return $this->createQueryBuilder($alias)
+            ->select("$alias, SUM(orderItem.quantity) AS quantity")
+            ->leftJoin("$alias.orderItems", 'orderItem')
+            ->groupBy("$alias.id")
+            ->orderBy('quantity', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }
