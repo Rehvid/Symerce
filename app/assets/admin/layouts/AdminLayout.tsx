@@ -6,17 +6,16 @@ import { useAuth } from '@admin/common/context/AuthroizationContext';
 import { useUser } from '@admin/common/context/UserContext';
 import { useIsMobile } from '@admin/common/hooks/useIsMobile';
 import { NotificationProvider } from '@admin/common/context/NotificationContext';
-import { ModalProvider } from '@admin/common/context/ModalContext';
 import { DrawerProvider } from '@admin/common/components/drawer/DrawerContext';
 
 const AdminLayout: React.FC  = () => {
     const isMobile = useIsMobile();
     const { isLoadingAuthorization, verifyAuth } = useAuth();
     const { isAuthenticated } = useUser();
-    const [sideBarContent, setSideBarContent] = useState(null);
+    const [sideBarContent, setSideBarContent] = useState<React.ReactNode | null>(null);
 
     useEffect(() => {
-        verifyAuth();
+        verifyAuth().catch(error => console.error(error));
     }, []);
 
     if (isLoadingAuthorization) {
@@ -28,19 +27,17 @@ const AdminLayout: React.FC  = () => {
     }
 
     return (
-        <ModalProvider>
-            <DrawerProvider>
-                <div className="flex-1 transition-all duration-300 ease-in-out lg:ml-[290px] ">
-                    <SideBar isMobile={isMobile} setSideBarContent={setSideBarContent} />
-                    <TopBar isMobile={isMobile} sideBarContent={sideBarContent} />
-                    <NotificationProvider>
-                        <div className="max-w-(--breakpoint-2xl) p-[2rem] relative">
-                            <Outlet />
-                        </div>
-                    </NotificationProvider>
-                </div>
-            </DrawerProvider>
-        </ModalProvider>
+        <DrawerProvider>
+            <div className="flex-1 transition-all duration-300 ease-in-out lg:ml-[290px] ">
+                <SideBar isMobile={isMobile} setSideBarContent={setSideBarContent} />
+                <TopBar isMobile={isMobile} sideBarContent={sideBarContent} />
+                <NotificationProvider>
+                    <div className="max-w-(--breakpoint-2xl) p-[2rem] relative">
+                        <Outlet />
+                    </div>
+                </NotificationProvider>
+            </div>
+        </DrawerProvider>
     );
 };
 

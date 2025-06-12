@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect } from 'react';
 import TopBarDropdown from '@/admin/layouts/components/partials/TopBarDropdown';
 import MenuIcon from '@/images/icons/menu.svg';
-import { useModal } from '@admin/common/context/ModalContext';
-import ModalHeader from '@admin/common/components/modal/ModalHeader';
-import ModalBody from '@admin/common/components/form/ModalBody';
+import { useDrawer } from '@admin/common/components/drawer/DrawerContext';
+import DrawerHeader from '@admin/common/components/drawer/DrawerHeader';
+import { PositionType } from '@admin/common/enums/positionType';
 
 interface TopBarProps {
     sideBarContent: ReactNode;
@@ -11,25 +11,25 @@ interface TopBarProps {
 }
 
 const TopBar: React.FC<TopBarProps> = ({ sideBarContent, isMobile }) => {
-    const { openModal, closeModal } = useModal();
+    const { open, close } = useDrawer();
 
-    useEffect(() => {
-        if (!isMobile) {
-            closeModal();
-        }
-    }, [isMobile, closeModal]);
-
-    const renderModal = () => (
+    const drawerContent = () => (
         <>
-            <ModalHeader title="Nawigacja" />
-            <ModalBody>
-                <div className="min-w-[275px]">{sideBarContent}</div>
-            </ModalBody>
+            <DrawerHeader>
+                <div className="flex flex-col items-center gap-3 px-6">Nawigacja</div>
+            </DrawerHeader>
+            <div className="min-w-[275px]">{sideBarContent}</div>
         </>
     );
 
+    useEffect(() => {
+        if (!isMobile) {
+            close();
+        }
+    }, [isMobile, close]);
+
     const openSideBarModal = () => {
-        openModal(renderModal(), POSITION_TYPES.LEFT);
+        open('topbar-menu', drawerContent(), PositionType.LEFT);
     };
 
     return (
@@ -38,7 +38,7 @@ const TopBar: React.FC<TopBarProps> = ({ sideBarContent, isMobile }) => {
                 <MenuIcon onClick={openSideBarModal} />
             </div>
 
-            <div className="flex flex-col justify-end grow flex-row max-w-(--breakpoint-2xl) px-5 py-4">
+            <div className="flex justify-end grow flex-row max-w-(--breakpoint-2xl) px-5 py-4">
                 <TopBarDropdown />
             </div>
         </header>
