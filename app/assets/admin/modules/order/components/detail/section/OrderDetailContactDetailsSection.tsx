@@ -1,24 +1,20 @@
-import { OrderDetailInterface } from '@admin/modules/order/interfaces/OrderDetailInterface';
+import { OrderDetail } from '@admin/modules/order/interfaces/OrderDetail';
 import React from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
-import OrderLabelValue from '@admin/modules/order/components/detail/OrderLabelValue';
+import LabelValue from '@admin/common/components/LabelValue';
 
 interface OrderDetailContactSectionProps {
-  contactDetails: OrderDetailInterface['contactDetails'],
-  delivery: OrderDetailInterface['deliveryAddress'],
-  invoice:  OrderDetailInterface['invoiceAddress']
+  contactDetails: OrderDetail['contactDetails'],
 }
 
-const OrderDetailContactDetailsSection: React.FC<OrderDetailContactSectionProps> = ({contactDetails, delivery, invoice}) => {
+const OrderDetailContactDetailsSection: React.FC<OrderDetailContactSectionProps> = ({contactDetails}) => (
+  <FormSection title="Dane kontaktowe" useDefaultGap={false} contentContainerClasses="gap-2">
+    <LabelValue label="Imie" value={contactDetails?.firstname} />
+    <LabelValue label="Nazwisko" value={contactDetails?.lastname} />
+    <LabelValue label="Email" value={contactDetails?.email} />
+    <LabelValue label="Telefon" value={contactDetails?.phone} />
+  </FormSection>
+)
 
-    return (
-      <FormSection title="Dane kontaktowe" useDefaultGap={false} contentContainerClasses="gap-2">
-        <OrderLabelValue label="Imie" value={contactDetails?.firstname} />
-        <OrderLabelValue label="Nazwisko" value={contactDetails?.lastname} />
-        <OrderLabelValue label="Email" value={contactDetails?.email} />
-        <OrderLabelValue label="Telefon" value={contactDetails?.phone} />
-      </FormSection>
-    )
-}
 
 export default OrderDetailContactDetailsSection;

@@ -1,11 +1,22 @@
 import { Address } from '@admin/common/types/address';
+import { LineItem } from '@admin/common/components/lineItems/LineItem';
 
-export interface OrderDetailInterface {
+export interface OrderPaymentMethodCollection {
+    id: number,
+    paidAt?: string,
+    amount?: string,
+    gatewayTransactionId?: string,
+    paymentMethodName: string,
+    paymentStatus: string,
+}
+
+export interface OrderDetail {
   information: {
     id: number,
     uuid: string,
     cartToken: string,
     orderStatus: string,
+    checkoutStatus: string,
     createdAt: string,
     updatedAt: string
   }
@@ -31,23 +42,15 @@ export interface OrderDetailInterface {
   },
   payment?: {
     paymentMethod: string,
-    paymentMethodCollection: {
-      id: number,
-      paidAt?: string,
-      amount?: string,
-      gatewayTransactionId?: string,
-      paymentMethodName: string,
-      paymentStatus: string,
-    }[]
+    paymentMethodCollection: OrderPaymentMethodCollection[]
   },
   items?: {
-    itemCollection?: {
-      name?: string,
-      imageUrl?: string,
-      editUrl?: string,
-      quantity: number,
-      totalPrice: string,
-      unitPrice: string
-    }[]
+    itemCollection?: LineItem[]
+  }
+  summary?: {
+      deliveryFee?: string,
+      paymentMethodFee?: string,
+      summaryProductPrice?: string,
+      totalPrice?: string,
   }
 }

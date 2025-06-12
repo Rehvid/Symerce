@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
-import { Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
-import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
+import { Control,  FieldErrors, UseFormRegister } from 'react-hook-form';
+import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
+import { OrderFormContext } from '@admin/modules/order/interfaces/OrderFormContext';
 
 interface OrderInvoiceAddressProps {
-  register: UseFormRegister<OrderFormDataInterface>,
-  fieldErrors: FieldErrors<OrderFormDataInterface>;
+  register: UseFormRegister<OrderFormData>,
+  fieldErrors: FieldErrors<OrderFormData>;
+  control: Control<OrderFormData>;
+  formContext: OrderFormContext,
 }
 
-const OrderInvoiceAddress: React.FC<OrderInvoiceAddressProps> = ({register, fieldErrors, control, formContext, formData}) => {
-  const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);
-  const availableOptions = formContext.availableCountries;
-  const selectedOption = availableOptions?.find(option => option.value === formData?.invoiceCountry);
-
-  return (
+const OrderInvoiceAddress: React.FC<OrderInvoiceAddressProps> = ({
+    register,
+    fieldErrors,
+    control,
+    formContext,
+}) => (
     <FormSection title="Faktura">
       <FormGroup
         label={<InputLabel isRequired={true} label="Ulica" htmlFor="street"  />}
@@ -96,30 +99,14 @@ const OrderInvoiceAddress: React.FC<OrderInvoiceAddressProps> = ({register, fiel
       </FormGroup>
 
       <FormGroup label={<InputLabel label="Kraj" />}>
-        <Controller
-          name="invoiceCountry"
-          control={control}
-          defaultValue={selectedOption}
-          rules={{
-            ...validationRules.required()
-          }}
-          render={({ field, fieldState }) => (
-            <ReactSelect
-              options={availableOptions}
-              value={isDefaultOptionSelected ? field.value : selectedOption}
-              onChange={(option) => {
-                setIsDefaultOptionSelected(true);
-                field.onChange(option);
-              }}
-              hasError={fieldState.invalid}
-              errorMessage={fieldState.error?.message}
-            />
-          )}
-
-        />
+          <ControlledReactSelect
+              name="invoiceCountry"
+              control={control}
+              options={formContext?.availableCountries}
+              rules={{...validationRules.required()}}
+          />
       </FormGroup>
-    </FormSection>
-  )
-}
+    </FormSection>)
+
 
 export default OrderInvoiceAddress;

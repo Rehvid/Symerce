@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
@@ -7,33 +6,30 @@ import FormSkeleton from '@admin/common/components/skeleton/FormSkeleton';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import OrderFormBody from '@admin/modules/order/components/form/OrderFormBody';
-import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
-import { CustomerFormDataInterface } from '@admin/modules/customer/interfaces/CustomerFormDataInterface';
+import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
 
-const OrderFormPage = () => {
-  const params = useParams();
+const OrderForm = () => {
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/orders',
+        redirectSuccessUrl: '/admin/orders',
+    });
+    const requestConfig = getRequestConfig();
   const {
     register,
     handleSubmit,
     setValue,
     setError,
     control,
-    watch,
     formState: { errors: fieldErrors },
-  } = useForm<OrderFormDataInterface>({
+  } = useForm<OrderFormData>({
     mode: 'onBlur',
   });
 
-  const baseApiUrl = 'admin/orders';
-  const redirectSuccessUrl = '/admin/orders';
-  const { getApiConfig, defaultApiSuccessCallback } = useApiFormSubmit(baseApiUrl, redirectSuccessUrl, params);
-  const { isFormInitialize, formData, formContext, getFormData } = useFormInitializer<OrderFormDataInterface>();
-  const isEditMode = params.id ?? false;
-  console.log('watch', watch());
+  const { isFormInitialize, formData, formContext, getFormData } = useFormInitializer<OrderFormData>();
 
   useEffect(() => {
-      const endpoint = params.id ? `admin/orders/${params.id}` : 'admin/orders/store-data';
-      const formFieldNames = params.id
+      const endpoint = isEditMode ? `admin/orders/${entityId}` : 'admin/orders/store-data';
+      const formFieldNames = isEditMode
         ? [
           'checkoutStep',
           'status',
@@ -56,7 +52,7 @@ const OrderFormPage = () => {
           'invoiceCompanyName',
           'invoiceCompanyTaxId',
           'products',
-        ]
+        ] satisfies (keyof OrderFormData)[]
         : [];
 
       getFormData(endpoint, setValue, formFieldNames);
@@ -66,33 +62,18 @@ const OrderFormPage = () => {
     return <FormSkeleton rowsCount={12} />;
   }
 
-  const modifySubmitValues = (values: OrderFormDataInterface) => {
-    const data = {...values};
-
-    if (typeof data.country === 'object' && data.country !== null) {
-      data.country = values.country?.value;
-    }
-    if (typeof data.invoiceCountry=== 'object' && data.invoiceCountry !== null) {
-      data.invoiceCountry = values?.invoiceCountry.value;
-    }
-
-    return data;
-  }
-
   return (
     <FormWrapper
-      apiConfig={getApiConfig()}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-      modifySubmitValues={modifySubmitValues}
+        method={requestConfig.method}
+        endpoint={requestConfig.endpoint}
+        handleSubmit={handleSubmit}
+        setError={setError}
+        apiRequestCallbacks={defaultApiSuccessCallback}
     >
-      <FormApiLayout pageTitle={params.id ? 'Edytuj zamówienie' : 'Dodaj zamówienie'}>
+      <FormApiLayout pageTitle={isEditMode ? 'Edytuj zamówienie' : 'Dodaj zamówienie'}>
         <OrderFormBody
           register={register}
           control={control}
-          watch={watch}
-          setValue={setValue}
           fieldErrors={fieldErrors}
           formData={formData}
           formContext={formContext}
@@ -103,4 +84,4 @@ const OrderFormPage = () => {
   );
 }
 
-export default OrderFormPage;
+export default OrderForm;

@@ -1,14 +1,19 @@
-import CartDetailItemsSection from '@admin/modules/cart/components/section/CartDetailItemsSection';
-import CartDetailInformationSection from '@admin/modules/cart/components/section/CartDetailInformationSection';
+import CartDetailInformationSection from '@admin/modules/cart/components/CartDetailInformationSection';
+import { CartDetailData } from '@admin/modules/cart/interfaces/CartDetailData';
+import { FC } from 'react';
+import LineItemsTableSection from '@admin/common/components/lineItems/LineItemsTableSection';
 
-const CartDetailBody = ({items}) => {
+interface CartDetailBodyProps {
+    detailData: CartDetailData;
+}
+
+const CartDetailBody: FC<CartDetailBodyProps> = ({detailData}) => {
   return (
     <div className="mt-4 w-full flex-1 lg:mt-0">
-      <CartDetailInformationSection item={items} />
-      {items.items.length > 0 && (
-        <CartDetailItemsSection items={items.items}  />
+      <CartDetailInformationSection detailData={detailData} />
+      {detailData.items.length > 0 && (
+        <LineItemsTableSection title="Produkty" items={detailData.items}  />
       )}
-
     </div>
   )
 }

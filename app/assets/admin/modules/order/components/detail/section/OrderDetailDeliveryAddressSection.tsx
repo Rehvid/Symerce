@@ -1,17 +1,20 @@
 import FormSection from '@admin/common/components/form/FormSection';
-import OrderLabelValue from '@admin/modules/order/components/detail/OrderLabelValue';
-import React from 'react';
+import LabelValue from '@admin/common/components/LabelValue';
+import React, { FC } from 'react';
+import { OrderDetail } from '@admin/modules/order/interfaces/OrderDetail';
 
+interface OrderDetailDeliveryAddressSectionProps {
+    delivery: OrderDetail['deliveryAddress']
+}
 
-const OrderDetailDeliveryAddressSection = ({delivery}) => {
-  return (
+const OrderDetailDeliveryAddressSection: FC<OrderDetailDeliveryAddressSectionProps> = ({delivery}) => (
     <FormSection title="Adres Dostawy" useDefaultGap={false} contentContainerClasses="gap-2">
-      <OrderLabelValue label="Kod pocztowy" value={delivery?.address?.postalCode} />
-      <OrderLabelValue label="Miasto" value={delivery?.address?.city} />
-      <OrderLabelValue label="Ulica" value={delivery?.address?.street} />
-      <OrderLabelValue label="Instrukcje dla dostawcy" value={delivery?.address?.deliveryInstructions} />
+      <LabelValue label="Kod pocztowy" value={delivery?.address?.postalCode} />
+      <LabelValue label="Miasto" value={delivery?.address?.city} />
+      <LabelValue label="Ulica" value={delivery?.address?.street} />
+      <LabelValue label="Instrukcje dla dostawcy" value={delivery?.deliveryInstructions} />
     </FormSection>
   )
-}
+
 
 export default OrderDetailDeliveryAddressSection;

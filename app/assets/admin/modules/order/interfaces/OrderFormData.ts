@@ -1,7 +1,7 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
 import { CheckoutItem } from '@admin/common/types/checkoutItem';
 
-export interface OrderFormDataInterface extends FormDataInterface {
+export interface OrderFormData extends FormDataInterface {
   checkoutStep: string,
   status: string,
   uuid?: string,
@@ -19,7 +19,12 @@ export interface OrderFormDataInterface extends FormDataInterface {
   invoiceStreet?: string,
   invoiceCity?: string,
   invoicePostalCode?: string,
+  invoiceCountry?: number | null;
+  invoiceCompanyName?: string | null,
+  invoiceCompanyTaxId?: string | null,
   companyName?: string,
   companyTaxId?: string,
-  products?: CheckoutItem[]
+  products?: CheckoutItem[];
+  country: number;
+
 }

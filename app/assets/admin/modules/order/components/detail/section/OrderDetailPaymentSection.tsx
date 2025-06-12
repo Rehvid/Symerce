@@ -1,16 +1,13 @@
 import FormSection from '@admin/common/components/form/FormSection';
-import { OrderDetailInterface } from '@admin/modules/order/interfaces/OrderDetailInterface';
+import { OrderDetail } from '@admin/modules/order/interfaces/OrderDetail';
 import React from 'react';
-import OrderDetailTableItem from '@admin/modules/order/components/detail/OrderDetailTableItem';
 import OrderDetailTablePaymentItem from '@admin/modules/order/components/detail/OrderDetailTablePaymentItem';
 
 interface OrderDetailPaymentSectionProps {
-  payment: OrderDetailInterface['payment']
+  payment: OrderDetail['payment']
 }
 
-const OrderDetailPaymentSection: React.FC<OrderDetailPaymentSectionProps> = ({payment}) => {
-  console.log("payment", payment);
-  return (
+const OrderDetailPaymentSection: React.FC<OrderDetailPaymentSectionProps> = ({payment}) => (
     <FormSection title="Płatności">
       <table className="w-full border-seperate text-left">
         <thead>
@@ -23,13 +20,12 @@ const OrderDetailPaymentSection: React.FC<OrderDetailPaymentSectionProps> = ({pa
         </tr>
         </thead>
         <tbody>
-        {payment?.paymentsCollection?.map((item, key) => (
+        {payment?.paymentMethodCollection?.map((item, key) => (
           <OrderDetailTablePaymentItem key={key} item={item} />
         ))}
         </tbody>
       </table>
     </FormSection>
   )
-}
 
 export default OrderDetailPaymentSection;

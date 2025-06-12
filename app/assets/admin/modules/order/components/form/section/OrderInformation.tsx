@@ -1,26 +1,25 @@
 import React from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { Control, FieldErrors } from 'react-hook-form';
 import { validationRules } from '@admin/common/utils/validationRules';
-import Select from '@admin/common/components/form/select/Select';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputField from '@admin/common/components/form/input/InputField';
 import Description from '@admin/common/components/Description';
-import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
-import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
+import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
+import { OrderFormContext } from '@admin/modules/order/interfaces/OrderFormContext';
 
 interface OrderInformationProps {
-  control: Control<OrderFormDataInterface>;
-  fieldErrors: FieldErrors<OrderFormDataInterface>;
+  control: Control<OrderFormData>;
+  fieldErrors: FieldErrors<OrderFormData>;
   isEditMode: boolean,
-  formData?: OrderFormDataInterface;
-  formContext?: FormContextInterface;
+  formData?: OrderFormData;
+  formContext?: OrderFormContext;
 }
 
 const OrderInformation: React.FC<OrderInformationProps> = ({
  control,
- fieldErrors,
  isEditMode,
  formContext,
  formData
@@ -30,48 +29,26 @@ const OrderInformation: React.FC<OrderInformationProps> = ({
       <FormGroup
         label={<InputLabel isRequired={true} label="Status" htmlFor="status"  />}
       >
-        <Controller
-          name="status"
-          control={control}
-          defaultValue={null}
-          rules={{
-            ...validationRules.required(),
-          }}
-          render={({ field }) => (
-            <Select
-              hasError={!!fieldErrors?.status}
-              errorMessage={fieldErrors?.status?.message}
-              options={formContext?.availableStatuses || []}
-              selected={field.value}
-              onChange={(value) => {
-                field.onChange(value);
-              }}
-            />
-          )}
+        <ControlledReactSelect
+            name="status"
+            control={control}
+            rules={{
+                ...validationRules.required(),
+            }}
+            options={formContext?.availableStatuses || []}
         />
       </FormGroup>
       <FormGroup
         label={<InputLabel isRequired={true} label="Krok w zamówieniu" htmlFor="checkoutStep"  />}
       >
-        <Controller
-          name="checkoutStep"
-          control={control}
-          defaultValue={null}
-          rules={{
-            ...validationRules.required(),
-          }}
-          render={({ field }) => (
-            <Select
-              hasError={!!fieldErrors?.checkoutStep}
-              errorMessage={fieldErrors?.checkoutStep?.message}
-              options={formContext?.availableCheckoutSteps || []}
-              selected={field.value}
-              onChange={(value) => {
-                field.onChange(value);
+          <ControlledReactSelect
+              name="checkoutStep"
+              control={control}
+              rules={{
+                  ...validationRules.required(),
               }}
-            />
-          )}
-        />
+              options={formContext?.availableCheckoutSteps || []}
+          />
       </FormGroup>
       {isEditMode && (
         <FormGroup
@@ -83,7 +60,7 @@ const OrderInformation: React.FC<OrderInformationProps> = ({
             id="invoiceStreet"
             disabled
             readOnly
-            defaultValue={formData.uuid}
+            defaultValue={formData?.uuid}
           />
         </FormGroup>
       )}

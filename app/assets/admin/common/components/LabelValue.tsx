@@ -3,10 +3,10 @@ import React from 'react';
 interface OrderLabelValueProps {
   icon?: JSX.Element | null
   label: string,
-  value?: string | null
+  value?: string | number | null
 }
 
-const OrderLabelValue: React.FC<OrderLabelValueProps> = ({label, value, icon}) => (
+const LabelValue: React.FC<OrderLabelValueProps> = ({label, value, icon}) => (
   <div className="flex items-center gap-1.5">
     {icon && (icon)}
     <span className="text-sm font-normal">{label}:</span>
@@ -14,4 +14,4 @@ const OrderLabelValue: React.FC<OrderLabelValueProps> = ({label, value, icon}) =
   </div>
 )
 
-export default OrderLabelValue;
+export default LabelValue;

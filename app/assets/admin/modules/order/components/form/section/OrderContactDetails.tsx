@@ -6,12 +6,12 @@ import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
+import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
 import FormSection from '@admin/common/components/form/FormSection';
 
 interface OrderContactDetailsProps {
-  register: UseFormRegister<OrderFormDataInterface>,
-  fieldErrors: FieldErrors<OrderFormDataInterface>;
+  register: UseFormRegister<OrderFormData>,
+  fieldErrors: FieldErrors<OrderFormData>;
 }
 
 const OrderContactDetails: React.FC<OrderContactDetailsProps> = ({register, fieldErrors}) => {

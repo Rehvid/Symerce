@@ -1,17 +1,17 @@
 import FormSection from '@admin/common/components/form/FormSection';
-import { OrderDetailInterface } from '@admin/modules/order/interfaces/OrderDetailInterface';
+import { OrderDetail } from '@admin/modules/order/interfaces/OrderDetail';
 import React from 'react';
-import OrderLabelValue from '@admin/modules/order/components/detail/OrderLabelValue';
+import LabelValue from '@admin/common/components/LabelValue';
 
 interface OrderDetailShippingSectionProps {
-  shipping: OrderDetailInterface['shipping']
+  shipping: OrderDetail['shipping']
 }
 
 const OrderDetailShippingSection: React.FC<OrderDetailShippingSectionProps> = ({shipping}) => {
   return (
     <FormSection title="Dostawa" useDefaultGap={false} contentContainerClasses="gap-2">
-      <OrderLabelValue label="Nazwa" value={shipping?.name} />
-      <OrderLabelValue label="Opłata" value={shipping?.fee} />
+      <LabelValue label="Nazwa" value={shipping?.name} />
+      <LabelValue label="Opłata" value={shipping?.fee} />
     </FormSection>
   )
 }

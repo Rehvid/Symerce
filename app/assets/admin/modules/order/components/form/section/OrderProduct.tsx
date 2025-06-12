@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import { DynamicFields } from '@admin/common/components/form/DynamicFields';
 import InputField from '@admin/common/components/form/input/InputField';
-import Select from '@admin/common/components/form/select/Select';
-import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Control, FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 import { validationRules } from '@admin/common/utils/validationRules';
-import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
-import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
+import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
+import { OrderFormContext } from '@admin/modules/order/interfaces/OrderFormContext';
+import InputLabel from '@admin/common/components/form/input/InputLabel';
+import FormGroup from '@/admin/common/components/form/FormGroup';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 
 interface OrderProductProps {
-  register: UseFormRegister<OrderFormDataInterface>;
-  control: Control<OrderFormDataInterface>;
-  fieldErrors: FieldErrors<OrderFormDataInterface>;
-  formContext?: FormContextInterface;
+  register: UseFormRegister<OrderFormData>;
+  control: Control<OrderFormData>;
+  fieldErrors: FieldErrors<OrderFormData>;
+  formContext: OrderFormContext;
 }
 
 const OrderProduct: React.FC<OrderProductProps> = ({
@@ -26,35 +28,29 @@ const OrderProduct: React.FC<OrderProductProps> = ({
       <DynamicFields
         name="products"
         control={control}
-        register={register}
         renderItem={(index, namePrefix) => (
           <div className="space-y-2 flex flex-col gap-4">
-            <Controller
-              name={`${namePrefix}.productId`}
-              control={control}
-              defaultValue={null}
-              rules={{
-                ...validationRules.required(),
-              }}
-              render={({ field }) => (
-                <Select
-                  options={formContext?.availableProducts || []}
-                  selected={field.value}
-                  onChange={(value) => {
-                    field.onChange(value);
-                  }}
-                />
-              )}
-            />
-            <InputField
-              {...register(`${namePrefix}.quantity`, {
-                ...validationRules.required(),
-              })}
-              placeholder="Ilość"
-              type="number"
-              hasError={!!fieldErrors?.products?.[index]?.quantity}
-              errorMessage={fieldErrors?.products?.[index]?.quantity?.message}
-            />
+              <FormGroup label={<InputLabel isRequired={true} label="Produkt"   />}>
+                  <ControlledReactSelect
+                      name={`${namePrefix}.productId` as Path<OrderFormData>}
+                      control={control}
+                      options={formContext?.availableProducts || []}
+                      rules={{
+                          ...validationRules.required(),
+                      }}
+                  />
+              </FormGroup>
+              <FormGroup label={<InputLabel isRequired={true} label="Ilość"   />}>
+                  <InputField
+                      {...register(`${namePrefix}.quantity` as Path<OrderFormData>, {
+                          ...validationRules.required(),
+                      })}
+                      placeholder="Ilość"
+                      type="number"
+                      hasError={!!fieldErrors?.products?.[index]?.quantity}
+                      errorMessage={fieldErrors?.products?.[index]?.quantity?.message}
+                  />
+              </FormGroup>
           </div>
         )}
       />

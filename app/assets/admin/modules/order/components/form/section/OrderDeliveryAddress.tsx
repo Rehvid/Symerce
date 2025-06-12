@@ -1,26 +1,29 @@
 import FormSection from '@admin/common/components/form/FormSection';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
 import InputField from '@admin/common/components/form/input/InputField';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import Switch from '@admin/common/components/form/input/Switch';
-import { Controller, FieldErrors, UseFormRegister } from 'react-hook-form';
-import { OrderFormDataInterface } from '@admin/modules/order/interfaces/OrderFormDataInterface';
-import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
+import { OrderFormContext } from '@admin/modules/order/interfaces/OrderFormContext';
+import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 
 interface OrderDeliveryAddressProps {
-  register: UseFormRegister<OrderFormDataInterface>,
-  fieldErrors: FieldErrors<OrderFormDataInterface>;
+  register: UseFormRegister<OrderFormData>,
+  fieldErrors: FieldErrors<OrderFormData>;
+  control: Control<OrderFormData>,
+  formContext: OrderFormContext,
 }
 
-const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({register, fieldErrors, control, formContext, formData}) => {
-  const [isDefaultOptionSelected, setIsDefaultOptionSelected] = useState<boolean>(false);
-  const availableOptions = formContext?.availableCountries;
-  const selectedOption = availableOptions?.find(option => option.value === formData?.country);
-
-  return (
+const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({
+    register,
+    fieldErrors,
+    control,
+    formContext,
+}) => (
     <FormSection title="Adres dostawy">
         <FormGroup
           label={<InputLabel isRequired={true} label="Ulica" htmlFor="street"  />}
@@ -71,27 +74,12 @@ const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({register, fi
       </FormGroup>
 
       <FormGroup label={<InputLabel label="Kraj" isRequired={true} />}>
-        <Controller
-          name="country"
-          control={control}
-          defaultValue={selectedOption}
-          rules={{
-            ...validationRules.required()
-          }}
-          render={({ field, fieldState }) => (
-            <ReactSelect
-              options={availableOptions}
-              value={isDefaultOptionSelected ? field.value : selectedOption}
-              onChange={(option) => {
-                setIsDefaultOptionSelected(true);
-                field.onChange(option);
-              }}
-              hasError={fieldState.invalid}
-              errorMessage={fieldState.error?.message}
-            />
-          )}
-
-        />
+          <ControlledReactSelect
+              name="country"
+              control={control}
+              options={formContext?.availableCountries}
+              rules={{...validationRules.required()}}
+          />
       </FormGroup>
 
       <FormGroup label={ <InputLabel label="Dodać fakture?" /> }>
@@ -99,7 +87,7 @@ const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({register, fi
       </FormGroup>
 
     </FormSection>
-  )
-}
+)
+
 
 export default OrderDeliveryAddress;

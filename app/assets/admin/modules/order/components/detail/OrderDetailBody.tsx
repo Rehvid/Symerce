@@ -1,34 +1,30 @@
-import OrderDetailInfoSection from '@admin/modules/order/components/detail/section/OrderDetailInfoSection';
+import OrderDetailInformationSection from '@admin/modules/order/components/detail/section/OrderDetailInformationSection';
 import OrderDetailContactDetailsSection from '@admin/modules/order/components/detail/section/OrderDetailContactDetailsSection';
 import OrderDetailDeliveryAddressSection from '@admin/modules/order/components/detail/section/OrderDetailDeliveryAddressSection';
 import OrderDetailShippingSection from '@admin/modules/order/components/detail/section/OrderDetailShippingSection';
 import OrderDetailPaymentSection from '@admin/modules/order/components/detail/section/OrderDetailPaymentSection';
-import OrderDetailItemsSection from '@admin/modules/order/components/detail/section/OrderDetailItemsSection';
 import React from 'react';
-import { OrderDetailInterface } from '@admin/modules/order/interfaces/OrderDetailInterface';
+import { OrderDetail } from '@admin/modules/order/interfaces/OrderDetail';
 import OrderDetailInvoiceAddressSection
   from '@admin/modules/order/components/detail/section/OrderDetailInvoiceAddressSection';
 import OrderSummarySection from '@admin/modules/order/components/detail/section/OrderSummarySection';
+import LineItemsTableSection from '@admin/common/components/lineItems/LineItemsTableSection';
 
 interface OrderDetailBodyProps {
-  items: OrderDetailInterface
+  detailData: OrderDetail
 }
 
-const OrderDetailBody: React.FC<OrderDetailBodyProps> = ({ items }) => {
+const OrderDetailBody: React.FC<OrderDetailBodyProps> = ({ detailData }) => {
   return (
-    <div className="py-4 flex lg:flex-row flex-col gap-5 ">
-      <div className="w-full lg:w-96">
-        <OrderDetailInfoSection  information={items.information} />
-        <OrderDetailContactDetailsSection contactDetails={items.contactDetails} delivery={items.deliveryAddress} invoice={items.invoiceAddress}/>
-        <OrderDetailDeliveryAddressSection delivery={items.deliveryAddress} />
-        <OrderDetailInvoiceAddressSection invoice={items.invoiceAddress} />
-        <OrderDetailShippingSection shipping={items.shipping} />
-      </div>
-      <div className="mt-4 w-full flex-1 lg:mt-0">
-        <OrderDetailItemsSection items={items.items?.itemCollection || []} />
-        <OrderSummarySection summary={items.summary} />
-        <OrderDetailPaymentSection payment={items.payment} />
-      </div>
+    <div className="py-4 flex flex-col gap-5 ">
+        <OrderDetailInformationSection information={detailData.information} />
+        <LineItemsTableSection title="Produkty" items={detailData.items?.itemCollection || []}  />
+        <OrderSummarySection summary={detailData.summary} />
+        <OrderDetailPaymentSection payment={detailData.payment} />
+        <OrderDetailContactDetailsSection contactDetails={detailData.contactDetails} />
+        <OrderDetailDeliveryAddressSection delivery={detailData.deliveryAddress} />
+        <OrderDetailInvoiceAddressSection invoice={detailData.invoiceAddress} />
+        <OrderDetailShippingSection shipping={detailData.shipping} />
     </div>
   )
 }

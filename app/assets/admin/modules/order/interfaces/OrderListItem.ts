@@ -1,6 +1,6 @@
 import { Money } from '@admin/common/types/money';
 
-export interface OrderListItemInterface {
+export interface OrderListItem {
   id: number,
   status?: string,
   checkoutStep?: string,
