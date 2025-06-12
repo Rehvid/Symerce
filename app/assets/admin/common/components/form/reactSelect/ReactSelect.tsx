@@ -1,6 +1,6 @@
-import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select';
+import Select, {  MultiValue, SingleValue } from 'react-select';
 import makeAnimated from 'react-select/animated';
-import React, { useState } from 'react';
+import React from 'react';
 import { SelectOption } from '@admin/common/types/selectOption';
 
 interface ReactSelectProps {
@@ -11,6 +11,7 @@ interface ReactSelectProps {
     onChange: (value: string | number | any | (string | number | any)[] | null) => void;
     isMulti?: boolean;
     menuPlacement?: 'auto' | 'bottom' | 'top';
+    useMenuPortal?: boolean;
 }
 
 const ReactSelect: React.FC<ReactSelectProps> = ({
@@ -20,6 +21,7 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
   errorMessage,
   onChange,
   isMulti = false,
+  useMenuPortal = false,
   menuPlacement = 'bottom',
 }) => {
 
@@ -46,8 +48,9 @@ const ReactSelect: React.FC<ReactSelectProps> = ({
           isMulti={isMulti}
           components={makeAnimated()}
           menuPlacement={menuPlacement}
+          menuPortalTarget={useMenuPortal ? document.body : undefined}
           styles={{
-            control: (baseStyles, state) => ({
+            control: (baseStyles) => ({
               ...baseStyles,
               borderColor: hasError ? 'oklch(0.637 0.237 25.331)' : baseStyles.borderColor,
             }),

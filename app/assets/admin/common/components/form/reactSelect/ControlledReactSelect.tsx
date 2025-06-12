@@ -37,6 +37,7 @@ const ControlledReactSelect = <T extends FieldValues>  ({
                         onChange={field.onChange}
                         hasError={fieldState.invalid}
                         errorMessage={fieldState.error?.message}
+                        useMenuPortal={true}
                     />
                 </>
             );
