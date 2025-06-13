@@ -7,20 +7,14 @@ import { Control, FieldErrors, UseFormRegister, useWatch } from 'react-hook-form
 import { CustomerFormContext } from '@admin/modules/customer/interfaces/CustomerFormContext';
 
 interface CustomerFormBodyProps {
-    register: UseFormRegister<CustomerFormData>,
-    isEditMode: boolean,
-    fieldErrors: FieldErrors<CustomerFormData>,
-    control: Control<CustomerFormData>,
-    formContext: CustomerFormContext
+    register: UseFormRegister<CustomerFormData>;
+    isEditMode: boolean;
+    fieldErrors: FieldErrors<CustomerFormData>;
+    control: Control<CustomerFormData>;
+    formContext: CustomerFormContext;
 }
 
-const CustomerFormBody: FC<CustomerFormBodyProps> = ({
-    register,
-    fieldErrors,
-    isEditMode,
-    control,
-    formContext
-}) => {
+const CustomerFormBody: FC<CustomerFormBodyProps> = ({ register, fieldErrors, isEditMode, control, formContext }) => {
     const isDelivery = useWatch({
         control,
         name: 'isDelivery',
@@ -31,27 +25,27 @@ const CustomerFormBody: FC<CustomerFormBodyProps> = ({
         name: 'isInvoice',
     });
 
-  return (
-    <>
-      <CustomerInformation register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
-      {isDelivery && (
-        <CustomerDeliveryAddress
-            register={register}
-            fieldErrors={fieldErrors}
-            control={control}
-            formContext={formContext}
-        />
-      )}
-      {isInvoice && (
-        <CustomerInvoiceAddress
-            register={register}
-            fieldErrors={fieldErrors}
-            control={control}
-            formContext={formContext}
-        />
-      )}
-    </>
-  )
-}
+    return (
+        <>
+            <CustomerInformation register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
+            {isDelivery && (
+                <CustomerDeliveryAddress
+                    register={register}
+                    fieldErrors={fieldErrors}
+                    control={control}
+                    formContext={formContext}
+                />
+            )}
+            {isInvoice && (
+                <CustomerInvoiceAddress
+                    register={register}
+                    fieldErrors={fieldErrors}
+                    control={control}
+                    formContext={formContext}
+                />
+            )}
+        </>
+    );
+};
 
 export default CustomerFormBody;

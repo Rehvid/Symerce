@@ -18,13 +18,13 @@ final readonly class CustomerFormResponse
         public ?string $postalCode,
         public ?string $city,
         public ?string $deliveryInstructions,
-        public ?int $country,
+        public ?int $countryId,
         public ?string $invoiceStreet,
         public ?string $invoicePostalCode,
         public ?string $invoiceCity,
         public ?string $invoiceCompanyName,
         public ?string $invoiceCompanyTaxId,
-        public ?int $invoiceCountry,
+        public ?int $invoiceCountryId,
     ){
 
     }

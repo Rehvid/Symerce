@@ -9,6 +9,9 @@ use App\Common\Application\Dto\Request\Address\SaveAddressDeliveryRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressInvoiceRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
 use App\Common\Application\Dto\Request\ContactDetails\SaveContactDetailsRequest;
+use App\Common\Application\Dto\Request\SavePasswordRequest;
+use App\Common\Domain\Entity\Customer;
+use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveCustomerRequest implements ArrayHydratableInterface
@@ -21,9 +24,12 @@ final readonly class SaveCustomerRequest implements ArrayHydratableInterface
     )]
     public ?int $id;
 
-    public string $password;
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[CustomAssertUniqueEmail(options: ['field' => 'email', 'className' => Customer::class])]
+    public string $email;
 
-    public string $passwordConfirmation; //TODO: Move it to Request
+    public SavePasswordRequest $savePasswordRequest;
 
     public SaveContactDetailsRequest $saveContactDetailsRequest;
 
@@ -38,8 +44,8 @@ final readonly class SaveCustomerRequest implements ArrayHydratableInterface
     public bool $isActive;
 
     public function __construct(
-        string $password,
-        string $passwordConfirmation,
+        SavePasswordRequest $passwordRequest,
+        string $email,
         SaveContactDetailsRequest $saveContactDetailsRequest,
         ?int $id = null,
         ?SaveAddressDeliveryRequest $saveAddressDeliveryRequest = null,
@@ -48,8 +54,8 @@ final readonly class SaveCustomerRequest implements ArrayHydratableInterface
         bool $isInvoice = false,
         bool $isActive = false,
     ) {
-        $this->password = $password;
-        $this->passwordConfirmation = $passwordConfirmation;
+        $this->email = $email;
+        $this->savePasswordRequest = $passwordRequest;
         $this->saveContactDetailsRequest = $saveContactDetailsRequest;
         $this->id = $id;
         $this->saveAddressDeliveryRequest = $saveAddressDeliveryRequest;
@@ -64,13 +70,10 @@ final readonly class SaveCustomerRequest implements ArrayHydratableInterface
         $isDelivery = $data['isDelivery'] ?? false;
         $isInvoice = $data['isInvoice'] ?? false;
         $isActive = $data['isActive'] ?? false;
-        $password = $data['password'] ?? null;
-        $passwordConfirmation = $data['passwordConfirmation'] ?? null;
 
         $saveContactDetailsRequest = new SaveContactDetailsRequest(
             firstname: $data['firstname'] ?? null,
             surname: $data['surname'] ?? null,
-            email: $data['email'] ?? null,
             phone: $data['phone'] ?? null,
         );
 
@@ -81,7 +84,7 @@ final readonly class SaveCustomerRequest implements ArrayHydratableInterface
                     street: $data['street'] ?? null,
                     postalCode: $data['postalCode'] ?? null,
                     city: $data['city'] ?? null,
-                    country: $data['country'] ?? null,
+                    countryId: $data['countryId'] ?? null,
                 ),
                 deliveryInstructions: $data['deliveryInstructions'] ?? null,
             );
@@ -93,16 +96,20 @@ final readonly class SaveCustomerRequest implements ArrayHydratableInterface
                     street: $data['invoiceStreet'] ?? null,
                     postalCode: $data['invoicePostalCode'] ?? null,
                     city: $data['invoiceCity'] ?? null,
-                    country: $data['invoiceCountry'] ?? null,
+                    countryId: $data['invoiceCountryId'] ?? null,
                 ),
                 companyName: $data['invoiceCompanyName'] ?? null,
                 companyTaxId: $data['invoiceCompanyTaxId'] ?? null,
             );
         }
 
+        $passwordRequest = new SavePasswordRequest(
+            password: $data['password'] ?? null,
+            passwordConfirmation: $data['passwordConfirmation'] ?? null,
+        );
+
         return new self(
-            password: $password,
-            passwordConfirmation: $passwordConfirmation,
+            passwordRequest: $passwordRequest,
             saveContactDetailsRequest: $saveContactDetailsRequest,
             id: $data['id'] ?? null,
             saveAddressDeliveryRequest: $saveAddressDeliveryRequest,
@@ -110,6 +117,7 @@ final readonly class SaveCustomerRequest implements ArrayHydratableInterface
             isDelivery: $isDelivery,
             isInvoice: $isInvoice,
             isActive: $isActive,
+            email: $data['email'] ?? null,
         );
     }
 }

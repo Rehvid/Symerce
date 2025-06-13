@@ -71,13 +71,13 @@ final readonly class CustomerAssembler
             postalCode: $deliveryAddress?->getAddress()?->getPostalCode(),
             city: $deliveryAddress?->getAddress()?->getCity(),
             deliveryInstructions: $deliveryAddress?->getDeliveryInstructions(),
-            country: $deliveryAddress?->getAddress()?->getCountry()->getId(),
+            countryId: $deliveryAddress?->getAddress()?->getCountry()->getId(),
             invoiceStreet: $invoiceAddress?->getAddress()?->getStreet(),
             invoicePostalCode: $invoiceAddress?->getAddress()?->getPostalCode(),
             invoiceCity: $invoiceAddress?->getAddress()?->getCity(),
             invoiceCompanyName: $invoiceAddress?->getCompanyName(),
             invoiceCompanyTaxId: $invoiceAddress?->getCompanyTaxId(),
-            invoiceCountry: $invoiceAddress?->getAddress()?->getCountry()->getId(),
+            invoiceCountryId: $invoiceAddress?->getAddress()?->getCountry()->getId(),
         );
 
         return $this->responseHelperAssembler->wrapFormResponse(

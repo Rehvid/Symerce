@@ -1,22 +1,21 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
 
-
 export interface CustomerFormData extends FormDataInterface {
     id?: number | null;
     firstname: string;
-    surname : string;
+    surname: string;
     email: string;
     phone?: string | null;
     isActive: boolean;
     isDelivery: boolean;
     isInvoice: boolean;
     city?: string | null;
-    country?: number | null;
+    countryId?: number | null;
     postalCode?: string | null;
     street?: string | null;
     deliveryInstructions?: string | null;
     invoiceCity?: string | null;
-    invoiceCountry?: number | null;
+    invoiceCountryId?: number | null;
     invoicePostalCode?: string | null;
     invoiceStreet?: string | null;
     invoiceCompanyName?: string | null;

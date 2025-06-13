@@ -21,7 +21,7 @@ final readonly class CustomerDataFactory
         $contactDetails = $customerRequest->saveContactDetailsRequest;
         $deliveryAddress = $customerRequest->saveAddressDeliveryRequest;
         $invoiceAddress = $customerRequest->saveAddressInvoiceRequest;
-        $password = $customerRequest->password === '' ? null : $customerRequest->password;
+        $password = $customerRequest->savePasswordRequest->password === '' ? null : $customerRequest->savePasswordRequest->password;
 
         $deliveryAddressData = null;
         if ($deliveryAddress) {
@@ -29,7 +29,7 @@ final readonly class CustomerDataFactory
                 street: $deliveryAddress->saveAddressRequest->street,
                 postalCode: $deliveryAddress->saveAddressRequest->postalCode,
                 city: $deliveryAddress->saveAddressRequest->city,
-                country: $this->countryRepository->findById($deliveryAddress->saveAddressRequest->country),
+                country: $this->countryRepository->findById($deliveryAddress->saveAddressRequest->countryId),
             );
         }
 
@@ -39,7 +39,7 @@ final readonly class CustomerDataFactory
                 street: $invoiceAddress->saveAddressRequest->street,
                 postalCode: $invoiceAddress->saveAddressRequest->postalCode,
                 city: $invoiceAddress->saveAddressRequest->city,
-                country: $this->countryRepository->findById($invoiceAddress->saveAddressRequest->country),
+                country: $this->countryRepository->findById($invoiceAddress->saveAddressRequest->countryId),
             );
         }
 
@@ -49,10 +49,10 @@ final readonly class CustomerDataFactory
                 surname: $contactDetails->surname,
                 phone: $contactDetails->phone,
             ),
-            email: $contactDetails->email,
+            email: $customerRequest->email,
             id: $customerRequest->id,
             password: $password,
-            passwordConfirmation: $customerRequest->passwordConfirmation,
+            passwordConfirmation: $customerRequest->savePasswordRequest->passwordConfirmation,
             deliveryAddressData: $deliveryAddressData,
             deliveryInstructions: $deliveryAddress?->deliveryInstructions,
             invoiceAddressData: $invoiceAddressData,
