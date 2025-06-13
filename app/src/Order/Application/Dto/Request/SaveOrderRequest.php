@@ -15,6 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveOrderRequest implements ArrayHydratableInterface
 {
+    //TODO: Add customer for option
+
     public SaveContactDetailsRequest  $saveContactDetailsRequest;
     public SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
 
