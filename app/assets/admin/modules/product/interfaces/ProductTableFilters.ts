@@ -5,4 +5,5 @@ export interface ProductTableFilters extends TableFilters {
   regularPriceFrom? : number,
   regularPriceTo?: number,
   quantity?: number
+  search?: string,
 }

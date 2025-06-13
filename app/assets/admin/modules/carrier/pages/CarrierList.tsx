@@ -28,6 +28,7 @@ const CarrierList = () => {
   const [filters, setFilters] = useState<CarrierTableFilters>(
     filterEmptyValues({
       ...defaultFilters,
+      search: getCurrentParam('search', (value) => String(value)),
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
       feeFrom: getCurrentParam('feeFrom', (value) => Number(value)),
       feeTo: getCurrentParam('feeTo', (value) => Number(value)),

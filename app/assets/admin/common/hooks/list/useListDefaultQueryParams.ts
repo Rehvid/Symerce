@@ -12,9 +12,6 @@ const useListDefaultQueryParams = () => {
     page: Number(params.get('page')) || 1,
   };
 
-  if (params.has('search')) {
-    defaultFilters.search = params.get('search');
-  }
 
   const defaultSort: Sort = {
     orderBy: params.get('orderBy') || null,

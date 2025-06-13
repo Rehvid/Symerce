@@ -60,7 +60,14 @@ const CartList = () => {
       <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
           <TableToolbar>
               <TableToolbarActions title="Lista koszyków" totalItems={pagination?.totalItems} createHref={null} />
-              <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
+              <TableToolbarFilters
+                  sort={sort}
+                  setSort={setSort}
+                  filters={filters}
+                  setFilters={setFilters}
+                  defaultFilters={defaultFilters}
+                  useSearch={false}
+              >
                   <ActiveFilter setFilters={setFilters} filters={filters} />
               </TableToolbarFilters>
           </TableToolbar>

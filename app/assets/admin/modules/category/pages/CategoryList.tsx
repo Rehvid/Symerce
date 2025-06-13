@@ -26,6 +26,7 @@ const CategoryList = () => {
   const [filters, setFilters] = useState<CategoryTableFilters>(
     filterEmptyValues({
       ...defaultFilters,
+      search: getCurrentParam('search', (value) => String(value)),
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
     }) as CategoryTableFilters,
   );

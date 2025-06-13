@@ -49,10 +49,10 @@ const SelectFilter = <T extends TableFilters,>({
     }, [filters[nameFilter]]);
 
     const handleChange = (selected: any) => {
-
         if (selected === null) {
             const { [nameFilter]: _, ...rest } = filters;
             setFilters({ ...rest, page: 1 } as T);
+            setSelectedOption(null);
             return;
         }
 
@@ -89,7 +89,6 @@ const SelectFilter = <T extends TableFilters,>({
                 onChange={handleChange}
                 isMulti={isMulti}
                 hasError={false}
-                errorMessage=""
             />
         </div>
     );

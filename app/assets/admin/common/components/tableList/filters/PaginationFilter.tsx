@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
+import { SelectOption } from '@admin/common/types/selectOption';
 
-interface SelectOption {
-    label: string | number;
-    value: number;
-}
 
 export const PAGINATION_FILTER_DEFAULT_OPTION = 10;
 
@@ -33,6 +30,7 @@ options = [],
     const activeOptions = overrideDefaultOptions ? options : defaultOptions;
 
     const getCurrentValue = () => {
+        console.log("Filters", filters);
         const currentLimit = Number(filters.limit) || PAGINATION_FILTER_DEFAULT_OPTION;
         return activeOptions.find(option => option.value === currentLimit) || null;
     };
@@ -57,7 +55,7 @@ options = [],
 
         setFilters({
             ...filters,
-            limit: selected.value,
+            limit: selected,
             page: 1,
         } as T);
     };

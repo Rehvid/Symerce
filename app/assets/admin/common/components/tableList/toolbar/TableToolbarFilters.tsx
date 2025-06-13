@@ -10,6 +10,7 @@ import FilterResetIcon from '@/images/icons/filter-reset.svg';
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
 import { Sort } from '@admin/common/interfaces/Sort';
 import { useDrawer } from '@admin/common/components/drawer/DrawerContext';
+import clsx from 'clsx';
 
 interface TableToolbarFilters<T extends TableFilters> {
     sort: Sort;
@@ -18,6 +19,7 @@ interface TableToolbarFilters<T extends TableFilters> {
     setFilters: React.Dispatch<React.SetStateAction<T>>;
     defaultFilters: TableFilters;
     children?: React.ReactNode;
+    useSearch?: boolean;
 }
 
 const TableToolbarFilters= <T extends TableFilters,> ({
@@ -27,6 +29,7 @@ const TableToolbarFilters= <T extends TableFilters,> ({
     setFilters,
     defaultFilters = { limit: 10, page: 1 },
     children,
+    useSearch = true,
 }: TableToolbarFilters<T>) => {
     const {open} = useDrawer();
 
@@ -66,8 +69,10 @@ const TableToolbarFilters= <T extends TableFilters,> ({
 
     return (
         <>
-            <div className="sm:flex sm:items-center gap-4 sm:justify-between">
-                <SearchFilter filters={filters} setFilters={setFilters} />
+            <div className={clsx("sm:flex sm:items-center gap-4", useSearch ? "sm:justify-between" : "sm:justify-end")}>
+                {useSearch && (
+                    <SearchFilter filters={filters} setFilters={setFilters} />
+                )}
                 {children && (
                     <>
                             <Button

@@ -26,7 +26,7 @@ const TopBar: React.FC<TopBarProps> = ({ sideBarContent, isMobile }) => {
         if (!isMobile) {
             close();
         }
-    }, [isMobile, close]);
+    }, [isMobile]);
 
     const openSideBarModal = () => {
         open('topbar-menu', drawerContent(), PositionType.LEFT);

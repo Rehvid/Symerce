@@ -27,6 +27,7 @@ const BrandList = () => {
     filterEmptyValues({
       ...defaultFilters,
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+        search: getCurrentParam('search', (value) => String(value)),
     }) as BrandTableFilters,
   );
 

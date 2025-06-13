@@ -40,6 +40,7 @@ const ProductList = () => {
       regularPriceFrom: getCurrentParam('regularPriceFrom', (value) => Number(value)),
       regularPriceTo: getCurrentParam('regularPriceTo', (value) => Number(value)),
       quantity: getCurrentParam('quantity', (value) => Number(value)),
+      search: getCurrentParam('search', (value) => String(value)),
     }) as ProductTableFilters,
   );
 

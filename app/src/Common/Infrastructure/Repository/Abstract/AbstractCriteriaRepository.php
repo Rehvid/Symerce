@@ -35,8 +35,11 @@ abstract class AbstractCriteriaRepository extends DoctrineRepository implements 
         $countQueryBuilder->select("COUNT($alias.id)");
         $total = (int) $countQueryBuilder->getQuery()->getSingleScalarResult();
 
-        $qb->setFirstResult($criteria->offset)
-            ->setMaxResults($criteria->limit);
+        $qb->setFirstResult($criteria->offset);
+
+        if ($criteria->limit > 0) {
+            $qb->setMaxResults($criteria->limit);
+        }
 
         $items = $qb->getQuery()->getResult();
 

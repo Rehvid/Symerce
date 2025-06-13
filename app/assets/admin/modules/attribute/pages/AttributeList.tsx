@@ -27,6 +27,7 @@ const AttributeList = () => {
     filterEmptyValues({
       ...defaultFilters,
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+        search: getCurrentParam('search', (value) => String(value)),
     }) as AttributeTableFilters,
   );
 

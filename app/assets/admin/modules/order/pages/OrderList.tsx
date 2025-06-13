@@ -67,7 +67,7 @@ const OrderList = () => {
         <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
             <TableToolbar>
                 <TableToolbarActions title="Lista zamówień" totalItems={pagination?.totalItems} />
-                <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters} />
+                <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters} useSearch={false} />
             </TableToolbar>
             <TableWrapper isLoading={isLoading}>
                 <TableHead sort={sort} setSort={setSort} columns={columns} />

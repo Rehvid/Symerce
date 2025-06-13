@@ -26,6 +26,7 @@ const CurrencyListPage = () => {
       ...defaultFilters,
       roundingPrecisionFrom: getCurrentParam('roundingPrecisionFrom', (value) => Number(value)),
       roundingPrecisionTo: getCurrentParam('roundingPrecisionTo', (value) => Number(value)),
+      search: getCurrentParam('search', (value) => String(value)),
     }) as CurrencyTableFilters,
   );
 

@@ -23,11 +23,12 @@ import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWi
 const AttributeValueList = () => {
   const params = useParams();
   const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<AttributeTableFilters>(
+  const [filters, setFilters] = useState<AttributeValueTableFilters>(
     filterEmptyValues({
       ...defaultFilters,
       isActive: getCurrentParam('isActive', (value) => Boolean(value)),
-    }) as AttributeTableFilters,
+        search: getCurrentParam('search', (value) => String(value)),
+    }) as AttributeValueTableFilters,
   );
 
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<AttributeValueListItem,AttributeValueTableFilters>({

@@ -33,6 +33,7 @@ const PaymentMethodList = () => {
         isActive: getCurrentParam('isActive', (value) => Boolean(value)),
         feeFrom: getCurrentParam('feeFrom', (value) => Number(value)),
         feeTo: getCurrentParam('feeTo', (value) => Number(value)),
+        search: getCurrentParam('search', (value) => String(value)),
     }) as PaymentMethodTableFilters,
   );
 
