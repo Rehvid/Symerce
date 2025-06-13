@@ -11,61 +11,46 @@ import ControlledReactSelect from '@admin/common/components/form/reactSelect/Con
 import { OrderFormContext } from '@admin/modules/order/interfaces/OrderFormContext';
 
 interface OrderInformationProps {
-  control: Control<OrderFormData>;
-  fieldErrors: FieldErrors<OrderFormData>;
-  isEditMode: boolean,
-  formData?: OrderFormData;
-  formContext?: OrderFormContext;
+    control: Control<OrderFormData>;
+    fieldErrors: FieldErrors<OrderFormData>;
+    isEditMode: boolean;
+    formData?: OrderFormData;
+    formContext?: OrderFormContext;
 }
 
-const OrderInformation: React.FC<OrderInformationProps> = ({
- control,
- isEditMode,
- formContext,
- formData
-}) => {
-  return (
-    <FormSection title="Podstawowe informacje">
-      <FormGroup
-        label={<InputLabel isRequired={true} label="Status" htmlFor="status"  />}
-      >
-        <ControlledReactSelect
-            name="status"
-            control={control}
-            rules={{
-                ...validationRules.required(),
-            }}
-            options={formContext?.availableStatuses || []}
-        />
-      </FormGroup>
-      <FormGroup
-        label={<InputLabel isRequired={true} label="Krok w zamówieniu" htmlFor="checkoutStep"  />}
-      >
-          <ControlledReactSelect
-              name="checkoutStep"
-              control={control}
-              rules={{
-                  ...validationRules.required(),
-              }}
-              options={formContext?.availableCheckoutSteps || []}
-          />
-      </FormGroup>
-      {isEditMode && (
-        <FormGroup
-          label={<InputLabel label="UUID" htmlFor="street"  />}
-          description={<Description>Automatycznie generowana wartość, nie ma możliwości edycji.</Description>}
-        >
-          <InputField
-            type="text"
-            id="invoiceStreet"
-            disabled
-            readOnly
-            defaultValue={formData?.uuid}
-          />
-        </FormGroup>
-      )}
-    </FormSection>
-  )
-}
+const OrderInformation: React.FC<OrderInformationProps> = ({ control, isEditMode, formContext, formData }) => {
+    return (
+        <FormSection title="Podstawowe informacje">
+            <FormGroup label={<InputLabel isRequired={true} label="Status" htmlFor="status" />}>
+                <ControlledReactSelect
+                    name="status"
+                    control={control}
+                    rules={{
+                        ...validationRules.required(),
+                    }}
+                    options={formContext?.availableStatuses || []}
+                />
+            </FormGroup>
+            <FormGroup label={<InputLabel isRequired={true} label="Krok w zamówieniu" htmlFor="checkoutStep" />}>
+                <ControlledReactSelect
+                    name="checkoutStep"
+                    control={control}
+                    rules={{
+                        ...validationRules.required(),
+                    }}
+                    options={formContext?.availableCheckoutSteps || []}
+                />
+            </FormGroup>
+            {isEditMode && (
+                <FormGroup
+                    label={<InputLabel label="UUID" htmlFor="uuid" />}
+                    description={<Description>Automatycznie generowana wartość, nie ma możliwości edycji.</Description>}
+                >
+                    <InputField type="text" id="uuid" disabled readOnly defaultValue={formData?.uuid} />
+                </FormGroup>
+            )}
+        </FormSection>
+    );
+};
 
 export default OrderInformation;

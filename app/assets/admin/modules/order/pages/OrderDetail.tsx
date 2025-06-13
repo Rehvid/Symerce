@@ -7,31 +7,31 @@ import { OrderDetail as OrderDetailInterface } from '@admin/modules/order/interf
 import { useAdminApi } from '@admin/common/context/AdminApiContext';
 
 const OrderDetail = ({}) => {
-  const params = useParams<{id: string}>();
-  const { handleApiRequest } = useAdminApi();
-  const [detailData, setDetailData] = useState<OrderDetailInterface | null>(null)
-  
-  useEffect(() => {
-      const fetchDetails = async () => {
-          await handleApiRequest(HttpMethod.GET, `admin/orders/${params.id}/details`, {
-              onSuccess: ({ data }) => {
-                  setDetailData(data as OrderDetailInterface);
-              },
-          });
-      };
+    const params = useParams<{ id: string }>();
+    const { handleApiRequest } = useAdminApi();
+    const [detailData, setDetailData] = useState<OrderDetailInterface | null>(null);
 
-      fetchDetails().catch(console.error);
-  }, []);
+    useEffect(() => {
+        const fetchDetails = async () => {
+            await handleApiRequest(HttpMethod.GET, `admin/orders/${params.id}/details`, {
+                onSuccess: ({ data }) => {
+                    setDetailData(data as OrderDetailInterface);
+                },
+            });
+        };
 
-  if (!detailData) {
-    return;
-  }
+        fetchDetails().catch(console.error);
+    }, []);
 
-  return (
-    <>
-      <PageHeader title="Detale transakcji" />
-      <OrderDetailBody detailData={detailData}/>
-    </>
-  )
-}
+    if (!detailData) {
+        return;
+    }
+
+    return (
+        <>
+            <PageHeader title="Detale transakcji" />
+            <OrderDetailBody detailData={detailData} />
+        </>
+    );
+};
 export default OrderDetail;

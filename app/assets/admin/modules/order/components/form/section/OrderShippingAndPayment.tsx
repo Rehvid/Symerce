@@ -9,35 +9,31 @@ import ControlledReactSelect from '@admin/common/components/form/reactSelect/Con
 import { OrderFormContext } from '@admin/modules/order/interfaces/OrderFormContext';
 
 interface OrderShippingAndPaymentProps {
-  control: Control<OrderFormData>;
-  formContext: OrderFormContext;
+    control: Control<OrderFormData>;
+    formContext: OrderFormContext;
 }
 
-const OrderShippingAndPayment: React.FC<OrderShippingAndPaymentProps> = ({control, formContext}) => {
-  return (
-    <FormSection title="Dostawa i płatność">
-      <FormGroup
-        label={<InputLabel isRequired={true} label="Metoda płatności" htmlFor="paymentMethodId"  />}
-      >
-          <ControlledReactSelect
-              name="paymentMethodId"
-              control={control}
-              options={formContext?.availablePaymentMethods || []}
-              rules={{...validationRules.required()}}
-          />
-      </FormGroup>
-      <FormGroup
-        label={<InputLabel isRequired={true} label="Dostawca" htmlFor="carrierId"  />}
-      >
-          <ControlledReactSelect
-              name="carrierId"
-              control={control}
-              options={formContext?.availableCarriers || []}
-              rules={{...validationRules.required()}}
-          />
-      </FormGroup>
-    </FormSection>
-  )
-}
+const OrderShippingAndPayment: React.FC<OrderShippingAndPaymentProps> = ({ control, formContext }) => {
+    return (
+        <FormSection title="Dostawa i płatność">
+            <FormGroup label={<InputLabel isRequired={true} label="Metoda płatności" htmlFor="paymentMethodId" />}>
+                <ControlledReactSelect
+                    name="paymentMethodId"
+                    control={control}
+                    options={formContext?.availablePaymentMethods || []}
+                    rules={{ ...validationRules.required() }}
+                />
+            </FormGroup>
+            <FormGroup label={<InputLabel isRequired={true} label="Dostawca" htmlFor="carrierId" />}>
+                <ControlledReactSelect
+                    name="carrierId"
+                    control={control}
+                    options={formContext?.availableCarriers || []}
+                    rules={{ ...validationRules.required() }}
+                />
+            </FormGroup>
+        </FormSection>
+    );
+};
 
 export default OrderShippingAndPayment;

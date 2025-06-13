@@ -28,8 +28,7 @@ final readonly class OrderData
         public ?AddressData $invoiceAddressData,
         public ?string $companyTaxId,
         public ?string $companyName,
-
-    ){
+    ) {
 
     }
 }

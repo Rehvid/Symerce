@@ -32,6 +32,10 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
     #[Assert\Choice(callback: [OrderStatus::class, 'values'])]
     public string $status;
 
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    public string $email;
+
     public bool $isInvoice;
 
     public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest;
@@ -46,9 +50,10 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
         int $carrierId,
         string $checkoutStep,
         string $status,
+        string $email,
         bool $isInvoice = false,
         ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest = null,
-        array $saveOrderProductRequestCollection = []
+        array $saveOrderProductRequestCollection = [],
     ) {
         $this->saveContactDetailsRequest = $saveContactDetailsRequest;
         $this->saveAddressDeliveryRequest = $saveAddressDeliveryRequest;
@@ -59,6 +64,7 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
         $this->isInvoice = $isInvoice;
         $this->saveOrderProductRequestCollection = $saveOrderProductRequestCollection;
         $this->saveAddressInvoiceRequest = $saveAddressInvoiceRequest;
+        $this->email = $email;
     }
 
     public static function fromArray(array $data): ArrayHydratableInterface
@@ -66,7 +72,6 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
         $saveContactDetailsRequest = new SaveContactDetailsRequest(
             firstname: $data['firstname'] ?? null,
             surname: $data['surname'] ?? null,
-            email: $data['email'] ?? null,
             phone: $data['phone'] ?? null,
         );
 
@@ -75,7 +80,7 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
                 street: $data['street'] ?? null,
                 postalCode: $data['postalCode'] ?? null,
                 city: $data['city'] ?? null,
-                country: $data['country'] ?? null,
+                countryId: $data['countryId'] ?? null,
             ),
             deliveryInstructions: $data['deliveryInstructions'] ?? null,
         );
@@ -88,7 +93,7 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
                     street: $data['invoiceStreet'] ?? null,
                     postalCode: $data['invoicePostalCode'] ?? null,
                     city: $data['invoiceCity'] ?? null,
-                    country: $data['invoiceCountry'] ?? null,
+                    countryId: $data['invoiceCountryId'] ?? null,
                 ),
                 companyName: $data['invoiceCompanyName'] ?? null,
                 companyTaxId: $data['invoiceCompanyTaxId'] ?? null,
@@ -111,9 +116,10 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
             carrierId: $data['carrierId'] ?? null,
             checkoutStep: $data['checkoutStep'] ?? null,
             status: $data['status'] ?? null,
+            email: $data['email'] ?? null,
             isInvoice: $isInvoice,
             saveAddressInvoiceRequest: $saveAddressInvoiceRequest,
-            saveOrderProductRequestCollection: $saveOrderProductRequestCollection,
+            saveOrderProductRequestCollection: $saveOrderProductRequestCollection
         );
     }
 }

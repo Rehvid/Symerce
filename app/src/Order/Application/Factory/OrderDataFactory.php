@@ -9,10 +9,10 @@ use App\Common\Application\Dto\AddressData;
 use App\Common\Application\Dto\ContactDetailsData;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
 use App\Common\Application\Dto\Request\ContactDetails\SaveContactDetailsRequest;
-use App\Common\Application\Factory\ValidationExceptionFactory;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Domain\Entity\Country;
 use App\Common\Domain\Entity\PaymentMethod;
+use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
 use App\Order\Application\Dto\OrderData;
@@ -56,7 +56,7 @@ final readonly class OrderDataFactory
 
         return new OrderData(
             contactDetailsData: $this->createContactDetailsData($orderRequest->saveContactDetailsRequest),
-            email: $orderRequest->saveContactDetailsRequest->email,
+            email: $orderRequest->email,
             carrier: $carrier,
             paymentMethod: $paymentMethod,
             checkoutStep: CheckoutStep::from($orderRequest->checkoutStep),
@@ -84,9 +84,9 @@ final readonly class OrderDataFactory
     private function createDeliveryAddressData(SaveAddressRequest $addressRequest): AddressData
     {
         /** @var ?Country $country */
-        $country = $this->countryRepository->findById($addressRequest->country);
+        $country = $this->countryRepository->findById($addressRequest->countryId);
         if (null === $country) {
-            throw EntityNotFoundException::for(Country::class, $addressRequest->country);
+            throw EntityNotFoundException::for(Country::class, $addressRequest->countryId);
         }
 
         return $this->createAddressData($addressRequest, $country);
@@ -96,7 +96,7 @@ final readonly class OrderDataFactory
     {
         return $this->createAddressData(
             $invoiceRequest,
-            $this->countryRepository->findById($invoiceRequest->country)
+            $this->countryRepository->findById($invoiceRequest->countryId)
         );
     }
 
@@ -119,6 +119,7 @@ final readonly class OrderDataFactory
         $orderItems = [];
 
         foreach ($saveOrderProductRequestCollection as $orderProductRequest) {
+            /** @var ?Product $product */
             $product = $this->productRepository->findById($orderProductRequest->productId);
 
             if (null === $product) {

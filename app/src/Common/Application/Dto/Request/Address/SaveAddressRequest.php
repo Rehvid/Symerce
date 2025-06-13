@@ -21,18 +21,18 @@ final readonly class SaveAddressRequest
     public string $city;
 
     #[Assert\GreaterThan(value: 0)]
-    public int $country;
+    public int $countryId;
 
 
     public function __construct(
         string $street,
         string $postalCode,
         string $city,
-        int $country,
+        int $countryId,
     ) {
         $this->street = $street;
         $this->postalCode = $postalCode;
         $this->city = $city;
-        $this->country = $country;
+        $this->countryId = $countryId;
     }
 }
