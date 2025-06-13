@@ -5,14 +5,14 @@ import { Control, Path } from 'react-hook-form';
 import { FC } from 'react';
 
 interface SettingValueInputTypeProps {
-    control: Control<SettingFormData>
+    control: Control<SettingFormData>;
     settingField: SettingField;
     isMulti: boolean;
 }
 
-const SettingValueInputTypeSelect: FC<SettingValueInputTypeProps> = ({control, settingField, isMulti}) => (
+const SettingValueInputTypeSelect: FC<SettingValueInputTypeProps> = ({ control, settingField, isMulti }) => (
     <ControlledReactSelect
-        name={"value" as Path<SettingFormData>}
+        name={'value' as Path<SettingFormData>}
         control={control}
         options={settingField.availableOptions}
         rules={{
@@ -20,7 +20,6 @@ const SettingValueInputTypeSelect: FC<SettingValueInputTypeProps> = ({control, s
         }}
         isMulti={isMulti}
     />
-  )
-
+);
 
 export default SettingValueInputTypeSelect;

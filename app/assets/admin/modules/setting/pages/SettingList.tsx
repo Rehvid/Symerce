@@ -20,62 +20,60 @@ import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 
 const SettingList = () => {
-  const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
 
-  const [filters, setFilters] = useState<SettingTableFilters>(
-    filterEmptyValues({
-      ...defaultFilters,
-        isActive: getCurrentParam('isActive', (value) => Boolean(value)),
-        search: getCurrentParam('search', (value) => String(value)),
-    }) as SettingTableFilters,
-  );
+    const [filters, setFilters] = useState<SettingTableFilters>(
+        filterEmptyValues({
+            ...defaultFilters,
+            isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+            search: getCurrentParam('search', (value) => String(value)),
+        }) as SettingTableFilters,
+    );
 
-  const { items, pagination, isLoading, sort, setSort } = useListData<SettingListItem, SettingTableFilters>({
-    endpoint: 'admin/settings',
-    filters,
-    setFilters,
-    defaultSort,
-  });
+    const { items, pagination, isLoading, sort, setSort } = useListData<SettingListItem, SettingTableFilters>({
+        endpoint: 'admin/settings',
+        filters,
+        setFilters,
+        defaultSort,
+    });
 
-  const rowData = items.map((item: SettingListItem) => [
-      <TableRowId id={item.id} />,
-      item.name,
-      item.type,
-      <TableRowActive isActive={item.isActive} />,
-      <TableRowEditAction to={`${item.id}/edit`} />,
-  ]);
+    const rowData = items.map((item: SettingListItem) => [
+        <TableRowId id={item.id} />,
+        item.name,
+        item.type,
+        <TableRowActive isActive={item.isActive} />,
+        <TableRowEditAction to={`${item.id}/edit`} />,
+    ]);
 
-  const columns: TableColumn[] = [
-    { orderBy: 'id', label: 'ID', sortable: true },
-    { orderBy: 'name', label: 'Nazwa', sortable: true },
-    { orderBy: 'settingType', label: 'Typ', sortable: true },
-    { orderBy: 'isActive', label: 'Aktywny', sortable: true },
-    { orderBy: 'actions', label: 'Actions' },
-  ];
+    const columns: TableColumn[] = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'settingType', label: 'Typ', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
 
     return (
         <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
             <TableToolbar>
                 <TableToolbarActions title="Lista ustawień" totalItems={pagination?.totalItems} createHref={null} />
-                <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
+                <TableToolbarFilters
+                    sort={sort}
+                    setSort={setSort}
+                    filters={filters}
+                    setFilters={setFilters}
+                    defaultFilters={defaultFilters}
+                >
                     <ActiveFilter setFilters={setFilters} filters={filters} />
                 </TableToolbarFilters>
             </TableToolbar>
             <TableWrapper isLoading={isLoading}>
                 <TableHead sort={sort} setSort={setSort} columns={columns} />
-                <TableBody
-                    data={rowData}
-                    filters={filters}
-                    pagination={pagination as Pagination}
-                />
+                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
             </TableWrapper>
-            <TablePagination
-                filters={filters}
-                setFilters={setFilters}
-                pagination={pagination as Pagination}
-            />
+            <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
         </TableWithLoadingSkeleton>
     );
-}
+};
 
 export default SettingList;

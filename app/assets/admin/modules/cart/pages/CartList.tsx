@@ -20,72 +20,64 @@ import TablePagination from '@admin/common/components/tableList/TablePagination'
 import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const CartList = () => {
-  const { defaultFilters, defaultSort } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<CartTableFilters>(
-    filterEmptyValues({
-      ...defaultFilters,
-    }) as CartTableFilters,
-  );
+    const { defaultFilters, defaultSort } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState<CartTableFilters>(
+        filterEmptyValues({
+            ...defaultFilters,
+        }) as CartTableFilters,
+    );
 
-  const { items, pagination, isLoading, sort, setSort } = useListData<CartListItem, CartTableFilters>({
-    endpoint: 'admin/carts',
-    filters,
-    setFilters,
-    defaultSort,
-  });
+    const { items, pagination, isLoading, sort, setSort } = useListData<CartListItem, CartTableFilters>({
+        endpoint: 'admin/carts',
+        filters,
+        setFilters,
+        defaultSort,
+    });
 
-  const rowData = items.map((item: CartListItem) => [
-      <TableRowId id={item.id} />,
-      item.orderId ? <Link to={`/admin/orders/${item.orderId}/details`} >Zamówienie</Link> : '-',
-      item.customer,
-      item.total,
-      item.createdAt,
-      item.updatedAt,
-      item.expiresAt,
-      <TableRowDetailAction to={`${item.id}/details`} />
-  ]);
+    const rowData = items.map((item: CartListItem) => [
+        <TableRowId id={item.id} />,
+        item.orderId ? <Link to={`/admin/orders/${item.orderId}/details`}>Zamówienie</Link> : '-',
+        item.customer,
+        item.total,
+        item.createdAt,
+        item.updatedAt,
+        item.expiresAt,
+        <TableRowDetailAction to={`${item.id}/details`} />,
+    ]);
 
-  const columns: TableColumn[]  = [
-    { orderBy: 'id', label: 'ID', sortable: true },
-    { orderBy: 'orderId', label: 'Zamówienie', sortable: true },
-    { orderBy: 'customer', label: 'Klient', sortable: true },
-    { orderBy: 'total', label: 'Total', sortable: true },
-    { orderBy: 'createdAt', label: 'Utworzono', sortable: true },
-    { orderBy: 'updatedAt', label: 'Ostatnia aktualizacja', sortable: true },
-    { orderBy: 'expiresAt', label: 'Koszyk wygasa', sortable: true },
-    { orderBy: 'actions', label: 'Actions' },
-  ];
+    const columns: TableColumn[] = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'orderId', label: 'Zamówienie', sortable: true },
+        { orderBy: 'customer', label: 'Klient', sortable: true },
+        { orderBy: 'total', label: 'Total', sortable: true },
+        { orderBy: 'createdAt', label: 'Utworzono', sortable: true },
+        { orderBy: 'updatedAt', label: 'Ostatnia aktualizacja', sortable: true },
+        { orderBy: 'expiresAt', label: 'Koszyk wygasa', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
 
-  return (
-      <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
-          <TableToolbar>
-              <TableToolbarActions title="Lista koszyków" totalItems={pagination?.totalItems} createHref={null} />
-              <TableToolbarFilters
-                  sort={sort}
-                  setSort={setSort}
-                  filters={filters}
-                  setFilters={setFilters}
-                  defaultFilters={defaultFilters}
-                  useSearch={false}
-              >
-                  <ActiveFilter setFilters={setFilters} filters={filters} />
-              </TableToolbarFilters>
-          </TableToolbar>
-          <TableWrapper isLoading={isLoading}>
-              <TableHead sort={sort} setSort={setSort} columns={columns} />
-              <TableBody
-                  data={rowData}
-                  filters={filters}
-                  pagination={pagination as Pagination}
-              />
-          </TableWrapper>
-          <TablePagination
-              filters={filters}
-              setFilters={setFilters}
-              pagination={pagination as Pagination}
-          />
-      </TableWithLoadingSkeleton>
-  );
-}
+    return (
+        <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
+            <TableToolbar>
+                <TableToolbarActions title="Lista koszyków" totalItems={pagination?.totalItems} createHref={null} />
+                <TableToolbarFilters
+                    sort={sort}
+                    setSort={setSort}
+                    filters={filters}
+                    setFilters={setFilters}
+                    defaultFilters={defaultFilters}
+                    useSearch={false}
+                >
+                    <ActiveFilter setFilters={setFilters} filters={filters} />
+                </TableToolbarFilters>
+            </TableToolbar>
+            <TableWrapper isLoading={isLoading}>
+                <TableHead sort={sort} setSort={setSort} columns={columns} />
+                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+            </TableWrapper>
+            <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
+        </TableWithLoadingSkeleton>
+    );
+};
 
 export default CartList;

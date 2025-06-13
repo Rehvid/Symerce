@@ -9,13 +9,8 @@ interface SettingValueInputFieldTypeProps {
     icon?: React.ReactNode | null;
 }
 
-const SettingValueInputFieldType: FC<SettingValueInputFieldTypeProps> = ({register, type, icon}) => (
-    <InputField
-        type={type}
-        id="value"
-        icon={icon && icon}
-        {...register('value' as Path<SettingFormData>)}
-    />
-)
+const SettingValueInputFieldType: FC<SettingValueInputFieldTypeProps> = ({ register, type, icon }) => (
+    <InputField type={type} id="value" icon={icon && icon} {...register('value' as Path<SettingFormData>)} />
+);
 
 export default SettingValueInputFieldType;

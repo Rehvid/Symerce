@@ -7,8 +7,8 @@ interface SettingValueInputTypeCheckboxProps {
     register: UseFormRegister<SettingFormData>;
 }
 
-const SettingValueInputTypeCheckbox: FC<SettingValueInputTypeCheckboxProps> = ({register}) => (
+const SettingValueInputTypeCheckbox: FC<SettingValueInputTypeCheckboxProps> = ({ register }) => (
     <Switch {...register('value' as Path<SettingFormData>)} />
-  )
+);
 
 export default SettingValueInputTypeCheckbox;
