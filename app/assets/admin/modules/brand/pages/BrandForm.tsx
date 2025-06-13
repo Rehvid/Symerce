@@ -8,17 +8,16 @@ import FormApiLayout from '@admin/layouts/FormApiLayout';
 import BrandFormBody from '@admin/modules/brand/components/BrandFormBody';
 import { BrandFormData } from '@admin/modules/brand/interfaces/BrandFormData';
 
-
 const BrandForm = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    formState: { errors: fieldErrors },
-  } = useForm<BrandFormData>({
-    mode: 'onBlur',
-  });
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        formState: { errors: fieldErrors },
+    } = useForm<BrandFormData>({
+        mode: 'onBlur',
+    });
 
     const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
         baseApiUrl: 'admin/brands',
@@ -28,38 +27,32 @@ const BrandForm = () => {
 
     const { isFormInitialize, getFormData, formData } = useFormInitializer<BrandFormData>();
 
-  useEffect(() => {
-    if (isEditMode) {
-      const endpoint = `admin/brands/${entityId}`;
-      const formFieldNames = ['name', 'isActive'] satisfies (keyof BrandFormData)[];
+    useEffect(() => {
+        if (isEditMode) {
+            const endpoint = `admin/brands/${entityId}`;
+            const formFieldNames = ['name', 'isActive'] satisfies (keyof BrandFormData)[];
 
-      getFormData(endpoint, setValue, formFieldNames);
+            getFormData(endpoint, setValue, formFieldNames);
+        }
+    }, []);
+
+    if (!isFormInitialize) {
+        return <FormSkeleton rowsCount={12} />;
     }
 
-  }, []);
-
-  if (!isFormInitialize) {
-    return <FormSkeleton rowsCount={12} />;
-  }
-
-  return (
-    <FormWrapper
-      method={requestConfig.method}
-      endpoint={requestConfig.endpoint}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormApiLayout pageTitle={isEditMode ? 'Edytuj marke' : 'Dodaj marke'}>
-        <BrandFormBody
-          register={register}
-          fieldErrors={fieldErrors}
-          formData={formData}
-          setValue={setValue}
-        />
-      </FormApiLayout>
-    </FormWrapper>
-  );
-}
+    return (
+        <FormWrapper
+            method={requestConfig.method}
+            endpoint={requestConfig.endpoint}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormApiLayout pageTitle={isEditMode ? 'Edytuj marke' : 'Dodaj marke'}>
+                <BrandFormBody register={register} fieldErrors={fieldErrors} formData={formData} setValue={setValue} />
+            </FormApiLayout>
+        </FormWrapper>
+    );
+};
 
 export default BrandForm;

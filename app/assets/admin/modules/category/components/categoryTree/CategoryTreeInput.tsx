@@ -12,7 +12,14 @@ interface CategoryTreeInputProps {
     nameWatchedValue: keyof CategoryFormData;
 }
 
-const CategoryTreeInput: FC<CategoryTreeInputProps> = ({ selected, category, disabledCategoryId, register, watch, nameWatchedValue }) => {
+const CategoryTreeInput: FC<CategoryTreeInputProps> = ({
+    selected,
+    category,
+    disabledCategoryId,
+    register,
+    watch,
+    nameWatchedValue,
+}) => {
     const isDisabled = disabledCategoryId === category.id;
     return (
         <label

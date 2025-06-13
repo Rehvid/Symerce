@@ -9,16 +9,16 @@ import TagFormBody from '@admin/modules/tag/components/TagFormBody';
 import { TagFormData } from '@admin/modules/tag/interfaces/TagFormData';
 
 const TagForm = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    control,
-    formState: { errors: fieldErrors },
-  } = useForm<TagFormData>({
-    mode: 'onBlur',
-  });
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        control,
+        formState: { errors: fieldErrors },
+    } = useForm<TagFormData>({
+        mode: 'onBlur',
+    });
 
     const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
         baseApiUrl: 'admin/tags',
@@ -26,39 +26,34 @@ const TagForm = () => {
     });
     const requestConfig = getRequestConfig();
 
-  const { isFormInitialize, getFormData } = useFormInitializer<TagFormData>();
+    const { isFormInitialize, getFormData } = useFormInitializer<TagFormData>();
 
-  useEffect(() => {
-    if (isEditMode) {
-      const endpoint = `admin/tags/${entityId}`;
-      const formFieldNames  = ['name', 'backgroundColor', 'textColor', 'isActive'] satisfies (keyof TagFormData)[]
+    useEffect(() => {
+        if (isEditMode) {
+            const endpoint = `admin/tags/${entityId}`;
+            const formFieldNames = ['name', 'backgroundColor', 'textColor', 'isActive'] satisfies (keyof TagFormData)[];
 
-      getFormData(endpoint, setValue, formFieldNames);
+            getFormData(endpoint, setValue, formFieldNames);
+        }
+    }, []);
+
+    if (!isFormInitialize) {
+        return <FormSkeleton rowsCount={12} />;
     }
 
-  }, []);
-
-  if (!isFormInitialize) {
-    return <FormSkeleton rowsCount={12} />;
-  }
-
-  return (
-    <FormWrapper
-        method={requestConfig.method}
-        endpoint={requestConfig.endpoint}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormApiLayout pageTitle={isEditMode ? 'Edytuj tag' : 'Dodaj tag'}>
-        <TagFormBody
-          register={register}
-          fieldErrors={fieldErrors}
-          control={control}
-        />
-      </FormApiLayout>
-    </FormWrapper>
-  );
-}
+    return (
+        <FormWrapper
+            method={requestConfig.method}
+            endpoint={requestConfig.endpoint}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormApiLayout pageTitle={isEditMode ? 'Edytuj tag' : 'Dodaj tag'}>
+                <TagFormBody register={register} fieldErrors={fieldErrors} control={control} />
+            </FormApiLayout>
+        </FormWrapper>
+    );
+};
 
 export default TagForm;

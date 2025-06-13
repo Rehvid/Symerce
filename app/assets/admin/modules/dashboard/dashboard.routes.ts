@@ -8,4 +8,4 @@ export const dashboardRoutes: AdminRouteInterface[] = [
         component: lazy(() => import('@admin/modules/dashboard/pages/Dashboard')),
         roles: [AdminRole.ADMIN],
     },
-]
+];

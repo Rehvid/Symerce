@@ -14,7 +14,7 @@ import Button, { ButtonVariant } from '@admin/common/components/Button';
 import Link from '@admin/common/components/Link';
 
 interface RemindPasswordFormData {
-    email: string
+    email: string;
 }
 
 const RemindPasswordForm: FC = () => {

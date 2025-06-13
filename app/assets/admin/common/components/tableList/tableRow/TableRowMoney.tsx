@@ -11,9 +11,7 @@ const TableRowMoney: FC<TableRowMoneyProps> = ({ amount, symbol, className }) =>
     const hasValue = amount !== undefined && symbol;
 
     return (
-        <strong
-            className={clsx('font-semibold text-gray-800', className)}
-        >
+        <strong className={clsx('font-semibold text-gray-800', className)}>
             {hasValue ? `${amount} ${symbol}` : '—'}
         </strong>
     );

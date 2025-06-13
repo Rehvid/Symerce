@@ -5,7 +5,7 @@ interface SelectAttribute {
     name: string;
     options: any;
     label: string;
-    type: AttributeType
+    type: AttributeType;
 }
 
 export interface ProductFormContext {

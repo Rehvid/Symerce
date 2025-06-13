@@ -3,54 +3,32 @@ import Error from '@admin/common/components/Error';
 import clsx from 'clsx';
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  hasError?: boolean;
-  errorMessage?: string;
-  icon?: React.ReactNode;
-  containerClasses?: string;
+    hasError?: boolean;
+    errorMessage?: string;
+    icon?: React.ReactNode;
+    containerClasses?: string;
 }
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
-  (
-    {
-      type = 'text',
-      hasError,
-      className,
-      icon,
-      errorMessage,
-      containerClasses,
-      ...rest
-    },
-    ref
-  ) => {
-
-
-
-    const inputClasses = `peer w-full h-[46px] rounded-lg border border-gray-300 py-2.5 pl-[16px] pr-[60px] text-sm text-gray-800 shadow-theme-xs transition-all placeholder:text-gray-400 focus:ring-4 
+    ({ type = 'text', hasError, className, icon, errorMessage, containerClasses, ...rest }, ref) => {
+        const inputClasses = `peer w-full h-[46px] rounded-lg border border-gray-300 py-2.5 pl-[16px] pr-[60px] text-sm text-gray-800 shadow-theme-xs transition-all placeholder:text-gray-400 focus:ring-4 
+    ${rest.disabled ? 'bg-gray-100 cursor-not-allowed ' : 'bg-white'}
     ${
-      rest.disabled ? 'bg-gray-100 cursor-not-allowed ' : 'bg-white'
-    }
-    ${
-      hasError
-        ? 'border-red-500 text-red-900 focus:border-1 focus:outline-hidden focus:ring-red-100'
-        : 'focus:border-primary focus:border-1 focus:outline-hidden focus:ring-primary-light'
+        hasError
+            ? 'border-red-500 text-red-900 focus:border-1 focus:outline-hidden focus:ring-red-100'
+            : 'focus:border-primary focus:border-1 focus:outline-hidden focus:ring-primary-light'
     } ${className || ''}`;
 
-    return (
-      <>
-        <div className={clsx('relative', containerClasses)}>
-          <input
-            type={type}
-            ref={ref}
-            className={inputClasses}
-            {...rest}
-          />
-          {icon && <span className="absolute right-3 top-1/2 -translate-y-1/2">{icon}</span>}
-        </div>
-        <Error message={errorMessage}/>
-      </>
-
-    );
-  }
+        return (
+            <>
+                <div className={clsx('relative', containerClasses)}>
+                    <input type={type} ref={ref} className={inputClasses} {...rest} />
+                    {icon && <span className="absolute right-3 top-1/2 -translate-y-1/2">{icon}</span>}
+                </div>
+                <Error message={errorMessage} />
+            </>
+        );
+    },
 );
 
 InputField.displayName = 'InputField';

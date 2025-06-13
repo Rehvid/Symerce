@@ -14,11 +14,11 @@ interface DropzoneLogicSingleProps {
 }
 
 export const useDropzoneLogicSingle = ({
-   setValue,
-   value = null,
-   accept = [FileMimeType.JPEG, FileMimeType.PNG],
-   maxSize = 5,
-   onSuccessRemove = null,
+    setValue,
+    value = null,
+    accept = [FileMimeType.JPEG, FileMimeType.PNG],
+    maxSize = 5,
+    onSuccessRemove = null,
 }: DropzoneLogicSingleProps) => {
     const [errors, setErrors] = useState<{ message?: string }>({});
     const { handleApiRequest } = useAdminApi();
@@ -46,7 +46,9 @@ export const useDropzoneLogicSingle = ({
         });
 
         setErrors({});
-        handleFilesChange(withPreview).catch((error) => {console.error(error)});
+        handleFilesChange(withPreview).catch((error) => {
+            console.error(error);
+        });
     };
 
     const handleFilesChange = async (file: File & { preview: string }) => {

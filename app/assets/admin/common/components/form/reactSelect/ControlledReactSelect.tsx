@@ -12,7 +12,7 @@ interface ControlledReactSelectProps<T extends FieldValues> {
     children?: React.ReactNode;
 }
 
-const ControlledReactSelect = <T extends FieldValues>  ({
+const ControlledReactSelect = <T extends FieldValues>({
     name,
     control,
     options,

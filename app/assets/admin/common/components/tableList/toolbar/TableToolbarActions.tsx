@@ -18,7 +18,7 @@ const TableToolbarActions: FC<TableToolbarActionsProps> = ({
     children,
     totalItems,
     createHref = 'create',
-    createButtonLabel = 'Dodaj'
+    createButtonLabel = 'Dodaj',
 }) => {
     const navigate = useNavigate();
 

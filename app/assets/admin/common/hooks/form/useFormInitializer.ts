@@ -7,15 +7,14 @@ import { UseFormInitializerReturn } from '@admin/common/hooks/form/useFormInitia
 import { FormContextInterface } from '@admin/common/interfaces/FormContextInterface';
 import { useAdminApi } from '@admin/common/context/AdminApiContext';
 
-
-const useFormInitializer = <T extends FormDataInterface = FormDataInterface>(): UseFormInitializerReturn<T>  => {
+const useFormInitializer = <T extends FormDataInterface = FormDataInterface>(): UseFormInitializerReturn<T> => {
     const { handleApiRequest } = useAdminApi();
 
-  const [isFormInitialize, setIsFormInitialize] = useState<boolean>(true);
-  const [formData, setFormData] = useState<T>({} as T);
-  const [formContext, setFormContext] = useState<FormContextInterface>();
+    const [isFormInitialize, setIsFormInitialize] = useState<boolean>(true);
+    const [formData, setFormData] = useState<T>({} as T);
+    const [formContext, setFormContext] = useState<FormContextInterface>();
 
-    const getFormData  = async (
+    const getFormData = async (
         endpoint: string,
         setValue: UseFormSetValue<T>,
         formFieldNames?: (keyof T)[],
@@ -63,16 +62,13 @@ const useFormInitializer = <T extends FormDataInterface = FormDataInterface>(): 
                 }
 
                 if (value !== undefined && setValue) {
-                    setValue(
-                        fieldName as unknown as Path<T>,
-                        value as PathValue<T, Path<T>>
-                    );
+                    setValue(fieldName as unknown as Path<T>, value as PathValue<T, Path<T>>);
                 }
             }
         });
     };
 
-  return { isFormInitialize, formData, formContext, getFormData }
-}
+    return { isFormInitialize, formData, formContext, getFormData };
+};
 
 export default useFormInitializer;

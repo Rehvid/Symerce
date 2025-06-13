@@ -6,7 +6,7 @@ import clsx from 'clsx';
 export enum DropzoneVariant {
     Single = 'single',
     Avatar = 'avatar',
-    Multiple = 'multiple'
+    Multiple = 'multiple',
 }
 
 const variantClasses: Record<DropzoneVariant, string> = {
@@ -28,12 +28,12 @@ interface DropzoneProps {
 }
 
 const Dropzone: React.FC<DropzoneProps> = ({
-   onDrop,
-   errors,
-   variant = DropzoneVariant.Single,
-   containerClasses = '',
-   children,
-})  => {
+    onDrop,
+    errors,
+    variant = DropzoneVariant.Single,
+    containerClasses = '',
+    children,
+}) => {
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
     return (
@@ -45,7 +45,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
                     variantClasses[variant],
                     errors?.message
                         ? 'border-red-500 hover:border-red-700 hover:border-2'
-                        : 'border-gray-300 hover:border-primary-stronger'
+                        : 'border-gray-300 hover:border-primary-stronger',
                 )}
             >
                 <PhotosIcon className="w-5 h-5 text-gray-500" />
@@ -56,11 +56,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
                 </p>
             </div>
 
-            {errors?.message && (
-                <p className="mt-2 mb-2 pl-2 text-sm text-red-600">
-                    {errors.message}
-                </p>
-            )}
+            {errors?.message && <p className="mt-2 mb-2 pl-2 text-sm text-red-600">{errors.message}</p>}
 
             {children}
         </section>

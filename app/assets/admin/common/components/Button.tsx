@@ -31,7 +31,7 @@ const Button: React.FC<AppButtonProps> = ({
     additionalClasses = '',
     type = 'button',
     ...props
-    }) => {
+}) => {
     return (
         <button
             id={id}

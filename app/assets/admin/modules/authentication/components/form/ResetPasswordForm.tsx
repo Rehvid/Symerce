@@ -8,14 +8,13 @@ import { validationRules } from '@admin/common/utils/validationRules';
 import InputPassword from '@admin/common/components/form/input/InputPassword';
 import Button, { ButtonVariant } from '@admin/common/components/Button';
 
-
 interface ResetPasswordFormData {
     password: string;
-    passwordConfirmation: string
+    passwordConfirmation: string;
 }
 
 interface ResetPasswordFormProps {
-    token: string
+    token: string;
 }
 
 const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ token }) => {
@@ -33,7 +32,7 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ token }) => {
         onSuccess: () => {
             navigate('/admin/public/login');
         },
-    }
+    };
 
     return (
         <FormWrapper
@@ -57,7 +56,11 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ token }) => {
                 </div>
 
                 <div className="flex flex-col gap-1">
-                    <InputLabel label="Powtórz hasło" htmlFor="passwordConfirmation" hasError={!!fieldErrors?.passwordConfirmation} />
+                    <InputLabel
+                        label="Powtórz hasło"
+                        htmlFor="passwordConfirmation"
+                        hasError={!!fieldErrors?.passwordConfirmation}
+                    />
                     <InputPassword
                         id="password-confirmation"
                         hasError={!!fieldErrors?.passwordConfirmation}
@@ -77,7 +80,7 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ token }) => {
                 </div>
             </section>
         </FormWrapper>
-    )
-}
+    );
+};
 
 export default ResetPasswordForm;

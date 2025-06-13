@@ -15,11 +15,7 @@ interface HeadingProps {
     additionalClassNames?: string;
 }
 
-const Heading: React.FC<HeadingProps> = ({
-                                             level = HeadingLevel.H1,
-                                             children,
-                                             additionalClassNames = '',
-                                         }) => {
+const Heading: React.FC<HeadingProps> = ({ level = HeadingLevel.H1, children, additionalClassNames = '' }) => {
     const headingStyles: Record<HeadingLevel, string> = {
         [HeadingLevel.H1]: 'text-xl font-semibold',
         [HeadingLevel.H2]: 'text-lg font-semibold',
@@ -31,11 +27,7 @@ const Heading: React.FC<HeadingProps> = ({
 
     const HeadingTag = level;
 
-    return (
-        <HeadingTag className={`${headingStyles[level]} ${additionalClassNames}`}>
-            {children}
-        </HeadingTag>
-    );
+    return <HeadingTag className={`${headingStyles[level]} ${additionalClassNames}`}>{children}</HeadingTag>;
 };
 
 export default Heading;

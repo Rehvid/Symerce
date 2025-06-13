@@ -31,16 +31,13 @@ const DrawerRenderer: React.FC<DrawerRendererProps> = ({ portalContainer, clearC
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                     />
-                    <DrawerContent
-                        key={activeDrawerId}
-                        position={drawerPosition}
-                    >
+                    <DrawerContent key={activeDrawerId} position={drawerPosition}>
                         {drawerContent}
                     </DrawerContent>
                 </>
             )}
         </AnimatePresence>,
-        portalContainer
+        portalContainer,
     );
 };
 export default DrawerRenderer;

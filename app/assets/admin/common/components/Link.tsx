@@ -16,13 +16,13 @@ interface AppLinkProps extends Omit<NavLinkProps, 'to' | 'children'> {
 }
 
 const Link: React.FC<AppLinkProps> = ({
-                                             to,
-                                             state = {},
-                                             children,
-                                             variant = AppLinkVariant.Default,
-                                             additionalClasses = '',
-                                             ...props
-                                         }) => {
+    to,
+    state = {},
+    children,
+    variant = AppLinkVariant.Default,
+    additionalClasses = '',
+    ...props
+}) => {
     const variants: Record<AppLinkVariant, string> = {
         [AppLinkVariant.Sidebar]: 'text-gray-700 rounded-lg hover:bg-primary hover:text-white',
         [AppLinkVariant.Default]: 'text-sm text-gray-500 hover:text-primary',

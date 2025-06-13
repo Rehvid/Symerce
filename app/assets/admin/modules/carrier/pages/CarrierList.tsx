@@ -24,70 +24,70 @@ import RangeFilter from '@admin/common/components/tableList/filters/RangeFilter'
 import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const CarrierList = () => {
-  const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<CarrierTableFilters>(
-    filterEmptyValues({
-      ...defaultFilters,
-      search: getCurrentParam('search', (value) => String(value)),
-      isActive: getCurrentParam('isActive', (value) => Boolean(value)),
-      feeFrom: getCurrentParam('feeFrom', (value) => Number(value)),
-      feeTo: getCurrentParam('feeTo', (value) => Number(value)),
-    }) as CarrierTableFilters,
-  );
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState<CarrierTableFilters>(
+        filterEmptyValues({
+            ...defaultFilters,
+            search: getCurrentParam('search', (value) => String(value)),
+            isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+            feeFrom: getCurrentParam('feeFrom', (value) => Number(value)),
+            feeTo: getCurrentParam('feeTo', (value) => Number(value)),
+        }) as CarrierTableFilters,
+    );
 
-    const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<CarrierListItem, CarrierTableFilters>({
-    endpoint: 'admin/carriers',
-    filters,
-    setFilters,
-    defaultSort,
-  });
+    const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
+        CarrierListItem,
+        CarrierTableFilters
+    >({
+        endpoint: 'admin/carriers',
+        filters,
+        setFilters,
+        defaultSort,
+    });
 
-  const rowData = items.map((item: CarrierListItem) => [
-      <TableRowId id={item.id} />,
+    const rowData = items.map((item: CarrierListItem) => [
+        <TableRowId id={item.id} />,
         <TableRowImageWithText
-          imagePath={item.imagePath}
-          text={item.name}
-          defaultIcon={<CarrierIcon className="text-primary mx-auto w-[24px] h-[24px]" />}
+            imagePath={item.imagePath}
+            text={item.name}
+            defaultIcon={<CarrierIcon className="text-primary mx-auto w-[24px] h-[24px]" />}
         />,
 
-      <TableRowActive isActive={item.isActive} />,
-       <TableRowMoney amount={item.fee?.amount} symbol={item.fee?.symbol} />,
-       <TableActions id={item.id} onDelete={() => removeItem(`admin/carriers/${item.id}`)} />,
-  ]);
+        <TableRowActive isActive={item.isActive} />,
+        <TableRowMoney amount={item.fee?.amount} symbol={item.fee?.symbol} />,
+        <TableActions id={item.id} onDelete={() => removeItem(`admin/carriers/${item.id}`)} />,
+    ]);
 
-  const columns: TableColumn[] = [
-    { orderBy: 'id', label: 'ID', sortable: true },
-    { orderBy: 'name', label: 'Nazwa', sortable: true },
-    { orderBy: 'isActive', label: 'Aktywny', sortable: true },
-    { orderBy: 'fee', label: 'Opłata', sortable: true },
-    { orderBy: 'actions', label: 'Actions' },
-  ];
+    const columns: TableColumn[] = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'fee', label: 'Opłata', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
 
-  return (
-      <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
-          <TableToolbar>
-              <TableToolbarActions title="Lista przewoźników" totalItems={pagination?.totalItems} />
-              <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
-                  <ActiveFilter setFilters={setFilters} filters={filters} />
-                  <RangeFilter filters={filters} setFilters={setFilters} label="Opłata" nameFilter="fee" />
-              </TableToolbarFilters>
-          </TableToolbar>
-          <TableWrapper isLoading={isLoading}>
-              <TableHead sort={sort} setSort={setSort} columns={columns} />
-              <TableBody
-                  data={rowData}
-                  filters={filters}
-                  pagination={pagination as Pagination}
-              />
-          </TableWrapper>
-          <TablePagination
-              filters={filters}
-              setFilters={setFilters}
-              pagination={pagination as Pagination}
-          />
-      </TableWithLoadingSkeleton>
-
-  );
-}
+    return (
+        <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
+            <TableToolbar>
+                <TableToolbarActions title="Lista przewoźników" totalItems={pagination?.totalItems} />
+                <TableToolbarFilters
+                    sort={sort}
+                    setSort={setSort}
+                    filters={filters}
+                    setFilters={setFilters}
+                    defaultFilters={defaultFilters}
+                >
+                    <ActiveFilter setFilters={setFilters} filters={filters} />
+                    <RangeFilter filters={filters} setFilters={setFilters} label="Opłata" nameFilter="fee" />
+                </TableToolbarFilters>
+            </TableToolbar>
+            <TableWrapper isLoading={isLoading}>
+                <TableHead sort={sort} setSort={setSort} columns={columns} />
+                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+            </TableWrapper>
+            <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
+        </TableWithLoadingSkeleton>
+    );
+};
 
 export default CarrierList;

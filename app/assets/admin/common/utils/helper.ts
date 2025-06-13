@@ -7,9 +7,7 @@ export interface DraggableData {
     newPosition: number | null;
 }
 
-export const prepareDraggableDataToUpdateOrder = (
-    data: DraggableItem
-): DraggableItem => {
+export const prepareDraggableDataToUpdateOrder = (data: DraggableItem): DraggableItem => {
     const { movedId = null, oldPosition = null, newPosition = null } = data;
 
     return {
@@ -62,8 +60,6 @@ export const normalizeFile = (file: UploadFile | null | undefined): UploadFile |
     return null;
 };
 
-
-
 export const filterEmptyValues = <T extends Record<string, any>>(filters: T): Partial<T> => {
     const cleaned: Partial<T> = {};
 
@@ -85,11 +81,7 @@ export const isOnlyPaginationInDataTable = (filters?: Record<string, any>): bool
     return Object.keys(filters).every((key) => allowedKeys.includes(key));
 };
 
-export const constructUrl = (
-    baseUrl: string,
-    endpoint: string,
-    queryParams?: Record<string, any>
-): string => {
+export const constructUrl = (baseUrl: string, endpoint: string, queryParams?: Record<string, any>): string => {
     let url = `${baseUrl !== '' ? baseUrl + '/' : ''}${endpoint}`;
     if (queryParams && Object.keys(queryParams).length > 0) {
         const query = new URLSearchParams();
@@ -100,7 +92,6 @@ export const constructUrl = (
     }
     return url;
 };
-
 
 export const stringToBoolean = (value: string | undefined | null): boolean => {
     if (!value) {

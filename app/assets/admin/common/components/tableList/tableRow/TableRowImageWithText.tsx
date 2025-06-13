@@ -6,20 +6,11 @@ interface TableRowImageWithTextProps {
     defaultIcon?: React.ReactNode;
 }
 
-
-const TableRowImageWithText: React.FC<TableRowImageWithTextProps> = ({
-   imagePath,
-   text,
-   defaultIcon,
-}) => {
+const TableRowImageWithText: React.FC<TableRowImageWithTextProps> = ({ imagePath, text, defaultIcon }) => {
     return (
         <div className="flex items-center gap-4">
             {imagePath ? (
-                <img
-                    src={imagePath}
-                    alt="Image"
-                    className="w-12 h-12 rounded-full object-cover"
-                />
+                <img src={imagePath} alt="Image" className="w-12 h-12 rounded-full object-cover" />
             ) : (
                 <div className="w-12 h-12 flex items-center justify-center bg-primary-light rounded-full">
                     {defaultIcon}
@@ -29,6 +20,5 @@ const TableRowImageWithText: React.FC<TableRowImageWithTextProps> = ({
         </div>
     );
 };
-
 
 export default TableRowImageWithText;

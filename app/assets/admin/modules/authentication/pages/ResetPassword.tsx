@@ -27,10 +27,9 @@ const ResetPassword: FC = () => {
 
     return (
         <AuthenticationWrapper title="Zresetuj hasło">
-            <ResetPasswordForm token={token}  />
+            <ResetPasswordForm token={token} />
         </AuthenticationWrapper>
-    )
-}
-
+    );
+};
 
 export default ResetPassword;

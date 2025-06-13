@@ -11,12 +11,7 @@ interface DynamicFieldsProps {
     callbackAddClick?: () => void;
 }
 
-export const DynamicFields: React.FC<DynamicFieldsProps> = ({
-    name,
-    control,
-    renderItem,
-    callbackAddClick,
-}) => {
+export const DynamicFields: React.FC<DynamicFieldsProps> = ({ name, control, renderItem, callbackAddClick }) => {
     const { fields, append, remove } = useFieldArray({ name, control });
 
     const handleClick = () => {

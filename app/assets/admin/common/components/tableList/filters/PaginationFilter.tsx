@@ -3,7 +3,6 @@ import ReactSelect from '@admin/common/components/form/reactSelect/ReactSelect';
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
 import { SelectOption } from '@admin/common/types/selectOption';
 
-
 export const PAGINATION_FILTER_DEFAULT_OPTION = 10;
 
 interface PaginationFilterProps<T extends TableFilters> {
@@ -13,11 +12,11 @@ interface PaginationFilterProps<T extends TableFilters> {
     options?: SelectOption[];
 }
 
-const PaginationFilter = <T extends TableFilters,>({
-filters,
-setFilters,
-overrideDefaultOptions = false,
-options = [],
+const PaginationFilter = <T extends TableFilters>({
+    filters,
+    setFilters,
+    overrideDefaultOptions = false,
+    options = [],
 }: PaginationFilterProps<T>): React.ReactElement => {
     const defaultOptions: SelectOption[] = [
         { value: 10, label: 10 },
@@ -30,9 +29,9 @@ options = [],
     const activeOptions = overrideDefaultOptions ? options : defaultOptions;
 
     const getCurrentValue = () => {
-        console.log("Filters", filters);
+        console.log('Filters', filters);
         const currentLimit = Number(filters.limit) || PAGINATION_FILTER_DEFAULT_OPTION;
-        return activeOptions.find(option => option.value === currentLimit) || null;
+        return activeOptions.find((option) => option.value === currentLimit) || null;
     };
 
     const [selectedOption, setSelectedOption] = useState<SelectOption | null>(getCurrentValue());
@@ -48,7 +47,7 @@ options = [],
             setFilters({
                 ...filters,
                 limit: PAGINATION_FILTER_DEFAULT_OPTION,
-                page: 1
+                page: 1,
             } as T);
             return;
         }

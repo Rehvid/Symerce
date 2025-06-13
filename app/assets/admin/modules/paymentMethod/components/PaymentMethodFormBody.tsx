@@ -9,10 +9,16 @@ interface PaymentMethodFormBodyProps {
     fieldErrors: FieldErrors<PaymentMethodFormData>;
     control: Control<PaymentMethodFormData>;
     formData: PaymentMethodFormData;
-    setValue: UseFormSetValue<PaymentMethodFormData>
+    setValue: UseFormSetValue<PaymentMethodFormData>;
 }
 
-const PaymentMethodFormBody: FC<PaymentMethodFormBodyProps> = ({register, fieldErrors, control, formData, setValue}) => {
+const PaymentMethodFormBody: FC<PaymentMethodFormBodyProps> = ({
+    register,
+    fieldErrors,
+    control,
+    formData,
+    setValue,
+}) => {
     const isRequireWebhook = useWatch({
         control,
         name: 'isRequireWebhook',
@@ -27,15 +33,10 @@ const PaymentMethodFormBody: FC<PaymentMethodFormBodyProps> = ({register, fieldE
                 setValue={setValue}
             />
             {isRequireWebhook && (
-                <PaymentMethodConfigurationSection
-                    register={register}
-                    fieldErrors={fieldErrors}
-                    control={control}
-                />
+                <PaymentMethodConfigurationSection register={register} fieldErrors={fieldErrors} control={control} />
             )}
         </>
-    )
-}
-
+    );
+};
 
 export default PaymentMethodFormBody;

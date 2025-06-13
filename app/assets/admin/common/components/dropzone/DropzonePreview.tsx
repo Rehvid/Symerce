@@ -10,12 +10,7 @@ type DropzonePreviewProps = {
     children?: ReactNode;
 };
 
-const DropzonePreview: React.FC<DropzonePreviewProps> = ({
- removeFile,
- file,
- additionalClasses = '',
- children,
- }) => {
+const DropzonePreview: React.FC<DropzonePreviewProps> = ({ removeFile, file, additionalClasses = '', children }) => {
     const [showActions, setShowActions] = useState(false);
 
     const toggleActions = () => setShowActions((prev) => !prev);
@@ -23,19 +18,14 @@ const DropzonePreview: React.FC<DropzonePreviewProps> = ({
     const containerClasses = clsx(
         'absolute inset-0 w-full h-full flex items-center justify-center gap-5 cursor-pointer transition-all',
         showActions ? 'bg-black/80 opacity-100' : 'opacity-0',
-        additionalClasses
+        additionalClasses,
     );
 
     return (
         <div className={containerClasses} onClick={toggleActions}>
             {children}
 
-            {showActions && (
-                <DropzonePreviewActions
-                    removeFile={removeFile}
-                    file={file}
-                />
-            )}
+            {showActions && <DropzonePreviewActions removeFile={removeFile} file={file} />}
         </div>
     );
 };

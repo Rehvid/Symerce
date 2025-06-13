@@ -80,7 +80,7 @@ const QuillEditor = React.forwardRef<Quill | null, QuillEditorProps>(
         }, [ref, readOnly]);
 
         return <section className="bg-white" ref={containerRef}></section>;
-    }
+    },
 );
 
 export default QuillEditor;

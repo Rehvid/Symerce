@@ -7,13 +7,12 @@ import TableSkeleton from '@admin/common/components/skeleton/TableSkeleton';
 import SuspenseFallback from '@admin/pages/SuspenseFallback';
 import { DraggableItem } from '@admin/common/types/draggableItem';
 
-
 interface TableBodyProps<T, F extends TableFilters> {
-    data: T[],
-    useDraggable?: boolean,
+    data: T[];
+    useDraggable?: boolean;
     draggableCallback?: (info: DraggableItem) => void;
-    pagination: Pagination,
-    filters: F
+    pagination: Pagination;
+    filters: F;
 }
 
 const TableBody = <T, F extends TableFilters>({
@@ -29,7 +28,6 @@ const TableBody = <T, F extends TableFilters>({
     const prevDataRef = useRef(data);
 
     const isDraggableEnabled = useDraggable && isOnlyPaginationInDataTable(filters);
-
 
     const extractRowId = (row: any): string | number | null => {
         const cells = Array.isArray(row) ? row : Object.values(row);
@@ -109,7 +107,7 @@ const TableBody = <T, F extends TableFilters>({
                 className={clsx(
                     'px-2 py-3 font-normal text-sm whitespace-nowrap border-t border-gray-100',
                     isLastRow && i === 0 && 'rounded-bl-xl',
-                    isLastRow && i === cells.length - 1 && 'rounded-br-xl'
+                    isLastRow && i === cells.length - 1 && 'rounded-br-xl',
                 )}
             >
                 {cell}
@@ -121,50 +119,50 @@ const TableBody = <T, F extends TableFilters>({
 
     return (
         <tbody className="relative">
-        {useDraggable && !isDraggableEnabled && hasItems && (
-            <tr>
-                <td colSpan={100} className="text-center p-2 text-gray-400 text-sm italic">
-                    Przeciąganie wyłączone przy aktywnych filtrach lub sortowaniu
-                </td>
-            </tr>
-        )}
+            {useDraggable && !isDraggableEnabled && hasItems && (
+                <tr>
+                    <td colSpan={100} className="text-center p-2 text-gray-400 text-sm italic">
+                        Przeciąganie wyłączone przy aktywnych filtrach lub sortowaniu
+                    </td>
+                </tr>
+            )}
 
-        {hasItems ? (
-            items.map((row, index) => {
-                const isLastRow = index === items.length - 1;
-                const isDragging = index === draggedItemIndex;
+            {hasItems ? (
+                items.map((row, index) => {
+                    const isLastRow = index === items.length - 1;
+                    const isDragging = index === draggedItemIndex;
 
-                const rowClass = clsx(
-                    'bg-white border-t border-gray-100 transition-all duration-150 ease-in-out',
-                    isDraggableEnabled && 'hover:cursor-grab',
-                    isDragging && 'opacity-50 scale-[1.01] bg-slate-100'
-                );
+                    const rowClass = clsx(
+                        'bg-white border-t border-gray-100 transition-all duration-150 ease-in-out',
+                        isDraggableEnabled && 'hover:cursor-grab',
+                        isDragging && 'opacity-50 scale-[1.01] bg-slate-100',
+                    );
 
-                return (
-                    <Fragment key={`row-${index}`}>
-                        {isDraggableEnabled && dragOverItemIndex === index && renderPlaceholder(index)}
+                    return (
+                        <Fragment key={`row-${index}`}>
+                            {isDraggableEnabled && dragOverItemIndex === index && renderPlaceholder(index)}
 
-                        <tr
-                            draggable={isDraggableEnabled}
-                            onDragStart={(e) => dragStart(e, index)}
-                            onDragEnter={(e) => dragEnter(e, index)}
-                            onDragOver={(e) => e.preventDefault()}
-                            onDragEnd={drop}
-                            id={String(index)}
-                            className={rowClass}
-                        >
-                            {renderCells(row, isLastRow)}
-                        </tr>
-                    </Fragment>
-                );
-            })
-        ) : (
-            <tr>
-                <td colSpan={100} className="text-center p-5 text-gray-500 text-md font-bold">
-                    Brak danych
-                </td>
-            </tr>
-        )}
+                            <tr
+                                draggable={isDraggableEnabled}
+                                onDragStart={(e) => dragStart(e, index)}
+                                onDragEnter={(e) => dragEnter(e, index)}
+                                onDragOver={(e) => e.preventDefault()}
+                                onDragEnd={drop}
+                                id={String(index)}
+                                className={rowClass}
+                            >
+                                {renderCells(row, isLastRow)}
+                            </tr>
+                        </Fragment>
+                    );
+                })
+            ) : (
+                <tr>
+                    <td colSpan={100} className="text-center p-5 text-gray-500 text-md font-bold">
+                        Brak danych
+                    </td>
+                </tr>
+            )}
         </tbody>
     );
 };

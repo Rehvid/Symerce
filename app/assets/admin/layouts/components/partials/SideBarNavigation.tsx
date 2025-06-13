@@ -14,7 +14,7 @@ import PaymentIcon from '@/images/icons/payment.svg';
 import WorldIcon from '@/images/icons/world.svg';
 import TrademarkIcon from '@/images/icons/trademark.svg';
 
-import { ComponentType, SVGProps  } from 'react';
+import { ComponentType, SVGProps } from 'react';
 
 export interface NavChildItem {
     to: string;
@@ -50,7 +50,7 @@ const navigationConfig: NavItem[] = [
     {
         to: 'brands',
         label: 'Marki',
-        Icon: TrademarkIcon
+        Icon: TrademarkIcon,
     },
     {
         to: 'tags',
@@ -116,7 +116,7 @@ const SideBarNavigation = () => (
                             <span className="flex gap-2 items-center">
                                 {item.Icon && <item.Icon className="w-[20px] h-[20px]" />}
                                 {item.label}
-                             </span>
+                            </span>
                         }
                     >
                         {item.children.map((child) => (
@@ -137,6 +137,5 @@ const SideBarNavigation = () => (
         })}
     </ul>
 );
-
 
 export default SideBarNavigation;

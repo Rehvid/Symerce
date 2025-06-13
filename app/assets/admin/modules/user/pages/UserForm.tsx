@@ -15,57 +15,56 @@ const UserForm = () => {
     });
     const requestConfig = getRequestConfig();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    control,
-    formState: { errors: fieldErrors },
-  } = useForm<UserFormData>({
-    mode: 'onBlur',
-    defaultValues: {
-      id: entityId
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        control,
+        formState: { errors: fieldErrors },
+    } = useForm<UserFormData>({
+        mode: 'onBlur',
+        defaultValues: {
+            id: entityId,
+        },
+    });
+
+    const { isFormInitialize, getFormData, formData, formContext } = useFormInitializer<UserFormData>();
+
+    useEffect(() => {
+        const endpoint = isEditMode ? `admin/users/${entityId}` : 'admin/users/store-data';
+        const formFieldNames = isEditMode
+            ? (['firstname', 'surname', 'email', 'roles', 'isActive'] satisfies (keyof UserFormData)[])
+            : [];
+
+        getFormData(endpoint, setValue, formFieldNames);
+    }, []);
+
+    if (!isFormInitialize) {
+        return <FormSkeleton rowsCount={12} />;
     }
-  });
 
-  const { isFormInitialize, getFormData, formData, formContext } = useFormInitializer<UserFormData>();
-
-
-  useEffect(() => {
-    const endpoint = isEditMode ? `admin/users/${entityId}` : 'admin/users/store-data';
-    const formFieldNames  = isEditMode
-      ? ['firstname', 'surname', 'email', 'roles', 'isActive'] satisfies (keyof UserFormData)[]
-      : []
-
-    getFormData(endpoint, setValue, formFieldNames);
-  }, []);
-
-  if (!isFormInitialize) {
-    return <FormSkeleton rowsCount={12} />;
-  }
-
-  return (
-    <FormWrapper
-        method={requestConfig.method}
-        endpoint={requestConfig.endpoint}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormApiLayout pageTitle={isEditMode ? 'Edytuj użytkownika' : 'Dodaj użytkownika'}>
-        <UserFormBody
-          register={register}
-          fieldErrors={fieldErrors}
-          control={control}
-          formData={formData}
-          setValue={setValue}
-          isEditMode={isEditMode}
-          formContext={formContext}
-        />
-      </FormApiLayout>
-    </FormWrapper>
-  );
-}
+    return (
+        <FormWrapper
+            method={requestConfig.method}
+            endpoint={requestConfig.endpoint}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormApiLayout pageTitle={isEditMode ? 'Edytuj użytkownika' : 'Dodaj użytkownika'}>
+                <UserFormBody
+                    register={register}
+                    fieldErrors={fieldErrors}
+                    control={control}
+                    formData={formData}
+                    setValue={setValue}
+                    isEditMode={isEditMode}
+                    formContext={formContext}
+                />
+            </FormApiLayout>
+        </FormWrapper>
+    );
+};
 
 export default UserForm;

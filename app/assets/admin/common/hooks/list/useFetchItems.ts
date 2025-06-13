@@ -7,20 +7,20 @@ import { useAdminApi } from '@admin/common/context/AdminApiContext';
 import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
 
 export const useFetchItems = <T>() => {
-  const { handleApiRequest } = useAdminApi();
-  const { addNotification } = useNotification();
+    const { handleApiRequest } = useAdminApi();
+    const { addNotification } = useNotification();
 
     const fetchItems = async (
         endpoint: string,
         queryParams: Record<string, any>,
         onSuccess: (items: T[], meta: any, additionalData: any) => void,
-        onComplete?: () => void
+        onComplete?: () => void,
     ) => {
         await handleApiRequest(HttpMethod.GET, endpoint, {
             queryParams,
             onSuccess: (data, meta) => {
                 const { additionalData = null, ...rest } = data ?? {};
-                const items = Object.values(rest).filter(item => item !== additionalData) as T[];
+                const items = Object.values(rest).filter((item) => item !== additionalData) as T[];
                 onSuccess(items, meta, additionalData);
             },
             onError: (errors) => {
@@ -33,5 +33,5 @@ export const useFetchItems = <T>() => {
         });
     };
 
-  return { fetchItems }
-}
+    return { fetchItems };
+};

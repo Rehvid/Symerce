@@ -4,16 +4,15 @@ import NumberIcon from '@/images/icons/number.svg';
 import InputField from '@admin/common/components/form/input/InputField';
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-
-interface ExactValueFilterProps<T extends TableFilters>   {
+interface ExactValueFilterProps<T extends TableFilters> {
     filters: T;
-    setFilters: React.Dispatch<React.SetStateAction<T>>
+    setFilters: React.Dispatch<React.SetStateAction<T>>;
     nameFilter: keyof T & string;
     label?: string;
     icon?: ReactNode;
 }
 
-const ExactValueFilter = <T extends TableFilters> ({
+const ExactValueFilter = <T extends TableFilters>({
     filters,
     setFilters,
     nameFilter,
@@ -21,12 +20,9 @@ const ExactValueFilter = <T extends TableFilters> ({
     icon = null,
 }: ExactValueFilterProps<T>): React.ReactElement => {
     const filterValue = filters[nameFilter];
-    const initialValue = filterValue !== undefined && filterValue !== null
-        ? String(filterValue)
-        : '';
+    const initialValue = filterValue !== undefined && filterValue !== null ? String(filterValue) : '';
 
     const [exactValue, setExactValue] = useState<string>(initialValue);
-
 
     useEffect(() => {
         const value = filters[nameFilter];
@@ -56,7 +52,6 @@ const ExactValueFilter = <T extends TableFilters> ({
             {label}
         </Heading>
     );
-
 
     return (
         <>

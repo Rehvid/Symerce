@@ -19,14 +19,14 @@ interface SingleImageUploaderProps {
 }
 
 const SingleImageUploader = ({
- label,
- fieldName,
- setValue,
- initialValue,
- onSuccessRemove = null,
- variant = DropzoneVariant.Single,
- containerClasses = 'max-w-lg relative',
-}: SingleImageUploaderProps ) => {
+    label,
+    fieldName,
+    setValue,
+    initialValue,
+    onSuccessRemove = null,
+    variant = DropzoneVariant.Single,
+    containerClasses = 'max-w-lg relative',
+}: SingleImageUploaderProps) => {
     const [file, setFile] = useState<UploadFile | null>(normalizeFile(initialValue));
     const internalSetValue = (value: UploadFile | null) => {
         setFile(value);
@@ -36,27 +36,16 @@ const SingleImageUploader = ({
     const { onDrop, removeFile, errors } = useDropzoneLogicSingle({
         setValue: internalSetValue,
         value: file,
-        onSuccessRemove: onSuccessRemove
+        onSuccessRemove: onSuccessRemove,
     });
 
     return (
         <FormGroup label={<InputLabel label={label} />}>
-            <Dropzone
-                onDrop={onDrop}
-                errors={errors}
-                containerClasses={containerClasses}
-                variant={variant}
-            >
-                {file && (
-                    <DropzoneThumbnail
-                        file={file}
-                        removeFile={removeFile}
-                        variant={variant}
-                    />
-                )}
+            <Dropzone onDrop={onDrop} errors={errors} containerClasses={containerClasses} variant={variant}>
+                {file && <DropzoneThumbnail file={file} removeFile={removeFile} variant={variant} />}
             </Dropzone>
         </FormGroup>
     );
-}
+};
 
 export default SingleImageUploader;

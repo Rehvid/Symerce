@@ -13,7 +13,6 @@ import FormSection from '@admin/common/components/form/FormSection';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 
-
 const ProfileSecurityForm: React.FC = () => {
     const {
         register,
@@ -27,7 +26,7 @@ const ProfileSecurityForm: React.FC = () => {
     const { addNotification } = useNotification();
 
     const apiRequestCallbacks = {
-        onSuccess: ({ message }: {message: string}) => {
+        onSuccess: ({ message }: { message: string }) => {
             addNotification(message, NotificationType.SUCCESS);
         },
     };
@@ -54,7 +53,7 @@ const ProfileSecurityForm: React.FC = () => {
                                 })}
                             />
                         </FormGroup>
-                        <FormGroup label={<InputLabel label="Powtórz hasło" isRequired={true} />} >
+                        <FormGroup label={<InputLabel label="Powtórz hasło" isRequired={true} />}>
                             <InputPassword
                                 id="password-confirmation"
                                 hasError={!!fieldErrors?.passwordConfirmation}
@@ -67,7 +66,6 @@ const ProfileSecurityForm: React.FC = () => {
                                 })}
                             />
                         </FormGroup>
-
                     </FormSection>
                 </FormApiLayout>
             </FormWrapper>

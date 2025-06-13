@@ -29,7 +29,7 @@ const ProfilePersonalForm: React.FC = () => {
     });
 
     const apiRequestCallbacks = {
-        onSuccess: ({ data, message }: {data: any, message: string}) => {
+        onSuccess: ({ data, message }: { data: any; message: string }) => {
             const { user: currentUser } = data;
             setUser((prev) => ({
                 ...prev,

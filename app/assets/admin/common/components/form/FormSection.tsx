@@ -52,9 +52,7 @@ const FormSection: React.FC<FormSectionProps> = ({
                     onClick={() => setIsOpen((prev) => !prev)}
                 >
                     <ChevronIcon
-                        className={`h-[16px] w-[16px] transition-transform duration-300 ${
-                            isOpen ? 'rotate-180' : ''
-                        }`}
+                        className={`h-[16px] w-[16px] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
                     />
                     <Heading level={HeadingLevel.H3}>{title}</Heading>
                 </div>
@@ -73,7 +71,7 @@ const FormSection: React.FC<FormSectionProps> = ({
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.35, ease: 'easeInOut' }}
                             style={{
-                                overflow: 'hidden'
+                                overflow: 'hidden',
                             }}
                         >
                             <div
@@ -88,11 +86,7 @@ const FormSection: React.FC<FormSectionProps> = ({
                     )}
                 </AnimatePresence>
             ) : (
-                <div
-                    className={`py-4 flex flex-col ${
-                        useDefaultGap ? 'gap-[2rem]' : ''
-                    } ${contentContainerClasses}`}
-                >
+                <div className={`py-4 flex flex-col ${useDefaultGap ? 'gap-[2rem]' : ''} ${contentContainerClasses}`}>
                     {children}
                 </div>
             )}

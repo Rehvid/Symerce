@@ -33,11 +33,12 @@ const DropzonePreviewActions: FC<DropzonePreviewActionsProps> = ({ removeFile, f
 
     return (
         <>
-             <span
-                 onClick={() => {
-                     open('dropzonePreviewThumbnail', fileDrawerContent(), PositionType.CENTER);
-                 }}
-                 className="block cursor-pointer bg-gray-100 hover:bg-primary text-gray-500 hover:text-white transition-colors rounded-full p-2 duration-300">
+            <span
+                onClick={() => {
+                    open('dropzonePreviewThumbnail', fileDrawerContent(), PositionType.CENTER);
+                }}
+                className="block cursor-pointer bg-gray-100 hover:bg-primary text-gray-500 hover:text-white transition-colors rounded-full p-2 duration-300"
+            >
                 <EyeIcon className="w-8 h-8" />
             </span>
             <span
@@ -49,6 +50,5 @@ const DropzonePreviewActions: FC<DropzonePreviewActionsProps> = ({ removeFile, f
         </>
     );
 };
-
 
 export default DropzonePreviewActions;

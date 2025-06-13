@@ -4,7 +4,6 @@ import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { UploadFile } from '@admin/common/interfaces/UploadFile';
 
-
 interface DropzoneThumbnailProps {
     file: UploadFile;
     removeFile: (file: UploadFile) => void;
@@ -17,17 +16,17 @@ interface DropzoneThumbnailProps {
 const variantClasses: Record<DropzoneVariant, string> = {
     [DropzoneVariant.Avatar]: 'absolute flex top-0 h-40 w-40 rounded-full',
     [DropzoneVariant.Single]: 'absolute flex top-0 rounded-lg w-full h-full border border-gray-200',
-    [DropzoneVariant.Multiple]: 'relative flex sm:h-48 sm:w-48 max-w-lg w-full h-auto rounded-lg border border-gray-100',
+    [DropzoneVariant.Multiple]:
+        'relative flex sm:h-48 sm:w-48 max-w-lg w-full h-auto rounded-lg border border-gray-100',
 };
 
-
 const DropzoneThumbnail: React.FC<DropzoneThumbnailProps> = ({
-file,
-removeFile,
-index,
-variant,
-isMainThumbnail = false,
-children,
+    file,
+    removeFile,
+    index,
+    variant,
+    isMainThumbnail = false,
+    children,
 }) => {
     const baseRounded = variant === DropzoneVariant.Avatar ? 'rounded-full' : 'rounded-lg';
 
@@ -47,18 +46,10 @@ children,
                     )}
                 </div>
             ) : (
-                <img
-                    className={clsx(baseRounded, 'mx-auto object-cover w-full')}
-                    src={file.preview}
-                    alt={file.name}
-                />
+                <img className={clsx(baseRounded, 'mx-auto object-cover w-full')} src={file.preview} alt={file.name} />
             )}
 
-            <DropzonePreview
-                removeFile={() => removeFile(file)}
-                file={file}
-                additionalClasses={baseRounded}
-            >
+            <DropzonePreview removeFile={() => removeFile(file)} file={file} additionalClasses={baseRounded}>
                 {children}
             </DropzonePreview>
         </div>

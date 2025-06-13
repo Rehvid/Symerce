@@ -9,29 +9,26 @@ import { AttributeValueFormData } from '@admin/modules/attributeValue/interfaces
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 interface AttributeValueFormBodyProps {
-    register: UseFormRegister<AttributeValueFormData>,
-    fieldErrors: FieldErrors<AttributeValueFormData>
+    register: UseFormRegister<AttributeValueFormData>;
+    fieldErrors: FieldErrors<AttributeValueFormData>;
 }
 
-const AttributeValueFormBody: FC<AttributeValueFormBodyProps> = ({register, fieldErrors}) => (
-  <FormSection title="Informacje">
-
-    <FormGroup
-      label={<InputLabel isRequired={true} label="Wartość" htmlFor="value"  />}
-    >
-      <InputField
-        type="text"
-        id="name"
-        hasError={!!fieldErrors?.value}
-        errorMessage={fieldErrors?.value?.message}
-        icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-        {...register('value', {
-          ...validationRules.required(),
-          ...validationRules.minLength(2),
-        })}
-      />
-    </FormGroup>
-  </FormSection>
-)
+const AttributeValueFormBody: FC<AttributeValueFormBodyProps> = ({ register, fieldErrors }) => (
+    <FormSection title="Informacje">
+        <FormGroup label={<InputLabel isRequired={true} label="Wartość" htmlFor="value" />}>
+            <InputField
+                type="text"
+                id="name"
+                hasError={!!fieldErrors?.value}
+                errorMessage={fieldErrors?.value?.message}
+                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
+                {...register('value', {
+                    ...validationRules.required(),
+                    ...validationRules.minLength(2),
+                })}
+            />
+        </FormGroup>
+    </FormSection>
+);
 
 export default AttributeValueFormBody;

@@ -7,7 +7,7 @@ const RemindPassword: FC = () => {
         <AuthenticationWrapper title="Przypomnij hasło">
             <RemindPasswordForm />
         </AuthenticationWrapper>
-    )
-}
+    );
+};
 
 export default RemindPassword;

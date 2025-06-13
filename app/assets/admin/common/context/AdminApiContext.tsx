@@ -21,11 +21,7 @@ interface HandleApiRequestOptions {
 
 interface AdminApiContextValue {
     isRequestFinished: boolean;
-    handleApiRequest: (
-        method: HttpMethod,
-        endpoint: string,
-        options?: HandleApiRequestOptions
-    ) => Promise<void>;
+    handleApiRequest: (method: HttpMethod, endpoint: string, options?: HandleApiRequestOptions) => Promise<void>;
 }
 
 const AdminApiContext = createContext<AdminApiContextValue | undefined>(undefined);
@@ -35,21 +31,9 @@ export const AdminApiProvider: React.FC<AdminApiProviderProps> = ({ baseUrl, chi
     const [isRequestFinished, setIsRequestFinished] = useState<boolean>(true);
     const apiClient = createApiClient(baseUrl);
 
-    const handleApiRequest = async (
-        method: HttpMethod,
-        endpoint: string,
-        options: HandleApiRequestOptions = {}
-    ) => {
+    const handleApiRequest = async (method: HttpMethod, endpoint: string, options: HandleApiRequestOptions = {}) => {
         setIsRequestFinished(false);
-        const {
-            headers,
-            queryParams,
-            body,
-            onSuccess,
-            onError,
-            onNetworkError,
-            onFinally,
-        } = options;
+        const { headers, queryParams, body, onSuccess, onError, onNetworkError, onFinally } = options;
 
         try {
             let response = null;
@@ -63,18 +47,14 @@ export const AdminApiProvider: React.FC<AdminApiProviderProps> = ({ baseUrl, chi
                     },
                 });
             } else {
-                response = await apiClient[method.toLowerCase() as 'post' | 'put' | 'patch'](
-                    endpoint,
-                    body,
-                    {
-                        headers,
-                        queryParams,
-                        onUnauthorized: () => {
-                            setIsAuthenticated(false);
-                            setUser({});
-                        },
-                    }
-                );
+                response = await apiClient[method.toLowerCase() as 'post' | 'put' | 'patch'](endpoint, body, {
+                    headers,
+                    queryParams,
+                    onUnauthorized: () => {
+                        setIsAuthenticated(false);
+                        setUser({});
+                    },
+                });
             }
 
             if (response.errors && Object.values(response.errors).length > 0) {
@@ -92,9 +72,7 @@ export const AdminApiProvider: React.FC<AdminApiProviderProps> = ({ baseUrl, chi
     };
 
     return (
-        <AdminApiContext.Provider value={{ isRequestFinished, handleApiRequest }}>
-            {children}
-        </AdminApiContext.Provider>
+        <AdminApiContext.Provider value={{ isRequestFinished, handleApiRequest }}>{children}</AdminApiContext.Provider>
     );
 };
 

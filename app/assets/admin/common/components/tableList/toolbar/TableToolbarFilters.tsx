@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import SearchFilter from '@admin/common/components/tableList/filters/SearchFilter';
 import Button, { ButtonVariant } from '@admin/common/components/Button';
 import FilterIcon from '@/images/icons/filter.svg';
@@ -22,7 +22,7 @@ interface TableToolbarFilters<T extends TableFilters> {
     useSearch?: boolean;
 }
 
-const TableToolbarFilters= <T extends TableFilters,> ({
+const TableToolbarFilters = <T extends TableFilters>({
     setSort,
     sort,
     filters,
@@ -31,7 +31,7 @@ const TableToolbarFilters= <T extends TableFilters,> ({
     children,
     useSearch = true,
 }: TableToolbarFilters<T>) => {
-    const {open} = useDrawer();
+    const { open } = useDrawer();
 
     const openFilters = (children: React.ReactNode) => (
         <>
@@ -69,20 +69,18 @@ const TableToolbarFilters= <T extends TableFilters,> ({
 
     return (
         <>
-            <div className={clsx("sm:flex sm:items-center gap-4", useSearch ? "sm:justify-between" : "sm:justify-end")}>
-                {useSearch && (
-                    <SearchFilter filters={filters} setFilters={setFilters} />
-                )}
+            <div className={clsx('sm:flex sm:items-center gap-4', useSearch ? 'sm:justify-between' : 'sm:justify-end')}>
+                {useSearch && <SearchFilter filters={filters} setFilters={setFilters} />}
                 {children && (
                     <>
-                            <Button
-                                variant={ButtonVariant.Secondary}
-                                additionalClasses="h-[46px] px-5 flex gap-2 mt-4 sm:mt-0 w-full sm:w-auto justify-center items-center"
-                                onClick={() => open('filters', openFilters(children), PositionType.RIGHT)}
-                            >
-                                <FilterIcon />
-                                Filtry
-                            </Button>
+                        <Button
+                            variant={ButtonVariant.Secondary}
+                            additionalClasses="h-[46px] px-5 flex gap-2 mt-4 sm:mt-0 w-full sm:w-auto justify-center items-center"
+                            onClick={() => open('filters', openFilters(children), PositionType.RIGHT)}
+                        >
+                            <FilterIcon />
+                            Filtry
+                        </Button>
                     </>
                 )}
             </div>

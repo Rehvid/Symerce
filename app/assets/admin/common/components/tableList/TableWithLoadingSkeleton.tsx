@@ -7,11 +7,11 @@ interface TableWithLoadingSkeletonProps {
     children: React.ReactNode;
 }
 
-const TableWithLoadingSkeleton: FC<TableWithLoadingSkeletonProps> = ({isLoading, filtersLimit, children}) => {
+const TableWithLoadingSkeleton: FC<TableWithLoadingSkeletonProps> = ({ isLoading, filtersLimit, children }) => {
     const [isComponentInit, setIsComponentInit] = useState<boolean>(false);
 
     if (!isComponentInit && isLoading) {
-        return <TableSkeleton rowsCount={filtersLimit} />
+        return <TableSkeleton rowsCount={filtersLimit} />;
     }
 
     if (!isComponentInit) {
@@ -19,6 +19,6 @@ const TableWithLoadingSkeleton: FC<TableWithLoadingSkeletonProps> = ({isLoading,
     }
 
     return children;
-}
+};
 
 export default TableWithLoadingSkeleton;

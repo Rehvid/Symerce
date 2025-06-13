@@ -8,14 +8,14 @@ import { useIsMobile } from '@admin/common/hooks/useIsMobile';
 import { NotificationProvider } from '@admin/common/context/NotificationContext';
 import { DrawerProvider } from '@admin/common/components/drawer/DrawerContext';
 
-const AdminLayout: React.FC  = () => {
+const AdminLayout: React.FC = () => {
     const isMobile = useIsMobile();
     const { isLoadingAuthorization, verifyAuth } = useAuth();
     const { isAuthenticated } = useUser();
     const [sideBarContent, setSideBarContent] = useState<React.ReactNode | null>(null);
 
     useEffect(() => {
-        verifyAuth().catch(error => console.error(error));
+        verifyAuth().catch((error) => console.error(error));
     }, []);
 
     if (isLoadingAuthorization) {

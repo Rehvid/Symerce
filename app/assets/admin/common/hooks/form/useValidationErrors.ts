@@ -10,9 +10,7 @@ type ValidationErrors<T> = {
     [K in keyof T]?: ValidationError;
 };
 
-export const useValidationErrors = <T extends FieldValues>(
-    setError: UseFormSetError<T>
-) => {
+export const useValidationErrors = <T extends FieldValues>(setError: UseFormSetError<T>) => {
     const [validationErrors, setValidationErrors] = useState<ValidationErrors<T>>({});
 
     useEffect(() => {

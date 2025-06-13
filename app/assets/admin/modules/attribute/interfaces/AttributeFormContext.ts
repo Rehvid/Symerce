@@ -1,5 +1,5 @@
 import { SelectOption } from '@admin/common/types/selectOption';
 
 export interface AttributeFormContext {
-    availableTypes: SelectOption[]
+    availableTypes: SelectOption[];
 }

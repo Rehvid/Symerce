@@ -6,8 +6,6 @@ interface LogoProps {
     classesName?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ classesName }) => (
-    <img src={LogoImage} alt="Logo" className={classesName} />
-);
+const Logo: React.FC<LogoProps> = ({ classesName }) => <img src={LogoImage} alt="Logo" className={classesName} />;
 
 export default Logo;

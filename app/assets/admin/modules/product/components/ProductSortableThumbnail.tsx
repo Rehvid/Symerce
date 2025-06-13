@@ -15,7 +15,12 @@ interface ProductSortableThumbnailProps {
     isMainThumbnail: boolean;
 }
 
-const ProductSortableThumbnail: FC<ProductSortableThumbnailProps> = ({ file, removeFile, setMainThumbnail, isMainThumbnail }) => {
+const ProductSortableThumbnail: FC<ProductSortableThumbnailProps> = ({
+    file,
+    removeFile,
+    setMainThumbnail,
+    isMainThumbnail,
+}) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: file?.uuid ?? '' });
 
     const style = {

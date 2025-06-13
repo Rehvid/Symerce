@@ -1,4 +1,4 @@
-export enum PositionType  {
+export enum PositionType {
     LEFT = 'left',
     RIGHT = 'right',
     BOTTOM = 'bottom',

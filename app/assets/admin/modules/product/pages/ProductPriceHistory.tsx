@@ -8,40 +8,40 @@ import { ProductPriceHistory as ProductPriceHistoryInterface } from '@admin/modu
 import useEntityId from '@admin/common/hooks/useEntityId';
 
 const ProductPriceHistory = () => {
-  const { handleApiRequest } = useAdminApi();
-  const [items, setItems] = useState<ProductPriceHistoryInterface[]| null>(null);
-  const { entityId, hasEntityId } = useEntityId();
+    const { handleApiRequest } = useAdminApi();
+    const [items, setItems] = useState<ProductPriceHistoryInterface[] | null>(null);
+    const { entityId, hasEntityId } = useEntityId();
 
-  useEffect(() => {
-      if (!hasEntityId) return;
+    useEffect(() => {
+        if (!hasEntityId) return;
 
-      const fetchHistory = async () => {
-          await handleApiRequest(HttpMethod.GET, `admin/products/${entityId}/product-history`, {
-              onSuccess: ({ data }) => {
-                  setItems(data as ProductPriceHistoryInterface[]);
-              },
-              onError: (errors) => {
-                  console.error('API error:', errors);
-              },
-              onNetworkError: (error) => {
-                  console.error('Network error:', error);
-              },
-          });
-      };
+        const fetchHistory = async () => {
+            await handleApiRequest(HttpMethod.GET, `admin/products/${entityId}/product-history`, {
+                onSuccess: ({ data }) => {
+                    setItems(data as ProductPriceHistoryInterface[]);
+                },
+                onError: (errors) => {
+                    console.error('API error:', errors);
+                },
+                onNetworkError: (error) => {
+                    console.error('Network error:', error);
+                },
+            });
+        };
 
-      fetchHistory().catch(console.error);
-  }, []);
+        fetchHistory().catch(console.error);
+    }, []);
 
-  if (!items) {
-    return;
-  }
+    if (!items) {
+        return;
+    }
 
-  return (
-    <>
-      <PageHeader title="Historia cen produktu" />
-      <ProductPriceHistoryBody items={items}/>
-    </>
-  )
-}
+    return (
+        <>
+            <PageHeader title="Historia cen produktu" />
+            <ProductPriceHistoryBody items={items} />
+        </>
+    );
+};
 
 export default ProductPriceHistory;

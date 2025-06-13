@@ -9,16 +9,16 @@ import PaymentMethodFormBody from '@admin/modules/paymentMethod/components/Payme
 import { PaymentMethodFormData } from '@admin/modules/paymentMethod/interfaces/PaymentMethodFormData';
 
 const PaymentMethodForm = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    control,
-    formState: { errors: fieldErrors },
-  } = useForm<PaymentMethodFormData>({
-    mode: 'onBlur',
-  });
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        control,
+        formState: { errors: fieldErrors },
+    } = useForm<PaymentMethodFormData>({
+        mode: 'onBlur',
+    });
 
     const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
         baseApiUrl: 'admin/payment-methods',
@@ -26,41 +26,44 @@ const PaymentMethodForm = () => {
     });
     const requestConfig = getRequestConfig();
 
-  const { isFormInitialize, getFormData, formData, } = useFormInitializer<PaymentMethodFormData>();
+    const { isFormInitialize, getFormData, formData } = useFormInitializer<PaymentMethodFormData>();
 
-  useEffect(() => {
-    if (isEditMode) {
-      getFormData(
-          `admin/payment-methods/${entityId}`,
-          setValue,
-          ['name', 'isActive', 'code', 'fee', 'isRequireWebhook', 'config'] satisfies (keyof PaymentMethodFormData)[]
-      );
+    useEffect(() => {
+        if (isEditMode) {
+            getFormData(`admin/payment-methods/${entityId}`, setValue, [
+                'name',
+                'isActive',
+                'code',
+                'fee',
+                'isRequireWebhook',
+                'config',
+            ] satisfies (keyof PaymentMethodFormData)[]);
+        }
+    }, []);
+
+    if (!isFormInitialize) {
+        return <FormSkeleton rowsCount={12} />;
     }
-  }, []);
 
-  if (!isFormInitialize) {
-    return <FormSkeleton rowsCount={12} />;
-  }
-
-  return (
-    <FormWrapper
-        method={requestConfig.method}
-        endpoint={requestConfig.endpoint}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormApiLayout pageTitle={isEditMode ? 'Edytuj metodę płatności' : 'Dodaj metodę płatności'}>
-        <PaymentMethodFormBody
-          register={register}
-          fieldErrors={fieldErrors}
-          control={control}
-          formData={formData}
-          setValue={setValue}
-        />
-      </FormApiLayout>
-    </FormWrapper>
-  );
-}
+    return (
+        <FormWrapper
+            method={requestConfig.method}
+            endpoint={requestConfig.endpoint}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormApiLayout pageTitle={isEditMode ? 'Edytuj metodę płatności' : 'Dodaj metodę płatności'}>
+                <PaymentMethodFormBody
+                    register={register}
+                    fieldErrors={fieldErrors}
+                    control={control}
+                    formData={formData}
+                    setValue={setValue}
+                />
+            </FormApiLayout>
+        </FormWrapper>
+    );
+};
 
 export default PaymentMethodForm;

@@ -10,58 +10,57 @@ import AttributeFormBody from '@admin/modules/attribute/components/AttributeForm
 import { AttributeFormData } from '@admin/modules/attribute/interfaces/AttributeFormData';
 
 const AttributeForm = () => {
-  const params = useParams();
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    control,
-    formState: { errors: fieldErrors },
-  } = useForm<AttributeFormData>({
-    mode: 'onBlur',
-  });
+    const params = useParams();
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        control,
+        formState: { errors: fieldErrors },
+    } = useForm<AttributeFormData>({
+        mode: 'onBlur',
+    });
     const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
         baseApiUrl: 'admin/attributes',
         redirectSuccessUrl: '/admin/products/attributes',
     });
     const requestConfig = getRequestConfig();
 
-  const { isFormInitialize, getFormData, formContext } = useFormInitializer<AttributeFormData>();
+    const { isFormInitialize, getFormData, formContext } = useFormInitializer<AttributeFormData>();
 
-  useEffect(() => {
-    const formFieldNames = isEditMode ? ['type', 'name', 'isActive'] satisfies (keyof AttributeFormData)[] : [];
+    useEffect(() => {
+        const formFieldNames = isEditMode ? (['type', 'name', 'isActive'] satisfies (keyof AttributeFormData)[]) : [];
 
-    getFormData(
-        isEditMode ? `admin/attributes/${entityId}` : `admin/attributes/store-data`,
-        setValue,
-        formFieldNames
+        getFormData(
+            isEditMode ? `admin/attributes/${entityId}` : `admin/attributes/store-data`,
+            setValue,
+            formFieldNames,
+        );
+    }, []);
+
+    if (!isFormInitialize) {
+        return <FormSkeleton rowsCount={12} />;
+    }
+
+    return (
+        <FormWrapper
+            method={requestConfig.method}
+            endpoint={requestConfig.endpoint}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormApiLayout pageTitle={params.id ? 'Edytuj atrybut' : 'Dodaj atrytbut'}>
+                <AttributeFormBody
+                    register={register}
+                    fieldErrors={fieldErrors}
+                    control={control}
+                    formContext={formContext}
+                />
+            </FormApiLayout>
+        </FormWrapper>
     );
-  }, []);
-
-  if (!isFormInitialize) {
-    return <FormSkeleton rowsCount={12} />;
-  }
-
-
-  return (
-    <FormWrapper
-        method={requestConfig.method}
-        endpoint={requestConfig.endpoint}
-        handleSubmit={handleSubmit}
-        setError={setError}
-        apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormApiLayout pageTitle={params.id ? 'Edytuj atrybut' : 'Dodaj atrytbut'}>
-        <AttributeFormBody
-          register={register}
-          fieldErrors={fieldErrors}
-          control={control}
-          formContext={formContext}
-        />
-      </FormApiLayout>
-    </FormWrapper>
-  );
-}
+};
 
 export default AttributeForm;

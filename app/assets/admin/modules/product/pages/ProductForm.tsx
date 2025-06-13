@@ -26,7 +26,7 @@ const ProductForm = () => {
         mode: 'onBlur',
         defaultValues: {
             promotionSource: 'product_tab',
-            id: entityId
+            id: entityId,
         },
     });
 
@@ -96,9 +96,7 @@ const ProductForm = () => {
         ];
     };
 
-    const getFormFieldModifiers = (
-        setValue: UseFormSetValue<ProductFormData>,
-    ): FieldModifier<ProductFormData>[] => [
+    const getFormFieldModifiers = (setValue: UseFormSetValue<ProductFormData>): FieldModifier<ProductFormData>[] => [
         {
             fieldName: 'attributes',
             action: (attributesByKey: Record<string, AttributeItem[]>) => {
@@ -109,31 +107,24 @@ const ProductForm = () => {
                         isCustom = attributeItem.isCustom;
 
                         if (isCustom) {
-                            setValue(
-                                `attributes.${attributeGroupKey}.${itemIndex}.value` as any,
-                                attributeItem.value
-                            );
+                            setValue(`attributes.${attributeGroupKey}.${itemIndex}.value` as any, attributeItem.value);
                         } else {
-                            setValue(
-                                `attributes.${attributeGroupKey}.${itemIndex}` as any,
-                                attributeItem.value
-                            );
+                            setValue(`attributes.${attributeGroupKey}.${itemIndex}` as any, attributeItem.value);
                         }
                     });
 
                     setValue(`customAttributes.${attributeGroupKey}` as any, isCustom);
                 });
-            }
+            },
         },
     ];
-
 
     useEffect(() => {
         getFormData(
             isEditMode ? `admin/products/${entityId}` : 'admin/products/store-data',
             setValue,
             getFormFieldNames(isEditMode),
-            getFormFieldModifiers(setValue)
+            getFormFieldModifiers(setValue),
         );
     }, []);
 

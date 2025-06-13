@@ -4,13 +4,13 @@ import PaginationFilter from '@admin/common/components/tableList/filters/Paginat
 import { Pagination } from '@admin/common/interfaces/Pagination';
 import { TableFilters } from '@admin/common/interfaces/TableFilters';
 
-interface TablePaginationProps<T extends TableFilters>  {
+interface TablePaginationProps<T extends TableFilters> {
     filters: T;
-    setFilters: React.Dispatch<React.SetStateAction<T>>
+    setFilters: React.Dispatch<React.SetStateAction<T>>;
     pagination: Pagination;
 }
 
-const TablePagination = <T extends TableFilters> ({ filters, setFilters, pagination }: TablePaginationProps<T>) => {
+const TablePagination = <T extends TableFilters>({ filters, setFilters, pagination }: TablePaginationProps<T>) => {
     const currentRendered = pagination.totalItems > 0 ? pagination.offset + 1 : 0;
     const currentShowingItems = pagination.limit * pagination.page;
     const showed = currentShowingItems > pagination.totalItems ? pagination.totalItems : currentShowingItems;

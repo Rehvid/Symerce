@@ -18,8 +18,8 @@ const TableRowId: FC<TableRowIdProps> = ({ id }) => {
             onClick={handleClick}
             title={`Edytuj #${id}`}
         >
-      #{id}
-    </span>
+            #{id}
+        </span>
     );
 };
 

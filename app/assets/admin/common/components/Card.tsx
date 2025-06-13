@@ -6,11 +6,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ children, additionalClasses = '' }) => {
-    return (
-        <div className={`rounded-xl  bg-white p-6 ${additionalClasses}`}>
-            {children}
-        </div>
-    );
+    return <div className={`rounded-xl  bg-white p-6 ${additionalClasses}`}>{children}</div>;
 };
 
 export default Card;

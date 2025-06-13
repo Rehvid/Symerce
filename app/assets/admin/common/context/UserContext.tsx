@@ -9,7 +9,7 @@ export interface User {
     fullName?: string;
     email?: string;
     roles?: AdminRole[];
-    avatar?: UploadFile
+    avatar?: UploadFile;
     [key: string]: any;
 }
 

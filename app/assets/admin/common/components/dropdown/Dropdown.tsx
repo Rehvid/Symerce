@@ -1,7 +1,6 @@
 import React, { Children, cloneElement, FC, isValidElement, useEffect, useState } from 'react';
 import DropdownButton from './DropdownButton';
 
-
 interface DropdownProps {
     forceClose?: boolean;
     children?: React.ReactNode;
@@ -33,6 +32,6 @@ const Dropdown: FC<DropdownProps> = ({ forceClose, children }) => {
             })}
         </div>
     );
-}
+};
 
 export default Dropdown;

@@ -34,7 +34,7 @@ const LoginForm: FC = () => {
     const navigate = useNavigate();
 
     const apiRequestCallbacks = {
-        onSuccess: (data: User ) => {
+        onSuccess: (data: User) => {
             login(data.user);
             navigate('/admin/dashboard', { replace: true });
         },

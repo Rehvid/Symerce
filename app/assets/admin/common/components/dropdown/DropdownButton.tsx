@@ -20,6 +20,6 @@ const DropdownButton: FC<DropdownButtonProps> = ({ children, toggleDropdown, onC
             {children}
         </div>
     );
-}
+};
 
 export default DropdownButton;

@@ -15,39 +15,43 @@ interface PaymentMethodConfigurationSectionProps {
     control: Control<PaymentMethodFormData>;
 }
 
-const PaymentMethodConfigurationSection: FC<PaymentMethodConfigurationSectionProps> = ({register, fieldErrors, control}) => (
-  <FormSection title="Dodatkowa konfiguracja" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-      <DynamicFields
-        name="config"
-        control={control}
-        renderItem={(index, namePrefix) => (
-          <div className="space-y-2 flex flex-col gap-4">
-              <FormGroup label={<InputLabel isRequired={true} label="Nazwa"   />}>
-                    <InputField
-                      {...register(`${namePrefix}.key` as Path<PaymentMethodFormData>, {
-                        ...validationRules.required(),
-                      })}
-                      placeholder="Klucz konfiguracji"
-                      type="text"
-                      hasError={!!fieldErrors?.config?.[index]?.key}
-                      errorMessage={fieldErrors?.config?.[index]?.key?.message}
-                    />
-              </FormGroup>
-              <FormGroup label={<InputLabel isRequired={true} label="Wartość"   />}>
-                    <InputField
-                      {...register(`${namePrefix}.value` as Path<PaymentMethodFormData>, {
-                        ...validationRules.required(),
-                      })}
-                      placeholder="Wartość konfiguracji"
-                      type="text"
-                      hasError={!!fieldErrors?.config?.[index]?.value}
-                      errorMessage={fieldErrors?.config?.[index]?.value?.message}
-                    />
-              </FormGroup>
-          </div>
-        )}
-      />
-  </FormSection>
-)
+const PaymentMethodConfigurationSection: FC<PaymentMethodConfigurationSectionProps> = ({
+    register,
+    fieldErrors,
+    control,
+}) => (
+    <FormSection title="Dodatkowa konfiguracja" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
+        <DynamicFields
+            name="config"
+            control={control}
+            renderItem={(index, namePrefix) => (
+                <div className="space-y-2 flex flex-col gap-4">
+                    <FormGroup label={<InputLabel isRequired={true} label="Nazwa" />}>
+                        <InputField
+                            {...register(`${namePrefix}.key` as Path<PaymentMethodFormData>, {
+                                ...validationRules.required(),
+                            })}
+                            placeholder="Klucz konfiguracji"
+                            type="text"
+                            hasError={!!fieldErrors?.config?.[index]?.key}
+                            errorMessage={fieldErrors?.config?.[index]?.key?.message}
+                        />
+                    </FormGroup>
+                    <FormGroup label={<InputLabel isRequired={true} label="Wartość" />}>
+                        <InputField
+                            {...register(`${namePrefix}.value` as Path<PaymentMethodFormData>, {
+                                ...validationRules.required(),
+                            })}
+                            placeholder="Wartość konfiguracji"
+                            type="text"
+                            hasError={!!fieldErrors?.config?.[index]?.value}
+                            errorMessage={fieldErrors?.config?.[index]?.value?.message}
+                        />
+                    </FormGroup>
+                </div>
+            )}
+        />
+    </FormSection>
+);
 
 export default PaymentMethodConfigurationSection;

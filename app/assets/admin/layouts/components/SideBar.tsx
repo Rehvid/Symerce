@@ -20,10 +20,7 @@ const SideBar: React.FC<SideBarProps> = ({ isMobile, setSideBarContent }) => {
       `}
         >
             <div className="flex justify-start mb-2">
-                <button
-                    className="py-4 cursor-pointer"
-                    onClick={() => navigate('/admin/dashboard')}
-                >
+                <button className="py-4 cursor-pointer" onClick={() => navigate('/admin/dashboard')}>
                     <Logo classesName="w-40 h-auto" />
                 </button>
             </div>

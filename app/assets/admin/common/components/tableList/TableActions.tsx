@@ -2,7 +2,6 @@ import TableRowDeleteAction from '@admin/common/components/tableList/tableRow/Ta
 import TableRowEditAction from '@admin/common/components/tableList/tableRow/TableRowEditAction';
 import React from 'react';
 
-
 interface TableActionsProps {
     id: string | number;
     onDelete: () => void;
@@ -11,13 +10,12 @@ interface TableActionsProps {
 
 const TableActions: React.FC<TableActionsProps> = ({ id, onDelete, children }) => {
     return (
-      <div className="flex items-center gap-2">
-          <TableRowDeleteAction onClick={onDelete} />
-          <TableRowEditAction to={`${id}/edit`} />
-          {children}
-      </div>
+        <div className="flex items-center gap-2">
+            <TableRowDeleteAction onClick={onDelete} />
+            <TableRowEditAction to={`${id}/edit`} />
+            {children}
+        </div>
     );
 };
-
 
 export default TableActions;

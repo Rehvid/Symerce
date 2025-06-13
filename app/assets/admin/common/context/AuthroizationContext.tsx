@@ -52,8 +52,8 @@ export const AuthorizationProvider: React.FC<AuthProviderProps> = ({ children })
             },
             onFinally: () => {
                 setIsLoadingAuthorization(false);
-            }
-        })
+            },
+        });
     };
 
     return (

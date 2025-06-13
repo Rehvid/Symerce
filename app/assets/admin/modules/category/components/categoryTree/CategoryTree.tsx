@@ -13,7 +13,14 @@ interface CategoryTreeProps {
     nameWatchedValue: keyof CategoryFormData;
 }
 
-const CategoryTree: FC<CategoryTreeProps> = ({ categories, selected, watch, disabledCategoryId, register, nameWatchedValue }) => {
+const CategoryTree: FC<CategoryTreeProps> = ({
+    categories,
+    selected,
+    watch,
+    disabledCategoryId,
+    register,
+    nameWatchedValue,
+}) => {
     const [openCategories, setOpenCategories] = useState<(number | string)[]>([]);
 
     const toggleOpen = (id: number | string) => {

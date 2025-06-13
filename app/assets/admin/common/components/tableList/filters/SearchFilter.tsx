@@ -9,29 +9,29 @@ interface SearchFilterProps<T extends TableFilters> {
 }
 
 const SearchFilter = <T extends TableFilters>({ filters, setFilters }: SearchFilterProps<T>) => {
-  const [inputValue, setInputValue] = useState(filters?.search || '');
+    const [inputValue, setInputValue] = useState(filters?.search || '');
 
-  useEffect(() => {
-    setInputValue(filters?.search || '');
-  }, [filters]);
+    useEffect(() => {
+        setInputValue(filters?.search || '');
+    }, [filters]);
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
+    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value);
+    };
 
-  const onSearchClick = () => {
-    const value = inputValue.trim();
+    const onSearchClick = () => {
+        const value = inputValue.trim();
 
-    if (value === '' && filters?.search) {
-      const { search, ...rest } = filters;
-      setFilters(rest as T);
-    } else if (value !== '') {
-      setFilters((prev) => ({
-        ...prev,
-        search: value,
-      }));
-    }
-  };
+        if (value === '' && filters?.search) {
+            const { search, ...rest } = filters;
+            setFilters(rest as T);
+        } else if (value !== '') {
+            setFilters((prev) => ({
+                ...prev,
+                search: value,
+            }));
+        }
+    };
 
     return (
         <InputField
@@ -43,9 +43,9 @@ const SearchFilter = <T extends TableFilters>({ filters, setFilters }: SearchFil
             containerClasses="w-full"
             id="search"
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                onSearchClick();
-              }
+                if (e.key === 'Enter') {
+                    onSearchClick();
+                }
             }}
         />
     );

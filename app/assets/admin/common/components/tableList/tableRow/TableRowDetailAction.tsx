@@ -3,12 +3,11 @@ import ZoomInIcon from '@/images/icons/zoom-in.svg';
 import Link from '@admin/common/components/Link';
 
 interface TableRowDetailActionProps {
-  to?: string
+    to?: string;
 }
 
 const TableRowDetailAction: React.FC<TableRowDetailActionProps> = ({ to }) => {
     if (!to) return null;
-
 
     return (
         <Link
@@ -20,6 +19,6 @@ const TableRowDetailAction: React.FC<TableRowDetailActionProps> = ({ to }) => {
             <ZoomInIcon className="h-5 w-5" />
         </Link>
     );
-}
+};
 
 export default TableRowDetailAction;

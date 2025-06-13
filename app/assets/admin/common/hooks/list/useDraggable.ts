@@ -6,8 +6,8 @@ import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
 import { DraggableItem } from '@admin/common/types/draggableItem';
 
 const useDraggable = (endpoint: string) => {
-  const { handleApiRequest } = useAdminApi();
-  const { addNotification } = useNotification();
+    const { handleApiRequest } = useAdminApi();
+    const { addNotification } = useNotification();
 
     const draggableCallback = async (item: DraggableItem) => {
         await handleApiRequest(HttpMethod.PUT, endpoint, {
@@ -18,7 +18,7 @@ const useDraggable = (endpoint: string) => {
             onError: () => {
                 addNotification(
                     'Nie udało się zaktualizować pozycji w tabeli. Proszę spróbować ponownie.',
-                    NotificationType.ERROR
+                    NotificationType.ERROR,
                 );
             },
             onNetworkError: () => {
@@ -27,7 +27,7 @@ const useDraggable = (endpoint: string) => {
         });
     };
 
-  return { draggableCallback };
-}
+    return { draggableCallback };
+};
 
 export default useDraggable;

@@ -62,7 +62,9 @@ export const useDropzoneLogicMulti = ({
         );
 
         setErrors({});
-        handleFilesChange(withPreview).catch((error) => {console.error(error)});
+        handleFilesChange(withPreview).catch((error) => {
+            console.error(error);
+        });
     };
 
     const handleFilesChange = async (filesArray: (File & { preview: string })[]) => {

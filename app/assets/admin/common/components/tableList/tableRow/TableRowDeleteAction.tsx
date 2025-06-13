@@ -51,7 +51,7 @@ const TableRowDeleteAction: FC<TableRowDeleteActionProps> = ({ onClick }) => {
             className="inline-flex items-center justify-center w-8 h-8 rounded bg-red-100 hover:bg-red-200 transition-colors cursor-pointer"
             aria-label="Usuń"
             onClick={() => {
-                open('drawerDeleteAction', drawerContent(), PositionType.CENTER)
+                open('drawerDeleteAction', drawerContent(), PositionType.CENTER);
             }}
         >
             <TrashIcon className="w-5 h-5 text-red-500" />

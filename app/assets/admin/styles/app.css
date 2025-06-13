@@ -1,5 +1,4 @@
-@import "tailwindcss";
-
+@import 'tailwindcss';
 
 body {
     font-family: Inter, sans-serif;
@@ -15,34 +14,34 @@ body {
     /*--color-secondary: #0989ff;*/
     --progress-time: 1000ms;
 
-    --color-background-base:  #F8FAFC;
-    --color-surface-base:  #F1F5F9;
+    --color-background-base: #f8fafc;
+    --color-surface-base: #f1f5f9;
 
-    --color-primary: #B39EB4;
-    --color-primary-hover: #D1C1D9;
-    --color-primary-active: #8F7A99;
+    --color-primary: #b39eb4;
+    --color-primary-hover: #d1c1d9;
+    --color-primary-active: #8f7a99;
 
-    --color-secondary: #978FA8;
-    --color-secondary-hover: #B0A3B8;
-    --color-secondary-active: #7B6F8A;
+    --color-secondary: #978fa8;
+    --color-secondary-hover: #b0a3b8;
+    --color-secondary-active: #7b6f8a;
 
-    --color-tertiary: #7A687F;
+    --color-tertiary: #7a687f;
 
-    --color-success:         #D1E7DD;
-    --color-success-hover:   #E9F7EF;
-    --color-success-active:    #A9D9B8;
+    --color-success: #d1e7dd;
+    --color-success-hover: #e9f7ef;
+    --color-success-active: #a9d9b8;
 
-    --color-error:           #F8D7DA;
-    --color-error-hover:     #FDECEF;
-    --color-error-active:      #EBA3A7;
+    --color-error: #f8d7da;
+    --color-error-hover: #fdecef;
+    --color-error-active: #eba3a7;
 
-    --color-warning:         #FFF3CD;
-    --color-warning-hover:   #FFFAE6;
-    --color-warning-active:    #FFE58A;
+    --color-warning: #fff3cd;
+    --color-warning-hover: #fffae6;
+    --color-warning-active: #ffe58a;
 
-    --color-info:            #D1ECF1;
-    --color-info-hover:      #EAF7F9;
-    --color-info-active:       #A8DADD;
+    --color-info: #d1ecf1;
+    --color-info-hover: #eaf7f9;
+    --color-info-active: #a8dadd;
 }
 
 @keyframes progressAnimation {
@@ -57,7 +56,6 @@ body {
 .progress-bar {
     animation: progressAnimation var(--progress-time) linear forwards;
 }
-
 
 .data-table {
     border-spacing: 0 15px;

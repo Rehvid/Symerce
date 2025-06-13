@@ -7,8 +7,8 @@ import { ApiResponseEntityWithId } from '@admin/common/interfaces/ApiResponseEnt
 import useEntityId from '@admin/common/hooks/useEntityId';
 
 interface UseFormSubmitProps {
-  baseApiUrl: string,
-  redirectSuccessUrl: string;
+    baseApiUrl: string;
+    redirectSuccessUrl: string;
 }
 
 interface RequestConfig {
@@ -16,32 +16,28 @@ interface RequestConfig {
     endpoint: string;
 }
 
-const useApiFormSubmit = ({
-    baseApiUrl,
-    redirectSuccessUrl,
-}: UseFormSubmitProps) => {
+const useApiFormSubmit = ({ baseApiUrl, redirectSuccessUrl }: UseFormSubmitProps) => {
     const navigate = useNavigate();
     const { addNotification } = useNotification();
     const { entityId, hasEntityId: isEditMode } = useEntityId();
 
-  const defaultApiSuccessCallback = {
-    onSuccess: ({ data, message }: ApiResponse<ApiResponseEntityWithId>) => {
-      if (message) {
-          addNotification(message, NotificationType.SUCCESS);
-      }
-      if (data?.id) {
-          navigate(`${redirectSuccessUrl}/${data.id}/edit`, { replace: true });
-      }
-    },
-  };
-
+    const defaultApiSuccessCallback = {
+        onSuccess: ({ data, message }: ApiResponse<ApiResponseEntityWithId>) => {
+            if (message) {
+                addNotification(message, NotificationType.SUCCESS);
+            }
+            if (data?.id) {
+                navigate(`${redirectSuccessUrl}/${data.id}/edit`, { replace: true });
+            }
+        },
+    };
 
     const getRequestConfig = (): RequestConfig => ({
         method: !!entityId ? HttpMethod.PUT : HttpMethod.POST,
         endpoint: !!entityId ? `${baseApiUrl}/${entityId}` : baseApiUrl,
     });
 
-  return { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode };
-}
+    return { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode };
+};
 
 export default useApiFormSubmit;

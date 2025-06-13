@@ -22,65 +22,66 @@ import TablePagination from '@admin/common/components/tableList/TablePagination'
 import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const CategoryList = () => {
-  const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<CategoryTableFilters>(
-    filterEmptyValues({
-      ...defaultFilters,
-      search: getCurrentParam('search', (value) => String(value)),
-      isActive: getCurrentParam('isActive', (value) => Boolean(value)),
-    }) as CategoryTableFilters,
-  );
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState<CategoryTableFilters>(
+        filterEmptyValues({
+            ...defaultFilters,
+            search: getCurrentParam('search', (value) => String(value)),
+            isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+        }) as CategoryTableFilters,
+    );
 
-    const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<CategoryListItem, CategoryTableFilters>({
-    endpoint: 'admin/categories',
-    filters,
-    setFilters,
-    defaultSort,
-  });
+    const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
+        CategoryListItem,
+        CategoryTableFilters
+    >({
+        endpoint: 'admin/categories',
+        filters,
+        setFilters,
+        defaultSort,
+    });
 
-  const rowData = items.map((item: CategoryListItem) => [
-      <TableRowId id={item.id} />,
-      <TableRowImageWithText
-          imagePath={item.imagePath}
-          text={item.name}
-          defaultIcon={<FoldersIcon className="text-primary mx-auto w-[24px] h-[24px]" />}
-      />,
-      item.slug,
-      <TableRowActive isActive={item.isActive} />,
-      <TableActions id={item.id} onDelete={() => removeItem(`admin/categories/${item.id}`)} />,
-  ]);
+    const rowData = items.map((item: CategoryListItem) => [
+        <TableRowId id={item.id} />,
+        <TableRowImageWithText
+            imagePath={item.imagePath}
+            text={item.name}
+            defaultIcon={<FoldersIcon className="text-primary mx-auto w-[24px] h-[24px]" />}
+        />,
+        item.slug,
+        <TableRowActive isActive={item.isActive} />,
+        <TableActions id={item.id} onDelete={() => removeItem(`admin/categories/${item.id}`)} />,
+    ]);
 
-  const columns: TableColumn[] = [
-    { orderBy: 'id', label: 'ID', sortable: true },
-    { orderBy: 'name', label: 'Nazwa', sortable: true },
-    { orderBy: 'slug', label: 'Przyjazny URL', sortable: true },
-    { orderBy: 'isActive', label: 'Aktywny', sortable: true },
-    { orderBy: 'actions', label: 'Actions' },
-  ];
+    const columns: TableColumn[] = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'slug', label: 'Przyjazny URL', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
 
-  return (
-      <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
-          <TableToolbar>
-              <TableToolbarActions title="Lista kategorii" totalItems={pagination?.totalItems} />
-              <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
-                  <ActiveFilter setFilters={setFilters} filters={filters} />
-              </TableToolbarFilters>
-          </TableToolbar>
-          <TableWrapper isLoading={isLoading}>
-              <TableHead sort={sort} setSort={setSort} columns={columns} />
-              <TableBody
-                  data={rowData}
-                  filters={filters}
-                  pagination={pagination as Pagination}
-              />
-          </TableWrapper>
-          <TablePagination
-              filters={filters}
-              setFilters={setFilters}
-              pagination={pagination as Pagination}
-          />
-      </TableWithLoadingSkeleton>
-  );
-}
+    return (
+        <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
+            <TableToolbar>
+                <TableToolbarActions title="Lista kategorii" totalItems={pagination?.totalItems} />
+                <TableToolbarFilters
+                    sort={sort}
+                    setSort={setSort}
+                    filters={filters}
+                    setFilters={setFilters}
+                    defaultFilters={defaultFilters}
+                >
+                    <ActiveFilter setFilters={setFilters} filters={filters} />
+                </TableToolbarFilters>
+            </TableToolbar>
+            <TableWrapper isLoading={isLoading}>
+                <TableHead sort={sort} setSort={setSort} columns={columns} />
+                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+            </TableWrapper>
+            <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
+        </TableWithLoadingSkeleton>
+    );
+};
 
 export default CategoryList;

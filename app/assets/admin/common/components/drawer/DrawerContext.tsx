@@ -2,7 +2,6 @@ import React, { createContext, FC, ReactNode, useContext, useState } from 'react
 import { PositionType } from '@admin/common/enums/positionType';
 import DrawerRenderer from '@admin/common/components/drawer/DrawerRenderer';
 
-
 interface DrawerContextProps {
     activeDrawerId: string | null;
     drawerContent: ReactNode | null;
@@ -36,10 +35,7 @@ export const DrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
     return (
         <DrawerContext.Provider value={{ activeDrawerId, drawerContent, drawerPosition, open, close, isOpen }}>
             {children}
-            <DrawerRenderer
-                portalContainer={document.getElementById('drawer-root')}
-                clearContent={clearContent}
-            />
+            <DrawerRenderer portalContainer={document.getElementById('drawer-root')} clearContent={clearContent} />
         </DrawerContext.Provider>
     );
 };

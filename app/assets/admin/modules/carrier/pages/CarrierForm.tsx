@@ -8,19 +8,18 @@ import FormApiLayout from '@admin/layouts/FormApiLayout';
 import { CarrierFormData } from '@admin/modules/carrier/interfaces/CarrierFormData';
 import CarrierFormBody from '@admin/modules/carrier/components/CarrierFormBody';
 
-
 const CarrierForm = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    watch,
-    control,
-    formState: { errors: fieldErrors },
-  } = useForm<CarrierFormData>({
-    mode: 'onBlur',
-  });
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        watch,
+        control,
+        formState: { errors: fieldErrors },
+    } = useForm<CarrierFormData>({
+        mode: 'onBlur',
+    });
 
     const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
         baseApiUrl: 'admin/carriers',
@@ -28,40 +27,46 @@ const CarrierForm = () => {
     });
     const requestConfig = getRequestConfig();
 
-  const { isFormInitialize, getFormData, formData } = useFormInitializer<CarrierFormData>();
+    const { isFormInitialize, getFormData, formData } = useFormInitializer<CarrierFormData>();
 
-  useEffect(() => {
-    if (isEditMode) {
-      const endpoint = `admin/carriers/${entityId}`;
-      const formFieldNames  = ['name', 'isActive', 'fee', 'isExternal', 'externalData'] satisfies (keyof CarrierFormData)[];
+    useEffect(() => {
+        if (isEditMode) {
+            const endpoint = `admin/carriers/${entityId}`;
+            const formFieldNames = [
+                'name',
+                'isActive',
+                'fee',
+                'isExternal',
+                'externalData',
+            ] satisfies (keyof CarrierFormData)[];
 
-      getFormData(endpoint, setValue, formFieldNames);
+            getFormData(endpoint, setValue, formFieldNames);
+        }
+    }, []);
+
+    if (!isFormInitialize) {
+        return <FormSkeleton rowsCount={12} />;
     }
-  }, []);
 
-  if (!isFormInitialize) {
-    return <FormSkeleton rowsCount={12} />;
-  }
-
-  return (
-    <FormWrapper
-        method={requestConfig.method}
-        endpoint={requestConfig.endpoint}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormApiLayout pageTitle={isEditMode ? 'Edytuj przewoźnika' : 'Dodaj przewoźnika'}>
-        <CarrierFormBody
-          register={register}
-          fieldErrors={fieldErrors}
-          formData={formData}
-          setValue={setValue}
-          control={control}
-        />
-      </FormApiLayout>
-    </FormWrapper>
-  );
-}
+    return (
+        <FormWrapper
+            method={requestConfig.method}
+            endpoint={requestConfig.endpoint}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormApiLayout pageTitle={isEditMode ? 'Edytuj przewoźnika' : 'Dodaj przewoźnika'}>
+                <CarrierFormBody
+                    register={register}
+                    fieldErrors={fieldErrors}
+                    formData={formData}
+                    setValue={setValue}
+                    control={control}
+                />
+            </FormApiLayout>
+        </FormWrapper>
+    );
+};
 
 export default CarrierForm;

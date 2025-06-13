@@ -17,7 +17,6 @@ interface FilterPartial {
     to?: string | null;
 }
 
-
 const RangeFilter = <T extends TableFilters>({
     filters,
     setFilters,
@@ -31,28 +30,21 @@ const RangeFilter = <T extends TableFilters>({
     const toFilterValue = filters[nameFilterTo];
 
     const [fromValue, setFromValue] = useState<string>(
-        fromFilterValue !== undefined && fromFilterValue !== null
-            ? String(fromFilterValue)
-            : ''
+        fromFilterValue !== undefined && fromFilterValue !== null ? String(fromFilterValue) : '',
     );
     const [toValue, setToValue] = useState<string>(
-        toFilterValue !== undefined && toFilterValue !== null
-            ? String(toFilterValue)
-            : ''
+        toFilterValue !== undefined && toFilterValue !== null ? String(toFilterValue) : '',
     );
-
 
     useEffect(() => {
         setFromValue(
             filters[nameFilterFrom] !== undefined && filters[nameFilterFrom] !== null
                 ? String(filters[nameFilterFrom])
-                : ''
+                : '',
         );
 
         setToValue(
-            filters[nameFilterTo] !== undefined && filters[nameFilterTo] !== null
-                ? String(filters[nameFilterTo])
-                : ''
+            filters[nameFilterTo] !== undefined && filters[nameFilterTo] !== null ? String(filters[nameFilterTo]) : '',
         );
     }, [filters, nameFilterFrom, nameFilterTo]);
 
@@ -77,7 +69,6 @@ const RangeFilter = <T extends TableFilters>({
 
         setFilters({ ...updatedFilters, page: 1 } as T);
     };
-
 
     const forChange = (e: ChangeEvent<HTMLInputElement>): void => {
         const newVal: string = e.target.value.trim();

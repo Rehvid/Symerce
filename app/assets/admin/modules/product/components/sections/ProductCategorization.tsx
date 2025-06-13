@@ -11,60 +11,59 @@ import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFor
 import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 import { SelectOption } from '@admin/common/types/selectOption';
 
-
 interface ProductCategorizationProps {
-  control: Control<ProductFormData>;
-  fieldErrors: FieldErrors<ProductFormData>;
-  formContext?: ProductFormContext;
+    control: Control<ProductFormData>;
+    fieldErrors: FieldErrors<ProductFormData>;
+    formContext?: ProductFormContext;
 }
 
-const ProductCategorization : React.FC<ProductCategorizationProps> = ({ control, fieldErrors, formContext }) => {
+const ProductCategorization: React.FC<ProductCategorizationProps> = ({ control, fieldErrors, formContext }) => {
+    const [mainCategories, setMainCategories] = useState<SelectOption[]>([]);
+    const selectedCategories = useWatch({ control, name: 'categories' });
 
-  const [mainCategories, setMainCategories] = useState<SelectOption[]>([]);
-  const selectedCategories = useWatch({ control, name: 'categories' });
+    useEffect(() => {
+        if (selectedCategories && Array.isArray(selectedCategories)) {
+            const filtered = formContext?.availableCategories.filter((cat) => selectedCategories.includes(cat.value));
 
-  useEffect(() => {
-      if (selectedCategories && Array.isArray(selectedCategories)) {
-          const filtered = formContext?.availableCategories.filter((cat) =>
-              selectedCategories.includes(cat.value)
-          );
+            setMainCategories(filtered || []);
+        }
+    }, [selectedCategories]);
 
-          setMainCategories(filtered || []);
-      }
-  }, [selectedCategories]);
+    return (
+        <FormSection title="Kategoryzacja" forceOpen={hasAnyFieldError(fieldErrors, ['mainCategory'])}>
+            <FormGroup
+                label={<InputLabel isRequired={true} label="Główna kategoria" htmlFor="mainCategory" />}
+                description={
+                    <Description>
+                        {' '}
+                        Wybór kategorii dodaje możliwe opcje, spośród których można wybrać główną kategorię produktu.
+                    </Description>
+                }
+            >
+                <ControlledReactSelect
+                    name="mainCategory"
+                    control={control}
+                    options={mainCategories}
+                    isMulti={false}
+                    rules={{
+                        ...validationRules.required(),
+                    }}
+                />
+            </FormGroup>
 
-  return (
-    <FormSection title="Kategoryzacja" forceOpen={hasAnyFieldError(fieldErrors, ['mainCategory'])} >
-      <FormGroup
-        label={<InputLabel isRequired={true} label="Główna kategoria" htmlFor="mainCategory"  />}
-        description={<Description> Wybór kategorii dodaje możliwe opcje, spośród których można wybrać główną kategorię produktu.</Description>}
-      >
-        <ControlledReactSelect
-            name="mainCategory"
-            control={control}
-            options={mainCategories}
-            isMulti={false}
-            rules={{
-                ...validationRules.required(),
-            }}
-        />
-      </FormGroup>
-
-      <FormGroup
-        label={<InputLabel label="Kategorie" htmlFor="categories"  isRequired={true} />}
-      >
-          <ControlledReactSelect
-              name="categories"
-              control={control}
-              options={formContext?.availableCategories || []}
-              isMulti={true}
-              rules={{
-                  ...validationRules.required(),
-              }}
-          />
-      </FormGroup>
-    </FormSection>
-  )
-}
+            <FormGroup label={<InputLabel label="Kategorie" htmlFor="categories" isRequired={true} />}>
+                <ControlledReactSelect
+                    name="categories"
+                    control={control}
+                    options={formContext?.availableCategories || []}
+                    isMulti={true}
+                    rules={{
+                        ...validationRules.required(),
+                    }}
+                />
+            </FormGroup>
+        </FormSection>
+    );
+};
 
 export default ProductCategorization;

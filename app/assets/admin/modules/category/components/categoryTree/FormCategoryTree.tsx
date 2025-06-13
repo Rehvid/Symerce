@@ -35,9 +35,7 @@ const FormCategoryTree: FC<FormCategoryTreeProps> = ({
                 level={HeadingLevel.H3}
                 additionalClassNames={`mb-2 flex flex-col gap-2 ${hasError ? 'text-red-900' : ''}`}
             >
-                <span className="flex items-center">
-                    {isRequired && <span className="pl-1 text-red-500">*</span>}{' '}
-                </span>
+                <span className="flex items-center">{isRequired && <span className="pl-1 text-red-500">*</span>} </span>
                 {hasError && <p className="text-sm text-red-600">{errorMessage}</p>}
             </Heading>
             <Card additionalClasses={`overflow-auto border border-gray-100 ${hasError ? 'border-red-500' : ''}`}>

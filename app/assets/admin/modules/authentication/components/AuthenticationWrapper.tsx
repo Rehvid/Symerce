@@ -17,9 +17,7 @@ const AuthenticationWrapper: FC<AuthenticationWrapperProps> = ({ title, children
                     {title}
                 </Heading>
             </div>
-            <Card additionalClasses="w-full md:max-w-lg mx-auto shadow-xl">
-                {children}
-            </Card>
+            <Card additionalClasses="w-full md:max-w-lg mx-auto shadow-xl">{children}</Card>
         </div>
     );
 };

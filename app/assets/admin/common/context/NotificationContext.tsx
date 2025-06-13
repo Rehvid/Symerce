@@ -3,7 +3,6 @@ import Notification from '@admin/common/components/Notification';
 import { NotificationType } from '@admin/common/enums/notificationTypeEnums';
 import { AnimatePresence } from 'framer-motion';
 
-
 interface Notification {
     id: number;
     label: string;
@@ -54,7 +53,6 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         </NotificationContext.Provider>
     );
 };
-
 
 export const useNotification = (): NotificationContextType => {
     const context = useContext(NotificationContext);

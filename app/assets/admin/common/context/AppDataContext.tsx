@@ -1,10 +1,10 @@
 import React, { createContext, ReactNode, useContext } from 'react';
 
 type SettingValue = {
-    id: number,
-    name: string,
-    [key: string]: any
-}
+    id: number;
+    name: string;
+    [key: string]: any;
+};
 
 interface Setting {
     settingKey: string;
@@ -18,7 +18,7 @@ interface AppData {
 
 interface AppDataContextInterface {
     data: AppData;
-    currency?: Currency|undefined;
+    currency?: Currency | undefined;
 }
 
 interface Currency {
@@ -26,7 +26,7 @@ interface Currency {
     id: number;
     name: string;
     roundingPrecision: number;
-    symbol: string
+    symbol: string;
 }
 
 const AppDataContext = createContext<AppDataContextInterface | undefined>(undefined);
@@ -37,13 +37,9 @@ interface AppDataProviderProps {
 
 export const AppDataProvider: React.FC<AppDataProviderProps> = ({ children }) => {
     const data = (window as any).data as AppData;
-    const currency  = data.settings?.find(setting => setting.settingKey === 'currency')?.value;
+    const currency = data.settings?.find((setting) => setting.settingKey === 'currency')?.value;
 
-    return (
-        <AppDataContext.Provider value={{ data, currency }}>
-            {children}
-        </AppDataContext.Provider>
-    );
+    return <AppDataContext.Provider value={{ data, currency }}>{children}</AppDataContext.Provider>;
 };
 
 export const useAppData = (): AppDataContextInterface => {
@@ -57,6 +53,6 @@ export const useAppData = (): AppDataContextInterface => {
 export const useSetting = (key: string): Setting | null => {
     const { data } = useAppData();
     if (!data.settings) return null;
-    const found = data.settings.find(setting => setting.settingKey === key);
+    const found = data.settings.find((setting) => setting.settingKey === key);
     return found ?? null;
 };

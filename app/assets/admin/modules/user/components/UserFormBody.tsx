@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import { DropzoneVariant } from '@admin/common/components/dropzone/Dropzone';
@@ -35,7 +34,7 @@ const UserFormBody: FC<UserFormBodyProps> = ({
     fieldErrors,
 }) => {
     return (
-        <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
+        <FormSection title="Informacje" useToggleContent={false}>
             <SingleImageUploader
                 label="Avatar"
                 fieldName="avatar"

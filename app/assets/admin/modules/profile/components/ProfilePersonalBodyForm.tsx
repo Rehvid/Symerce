@@ -39,15 +39,13 @@ const ProfilePersonalBodyForm: React.FC<ProfilePersonalBodyFormProps> = ({
                 setValue={setValue}
                 initialValue={user?.avatar}
                 variant={DropzoneVariant.Avatar}
-                onSuccessRemove={
-                    (message: string) => {
-                        addNotification(message, NotificationType.SUCCESS);
-                        setUser((prev) => ({
-                            ...prev,
-                            avatar: null,
-                        }));
-                    }
-                }
+                onSuccessRemove={(message: string) => {
+                    addNotification(message, NotificationType.SUCCESS);
+                    setUser((prev) => ({
+                        ...prev,
+                        avatar: null,
+                    }));
+                }}
             />
 
             <FormGroup label={<InputLabel label="Imie" isRequired={true} />}>

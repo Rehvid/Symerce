@@ -3,7 +3,6 @@ import { constructUrl } from '@admin/common/utils/helper';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD';
 
-
 interface RequestOptions {
     headers?: Record<string, string>;
     queryParams?: Record<string, string | number | boolean>;
@@ -22,7 +21,7 @@ export const createApiClient = (baseUrl: string) => {
     const sendRequest = async <T>(
         method: HttpMethod,
         endpoint: string,
-        options: RequestOptions = {}
+        options: RequestOptions = {},
     ): Promise<ApiResponse<T>> => {
         const { headers = {}, queryParams, body, onUnauthorized } = options;
         const url = constructUrl(baseUrl, endpoint, queryParams);
@@ -64,7 +63,7 @@ export const createApiClient = (baseUrl: string) => {
 
     return {
         get: <T>(endpoint: string, options?: Omit<RequestOptions, 'body'>) =>
-            sendRequest<T>('GET', endpoint, {...options}),
+            sendRequest<T>('GET', endpoint, { ...options }),
 
         post: <T>(endpoint: string, body?: any, options?: Omit<RequestOptions, 'body'>) =>
             sendRequest<T>('POST', endpoint, { ...options, body }),
@@ -77,6 +76,5 @@ export const createApiClient = (baseUrl: string) => {
 
         delete: <T>(endpoint: string, options?: Omit<RequestOptions, 'body'>) =>
             sendRequest<T>('DELETE', endpoint, options),
-
     };
 };

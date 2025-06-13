@@ -22,5 +22,4 @@ const DropdownContent: FC<DropdownContentProps> = ({ isOpen, children, container
     </div>
 );
 
-
 export default DropdownContent;

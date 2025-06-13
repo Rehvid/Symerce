@@ -4,26 +4,23 @@ import { TableFilters } from '@admin/common/interfaces/TableFilters';
 import Heading, { HeadingLevel } from '@admin/common/components/Heading';
 import { SelectOption } from '@admin/common/types/selectOption';
 
-
-
 interface SelectFilterProps<T extends TableFilters> {
     filters: T;
     setFilters: React.Dispatch<React.SetStateAction<T>>;
-    nameFilter: string
+    nameFilter: string;
     options: SelectOption[];
     label?: string;
     isMulti?: boolean;
 }
 
-const SelectFilter = <T extends TableFilters,>({
-   filters,
-   setFilters,
-   nameFilter,
-   options,
-   label = '',
-   isMulti = false,
+const SelectFilter = <T extends TableFilters>({
+    filters,
+    setFilters,
+    nameFilter,
+    options,
+    label = '',
+    isMulti = false,
 }: SelectFilterProps<T>): React.ReactElement => {
-
     const getCurrentValue = () => {
         const currentValue = filters[nameFilter];
 
@@ -36,11 +33,11 @@ const SelectFilter = <T extends TableFilters,>({
 
     const getOptionValue = (selectedOption: any) => {
         if (isMulti && Array.isArray(selectedOption)) {
-            return options.filter(option => selectedOption.includes(option.value));
+            return options.filter((option) => selectedOption.includes(option.value));
         }
 
-        return options.find(option => option.value === selectedOption) || null;
-    }
+        return options.find((option) => option.value === selectedOption) || null;
+    };
 
     const [selectedOption, setSelectedOption] = useState<any>(getCurrentValue());
 
@@ -57,21 +54,20 @@ const SelectFilter = <T extends TableFilters,>({
         }
 
         if (isMulti && Array.isArray(selected)) {
-            const values = selected.map(option => option.value);
+            const values = selected.map((option) => option.value);
             setFilters({
                 ...filters,
                 [nameFilter]: values,
                 page: 1,
             } as T);
         } else if (!isMulti) {
-            console.log("Selected", selected);
+            console.log('Selected', selected);
             setFilters({
                 ...filters,
                 [nameFilter]: selected,
                 page: 1,
             } as T);
         }
-
 
         setSelectedOption(getOptionValue(selected));
     };

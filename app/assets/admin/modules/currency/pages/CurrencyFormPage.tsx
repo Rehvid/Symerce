@@ -8,17 +8,16 @@ import FormApiLayout from '@admin/layouts/FormApiLayout';
 import { CurrencyFormData } from '@admin/modules/currency/interfaces/CurrencyFormData';
 import CurrencyFormBody from '@admin/modules/currency/components/CurrencyFormBody';
 
-
 const CurrencyFormPage = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    formState: { errors: fieldErrors },
-  } = useForm<CurrencyFormData>({
-    mode: 'onBlur',
-  });
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        setError,
+        formState: { errors: fieldErrors },
+    } = useForm<CurrencyFormData>({
+        mode: 'onBlur',
+    });
 
     const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
         baseApiUrl: 'admin/currencies',
@@ -26,39 +25,36 @@ const CurrencyFormPage = () => {
     });
     const requestConfig = getRequestConfig();
 
-  const { isFormInitialize, getFormData } = useFormInitializer<CurrencyFormData>();
+    const { isFormInitialize, getFormData } = useFormInitializer<CurrencyFormData>();
 
+    useEffect(() => {
+        if (isEditMode) {
+            getFormData(`admin/currencies/${entityId}`, setValue, [
+                'code',
+                'name',
+                'symbol',
+                'roundingPrecision',
+            ] satisfies (keyof CurrencyFormData)[]);
+        }
+    }, []);
 
-  useEffect(() => {
-    if (isEditMode) {
-      getFormData(
-          `admin/currencies/${entityId}`,
-          setValue,
-          ['code', 'name', 'symbol', 'roundingPrecision'] satisfies (keyof CurrencyFormData)[]
-      );
+    if (!isFormInitialize) {
+        return <FormSkeleton rowsCount={12} />;
     }
-  }, []);
 
-  if (!isFormInitialize) {
-    return <FormSkeleton rowsCount={12} />;
-  }
-
-  return (
-    <FormWrapper
-        method={requestConfig.method}
-        endpoint={requestConfig.endpoint}
-      handleSubmit={handleSubmit}
-      setError={setError}
-      apiRequestCallbacks={defaultApiSuccessCallback}
-    >
-      <FormApiLayout pageTitle={isEditMode ? 'Edytuj walute' : 'Dodaj walute'}>
-        <CurrencyFormBody
-          register={register}
-          fieldErrors={fieldErrors}
-        />
-      </FormApiLayout>
-    </FormWrapper>
-  );
-}
+    return (
+        <FormWrapper
+            method={requestConfig.method}
+            endpoint={requestConfig.endpoint}
+            handleSubmit={handleSubmit}
+            setError={setError}
+            apiRequestCallbacks={defaultApiSuccessCallback}
+        >
+            <FormApiLayout pageTitle={isEditMode ? 'Edytuj walute' : 'Dodaj walute'}>
+                <CurrencyFormBody register={register} fieldErrors={fieldErrors} />
+            </FormApiLayout>
+        </FormWrapper>
+    );
+};
 
 export default CurrencyFormPage;

@@ -15,7 +15,7 @@ export interface DashboardBestsellerItem {
     isInStock: boolean;
     mainCategory?: string;
     productImage?: string;
-    productName?:string;
+    productName?: string;
     totalSold: number;
 }
 
