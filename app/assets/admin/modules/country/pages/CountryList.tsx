@@ -20,61 +20,62 @@ import TablePagination from '@admin/common/components/tableList/TablePagination'
 import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
 
 const CountryList = () => {
-  const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
-  const [filters, setFilters] = useState<CountryTableFilters>(
-    filterEmptyValues({
-      ...defaultFilters,
-      isActive: getCurrentParam('isActive', (value) => Boolean(value)),
-      search: getCurrentParam('search', (value) => String(value)),
-    }) as CountryTableFilters,
-  );
+    const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
+    const [filters, setFilters] = useState<CountryTableFilters>(
+        filterEmptyValues({
+            ...defaultFilters,
+            isActive: getCurrentParam('isActive', (value) => Boolean(value)),
+            search: getCurrentParam('search', (value) => String(value)),
+        }) as CountryTableFilters,
+    );
 
-  const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<CountryListItem, CountryTableFilters>({
-    endpoint: 'admin/countries',
-    filters,
-    setFilters,
-    defaultSort,
-  });
+    const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
+        CountryListItem,
+        CountryTableFilters
+    >({
+        endpoint: 'admin/countries',
+        filters,
+        setFilters,
+        defaultSort,
+    });
 
-  const rowData = items.map((item: CountryListItem) => [
-      <TableRowId id={item.id} />,
-      item.name,
-      item.code,
-      <TableRowActive isActive={item.isActive} />,
-      <TableActions id={item.id} onDelete={() => removeItem(`admin/countries/${item.id}`)} />,
-  ]);
+    const rowData = items.map((item: CountryListItem) => [
+        <TableRowId id={item.id} />,
+        item.name,
+        item.code,
+        <TableRowActive isActive={item.isActive} />,
+        <TableActions id={item.id} onDelete={() => removeItem(`admin/countries/${item.id}`)} />,
+    ]);
 
-  const columns: TableColumn[] = [
-    { orderBy: 'id', label: 'ID', sortable: true },
-    { orderBy: 'name', label: 'Nazwa', sortable: true },
-    { orderBy: 'code', label: 'Kod', sortable: true },
-    { orderBy: 'isActive', label: 'Aktywny', sortable: true },
-    { orderBy: 'actions', label: 'Actions' },
-  ];
+    const columns: TableColumn[] = [
+        { orderBy: 'id', label: 'ID', sortable: true },
+        { orderBy: 'name', label: 'Nazwa', sortable: true },
+        { orderBy: 'code', label: 'Kod', sortable: true },
+        { orderBy: 'isActive', label: 'Aktywny', sortable: true },
+        { orderBy: 'actions', label: 'Actions' },
+    ];
 
-  return (
-      <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
-          <TableToolbar>
-              <TableToolbarActions title="Lista krajów" totalItems={pagination?.totalItems} />
-              <TableToolbarFilters sort={sort} setSort={setSort} filters={filters} setFilters={setFilters} defaultFilters={defaultFilters}>
-                  <ActiveFilter setFilters={setFilters} filters={filters} />
-              </TableToolbarFilters>
-          </TableToolbar>
-          <TableWrapper isLoading={isLoading}>
-              <TableHead sort={sort} setSort={setSort} columns={columns} />
-              <TableBody
-                  data={rowData}
-                  filters={filters}
-                  pagination={pagination as Pagination}
-              />
-          </TableWrapper>
-          <TablePagination
-              filters={filters}
-              setFilters={setFilters}
-              pagination={pagination as Pagination}
-          />
-      </TableWithLoadingSkeleton>
-  )
-}
+    return (
+        <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
+            <TableToolbar>
+                <TableToolbarActions title="Lista krajów" totalItems={pagination?.totalItems} />
+                <TableToolbarFilters
+                    sort={sort}
+                    setSort={setSort}
+                    filters={filters}
+                    setFilters={setFilters}
+                    defaultFilters={defaultFilters}
+                >
+                    <ActiveFilter setFilters={setFilters} filters={filters} />
+                </TableToolbarFilters>
+            </TableToolbar>
+            <TableWrapper isLoading={isLoading}>
+                <TableHead sort={sort} setSort={setSort} columns={columns} />
+                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+            </TableWrapper>
+            <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
+        </TableWithLoadingSkeleton>
+    );
+};
 
 export default CountryList;

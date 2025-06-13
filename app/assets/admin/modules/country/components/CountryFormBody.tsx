@@ -12,51 +12,49 @@ import FormSection from '@admin/common/components/form/FormSection';
 import Description from '@admin/common/components/Description';
 
 interface CountryFormBodyProps {
-  register: UseFormRegister<CountryFormData>;
-  fieldErrors: FieldErrors<CountryFormData>;
+    register: UseFormRegister<CountryFormData>;
+    fieldErrors: FieldErrors<CountryFormData>;
 }
 
-const CountryFormBody: React.FC<CountryFormBodyProps> = ({register, fieldErrors}) => {
-  return (
-    <>
-      <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-        <FormGroup
-          label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name"  />}
-        >
-          <InputField
-            type="text"
-            id="name"
-            hasError={!!fieldErrors?.name}
-            errorMessage={fieldErrors?.name?.message}
-            icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-            {...register('name', {
-              ...validationRules.required(),
-              ...validationRules.minLength(3),
-            })}
-          />
-        </FormGroup>
-        <FormGroup
-          label={<InputLabel isRequired={true} label="Kod kraju" htmlFor="code"  />}
-          description={<Description>Kod kraju musi być zgodny z ISO 3166-1 alfa-2</Description>}
-        >
-          <InputField
-            type="text"
-            id="code"
-            hasError={!!fieldErrors?.code}
-            errorMessage={fieldErrors?.code?.message}
-            icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-            {...register('code', {
-              ...validationRules.required(),
-              ...validationRules.max(2)
-            })}
-          />
-        </FormGroup>
-        <FormGroup label={ <InputLabel label="Czy jest aktywne?" /> }>
-          <Switch {...register('isActive')} />
-        </FormGroup>
-      </FormSection>
-    </>
-  )
-}
+const CountryFormBody: React.FC<CountryFormBodyProps> = ({ register, fieldErrors }) => {
+    return (
+        <>
+            <FormSection title="Informacje" useToggleContent={false}>
+                <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
+                    <InputField
+                        type="text"
+                        id="name"
+                        hasError={!!fieldErrors?.name}
+                        errorMessage={fieldErrors?.name?.message}
+                        icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
+                        {...register('name', {
+                            ...validationRules.required(),
+                            ...validationRules.minLength(2),
+                        })}
+                    />
+                </FormGroup>
+                <FormGroup
+                    label={<InputLabel isRequired={true} label="Kod kraju" htmlFor="code" />}
+                    description={<Description>Kod kraju musi być zgodny z ISO 3166-1 alfa-2</Description>}
+                >
+                    <InputField
+                        type="text"
+                        id="code"
+                        hasError={!!fieldErrors?.code}
+                        errorMessage={fieldErrors?.code?.message}
+                        icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
+                        {...register('code', {
+                            ...validationRules.required(),
+                            ...validationRules.max(2),
+                        })}
+                    />
+                </FormGroup>
+                <FormGroup label={<InputLabel label="Kraj dostępny" />}>
+                    <Switch {...register('isActive')} />
+                </FormGroup>
+            </FormSection>
+        </>
+    );
+};
 
 export default CountryFormBody;
