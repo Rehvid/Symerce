@@ -13,6 +13,7 @@ import InputPassword from '@admin/common/components/form/input/InputPassword';
 import Button, { ButtonVariant } from '@admin/common/components/Button';
 import Link from '@admin/common/components/Link';
 import { User } from '@admin/common/context/UserContext';
+import { useAuth } from '@admin/common/context/AuthroizationContext';
 
 interface LoginFormData extends FormDataInterface {
     email: string;
@@ -29,6 +30,7 @@ const LoginForm: FC = () => {
         mode: 'onBlur',
     });
 
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const apiRequestCallbacks = {
