@@ -8,6 +8,9 @@ import ControlledReactSelect from '@admin/common/components/form/reactSelect/Con
 import { Control, FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 import { AddressInvoice as AddressInvoiceInterface } from '@admin/common/interfaces/AddressInvoice';
 import { SelectOption } from '@admin/common/types/selectOption';
+import Street from '@admin/common/components/form/fields/Street';
+import City from '@admin/common/components/form/fields/City';
+import PostalCode from '@admin/common/components/form/fields/PostalCode';
 
 interface AddressInvoiceProps<T extends AddressInvoiceInterface> {
     register: UseFormRegister<T>;
@@ -17,7 +20,7 @@ interface AddressInvoiceProps<T extends AddressInvoiceInterface> {
 }
 
 
-const AddressInvoice = <T extends AddressInvoiceInterface>({
+const AddressInvoiceFields = <T extends AddressInvoiceInterface>({
     register,
     control,
     fieldErrors,
@@ -25,45 +28,15 @@ const AddressInvoice = <T extends AddressInvoiceInterface>({
 }: AddressInvoiceProps<T>) => (
     <>
         <FormGroup label={<InputLabel isRequired={true} label="Ulica" htmlFor="invoiceStreet" />}>
-            <InputField
-                type="text"
-                id="invoiceStreet"
-                hasError={!!fieldErrors?.invoiceStreet}
-                errorMessage={fieldErrors?.invoiceStreet?.message as string | undefined}
-                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('invoiceStreet' as Path<T>, {
-                    ...validationRules.required(),
-                    ...validationRules.minLength(2),
-                })}
-            />
+            <Street register={register} fieldErrors={fieldErrors} fieldName="invoiceStreet" />
         </FormGroup>
 
         <FormGroup label={<InputLabel isRequired={true} label="Miasto" htmlFor="invoiceCity" />}>
-            <InputField
-                type="text"
-                id="invoiceCity"
-                hasError={!!fieldErrors?.invoiceCity}
-                errorMessage={fieldErrors?.invoiceCity?.message as string | undefined}
-                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('invoiceCity' as Path<T>, {
-                    ...validationRules.required(),
-                    ...validationRules.minLength(2),
-                })}
-            />
+            <City register={register} fieldErrors={fieldErrors} fieldName="invoiceCity" />
         </FormGroup>
 
         <FormGroup label={<InputLabel isRequired={true} label="Kod pocztowy" htmlFor="invoicePostalCode" />}>
-            <InputField
-                type="text"
-                id="invoicePostalCode"
-                hasError={!!fieldErrors?.invoicePostalCode}
-                errorMessage={fieldErrors?.invoicePostalCode?.message as string | undefined}
-                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('invoicePostalCode' as Path<T>, {
-                    ...validationRules.required(),
-                    ...validationRules.minLength(4),
-                })}
-            />
+            <PostalCode register={register} fieldErrors={fieldErrors} fieldName="invoicePostalCode" />
         </FormGroup>
 
         <FormGroup label={<InputLabel label="Nazwa firmy" htmlFor="invoiceCompanyName" />}>
@@ -101,4 +74,4 @@ const AddressInvoice = <T extends AddressInvoiceInterface>({
     </>
 )
 
-export default AddressInvoice;
+export default AddressInvoiceFields;
