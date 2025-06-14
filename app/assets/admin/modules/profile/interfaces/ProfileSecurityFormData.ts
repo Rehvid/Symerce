@@ -1,6 +1,4 @@
-import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
+import { Password } from '@admin/common/interfaces/Password';
 
-export interface ProfileSecurityFormData extends FormDataInterface {
-    password: string;
-    passwordConfirmation: string;
+export interface ProfileSecurityFormData extends Password {
 }

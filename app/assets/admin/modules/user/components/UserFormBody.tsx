@@ -13,6 +13,7 @@ import { UserFormData } from '@admin/modules/user/interfaces/UserFormData';
 import SingleImageUploader from '@admin/common/components/form/SingleImageUploader';
 import { UserFormContext } from '@admin/modules/user/interfaces/UserFormContext';
 import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
+import PasswordSection from '@admin/common/components/form/PasswordSection';
 
 interface UserFormBodyProps {
     formData: UserFormData;
@@ -94,30 +95,7 @@ const UserFormBody: FC<UserFormBodyProps> = ({
                 />
             </FormGroup>
 
-            <FormGroup label={<InputLabel isRequired={true} label="Hasło" htmlFor="password" />}>
-                <InputPassword
-                    id="password"
-                    isRequired={!isEditMode}
-                    hasError={!!fieldErrors?.password}
-                    errorMessage={fieldErrors?.password?.message}
-                    {...register('password', {
-                        ...validationRules.password(),
-                    })}
-                />
-            </FormGroup>
-            <FormGroup label={<InputLabel isRequired={true} label="Powtórz hasło" htmlFor="passwordConfirmation" />}>
-                <InputPassword
-                    id="password-confirmation"
-                    isRequired={!isEditMode}
-                    hasError={!!fieldErrors?.passwordConfirmation}
-                    errorMessage={fieldErrors?.passwordConfirmation?.message}
-                    {...register('passwordConfirmation', {
-                        validate(passwordConfirmation, { password }) {
-                            return passwordConfirmation === password || 'Hasła muszą być identyczne.';
-                        },
-                    })}
-                />
-            </FormGroup>
+            <PasswordSection register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
 
             <FormGroup label={<InputLabel label="Aktywny?" />}>
                 <Switch {...register('isActive')} />

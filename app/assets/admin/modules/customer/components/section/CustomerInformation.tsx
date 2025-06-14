@@ -5,10 +5,10 @@ import InputField from '@admin/common/components/form/input/InputField';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
 import React, { FC } from 'react';
-import InputPassword from '@admin/common/components/form/input/InputPassword';
 import Switch from '@admin/common/components/form/input/Switch';
 import { CustomerFormData } from '@admin/modules/customer/interfaces/CustomerFormData';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import PasswordSection from '@admin/common/components/form/PasswordSection';
 
 interface CustomerInformationProps {
     register: UseFormRegister<CustomerFormData>;
@@ -57,36 +57,13 @@ const CustomerInformation: FC<CustomerInformationProps> = ({ register, fieldErro
                 })}
             />
         </FormGroup>
+        <PasswordSection register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
         <FormGroup label={<InputLabel label="Telefon" htmlFor="phone" />}>
             <InputField
                 type="text"
                 id="phone"
                 icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
                 {...register('phone')}
-            />
-        </FormGroup>
-        <FormGroup label={<InputLabel isRequired={true} label="Hasło" htmlFor="password" />}>
-            <InputPassword
-                id="password"
-                isRequired={!isEditMode}
-                hasError={!!fieldErrors?.password}
-                errorMessage={fieldErrors?.password?.message}
-                {...register('password', {
-                    ...validationRules.password(),
-                })}
-            />
-        </FormGroup>
-        <FormGroup label={<InputLabel isRequired={true} label="Powtórz hasło" htmlFor="passwordConfirmation" />}>
-            <InputPassword
-                id="password-confirmation"
-                isRequired={!isEditMode}
-                hasError={!!fieldErrors?.passwordConfirmation}
-                errorMessage={fieldErrors?.passwordConfirmation?.message}
-                {...register('passwordConfirmation', {
-                    validate(passwordConfirmation, { password }) {
-                        return passwordConfirmation === password || 'Hasła muszą być identyczne.';
-                    },
-                })}
             />
         </FormGroup>
         <FormGroup label={<InputLabel label="Dostępny?" />}>

@@ -12,6 +12,7 @@ import InputPassword from '@admin/common/components/form/input/InputPassword';
 import FormSection from '@admin/common/components/form/FormSection';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
+import PasswordSection from '@admin/common/components/form/PasswordSection';
 
 const ProfileSecurityForm: React.FC = () => {
     const {
@@ -42,30 +43,7 @@ const ProfileSecurityForm: React.FC = () => {
             >
                 <FormApiLayout>
                     <FormSection title="Bezpieczeństwo" useToggleContent={false}>
-                        <FormGroup label={<InputLabel label="Hasło" isRequired={true} />}>
-                            <InputPassword
-                                id="password"
-                                hasError={!!fieldErrors?.password}
-                                errorMessage={fieldErrors?.password?.message}
-                                {...register('password', {
-                                    ...validationRules.required(),
-                                    ...validationRules.password(),
-                                })}
-                            />
-                        </FormGroup>
-                        <FormGroup label={<InputLabel label="Powtórz hasło" isRequired={true} />}>
-                            <InputPassword
-                                id="password-confirmation"
-                                hasError={!!fieldErrors?.passwordConfirmation}
-                                errorMessage={fieldErrors?.passwordConfirmation?.message}
-                                {...register('passwordConfirmation', {
-                                    ...validationRules.required(),
-                                    validate(passwordConfirmation, { password }) {
-                                        return passwordConfirmation === password || 'Hasła muszą być identyczne.';
-                                    },
-                                })}
-                            />
-                        </FormGroup>
+                       <PasswordSection register={register} fieldErrors={fieldErrors} isEditMode={false} />
                     </FormSection>
                 </FormApiLayout>
             </FormWrapper>
