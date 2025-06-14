@@ -1,6 +1,8 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
+import { AddressDelivery } from '@admin/common/interfaces/AddressDelivery';
+import { AddressInvoice } from '@admin/common/interfaces/AddressInvoice';
 
-export interface CustomerFormData extends FormDataInterface {
+export interface CustomerFormData extends FormDataInterface, AddressDelivery, AddressInvoice {
     id?: number | null;
     firstname: string;
     surname: string;
@@ -9,17 +11,6 @@ export interface CustomerFormData extends FormDataInterface {
     isActive: boolean;
     isDelivery: boolean;
     isInvoice: boolean;
-    city?: string | null;
-    countryId?: number | null;
-    postalCode?: string | null;
-    street?: string | null;
-    deliveryInstructions?: string | null;
-    invoiceCity?: string | null;
-    invoiceCountryId?: number | null;
-    invoicePostalCode?: string | null;
-    invoiceStreet?: string | null;
-    invoiceCompanyName?: string | null;
-    invoiceCompanyTaxId?: string | null;
     password?: string | null;
     passwordConfirmation?: string | null;
 }

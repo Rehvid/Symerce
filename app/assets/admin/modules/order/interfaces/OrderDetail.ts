@@ -1,4 +1,4 @@
-import { Address } from '@admin/common/types/address';
+import { AddressDelivery } from '@admin/common/interfaces/AddressDelivery';
 import { LineItem } from '@admin/common/components/lineItems/LineItem';
 
 export interface OrderPaymentMethodCollection {
@@ -27,11 +27,11 @@ export interface OrderDetail {
         phone?: string | number;
     };
     deliveryAddress?: {
-        address: Address;
+        address: AddressDelivery;
         deliveryInstructions?: string;
     };
     invoiceAddress?: {
-        address: Address;
+        address: AddressDelivery;
         companyName?: string;
         companyTaxId?: string | number;
     };
