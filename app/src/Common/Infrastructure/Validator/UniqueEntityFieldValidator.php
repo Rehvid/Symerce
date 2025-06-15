@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Infrastructure\Validator;
 
+use App\Common\Application\Contracts\IdentifiableInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Validator\Constraint;
@@ -30,15 +31,13 @@ class UniqueEntityFieldValidator extends ConstraintValidator
         /** @phpstan-ignore-next-line */
         $repository = $this->getRepository($constraint->className);
 
-        $object = $this->context->getObject();
+        $object = $this->context->getObject()?->idRequest;
         $entity = $repository->findOneBy([$constraint->field => $value]);
 
         if (
-            $entity
-            && null !== $object
-            && \property_exists($object, 'id')
-            && \method_exists($entity, 'getId')
-            && $entity->getId() === $object->id
+            $entity instanceof IdentifiableInterface &&
+            $object instanceof IdentifiableInterface &&
+            $entity->getId() === $object->getId()
         ) {
             return;
         }
