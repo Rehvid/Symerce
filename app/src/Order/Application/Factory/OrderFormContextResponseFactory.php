@@ -7,10 +7,12 @@ namespace App\Order\Application\Factory;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Domain\Entity\Country;
+use App\Common\Domain\Entity\Customer;
 use App\Common\Domain\Entity\PaymentMethod;
 use App\Common\Domain\Entity\Product;
 use App\Common\Infrastructure\Utils\ArrayUtils;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
+use App\Customer\Domain\Repository\CustomerRepositoryInterface;
 use App\Order\Application\Dto\Response\OrderFormContext;
 use App\Order\Domain\Enums\CheckoutStep;
 use App\Order\Domain\Enums\OrderStatus;
@@ -26,6 +28,7 @@ final readonly class OrderFormContextResponseFactory
         private PaymentMethodRepositoryInterface $paymentMethodRepository,
         private CarrierRepositoryInterface $carrierRepository,
         private CountryRepositoryInterface $countryRepository,
+        private CustomerRepositoryInterface $customerRepository,
     ){
 
     }
@@ -39,6 +42,7 @@ final readonly class OrderFormContextResponseFactory
             availablePaymentMethods: $this->getAvailablePaymentMethods(),
             availableCarriers: $this->getAvailableCarriers(),
             availableCountries: $this->getAvailableCountries(),
+            availableCustomers: $this->getAvailableCustomers(),
         );
     }
 
@@ -101,6 +105,16 @@ final readonly class OrderFormContextResponseFactory
             items: $items,
             labelCallback: fn (Country $country) => $country->getName(),
             valueCallback: fn (Country $country) => $country->getId(),
+        );
+    }
+
+    private function getAvailableCustomers(): array
+    {
+
+        return ArrayUtils::buildSelectedOptions(
+            items: $this->customerRepository->findAll(),
+            labelCallback: fn (Customer $customer) => $customer->getContactDetails()?->getFullName() . ' - ' . $customer->getEmail()   ?? '-',
+            valueCallback: fn (Customer $customer) => $customer->getId(),
         );
     }
 }

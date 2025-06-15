@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormSetValue } from 'react-hook-form';
 import useApiFormSubmit from '@admin/common/hooks/form/useApiFormSubmit';
 import useFormInitializer from '@admin/common/hooks/form/useFormInitializer';
 import { useEffect } from 'react';
@@ -7,6 +7,8 @@ import FormWrapper from '@admin/common/components/form/FormWrapper';
 import FormApiLayout from '@admin/layouts/FormApiLayout';
 import OrderFormBody from '@admin/modules/order/components/form/OrderFormBody';
 import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
+import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
+import { FieldModifier } from '@admin/common/types/fieldModifier';
 
 const OrderForm = () => {
     const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
@@ -27,6 +29,18 @@ const OrderForm = () => {
 
     const { isFormInitialize, formData, formContext, getFormData } = useFormInitializer<OrderFormData>();
 
+    const getFormFieldModifiers = (setValue: UseFormSetValue<OrderFormData>): FieldModifier<OrderFormData>[] => [
+        {
+            fieldName: 'customerId',
+            action: (value: string|number|null) => {
+                if (value) {
+                    setValue('useCustomer', true);
+                    setValue('customerId', Number(value));
+                }
+            }
+        }
+    ]
+
     useEffect(() => {
         const endpoint = isEditMode ? `admin/orders/${entityId}` : 'admin/orders/store-data';
         const formFieldNames = isEditMode
@@ -43,6 +57,7 @@ const OrderForm = () => {
                   'street',
                   'postalCode',
                   'city',
+                  'customerId',
                   'deliveryInstructions',
                   'countryId',
                   'invoiceStreet',
@@ -55,7 +70,7 @@ const OrderForm = () => {
               ] satisfies (keyof OrderFormData)[])
             : [];
 
-        getFormData(endpoint, setValue, formFieldNames);
+        getFormData(endpoint, setValue, formFieldNames, getFormFieldModifiers(setValue));
     }, []);
 
     if (!isFormInitialize) {
@@ -78,6 +93,7 @@ const OrderForm = () => {
                     formData={formData}
                     formContext={formContext}
                     isEditMode={isEditMode}
+                    setValue={setValue}
                 />
             </FormApiLayout>
         </FormWrapper>

@@ -26,7 +26,7 @@ class Order
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'guid', unique: true)]
     private string $uuid;
@@ -74,8 +74,8 @@ class Order
     private Collection $orderItems;
 
     #[ORM\OneToOne(targetEntity: ContactDetails::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\JoinColumn(name: 'contact_details_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
-    private ContactDetails $contactDetails;
+    #[ORM\JoinColumn(name: 'contact_details_id', referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
+    private ?ContactDetails $contactDetails = null;
 
     #[ORM\Column(type: 'string', enumType: CheckoutStep::class)]
     private CheckoutStep $checkoutStep;
@@ -90,7 +90,7 @@ class Order
         $this->orderItems = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -98,6 +98,11 @@ class Order
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    public function getDeliveryAddressToUse(): ?DeliveryAddress
+    {
+        return $this->deliveryAddress ?? $this->customer?->getDeliveryAddress();
     }
 
     public function getDeliveryAddress(): ?DeliveryAddress
@@ -113,6 +118,11 @@ class Order
     public function getInvoiceAddress(): ?InvoiceAddress
     {
         return $this->invoiceAddress;
+    }
+
+    public function getInvoiceAddressToUse(): ?InvoiceAddress
+    {
+        return $this->invoiceAddress ?? $this->customer?->getInvoiceAddress();
     }
 
     public function setInvoiceAddress(?InvoiceAddress $invoiceAddress): void
@@ -220,12 +230,17 @@ class Order
         $this->cartToken = $cartToken;
     }
 
-    public function getContactDetails(): ContactDetails
+    public function getOrderContactDetailsToUse(): ?ContactDetails
+    {
+        return $this->getContactDetails() ?? $this->getCustomer()?->getContactDetails();
+    }
+
+    public function getContactDetails(): ?ContactDetails
     {
         return $this->contactDetails;
     }
 
-    public function setContactDetails(ContactDetails $contactDetails): void
+    public function setContactDetails(?ContactDetails $contactDetails): void
     {
         $this->contactDetails = $contactDetails;
     }

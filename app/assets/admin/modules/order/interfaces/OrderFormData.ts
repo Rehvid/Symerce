@@ -17,4 +17,6 @@ export interface OrderFormData extends FormDataInterface, AddressDelivery, Addre
     companyName?: string;
     companyTaxId?: string;
     products?: CheckoutItem[];
+    useCustomer?: boolean;
+    customerId?: number | null;
 }

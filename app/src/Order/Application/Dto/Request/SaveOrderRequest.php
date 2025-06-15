@@ -15,10 +15,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveOrderRequest implements ArrayHydratableInterface
 {
-    //TODO: Add customer for option
 
+    #[Assert\Valid]
     public SaveContactDetailsRequest  $saveContactDetailsRequest;
-    public SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
+
+    #[Assert\Valid]
+    public ?SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
 
     #[Assert\GreaterThan(0)]
     public int $paymentMethodId;
@@ -38,9 +40,19 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
     #[Assert\Email]
     public string $email;
 
+    #[Assert\Valid]
+    public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest;
+
     public bool $isInvoice;
 
-    public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest;
+
+    #[Assert\When(
+        expression: 'this.customerId !== null',
+        constraints: [
+            new Assert\GreaterThan(0),
+        ]
+    )]
+    public ?int $customerId;
 
     public array $saveOrderProductRequestCollection;
 
@@ -56,6 +68,7 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
         bool $isInvoice = false,
         ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest = null,
         array $saveOrderProductRequestCollection = [],
+        ?int $customerId = null,
     ) {
         $this->saveContactDetailsRequest = $saveContactDetailsRequest;
         $this->saveAddressDeliveryRequest = $saveAddressDeliveryRequest;
@@ -67,6 +80,7 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
         $this->saveOrderProductRequestCollection = $saveOrderProductRequestCollection;
         $this->saveAddressInvoiceRequest = $saveAddressInvoiceRequest;
         $this->email = $email;
+        $this->customerId = $customerId;
     }
 
     public static function fromArray(array $data): ArrayHydratableInterface
@@ -121,7 +135,8 @@ final readonly class SaveOrderRequest implements ArrayHydratableInterface
             email: $data['email'] ?? null,
             isInvoice: $isInvoice,
             saveAddressInvoiceRequest: $saveAddressInvoiceRequest,
-            saveOrderProductRequestCollection: $saveOrderProductRequestCollection
+            saveOrderProductRequestCollection: $saveOrderProductRequestCollection,
+            customerId: $data['customerId'] ?? null,
         );
     }
 }

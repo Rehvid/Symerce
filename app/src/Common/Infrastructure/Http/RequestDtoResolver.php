@@ -70,7 +70,11 @@ final readonly class RequestDtoResolver
         if (count($violations) > 0) {
             $errors = [];
             foreach ($violations as $violation) {
-                $errors[$violation->getPropertyPath()] = ['message' => $violation->getMessage()];
+                $path = $violation->getPropertyPath();
+                $propertyPath = str_contains($path, '.')
+                    ?  array_slice(explode('.', $path), -1)[0]
+                    : $path;
+                $errors[$propertyPath] = ['message' => $violation->getMessage()];
             }
 
             throw new RequestValidationException($errors);

@@ -13,5 +13,6 @@ final readonly class OrderFormContext
         public array $availablePaymentMethods = [],
         public array $availableCarriers = [],
         public array $availableCountries = [],
+        public array $availableCustomers = []
     ) {}
 }

@@ -7,4 +7,5 @@ export interface OrderFormContext {
     availablePaymentMethods: SelectOption[];
     availableProducts: SelectOption[];
     availableStatuses: SelectOption[];
+    availableCustomers: SelectOption[];
 }

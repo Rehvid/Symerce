@@ -11,6 +11,7 @@ import { SelectOption } from '@admin/common/types/selectOption';
 import Street from '@admin/common/components/form/fields/Street';
 import City from '@admin/common/components/form/fields/City';
 import PostalCode from '@admin/common/components/form/fields/PostalCode';
+import { createConditionalValidator } from '@admin/common/utils/formUtils';
 
 interface AddressInvoiceProps<T extends AddressInvoiceInterface> {
     register: UseFormRegister<T>;
@@ -46,7 +47,12 @@ const AddressInvoiceFields = <T extends AddressInvoiceInterface>({
                 hasError={!!fieldErrors?.invoiceCompanyName}
                 errorMessage={fieldErrors?.invoiceCompanyName?.message as string | undefined}
                 icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('invoiceCompanyName' as Path<T>)}
+                {...register('invoiceCompanyName' as Path<T>, {
+                    validate: createConditionalValidator(
+                        validationRules.minLength(2),
+                        validationRules.maxLength(255),
+                    ),
+                })}
             />
         </FormGroup>
 
@@ -57,7 +63,12 @@ const AddressInvoiceFields = <T extends AddressInvoiceInterface>({
                 hasError={!!fieldErrors?.invoiceCompanyTaxId}
                 errorMessage={fieldErrors?.invoiceCompanyTaxId?.message as string | undefined}
                 icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('invoiceCompanyTaxId' as Path<T>)}
+                {...register('invoiceCompanyTaxId' as Path<T>, {
+                    validate: createConditionalValidator(
+                        validationRules.minLength(2),
+                        validationRules.maxLength(255),
+                    ),
+                })}
             />
         </FormGroup>
 

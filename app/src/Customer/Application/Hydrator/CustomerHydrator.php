@@ -9,6 +9,7 @@ use App\Common\Domain\Entity\Customer;
 use App\Common\Domain\Entity\DeliveryAddress;
 use App\Common\Domain\Entity\InvoiceAddress;
 use App\Customer\Application\Dto\CustomerData;
+use App\Order\Application\Dto\OrderData;
 use App\Shop\Application\Hydrator\ContactDetailsHydrator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -37,6 +38,8 @@ final readonly class CustomerHydrator
 
         return $customer;
     }
+
+
 
     private function hydrateDeliveryAddress(CustomerData $data, Customer $customer): void
     {

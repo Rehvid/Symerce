@@ -15,6 +15,7 @@ use App\Common\Domain\Entity\PaymentMethod;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
+use App\Customer\Domain\Repository\CustomerRepositoryInterface;
 use App\Order\Application\Dto\OrderData;
 use App\Order\Application\Dto\OrderItemData;
 use App\Order\Application\Dto\Request\SaveOrderProductRequest;
@@ -28,10 +29,11 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 final readonly class OrderDataFactory
 {
     public function __construct(
-        public PaymentMethodRepositoryInterface $paymentMethodRepository,
-        public CarrierRepositoryInterface $carrierRepository,
-        public ProductRepositoryInterface $productRepository,
-        public CountryRepositoryInterface $countryRepository,
+        private PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private CarrierRepositoryInterface $carrierRepository,
+        private ProductRepositoryInterface $productRepository,
+        private CountryRepositoryInterface $countryRepository,
+        private CustomerRepositoryInterface $customerRepository,
     ) {
 
     }
@@ -67,8 +69,9 @@ final readonly class OrderDataFactory
             invoiceAddressData: $orderRequest->saveAddressInvoiceRequest
                 ? $this->createInvoiceAddressData($addressInvoiceRequest->saveAddressRequest)
                 : null,
-            companyTaxId: $addressInvoiceRequest?->companyTaxId,
-            companyName: $addressInvoiceRequest?->companyName,
+            invoiceCompanyTaxId: $addressInvoiceRequest?->invoiceCompanyTaxId,
+            invoiceCompanyName: $addressInvoiceRequest?->invoiceCompanyName,
+            customer: $this->customerRepository->findById($orderRequest->customerId)
         );
     }
 

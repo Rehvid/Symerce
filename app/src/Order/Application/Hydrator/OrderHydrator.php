@@ -7,6 +7,8 @@ namespace App\Order\Application\Hydrator;
 use App\Common\Application\Factory\OrderItemFactory;
 use App\Common\Application\Hydrator\AddressHydrator;
 use App\Common\Application\Hydrator\ContactDetailsHydrator;
+use App\Common\Domain\Entity\Address;
+use App\Common\Domain\Entity\ContactDetails;
 use App\Common\Domain\Entity\DeliveryAddress;
 use App\Common\Domain\Entity\InvoiceAddress;
 use App\Common\Domain\Entity\Order;
@@ -20,30 +22,31 @@ final readonly class OrderHydrator
 {
     public function __construct(
         public ContactDetailsHydrator $contactDetailsHydrator,
-        public AddressHydrator $addressHydrator,
+        public AddressHydrator        $addressHydrator,
         public ProductPriceCalculator $productPriceCalculator,
-        public OrderItemFactory $orderItemFactory,
-        public OrderPriceCalculator $orderPriceCalculator,
+        public OrderItemFactory       $orderItemFactory,
+        public OrderPriceCalculator   $orderPriceCalculator,
     ) {
 
     }
 
     public function hydrate(OrderData $data, Order $order): Order
     {
-        $order->setContactDetails($this->contactDetailsHydrator->hydrate($data->contactDetailsData));
+        if (null === $data->customer) {
+            $this->hydrateGuestData($data, $order);
+        } else {
+            $order->setContactDetails(null);
+            $order->setDeliveryAddress(null);
+            $order->setInvoiceAddress(null);
+        }
+
+        $order->setCustomer($data->customer);
         $order->setCarrier($data->carrier);
         $order->setPaymentMethod($data->paymentMethod);
         $order->setEmail($data->email);
         $order->setCheckoutStep($data->checkoutStep);
         $order->setStatus($data->orderStatus);
 
-        $order->setDeliveryAddress($this->hydrateDeliveryAddress($data, $order->getDeliveryAddress()));
-
-        if (null === $data->invoiceAddressData) {
-            $order->setInvoiceAddress(null);
-        } else {
-            $order->setInvoiceAddress($this->hydrateInvoiceAddress($data, $order->getInvoiceAddress()));
-        }
         $this->addOrderItem($data->orderItems, $order);
 
         $orderPriceSummary = $this->orderPriceCalculator->calculatePriceSummary($order);
@@ -52,12 +55,41 @@ final readonly class OrderHydrator
         return $order;
     }
 
+    private function hydrateGuestData(OrderData $data, Order $order): void
+    {
+        $order->setContactDetails(
+            $this->contactDetailsHydrator->hydrate(
+                data: $data->contactDetailsData,
+                contactDetails: $order->getContactDetails() ?? new ContactDetails(),
+            )
+        );
+
+        $order->setDeliveryAddress($this->hydrateDeliveryAddress($data, $order->getDeliveryAddress()));
+
+        if (null === $data->invoiceAddressData) {
+            $order->setInvoiceAddress(null);
+            return;
+        }
+
+        $order->setInvoiceAddress(
+            $this->hydrateInvoiceAddress(
+                data: $data,
+                invoiceAddress: $order->getInvoiceAddress()
+            )
+        );
+    }
+
     private function hydrateDeliveryAddress(
         OrderData $data,
         ?DeliveryAddress $deliveryAddress = null
     ): DeliveryAddress {
         $deliveryAddress = $deliveryAddress ?? new DeliveryAddress();
-        $deliveryAddress->setAddress($this->addressHydrator->hydrate($data->deliveryAddressData));
+        $deliveryAddress->setAddress(
+            $this->addressHydrator->hydrate(
+                data: $data->deliveryAddressData,
+                address: $deliveryAddress === null ? new Address() : $deliveryAddress->getAddress(),
+            )
+        );
         $deliveryAddress->setDeliveryInstructions($data->deliveryInstructions);
 
         return $deliveryAddress;
@@ -69,9 +101,14 @@ final readonly class OrderHydrator
     ): InvoiceAddress
     {
         $invoiceAddress = $invoiceAddress ?? new InvoiceAddress();
-        $invoiceAddress->setAddress($this->addressHydrator->hydrate($data->invoiceAddressData));
-        $invoiceAddress->setCompanyTaxId($data->companyTaxId);
-        $invoiceAddress->setCompanyName($data->companyName);
+        $invoiceAddress->setAddress(
+            $this->addressHydrator->hydrate(
+                data: $data->invoiceAddressData,
+                address: $invoiceAddress === null ? new Address() : $invoiceAddress->getAddress(),
+            )
+        );
+        $invoiceAddress->setCompanyTaxId($data->invoiceCompanyTaxId);
+        $invoiceAddress->setCompanyName($data->invoiceCompanyName);
 
         return $invoiceAddress;
     }

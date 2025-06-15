@@ -13,8 +13,9 @@ final readonly class OrderFormResponseFactory
 
     public function fromOrder(Order $order): OrderFormResponse
     {
-        $invoiceAddress = $order->getInvoiceAddress();
-        $deliveryAddress = $order->getDeliveryAddress();
+        $contactDetails = $order->getOrderContactDetailsToUse();
+        $deliveryAddress = $order->getDeliveryAddressToUse();
+        $invoiceAddress = $order->getInvoiceAddressToUse();
 
 
         return new OrderFormResponse(
@@ -24,10 +25,10 @@ final readonly class OrderFormResponseFactory
             carrierId: $order->getCarrier()?->getId(),
             paymentMethodId: $order->getPaymentMethod()?->getId(),
             isInvoice: $invoiceAddress !== null,
-            firstname: $order->getContactDetails()?->getFirstname(),
-            surname: $order->getContactDetails()?->getSurname(),
+            firstname: $contactDetails?->getFirstname(),
+            surname: $contactDetails?->getSurname(),
             email: $order->getEmail(),
-            phone: $order->getContactDetails()?->getPhone(),
+            phone: $contactDetails?->getPhone(),
             postalCode: $deliveryAddress?->getAddress()?->getPostalCode(),
             city: $deliveryAddress?->getAddress()?->getCity(),
             street: $deliveryAddress?->getAddress()?->getStreet(),
@@ -39,6 +40,7 @@ final readonly class OrderFormResponseFactory
             invoiceCountryId: $invoiceAddress?->getAddress()?->getCountry()->getId(),
             invoiceCompanyName: $invoiceAddress?->getCompanyName(),
             invoiceCompanyTaxId: $invoiceAddress?->getCompanyTaxId(),
+            customerId: $order->getCustomer()?->getId(),
             products: $this->getProducts($order)
         );
     }

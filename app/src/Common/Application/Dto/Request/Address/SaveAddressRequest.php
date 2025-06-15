@@ -13,7 +13,10 @@ final readonly class SaveAddressRequest
     public string $street;
 
     #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\Regex(
+        pattern: '/^[A-Za-z]?[0-9A-Za-z\s-]{3,9}$/',
+        message: "Postal code must be 4 to 10 characters long and may contain letters, digits, spaces or hyphens. It can optionally start with a letter."
+    )]
     public string $postalCode;
 
     #[Assert\NotBlank]

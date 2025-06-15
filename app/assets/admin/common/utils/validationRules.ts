@@ -48,10 +48,10 @@ export const validationRules = {
         },
     }),
     phone: (
-        message = 'Nieprawidłowy numer telefonu. Przykład: +48123456789'
+        message = 'Nieprawidłowy numer telefonu. Przykład: 48123456789'
     ): ValidationRule => ({
         pattern: {
-            value: /^\+[0-9]{7,15}$/,
+            value: /^\+?[0-9]{7,15}$/,
             message,
         },
     }),

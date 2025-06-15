@@ -6,9 +6,11 @@ namespace App\Order\Application\Assembler;
 
 use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Application\Factory\MoneyFactory;
+use App\Common\Domain\Entity\Customer;
 use App\Common\Domain\Entity\Order;
 use App\Common\Domain\ValueObject\DateVO;
 use App\Order\Application\Dto\Response\OrderListResponse;
+use App\Order\Application\Dto\Response\OrderSelectedCustomerDataResponse;
 use App\Order\Application\Factory\OrderDetailResponseFactory;
 use App\Order\Application\Factory\OrderFormContextResponseFactory;
 use App\Order\Application\Factory\OrderFormResponseFactory;
@@ -62,6 +64,31 @@ final readonly class OrderAssembler
             data: $this->orderFormResponseFactory->fromOrder($order),
             context: $this->orderFormContextResponseFactory->create()
         );
+    }
+
+    public function toCustomerOrderData(Customer $customer): array
+    {
+
+        return [
+            'data' => new OrderSelectedCustomerDataResponse(
+                email: $customer->getEmail(),
+                firstname: $customer->getContactDetails()?->getFirstname() ?? '',
+                surname: $customer->getContactDetails()?->getSurname() ?? '',
+                phone: $customer->getContactDetails()?->getPhone() ?? '',
+                postalCode: $customer->getDeliveryAddress()?->getAddress()?->getPostalCode() ?? '',
+                street: $customer->getDeliveryAddress()?->getAddress()?->getStreet() ?? '',
+                city: $customer->getDeliveryAddress()?->getAddress()?->getCity() ?? '',
+                countryId: $customer->getDeliveryAddress()?->getAddress()?->getCountry()->getId() ?? 0,
+                deliveryInstructions: $customer->getDeliveryAddress()?->getDeliveryInstructions() ?? '',
+                isInvoice: $customer->getInvoiceAddress() !== null,
+                invoiceStreet: $customer->getInvoiceAddress()?->getAddress()?->getStreet() ?? '',
+                invoiceCompanyName: $customer->getInvoiceAddress()?->getCompanyName() ?? '',
+                invoicePostalCode: $customer->getInvoiceAddress()?->getAddress()?->getPostalCode() ?? '',
+                invoiceCompanyTaxId: $customer->getInvoiceAddress()?->getCompanyTaxId() ?? '',
+                invoiceCountryId: $customer->getInvoiceAddress()?->getAddress()?->getCountry()->getId() ?? 0,
+                invoiceCity: $customer->getInvoiceAddress()?->getAddress()?->getCity() ?? ''
+            )
+        ];
     }
 
 

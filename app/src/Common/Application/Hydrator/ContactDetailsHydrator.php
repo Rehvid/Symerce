@@ -9,9 +9,8 @@ use App\Common\Domain\Entity\ContactDetails;
 
 final readonly class ContactDetailsHydrator
 {
-    public function hydrate(ContactDetailsData $data, ?ContactDetails $contactDetails = null): ContactDetails
+    public function hydrate(ContactDetailsData $data, ContactDetails $contactDetails): ContactDetails
     {
-        $contactDetails = $contactDetails ?? new ContactDetails();
         $contactDetails->setPhone($data->phone);
         $contactDetails->setFirstname($data->firstname);
         $contactDetails->setSurname($data->surname);

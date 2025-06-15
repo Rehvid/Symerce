@@ -26,6 +26,7 @@ fieldName = 'postalCode',
         icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
         {...register(fieldName as Path<T>, {
             ...validationRules.required(),
+            ...validationRules.postalCode(),
             ...validationRules.minLength(4),
         })}
     />

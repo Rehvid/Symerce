@@ -11,20 +11,20 @@ final readonly class SaveAddressInvoiceRequest
     public SaveAddressRequest $saveAddressRequest;
 
     #[Assert\When(
-        expression: 'this.companyName !== null',
+        expression: 'this.invoiceCompanyName !== null or this.companyName !== ""',
         constraints: [
             new Assert\Length(min: 2, max: 255),
         ]
     )]
-    public ?string $companyName;
+    public ?string $invoiceCompanyName;
 
     #[Assert\When(
-        expression: 'this.companyTaxId !== null',
+        expression: 'this.invoiceCompanyTaxId !== null',
         constraints: [
             new Assert\Length(min: 2, max: 255),
         ]
     )]
-    public ?string $companyTaxId;
+    public ?string $invoiceCompanyTaxId;
 
     public function __construct(
         SaveAddressRequest $saveAddressRequest,
@@ -32,7 +32,7 @@ final readonly class SaveAddressInvoiceRequest
         ?string $companyTaxId
     ) {
         $this->saveAddressRequest = $saveAddressRequest;
-        $this->companyName = $companyName;
-        $this->companyTaxId = $companyTaxId;
+        $this->invoiceCompanyName = $companyName;
+        $this->invoiceCompanyTaxId = $companyTaxId;
     }
 }

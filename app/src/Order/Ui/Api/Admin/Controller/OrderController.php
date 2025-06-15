@@ -15,6 +15,7 @@ use App\Order\Application\Command\UpdateOrderCommand;
 use App\Order\Application\Dto\Request\SaveOrderRequest;
 use App\Order\Application\Factory\OrderDataFactory;
 use App\Order\Application\Query\GetOrderCreationContextQuery;
+use App\Order\Application\Query\GetOrderCustomerDetailQuery;
 use App\Order\Application\Query\GetOrderDetailQuery;
 use App\Order\Application\Query\GetOrderForEditQuery;
 use App\Order\Application\Query\GetOrderListQuery;
@@ -70,6 +71,19 @@ final class OrderController extends AbstractApiController
         );
     }
 
+    #[Route('/{id}/customer-details', name: 'customer_detail', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function customerDetail(int $id): JsonResponse
+    {
+        return $this->json(
+            data: new ApiResponse(
+                data: $this->queryBus->ask(
+                    new GetOrderCustomerDetailQuery(
+                        customerId: $id
+                    )
+                ),
+            )
+        );
+    }
 
     #[Route('/store-data', name: 'store_data', methods: ['GET'])]
     public function storeData(): JsonResponse
