@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Country\Application\Dto\Request;
 
 use App\Common\Domain\Entity\Country;
-use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueCode;
+use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueField;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveCountryRequest
@@ -19,12 +19,13 @@ final readonly class SaveCountryRequest
     public ?int $id;
 
     #[Assert\NotBlank]
-    #[Assert\Length(min: 2)]
+    #[Assert\Length(min: 2, max: 255)]
+    #[CustomAssertUniqueField(options: ['field' => 'name', 'className' => Country::class])]
     public string $name;
 
     #[Assert\NotBlank]
-    #[Assert\Length(max: 2)]
-    #[CustomAssertUniqueCode(options: ['field' => 'code', 'className' => Country::class])]
+    #[Assert\Length(min:2, max: 2)]
+    #[CustomAssertUniqueField(options: ['field' => 'code', 'className' => Country::class])]
     public string $code;
 
     public bool $isActive;
