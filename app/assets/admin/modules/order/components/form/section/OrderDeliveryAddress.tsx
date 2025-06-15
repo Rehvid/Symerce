@@ -6,7 +6,8 @@ import Switch from '@admin/common/components/form/input/Switch';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
 import { OrderFormContext } from '@admin/modules/order/interfaces/OrderFormContext';
-import AddressDelivery from '@admin/common/components/form/AddressDelivery';
+import AddressDeliveryFields from '@admin/common/components/form/fields/formGroup/AddressDeliveryFields';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface OrderDeliveryAddressProps {
     register: UseFormRegister<OrderFormData>;
@@ -17,7 +18,7 @@ interface OrderDeliveryAddressProps {
 
 const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({ register, fieldErrors, control, formContext }) => (
     <FormSection title="Adres dostawy">
-        <AddressDelivery
+        <AddressDeliveryFields
             register={register}
             control={control}
             fieldErrors={fieldErrors}
@@ -25,9 +26,7 @@ const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({ register, f
             useDeliveryInstructions={true}
         />
 
-        <FormGroup label={<InputLabel label="Dodać fakture?" />}>
-            <Switch {...register('isInvoice')} />
-        </FormGroup>
+        <FormSwitchField register={register} name="isInvoice" label="Dodać fakture?" />
     </FormSection>
 );
 

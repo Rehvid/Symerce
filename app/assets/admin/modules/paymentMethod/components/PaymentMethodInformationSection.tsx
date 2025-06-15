@@ -12,6 +12,8 @@ import { useAppData } from '@admin/common/context/AppDataContext';
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { PaymentMethodFormData } from '@admin/modules/paymentMethod/interfaces/PaymentMethodFormData';
 import SingleImageUploader from '@admin/common/components/form/SingleImageUploader';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface PaymentMethodInformationSectionProps {
     register: UseFormRegister<PaymentMethodFormData>;
@@ -36,34 +38,21 @@ const PaymentMethodInformationSection: FC<PaymentMethodInformationSectionProps> 
                 setValue={setValue}
                 initialValue={formData?.thumbnail}
             />
-            <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.name}
-                    errorMessage={fieldErrors?.name?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('name', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
-            <FormGroup
-                label={<InputLabel isRequired={true} label="Kod" htmlFor="code" />}
-                description={<Description>Unikatowa nazwa widoczna tylko w panelu.</Description>}
-            >
-                <InputField
-                    type="text"
-                    id="code"
-                    hasError={!!fieldErrors?.code}
-                    errorMessage={fieldErrors?.code?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('code', {
-                        ...validationRules.required(),
-                    })}
-                />
-            </FormGroup>
+            <GenericTextField
+                register={register}
+                fieldErrors={fieldErrors}
+                fieldName="name"
+                label="Nazwa widoczna na stronie"
+                placeholder="Płatność przy odbiorze"
+            />
+            <GenericTextField
+                register={register}
+                fieldErrors={fieldErrors}
+                fieldName="code"
+                label="Nazwa widoczna tylko w panelu"
+                placeholder="Płatność odbierana przez pracownika"
+                description="Unikatowa nazwa widoczna tylko w panelu."
+            />
 
             <FormGroup label={<InputLabel isRequired={true} label="Prowizja" htmlFor="fee" />}>
                 <InputField
@@ -79,13 +68,8 @@ const PaymentMethodInformationSection: FC<PaymentMethodInformationSectionProps> 
                 />
             </FormGroup>
 
-            <FormGroup label={<InputLabel label="Aktywny?" />}>
-                <Switch {...register('isActive')} />
-            </FormGroup>
-
-            <FormGroup label={<InputLabel label="Czy wymaga webhook?" />}>
-                <Switch {...register('isRequireWebhook')} />
-            </FormGroup>
+            <FormSwitchField register={register} name={'isActive'} label="Aktywna" />
+            <FormSwitchField register={register} name={'isRequireWebhook'} label="Czy wymagany jest webhook (API)" />
         </FormSection>
     );
 };

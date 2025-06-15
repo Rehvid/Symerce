@@ -8,7 +8,9 @@ import React, { FC } from 'react';
 import Switch from '@admin/common/components/form/input/Switch';
 import { CustomerFormData } from '@admin/modules/customer/interfaces/CustomerFormData';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import PasswordSection from '@admin/common/components/form/PasswordSection';
+import PasswordFields from '@admin/common/components/form/fields/PasswordFields';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
+import ContactDetailsFields from '@admin/common/components/form/fields/formGroup/ContactDetailsFields';
 
 interface CustomerInformationProps {
     register: UseFormRegister<CustomerFormData>;
@@ -18,60 +20,10 @@ interface CustomerInformationProps {
 
 const CustomerInformation: FC<CustomerInformationProps> = ({ register, fieldErrors, isEditMode }) => (
     <FormSection title="Informacje">
-        <FormGroup label={<InputLabel isRequired={true} label="Imie" htmlFor="firstname" />}>
-            <InputField
-                type="text"
-                id="firstname"
-                hasError={!!fieldErrors?.firstname}
-                errorMessage={fieldErrors?.firstname?.message}
-                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('firstname', {
-                    ...validationRules.required(),
-                    ...validationRules.minLength(2),
-                })}
-            />
-        </FormGroup>
-        <FormGroup label={<InputLabel isRequired={true} label="Nazwisko" htmlFor="surname" />}>
-            <InputField
-                type="text"
-                id="surname"
-                hasError={!!fieldErrors?.surname}
-                errorMessage={fieldErrors?.surname?.message}
-                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('surname', {
-                    ...validationRules.required(),
-                    ...validationRules.minLength(2),
-                })}
-            />
-        </FormGroup>
-        <FormGroup label={<InputLabel isRequired={true} label="Email" htmlFor="email" />}>
-            <InputField
-                type="text"
-                id="email"
-                hasError={!!fieldErrors?.email}
-                errorMessage={fieldErrors?.email?.message}
-                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('email', {
-                    ...validationRules.required(),
-                    ...validationRules.minLength(2),
-                })}
-            />
-        </FormGroup>
-        <PasswordSection register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
-        <FormGroup label={<InputLabel label="Telefon" htmlFor="phone" />}>
-            <InputField
-                type="text"
-                id="phone"
-                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('phone')}
-            />
-        </FormGroup>
-        <FormGroup label={<InputLabel label="Dostępny?" />}>
-            <Switch {...register('isActive')} />
-        </FormGroup>
-        <FormGroup label={<InputLabel label="Dodać adres dostawy?" />}>
-            <Switch {...register('isDelivery')} />
-        </FormGroup>
+        <ContactDetailsFields register={register} fieldErrors={fieldErrors} />
+        <PasswordFields register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
+        <FormSwitchField register={register} name="isActive" label="Dostępny" />
+        <FormSwitchField register={register} name="isDelivery" label="Dodać adres dostawy?" />
     </FormSection>
 );
 

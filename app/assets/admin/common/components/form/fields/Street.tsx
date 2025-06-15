@@ -4,6 +4,10 @@ import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form
 import { validationRules } from '@admin/common/utils/validationRules';
 import React from 'react';
 
+export interface StreetField {
+    street?: string | null;
+}
+
 interface StreetProps<T extends FieldValues> {
     register: UseFormRegister<T>;
     fieldErrors: FieldErrors<T>;

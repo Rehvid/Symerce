@@ -4,6 +4,10 @@ import { validationRules } from '@admin/common/utils/validationRules';
 import React from 'react';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
+export interface SurnameField {
+    surname?: string | null;
+}
+
 interface SurnameProps<T extends FieldValues> {
     register: UseFormRegister<T>;
     fieldErrors: FieldErrors<T>;

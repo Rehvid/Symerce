@@ -7,6 +7,7 @@ import React, { FC } from 'react';
 import FormSection from '@admin/common/components/form/FormSection';
 import { AttributeValueFormData } from '@admin/modules/attributeValue/interfaces/AttributeValueFormData';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
 
 interface AttributeValueFormBodyProps {
     register: UseFormRegister<AttributeValueFormData>;
@@ -14,20 +15,8 @@ interface AttributeValueFormBodyProps {
 }
 
 const AttributeValueFormBody: FC<AttributeValueFormBodyProps> = ({ register, fieldErrors }) => (
-    <FormSection title="Informacje">
-        <FormGroup label={<InputLabel isRequired={true} label="Wartość" htmlFor="value" />}>
-            <InputField
-                type="text"
-                id="name"
-                hasError={!!fieldErrors?.value}
-                errorMessage={fieldErrors?.value?.message}
-                icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                {...register('value', {
-                    ...validationRules.required(),
-                    ...validationRules.minLength(2),
-                })}
-            />
-        </FormGroup>
+    <FormSection title="Informacje" useToggleContent={false}>
+        <GenericTextField register={register} fieldErrors={fieldErrors} fieldName={"value"} label={"Wartość"} />
     </FormSection>
 );
 

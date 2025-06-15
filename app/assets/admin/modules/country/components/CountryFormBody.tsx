@@ -10,6 +10,8 @@ import { validationRules } from '@admin/common/utils/validationRules';
 import Switch from '@admin/common/components/form/input/Switch';
 import FormSection from '@admin/common/components/form/FormSection';
 import Description from '@admin/common/components/Description';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
 
 interface CountryFormBodyProps {
     register: UseFormRegister<CountryFormData>;
@@ -20,38 +22,26 @@ const CountryFormBody: React.FC<CountryFormBodyProps> = ({ register, fieldErrors
     return (
         <>
             <FormSection title="Informacje" useToggleContent={false}>
-                <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
-                    <InputField
-                        type="text"
-                        id="name"
-                        hasError={!!fieldErrors?.name}
-                        errorMessage={fieldErrors?.name?.message}
-                        icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                        {...register('name', {
-                            ...validationRules.required(),
-                            ...validationRules.minLength(2),
-                        })}
-                    />
-                </FormGroup>
-                <FormGroup
-                    label={<InputLabel isRequired={true} label="Kod kraju" htmlFor="code" />}
-                    description={<Description>Kod kraju musi być zgodny z ISO 3166-1 alfa-2</Description>}
-                >
-                    <InputField
-                        type="text"
-                        id="code"
-                        hasError={!!fieldErrors?.code}
-                        errorMessage={fieldErrors?.code?.message}
-                        icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                        {...register('code', {
-                            ...validationRules.required(),
-                            ...validationRules.max(2),
-                        })}
-                    />
-                </FormGroup>
-                <FormGroup label={<InputLabel label="Kraj dostępny" />}>
-                    <Switch {...register('isActive')} />
-                </FormGroup>
+                <GenericTextField
+                    register={register}
+                    fieldErrors={fieldErrors}
+                    fieldName="name"
+                    label="Nazwa"
+                    isRequired={true}
+                    placeholder="Polska"
+                />
+                <GenericTextField
+                    register={register}
+                    fieldErrors={fieldErrors}
+                    fieldName="code"
+                    label="Kod kraju"
+                    isRequired={true}
+                    description="Kod kraju musi być zgodny z ISO 3166-1 alfa-2"
+                    placeholder="PL"
+                    minLength={2}
+                    maxLength={2}
+                />
+                <FormSwitchField register={register} name="isActive" label="Kraj dostepny" />
             </FormSection>
         </>
     );

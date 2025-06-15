@@ -8,6 +8,11 @@ import { createConditionalValidator } from '@admin/common/utils/formUtils';
 import { validationRules } from '@admin/common/utils/validationRules';
 import TextareaField from '@admin/common/components/form/input/TextareaField';
 
+export interface MetaFieldsInterface {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+}
+
 interface MetaFieldsProps <T extends FieldValues> {
     register: UseFormRegister<T>;
     fieldErrors: FieldErrors<T>;

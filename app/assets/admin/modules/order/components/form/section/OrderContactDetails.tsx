@@ -8,6 +8,11 @@ import { validationRules } from '@admin/common/utils/validationRules';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
 import FormSection from '@admin/common/components/form/FormSection';
+import Phone from '@admin/common/components/form/fields/Phone';
+import Email from '@admin/common/components/form/fields/Email';
+import Firstname from '@admin/common/components/form/fields/Firstname';
+import Surname from '@admin/common/components/form/fields/Surname';
+import ContactDetailsFields from '@admin/common/components/form/fields/formGroup/ContactDetailsFields';
 
 interface OrderContactDetailsProps {
     register: UseFormRegister<OrderFormData>;
@@ -16,59 +21,8 @@ interface OrderContactDetailsProps {
 
 const OrderContactDetails: React.FC<OrderContactDetailsProps> = ({ register, fieldErrors }) => {
     return (
-        <FormSection title="Informacje kontaktowe" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-            <FormGroup label={<InputLabel isRequired={true} label="Imie" htmlFor="firstname" />}>
-                <InputField
-                    type="text"
-                    id="firstname"
-                    hasError={!!fieldErrors?.firstname}
-                    errorMessage={fieldErrors?.firstname?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('firstname', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
-            <FormGroup label={<InputLabel isRequired={true} label="Nazwisko" htmlFor="surname" />}>
-                <InputField
-                    type="text"
-                    id="surname"
-                    hasError={!!fieldErrors?.surname}
-                    errorMessage={fieldErrors?.surname?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('surname', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
-            <FormGroup label={<InputLabel isRequired={true} label="Email" htmlFor="email" />}>
-                <InputField
-                    type="text"
-                    id="email"
-                    hasError={!!fieldErrors?.email}
-                    errorMessage={fieldErrors?.email?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('email', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
-            <FormGroup label={<InputLabel isRequired={true} label="Telefon" htmlFor="phone" />}>
-                <InputField
-                    type="text"
-                    id="phone"
-                    hasError={!!fieldErrors?.phone}
-                    errorMessage={fieldErrors?.phone?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('phone', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(5),
-                    })}
-                />
-            </FormGroup>
+        <FormSection title="Informacje kontaktowe">
+            <ContactDetailsFields register={register} fieldErrors={fieldErrors} />
         </FormSection>
     );
 };

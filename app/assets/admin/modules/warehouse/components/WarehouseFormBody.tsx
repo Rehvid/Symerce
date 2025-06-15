@@ -10,6 +10,10 @@ import Switch from '@admin/common/components/form/input/Switch';
 import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 import { WarehouseFormData } from '@admin/modules/warehouse/interfaces/WarehouseFormData';
 import { WarehouseFormContext } from '@admin/modules/warehouse/interfaces/WarehouseFormContext';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
+import TextareaField from '@admin/common/components/form/input/TextareaField';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
+import AddressDeliveryFields from '@admin/common/components/form/fields/formGroup/AddressDeliveryFields';
 
 interface WarehouseFormBodyProps {
     register: UseFormRegister<WarehouseFormData>;
@@ -21,76 +25,21 @@ interface WarehouseFormBodyProps {
 const WarehouseFormBody: FC<WarehouseFormBodyProps> = ({ register, fieldErrors, control, formContext }) => {
     return (
         <FormSection title="Informacje" useToggleContent={false}>
-            <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.name}
-                    errorMessage={fieldErrors?.name?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('name', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
+            <GenericTextField register={register} fieldErrors={fieldErrors} fieldName="name" label="Nazwa" isRequired={true} />
 
             <FormGroup label={<InputLabel label="Opis" htmlFor="description" />}>
-                <textarea
-                    {...register('description')}
-                    className="w-full rounded-lg border border-gray-300 p-2 transition-all focus:ring-4 focus:border-primary focus:border-1 focus:outline-hidden focus:ring-primary-light"
-                />
+                <TextareaField {...register('description')} />
             </FormGroup>
 
-            <FormGroup label={<InputLabel isRequired={true} label="Ulica" htmlFor="street" />}>
-                <InputField
-                    type="text"
-                    id="street"
-                    hasError={!!fieldErrors?.street}
-                    errorMessage={fieldErrors?.street?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('street', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
+            <AddressDeliveryFields
+                register={register}
+                control={control}
+                fieldErrors={fieldErrors}
+                availableCountries={formContext?.availableCountries}
+                useDeliveryInstructions={false}
+            />
 
-            <FormGroup label={<InputLabel isRequired={true} label="Miasto" htmlFor="city" />}>
-                <InputField
-                    type="text"
-                    id="city"
-                    hasError={!!fieldErrors?.city}
-                    errorMessage={fieldErrors?.city?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('city', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
-
-            <FormGroup label={<InputLabel isRequired={true} label="Kod pocztowy" htmlFor="postalCode" />}>
-                <InputField
-                    type="text"
-                    id="postalCode"
-                    hasError={!!fieldErrors?.postalCode}
-                    errorMessage={fieldErrors?.postalCode?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('postalCode', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
-
-            <FormGroup label={<InputLabel label="Kraj" isRequired={true} />}>
-                <ControlledReactSelect name="country" control={control} options={formContext?.availableCountries} />
-            </FormGroup>
-
-            <FormGroup label={<InputLabel label="Aktywny?" />}>
-                <Switch {...register('isActive')} />
-            </FormGroup>
+            <FormSwitchField register={register} name="isActive" label="Aktywny" />
         </FormSection>
     );
 };

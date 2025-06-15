@@ -10,6 +10,8 @@ import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 import { AttributeFormData } from '@admin/modules/attribute/interfaces/AttributeFormData';
 import { AttributeFormContext } from '@admin/modules/attribute/interfaces/AttributeFormContext';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface AttributeFormBodyProps {
     register: UseFormRegister<AttributeFormData>;
@@ -20,20 +22,8 @@ interface AttributeFormBodyProps {
 
 const AttributeFormBody: FC<AttributeFormBodyProps> = ({ register, fieldErrors, formContext, control }) => {
     return (
-        <FormSection title="Informacje">
-            <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.name}
-                    errorMessage={fieldErrors?.name?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('name', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
+        <FormSection title="Informacje" useToggleContent={false}>
+            <GenericTextField register={register} fieldErrors={fieldErrors} fieldName={"name"} label={"Nazwa"} isRequired={true} />
 
             <FormGroup label={<InputLabel label="Typ" isRequired={true} />}>
                 <ControlledReactSelect
@@ -46,9 +36,7 @@ const AttributeFormBody: FC<AttributeFormBodyProps> = ({ register, fieldErrors, 
                 />
             </FormGroup>
 
-            <FormGroup label={<InputLabel label="Aktywny?" />}>
-                <Switch {...register('isActive')} />
-            </FormGroup>
+            <FormSwitchField register={register} name={"isActive"} label={"Aktywny"} />
         </FormSection>
     );
 };

@@ -1,7 +1,8 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
 import { AddressDelivery } from '@admin/common/interfaces/AddressDelivery';
 import { AddressInvoice } from '@admin/common/interfaces/AddressInvoice';
-import { Password } from '@admin/common/interfaces/Password';
+import { Password } from '@admin/common/components/form/fields/PasswordFields';
+
 
 export interface CustomerFormData extends FormDataInterface, AddressDelivery, AddressInvoice, Password {
     id?: number | null;

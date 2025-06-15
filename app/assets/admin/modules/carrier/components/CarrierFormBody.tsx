@@ -4,15 +4,15 @@ import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputField from '@admin/common/components/form/input/InputField';
-import LabelNameIcon from '@/images/icons/label-name.svg';
 import { validationRules } from '@admin/common/utils/validationRules';
-import Switch from '@admin/common/components/form/input/Switch';
 import { DynamicFields } from '@admin/common/components/form/DynamicFields';
 import CurrencyIcon from '@/images/icons/currency.svg';
 import { useAppData } from '@admin/common/context/AppDataContext';
 import SingleImageUploader from '@admin/common/components/form/SingleImageUploader';
 import { Control, FieldErrors, Path, UseFormRegister, UseFormSetValue, useWatch } from 'react-hook-form';
 import { CarrierFormData } from '@admin/modules/carrier/interfaces/CarrierFormData';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface CarrierFormBodyProps {
     register: UseFormRegister<CarrierFormData>;
@@ -39,19 +39,7 @@ const CarrierFormBody: FC<CarrierFormBodyProps> = ({ register, fieldErrors, setV
                 initialValue={formData?.thumbnail}
             />
 
-            <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.name}
-                    errorMessage={fieldErrors?.name?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('name', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
+            <GenericTextField register={register} fieldErrors={fieldErrors} fieldName="name" label="Nazwa" />
 
             <FormGroup label={<InputLabel isRequired={true} label="Prowizja" htmlFor="fee" />}>
                 <InputField
@@ -67,13 +55,8 @@ const CarrierFormBody: FC<CarrierFormBodyProps> = ({ register, fieldErrors, setV
                 />
             </FormGroup>
 
-            <FormGroup label={<InputLabel label="Aktywny?" />}>
-                <Switch {...register('isActive')} />
-            </FormGroup>
-
-            <FormGroup label={<InputLabel label="Zintegrowany przewoźnik (API)?" />}>
-                <Switch {...register('isExternal')} />
-            </FormGroup>
+            <FormSwitchField register={register} name="isActive" label="Przewoźnik jest aktywny" />
+            <FormSwitchField register={register} name="isExternal" label="Zintegrowany przewoźnik (API)?" />
 
             {isExternal && (
                 <FormSection

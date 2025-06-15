@@ -4,6 +4,9 @@ import { validationRules } from '@admin/common/utils/validationRules';
 import React from 'react';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
+export interface CityField {
+    city?: string | null;
+}
 
 interface CityProps<T extends FieldValues> {
     register: UseFormRegister<T>;

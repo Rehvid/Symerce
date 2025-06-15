@@ -1,11 +1,8 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
+import { AddressDelivery } from '@admin/common/interfaces/AddressDelivery';
 
-export interface WarehouseFormData extends FormDataInterface {
+export interface WarehouseFormData extends FormDataInterface, AddressDelivery {
     name: string;
     isActive: boolean;
-    country: number | null;
-    street: string;
-    city: string;
-    postalCode: string;
     description?: string;
 }

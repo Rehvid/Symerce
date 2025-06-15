@@ -1,5 +1,7 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
 import { UploadFile } from '@admin/common/interfaces/UploadFile';
+import { MetaFieldsInterface } from '@admin/common/components/form/fields/formGroup/MetaFields';
+import { SlugInterface } from '@admin/common/components/form/fields/formGroup/Slug';
 
 interface Stock {
     availableQuantity: number;
@@ -20,13 +22,10 @@ export interface ProductImage extends UploadFile {
     isThumbnail: boolean;
 }
 
-export interface ProductFormData extends FormDataInterface {
+export interface ProductFormData extends FormDataInterface, MetaFieldsInterface, SlugInterface {
     id: number | null;
     name: string;
     brand: number;
-    slug?: string;
-    metaTitle?: string;
-    metaDescription?: string;
     description?: string;
     customAttributes: any;
     attributes: Record<string, AttributeItem[]>;

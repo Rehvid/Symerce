@@ -3,17 +3,16 @@ import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import { DropzoneVariant } from '@admin/common/components/dropzone/Dropzone';
 import FormSection from '@admin/common/components/form/FormSection';
-import InputField from '@admin/common/components/form/input/InputField';
-import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/common/utils/validationRules';
 import { Control, FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import Switch from '@admin/common/components/form/input/Switch';
-import InputPassword from '@admin/common/components/form/input/InputPassword';
 import { UserFormData } from '@admin/modules/user/interfaces/UserFormData';
 import SingleImageUploader from '@admin/common/components/form/SingleImageUploader';
 import { UserFormContext } from '@admin/modules/user/interfaces/UserFormContext';
 import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
-import PasswordSection from '@admin/common/components/form/PasswordSection';
+import PasswordFields from '@admin/common/components/form/fields/PasswordFields';
+import Firstname from '@admin/common/components/form/fields/Firstname';
+import Surname from '@admin/common/components/form/fields/Surname';
+import Email from '@admin/common/components/form/fields/Email';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface UserFormBodyProps {
     formData: UserFormData;
@@ -43,47 +42,16 @@ const UserFormBody: FC<UserFormBodyProps> = ({
                 setValue={setValue}
                 variant={DropzoneVariant.Avatar}
             />
-
             <FormGroup label={<InputLabel isRequired={true} label="Imie" htmlFor="firstname" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.firstname}
-                    errorMessage={fieldErrors?.firstname?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('firstname', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
+                <Firstname register={register} fieldErrors={fieldErrors} />
             </FormGroup>
 
             <FormGroup label={<InputLabel isRequired={true} label="Nazwisko" htmlFor="surname" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.surname}
-                    errorMessage={fieldErrors?.surname?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('surname', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
+                <Surname register={register} fieldErrors={fieldErrors} />
             </FormGroup>
 
             <FormGroup label={<InputLabel isRequired={true} label="Email" htmlFor="email" />}>
-                <InputField
-                    type="text"
-                    id="email"
-                    hasError={!!fieldErrors?.email}
-                    errorMessage={fieldErrors?.email?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('email', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
+                <Email register={register} fieldErrors={fieldErrors} isRequired={true} />
             </FormGroup>
 
             <FormGroup label={<InputLabel isRequired={true} label="Role" />}>
@@ -95,11 +63,9 @@ const UserFormBody: FC<UserFormBodyProps> = ({
                 />
             </FormGroup>
 
-            <PasswordSection register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
+            <PasswordFields register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
 
-            <FormGroup label={<InputLabel label="Aktywny?" />}>
-                <Switch {...register('isActive')} />
-            </FormGroup>
+            <FormSwitchField register={register} name="isActive" label="Aktywny?" />
         </FormSection>
     );
 };

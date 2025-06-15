@@ -3,6 +3,10 @@ import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form
 import { validationRules } from '@admin/common/utils/validationRules';
 import LabelNameIcon from '@/images/icons/label-name.svg';
 
+export interface PostalCodeField {
+    postalCode?: string | null;
+}
+
 interface PostalCodeProps<T extends FieldValues> {
     register: UseFormRegister<T>;
     fieldErrors: FieldErrors<T>;

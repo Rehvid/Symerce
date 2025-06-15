@@ -5,6 +5,10 @@ import React  from 'react';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { createConditionalValidator } from '@admin/common/utils/formUtils';
 
+export interface EmailField {
+    email?: string | null;
+}
+
 interface EmailProps <T extends FieldValues> {
     register: UseFormRegister<T>;
     fieldErrors: FieldErrors<T>;
@@ -24,6 +28,8 @@ const Email = <T extends FieldValues>({ register, fieldErrors, isRequired }: Ema
                 {...register('email' as Path<T>, {
                     ...validationRules.required(),
                     ...validationRules.email(),
+                    ...validationRules.minLength(2),
+                    ...validationRules.maxLength(255)
                 })}
             />
         ) : (
@@ -35,7 +41,9 @@ const Email = <T extends FieldValues>({ register, fieldErrors, isRequired }: Ema
                 icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
                 {...register('email' as Path<T>, {
                     validate: createConditionalValidator(
-                        validationRules.email()
+                        validationRules.minLength(2),
+                        validationRules.maxLength(255),
+                        validationRules.email(),
                     ),
                 })}
             />

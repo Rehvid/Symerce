@@ -12,6 +12,8 @@ import { validationRules } from '@admin/common/utils/validationRules';
 import Description from '@admin/common/components/Description';
 import Switch from '@admin/common/components/form/input/Switch';
 import SettingValueInputType from '@admin/modules/setting/components/SettingValueInputType';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface SettingFormBodyProps {
     register: UseFormRegister<SettingFormData>;
@@ -22,29 +24,19 @@ interface SettingFormBodyProps {
 
 const SettingFormBody: React.FC<SettingFormBodyProps> = ({ register, control, fieldErrors, formData }) => {
     return (
-        <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-            <FormGroup
-                label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}
-                description={<Description>Wartość wyświetlana tylko w panelu administracyjnym</Description>}
-            >
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.name}
-                    errorMessage={fieldErrors?.name?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('name', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
+        <FormSection title="Informacje" useToggleContent={false}>
+            <GenericTextField
+                fieldName="name"
+                register={register}
+                fieldErrors={fieldErrors}
+                label="Nazwa"
+                isRequired={true}
+                description="Wartość wyświetlana tylko w panelu administracyjnym"
+            />
             <FormGroup label={<InputLabel label="Wartość" />}>
                 <SettingValueInputType register={register} control={control} formData={formData} />
             </FormGroup>
-            <FormGroup label={<InputLabel label="Ustawienie dostępne" />}>
-                <Switch {...register('isActive')} />
-            </FormGroup>
+            <FormSwitchField register={register} name="isActive" label="Ustawienie jest aktywne" />
         </FormSection>
     );
 };

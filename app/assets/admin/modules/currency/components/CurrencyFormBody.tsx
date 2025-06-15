@@ -8,6 +8,7 @@ import NumberIcon from '@/images/icons/number.svg';
 import FormSection from '@admin/common/components/form/FormSection';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { CurrencyFormData } from '@admin/modules/currency/interfaces/CurrencyFormData';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
 
 interface CurrencyFormBodyProps {
     register: UseFormRegister<CurrencyFormData>;
@@ -17,44 +18,24 @@ interface CurrencyFormBodyProps {
 const CurrencyFormBody: FC<CurrencyFormBodyProps> = ({ register, fieldErrors }) => {
     return (
         <FormSection title="Informacje" useToggleContent={false}>
-            <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.name}
-                    errorMessage={fieldErrors?.name?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('name', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
-            <FormGroup label={<InputLabel isRequired={true} label="Kod" htmlFor="code" />}>
-                <InputField
-                    type="text"
-                    id="code"
-                    hasError={!!fieldErrors?.code}
-                    errorMessage={fieldErrors?.code?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('code', {
-                        ...validationRules.required(),
-                    })}
-                />
-            </FormGroup>
-
-            <FormGroup label={<InputLabel isRequired={true} label="Symbol" htmlFor="symbol" />}>
-                <InputField
-                    type="text"
-                    id="symbol"
-                    hasError={!!fieldErrors?.symbol}
-                    errorMessage={fieldErrors?.symbol?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('symbol', {
-                        ...validationRules.required(),
-                    })}
-                />
-            </FormGroup>
+            <GenericTextField register={register} fieldErrors={fieldErrors} fieldName="name" label="Nazwa" isRequired={true} />
+            <GenericTextField
+                register={register}
+                fieldErrors={fieldErrors}
+                fieldName="code"
+                label="Kod waluty"
+                isRequired={true}
+                minLength={3}
+                maxLength={3}
+                description="Kod waluty zgodny z ISO 4217, np. USD, EUR, PLN"
+            />
+            <GenericTextField
+                register={register}
+                fieldErrors={fieldErrors}
+                fieldName="symbol"
+                label="Symbol waluty"
+                isRequired={true} minLength={1}
+            />
 
             <FormGroup
                 label={<InputLabel isRequired={true} label="Precyzja zaokrąglenia" htmlFor="roundingPrecision" />}

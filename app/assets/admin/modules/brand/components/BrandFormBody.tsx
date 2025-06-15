@@ -1,15 +1,11 @@
 import FormSection from '@admin/common/components/form/FormSection';
 import { hasAnyFieldError } from '@admin/common/utils/formUtils';
-import FormGroup from '@admin/common/components/form/FormGroup';
-import InputLabel from '@admin/common/components/form/input/InputLabel';
-import InputField from '@admin/common/components/form/input/InputField';
-import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/common/utils/validationRules';
-import Switch from '@admin/common/components/form/input/Switch';
 import React, { FC } from 'react';
 import { BrandFormData } from '@admin/modules/brand/interfaces/BrandFormData';
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import SingleImageUploader from '@admin/common/components/form/SingleImageUploader';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface BrandFormBodyProps {
     formData: BrandFormData;
@@ -27,23 +23,14 @@ const BrandFormBody: FC<BrandFormBodyProps> = ({ register, fieldErrors, setValue
                 setValue={setValue}
                 initialValue={formData?.thumbnail}
             />
-            <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.name}
-                    errorMessage={fieldErrors?.name?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('name', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(2),
-                    })}
-                />
-            </FormGroup>
+            <GenericTextField
+                register={register}
+                fieldErrors={fieldErrors}
+                fieldName="name"
+                label="Nazwa marki"
+            />
 
-            <FormGroup label={<InputLabel label="Aktywny?" />}>
-                <Switch {...register('isActive')} />
-            </FormGroup>
+            <FormSwitchField register={register} name="isActive" label="Aktywny" />
         </FormSection>
     );
 };

@@ -1,4 +1,4 @@
-import { Password } from '@admin/common/interfaces/Password';
+import { Password } from '@admin/common/components/form/fields/PasswordFields';
 
 export interface ProfileSecurityFormData extends Password {
 }

@@ -33,7 +33,7 @@ const WarehouseForm = () => {
             ? ([
                   'name',
                   'isActive',
-                  'country',
+                  'countryId',
                   'street',
                   'city',
                   'postalCode',

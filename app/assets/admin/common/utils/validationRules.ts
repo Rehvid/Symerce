@@ -11,49 +11,42 @@ export const validationRules = {
     required: (message = 'To pole jest wymagane'): ValidationRule => ({
         required: message,
     }),
-
     minLength: (value: number, message = `To pole musi mieć co najmniej ${value} znaki`): ValidationRule => ({
         minLength: {
             value,
             message,
         },
     }),
-
     maxLength: (value: number, message =  `Maksymalna długość tego pola to ${value} znaków`): ValidationRule => ({
         maxLength: {
             value,
             message,
         },
     }),
-
     password: (): ValidationRule => ({
         pattern: {
             value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>/?]).{8,}$/,
             message: 'Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę, cyfrę oraz znak specjalny.',
         },
     }),
-
     min: (value: number, message = `To pole nie może mieć mniejszej wartości niż ${value}`): ValidationRule => ({
         min: {
             value,
             message,
         },
     }),
-
     max: (value: number, message = `To pole nie może mieć większej wartości niż ${value}`): ValidationRule => ({
         max: {
             value,
             message,
         },
     }),
-
     numeric: (maxDecimalPlaces?: number): ValidationRule => ({
         pattern: {
             value: new RegExp(`^\\d+([,.]\\d{1,${maxDecimalPlaces ?? 2}})?$`),
             message: `Proszę podać liczbę z maksymalnie ${maxDecimalPlaces} miejscami po przecinku. Dozwolone separatory dziesiętne to kropka (.) lub przecinek (,).`,
         },
     }),
-
     phone: (
         message = 'Nieprawidłowy numer telefonu. Przykład: +48123456789'
     ): ValidationRule => ({
@@ -62,7 +55,6 @@ export const validationRules = {
             message,
         },
     }),
-
     postalCode: (
         message = 'Nieprawidłowy kod pocztowy. Przykład: 12-345'
     ): ValidationRule => ({
@@ -71,4 +63,20 @@ export const validationRules = {
             message,
         },
     }),
+    email: (
+        message = 'Wprowadź poprawny adres e-mail. Przykład: user@example.com'
+    ): ValidationRule => ({
+        pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message,
+        },
+    }),
+    slug: (
+        message = 'Slug może zawierać tylko małe litery, cyfry oraz myślniki. Przykład: moja-strona-123'
+    ): ValidationRule => ({
+        pattern: {
+            value: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+            message,
+        },
+    })
 };

@@ -12,7 +12,7 @@ import InputPassword from '@admin/common/components/form/input/InputPassword';
 import FormSection from '@admin/common/components/form/FormSection';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import InputLabel from '@admin/common/components/form/input/InputLabel';
-import PasswordSection from '@admin/common/components/form/PasswordSection';
+import PasswordFields from '@admin/common/components/form/fields/PasswordFields';
 
 const ProfileSecurityForm: React.FC = () => {
     const {
@@ -43,7 +43,7 @@ const ProfileSecurityForm: React.FC = () => {
             >
                 <FormApiLayout>
                     <FormSection title="Bezpieczeństwo" useToggleContent={false}>
-                       <PasswordSection register={register} fieldErrors={fieldErrors} isEditMode={false} />
+                       <PasswordFields register={register} fieldErrors={fieldErrors} isEditMode={false} />
                     </FormSection>
                 </FormApiLayout>
             </FormWrapper>

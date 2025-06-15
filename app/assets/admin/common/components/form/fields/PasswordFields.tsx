@@ -4,7 +4,12 @@ import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputPassword from '@admin/common/components/form/input/InputPassword';
 import { validationRules } from '@admin/common/utils/validationRules';
 import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
-import { Password } from '@admin/common/interfaces/Password';
+
+export interface Password {
+    password?: string | null;
+    passwordConfirmation?: string | null;
+}
+
 
 interface PasswordSectionProps<T extends Password> {
     register: UseFormRegister<T>;
@@ -12,7 +17,7 @@ interface PasswordSectionProps<T extends Password> {
     isEditMode: boolean;
 }
 
-const PasswordSection = <T extends Password>({
+const PasswordFields = <T extends Password>({
  register,
  fieldErrors,
  isEditMode,
@@ -69,4 +74,4 @@ const PasswordSection = <T extends Password>({
     </>
 )
 
-export default PasswordSection;
+export default PasswordFields;

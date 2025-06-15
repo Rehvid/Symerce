@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { CustomerFormData } from '@admin/modules/customer/interfaces/CustomerFormData';
 import { CustomerFormContext } from '@admin/modules/customer/interfaces/CustomerFormContext';
-import AddressInvoice from '@admin/common/components/form/AddressInvoice';
+import AddressInvoiceFields from '@admin/common/components/form/fields/formGroup/AddressInvoiceFields';
 
 interface CustomerInvoiceAddressProps {
     register: UseFormRegister<CustomerFormData>;
@@ -15,7 +15,7 @@ interface CustomerInvoiceAddressProps {
 const CustomerInvoiceAddress: FC<CustomerInvoiceAddressProps> = ({ fieldErrors, register, control, formContext }) => {
     return (
         <FormSection title="Faktura">
-           <AddressInvoice
+           <AddressInvoiceFields
                register={register}
                control={control}
                fieldErrors={fieldErrors}

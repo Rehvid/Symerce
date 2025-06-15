@@ -3,7 +3,7 @@ import FormSection from '@admin/common/components/form/FormSection';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { OrderFormData } from '@admin/modules/order/interfaces/OrderFormData';
 import { OrderFormContext } from '@admin/modules/order/interfaces/OrderFormContext';
-import AddressInvoice from '@admin/common/components/form/AddressInvoice';
+import AddressInvoiceFields from '@admin/common/components/form/fields/formGroup/AddressInvoiceFields';
 
 interface OrderInvoiceAddressProps {
     register: UseFormRegister<OrderFormData>;
@@ -14,7 +14,7 @@ interface OrderInvoiceAddressProps {
 
 const OrderInvoiceAddress: React.FC<OrderInvoiceAddressProps> = ({ register, fieldErrors, control, formContext }) => (
     <FormSection title="Faktura">
-      <AddressInvoice
+      <AddressInvoiceFields
         register={register}
         fieldErrors={fieldErrors}
         control={control}

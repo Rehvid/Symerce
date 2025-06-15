@@ -6,7 +6,8 @@ import React, { FC } from 'react';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { CustomerFormData } from '@admin/modules/customer/interfaces/CustomerFormData';
 import { CustomerFormContext } from '@admin/modules/customer/interfaces/CustomerFormContext';
-import AddressDelivery from '@admin/common/components/form/AddressDelivery';
+import AddressDeliveryFields from '@admin/common/components/form/fields/formGroup/AddressDeliveryFields';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface CustomerDeliveryAddressProps {
     register: UseFormRegister<CustomerFormData>;
@@ -18,16 +19,14 @@ interface CustomerDeliveryAddressProps {
 const CustomerDeliveryAddress: FC<CustomerDeliveryAddressProps> = ({ register, fieldErrors, control, formContext }) => {
     return (
         <FormSection title="Adres dostawy">
-            <AddressDelivery
+            <AddressDeliveryFields
                 register={register}
                 control={control}
                 fieldErrors={fieldErrors}
                 availableCountries={formContext?.availableCountries}
                 useDeliveryInstructions={true}
             />
-            <FormGroup label={<InputLabel label="Dodać fakture?" />}>
-                <Switch {...register('isInvoice')} />
-            </FormGroup>
+            <FormSwitchField register={register} name="isInvoice" label="Dodać fakturę?" />
         </FormSection>
     );
 };

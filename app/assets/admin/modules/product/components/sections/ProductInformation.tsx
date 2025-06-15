@@ -12,6 +12,8 @@ import { hasAnyFieldError } from '@admin/common/utils/formUtils';
 import { ProductFormData } from '@admin/modules/product/interfaces/ProductFormData';
 import ControlledReactSelect from '@admin/common/components/form/reactSelect/ControlledReactSelect';
 import { ProductFormContext } from '@admin/modules/product/interfaces/ProductFormContext';
+import GenericTextField from '@admin/common/components/form/fields/formGroup/GenericTextField';
+import FormSwitchField from '@admin/common/components/form/fields/formGroup/FormSwitchField';
 
 interface ProductInformationProps {
     register: UseFormRegister<ProductFormData>;
@@ -23,20 +25,7 @@ interface ProductInformationProps {
 const ProductInformation: React.FC<ProductInformationProps> = ({ register, fieldErrors, control, formContext }) => {
     return (
         <FormSection title="Podstawowe informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
-            <FormGroup label={<InputLabel isRequired={true} label="Nazwa" htmlFor="name" />}>
-                <InputField
-                    type="text"
-                    id="name"
-                    hasError={!!fieldErrors?.name}
-                    errorMessage={fieldErrors?.name?.message}
-                    icon={<LabelNameIcon className="text-gray-500 w-[16px] h-[16px]" />}
-                    {...register('name', {
-                        ...validationRules.required(),
-                        ...validationRules.minLength(3),
-                    })}
-                />
-            </FormGroup>
-
+            <GenericTextField register={register} fieldErrors={fieldErrors} fieldName={"name"} label="Nazwa" isRequired={true} />
             <FormGroup label={<InputLabel label="Opis" />}>
                 <Controller
                     name="description"
@@ -58,9 +47,7 @@ const ProductInformation: React.FC<ProductInformationProps> = ({ register, field
                 />
             </FormGroup>
 
-            <FormGroup label={<InputLabel label="Produkt widoczny na sklepie?" />}>
-                <Switch {...register('isActive')} />
-            </FormGroup>
+            <FormSwitchField register={register} name={"isActive"} label="Produkt widoczny na sklepie?" />
         </FormSection>
     );
 };

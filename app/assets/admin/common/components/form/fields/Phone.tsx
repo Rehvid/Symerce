@@ -5,6 +5,10 @@ import React from 'react';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { createConditionalValidator } from '@admin/common/utils/formUtils';
 
+export interface PhoneField {
+    phone?: string | null;
+}
+
 interface PhoneProps<T extends FieldValues> {
     register: UseFormRegister<T>;
     fieldErrors: FieldErrors<T>;

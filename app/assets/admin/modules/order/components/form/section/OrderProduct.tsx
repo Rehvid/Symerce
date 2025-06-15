@@ -39,6 +39,7 @@ const OrderProduct: React.FC<OrderProductProps> = ({ register, control, fieldErr
                             <InputField
                                 {...register(`${namePrefix}.quantity` as Path<OrderFormData>, {
                                     ...validationRules.required(),
+                                    ...validationRules.min(1),
                                 })}
                                 placeholder="Ilość"
                                 type="number"
