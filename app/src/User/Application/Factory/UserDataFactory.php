@@ -11,7 +11,7 @@ final readonly class UserDataFactory
 {
     public function fromRequest(SaveUserRequest $userRequest): UserData
     {
-        $password = $userRequest->password === '' ? null : $userRequest->password;
+        $password = $userRequest->passwordRequest->password === '' ? null : $userRequest->passwordRequest->password;
 
         return new UserData(
             email: $userRequest->email,
@@ -19,9 +19,9 @@ final readonly class UserDataFactory
             surname: $userRequest->surname,
             roles: $userRequest->roles,
             isActive: $userRequest->isActive,
-            id: $userRequest->id,
-            password: $userRequest->password === '' ? null : $userRequest->password,
-            passwordConfirmation: $userRequest->passwordConfirmation,
+            id: $userRequest->idRequest->getId(),
+            password: $password,
+            passwordConfirmation: $userRequest->passwordRequest->passwordConfirmation,
             avatar: $userRequest->fileData,
         );
     }

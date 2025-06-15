@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
+use App\Common\Application\Contracts\IdentifiableInterface;
 use App\Common\Domain\Contracts\FileEntityInterface;
 use App\Common\Domain\Traits\ActiveTrait;
 use App\Common\Domain\Traits\CreatedAtTrait;
@@ -19,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['email'], message: 'This account already exists.')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, FileEntityInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, FileEntityInterface, IdentifiableInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -28,7 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, FileEnt
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     private string $email;
@@ -60,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, FileEnt
         $this->tokens = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

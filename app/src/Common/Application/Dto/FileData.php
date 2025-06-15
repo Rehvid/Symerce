@@ -5,36 +5,32 @@ declare(strict_types=1);
 namespace App\Common\Application\Dto;
 
 use App\Common\Domain\Enums\FileMimeType;
-use InvalidArgumentException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class FileData
 {
+    #[Assert\GreaterThan(0)]
+    public int $size;
+
+    #[Assert\NotBlank]
+    public string $name;
+
+    public FileMimeType $type;
+
+    #[Assert\NotBlank]
+    public string $content;
+
+
     public function __construct(
-        public int $size,
-        public string $name,
-        public FileMimeType $type,
-        public string $content,
+       int $size,
+       string $name,
+       FileMimeType|string $type,
+       string $content,
     ) {
-        $this->assertValid();
-    }
-
-    private function assertValid(): void
-    {
-        if ($this->size <= 0) {
-            throw new InvalidArgumentException('File size must be greater than 0.');
-        }
-
-        if (empty($this->name)) {
-            throw new InvalidArgumentException('File name cannot be empty.');
-        }
-
-        if (!in_array($this->type, FileMimeType::cases(), true)) {
-            throw new InvalidArgumentException('Invalid MIME type.');
-        }
-
-        if (empty($this->content)) {
-            throw new InvalidArgumentException('File content cannot be empty.');
-        }
+        $this->size = $size;
+        $this->name = $name;
+        $this->type = $type;
+        $this->content = $content;
     }
 
     public static function fromArray(array $data): self
@@ -46,5 +42,4 @@ final readonly class FileData
             content: $data['content'] ?? '',
         );
     }
-
 }
