@@ -6,10 +6,11 @@ namespace App\Carrier\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
+use App\Common\Infrastructure\Utils\BoolHelper;
 use App\Common\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveCarrierRequest implements ArrayHydratableInterface
+final readonly class SaveCarrierRequest
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
@@ -20,6 +21,9 @@ final readonly class SaveCarrierRequest implements ArrayHydratableInterface
     #[CustomAssertCurrencyPrecision]
     public string $fee;
 
+    #[Assert\Valid]
+    public ?FileData $fileData;
+
     public bool $isActive;
 
     public bool $isExternal;
@@ -27,37 +31,24 @@ final readonly class SaveCarrierRequest implements ArrayHydratableInterface
     /** @var array<int, mixed>  */
     public ?array $externalData;
 
-    public ?FileData $fileData;
 
-
-    /** @param array<integer, mixed>  $externalData */
+    /**
+     * @param array<integer, mixed>  $externalData
+     * @param array<string, mixed> $thumbnail
+     */
     public function __construct(
         string $name,
         string $fee,
-        bool $isActive,
-        bool $isExternal,
+        mixed $isActive,
+        mixed $isExternal,
         ?array $externalData,
-        ?FileData $fileData = null,
+        ?array $thumbnail
     ) {
         $this->name = $name;
         $this->fee = $fee;
-        $this->isActive = $isActive;
-        $this->isExternal = $isExternal;
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
+        $this->isExternal = BoolHelper::castOrFail($isExternal, 'isExternal');
         $this->externalData = $externalData;
-        $this->fileData = $fileData;
-    }
-
-    public static function fromArray(array $data): ArrayHydratableInterface
-    {
-        $thumbnail = $data['thumbnail'] ?? null;
-
-        return new self(
-            name: $data['name'],
-            fee: $data['fee'],
-            isActive: $data['isActive'],
-            isExternal: $data['isExternal'] ?? false,
-            externalData: $data['externalData'] ?? null,
-            fileData: $thumbnail ? FileData::fromArray($thumbnail) : null,
-        );
+        $this->fileData = $thumbnail ? FileData::fromArray($thumbnail) : null;
     }
 }

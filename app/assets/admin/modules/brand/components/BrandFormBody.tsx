@@ -30,7 +30,7 @@ const BrandFormBody: FC<BrandFormBodyProps> = ({ register, fieldErrors, setValue
                 label="Nazwa marki"
             />
 
-            <FormSwitchField register={register} name="isActive" label="Aktywny" />
+            <FormSwitchField register={register} fieldErrors={fieldErrors} name="isActive" label="Aktywny" />
         </FormSection>
     );
 };

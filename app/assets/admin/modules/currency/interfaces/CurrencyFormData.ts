@@ -1,7 +1,7 @@
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
 
 export interface CurrencyFormData extends FormDataInterface {
-    id?: number;
+    id?: number | null;
     name: string;
     symbol: string;
     code: string;

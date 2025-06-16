@@ -36,7 +36,7 @@ const AttributeFormBody: FC<AttributeFormBodyProps> = ({ register, fieldErrors, 
                 />
             </FormGroup>
 
-            <FormSwitchField register={register} name={"isActive"} label={"Aktywny"} />
+            <FormSwitchField register={register} name="isActive" fieldErrors={fieldErrors} label="Aktywny" />
         </FormSection>
     );
 };

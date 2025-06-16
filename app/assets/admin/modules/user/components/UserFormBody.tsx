@@ -65,7 +65,7 @@ const UserFormBody: FC<UserFormBodyProps> = ({
 
             <PasswordFields register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
 
-            <FormSwitchField register={register} name="isActive" label="Aktywny?" />
+            <FormSwitchField register={register} fieldErrors={fieldErrors} name="isActive" label="Aktywny?" />
         </FormSection>
     );
 };

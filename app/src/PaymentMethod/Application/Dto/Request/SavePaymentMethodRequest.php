@@ -6,13 +6,18 @@ namespace App\PaymentMethod\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
+use App\Common\Application\Dto\Request\IdRequest;
 use App\Common\Domain\Entity\PaymentMethod;
+use App\Common\Infrastructure\Utils\BoolHelper;
 use App\Common\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueCode;
 
-final readonly class SavePaymentMethodRequest implements ArrayHydratableInterface
+final readonly class SavePaymentMethodRequest
 {
+    #[Assert\Valid]
+    public IdRequest $idRequest;
+
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
     public string $name;
@@ -36,37 +41,28 @@ final readonly class SavePaymentMethodRequest implements ArrayHydratableInterfac
 
     public ?FileData $fileData;
 
-    /** @param array<mixed, mixed> $config */
+    /**
+     * @param array<mixed, mixed> $config
+     * @param array<string, mixed> $thumbnail
+     */
     public function __construct(
         string $name,
         string $fee,
         string $code,
-        bool $isActive,
-        bool $isRequireWebhook,
-        array $config = [],
-        ?FileData $fileData = null,
+        mixed $isActive,
+        mixed $isRequireWebhook,
+        null|string|int $id,
+        array $config,
+        ?array $thumbnail
     ) {
         $this->name = $name;
         $this->fee = $fee;
         $this->code = $code;
-        $this->isActive = $isActive;
-        $this->isRequireWebhook = $isRequireWebhook;
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
+        $this->isRequireWebhook = BoolHelper::castOrFail($isRequireWebhook, 'isRequireWebhook');
         $this->config = $config;
-        $this->fileData = $fileData;
+        $this->fileData = $thumbnail ? FileData::fromArray($thumbnail) : null;
+        $this->idRequest = new IdRequest($id);
     }
 
-    public static function fromArray(array $data): ArrayHydratableInterface
-    {
-        $thumbnail = $data['thumbnail'] ?? null;
-
-        return new self(
-            name: $data['name'],
-            fee: $data['fee'],
-            code: $data['code'],
-            isActive: $data['isActive'],
-            isRequireWebhook: $data['isRequireWebhook'],
-            config: $data['config'] ?? [],
-            fileData: $thumbnail ? FileData::fromArray($thumbnail) : null,
-        );
-    }
 }

@@ -18,7 +18,7 @@ final readonly class CategoryDataFactory
 
     public function fromRequest(SaveCategoryRequest $categoryRequest): CategoryData
     {
-        $parentCategoryId = $categoryRequest->parentCategoryId;
+        $parentCategoryId = $categoryRequest->parentCategoryIdRequest->getId();
 
         /** @var ?Category $parentCategory */
         $parentCategory = $this->categoryRepository->findById($parentCategoryId);

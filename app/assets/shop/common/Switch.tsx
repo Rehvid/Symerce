@@ -1,8 +1,10 @@
 import React from 'react';
+import Error from '@admin/common/components/Error';
 
 
 type CommonProps = {
   className?: string;
+  errorMessage?: string;
 };
 
 type RegisteredProps = {
@@ -22,7 +24,7 @@ type ManualProps = {
 type Props = CommonProps & (RegisteredProps | ManualProps);
 
 const Switch = React.forwardRef<HTMLInputElement, Props>(
-  ({ className, ...rest }, ref) => {
+  ({ className, errorMessage, ...rest }, ref) => {
     const inputProps =
       'register' in rest
         ? { ...rest.register, ref }
@@ -36,6 +38,7 @@ const Switch = React.forwardRef<HTMLInputElement, Props>(
             className={`relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary ${className ?? ''}`}
           ></div>
         </label>
+          <Error message={errorMessage} />
       </div>
     );
   }

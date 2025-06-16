@@ -57,10 +57,10 @@ final readonly class RequestDtoResolver
         try {
             return $this->serializer->deserialize($json, $dtoClass, 'json');
         } catch (\Throwable $e) {
-            throw new BadRequestHttpException($this->kernel->getEnvironment() === 'prod'
+            $message = $this->kernel->getEnvironment() === 'prod'
                 ? 'Invalid request structure.'
-                : 'Deserialization failed: ' . $e->getMessage()
-            );
+                : 'Deserialization failed: ' . $e->getMessage();
+            throw new BadRequestHttpException($message, $e);
         }
     }
 

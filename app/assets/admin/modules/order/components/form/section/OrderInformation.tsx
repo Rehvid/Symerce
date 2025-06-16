@@ -21,7 +21,7 @@ interface OrderInformationProps {
     useCustomer?: boolean;
 }
 
-const OrderInformation: React.FC<OrderInformationProps> = ({ register, control, isEditMode, formContext, formData, useCustomer }) => {
+const OrderInformation: React.FC<OrderInformationProps> = ({ register, control, isEditMode, formContext, formData, useCustomer, fieldErrors }) => {
     return (
         <FormSection title="Podstawowe informacje">
             <FormGroup label={<InputLabel isRequired={true} label="Status" htmlFor="status" />}>
@@ -53,7 +53,7 @@ const OrderInformation: React.FC<OrderInformationProps> = ({ register, control, 
                 </FormGroup>
             )}
 
-            <FormSwitchField register={register} name="useCustomer" label="Dodać klienta z bazy" />
+            <FormSwitchField register={register}  fieldErrors={fieldErrors} name="useCustomer" label="Dodać klienta z bazy" />
 
             {useCustomer && (
                 <FormGroup label={<InputLabel isRequired={true} label="Klient" htmlFor="customerId" />}>

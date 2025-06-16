@@ -36,7 +36,7 @@ const SettingFormBody: React.FC<SettingFormBodyProps> = ({ register, control, fi
             <FormGroup label={<InputLabel label="Wartość" />}>
                 <SettingValueInputType register={register} control={control} formData={formData} />
             </FormGroup>
-            <FormSwitchField register={register} name="isActive" label="Ustawienie jest aktywne" />
+            <FormSwitchField register={register} name="isActive" fieldErrors={fieldErrors} label="Ustawienie jest aktywne" />
         </FormSection>
     );
 };

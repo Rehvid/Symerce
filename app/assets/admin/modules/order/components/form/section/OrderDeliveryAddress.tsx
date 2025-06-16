@@ -26,7 +26,7 @@ const OrderDeliveryAddress: React.FC<OrderDeliveryAddressProps> = ({ register, f
             useDeliveryInstructions={true}
         />
 
-        <FormSwitchField register={register} name="isInvoice" label="Dodać fakture?" />
+        <FormSwitchField register={register} fieldErrors={fieldErrors} name="isInvoice" label="Dodać fakture?" />
     </FormSection>
 );
 

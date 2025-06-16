@@ -31,7 +31,7 @@ const CarrierFormBody: FC<CarrierFormBodyProps> = ({ register, fieldErrors, setV
     });
 
     return (
-        <FormSection title="Informacje" forceOpen={hasAnyFieldError(fieldErrors, ['name'])}>
+        <FormSection title="Informacje" useToggleContent={false}>
             <SingleImageUploader
                 label="Miniaturka"
                 fieldName="thumbnail"
@@ -55,8 +55,8 @@ const CarrierFormBody: FC<CarrierFormBodyProps> = ({ register, fieldErrors, setV
                 />
             </FormGroup>
 
-            <FormSwitchField register={register} name="isActive" label="Przewoźnik jest aktywny" />
-            <FormSwitchField register={register} name="isExternal" label="Zintegrowany przewoźnik (API)?" />
+            <FormSwitchField register={register} name="isActive" fieldErrors={fieldErrors} label="Przewoźnik jest aktywny" />
+            <FormSwitchField register={register} name="isExternal" fieldErrors={fieldErrors} label="Zintegrowany przewoźnik (API)?" />
 
             {isExternal && (
                 <FormSection

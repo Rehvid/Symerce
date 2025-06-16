@@ -22,8 +22,8 @@ const CustomerInformation: FC<CustomerInformationProps> = ({ register, fieldErro
     <FormSection title="Informacje">
         <ContactDetailsFields register={register} fieldErrors={fieldErrors} />
         <PasswordFields register={register} fieldErrors={fieldErrors} isEditMode={isEditMode} />
-        <FormSwitchField register={register} name="isActive" label="Dostępny" />
-        <FormSwitchField register={register} name="isDelivery" label="Dodać adres dostawy?" />
+        <FormSwitchField register={register} fieldErrors={fieldErrors} name="isActive" label="Dostępny" />
+        <FormSwitchField register={register} fieldErrors={fieldErrors} name="isDelivery" label="Dodać adres dostawy?" />
     </FormSection>
 );
 

@@ -6,11 +6,12 @@ namespace App\User\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
+use App\Common\Application\Dto\Request\IdRequest;
 use App\Common\Domain\Entity\User;
 use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class UpdatePersonalRequest implements ArrayHydratableInterface
+final class UpdatePersonalRequest
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
@@ -25,8 +26,7 @@ final class UpdatePersonalRequest implements ArrayHydratableInterface
     #[CustomAssertUniqueEmail(options: ['field' => 'email', 'className' => User::class])]
     public string $email;
 
-    #[Assert\GreaterThan(0)]
-    public int $id;
+    public IdRequest $id;
 
     public ?FileData $fileData;
 
@@ -34,30 +34,13 @@ final class UpdatePersonalRequest implements ArrayHydratableInterface
         string $firstname,
         string $surname,
         string $email,
-        int $id,
-        ?FileData $fileData = null,
+        null|string|int $id,
+        ?array $avatar,
     ) {
         $this->firstname = $firstname;
         $this->surname = $surname;
         $this->email = $email;
-        $this->id = $id;
-        $this->fileData = $fileData;
-    }
-
-    public static function fromArray(array $data): ArrayHydratableInterface
-    {
-        $avatar = $data['avatar'] ?? null;
-        $fileData = null;
-        if (!empty($avatar)) {
-            $fileData = FileData::fromArray($avatar[0]);
-        }
-
-        return new self(
-            firstname: $data['firstname'],
-            surname: $data['surname'],
-            email: $data['email'],
-            id: $data['id'],
-            fileData: $fileData,
-        );
+        $this->id = new IdRequest($id);
+        $this->fileData = $avatar ? FileData::fromArray($avatar) : null;
     }
 }

@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App\Country\Application\Dto\Request;
 
+use App\Common\Application\Dto\Request\IdRequest;
 use App\Common\Domain\Entity\Country;
+use App\Common\Infrastructure\Utils\BoolHelper;
 use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueField;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveCountryRequest
 {
-    #[Assert\When(
-        expression: 'this.id !== null',
-        constraints: [
-            new Assert\GreaterThan(value: 0)
-        ]
-    )]
-    public ?int $id;
+    #[Assert\Valid]
+    public IdRequest $idRequest;
 
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
@@ -31,14 +28,14 @@ final readonly class SaveCountryRequest
     public bool $isActive;
 
     public function __construct(
+        null|int|string $id,
         string $name,
         string $code,
-        bool $isActive = false,
-        ?int $id = null,
+        mixed $isActive,
     ) {
+        $this->idRequest = new IdRequest($id);
         $this->name = $name;
         $this->code = $code;
-        $this->isActive = $isActive;
-        $this->id = $id;
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
     }
 }

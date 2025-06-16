@@ -1,10 +1,6 @@
 import InputLabel from '@admin/common/components/form/input/InputLabel';
 import FormGroup from '@admin/common/components/form/FormGroup';
 import React, { FC } from 'react';
-import InputField from '@admin/common/components/form/input/InputField';
-import LabelNameIcon from '@/images/icons/label-name.svg';
-import { validationRules } from '@admin/common/utils/validationRules';
-import Switch from '@admin/common/components/form/input/Switch';
 import { Control, Controller, FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import RichTextEditor from '@admin/common/components/form/input/RichTextEditor';
 import FormCategoryTree from '@admin/modules/category/components/categoryTree/FormCategoryTree';
@@ -76,7 +72,7 @@ const CategoryFormBody: FC<CategoryFormBodyProps> = ({
                 )}
             </FormGroup>
 
-            <FormSwitchField register={register} name={"isActive"} label={"Aktywna"} />
+            <FormSwitchField register={register} fieldErrors={fieldErrors} name={"isActive"} label={"Aktywna"}  />
         </FormSection>
     );
 };

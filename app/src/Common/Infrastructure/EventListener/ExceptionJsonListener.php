@@ -7,11 +7,14 @@ namespace App\Common\Infrastructure\EventListener;
 use App\Common\Application\Dto\Response\ApiErrorResponse;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Domain\Exception\EntityNotFoundException;
+use App\Common\Infrastructure\Exception\InvalidBooleanValueException;
 use App\Common\Infrastructure\Http\Exception\RequestValidationException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -29,6 +32,7 @@ final readonly class ExceptionJsonListener
     {
         $exception = $event->getThrowable();
 
+
         if ($exception instanceof UnprocessableEntityHttpException) {
             $this->handleUnprocessableEntityException($event, $exception);
             return;
@@ -41,6 +45,11 @@ final readonly class ExceptionJsonListener
 
         if ($exception instanceof EntityNotFoundException) {
             $this->handleEntityNotFoundException($event);
+            return;
+        }
+
+        if ($exception instanceOf BadRequestHttpException && $exception->getPrevious() instanceof InvalidBooleanValueException) {
+            $this->handleInvalidBooleanValueException($event, $exception->getPrevious());
             return;
         }
 
@@ -83,6 +92,20 @@ final readonly class ExceptionJsonListener
         );
 
         $this->setEventResponse($event, $apiResponse, $exception->getStatusCode());
+    }
+
+    private function handleInvalidBooleanValueException(ExceptionEvent $event, InvalidBooleanValueException $exception): void
+    {
+        $code = Response::HTTP_BAD_REQUEST;
+        $apiResponse = $this->buildErrorResult(
+            message: $this->translator->trans('base.messages.errors.validation_failed'),
+            code: $code,
+            details: [
+                $exception->getFieldName() => ['message' => $exception->getMessage()]
+            ]
+        );
+
+        $this->setEventResponse($event, $apiResponse, $code);
     }
 
     private function handleException(ExceptionEvent $event, \Throwable $exception): void

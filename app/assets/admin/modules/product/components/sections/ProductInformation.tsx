@@ -40,14 +40,14 @@ const ProductInformation: React.FC<ProductInformationProps> = ({ register, field
                     rules={{
                         ...validationRules.required(),
                     }}
-                    name="brand"
+                    name="brandId"
                     control={control}
                     options={formContext?.availableBrands}
                     isMulti={false}
                 />
             </FormGroup>
 
-            <FormSwitchField register={register} name={"isActive"} label="Produkt widoczny na sklepie?" />
+            <FormSwitchField register={register} name={"isActive"} fieldErrors={fieldErrors} label="Produkt widoczny na sklepie?" />
         </FormSection>
     );
 };

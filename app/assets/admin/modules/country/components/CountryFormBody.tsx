@@ -41,7 +41,7 @@ const CountryFormBody: React.FC<CountryFormBodyProps> = ({ register, fieldErrors
                     minLength={2}
                     maxLength={2}
                 />
-                <FormSwitchField register={register} name="isActive" label="Kraj dostepny" />
+                <FormSwitchField register={register} fieldErrors={fieldErrors} name="isActive" label="Kraj dostepny" />
             </FormSection>
         </>
     );

@@ -26,7 +26,7 @@ const CustomerDeliveryAddress: FC<CustomerDeliveryAddressProps> = ({ register, f
                 availableCountries={formContext?.availableCountries}
                 useDeliveryInstructions={true}
             />
-            <FormSwitchField register={register} name="isInvoice" label="Dodać fakturę?" />
+            <FormSwitchField register={register} fieldErrors={fieldErrors} name="isInvoice" label="Dodać fakturę?" />
         </FormSection>
     );
 };

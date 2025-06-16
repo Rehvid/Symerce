@@ -31,7 +31,7 @@ final readonly class ProductImageDataFactory
     private function extractFileIds(array $images): array
     {
         return array_map(
-            fn(SaveProductImageRequest $image) => $image->fileId,
+            fn(SaveProductImageRequest $image) => $image->fileId->getId(),
             $images
         );
     }
@@ -63,7 +63,7 @@ final readonly class ProductImageDataFactory
 
         foreach ($images as $position => $request) {
             $result[] = new ProductImageData(
-                file: $filesById[$request->fileId] ?? null,
+                file: $filesById[$request?->fileId?->getId()] ?? null,
                 isThumbnail: $request->isThumbnail,
                 fileData: $request->uploadData,
                 position: $position

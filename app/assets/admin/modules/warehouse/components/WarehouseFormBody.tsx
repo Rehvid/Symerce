@@ -39,7 +39,7 @@ const WarehouseFormBody: FC<WarehouseFormBodyProps> = ({ register, fieldErrors, 
                 useDeliveryInstructions={false}
             />
 
-            <FormSwitchField register={register} name="isActive" label="Aktywny" />
+            <FormSwitchField register={register} fieldErrors={fieldErrors} name="isActive" label="Aktywny" />
         </FormSection>
     );
 };

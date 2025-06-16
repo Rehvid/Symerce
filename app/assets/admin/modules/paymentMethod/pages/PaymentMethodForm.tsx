@@ -9,6 +9,10 @@ import PaymentMethodFormBody from '@admin/modules/paymentMethod/components/Payme
 import { PaymentMethodFormData } from '@admin/modules/paymentMethod/interfaces/PaymentMethodFormData';
 
 const PaymentMethodForm = () => {
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/payment-methods',
+        redirectSuccessUrl: '/admin/payment-methods',
+    });
     const {
         register,
         handleSubmit,
@@ -18,11 +22,9 @@ const PaymentMethodForm = () => {
         formState: { errors: fieldErrors },
     } = useForm<PaymentMethodFormData>({
         mode: 'onBlur',
-    });
-
-    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
-        baseApiUrl: 'admin/payment-methods',
-        redirectSuccessUrl: '/admin/payment-methods',
+        defaultValues: {
+            id: entityId
+        }
     });
     const requestConfig = getRequestConfig();
 

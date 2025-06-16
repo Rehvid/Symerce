@@ -43,7 +43,7 @@ abstract class DoctrineRepository
         $this->getEntityManager()->flush();
     }
 
-    public function findById(int|string $id): ?object
+    public function findById(int|string|null $id): ?object
     {
         return $this->find($id);
     }

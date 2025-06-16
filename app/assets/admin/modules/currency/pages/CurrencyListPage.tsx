@@ -61,7 +61,7 @@ const CurrencyListPage = () => {
     return (
         <TableWithLoadingSkeleton isLoading={isLoading} filtersLimit={filters.limit}>
             <TableToolbar>
-                <TableToolbarActions title="Lista przewoźników" totalItems={pagination?.totalItems} />
+                <TableToolbarActions title="Lista walut" totalItems={pagination?.totalItems} />
                 <TableToolbarFilters
                     sort={sort}
                     setSort={setSort}

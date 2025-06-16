@@ -41,15 +41,15 @@ final readonly class OrderDataFactory
     public function fromRequest(SaveOrderRequest $orderRequest): OrderData
     {
         /** @var ?Carrier $carrier */
-        $carrier = $this->carrierRepository->findById($orderRequest->carrierId);
+        $carrier = $this->carrierRepository->findById($orderRequest->carrierIdRequest->getId());
         if (null === $carrier) {
-            throw EntityNotFoundException::for(Carrier::class, $orderRequest->carrierId);
+            throw EntityNotFoundException::for(Carrier::class, $orderRequest->carrierIdRequest->getId());
         }
 
         /** @var ?PaymentMethod $paymentMethod */
-        $paymentMethod = $this->paymentMethodRepository->findById($orderRequest->paymentMethodId);
+        $paymentMethod = $this->paymentMethodRepository->findById($orderRequest->paymentMethodIdRequest->getId());
         if (null === $paymentMethod) {
-            throw EntityNotFoundException::for(PaymentMethod::class, $orderRequest->paymentMethodId);
+            throw EntityNotFoundException::for(PaymentMethod::class, $orderRequest->paymentMethodIdRequest->getId());
         }
 
         $addressDeliveryRequest = $orderRequest->saveAddressDeliveryRequest;
@@ -71,7 +71,7 @@ final readonly class OrderDataFactory
                 : null,
             invoiceCompanyTaxId: $addressInvoiceRequest?->invoiceCompanyTaxId,
             invoiceCompanyName: $addressInvoiceRequest?->invoiceCompanyName,
-            customer: $this->customerRepository->findById($orderRequest->customerId)
+            customer: $this->customerRepository->findById($orderRequest->customerIdRequest->getId())
         );
     }
 
@@ -87,9 +87,9 @@ final readonly class OrderDataFactory
     private function createDeliveryAddressData(SaveAddressRequest $addressRequest): AddressData
     {
         /** @var ?Country $country */
-        $country = $this->countryRepository->findById($addressRequest->countryId);
+        $country = $this->countryRepository->findById($addressRequest->countryIdRequest->getId());
         if (null === $country) {
-            throw EntityNotFoundException::for(Country::class, $addressRequest->countryId);
+            throw EntityNotFoundException::for(Country::class, $addressRequest->countryIdRequest->getId());
         }
 
         return $this->createAddressData($addressRequest, $country);
@@ -99,7 +99,7 @@ final readonly class OrderDataFactory
     {
         return $this->createAddressData(
             $invoiceRequest,
-            $this->countryRepository->findById($invoiceRequest->countryId)
+            $this->countryRepository->findById($invoiceRequest->countryIdRequest->getId())
         );
     }
 

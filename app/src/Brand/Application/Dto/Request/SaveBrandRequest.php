@@ -6,35 +6,29 @@ namespace App\Brand\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
+use App\Common\Infrastructure\Utils\BoolHelper;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveBrandRequest implements ArrayHydratableInterface
+final readonly class SaveBrandRequest
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
     public string $name;
 
-    public bool $isActive;
-
+    #[Assert\Valid]
     public ?FileData $fileData;
 
-    private function __construct(
+    public bool $isActive;
+
+
+    /** @param array<string, mixed> $thumbnail */
+    public function __construct(
         string $name,
-        bool $isActive,
-        ?FileData $fileData = null,
+        mixed $isActive,
+        ?array $thumbnail,
     ) {
         $this->name = $name;
-        $this->isActive = $isActive;
-        $this->fileData = $fileData;
-    }
-
-    public static function fromArray(array $data): ArrayHydratableInterface
-    {
-        $thumbnail = $data['thumbnail'] ?? null;
-        return new self(
-            name: $data['name'],
-            isActive: $data['isActive'],
-            fileData: $thumbnail ? FileData::fromArray($thumbnail) : null
-        );
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
+        $this->fileData = $thumbnail ? FileData::fromArray($thumbnail) : null;
     }
 }

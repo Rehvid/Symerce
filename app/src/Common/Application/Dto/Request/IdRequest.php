@@ -17,9 +17,9 @@ final readonly class IdRequest implements IdentifiableInterface
     )]
     private ?int $id;
 
-    public function __construct(?int $id)
+    public function __construct(int|string|null $id)
     {
-        $this->id = $id;
+        $this->id = null === $id ? null : (int) $id;
     }
 
     public function getId(): ?int

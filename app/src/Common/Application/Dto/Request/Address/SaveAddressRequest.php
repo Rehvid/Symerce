@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Application\Dto\Request\Address;
 
+use App\Common\Application\Dto\Request\IdRequest;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveAddressRequest
@@ -23,19 +24,20 @@ final readonly class SaveAddressRequest
     #[Assert\Length(min: 2, max: 255)]
     public string $city;
 
-    #[Assert\GreaterThan(value: 0)]
-    public int $countryId;
+
+    #[Assert\Valid]
+    public IdRequest $countryIdRequest;
 
 
     public function __construct(
         string $street,
         string $postalCode,
         string $city,
-        int $countryId,
+        int|string|null $countryId,
     ) {
         $this->street = $street;
         $this->postalCode = $postalCode;
         $this->city = $city;
-        $this->countryId = $countryId;
+        $this->countryIdRequest = new IdRequest($countryId);
     }
 }

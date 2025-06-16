@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveAddressDeliveryRequest
 {
+    #[Assert\Valid]
     public SaveAddressRequest $saveAddressRequest;
 
     #[Assert\When(

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Attribute\Application\Dto\Request;
 
 use App\Attribute\Domain\Enums\AttributeType;
+use App\Common\Infrastructure\Utils\BoolHelper;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveAttributeRequest
@@ -17,16 +18,15 @@ final readonly class SaveAttributeRequest
     #[Assert\Choice(callback: [AttributeType::class, 'values'])]
     public string $type;
 
-    #[Assert\NotBlank]
     public bool $isActive;
 
     public function __construct(
         string $name,
         string $type,
-        bool $isActive,
+        mixed $isActive,
     ) {
         $this->name = $name;
         $this->type = $type;
-        $this->isActive = $isActive;
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
     }
 }

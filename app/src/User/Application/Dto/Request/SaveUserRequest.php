@@ -9,11 +9,12 @@ use App\Common\Application\Dto\FileData;
 use App\Common\Application\Dto\Request\IdRequest;
 use App\Common\Application\Dto\Request\SavePasswordRequest;
 use App\Common\Domain\Entity\User;
+use App\Common\Infrastructure\Utils\BoolHelper;
 use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use App\User\Domain\Enums\UserRole;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveUserRequest implements ArrayHydratableInterface
+final readonly class SaveUserRequest
 {
     #[Assert\NotBlank]
     #[Assert\Email]
@@ -52,38 +53,20 @@ final readonly class SaveUserRequest implements ArrayHydratableInterface
         string $firstname,
         string $surname,
         array $roles,
-        IdRequest $idRequest,
-        SavePasswordRequest $savePasswordRequest,
+        null|string|int $id,
+        ?string $password,
+        ?string $passwordConfirmation,
         bool $isActive,
-        ?FileData $fileData
+        ?array $avatar,
     ) {
         $this->email = $email;
         $this->firstname = $firstname;
         $this->surname = $surname;
         $this->roles = $roles;
-        $this->isActive = $isActive;
-        $this->idRequest = $idRequest;
-        $this->passwordRequest = $savePasswordRequest;
-        $this->fileData = $fileData;
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
+        $this->idRequest = new IdRequest($id);
+        $this->passwordRequest = new SavePasswordRequest($password, $passwordConfirmation);
+        $this->fileData = $avatar ? FileData::fromArray($avatar) : null;
     }
 
-
-    public static function fromArray(array $data): ArrayHydratableInterface
-    {
-        $avatar = $data['avatar'] ?? null;
-
-        return new self(
-            email: $data['email'],
-            firstname: $data['firstname'],
-            surname: $data['surname'],
-            roles: $data['roles'],
-            idRequest: new IdRequest($data['id'] ?? null),
-            savePasswordRequest: new SavePasswordRequest(
-                password: $data['password'] ?? null,
-                passwordConfirmation: $data['passwordConfirmation'] ?? null,
-            ),
-            isActive: $data['isActive'],
-            fileData: $avatar ? FileData::fromArray($avatar) : null,
-        );
-    }
 }

@@ -41,7 +41,7 @@ const ProductCategorization: React.FC<ProductCategorizationProps> = ({ control, 
                 }
             >
                 <ControlledReactSelect
-                    name="mainCategory"
+                    name="mainCategoryId"
                     control={control}
                     options={mainCategories}
                     isMulti={false}

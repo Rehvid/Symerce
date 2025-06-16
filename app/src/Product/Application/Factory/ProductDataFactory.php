@@ -46,8 +46,8 @@ final readonly class ProductDataFactory
             metaDescription: $request->metaDescription,
             regularPrice: $request->regularPrice,
             isActive: $request->isActive,
-            mainCategory: $this->findMainCategory($request->mainCategory, $categories),
-            brand: $this->findBrand($request->brand),
+            mainCategory: $this->findMainCategory($request->mainCategoryIdRequest->getId(), $categories),
+            brand: $this->findBrand($request->brandIdRequest->getId()),
             promotionData: $request->productPromotionRequest ? $this->createProductPromotionData($request->productPromotionRequest) : null,
             stocks: $this->productDataStockFactory->createFromArray($request->stocks),
             images: $this->productImageDataFactory->createFromArray($request->images),
@@ -57,7 +57,7 @@ final readonly class ProductDataFactory
         );
     }
 
-    private function findMainCategory(int $mainCategoryId, array $categories): Category
+    private function findMainCategory(?int $mainCategoryId, array $categories): Category
     {
         $entityCategories = [];
         foreach ($categories as $category) {
@@ -72,7 +72,7 @@ final readonly class ProductDataFactory
         return $mainCategory;
     }
 
-    private function findBrand(int $brandId): Brand
+    private function findBrand(?int $brandId): Brand
     {
         /** @var ?Brand $entityBrand */
         $entityBrand = $this->brandRepository->findById($brandId);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
+use App\Common\Application\Contracts\IdentifiableInterface;
 use App\Common\Domain\Contracts\FileEntityInterface;
 use App\Common\Domain\Enums\DecimalPrecision;
 use App\Common\Domain\Traits\ActiveTrait;
@@ -15,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PaymentMethodDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class PaymentMethod implements FileEntityInterface
+class PaymentMethod implements FileEntityInterface, IdentifiableInterface
 {
     use ActiveTrait;
     use PositionTrait;
@@ -25,7 +26,7 @@ class PaymentMethod implements FileEntityInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
-    private int $id;
+    private ?int $id;
 
     #[ORM\Column(type: 'string', length: 100, unique: true)]
     private string $code;
@@ -51,7 +52,7 @@ class PaymentMethod implements FileEntityInterface
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $requiresWebhook = false;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

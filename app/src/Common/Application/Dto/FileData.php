@@ -24,7 +24,7 @@ final readonly class FileData
     public function __construct(
        int $size,
        string $name,
-       FileMimeType|string $type,
+       FileMimeType $type,
        string $content,
     ) {
         $this->size = $size;
@@ -33,6 +33,7 @@ final readonly class FileData
         $this->content = $content;
     }
 
+    /** @param array<string, mixed> $data */
     public static function fromArray(array $data): self
     {
         return new self(

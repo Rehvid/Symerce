@@ -6,47 +6,47 @@ namespace App\Warehouse\Application\Dto\Request;
 
 use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
+use App\Common\Infrastructure\Utils\BoolHelper;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class SaveWarehouseRequest implements ArrayHydratableInterface
+final readonly class SaveWarehouseRequest
 {
     #[Assert\NotBlank]
-    #[Assert\Length(min: 2)]
+    #[Assert\Length(min: 2, max: 255)]
     public string $name;
 
+    #[Assert\When(
+        expression: 'this.description !== null',
+        constraints: [
+            new Assert\Length(min: 3)
+        ]
+    )]
     public ?string $description;
 
 
     public bool $isActive;
 
+    #[Assert\Valid]
     public SaveAddressRequest $addressRequest;
 
     public function __construct(
         string $name,
-        bool $isActive,
+        mixed $isActive,
+        string $street,
+        string $postalCode,
+        string $city,
+        int|string|null $countryId,
         SaveAddressRequest $addressRequest,
-        ?string $description = null,
+        ?string $description,
     ) {
         $this->name = $name;
-        $this->isActive = $isActive;
-        $this->addressRequest = $addressRequest;
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
+        $this->addressRequest = new SaveAddressRequest(
+            street: $street,
+            postalCode: $postalCode,
+            city: $city,
+            countryId: $countryId,
+        );
         $this->description = $description;
-    }
-
-    public static function fromArray(array $data): ArrayHydratableInterface
-    {
-        $addressRequest = new SaveAddressRequest(
-            street: $data['street'] ?? null,
-            postalCode: $data['postalCode'] ?? null,
-            city: $data['city'] ?? null,
-            country: $data['country'] ?? null,
-        );
-
-        return new self(
-            name: $data['name'] ?? null,
-            isActive: $data['isActive'] ?? false,
-            addressRequest: $addressRequest,
-            description: $data['description'] ?? null,
-        );
     }
 }

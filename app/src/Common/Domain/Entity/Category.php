@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Common\Domain\Entity;
 
 use App\Category\Infrastructure\Repository\CategoryDoctrineRepository;
+use App\Common\Application\Contracts\IdentifiableInterface;
 use App\Common\Domain\Contracts\FileEntityInterface;
 use App\Common\Domain\Contracts\PositionEntityInterface;
 use App\Common\Domain\Traits\ActiveTrait;
@@ -19,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: CategoryDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['slug'], message: 'Slug has already been taken.')]
-class Category implements PositionEntityInterface, FileEntityInterface
+class Category implements PositionEntityInterface, FileEntityInterface, IdentifiableInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -29,7 +30,7 @@ class Category implements PositionEntityInterface, FileEntityInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
-    private int $id;
+    private ?int $id;
 
     #[ORM\Column(type: 'string')]
     private string $name;
@@ -68,7 +69,7 @@ class Category implements PositionEntityInterface, FileEntityInterface
         $this->children = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

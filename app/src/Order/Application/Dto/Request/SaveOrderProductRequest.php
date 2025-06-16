@@ -4,21 +4,37 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Dto\Request;
 
+use App\Common\Application\Dto\Request\IdRequest;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final readonly class SaveOrderProductRequest
 {
-    #[Assert\GreaterThan(0)]
-    public int $productId;
 
-    #[Assert\GreaterThan(0)]
+    #[Assert\Valid]
+    public IdRequest $productId;
+
     public int|string $quantity;
 
+    private int $index;
+
     public function __construct(
-        int $productId,
-        int|string $quantity
+        int|string|null $productId,
+        int|string $quantity,
+        int $index
     ) {
-        $this->productId = $productId;
+        $this->productId = new IdRequest($productId);
         $this->quantity = $quantity;
+        $this->index = $index;
+    }
+
+    #[Assert\Callback]
+    public function validateQuantity(ExecutionContextInterface $context): void
+    {
+        if (!is_numeric($this->quantity) || (int)$this->quantity <= 0) {
+            $context->buildViolation('Quantity must be greater than 0.')
+                ->atPath("products.{$this->index}.quantity")
+                ->addViolation();
+        }
     }
 }

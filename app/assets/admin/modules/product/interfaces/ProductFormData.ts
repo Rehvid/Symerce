@@ -25,12 +25,12 @@ export interface ProductImage extends UploadFile {
 export interface ProductFormData extends FormDataInterface, MetaFieldsInterface, SlugInterface {
     id: number | null;
     name: string;
-    brand: number;
+    brandId: number;
     description?: string;
     customAttributes: any;
     attributes: Record<string, AttributeItem[]>;
     isActive: boolean;
-    mainCategory: number;
+    mainCategoryId: number;
     categories?: number[];
     tags?: number[];
     vendor: number;

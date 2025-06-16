@@ -37,7 +37,7 @@ const TagFormBody: FC<TagFormBodyProps> = ({ register, fieldErrors, control }) =
                 />
             </FormGroup>
 
-            <FormSwitchField register={register} name="isActive" label="Tag widoczny na stronie?" />
+            <FormSwitchField register={register} name="isActive" fieldErrors={fieldErrors} label="Tag widoczny na stronie?" />
         </FormSection>
     );
 };

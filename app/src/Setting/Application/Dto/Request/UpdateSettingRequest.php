@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Dto\Request;
 
+use App\Common\Infrastructure\Utils\BoolHelper;
 use App\Setting\Domain\Enums\SettingValueType;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,6 +16,7 @@ final class UpdateSettingRequest
 
     #[Assert\NotBlank]
     public mixed $value;
+
     #[Assert\NotBlank]
     #[Assert\Choice(callback: [SettingValueType::class, 'values'])]
     public string $settingValueType;
@@ -25,11 +27,11 @@ final class UpdateSettingRequest
         string $name,
         mixed $value,
         string $settingValueType,
-        bool $isActive
+        mixed $isActive
     ) {
         $this->name = $name;
         $this->value = $value;
         $this->settingValueType = $settingValueType;
-        $this->isActive = $isActive;
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
     }
 }

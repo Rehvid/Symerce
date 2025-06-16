@@ -29,7 +29,7 @@ final readonly class CustomerDataFactory
                 street: $deliveryAddress->saveAddressRequest->street,
                 postalCode: $deliveryAddress->saveAddressRequest->postalCode,
                 city: $deliveryAddress->saveAddressRequest->city,
-                country: $this->countryRepository->findById($deliveryAddress->saveAddressRequest->countryId),
+                country: $this->countryRepository->findById($deliveryAddress->saveAddressRequest->countryIdRequest->getId()),
             );
         }
 
@@ -39,7 +39,7 @@ final readonly class CustomerDataFactory
                 street: $invoiceAddress->saveAddressRequest->street,
                 postalCode: $invoiceAddress->saveAddressRequest->postalCode,
                 city: $invoiceAddress->saveAddressRequest->city,
-                country: $this->countryRepository->findById($invoiceAddress->saveAddressRequest->countryId),
+                country: $this->countryRepository->findById($invoiceAddress->saveAddressRequest->countryIdRequest->getId()),
             );
         }
 
@@ -50,14 +50,14 @@ final readonly class CustomerDataFactory
                 phone: $contactDetails->phone,
             ),
             email: $customerRequest->email,
-            id: $customerRequest->id,
+            id: $customerRequest->idRequest->getId(),
             password: $password,
             passwordConfirmation: $customerRequest->savePasswordRequest->passwordConfirmation,
             deliveryAddressData: $deliveryAddressData,
             deliveryInstructions: $deliveryAddress?->deliveryInstructions,
             invoiceAddressData: $invoiceAddressData,
-            companyName: $invoiceAddress?->companyName,
-            companyTaxId: $invoiceAddress?->companyTaxId,
+            companyName: $invoiceAddress?->invoiceCompanyName,
+            companyTaxId: $invoiceAddress?->invoiceCompanyTaxId,
             isDelivery: $customerRequest->isDelivery,
             isInvoice: $customerRequest->isInvoice,
             isActive: $customerRequest->isActive,

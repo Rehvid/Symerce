@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
+use App\Common\Application\Contracts\IdentifiableInterface;
 use App\Common\Domain\Enums\DecimalPrecision;
 use App\Common\Domain\Traits\ProtectedTrait;
 use App\Currency\Infrastructure\Repository\CurrencyDoctrineRepository;
@@ -11,28 +12,28 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CurrencyDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Currency
+class Currency implements IdentifiableInterface
 {
     use ProtectedTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
-    private int $id;
+    private ?int $id = null;
 
-    #[ORM\Column(length: 3)]
+    #[ORM\Column(length: 3, unique: true)]
     private string $code;
 
     #[ORM\Column(length: 10)]
     private string $symbol;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255, unique: true)]
     private string $name;
 
     #[ORM\Column(type: 'smallint')]
     private int $roundingPrecision;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

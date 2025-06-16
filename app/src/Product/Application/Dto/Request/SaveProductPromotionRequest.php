@@ -6,11 +6,12 @@ namespace App\Product\Application\Dto\Request;
 use App\Common\Domain\Enums\PromotionSource;
 use App\Common\Domain\Enums\ReductionType;
 use App\Common\Domain\ValueObject\DateVO;
+use App\Common\Infrastructure\Utils\BoolHelper;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveProductPromotionRequest
 {
-    #[Assert\NotBlank]
+
     public bool $isActive;
 
     #[Assert\NotBlank]
@@ -34,12 +35,18 @@ final readonly class SaveProductPromotionRequest
     public string $source;
 
     public function __construct(
-        bool $isActive,
-        string $reductionType,
-        string $reduction,
+        mixed $isActive,
+        ?string $reductionType,
+        ?string $reduction,
         DateVO $startDate,
         DateVO $endDate,
-        string $source,
+        ?string $source,
     ) {
+        $this->isActive = BoolHelper::castOrFail($isActive, 'isActive');
+        $this->reductionType = (string) $reductionType;
+        $this->reduction = (string) $reduction;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+        $this->source = (string) $source;
     }
 }

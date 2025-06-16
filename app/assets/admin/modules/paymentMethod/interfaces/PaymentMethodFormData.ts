@@ -7,6 +7,7 @@ interface Config {
 }
 
 export interface PaymentMethodFormData extends FormDataInterface {
+    id?: number | null;
     name: string;
     isActive: boolean;
     code: string;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
+use App\Common\Application\Contracts\IdentifiableInterface;
 use App\Common\Domain\Traits\ActiveTrait;
 use App\Common\Domain\Traits\CreatedAtTrait;
 use App\Common\Domain\Traits\UpdatedAtTrait;
@@ -18,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: CustomerDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['email'], message: 'This account already exists.')]
-class Customer implements UserInterface, PasswordAuthenticatedUserInterface
+class Customer implements UserInterface, PasswordAuthenticatedUserInterface, IdentifiableInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -27,7 +28,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'bigint')]
-    private int $id;
+    private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $password;
@@ -59,7 +60,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         $this->tokens = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

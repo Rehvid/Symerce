@@ -9,6 +9,12 @@ import { CurrencyFormData } from '@admin/modules/currency/interfaces/CurrencyFor
 import CurrencyFormBody from '@admin/modules/currency/components/CurrencyFormBody';
 
 const CurrencyFormPage = () => {
+    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
+        baseApiUrl: 'admin/currencies',
+        redirectSuccessUrl: '/admin/currencies',
+    });
+    const requestConfig = getRequestConfig();
+
     const {
         register,
         handleSubmit,
@@ -17,13 +23,10 @@ const CurrencyFormPage = () => {
         formState: { errors: fieldErrors },
     } = useForm<CurrencyFormData>({
         mode: 'onBlur',
+        defaultValues: {
+            id: entityId
+        }
     });
-
-    const { getRequestConfig, defaultApiSuccessCallback, entityId, isEditMode } = useApiFormSubmit({
-        baseApiUrl: 'admin/currencies',
-        redirectSuccessUrl: '/admin/currencies',
-    });
-    const requestConfig = getRequestConfig();
 
     const { isFormInitialize, getFormData } = useFormInitializer<CurrencyFormData>();
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\Entity;
 
+use App\Common\Application\Contracts\IdentifiableInterface;
 use App\Common\Domain\Contracts\PositionEntityInterface;
 use App\Common\Domain\Enums\DecimalPrecision;
 use App\Common\Domain\Enums\PromotionSource;
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Product implements PositionEntityInterface
+class Product implements PositionEntityInterface, IdentifiableInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
@@ -36,7 +37,7 @@ class Product implements PositionEntityInterface
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $slug;
 
     #[ORM\Column(

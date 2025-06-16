@@ -20,9 +20,9 @@ final readonly class AttributeValueDataFactory
     public function fromRequest(SaveAttributeValueRequest $attributeValueRequest): AttributeValueData
     {
         /** @var ?Attribute $attribute */
-        $attribute = $this->attributeRepository->findById($attributeValueRequest->attributeId);
+        $attribute = $this->attributeRepository->findById($attributeValueRequest->attributeIdRequest->getId());
         if (null === $attribute) {
-            throw EntityNotFoundException::for(AttributeValue::class, $attributeValueRequest->attributeId);
+            throw EntityNotFoundException::for(AttributeValue::class, $attributeValueRequest->attributeIdRequest->getId());
         }
 
         return new AttributeValueData(

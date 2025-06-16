@@ -68,8 +68,8 @@ const PaymentMethodInformationSection: FC<PaymentMethodInformationSectionProps> 
                 />
             </FormGroup>
 
-            <FormSwitchField register={register} name={'isActive'} label="Aktywna" />
-            <FormSwitchField register={register} name={'isRequireWebhook'} label="Czy wymagany jest webhook (API)" />
+            <FormSwitchField register={register} name={'isActive'} fieldErrors={fieldErrors} label="Aktywna" />
+            <FormSwitchField register={register} name={'isRequireWebhook'} fieldErrors={fieldErrors} label="Czy wymagany jest webhook (API)" />
         </FormSection>
     );
 };

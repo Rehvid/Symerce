@@ -11,12 +11,13 @@ interface FormSwitchFieldProps<T extends FieldValues> {
 }
 
 const FormSwitchField = <T extends FieldValues>({
-register,
-name,
-label,
+    register,
+    name,
+    label,
+    fieldErrors,
 }: FormSwitchFieldProps<T>) => (
     <FormGroup label={<InputLabel label={label}  />}>
-        <Switch {...register(name)} />
+        <Switch {...register(name)} errorMessage={fieldErrors?.[name]?.message as string | undefined} />
     </FormGroup>
 );
 
