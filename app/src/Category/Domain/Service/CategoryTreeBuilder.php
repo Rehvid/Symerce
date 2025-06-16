@@ -24,21 +24,27 @@ final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
     public function generateTree(?Category $currentCategory = null): array
     {
         $tree = [];
-        $this->processedCategories = [];
 
         $excludedIds = [];
         if (null !== $currentCategory) {
             $excludedIds = $this->collectDescendantIds($currentCategory);
-            $excludedIds[] = $currentCategory->getId();
+
+            $currentId = $currentCategory->getId();
+            if ($currentId !== null) {
+                $excludedIds[] = (int) $currentId;
+            }
         }
 
         $categories = $this->categoryRepository->findAllSortedByPosition();
         foreach ($categories as $category) {
             $id = $category->getId();
+            if ($id === null) {
+                continue;
+            }
+            $id = (int) $id;
 
             if (
                 null === $category->getParent()
-                /* @phpstan-ignore-next-line */
                 && !isset($this->processedCategories[$id])
                 && !in_array($id, $excludedIds, true)
             ) {
@@ -58,6 +64,10 @@ final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
     private function buildTreeNode(Category $category, array $path, array $excludedIds): array
     {
         $categoryId = $category->getId();
+
+        if ($categoryId === null) {
+            return [];
+        }
 
         if (in_array($categoryId, $excludedIds, true)) {
             return [];
@@ -95,7 +105,11 @@ final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
         $ids = [];
 
         foreach ($category->getChildren() as $child) {
-            $ids[] = $child->getId();
+            $childId = $child->getId();
+            if ($childId === null) {
+                continue;
+            }
+            $ids[] = $childId;
             $ids = array_merge($ids, $this->collectDescendantIds($child));
         }
 
