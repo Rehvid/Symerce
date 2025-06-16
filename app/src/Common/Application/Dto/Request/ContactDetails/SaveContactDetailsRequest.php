@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Common\Application\Dto\Request\ContactDetails;
 
-use App\Common\Domain\Entity\User;
-use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveContactDetailsRequest

@@ -23,7 +23,8 @@ final readonly class ProductFormResponseFactory
     public function __construct(
         private MoneyFactory $moneyFactory,
         private FileService $fileService,
-    ) {}
+    ) {
+    }
 
     public function fromProduct(Product $product): ProductFormResponse
     {
@@ -32,8 +33,8 @@ final readonly class ProductFormResponseFactory
         return new ProductFormResponse(
             name: $product->getName(),
             slug: $product->getSlug(),
-            metaTitle: $product?->getMetaTitle(),
-            metaDescription: $product?->getMetaDescription(),
+            metaTitle: $product->getMetaTitle(),
+            metaDescription: $product->getMetaDescription(),
             description: $product->getDescription(),
             regularPrice: $this->moneyFactory->create($product->getRegularPrice())->getFormattedAmount(),
             isActive: $product->isActive(),
@@ -51,16 +52,6 @@ final readonly class ProductFormResponseFactory
             promotionReductionType: $promotion?->getType()->value,
             promotionDateRange: $promotion ? [$promotion->getStartsAt(), $promotion->getEndsAt()] : [],
         );
-    }
-
-    private function getBrand(Product $product): ?OptionItem
-    {
-        return $product->getBrand()
-            ? new OptionItem(
-                label: $product->getBrand()->getName(),
-                value: $product->getBrand()->getId()
-            )
-            : null;
     }
 
     private function createProductImageResponse(ProductImage $productImage): ProductFormImageResponse
@@ -94,7 +85,7 @@ final readonly class ProductFormResponseFactory
             }
 
             $productAttributes[$index][] = new ProductFormAttributeResponse(
-                value: $attribute?->getCustomValue() ?? '',
+                value: (string) $attribute->getCustomValue(),
                 isCustom: true
             );
         }
@@ -107,18 +98,15 @@ final readonly class ProductFormResponseFactory
     {
         $stocks = [];
 
-        /** @var ProductStock[] $stock */
+        /** @var ProductStock $stock */
         foreach ($product->getProductStocks() as $stock) {
             $stocks[] = new ProductFormStockResponse(
                 availableQuantity: $stock->getAvailableQuantity(),
                 ean13: $stock->getEan13(),
                 sku: $stock->getSku(),
-                lowStockThreshold: $stock->getLowStockThreshold() === 0 ? null : $stock->getLowStockThreshold(),
-                maximumStockLevel: $stock->getMaximumStockLevel() === 0 ? null : $stock->getMaximumStockLevel(),
-                warehouseId: new OptionItem(
-                    label: $stock->getWarehouse()->getName(),
-                    value: $stock->getWarehouse()->getId()
-                ),
+                lowStockThreshold: 0 === $stock->getLowStockThreshold() ? null : $stock->getLowStockThreshold(),
+                maximumStockLevel: 0 === $stock->getMaximumStockLevel() ? null : $stock->getMaximumStockLevel(),
+                warehouseId: $stock->getWarehouse()?->getId(),
                 restockDate: $stock->getRestockDate()
             );
         }

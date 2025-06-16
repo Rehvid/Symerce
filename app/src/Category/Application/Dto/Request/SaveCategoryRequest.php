@@ -64,15 +64,14 @@ final readonly class SaveCategoryRequest
 
     public bool $isActive;
 
-
     /** @param array<string,mixed> $thumbnail */
     public function __construct(
-        null|int|string $id,
+        int|string|null $id,
         string $name,
         ?string $metaTitle,
         ?string $metaDescription,
         ?string $slug,
-        null|int|string $parentCategoryId,
+        int|string|null $parentCategoryId,
         ?string $description,
         ?array $thumbnail,
         mixed $isActive,

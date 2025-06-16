@@ -23,7 +23,7 @@ final readonly class AdminEntryListQueryHandler implements QueryHandlerInterface
     {
         return [
             'data' => (new JsonDataVO($this->reactDataProvider->provide()))->getJson(),
-            'logo' => $this->fileService->getLogoPublicPath()
+            'logo' => $this->fileService->getLogoPublicPath(),
         ];
     }
 }

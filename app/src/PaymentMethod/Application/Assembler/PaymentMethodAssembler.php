@@ -20,6 +20,7 @@ final readonly class PaymentMethodAssembler
 
     /**
      * @param array<int, mixed> $paginatedData
+     *
      * @return array<string, mixed>
      */
     public function toListResponse(array $paginatedData): array

@@ -12,5 +12,6 @@ final readonly class BrandData
         public string $name,
         public bool $isActive,
         public ?FileData $fileData,
-    ) {}
+    ) {
+    }
 }

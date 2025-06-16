@@ -8,5 +8,7 @@ use App\Common\Application\Command\Interfaces\CommandInterface;
 
 final readonly class RequestPasswordResetCommand implements CommandInterface
 {
-    public function __construct(public string $email) {}
+    public function __construct(public string $email)
+    {
+    }
 }

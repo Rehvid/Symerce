@@ -11,5 +11,6 @@ final readonly class CreateTagCommand implements CommandInterface
 {
     public function __construct(
         public TagData $data
-    ) {}
+    ) {
+    }
 }

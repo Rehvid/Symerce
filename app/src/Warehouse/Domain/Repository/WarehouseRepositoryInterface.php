@@ -14,5 +14,4 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
  */
 interface WarehouseRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
 {
-
 }

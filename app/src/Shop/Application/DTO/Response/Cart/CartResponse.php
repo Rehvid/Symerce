@@ -9,8 +9,7 @@ final readonly class CartResponse
     public function __construct(
         public int $id,
         public array $cartItems,
-    )
-    {
+    ) {
 
     }
 }

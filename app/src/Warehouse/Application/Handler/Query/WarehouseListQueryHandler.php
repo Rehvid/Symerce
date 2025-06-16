@@ -15,7 +15,8 @@ final readonly class WarehouseListQueryHandler implements QueryHandlerInterface
     public function __construct(
         public WarehouseAssembler $assembler,
         public WarehouseSearchService $searchService,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetWarehouseListQuery $query): ApiResponse
     {

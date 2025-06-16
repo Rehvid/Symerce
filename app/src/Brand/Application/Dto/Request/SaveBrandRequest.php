@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Brand\Application\Dto\Request;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
 use App\Common\Infrastructure\Utils\BoolHelper;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,7 +18,6 @@ final readonly class SaveBrandRequest
     public ?FileData $fileData;
 
     public bool $isActive;
-
 
     /** @param array<string, mixed> $thumbnail */
     public function __construct(

@@ -40,8 +40,7 @@ final class SettingController extends AbstractApiController
         Request $request,
         SettingSearchDefinition $definition,
         SearchDataFactory $factory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetSettingListQuery(
@@ -85,5 +84,4 @@ final class SettingController extends AbstractApiController
             ),
         );
     }
-
 }

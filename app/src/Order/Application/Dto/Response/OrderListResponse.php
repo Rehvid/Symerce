@@ -8,13 +8,13 @@ use App\Common\Domain\ValueObject\MoneyVO;
 
 final readonly class OrderListResponse
 {
-
     public function __construct(
-        public int      $id,
-        public string   $checkoutStep,
-        public string   $status,
+        public ?int $id,
+        public string $checkoutStep,
+        public string $status,
         public ?MoneyVO $totalPrice,
-        public ?string  $createdAt,
-        public ?string  $updatedAt,
-    ){}
+        public ?string $createdAt,
+        public ?string $updatedAt,
+    ) {
+    }
 }

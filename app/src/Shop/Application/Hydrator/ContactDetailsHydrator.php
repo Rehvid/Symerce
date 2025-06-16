@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shop\Application\Hydrator;
 
-
 use App\Common\Application\Dto\ContactDetailsData;
 use App\Common\Domain\Entity\ContactDetails;
 

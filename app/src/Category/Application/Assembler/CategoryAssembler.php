@@ -15,13 +15,14 @@ final readonly class CategoryAssembler
 {
     public function __construct(
         private ResponseHelperAssembler $responseHelperAssembler,
-        private CategoryTreeProvider  $treeProvider,
+        private CategoryTreeProvider $treeProvider,
     ) {
 
     }
 
     /**
      * @param array<int, mixed> $paginatedData
+     *
      * @return array<string, mixed>
      */
     public function toListResponse(array $paginatedData): array
@@ -44,7 +45,6 @@ final readonly class CategoryAssembler
         );
     }
 
-
     /**
      * @return array<string, mixed>
      */
@@ -53,7 +53,7 @@ final readonly class CategoryAssembler
         $name = $category->getName();
         $image = $category->getFile();
 
-        $file = $image === null
+        $file = null === $image
             ? null
             : $this->responseHelperAssembler->toFileResponse($image->getId(), $name, $image->getPath());
 
@@ -69,7 +69,7 @@ final readonly class CategoryAssembler
                 thumbnail: $file,
             ),
             context: [
-                'tree' => $this->treeProvider->provide($category)
+                'tree' => $this->treeProvider->provide($category),
             ]
         );
     }

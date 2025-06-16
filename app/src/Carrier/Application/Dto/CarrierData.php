@@ -15,5 +15,6 @@ final readonly class CarrierData
         public bool $isExternal,
         public ?array $externalData,
         public ?FileData $fileData,
-    ) {}
+    ) {
+    }
 }

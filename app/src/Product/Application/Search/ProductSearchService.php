@@ -9,10 +9,8 @@ use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
 
-
 final class ProductSearchService extends AbstractSearchService
 {
-
     public function __construct(
         ProductRepositoryInterface $repository,
         ProductSearchParserFactory $parserFactory,

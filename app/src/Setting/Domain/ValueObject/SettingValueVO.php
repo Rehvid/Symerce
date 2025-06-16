@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Setting\Domain\ValueObject;
 
 use App\Setting\Domain\Enums\SettingValueType;
-use function PHPUnit\Framework\isArray;
-
 
 final class SettingValueVO
 {
@@ -26,8 +24,8 @@ final class SettingValueVO
             SettingValueType::STRING => $rawValue,
             SettingValueType::BOOLEAN => filter_var($rawValue, FILTER_VALIDATE_BOOLEAN),
             SettingValueType::JSON => $this->resolveCastJsonRawValue($rawValue),
-            SettingValueType::INTEGER => (int)$rawValue,
-            SettingValueType::FLOAT => (float)$rawValue,
+            SettingValueType::INTEGER => (int) $rawValue,
+            SettingValueType::FLOAT => (float) $rawValue,
         };
     }
 
@@ -61,11 +59,11 @@ final class SettingValueVO
     public function getRawValue(): string
     {
         return match ($this->type) {
-            SettingValueType::STRING => (string)$this->value,
+            SettingValueType::STRING => (string) $this->value,
             SettingValueType::BOOLEAN => $this->value ? '1' : '0',
             SettingValueType::JSON => $this->resolveCastValueToRawValueJson($this->value),
-            SettingValueType::INTEGER => (string)(int)$this->value,
-            SettingValueType::FLOAT => (string)(float)$this->value,
+            SettingValueType::INTEGER => (string) (int) $this->value,
+            SettingValueType::FLOAT => (string) (float) $this->value,
         };
     }
 
@@ -82,7 +80,7 @@ final class SettingValueVO
     {
         try {
             return json_encode($value, JSON_THROW_ON_ERROR);
-        } catch (\JsonException ) {
+        } catch (\JsonException) {
             return '{}';
         }
     }
@@ -95,11 +93,11 @@ final class SettingValueVO
     public static function from(mixed $value, SettingValueType $type): self
     {
         $rawValue = match ($type) {
-            SettingValueType::STRING => (string)$value,
+            SettingValueType::STRING => (string) $value,
             SettingValueType::BOOLEAN => $value ? '1' : '0',
-            SettingValueType::JSON => (string)(new self($type, ''))->encodeJson($value),
-            SettingValueType::INTEGER => (string)(int)$value,
-            SettingValueType::FLOAT => (string)(float)$value,
+            SettingValueType::JSON => (string) (new self($type, ''))->encodeJson($value),
+            SettingValueType::INTEGER => (string) (int) $value,
+            SettingValueType::FLOAT => (string) (float) $value,
         };
 
         return new self($type, $rawValue);

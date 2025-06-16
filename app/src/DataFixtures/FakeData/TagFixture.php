@@ -16,7 +16,7 @@ class TagFixture extends Fixture implements FixtureGroupInterface
             'Najlepszy Sprzedawca',
             'Nowość',
             'Super Oferta',
-            'Limitowana Edycja'
+            'Limitowana Edycja',
         ];
 
         foreach ($tags as $tagName) {

@@ -22,6 +22,6 @@ class CartItemRepository extends DoctrineRepository
 
     protected function getAlias(): string
     {
-       return 'ct';
+        return 'ct';
     }
 }

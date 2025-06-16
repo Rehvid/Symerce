@@ -15,7 +15,8 @@ final readonly class CountryListQueryHandler implements QueryHandlerInterface
     public function __construct(
         private CountryAssembler $assembler,
         private CountrySearchService $searchService,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetCountryListQuery $query): ApiResponse
     {

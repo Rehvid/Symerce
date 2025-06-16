@@ -10,5 +10,6 @@ final readonly class UpdateWarehouseCommand implements CommandInterface
     public function __construct(
         public WarehouseData $data,
         public int $warehouseId
-    ) {}
+    ) {
+    }
 }

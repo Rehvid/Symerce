@@ -31,7 +31,7 @@ final readonly class SettingFieldFactory
         return new SettingField(
             type: $setting->getValueType(),
             inputType: $this->resolveInputType($setting->getKey(), $setting->getValueType()),
-            value: $setting->getValueType() === SettingValueType::JSON
+            value: SettingValueType::JSON === $setting->getValueType()
                 ? $valueVO->decodeJson($valueVO->getValue())
                 : $valueVO->getValue(),
             availableOptions: $this->resolveOptions($setting),
@@ -56,7 +56,7 @@ final readonly class SettingFieldFactory
     private function resolveOptions(Setting $setting): array
     {
 
-        if ($setting->getKey() === SettingKey::SHOP_CATEGORIES) {
+        if (SettingKey::SHOP_CATEGORIES === $setting->getKey()) {
             return ArrayUtils::buildSelectedOptions(
                 $this->categoryRepository->findBy(['isActive' => true]),
                 fn (Category $category) => $category->getName(),
@@ -64,7 +64,7 @@ final readonly class SettingFieldFactory
             );
         }
 
-        if ($setting->getKey() === SettingKey::CURRENCY) {
+        if (SettingKey::CURRENCY === $setting->getKey()) {
             return ArrayUtils::buildSelectedOptions(
                 $this->currencyRepository->findAll(),
                 fn (Currency $currency) => $currency->getName(),

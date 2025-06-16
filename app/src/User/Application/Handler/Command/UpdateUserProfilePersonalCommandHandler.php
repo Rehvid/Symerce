@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\User\Application\Handler\Command;
 
-use App\Admin\Application\Hydrator\ProfilePersonalHydrator;
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\User;
@@ -19,7 +18,8 @@ final readonly class UpdateUserProfilePersonalCommandHandler implements CommandH
         private UserRepositoryInterface $repository,
         private FileService $fileService,
         private ProfileAssembler $assembler,
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateUserProfilePersonalCommand $command): array
     {

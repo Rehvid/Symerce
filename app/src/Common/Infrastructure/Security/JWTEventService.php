@@ -94,7 +94,7 @@ final readonly class JWTEventService
                 surname: $user->getSurname(),
                 roles: $user->getRoles(),
                 fullName: $user->getFullname(),
-            )
+            ),
         ];
     }
 

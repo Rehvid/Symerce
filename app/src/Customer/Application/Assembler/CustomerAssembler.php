@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\Customer\Application\Assembler;
 
@@ -18,10 +18,12 @@ final readonly class CustomerAssembler
     public function __construct(
         private ResponseHelperAssembler $responseHelperAssembler,
         private CountryRepositoryInterface $countryRepository,
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<int, mixed> $paginatedData
+     *
      * @return array<string, mixed>
      */
     public function toListResponse(array $paginatedData): array
@@ -60,13 +62,13 @@ final readonly class CustomerAssembler
         $invoiceAddress = $customer->getInvoiceAddress();
 
         $response = new CustomerFormResponse(
-            firstname: $contactDetails?->getFirstname(),
-            surname: $contactDetails?->getSurname(),
+            firstname: $contactDetails?->getFirstname() ?? '-',
+            surname: $contactDetails?->getSurname() ?? '-',
             email: $customer->getEmail(),
-            phone: $contactDetails?->getPhone(),
+            phone: $contactDetails?->getPhone() ?? '-',
             isActive: $customer->isActive(),
-            isDelivery: $deliveryAddress !== null,
-            isInvoice: $invoiceAddress !== null,
+            isDelivery: null !== $deliveryAddress,
+            isInvoice: null !== $invoiceAddress,
             street: $deliveryAddress?->getAddress()?->getStreet(),
             postalCode: $deliveryAddress?->getAddress()?->getPostalCode(),
             city: $deliveryAddress?->getAddress()?->getCity(),
@@ -83,7 +85,7 @@ final readonly class CustomerAssembler
         return $this->responseHelperAssembler->wrapFormResponse(
             data: $response,
             context: [
-                'availableCountries' =>  $this->getAvailableCountries()
+                'availableCountries' =>  $this->getAvailableCountries(),
             ]
         );
     }

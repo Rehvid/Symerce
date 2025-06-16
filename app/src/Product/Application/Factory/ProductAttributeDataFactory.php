@@ -8,16 +8,17 @@ use App\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use App\Common\Domain\Entity\Attribute;
 use App\Common\Domain\Entity\AttributeValue;
 use App\Product\Application\Dto\ProductAttributeData;
-use function Symfony\Component\Translation\t;
 
 final readonly class ProductAttributeDataFactory
 {
     public function __construct(
         private AttributeRepositoryInterface $attributeRepository
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<string, mixed> $attributes
+     *
      * @return ProductAttributeData[]
      */
     public function createFromArray(array $attributes): array
@@ -30,18 +31,20 @@ final readonly class ProductAttributeDataFactory
 
     /**
      * @param array<string, mixed> $attributes
+     *
      * @return int[]
      */
     private function extractAttributeIds(array $attributes): array
     {
         return array_map(
-            fn(string $key) => (int) str_replace('attribute_', '', $key),
+            fn (string $key) => (int) str_replace('attribute_', '', $key),
             array_keys($attributes)
         );
     }
 
     /**
      * @param int[] $attributeIds
+     *
      * @return array<int, Attribute>
      */
     private function fetchAttributeEntitiesByIds(array $attributeIds): array
@@ -52,12 +55,14 @@ final readonly class ProductAttributeDataFactory
         foreach ($entities as $entity) {
             $result[$entity->getId()] = $entity;
         }
+
         return $result;
     }
 
     /**
-     * @param array<string, mixed> $attributes
+     * @param array<string, mixed>  $attributes
      * @param array<int, Attribute> $attributeEntitiesById
+     *
      * @return ProductAttributeData[]
      */
     private function mapAttributesToProductAttributeData(array $attributes, array $attributeEntitiesById): array
@@ -72,7 +77,7 @@ final readonly class ProductAttributeDataFactory
             $attributeId = (int) str_replace('attribute_', '', $key);
             $attribute = $attributeEntitiesById[$attributeId] ?? null;
 
-            if ($attribute === null) {
+            if (null === $attribute) {
                 continue;
             }
 
@@ -107,7 +112,6 @@ final readonly class ProductAttributeDataFactory
             isCustom: $isCustom
         );
     }
-
 
     private function isValidAttributeItem(mixed $item): bool
     {

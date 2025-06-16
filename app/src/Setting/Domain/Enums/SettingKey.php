@@ -24,5 +24,3 @@ enum SettingKey: string
         return array_map(fn (self $case) => $case->value, self::cases());
     }
 }
-
-

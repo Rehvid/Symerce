@@ -11,5 +11,6 @@ final readonly class CreateAttributeValueCommand implements CommandInterface
 {
     public function __construct(
         public AttributeValueData $data,
-    ) {}
+    ) {
+    }
 }

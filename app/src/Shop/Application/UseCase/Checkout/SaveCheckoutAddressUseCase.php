@@ -9,12 +9,12 @@ use App\Common\Domain\Entity\Order;
 use App\Shop\Application\DTO\Request\Checkout\SaveCheckoutAddressRequest;
 use App\Shop\Application\Service\OrderCheckoutService;
 
-
 class SaveCheckoutAddressUseCase
 {
     public function __construct(
         private readonly OrderCheckoutService $orderManager,
-    ) {}
+    ) {
+    }
 
     public function execute(SaveCheckoutAddressRequest $request, Cart $cart, ?Order $order): Order
     {

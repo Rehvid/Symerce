@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Common\Domain\Entity;
 
 use App\Common\Application\Contracts\IdentifiableInterface;
-use App\Common\Domain\Contracts\FileEntityInterface;
 use App\Common\Domain\Traits\ActiveTrait;
 use Doctrine\ORM\Mapping as ORM;
 

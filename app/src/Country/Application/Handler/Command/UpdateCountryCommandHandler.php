@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Country\Application\Handler\Command;
 
@@ -17,7 +17,8 @@ final readonly class UpdateCountryCommandHandler implements CommandHandlerInterf
     public function __construct(
         private CountryRepositoryInterface $repository,
         private CountryHydrator $hydrator
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateCountryCommand $command): IdResponse
     {

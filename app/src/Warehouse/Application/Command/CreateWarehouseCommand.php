@@ -9,5 +9,7 @@ use App\Warehouse\Application\Dto\WarehouseData;
 
 final readonly class CreateWarehouseCommand implements CommandInterface
 {
-    public function __construct(public WarehouseData $data) {}
+    public function __construct(public WarehouseData $data)
+    {
+    }
 }

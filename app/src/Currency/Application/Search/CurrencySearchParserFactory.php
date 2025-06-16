@@ -13,7 +13,6 @@ use App\Common\Infrastructure\Http\Search\SearchPaginationParser;
 
 final readonly class CurrencySearchParserFactory implements SearchParserFactoryInterface
 {
-
     public function create(): SearchRequestParser
     {
         return new SearchRequestParser([

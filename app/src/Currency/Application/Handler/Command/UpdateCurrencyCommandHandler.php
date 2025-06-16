@@ -23,15 +23,15 @@ final readonly class UpdateCurrencyCommandHandler implements CommandHandlerInter
     public function __invoke(UpdateCurrencyCommand $command): IdResponse
     {
         /** @var ?Currency $currency */
-       $currency = $this->repository->findById($command->currencyId);
-       if (null === $currency) {
-           throw EntityNotFoundException::for(Currency::class, $command->currencyId);
-       }
+        $currency = $this->repository->findById($command->currencyId);
+        if (null === $currency) {
+            throw EntityNotFoundException::for(Currency::class, $command->currencyId);
+        }
 
-       $currency = $this->hydrator->hydrate($command->data, $currency);
+        $currency = $this->hydrator->hydrate($command->data, $currency);
 
-       $this->repository->save($currency);
+        $this->repository->save($currency);
 
-       return new IdResponse($currency->getId());
+        return new IdResponse($currency->getId());
     }
 }

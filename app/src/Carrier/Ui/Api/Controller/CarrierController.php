@@ -19,7 +19,6 @@ use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +34,7 @@ final class CarrierController extends AbstractApiController
         CommandBusInterface $commandBus,
         QueryBusInterface $queryBus,
         private readonly CarrierDataFactory $carrierDataFactory,
-    ){
+    ) {
         parent::__construct($requestDtoResolver, $translator, $commandBus, $queryBus);
     }
 
@@ -44,8 +43,7 @@ final class CarrierController extends AbstractApiController
         Request $request,
         CarrierSearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetCarrierListQuery(

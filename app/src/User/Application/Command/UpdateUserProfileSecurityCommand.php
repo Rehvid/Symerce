@@ -11,5 +11,6 @@ final readonly class UpdateUserProfileSecurityCommand implements CommandInterfac
     public function __construct(
         public int $userId,
         public string $newPassword
-    ) {}
+    ) {
+    }
 }

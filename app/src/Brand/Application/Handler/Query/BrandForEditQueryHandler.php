@@ -11,13 +11,13 @@ use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Brand;
 use App\Common\Domain\Exception\EntityNotFoundException;
 
-
 final readonly class BrandForEditQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
         private BrandRepositoryInterface $repository,
         private BrandAssembler $assembler,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetBrandForEditQuery $query): array
     {

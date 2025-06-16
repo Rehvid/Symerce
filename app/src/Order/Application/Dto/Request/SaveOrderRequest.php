@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Dto\Request;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\Request\Address\SaveAddressDeliveryRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressInvoiceRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
@@ -17,9 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveOrderRequest
 {
-
     #[Assert\Valid]
-    public SaveContactDetailsRequest  $saveContactDetailsRequest;
+    public SaveContactDetailsRequest $saveContactDetailsRequest;
 
     #[Assert\Valid]
     public ?SaveAddressDeliveryRequest $saveAddressDeliveryRequest;
@@ -54,7 +52,6 @@ final readonly class SaveOrderRequest
 
     public bool $isInvoice;
 
-
     /** @param array<int,mixed> $products */
     public function __construct(
         string $firstname,
@@ -65,8 +62,8 @@ final readonly class SaveOrderRequest
         string $city,
         int|string|null $countryId,
         ?string $deliveryInstructions,
-        int|string|null  $paymentMethodId,
-        int|string|null  $carrierId,
+        int|string|null $paymentMethodId,
+        int|string|null $carrierId,
         string $checkoutStep,
         string $status,
         string $email,
@@ -116,6 +113,7 @@ final readonly class SaveOrderRequest
 
     /**
      * @param array<int, mixed> $products
+     *
      * @return SaveOrderProductRequest[]
      */
     private function createSaveOrderProductRequest(array $products): array
@@ -124,68 +122,11 @@ final readonly class SaveOrderRequest
         foreach ($products as $index => $product) {
             $saveOrderProductRequestCollection[] = new SaveOrderProductRequest(
                 productId: $product['productId'] ?? null,
-                quantity: $product['quantity'] ?? null, //TODO: Resolve problem with not showing error,
+                quantity: $product['quantity'] ?? null, // TODO: Resolve problem with not showing error,
                 index: $index
             );
         }
+
         return $saveOrderProductRequestCollection;
-    }
-
-
-    public static function fromArray(array $data): ArrayHydratableInterface
-    {
-//        $saveContactDetailsRequest = new SaveContactDetailsRequest(
-//            firstname: $data['firstname'] ?? null,
-//            surname: $data['surname'] ?? null,
-//            phone: $data['phone'] ?? null,
-//        );
-//
-//        $saveAddressDeliveryRequest = new SaveAddressDeliveryRequest(
-//            saveAddressRequest: new SaveAddressRequest(
-//                street: $data['street'] ?? null,
-//                postalCode: $data['postalCode'] ?? null,
-//                city: $data['city'] ?? null,
-//                countryId: $data['countryId'] ?? null,
-//            ),
-//            deliveryInstructions: $data['deliveryInstructions'] ?? null,
-//        );
-//
-//        $saveAddressInvoiceRequest = null;
-//        $isInvoice = $data['isInvoice'] ?? false;
-//        if ($isInvoice) {
-//            $saveAddressInvoiceRequest = new SaveAddressInvoiceRequest(
-//                saveAddressRequest: new SaveAddressRequest(
-//                    street: $data['invoiceStreet'] ?? null,
-//                    postalCode: $data['invoicePostalCode'] ?? null,
-//                    city: $data['invoiceCity'] ?? null,
-//                    countryId: $data['invoiceCountryId'] ?? null,
-//                ),
-//                companyName: $data['invoiceCompanyName'] ?? null,
-//                companyTaxId: $data['invoiceCompanyTaxId'] ?? null,
-//            );
-//        }
-//
-//        $saveOrderProductRequestCollection = [];
-//        $saveProductsRequest = $data['products'] ?? [];
-//        foreach ($saveProductsRequest as $productRequest) {
-//            $saveOrderProductRequestCollection[] = new SaveOrderProductRequest(
-//                productId: $productRequest['productId'] ?? null,
-//                quantity: $productRequest['quantity'] ?? null,
-//            );
-//        }
-//
-//        return new self(
-//            saveContactDetailsRequest: $saveContactDetailsRequest,
-//            saveAddressDeliveryRequest: $saveAddressDeliveryRequest,
-//            paymentMethodId: $data['paymentMethodId'] ?? null,
-//            carrierId: $data['carrierId'] ?? null,
-//            checkoutStep: $data['checkoutStep'] ?? null,
-//            status: $data['status'] ?? null,
-//            email: $data['email'] ?? null,
-//            isInvoice: $isInvoice,
-//            saveAddressInvoiceRequest: $saveAddressInvoiceRequest,
-//            saveOrderProductRequestCollection: $saveOrderProductRequestCollection,
-//            customerId: $data['customerId'] ?? null,
-//        );
     }
 }

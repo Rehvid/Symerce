@@ -6,7 +6,6 @@ namespace App\Shop\Application\UseCase\Cart;
 
 use App\Cart\Application\Assembler\CartAssembler;
 use App\Common\Domain\Entity\Cart;
-use App\Mapper\Shop\CartMapper;
 use App\Shop\Application\DTO\Response\Cart\CartResponse;
 
 final readonly class ListCartUseCase

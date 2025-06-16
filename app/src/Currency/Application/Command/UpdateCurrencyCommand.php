@@ -12,5 +12,6 @@ final readonly class UpdateCurrencyCommand implements CommandInterface
     public function __construct(
         public CurrencyData $data,
         public int $currencyId
-    ) {}
+    ) {
+    }
 }

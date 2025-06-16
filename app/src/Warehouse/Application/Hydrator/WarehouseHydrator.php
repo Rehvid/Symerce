@@ -10,7 +10,9 @@ use App\Warehouse\Application\Dto\WarehouseData;
 
 final readonly class WarehouseHydrator
 {
-    public function __construct(private AddressHydrator $hydrator) {}
+    public function __construct(private AddressHydrator $hydrator)
+    {
+    }
 
     public function hydrate(WarehouseData $data, Warehouse $warehouse): Warehouse
     {

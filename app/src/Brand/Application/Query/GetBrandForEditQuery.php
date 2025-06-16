@@ -8,5 +8,7 @@ use App\Common\Application\Query\Interfaces\QueryInterface;
 
 final readonly class GetBrandForEditQuery implements QueryInterface
 {
-    public function __construct(public int $brandId) {}
+    public function __construct(public int $brandId)
+    {
+    }
 }

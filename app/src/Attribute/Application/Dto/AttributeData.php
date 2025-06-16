@@ -12,5 +12,6 @@ final readonly class AttributeData
         public string $name,
         public AttributeType $type,
         public bool $isActive,
-    ) {}
+    ) {
+    }
 }

@@ -6,11 +6,9 @@ namespace App\Product\Application\Hydrator;
 
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\Tag;
-use App\Tag\Domain\Repository\TagRepositoryInterface;
 
 final readonly class ProductTagHydrator
 {
-
     /** @param Tag[] $tags */
     public function hydrate(array $tags, Product $product): void
     {

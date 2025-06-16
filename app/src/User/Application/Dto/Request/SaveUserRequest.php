@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\User\Application\Dto\Request;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
 use App\Common\Application\Dto\Request\IdRequest;
 use App\Common\Application\Dto\Request\SavePasswordRequest;
@@ -47,13 +46,12 @@ final readonly class SaveUserRequest
     #[Assert\Valid]
     public ?FileData $fileData;
 
-
     public function __construct(
         string $email,
         string $firstname,
         string $surname,
         array $roles,
-        null|string|int $id,
+        string|int|null $id,
         ?string $password,
         ?string $passwordConfirmation,
         bool $isActive,
@@ -68,5 +66,4 @@ final readonly class SaveUserRequest
         $this->passwordRequest = new SavePasswordRequest($password, $passwordConfirmation);
         $this->fileData = $avatar ? FileData::fromArray($avatar) : null;
     }
-
 }

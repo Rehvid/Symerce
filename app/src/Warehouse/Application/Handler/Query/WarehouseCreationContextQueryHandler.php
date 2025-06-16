@@ -12,7 +12,8 @@ final readonly class WarehouseCreationContextQueryHandler implements QueryHandle
 {
     public function __construct(
         private WarehouseAssembler $assembler
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetWarehouseCreationContextQuery $query): array
     {

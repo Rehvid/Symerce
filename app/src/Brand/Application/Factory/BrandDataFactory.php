@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Brand\Application\Factory;
 
 use App\Brand\Application\Dto\BrandData;

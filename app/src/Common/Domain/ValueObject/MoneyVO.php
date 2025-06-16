@@ -43,7 +43,7 @@ final readonly class MoneyVO implements \JsonSerializable
 
     public function getFormattedAmountWithSymbol(): string
     {
-        return $this->getFormattedAmount() . ' ' . $this->currency->getSymbol();
+        return $this->getFormattedAmount().' '.$this->currency->getSymbol();
     }
 
     public function add(MoneyVO $money): self
@@ -58,6 +58,10 @@ final readonly class MoneyVO implements \JsonSerializable
 
     public function multiply(int|string $multiplier): self
     {
+        if (!is_numeric($multiplier)) {
+            throw new \InvalidArgumentException('Multiplier must be numeric.');
+        }
+
         return new self(
             bcmul($this->getAmount(), (string) $multiplier, $this->currency->getRoundingPrecision()),
             $this->currency
@@ -89,18 +93,18 @@ final readonly class MoneyVO implements \JsonSerializable
     public function subtractPercentage(float|int|string $percent): self
     {
         if (!is_numeric((string) $percent)) {
-        throw new \InvalidArgumentException('Percentage must be numeric.');
-    }
+            throw new \InvalidArgumentException('Percentage must be numeric.');
+        }
         $scale = $this->currency->getRoundingPrecision();
 
         $multiplier = bcdiv(
-        bcsub('100', (string) $percent, $scale + 2),
+            bcsub('100', (string) $percent, $scale + 2),
             '100',
             $scale + 2
         );
 
         $result = bcmul(
-        $this->getAmount(),
+            $this->getAmount(),
             $multiplier,
             $scale
         );

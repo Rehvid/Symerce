@@ -16,7 +16,8 @@ final readonly class CreatePaymentMethodCommandHandler implements CommandHandler
     public function __construct(
         private PaymentMethodRepositoryInterface $repository,
         private PaymentMethodHydrator $hydrator,
-    ) {}
+    ) {
+    }
 
     public function __invoke(CreatePaymentMethodCommand $command): IdResponse
     {

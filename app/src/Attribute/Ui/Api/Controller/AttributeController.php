@@ -47,9 +47,9 @@ final class AttributeController extends AbstractApiController
     ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
-                 new GetAttributeListQuery(
-                     searchData: $factory->fromRequest($request, $definition),
-                 )
+                new GetAttributeListQuery(
+                    searchData: $factory->fromRequest($request, $definition),
+                )
             ),
         );
     }

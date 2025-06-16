@@ -72,7 +72,7 @@ final class UserController extends AbstractApiController
         /** @var IdResponse $response */
         $response = $this->commandBus->handle(
             new CreateUserCommand(
-               data: $this->userDataFactory->fromRequest($userRequest),
+                data: $this->userDataFactory->fromRequest($userRequest),
             )
         );
 

@@ -8,5 +8,7 @@ use App\Common\Application\Query\Interfaces\QueryInterface;
 
 final readonly class GetCustomerCreationContextQuery implements QueryInterface
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 }

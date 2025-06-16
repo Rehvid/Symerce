@@ -16,10 +16,8 @@ use App\Setting\Domain\Repository\SettingRepositoryInterface;
 use App\Shop\Application\DTO\Response\SettingShopCategoryResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-
 final readonly class SettingsService
 {
-
     public function __construct(
         private SettingRepositoryInterface $settingRepository,
         private CategoryRepositoryInterface $categoryRepository,
@@ -42,9 +40,8 @@ final readonly class SettingsService
             throw new \LogicException('Default Currency not found');
         }
 
-        /** @var Currency $currency */
-        $currency = $this->currencyRepository->findById($setting->getValue());
 
+        $currency = $this->currencyRepository->findById($setting->getValue());
         if (null === $currency) {
             throw new \LogicException('Default Currency not found');
         }
@@ -58,7 +55,7 @@ final readonly class SettingsService
         $metaSettings = $this->settingRepository->findByType(SettingType::SEO);
 
         $settings = [];
-        foreach ($metaSettings as $setting) {
+        foreach ($metaSettings ?? [] as $setting) {
             $settings[$setting->getType()->name] = $setting->getValue();
         }
 
@@ -89,7 +86,7 @@ final readonly class SettingsService
             return [];
         }
 
-        return array_map(fn (Category $category)  => $this->createSettingShopCategoryResponse($category), $categories);
+        return array_map(fn (Category $category) => $this->createSettingShopCategoryResponse($category), $categories);
     }
 
     private function createSettingShopCategoryResponse(Category $category): SettingShopCategoryResponse

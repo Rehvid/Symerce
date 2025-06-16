@@ -13,8 +13,8 @@ use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 final readonly class AttributeListQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private AttributeAssembler          $assembler,
-        private AttributeSearchService     $searchService,
+        private AttributeAssembler $assembler,
+        private AttributeSearchService $searchService,
     ) {
     }
 

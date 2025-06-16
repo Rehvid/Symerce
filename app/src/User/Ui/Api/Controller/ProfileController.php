@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\User\Ui\Api\Controller;
 
-use App\Admin\Application\UseCase\Profile\UpdateSecurityUseCase;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\User\Application\Command\UpdateUserProfilePersonalCommand;

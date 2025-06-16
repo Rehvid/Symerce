@@ -9,10 +9,8 @@ use App\Common\Application\Search\Contracts\SearchParserInterface;
 use App\Common\Application\Search\Dto\SearchData;
 use App\Common\Domain\Enums\DirectionType;
 
-
 final readonly class SearchOrderByParser implements SearchParserInterface
 {
-
     public function __construct(
         private ?DirectionType $defaultDirection = null,
         private ?string $defaultSortField = null,
@@ -26,6 +24,7 @@ final readonly class SearchOrderByParser implements SearchParserInterface
 
         if (null === $direction || null === $orderBy) {
             $this->sortByDefault($builder);
+
             return;
         }
 

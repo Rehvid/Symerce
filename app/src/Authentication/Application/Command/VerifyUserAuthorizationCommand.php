@@ -8,5 +8,4 @@ use App\Common\Application\Command\Interfaces\CommandInterface;
 
 final readonly class VerifyUserAuthorizationCommand implements CommandInterface
 {
-
 }

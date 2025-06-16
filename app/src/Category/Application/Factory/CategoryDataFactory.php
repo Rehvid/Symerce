@@ -14,7 +14,8 @@ final readonly class CategoryDataFactory
 {
     public function __construct(
         private CategoryRepositoryInterface $categoryRepository,
-    ) {}
+    ) {
+    }
 
     public function fromRequest(SaveCategoryRequest $categoryRequest): CategoryData
     {

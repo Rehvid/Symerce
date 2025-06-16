@@ -8,5 +8,4 @@ use App\Common\Application\Query\Interfaces\QueryInterface;
 
 final readonly class GetAttributeCreationContextQuery implements QueryInterface
 {
-
 }

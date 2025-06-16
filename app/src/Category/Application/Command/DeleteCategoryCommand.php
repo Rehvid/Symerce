@@ -10,5 +10,6 @@ final readonly class DeleteCategoryCommand implements CommandInterface
 {
     public function __construct(
         public int $categoryId
-    ) {}
+    ) {
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Setting\Application\Handler\Query;
 
@@ -15,7 +15,8 @@ final readonly class SettingListQueryHandler implements QueryHandlerInterface
     public function __construct(
         private SettingSearchService $searchService,
         private SettingAssembler $assembler,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetSettingListQuery $query): ApiResponse
     {

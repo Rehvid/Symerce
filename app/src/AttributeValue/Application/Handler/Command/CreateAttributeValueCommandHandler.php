@@ -11,13 +11,13 @@ use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Domain\Entity\AttributeValue;
 
-
 final readonly class CreateAttributeValueCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private AttributeValueRepositoryInterface $repository,
         private AttributeValueHydrator $hydrator,
-    ) {}
+    ) {
+    }
 
     public function __invoke(CreateAttributeValueCommand $command): IdResponse
     {

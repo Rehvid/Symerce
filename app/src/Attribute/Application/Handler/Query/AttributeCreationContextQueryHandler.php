@@ -12,7 +12,8 @@ final readonly class AttributeCreationContextQueryHandler implements QueryHandle
 {
     public function __construct(
         private AttributeAssembler $assembler
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetAttributeCreationContextQuery $query): array
     {

@@ -7,7 +7,7 @@ namespace App\Tag\Application\Dto\Response;
 final readonly class TagListResponse
 {
     public function __construct(
-        public int|null $id,
+        public ?int $id,
         public string $name,
         public bool $isActive,
     ) {

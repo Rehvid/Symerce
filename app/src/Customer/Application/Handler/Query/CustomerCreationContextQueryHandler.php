@@ -12,7 +12,8 @@ final readonly class CustomerCreationContextQueryHandler implements QueryHandler
 {
     public function __construct(
         private CustomerAssembler $assembler
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetCustomerCreationContextQuery $query): array
     {

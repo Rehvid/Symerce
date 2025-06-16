@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Enums;
 
-
 use App\Common\Domain\Traits\EnumValuesTrait;
 
 enum UserRole: string

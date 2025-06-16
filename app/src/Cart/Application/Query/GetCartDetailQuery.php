@@ -10,5 +10,6 @@ final readonly class GetCartDetailQuery implements QueryInterface
 {
     public function __construct(
         public int $cartId,
-    ) {}
+    ) {
+    }
 }

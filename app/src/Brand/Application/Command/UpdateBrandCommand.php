@@ -12,5 +12,6 @@ final readonly class UpdateBrandCommand implements CommandInterface
     public function __construct(
         public BrandData $data,
         public int $brandId,
-    ) {}
+    ) {
+    }
 }

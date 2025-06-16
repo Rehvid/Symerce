@@ -8,12 +8,11 @@ use App\Brand\Domain\Repository\BrandRepositoryInterface;
 use App\Common\Application\Search\AbstractSearchService;
 use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
-use Symfony\Component\HttpFoundation\Request;
 
 final class BrandSearchService extends AbstractSearchService
 {
     public function __construct(
-        BrandRepositoryInterface  $repository,
+        BrandRepositoryInterface $repository,
         BrandSearchParserFactory $parserFactory
     ) {
         parent::__construct($repository, $parserFactory);

@@ -17,5 +17,6 @@ final readonly class ProductPromotionData
         public string $reduction,
         public DateVO $startDate,
         public DateVO $endDate,
-    ) {}
+    ) {
+    }
 }

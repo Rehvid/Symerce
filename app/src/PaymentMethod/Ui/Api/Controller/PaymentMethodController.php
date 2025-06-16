@@ -43,8 +43,7 @@ final class PaymentMethodController extends AbstractApiController
         Request $request,
         PaymentMethodSearchDefinition $definition,
         SearchDataFactory $factory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetPaymentMethodListQuery(
@@ -62,7 +61,7 @@ final class PaymentMethodController extends AbstractApiController
         /** @var IdResponse $response */
         $response = $this->commandBus->handle(
             new CreatePaymentMethodCommand(
-               data: $this->paymentMethodDataFactory->fromRequest($paymentMethodRequest),
+                data: $this->paymentMethodDataFactory->fromRequest($paymentMethodRequest),
             )
         );
 

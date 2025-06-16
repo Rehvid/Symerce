@@ -16,6 +16,6 @@ final readonly class DirectionExtractor
             return null;
         }
 
-        return DirectionType::tryFrom($direction);
+        return DirectionType::tryFrom((string) $direction);
     }
 }

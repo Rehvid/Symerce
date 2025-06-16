@@ -11,7 +11,7 @@ final readonly class UpdateUserCommand implements CommandInterface
 {
     public function __construct(
         public UserData $data,
-        public int  $userId,
+        public int $userId,
     ) {
     }
 }

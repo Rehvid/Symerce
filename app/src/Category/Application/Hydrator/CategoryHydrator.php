@@ -11,7 +11,9 @@ use App\Common\Domain\Entity\Category;
 
 final readonly class CategoryHydrator
 {
-    public function __construct(private FileService $fileService) {}
+    public function __construct(private FileService $fileService)
+    {
+    }
 
     public function hydrate(CategoryData $data, Category $category): Category
     {
@@ -35,5 +37,4 @@ final readonly class CategoryHydrator
 
         $this->fileService->replaceFile($category, $fileData);
     }
-
 }

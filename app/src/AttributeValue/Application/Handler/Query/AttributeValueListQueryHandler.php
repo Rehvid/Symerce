@@ -14,8 +14,9 @@ final readonly class AttributeValueListQueryHandler implements QueryHandlerInter
 {
     public function __construct(
         private AttributeValueSearchService $searchService,
-        private AttributeValueAssembler     $assembler,
-    ) {}
+        private AttributeValueAssembler $assembler,
+    ) {
+    }
 
     public function __invoke(GetAttributeValueListQuery $query): ApiResponse
     {

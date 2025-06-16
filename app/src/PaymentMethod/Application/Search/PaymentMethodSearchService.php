@@ -8,7 +8,6 @@ use App\Common\Application\Search\AbstractSearchService;
 use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 final class PaymentMethodSearchService extends AbstractSearchService
 {

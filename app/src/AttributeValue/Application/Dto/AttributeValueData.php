@@ -11,5 +11,6 @@ final readonly class AttributeValueData
     public function __construct(
         public string $value,
         public Attribute $attribute,
-    ) {}
+    ) {
+    }
 }

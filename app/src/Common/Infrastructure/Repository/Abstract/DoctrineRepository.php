@@ -11,13 +11,16 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @template T of object
+ *
  * @extends ServiceEntityRepository<T>
+ *
  * @implements QueryRepositoryInterface<T>
  */
-abstract class DoctrineRepository
-    extends ServiceEntityRepository
-    implements ReadWriteRepositoryInterface, QueryRepositoryInterface
+abstract class DoctrineRepository extends ServiceEntityRepository implements ReadWriteRepositoryInterface, QueryRepositoryInterface
 {
+    /**
+     * @return class-string<T>
+     */
     abstract protected function getEntityClass(): string;
 
     abstract protected function getAlias(): string;

@@ -10,20 +10,13 @@ use App\Common\Domain\Enums\QueryOperator;
 
 final readonly class CartSearchDefinition implements SearchDefinitionInterface
 {
-
-    /**
-     * @inheritDoc
-     */
     public function allowedFilters(): array
     {
         return [
-            new BasicFilterDefinition('name',  QueryOperator::LIKE, 'search'),
+            new BasicFilterDefinition('name', QueryOperator::LIKE, 'search'),
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function allowedSortFields(): array
     {
         return ['id', 'name'];

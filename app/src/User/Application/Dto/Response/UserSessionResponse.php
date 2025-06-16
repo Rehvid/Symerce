@@ -10,14 +10,13 @@ final readonly class UserSessionResponse
 {
     /** @param array<int|string>  $roles */
     public function __construct(
-        public ?int          $id,
-        public ?string       $email,
-        public ?string       $firstname,
-        public ?string       $surname,
-        public array         $roles,
-        public ?string       $fullName,
+        public ?int $id,
+        public ?string $email,
+        public ?string $firstname,
+        public ?string $surname,
+        public array $roles,
+        public ?string $fullName,
         public ?FileResponse $avatar = null,
     ) {
     }
-
 }

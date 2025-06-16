@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\Brand\Ui\Api\Controller;
 
@@ -19,7 +19,6 @@ use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
-use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,8 +43,7 @@ final class BrandController extends AbstractApiController
         Request $request,
         BrandSearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetBrandListQuery(
@@ -84,7 +82,7 @@ final class BrandController extends AbstractApiController
         /** @var IdResponse $response */
         $response = $this->commandBus->handle(
             new UpdateBrandCommand(
-                data: $this->brandDataFactory->fromRequest( $brandRequest),
+                data: $this->brandDataFactory->fromRequest($brandRequest),
                 brandId: $id
             )
         );

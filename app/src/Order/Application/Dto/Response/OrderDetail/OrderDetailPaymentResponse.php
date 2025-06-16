@@ -10,7 +10,7 @@ final readonly class OrderDetailPaymentResponse
      * @param OrderDetailPaymentItemResponse[] $paymentsCollection
      */
     public function __construct(
-       public array $paymentsCollection,
+        public array $paymentsCollection,
     ) {
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Carrier\Application\Dto\Request;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
 use App\Common\Infrastructure\Utils\BoolHelper;
 use App\Common\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
@@ -28,12 +27,11 @@ final readonly class SaveCarrierRequest
 
     public bool $isExternal;
 
-    /** @var array<int, mixed>  */
+    /** @var array<int, mixed> */
     public ?array $externalData;
 
-
     /**
-     * @param array<integer, mixed>  $externalData
+     * @param array<int, mixed>    $externalData
      * @param array<string, mixed> $thumbnail
      */
     public function __construct(

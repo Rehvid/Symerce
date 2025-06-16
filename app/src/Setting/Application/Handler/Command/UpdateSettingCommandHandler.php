@@ -11,12 +11,12 @@ use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Setting\Application\Command\UpdateSettingCommand;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
 
-
 final readonly class UpdateSettingCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private SettingRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateSettingCommand $command): IdResponse
     {

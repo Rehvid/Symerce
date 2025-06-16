@@ -9,7 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class VendorFixture extends Fixture implements FixtureGroupInterface
 {
-
     public static function getGroups(): array
     {
         return ['fakeData'];
@@ -22,7 +21,7 @@ class VendorFixture extends Fixture implements FixtureGroupInterface
             ['name' => 'XYZ Technologie'],
             ['name' => 'Super Sklep'],
             ['name' => 'Globalne Towary'],
-            ['name' => 'Szybki Zakup']
+            ['name' => 'Szybki Zakup'],
         ];
 
         foreach ($vendorsData as $data) {

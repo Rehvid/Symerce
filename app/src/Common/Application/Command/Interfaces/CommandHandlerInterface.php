@@ -6,5 +6,4 @@ namespace App\Common\Application\Command\Interfaces;
 
 interface CommandHandlerInterface
 {
-
 }

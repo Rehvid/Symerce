@@ -6,5 +6,4 @@ namespace App\Common\Application\Query\Interfaces;
 
 interface QueryInterface
 {
-
 }

@@ -8,5 +8,6 @@ final readonly class AttributeFormContextResponse
 {
     public function __construct(
         public array $availableTypes
-    ) {}
+    ) {
+    }
 }

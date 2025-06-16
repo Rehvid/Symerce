@@ -1,10 +1,9 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Warehouse\Application\Dto\Request;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
 use App\Common\Infrastructure\Utils\BoolHelper;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,7 +17,7 @@ final readonly class SaveWarehouseRequest
     #[Assert\When(
         expression: 'this.description !== null',
         constraints: [
-            new Assert\Length(min: 3)
+            new Assert\Length(min: 3),
         ]
     )]
     public ?string $description;

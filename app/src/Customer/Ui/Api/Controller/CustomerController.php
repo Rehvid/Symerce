@@ -20,7 +20,6 @@ use App\Customer\Application\Query\GetCustomerListQuery;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Customer\Application\Search\CustomerSearchDefinition;
-use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,8 +44,7 @@ final class CustomerController extends AbstractApiController
         Request $request,
         CustomerSearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetCustomerListQuery(
@@ -55,7 +53,6 @@ final class CustomerController extends AbstractApiController
             ),
         );
     }
-
 
     #[Route('/store-data', name: 'store_data', methods: ['GET'])]
     public function storeData(): JsonResponse
@@ -75,7 +72,7 @@ final class CustomerController extends AbstractApiController
         /** @var IdResponse $response */
         $response = $this->commandBus->handle(
             new CreateCustomerCommand(
-               data: $this->customerDataFactory->fromRequest($customerRequest),
+                data: $this->customerDataFactory->fromRequest($customerRequest),
             )
         );
 
@@ -123,7 +120,6 @@ final class CustomerController extends AbstractApiController
         );
     }
 
-
     #[Route('/{id}', name: 'destroy', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function destroy(int $id): JsonResponse
     {
@@ -139,6 +135,4 @@ final class CustomerController extends AbstractApiController
             )
         );
     }
-
-
 }

@@ -10,7 +10,8 @@ final readonly class SlugService
 {
     public function __construct(
         private SluggerInterface $sluggerService,
-    ) {}
+    ) {
+    }
 
     public function makeUnique(
         string $fallback,
@@ -18,8 +19,8 @@ final readonly class SlugService
         string $entityClass,
         string $field = 'slug'
     ): string {
-        $base = trim((string)$proposed) !== '' ? $proposed : $fallback;
+        $base = '' !== trim((string) $proposed) ? $proposed : $fallback;
 
-        return $this->sluggerService->slugifyUnique($base, $entityClass, $field);
+        return $this->sluggerService->slugifyUnique((string) $base, $entityClass, $field);
     }
 }

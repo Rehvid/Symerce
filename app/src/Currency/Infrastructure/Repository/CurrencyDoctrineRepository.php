@@ -8,9 +8,11 @@ use App\Common\Domain\Entity\Currency;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
 
+/**
+ * @extends AbstractCriteriaRepository<Currency>
+ */
 final class CurrencyDoctrineRepository extends AbstractCriteriaRepository implements CurrencyRepositoryInterface
 {
-
     protected function getEntityClass(): string
     {
         return Currency::class;

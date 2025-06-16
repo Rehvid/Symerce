@@ -8,5 +8,7 @@ use App\Common\Application\Query\Interfaces\QueryInterface;
 
 final readonly class GetSettingForEditQuery implements QueryInterface
 {
-    public function __construct(public int $settingId) {}
+    public function __construct(public int $settingId)
+    {
+    }
 }

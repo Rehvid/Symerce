@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\Tag\Application\Handler\Command;
 
@@ -17,7 +17,8 @@ final readonly class UpdateTagCommandHandler implements CommandHandlerInterface
     public function __construct(
         private TagHydrator $hydrator,
         private TagRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateTagCommand $command): IdResponse
     {

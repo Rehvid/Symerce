@@ -14,11 +14,10 @@ final readonly class AppConfigProvider implements ReactDataProviderInterface
     ) {
     }
 
-
     public function getData(): array
     {
         return [
-            'baseUrl' => $this->parameterBag->get('app.base_url'),
+            'baseUrl' => is_string($this->parameterBag->get('app.base_url')) ? $this->parameterBag->get('app.base_url') : '',
         ];
     }
 

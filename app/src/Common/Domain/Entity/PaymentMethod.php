@@ -6,6 +6,7 @@ namespace App\Common\Domain\Entity;
 
 use App\Common\Application\Contracts\IdentifiableInterface;
 use App\Common\Domain\Contracts\FileEntityInterface;
+use App\Common\Domain\Contracts\PositionEntityInterface;
 use App\Common\Domain\Enums\DecimalPrecision;
 use App\Common\Domain\Traits\ActiveTrait;
 use App\Common\Domain\Traits\CreatedAtTrait;
@@ -16,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PaymentMethodDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class PaymentMethod implements FileEntityInterface, IdentifiableInterface
+class PaymentMethod implements FileEntityInterface, IdentifiableInterface, PositionEntityInterface
 {
     use ActiveTrait;
     use PositionTrait;

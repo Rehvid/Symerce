@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 final readonly class FilterExtractor
 {
-
     /**
      * @param FilterDefinitionInterface[] $allowedFilters
+     *
      * @return FilterValue[]
      */
     public function extract(Request $request, array $allowedFilters): array
@@ -25,7 +25,7 @@ final readonly class FilterExtractor
             $value = null;
             if ($filterDefinition instanceof FilterSingleDefinitionInterface) {
                 $value = $this->extractSingleValue($filterDefinition, $request);
-            } elseif($filterDefinition instanceof FilterMultiDefinitionInterface) {
+            } elseif ($filterDefinition instanceof FilterMultiDefinitionInterface) {
                 $value = $this->extractMultiValue($filterDefinition, $request);
             }
 
@@ -36,7 +36,7 @@ final readonly class FilterExtractor
             $filterValues[] = $value;
         }
 
-       return $filterValues;
+        return $filterValues;
     }
 
     private function extractSingleValue(
@@ -50,7 +50,7 @@ final readonly class FilterExtractor
         }
 
         $rawValue = trim($rawValue);
-        if ($rawValue === '') {
+        if ('' === $rawValue) {
             return null;
         }
 
@@ -64,7 +64,7 @@ final readonly class FilterExtractor
     {
         $requestKeys = $definition->getRequestNames();
 
-        $hasAny = array_filter($requestKeys, fn(string $key) => $request->get($key) !== null);
+        $hasAny = array_filter($requestKeys, fn (string $key) => null !== $request->get($key));
         if (empty($hasAny)) {
             return null;
         }

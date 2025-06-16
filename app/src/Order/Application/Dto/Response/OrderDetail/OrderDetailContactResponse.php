@@ -11,5 +11,6 @@ final readonly class OrderDetailContactResponse
         public ?string $lastname = null,
         public ?string $phone = null,
         public ?string $email = null,
-    ) {}
+    ) {
+    }
 }

@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 final readonly class AuthorizationResult
 {
     public function __construct(
-        public bool                 $authorized,
+        public bool $authorized,
         public ?UserSessionResponse $userSessionDTO = null,
-        public ?ApiErrorResponse    $error = null,
-        public int                  $statusCode = Response::HTTP_OK,
+        public ?ApiErrorResponse $error = null,
+        public int $statusCode = Response::HTTP_OK,
     ) {
     }
 }

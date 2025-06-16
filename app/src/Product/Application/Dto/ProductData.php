@@ -11,11 +11,11 @@ use App\Common\Domain\Entity\Tag;
 final readonly class ProductData
 {
     /**
-     * @param ProductImageData[] $images,
+     * @param ProductImageData[]     $images,
      * @param ProductAttributeData[] $attributes
-     * @param ProductDataStock[] $stocks
-     * @param Tag[] $tags
-     * @param Category[] $categories
+     * @param ProductDataStock[]     $stocks
+     * @param Tag[]                  $tags
+     * @param Category[]             $categories
      */
     public function __construct(
         public string $name,
@@ -33,5 +33,6 @@ final readonly class ProductData
         public array $attributes,
         public array $tags,
         public array $categories,
-    ){}
+    ) {
+    }
 }

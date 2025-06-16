@@ -10,5 +10,6 @@ final readonly class GetCountryForEditQuery implements QueryInterface
 {
     public function __construct(
         public int $countryId,
-    ) {}
+    ) {
+    }
 }

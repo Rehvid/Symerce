@@ -9,5 +9,7 @@ use App\Common\Application\Command\Interfaces\CommandInterface;
 
 final readonly class CreateBrandCommand implements CommandInterface
 {
-    public function __construct(public BrandData $data) {}
+    public function __construct(public BrandData $data)
+    {
+    }
 }

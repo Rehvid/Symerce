@@ -13,7 +13,8 @@ final readonly class ResetPasswordCommandHandler implements CommandHandlerInterf
 {
     public function __construct(
         private ResetUserPasswordService $resetPasswordService
-    ) {}
+    ) {
+    }
 
     public function __invoke(ResetPasswordCommand $command): ApiResponse
     {

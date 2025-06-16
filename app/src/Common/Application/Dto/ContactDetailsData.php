@@ -10,5 +10,6 @@ final readonly class ContactDetailsData
         public string $firstname,
         public string $surname,
         public string $phone,
-    ) {}
+    ) {
+    }
 }

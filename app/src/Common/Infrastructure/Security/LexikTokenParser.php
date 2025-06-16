@@ -32,7 +32,7 @@ final readonly class LexikTokenParser implements TokenParserInterface
 
             return $decodedToken;
         } catch (\Exception $e) {
-            throw new InvalidTokenException('Could not parse token: ' . $e->getMessage());
+            throw new InvalidTokenException('Could not parse token: '.$e->getMessage());
         }
     }
 }

@@ -7,15 +7,14 @@ namespace App\Common\Application\Search\Filter;
 use App\Common\Application\Search\Contracts\FilterMultiDefinitionInterface;
 use App\Common\Domain\Enums\QueryOperator;
 
-
 final readonly class RangeFilterDefinition implements FilterMultiDefinitionInterface
 {
     public function __construct(
         private string $field,
         private string $requestNameFrom,
         private string $requestNameTo,
-    )
-    {}
+    ) {
+    }
 
     public function getRequestNames(): array
     {
@@ -36,7 +35,7 @@ final readonly class RangeFilterDefinition implements FilterMultiDefinitionInter
     {
         $returnValues = [
             'from' => null,
-            'to' => null
+            'to' => null,
         ];
 
 

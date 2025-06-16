@@ -10,5 +10,6 @@ final readonly class GetCustomerForEditQuery implements QueryInterface
 {
     public function __construct(
         public int $customerId,
-    ) {}
+    ) {
+    }
 }

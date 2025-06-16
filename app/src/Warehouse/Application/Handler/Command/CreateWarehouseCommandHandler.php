@@ -16,7 +16,8 @@ final readonly class CreateWarehouseCommandHandler implements CommandHandlerInte
     public function __construct(
         private WarehouseHydrator $hydrator,
         private WarehouseRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     public function __invoke(CreateWarehouseCommand $command): IdResponse
     {

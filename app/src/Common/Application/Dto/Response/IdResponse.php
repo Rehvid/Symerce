@@ -8,7 +8,8 @@ final readonly class IdResponse
 {
     public function __construct(
         private int|string|null $id
-    ) {}
+    ) {
+    }
 
     /** @return array<string, int> */
     public function toArray(): array

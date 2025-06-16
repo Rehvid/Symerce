@@ -10,5 +10,6 @@ final readonly class GetProductHistoryQuery implements QueryInterface
 {
     public function __construct(
         public int $productId
-    ) {}
+    ) {
+    }
 }

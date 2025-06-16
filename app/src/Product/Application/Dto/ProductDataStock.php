@@ -19,5 +19,6 @@ final readonly class ProductDataStock
         public ?int $lowStockThreshold,
         public ?int $maximumStockLevel,
         public ?DateVO $restockDate
-    ) {}
+    ) {
+    }
 }

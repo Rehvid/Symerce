@@ -11,5 +11,6 @@ final readonly class WarehouseListResponse
         public string $name,
         public string $fullAddress,
         public bool $isActive,
-    ) {}
+    ) {
+    }
 }

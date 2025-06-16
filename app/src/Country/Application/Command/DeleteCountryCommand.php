@@ -10,5 +10,6 @@ final readonly class DeleteCountryCommand implements CommandInterface
 {
     public function __construct(
         public int $countryId,
-    ) {}
+    ) {
+    }
 }

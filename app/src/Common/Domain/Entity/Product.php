@@ -93,6 +93,7 @@ class Product implements PositionEntityInterface, IdentifiableInterface
     #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private ?string $metaDescription = null;
 
+    /** @var Collection<int, OrderItem> $orderItems */
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'product')]
     private Collection $orderItems;
 

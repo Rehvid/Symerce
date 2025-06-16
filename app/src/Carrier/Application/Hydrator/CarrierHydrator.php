@@ -10,7 +10,9 @@ use App\Common\Domain\Entity\Carrier;
 
 final readonly class CarrierHydrator
 {
-    public function __construct(private FileService $fileService) {}
+    public function __construct(private FileService $fileService)
+    {
+    }
 
     public function hydrate(CarrierData $data, Carrier $carrier): Carrier
     {

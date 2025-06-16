@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Dto\Response\Form;
 
-use App\Common\Application\Dto\OptionItem;
-
 final readonly class ProductFormResponse
 {
-
     public function __construct(
         public string $name,
         public ?string $slug,
@@ -17,8 +14,8 @@ final readonly class ProductFormResponse
         public ?string $description,
         public string $regularPrice,
         public bool $isActive,
-        public int $mainCategoryId,
-        public int $brandId,
+        public ?int $mainCategoryId,
+        public ?int $brandId,
         public ?array $stocks,
         public ?array $tags = [],
         public ?array $categories = [],
@@ -28,7 +25,6 @@ final readonly class ProductFormResponse
         public ?string $promotionReduction = null,
         public ?string $promotionReductionType = null,
         public array $promotionDateRange = [],
-
     ) {
     }
 }

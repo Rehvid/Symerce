@@ -16,16 +16,17 @@ final readonly class OrderCustomerDetailQueryHandler implements QueryHandlerInte
     public function __construct(
         public CustomerRepositoryInterface $customerRepository,
         public OrderAssembler $assembler,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetOrderCustomerDetailQuery $query): array
     {
         /** @var ?Customer $customer */
-       $customer = $this->customerRepository->findById($query->customerId);
-       if (null === $customer) {
-           throw EntityNotFoundException::for(Customer::class, $query->customerId);
-       }
+        $customer = $this->customerRepository->findById($query->customerId);
+        if (null === $customer) {
+            throw EntityNotFoundException::for(Customer::class, $query->customerId);
+        }
 
-       return $this->assembler->toCustomerOrderData($customer);
+        return $this->assembler->toCustomerOrderData($customer);
     }
 }

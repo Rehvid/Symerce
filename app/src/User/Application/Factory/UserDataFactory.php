@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\User\Application\Factory;
 
@@ -11,7 +11,7 @@ final readonly class UserDataFactory
 {
     public function fromRequest(SaveUserRequest $userRequest): UserData
     {
-        $password = $userRequest->passwordRequest->password === '' ? null : $userRequest->passwordRequest->password;
+        $password = '' === $userRequest->passwordRequest->password ? null : $userRequest->passwordRequest->password;
 
         return new UserData(
             email: $userRequest->email,

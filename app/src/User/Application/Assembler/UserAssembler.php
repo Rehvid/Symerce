@@ -23,6 +23,7 @@ final readonly class UserAssembler
 
     /**
      * @param array<int, mixed> $paginatedData
+     *
      * @return array<string, mixed>
      */
     public function toListResponse(array $paginatedData): array
@@ -50,7 +51,7 @@ final readonly class UserAssembler
     public function toFormDataResponse(User $user): array
     {
         $avatar = $user->getAvatar();
-        $file = $avatar === null
+        $file = null === $avatar
             ? null
             : $this->responseHelperAssembler->toFileResponse($avatar->getId(), $user->getFullName(), $avatar->getPath());
 
@@ -73,7 +74,7 @@ final readonly class UserAssembler
     {
         return ArrayUtils::buildSelectedOptions(
             UserRole::cases(),
-            fn (UserRole $role) => $this->translator->trans('base.admin_role_type.' . strtolower($role->name)),
+            fn (UserRole $role) => $this->translator->trans('base.admin_role_type.'.strtolower($role->name)),
             fn (UserRole $role) => $role->value,
         );
     }

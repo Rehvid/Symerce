@@ -8,6 +8,7 @@ use App\Common\Application\Factory\MoneyFactory;
 use App\Common\Application\Hydrator\PromotionHydrator;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductStock;
+use App\Common\Domain\Entity\Promotion;
 use App\Product\Application\Dto\ProductData;
 use App\Product\Application\Dto\ProductDataStock;
 use App\Product\Application\Dto\ProductPromotionData;
@@ -15,24 +16,24 @@ use App\Product\Application\Dto\ProductPromotionData;
 final readonly class ProductHydrator
 {
     public function __construct(
-        private MoneyFactory             $moneyFactory,
-        private PromotionHydrator        $promotionHydrator,
-        private ProductStockHydrator     $productStockHydrator,
-        private ProductCategoryHydrator  $productCategoryHydrator,
-        private ProductTagHydrator       $productTagHydrator,
-        private ProductImageHydrator     $productImageHydrator,
-        private ProductPriceHydrator     $productPriceHydrator,
+        private MoneyFactory $moneyFactory,
+        private PromotionHydrator $promotionHydrator,
+        private ProductStockHydrator $productStockHydrator,
+        private ProductCategoryHydrator $productCategoryHydrator,
+        private ProductTagHydrator $productTagHydrator,
+        private ProductImageHydrator $productImageHydrator,
+        private ProductPriceHydrator $productPriceHydrator,
         private ProductAttributeHydrator $productAttributeHydrator,
     ) {
     }
 
     public function hydrate(ProductData $data, Product $product): Product
     {
-        if ($product->getId() === null) {
+        if (null === $product->getId()) {
             $regularPriceChanged = true;
         } else {
             $currentProductPrice = $this->moneyFactory->create($product->getRegularPrice());
-            $requestProductPrice = $this->moneyFactory->create($data->regularPrice);
+            $requestProductPrice = $this->moneyFactory->create((string) $data->regularPrice);
             $regularPriceChanged = !$currentProductPrice->equal($requestProductPrice);
         }
 
@@ -40,12 +41,12 @@ final readonly class ProductHydrator
         $product->setName($data->name);
         $product->setActive($data->isActive);
         $product->setDescription($data->description);
-        $product->setRegularPrice($data->regularPrice);
+        $product->setRegularPrice((string) $data->regularPrice);
         $product->setMainCategory($data->mainCategory);
         $product->setMetaDescription($data->metaDescription);
         $product->setMetaTitle($data->metaTitle);
 
-        if ($data->promotionData === null && $regularPriceChanged) {
+        if (null === $data->promotionData && $regularPriceChanged) {
             $this->productPriceHydrator->hydrate($product);
         }
 
@@ -60,21 +61,22 @@ final readonly class ProductHydrator
         return $product;
     }
 
-
     private function handlePromotion(?ProductPromotionData $data, Product $product, bool $regularPriceChanged): void
     {
         $existingPromotion = $product->getPromotionForProductTab();
 
-        $hasPromotion = $existingPromotion !== null;
-        $shouldRemove = $data === null && $hasPromotion;
+        $hasPromotion = null !== $existingPromotion;
+        $shouldRemove = null === $data && $hasPromotion;
 
-        if ($shouldRemove) {
+        if ($shouldRemove && $existingPromotion instanceof Promotion) {
             $product->removePromotion($existingPromotion);
+
             return;
         }
 
-        if ($data !== null) {
+        if (null !== $data) {
             $this->savePromotion($data, $product, $regularPriceChanged);
+
             return;
         }
 
@@ -87,18 +89,19 @@ final readonly class ProductHydrator
     {
         $promotionProduct = $product->getPromotionForProductTab();
         if (null === $promotionProduct) {
-            $promotion = $this->promotionHydrator->hydrate($data, $promotionProduct);
+            $promotion = $this->promotionHydrator->hydrate($data, new Promotion());
             $promotion->setProduct($product);
 
             $product->addPromotion($promotion);
             $this->productPriceHydrator->hydrate($product, $promotion);
+
             return;
         }
 
         $currentReduction = $this->moneyFactory->create($promotionProduct->getReduction());
         $incomingReduction = $this->moneyFactory->create($data->reduction);
 
-        $typeChanged = $promotionProduct->getType()->value !== $data->reductionType;
+        $typeChanged = $promotionProduct->getType()->value !== $data->reductionType?->value;
         $valueChanged = !$currentReduction->equal($incomingReduction);
 
         $this->promotionHydrator->hydrate($data, $promotionProduct);

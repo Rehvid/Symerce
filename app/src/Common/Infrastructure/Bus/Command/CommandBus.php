@@ -10,7 +10,6 @@ use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 final readonly class CommandBus implements CommandBusInterface
 {
-
     public function __construct(
         private MessageBusInterface $messageBus
     ) {

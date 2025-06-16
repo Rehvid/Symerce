@@ -19,7 +19,8 @@ final readonly class UpdateProductCommandHandler implements CommandHandlerInterf
         private ProductRepositoryInterface $repository,
         private ProductHydrator $hydrator,
         private SlugService $slugService
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateProductCommand $command): IdResponse
     {

@@ -10,8 +10,9 @@ use App\PaymentMethod\Application\Dto\PaymentMethodData;
 
 final readonly class PaymentMethodHydrator
 {
-    public function __construct(private FileService $fileService) {}
-
+    public function __construct(private FileService $fileService)
+    {
+    }
 
     public function hydrate(PaymentMethodData $data, PaymentMethod $paymentMethod): PaymentMethod
     {

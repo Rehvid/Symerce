@@ -10,5 +10,6 @@ final readonly class GetTagForEditQuery implements QueryInterface
 {
     public function __construct(
         public int $tagId
-    ) {}
+    ) {
+    }
 }

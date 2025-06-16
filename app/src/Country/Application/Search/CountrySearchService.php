@@ -8,11 +8,9 @@ use App\Common\Application\Search\AbstractSearchService;
 use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
 use App\Country\Domain\Repository\CountryRepositoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 final class CountrySearchService extends AbstractSearchService
 {
-
     public function __construct(
         CountryRepositoryInterface $repository,
         CountrySearchParserFactory $parserFactory

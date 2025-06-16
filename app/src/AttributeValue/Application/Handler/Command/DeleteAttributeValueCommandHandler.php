@@ -14,7 +14,8 @@ final readonly class DeleteAttributeValueCommandHandler implements CommandHandle
 {
     public function __construct(
         private AttributeValueRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteAttributeValueCommand $command): void
     {

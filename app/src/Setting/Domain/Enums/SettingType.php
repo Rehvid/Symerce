@@ -11,7 +11,6 @@ enum SettingType: string
     case PRODUCT = 'product';
     case CATALOG = 'catalog';
 
-
     /**
      * @return array<int, string>
      */

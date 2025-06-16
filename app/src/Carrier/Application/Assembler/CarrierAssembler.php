@@ -22,6 +22,7 @@ final readonly class CarrierAssembler
 
     /**
      * @param array<int, mixed> $paginatedData
+     *
      * @return array<string, mixed>
      */
     public function toListResponse(array $paginatedData): array
@@ -39,14 +40,14 @@ final readonly class CarrierAssembler
         $image = $carrier->getFile();
         $name = $carrier->getName();
 
-        $thumbnail = $image === null
+        $thumbnail = null === $image
             ? null
             : $this->responseHelperAssembler->toFileResponse($image->getId(), $name, $image->getPath());
 
         return $this->responseHelperAssembler->wrapFormResponse(
             new CarrierFormResponse(
                 name: $name,
-                fee: $this->moneyFactory->create($carrier->getFee())->getFormattedAmount(),
+                fee: $this->moneyFactory->create((string) $carrier->getFee())->getFormattedAmount(),
                 isActive: $carrier->isActive(),
                 thumbnail: $thumbnail,
                 isExternal: $carrier->isExternal(),
@@ -61,7 +62,7 @@ final readonly class CarrierAssembler
             id: $carrier->getId(),
             name: $carrier->getName(),
             isActive: $carrier->isActive(),
-            fee: $this->moneyFactory->create($carrier->getFee()),
+            fee: $this->moneyFactory->create((string) $carrier->getFee()),
             imagePath: $this->fileService->preparePublicPathToFile($carrier->getFile()?->getPath()),
         );
     }

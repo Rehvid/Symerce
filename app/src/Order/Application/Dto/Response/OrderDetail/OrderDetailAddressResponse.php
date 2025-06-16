@@ -11,5 +11,6 @@ final readonly class OrderDetailAddressResponse
         public string $city,
         public string $postalCode,
         public string $country,
-    ) {}
+    ) {
+    }
 }

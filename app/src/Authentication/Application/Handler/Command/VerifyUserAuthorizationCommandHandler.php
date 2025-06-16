@@ -9,12 +9,12 @@ use App\Authentication\Application\Dto\AuthorizationResult;
 use App\Authentication\Application\Service\AuthorizeUserService;
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 
-
 final readonly class VerifyUserAuthorizationCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private AuthorizeUserService $authService,
-    ) {}
+    ) {
+    }
 
     public function __invoke(VerifyUserAuthorizationCommand $command): AuthorizationResult
     {

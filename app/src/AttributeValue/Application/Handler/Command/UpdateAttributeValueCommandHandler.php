@@ -17,7 +17,8 @@ final readonly class UpdateAttributeValueCommandHandler implements CommandHandle
     public function __construct(
         private AttributeValueRepositoryInterface $repository,
         private AttributeValueHydrator $hydrator,
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateAttributeValueCommand $command): IdResponse
     {

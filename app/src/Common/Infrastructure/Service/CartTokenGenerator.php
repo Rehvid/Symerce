@@ -14,7 +14,7 @@ final readonly class CartTokenGenerator
     private const string DELIMITER = '_';
 
     public function __construct(
-        private RequestStack   $requestStack,
+        private RequestStack $requestStack,
         private CartRepositoryInterface $cartRepository
     ) {
     }
@@ -23,7 +23,7 @@ final readonly class CartTokenGenerator
     {
         $session = $this->requestStack->getSession()->getId();
 
-        $token = $session . self::DELIMITER . Guid::uuid4()->toString();
+        $token = $session.self::DELIMITER.Guid::uuid4()->toString();
 
         $exists = $this->checkTokenExistence($token);
         if (null === $exists) {
@@ -44,6 +44,6 @@ final readonly class CartTokenGenerator
         $encodedTimestamp = base64_encode((string) $timestamp);
         $randomString = bin2hex(random_bytes(64));
 
-        return $token . self::DELIMITER . $encodedTimestamp . self::DELIMITER . $randomString;
+        return $token.self::DELIMITER.$encodedTimestamp.self::DELIMITER.$randomString;
     }
 }

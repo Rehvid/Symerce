@@ -19,7 +19,6 @@ use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
-use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,8 +43,7 @@ final class AttributeValueController extends AbstractApiController
         Request $request,
         AttributeValueSearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetAttributeValueListQuery(

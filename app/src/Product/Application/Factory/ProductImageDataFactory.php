@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Product\Application\Factory;
 
@@ -13,7 +13,8 @@ final readonly class ProductImageDataFactory
 {
     public function __construct(
         private FileRepositoryInterface $fileRepository,
-    ) {}
+    ) {
+    }
 
     /** @param SaveProductImageRequest[] $images */
     public function createFromArray(array $images): array
@@ -26,18 +27,19 @@ final readonly class ProductImageDataFactory
 
     /**
      * @param SaveProductImageRequest[] $images
+     *
      * @return int[]
      */
     private function extractFileIds(array $images): array
     {
-        return array_map(
-            fn(SaveProductImageRequest $image) => $image->fileId->getId(),
-            $images
+        return array_filter(
+            array_map(fn (SaveProductImageRequest $image) => $image->fileId->getId(), $images)
         );
     }
 
     /**
      * @param int[] $fileIds
+     *
      * @return array<int, File>
      */
     private function fetchFilesById(array $fileIds): array
@@ -54,7 +56,8 @@ final readonly class ProductImageDataFactory
 
     /**
      * @param SaveProductImageRequest[] $images
-     * @param array<int, File> $filesById
+     * @param array<int, File>          $filesById
+     *
      * @return ProductImageData[]
      */
     private function mapToProductImageData(array $images, array $filesById): array
@@ -63,7 +66,7 @@ final readonly class ProductImageDataFactory
 
         foreach ($images as $position => $request) {
             $result[] = new ProductImageData(
-                file: $filesById[$request?->fileId?->getId()] ?? null,
+                file: $filesById[$request->fileId->getId()] ?? null,
                 isThumbnail: $request->isThumbnail,
                 fileData: $request->uploadData,
                 position: $position
@@ -72,5 +75,4 @@ final readonly class ProductImageDataFactory
 
         return $result;
     }
-
 }

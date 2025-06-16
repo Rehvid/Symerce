@@ -39,7 +39,7 @@ final readonly class WarehouseAssembler
         );
     }
 
-    private function createWarehouseFormContextResponse() : WarehouseFormContextResponse
+    private function createWarehouseFormContextResponse(): WarehouseFormContextResponse
     {
         return new WarehouseFormContextResponse(
             availableCountries: $this->getAvailableCountries()

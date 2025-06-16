@@ -30,5 +30,6 @@ final readonly class OrderFormResponse
         public ?string $invoiceCompanyTaxId,
         public ?int $customerId,
         public array $products,
-    ) {}
+    ) {
+    }
 }

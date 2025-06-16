@@ -10,5 +10,6 @@ final readonly class CountryData
         public string $code,
         public string $name,
         public bool $isActive,
-    ) {}
+    ) {
+    }
 }

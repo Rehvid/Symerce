@@ -10,7 +10,9 @@ use App\Shop\Application\Service\OrderCheckoutService;
 
 final class SavePaymentMethodUseCase
 {
-    public function __construct(private readonly OrderCheckoutService $orderManager) {}
+    public function __construct(private readonly OrderCheckoutService $orderManager)
+    {
+    }
 
     public function execute(PaymentMethod $paymentMethod, Order $order): Order
     {

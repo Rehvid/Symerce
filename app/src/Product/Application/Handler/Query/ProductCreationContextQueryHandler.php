@@ -12,7 +12,8 @@ final readonly class ProductCreationContextQueryHandler implements QueryHandlerI
 {
     public function __construct(
         private ProductAssembler $assembler,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetProductCreationContextQuery $query): array
     {

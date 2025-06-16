@@ -27,7 +27,8 @@ final readonly class ProductDataFactory
         private TagRepositoryInterface $tagRepository,
         private CategoryRepositoryInterface $categoryRepository,
         private BrandRepositoryInterface $brandRepository,
-    ) {}
+    ) {
+    }
 
     public function createFromRequest(SaveProductRequest $request): ProductData
     {

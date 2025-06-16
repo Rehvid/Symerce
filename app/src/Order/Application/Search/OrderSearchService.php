@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\Order\Application\Search;
 
@@ -8,7 +8,6 @@ use App\Common\Application\Search\AbstractSearchService;
 use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 final class OrderSearchService extends AbstractSearchService
 {

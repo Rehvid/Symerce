@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Common\Infrastructure\Http;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Infrastructure\Http\Exception\RequestValidationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -35,10 +34,7 @@ final readonly class RequestDtoResolver
         try {
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         } catch (\Throwable $e) {
-            throw new BadRequestHttpException($this->kernel->getEnvironment() === 'prod'
-                ? 'Invalid JSON payload.'
-                : 'Invalid JSON: ' . $e->getMessage()
-            );
+            throw new BadRequestHttpException('prod' === $this->kernel->getEnvironment() ? 'Invalid JSON payload.' : 'Invalid JSON: '.$e->getMessage());
         }
 
         $dto = $this->deserialize($dtoClass, $data, $json);
@@ -47,19 +43,14 @@ final readonly class RequestDtoResolver
         return $dto;
     }
 
-    private function deserialize(string $dtoClass, mixed $data, mixed $json)
+    private function deserialize(string $dtoClass, mixed $data, mixed $json): mixed
     {
-        if (in_array(ArrayHydratableInterface::class, class_implements($dtoClass), true)) {
-            /** @var ArrayHydratableInterface $dtoClass */
-            return $dtoClass::fromArray($data);
-        }
-
         try {
             return $this->serializer->deserialize($json, $dtoClass, 'json');
         } catch (\Throwable $e) {
-            $message = $this->kernel->getEnvironment() === 'prod'
+            $message = 'prod' === $this->kernel->getEnvironment()
                 ? 'Invalid request structure.'
-                : 'Deserialization failed: ' . $e->getMessage();
+                : 'Deserialization failed: '.$e->getMessage();
             throw new BadRequestHttpException($message, $e);
         }
     }
@@ -72,7 +63,7 @@ final readonly class RequestDtoResolver
             foreach ($violations as $violation) {
                 $path = $violation->getPropertyPath();
                 $propertyPath = str_contains($path, '.')
-                    ?  array_slice(explode('.', $path), -1)[0]
+                    ? array_slice(explode('.', $path), -1)[0]
                     : $path;
                 $errors[$propertyPath] = ['message' => $violation->getMessage()];
             }

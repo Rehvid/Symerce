@@ -13,6 +13,7 @@ final readonly class CartDetailResponse
         public string $updatedAt,
         public string $expiresAt,
         public ?string $customer,
-          public array $items
-    ) {}
+        public array $items
+    ) {
+    }
 }

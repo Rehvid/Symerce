@@ -10,5 +10,6 @@ final readonly class GetCarrierForEditQuery implements QueryInterface
 {
     public function __construct(
         public int $carrierId,
-    ) {}
+    ) {
+    }
 }

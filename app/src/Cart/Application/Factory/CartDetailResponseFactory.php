@@ -19,7 +19,8 @@ final readonly class CartDetailResponseFactory
         private MoneyFactory $moneyFactory,
         private UrlGeneratorInterface $urlGenerator,
         private FileService $fileService,
-    ) {}
+    ) {
+    }
 
     public function fromCart(Cart $cart): CartDetailResponse
     {
@@ -36,8 +37,7 @@ final readonly class CartDetailResponseFactory
         );
     }
 
-
-    //TODO: It's duplicated from orderResponse, create one DTO instaed of two
+    // TODO: It's duplicated from orderResponse, create one DTO instaed of two
     private function createCartDetailItemResponse(CartItem $cartItem): CartDetailItemResponse
     {
         $product = $cartItem->getProduct();
@@ -49,7 +49,7 @@ final readonly class CartDetailResponseFactory
             $editUrl = $this->urlGenerator->generate(
                 'app_admin_react',
                 [
-                    'reactRoute' => "products/{$product->getId()}/edit"
+                    'reactRoute' => "products/{$product->getId()}/edit",
                 ]
             );
             $imageUrl = $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile());

@@ -8,5 +8,6 @@ final readonly class CustomerFormContext
 {
     public function __construct(
         public array $availableCountries
-    ) {}
+    ) {
+    }
 }

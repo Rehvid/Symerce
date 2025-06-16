@@ -6,4 +6,6 @@ namespace App\Dashboard\Application\Query;
 
 use App\Common\Application\Query\Interfaces\QueryInterface;
 
-final class GetDashboardListQuery implements QueryInterface {}
+final class GetDashboardListQuery implements QueryInterface
+{
+}

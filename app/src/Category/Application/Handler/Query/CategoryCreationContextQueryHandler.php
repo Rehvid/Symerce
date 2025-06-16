@@ -12,7 +12,8 @@ final readonly class CategoryCreationContextQueryHandler implements QueryHandler
 {
     public function __construct(
         private CategoryAssembler $assembler
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetCategoryCreationContextQuery $query): array
     {

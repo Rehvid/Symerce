@@ -16,7 +16,8 @@ final readonly class AttributeValueForEditQueryHandler implements QueryHandlerIn
     public function __construct(
         private AttributeValueRepositoryInterface $repository,
         private AttributeValueAssembler $assembler,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetAttributeValueForEditQuery $query): array
     {

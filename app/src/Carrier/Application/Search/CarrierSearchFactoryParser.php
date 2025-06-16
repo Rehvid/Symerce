@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Carrier\Application\Search;
 
@@ -13,7 +13,6 @@ use App\Common\Infrastructure\Http\Search\SearchPaginationParser;
 
 final readonly class CarrierSearchFactoryParser implements SearchParserFactoryInterface
 {
-
     public function create(): SearchRequestParser
     {
         return new SearchRequestParser([

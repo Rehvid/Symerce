@@ -21,22 +21,22 @@ final readonly class FileStorageService
         $uploadDirectory = $this->getUploadDirectory();
         $folder = $this->resolveFolderForPath($mimeType);
 
-        $folderPath = $uploadDirectory . $folder;
+        $folderPath = $uploadDirectory.$folder;
         if (!$this->filesystem->exists($folderPath)) {
             $this->filesystem->mkdir($folderPath);
         }
 
         $fileName = $this->generateFileName($mimeType);
-        $fullPath = $folderPath . '/' . $fileName;
+        $fullPath = $folderPath.'/'.$fileName;
 
         $this->saveFileToPath($fullPath, $content);
 
-        return $folder . '/' . $fileName;
+        return $folder.'/'.$fileName;
     }
 
     public function removeFile(string $filePath): void
     {
-        $fullPath = $this->getUploadDirectory() . $filePath;
+        $fullPath = $this->getUploadDirectory().$filePath;
         if ($this->filesystem->exists($fullPath)) {
             $this->filesystem->remove($fullPath);
         }
@@ -45,10 +45,12 @@ final readonly class FileStorageService
     public function preparePublicPathToFile(?string $filePath): ?string
     {
         $baseUrl = $this->parameterBag->get('app.base_url');
+        if (!is_string($baseUrl)) {
+            return null;
+        }
 
-        return null === $filePath ? null : $baseUrl . 'files/' . $filePath;
+        return null === $filePath ? null : $baseUrl.'files/'.$filePath;
     }
-
 
     public function getLogoPublicPath(): string
     {
@@ -63,13 +65,17 @@ final readonly class FileStorageService
 
     private function generateFileName(FileMimeType $mimeType): string
     {
-        return bin2hex(random_bytes(16)) . '_' . time() . '.' . strtolower($mimeType->name);
+        return bin2hex(random_bytes(16)).'_'.time().'.'.strtolower($mimeType->name);
     }
 
     private function getUploadDirectory(): string
     {
         $dir = $this->parameterBag->get('kernel.project_dir');
-        return $dir . '/public/files/';
+        if (!is_string($dir)) {
+            return '';
+        }
+
+        return $dir.'/public/files/';
     }
 
     private function resolveFolderForPath(FileMimeType $mimeType): string
@@ -77,13 +83,15 @@ final readonly class FileStorageService
         return match ($mimeType) {
             FileMimeType::JPEG, FileMimeType::PNG, FileMimeType::WEBP => 'images',
             FileMimeType::PDF => 'documents',
-            default => 'others',
         };
     }
 
     private function saveFileToPath(string $path, string $content): void
     {
         $base64Data = preg_replace('#^data:[a-zA-Z0-9+/-]+;base64,#i', '', $content);
+        if (empty($base64Data)) {
+            return;
+        }
         file_put_contents($path, base64_decode($base64Data));
     }
 }

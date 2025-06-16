@@ -10,6 +10,7 @@ use App\Common\Application\Contracts\TokenProviderInterface;
 use App\Common\Application\Dto\Response\ApiErrorResponse;
 use App\Common\Application\Dto\Response\FileResponse;
 use App\Common\Application\Service\FileService;
+use App\Common\Domain\Entity\File;
 use App\Common\Domain\Entity\User;
 use App\User\Application\Dto\Response\UserSessionResponse;
 use App\User\Domain\Repository\UserRepositoryInterface;
@@ -21,7 +22,7 @@ final readonly class AuthorizeUserService
     public function __construct(
         private TokenParserInterface $tokenParser,
         private TokenProviderInterface $tokenProvider,
-        private UserRepositoryInterface  $userRepository,
+        private UserRepositoryInterface $userRepository,
         private FileService $fileService,
     ) {
     }
@@ -47,6 +48,7 @@ final readonly class AuthorizeUserService
         }
 
         $userSession = $this->createUserSessionResponseDTO($user);
+
         return new AuthorizationResult(
             authorized: true,
             userSessionDTO: $userSession,
@@ -59,11 +61,13 @@ final readonly class AuthorizeUserService
     {
         $fullName = $user->getFullname();
         $fileResponse = null;
-        if (null !== $user->getAvatar()) {
+        $avatar = $user->getAvatar();
+        if (null !== $avatar) {
+            /** @var File $avatar */
             $fileResponse = new FileResponse(
-                id: $user->getAvatar()->getId(),
+                id: $avatar->getId(),
                 name: $fullName,
-                preview:  $this->fileService->preparePublicPathToFile($user->getAvatar()?->getPath())
+                preview: $this->fileService->preparePublicPathToFile($avatar->getPath())
             );
         }
 

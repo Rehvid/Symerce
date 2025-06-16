@@ -12,7 +12,7 @@ use App\Tag\Application\Dto\Response\TagListResponse;
 final readonly class TagAssembler
 {
     public function __construct(
-      private ResponseHelperAssembler $responseHelperAssembler
+        private ResponseHelperAssembler $responseHelperAssembler
     ) {
     }
 

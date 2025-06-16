@@ -21,13 +21,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final readonly class DashboardAssembler
 {
     public function __construct(
-      private CustomerRepositoryInterface $customerRepository,
-      private OrderRepositoryInterface $orderRepository,
-      private ProductRepositoryInterface $productRepository,
-      private CartRepositoryInterface $cartRepository,
-      private MoneyFactory $factory,
-      private UrlGeneratorInterface $urlGenerator,
-      private FileService $fileService,
+        private CustomerRepositoryInterface $customerRepository,
+        private OrderRepositoryInterface $orderRepository,
+        private ProductRepositoryInterface $productRepository,
+        private CartRepositoryInterface $cartRepository,
+        private MoneyFactory $factory,
+        private UrlGeneratorInterface $urlGenerator,
+        private FileService $fileService,
     ) {
     }
 
@@ -53,12 +53,13 @@ final readonly class DashboardAssembler
     {
         $total = $order->getTotalPrice() ?? '-';
         if ($total) {
-            $total = ($this->factory->create($total))->getFormattedAmountWithSymbol();
+            $total = $this->factory->create($total)->getFormattedAmountWithSymbol();
         }
 
         $products = array_map(
             function (OrderItem $item) {
                 $product = $item->getProduct();
+
                 return [
                     'name' => $product?->getName(),
                     'count' => $item->getQuantity(),

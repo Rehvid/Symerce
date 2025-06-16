@@ -10,5 +10,6 @@ final readonly class DeleteAttributeValueCommand implements CommandInterface
 {
     public function __construct(
         public int $attributeValueId,
-    ) {}
+    ) {
+    }
 }

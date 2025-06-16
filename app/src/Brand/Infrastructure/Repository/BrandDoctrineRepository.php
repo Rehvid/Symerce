@@ -13,7 +13,6 @@ use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
  */
 class BrandDoctrineRepository extends AbstractCriteriaRepository implements BrandRepositoryInterface
 {
-
     protected function getEntityClass(): string
     {
         return Brand::class;

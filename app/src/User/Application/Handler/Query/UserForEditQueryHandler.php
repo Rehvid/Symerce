@@ -16,7 +16,8 @@ final readonly class UserForEditQueryHandler implements QueryHandlerInterface
     public function __construct(
         private UserAssembler $assembler,
         private UserRepositoryInterface $repository
-    ){}
+    ) {
+    }
 
     public function __invoke(GetUserForEditQuery $query): array
     {

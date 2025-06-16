@@ -13,7 +13,7 @@ class FileResponse
     ) {
     }
 
-    public static function fromArray(array $data)
+    public static function fromArray(array $data): FileResponse
     {
         return new self(
             id: $data['id'] ?? null,

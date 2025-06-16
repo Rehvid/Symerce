@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Customer\Application\Dto\Request;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\Request\Address\SaveAddressDeliveryRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressInvoiceRequest;
 use App\Common\Application\Dto\Request\Address\SaveAddressRequest;
@@ -63,9 +62,9 @@ final readonly class SaveCustomerRequest
         string $invoiceCity,
         ?string $invoiceCompanyName,
         ?string $invoiceCompanyTaxId,
-        null|int|string $invoiceCountryId,
-        string|null|int $countryId,
-        null|string|int $id,
+        int|string|null $invoiceCountryId,
+        string|int|null $countryId,
+        string|int|null $id,
     ) {
         $this->savePasswordRequest = new SavePasswordRequest($password, $passwordConfirmation);
         $this->email = $email;
@@ -85,12 +84,11 @@ final readonly class SaveCustomerRequest
         ) : null;
     }
 
-
     private function createSaveAddressRequest(
         string $street,
         string $postalCode,
         string $city,
-        null|int|string $countryId,
+        int|string|null $countryId,
     ): SaveAddressRequest {
         return new SaveAddressRequest(
             street: $street,
@@ -98,62 +96,5 @@ final readonly class SaveCustomerRequest
             city: $city,
             countryId: $countryId
         );
-    }
-
-
-    public static function fromArray(array $data): ArrayHydratableInterface
-    {
-//        $isDelivery = $data['isDelivery'] ?? false;
-//        $isInvoice = $data['isInvoice'] ?? false;
-//        $isActive = $data['isActive'] ?? false;
-//
-//        $saveContactDetailsRequest = new SaveContactDetailsRequest(
-//            firstname: $data['firstname'] ?? null,
-//            surname: $data['surname'] ?? null,
-//            phone: $data['phone'] ?? null,
-//        );
-//
-//        $saveAddressDeliveryRequest = null;
-//        if ($isDelivery) {
-//            $saveAddressDeliveryRequest = new SaveAddressDeliveryRequest(
-//                saveAddressRequest: new SaveAddressRequest(
-//                    street: $data['street'] ?? null,
-//                    postalCode: $data['postalCode'] ?? null,
-//                    city: $data['city'] ?? null,
-//                    countryId: $data['countryId'] ?? null,
-//                ),
-//                deliveryInstructions: $data['deliveryInstructions'] ?? null,
-//            );
-//        }
-//        $saveAddressInvoiceRequest = null;
-//        if ($isInvoice) {
-//            $saveAddressInvoiceRequest = new SaveAddressInvoiceRequest(
-//                saveAddressRequest: new SaveAddressRequest(
-//                    street: $data['invoiceStreet'] ?? null,
-//                    postalCode: $data['invoicePostalCode'] ?? null,
-//                    city: $data['invoiceCity'] ?? null,
-//                    countryId: $data['invoiceCountryId'] ?? null,
-//                ),
-//                companyName: $data['invoiceCompanyName'] ?? null,
-//                companyTaxId: $data['invoiceCompanyTaxId'] ?? null,
-//            );
-//        }
-//
-//        $passwordRequest = new SavePasswordRequest(
-//            password: $data['password'] ?? null,
-//            passwordConfirmation: $data['passwordConfirmation'] ?? null,
-//        );
-//
-//        return new self(
-//            passwordRequest: $passwordRequest,
-//            email: $data['email'] ?? null,
-//            saveContactDetailsRequest: $saveContactDetailsRequest,
-//            id: $data['id'] ?? null,
-//            saveAddressDeliveryRequest: $saveAddressDeliveryRequest,
-//            saveAddressInvoiceRequest: $saveAddressInvoiceRequest,
-//            isDelivery: $isDelivery,
-//            isInvoice: $isInvoice,
-//            isActive: $isActive,
-//        );
     }
 }

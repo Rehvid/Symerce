@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final readonly class SaveOrderProductRequest
 {
-
     #[Assert\Valid]
     public IdRequest $productId;
 
@@ -31,7 +30,7 @@ final readonly class SaveOrderProductRequest
     #[Assert\Callback]
     public function validateQuantity(ExecutionContextInterface $context): void
     {
-        if (!is_numeric($this->quantity) || (int)$this->quantity <= 0) {
+        if (!is_numeric($this->quantity) || (int) $this->quantity <= 0) {
             $context->buildViolation('Quantity must be greater than 0.')
                 ->atPath("products.{$this->index}.quantity")
                 ->addViolation();

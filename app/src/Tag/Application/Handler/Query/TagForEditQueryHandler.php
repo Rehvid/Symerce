@@ -13,11 +13,11 @@ use App\Tag\Domain\Repository\TagRepositoryInterface;
 
 final readonly class TagForEditQueryHandler implements QueryHandlerInterface
 {
-
     public function __construct(
         private TagRepositoryInterface $repository,
         private TagAssembler $tagAssembler
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetTagForEditQuery $query): array
     {

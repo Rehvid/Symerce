@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Category\Domain\Repository;
 
@@ -13,10 +13,8 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 /**
  * @extends QueryRepositoryInterface<Category>
  */
-interface CategoryRepositoryInterface
-    extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
+interface CategoryRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {
-
     /** @return Category[] */
     public function findAllSortedByPosition(): array;
 }

@@ -13,7 +13,6 @@ use App\Order\Domain\Repository\OrderRepositoryInterface;
  */
 final class OrderDoctrineRepository extends AbstractCriteriaRepository implements OrderRepositoryInterface
 {
-
     public function findByToken(?string $token): ?Order
     {
         return $this->findOneBy(['cartToken' => $token]);

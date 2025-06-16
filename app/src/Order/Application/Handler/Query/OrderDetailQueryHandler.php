@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Order\Application\Handler\Query;
 
 use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
-use App\Common\Domain\Entity\Order;
+use App\Common\Domain\Entity\Customer;
+use App\Common\Domain\Exception\EntityNotFoundException;
 use App\Order\Application\Assembler\OrderAssembler;
 use App\Order\Application\Query\GetOrderDetailQuery;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class OrderDetailQueryHandler implements QueryHandlerInterface
 {
@@ -22,10 +22,10 @@ final readonly class OrderDetailQueryHandler implements QueryHandlerInterface
 
     public function __invoke(GetOrderDetailQuery $query): array
     {
-        /** @var ?Order $order */
+
         $order = $this->orderRepository->findById($query->orderId);
         if (null === $order) {
-            throw new NotFoundHttpException('Order not found');
+            throw EntityNotFoundException::for(Customer::class, $query->orderId);
         }
 
         return $this->assembler->toDetailResponse($order);

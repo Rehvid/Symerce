@@ -16,8 +16,8 @@ final readonly class WarehouseForEditQueryHandler implements QueryHandlerInterfa
     public function __construct(
         private WarehouseRepositoryInterface $repository,
         private WarehouseAssembler $assembler
-    ){}
-
+    ) {
+    }
 
     public function __invoke(GetWarehouseForEditQuery $query): array
     {

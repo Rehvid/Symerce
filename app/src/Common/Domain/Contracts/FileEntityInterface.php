@@ -9,5 +9,6 @@ use App\Common\Domain\Entity\File;
 interface FileEntityInterface
 {
     public function setFile(File $file): void;
+
     public function getFile(): ?File;
 }

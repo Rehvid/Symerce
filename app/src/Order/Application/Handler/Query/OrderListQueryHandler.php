@@ -15,8 +15,8 @@ final readonly class OrderListQueryHandler implements QueryHandlerInterface
     public function __construct(
         private OrderAssembler $assembler,
         private OrderSearchService $searchService
-    ) {}
-
+    ) {
+    }
 
     public function __invoke(GetOrderListQuery $query): ApiResponse
     {

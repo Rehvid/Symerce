@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Common\Application\Dto;
 
@@ -13,5 +13,6 @@ final readonly class AddressData
         public string $postalCode,
         public string $city,
         public ?Country $country,
-    ) {}
+    ) {
+    }
 }

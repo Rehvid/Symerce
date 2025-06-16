@@ -16,11 +16,11 @@ final readonly class SettingsProvider implements ReactDataProviderInterface
 {
     public function __construct(
         private SettingDoctrineRepository $settingRepository,
-        private SettingsService           $settingManager,
+        private SettingsService $settingManager,
     ) {
     }
 
-    /** @return array<int, mixed> */
+    /** @return array<mixed, mixed> */
     public function getData(): array
     {
         $currency = $this->settingManager->findDefaultCurrency();

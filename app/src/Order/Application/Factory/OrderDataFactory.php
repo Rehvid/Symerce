@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Order\Application\Factory;
 
@@ -52,8 +52,19 @@ final readonly class OrderDataFactory
             throw EntityNotFoundException::for(PaymentMethod::class, $orderRequest->paymentMethodIdRequest->getId());
         }
 
+
         $addressDeliveryRequest = $orderRequest->saveAddressDeliveryRequest;
         $addressInvoiceRequest = $orderRequest->saveAddressInvoiceRequest;
+
+        $deliveryAddressData = null;
+        if (null !== $addressDeliveryRequest?->saveAddressRequest) {
+            $deliveryAddressData = $this->createDeliveryAddressData($addressDeliveryRequest->saveAddressRequest);
+        }
+
+        $invoiceAddressData = null;
+        if (null !== $addressInvoiceRequest?->saveAddressRequest) {
+            $invoiceAddressData = $this->createInvoiceAddressData($addressInvoiceRequest->saveAddressRequest);
+        }
 
 
         return new OrderData(
@@ -64,11 +75,9 @@ final readonly class OrderDataFactory
             checkoutStep: CheckoutStep::from($orderRequest->checkoutStep),
             orderStatus: OrderStatus::from($orderRequest->status),
             orderItems: $this->getOrderItems($orderRequest->saveOrderProductRequestCollection),
-            deliveryAddressData: $this->createDeliveryAddressData($addressDeliveryRequest->saveAddressRequest),
+            deliveryAddressData: $deliveryAddressData,
             deliveryInstructions: $addressDeliveryRequest?->deliveryInstructions,
-            invoiceAddressData: $orderRequest->saveAddressInvoiceRequest
-                ? $this->createInvoiceAddressData($addressInvoiceRequest->saveAddressRequest)
-                : null,
+            invoiceAddressData: $invoiceAddressData,
             invoiceCompanyTaxId: $addressInvoiceRequest?->invoiceCompanyTaxId,
             invoiceCompanyName: $addressInvoiceRequest?->invoiceCompanyName,
             customer: $this->customerRepository->findById($orderRequest->customerIdRequest->getId())
@@ -115,6 +124,7 @@ final readonly class OrderDataFactory
 
     /**
      * @param SaveOrderProductRequest[] $saveOrderProductRequestCollection
+     *
      * @return OrderItemData[]
      */
     private function getOrderItems(array $saveOrderProductRequestCollection): array
@@ -123,10 +133,10 @@ final readonly class OrderDataFactory
 
         foreach ($saveOrderProductRequestCollection as $orderProductRequest) {
             /** @var ?Product $product */
-            $product = $this->productRepository->findById($orderProductRequest->productId);
+            $product = $this->productRepository->findById($orderProductRequest->productId->getId());
 
             if (null === $product) {
-                throw new BadRequestException("Product not found");
+                throw new BadRequestException('Product not found');
             }
 
             $orderItems[] = new OrderItemData(

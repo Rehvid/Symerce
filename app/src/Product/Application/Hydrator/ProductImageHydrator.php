@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Product\Application\Hydrator;
 
@@ -38,6 +38,9 @@ final readonly class ProductImageHydrator
         }
     }
 
+    /**
+     * @param Collection<int, ProductImage> $images
+     */
     private function getProductImage(ProductImageData $data, Collection $images, Product $product): ?ProductImage
     {
         if ($data->file) {
@@ -52,11 +55,11 @@ final readonly class ProductImageHydrator
             return $image;
         }
 
-         if ($data->fileData !== null) {
+        if (null !== $data->fileData) {
             return $this->createProductImage($data->fileData, $product);
         }
 
-         return null;
+        return null;
     }
 
     private function createProductImage(FileData $fileData, Product $product): ProductImage

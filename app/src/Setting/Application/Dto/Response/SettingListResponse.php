@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Setting\Application\Dto\Response;
 
-
 final readonly class SettingListResponse
 {
     public function __construct(

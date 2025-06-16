@@ -7,8 +7,6 @@ namespace App\Product\Application\Hydrator;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductStock;
 use App\Product\Application\Dto\ProductDataStock;
-use DateTime;
-use DateTimeImmutable;
 
 final readonly class ProductStockHydrator
 {
@@ -21,7 +19,14 @@ final readonly class ProductStockHydrator
         $productStock->setEan13((string) $data->ean13);
         $productStock->setSku((string) $data->sku);
         $productStock->setWarehouse($data->warehouse);
-        $productStock->setRestockDate(DateTimeImmutable::createFromMutable($data->restockDate->get()));
+
+        $restockDate = $data->restockDate?->get();
+        if ($restockDate) {
+            $productStock->setRestockDate(\DateTimeImmutable::createFromInterface($restockDate));
+        } else {
+            $productStock->setRestockDate(new \DateTime());
+        }
+
 
         return $productStock;
     }

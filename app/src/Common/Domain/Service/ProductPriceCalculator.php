@@ -12,7 +12,6 @@ use App\Common\Domain\ValueObject\MoneyVO;
 
 final readonly class ProductPriceCalculator
 {
-
     public function __construct(
         private MoneyFactory $moneyFactory
     ) {
@@ -28,7 +27,7 @@ final readonly class ProductPriceCalculator
         }
 
         $reduction = $promotion->getReduction();
-        if ($promotion->getType() === ReductionType::PERCENT) {
+        if (ReductionType::PERCENT === $promotion->getType()) {
             return $unitPrice->subtractPercentage($reduction);
         }
 

@@ -16,7 +16,7 @@ final readonly class ChangeProductQuantityUseCase
     ) {
     }
 
-    public function execute(Cart $cart, ChangeQuantityProductRequest $changeQuantityProductRequest ): CartSaveResponse
+    public function execute(Cart $cart, ChangeQuantityProductRequest $changeQuantityProductRequest): CartSaveResponse
     {
         $quantityDiff = $this->cartManager->changeQuantityCartItem($changeQuantityProductRequest, $cart);
 

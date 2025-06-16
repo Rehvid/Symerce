@@ -16,7 +16,8 @@ final readonly class CartDetailQueryHandler implements QueryHandlerInterface
     public function __construct(
         private CartRepositoryInterface $repository,
         private CartAssembler $assembler
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetCartDetailQuery $query): array
     {

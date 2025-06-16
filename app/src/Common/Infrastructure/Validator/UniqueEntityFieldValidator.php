@@ -31,13 +31,14 @@ class UniqueEntityFieldValidator extends ConstraintValidator
         /** @phpstan-ignore-next-line */
         $repository = $this->getRepository($constraint->className);
 
+        /** @phpstan-ignore-next-line */
         $object = $this->context->getObject()?->idRequest;
         $entity = $repository->findOneBy([$constraint->field => $value]);
 
         if (
-            $entity instanceof IdentifiableInterface &&
-            $object instanceof IdentifiableInterface &&
-            $entity->getId() === $object->getId()
+            $entity instanceof IdentifiableInterface
+            && $object instanceof IdentifiableInterface
+            && $entity->getId() === $object->getId()
         ) {
             return;
         }

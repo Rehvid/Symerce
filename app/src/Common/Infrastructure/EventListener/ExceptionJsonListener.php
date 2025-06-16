@@ -11,7 +11,6 @@ use App\Common\Infrastructure\Exception\InvalidBooleanValueException;
 use App\Common\Infrastructure\Http\Exception\RequestValidationException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -35,21 +34,25 @@ final readonly class ExceptionJsonListener
 
         if ($exception instanceof UnprocessableEntityHttpException) {
             $this->handleUnprocessableEntityException($event, $exception);
+
             return;
         }
 
         if ($exception instanceof RequestValidationException) {
             $this->handleRequestValidationException($event, $exception);
+
             return;
         }
 
         if ($exception instanceof EntityNotFoundException) {
             $this->handleEntityNotFoundException($event);
+
             return;
         }
 
-        if ($exception instanceOf BadRequestHttpException && $exception->getPrevious() instanceof InvalidBooleanValueException) {
+        if ($exception instanceof BadRequestHttpException && $exception->getPrevious() instanceof InvalidBooleanValueException) {
             $this->handleInvalidBooleanValueException($event, $exception->getPrevious());
+
             return;
         }
 
@@ -77,7 +80,7 @@ final readonly class ExceptionJsonListener
         $apiResponse = $this->buildErrorResult(
             message: $this->translator->trans('base.messages.errors.not_found'),
             code: $code,
-            details: $this->kernel->getEnvironment() === 'prod' ? [] : $event->getThrowable()->getTrace()
+            details: 'prod' === $this->kernel->getEnvironment() ? [] : $event->getThrowable()->getTrace()
         );
 
         $this->setEventResponse($event, $apiResponse, $code);
@@ -101,7 +104,7 @@ final readonly class ExceptionJsonListener
             message: $this->translator->trans('base.messages.errors.validation_failed'),
             code: $code,
             details: [
-                $exception->getFieldName() => ['message' => $exception->getMessage()]
+                $exception->getFieldName() => ['message' => $exception->getMessage()],
             ]
         );
 
@@ -120,7 +123,6 @@ final readonly class ExceptionJsonListener
 
         $this->setEventResponse($event, $apiResponse, $code);
     }
-
 
     private function setEventResponse(ExceptionEvent $event, ApiResponse $apiResponse, int $statusCode): void
     {

@@ -25,10 +25,12 @@ final readonly class OrderAssembler
         private OrderDetailResponseFactory $orderDetailResponseFactory,
         private OrderFormContextResponseFactory $orderFormContextResponseFactory,
         private OrderFormResponseFactory $orderFormResponseFactory,
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<int, mixed> $paginatedData
+     *
      * @return array<string, mixed>
      */
     public function toListResponse(array $paginatedData): array
@@ -40,7 +42,7 @@ final readonly class OrderAssembler
 
         $additionalData = [
             'availableStatuses' => [],
-            'availableCheckoutSteps' => []
+            'availableCheckoutSteps' => [],
         ];
 
         return $this->responseHelperAssembler->wrapListWithAdditionalData($orderListCollection, $additionalData);
@@ -80,23 +82,22 @@ final readonly class OrderAssembler
                 city: $customer->getDeliveryAddress()?->getAddress()?->getCity() ?? '',
                 countryId: $customer->getDeliveryAddress()?->getAddress()?->getCountry()->getId() ?? 0,
                 deliveryInstructions: $customer->getDeliveryAddress()?->getDeliveryInstructions() ?? '',
-                isInvoice: $customer->getInvoiceAddress() !== null,
+                isInvoice: null !== $customer->getInvoiceAddress(),
                 invoiceStreet: $customer->getInvoiceAddress()?->getAddress()?->getStreet() ?? '',
                 invoiceCompanyName: $customer->getInvoiceAddress()?->getCompanyName() ?? '',
                 invoicePostalCode: $customer->getInvoiceAddress()?->getAddress()?->getPostalCode() ?? '',
                 invoiceCompanyTaxId: $customer->getInvoiceAddress()?->getCompanyTaxId() ?? '',
                 invoiceCountryId: $customer->getInvoiceAddress()?->getAddress()?->getCountry()->getId() ?? 0,
                 invoiceCity: $customer->getInvoiceAddress()?->getAddress()?->getCity() ?? ''
-            )
+            ),
         ];
     }
 
-
     private function createOrderListResponse(Order $order): OrderListResponse
     {
-        $createdAt = $order->getCreatedAt() === null ? null : (new DateVO($order->getCreatedAt()))->formatRaw();
-        $updatedAt = $order->getUpdatedAt() === null ? null : (new DateVO($order->getUpdatedAt()))->formatRaw();
-        $totalPrice = $order->getTotalPrice() === null ? null : $this->moneyFactory->create($order->getTotalPrice());
+        $createdAt =  (new DateVO($order->getCreatedAt()))->formatRaw();
+        $updatedAt =  (new DateVO($order->getUpdatedAt()))->formatRaw();
+        $totalPrice = null === $order->getTotalPrice() ? null : $this->moneyFactory->create($order->getTotalPrice());
 
         return new OrderListResponse(
             id: $order->getId(),

@@ -10,7 +10,6 @@ use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Order\Application\Command\CreateOrderCommand;
-use App\Order\Application\Command\DeleteOrderCommand;
 use App\Order\Application\Command\UpdateOrderCommand;
 use App\Order\Application\Dto\Request\SaveOrderRequest;
 use App\Order\Application\Factory\OrderDataFactory;
@@ -46,8 +45,7 @@ final class OrderController extends AbstractApiController
         Request $request,
         OrderSearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetOrderListQuery(

@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-
 final class PositionController extends AbstractController
 {
     public function __construct(
@@ -28,7 +27,7 @@ final class PositionController extends AbstractController
         string $entity,
         Request $request,
         ReorderEntityServiceInterface $reorderEntityService,
-    ): JsonResponse{
+    ): JsonResponse {
         $reorderEntityService->reorderEntityPositions(
             request: $this->requestDtoResolver->mapAndValidate($request, PositionChangeRequest::class),
             entityName: $entity

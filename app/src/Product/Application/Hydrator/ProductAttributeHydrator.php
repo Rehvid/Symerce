@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Hydrator;
 
-use App\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use App\Common\Domain\Entity\AttributeValue;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Entity\ProductAttribute;
 use App\Product\Application\Dto\ProductAttributeData;
-use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class ProductAttributeHydrator
 {
@@ -28,10 +26,12 @@ final readonly class ProductAttributeHydrator
         $productAttribute = new ProductAttribute();
         $productAttribute->setAttribute($data->attribute);
         $productAttribute->setProduct($product);
-        if ($data->isCustom) {
-            $productAttribute->setCustomValue($data->value);
-        } else {
-            $productAttribute->setPredefinedValue($data->value);
+
+        $value = $data->value;
+        if ($data->isCustom && is_string($value)) {
+            $productAttribute->setCustomValue($value);
+        } elseif ($value instanceof AttributeValue) {
+            $productAttribute->setPredefinedValue($value);
         }
 
         return $productAttribute;

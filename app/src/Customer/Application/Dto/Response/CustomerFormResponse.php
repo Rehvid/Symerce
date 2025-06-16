@@ -25,7 +25,7 @@ final readonly class CustomerFormResponse
         public ?string $invoiceCompanyName,
         public ?string $invoiceCompanyTaxId,
         public ?int $invoiceCountryId,
-    ){
+    ) {
 
     }
 }

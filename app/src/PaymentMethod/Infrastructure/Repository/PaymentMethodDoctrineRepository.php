@@ -16,7 +16,6 @@ final class PaymentMethodDoctrineRepository extends AbstractCriteriaRepository i
 {
     use PositionRepositoryTrait;
 
-
     protected function getEntityClass(): string
     {
         return PaymentMethod::class;
@@ -26,5 +25,4 @@ final class PaymentMethodDoctrineRepository extends AbstractCriteriaRepository i
     {
         return 'pm';
     }
-
 }

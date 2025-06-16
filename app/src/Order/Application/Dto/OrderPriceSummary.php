@@ -10,7 +10,7 @@ final readonly class OrderPriceSummary
 {
     public function __construct(
         public ?MoneyVO $totalProductPrice,
-        public MoneyVO  $total,
+        public MoneyVO $total,
         public ?MoneyVO $carrierFee,
         public ?MoneyVO $paymentMethodFee
     ) {

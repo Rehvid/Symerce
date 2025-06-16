@@ -18,8 +18,7 @@ final readonly class ExceptionListener
         $request = $event->getRequest();
 
         if ('json' === $request->getContentTypeFormat()) {
-           $this->exceptionJsonListener->handle($event);
+            $this->exceptionJsonListener->handle($event);
         }
     }
-
 }

@@ -8,5 +8,7 @@ use App\Common\Application\Command\Interfaces\CommandInterface;
 
 final readonly class DeleteTagCommand implements CommandInterface
 {
-    public function __construct(public int $tagId) {}
+    public function __construct(public int $tagId)
+    {
+    }
 }

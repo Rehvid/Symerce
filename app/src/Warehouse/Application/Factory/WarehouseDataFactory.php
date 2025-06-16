@@ -15,11 +15,12 @@ final readonly class WarehouseDataFactory
 {
     public function __construct(
         private CountryRepositoryInterface $countryRepository,
-    ) {}
+    ) {
+    }
 
     public function fromRequest(SaveWarehouseRequest $warehouseRequest): WarehouseData
     {
-//        /** @var ?Country $country */
+        //        /** @var ?Country $country */
         $country = $this->countryRepository->findById($warehouseRequest->addressRequest->countryIdRequest->getId());
         if (null === $country) {
             throw EntityNotFoundException::for(Country::class, $warehouseRequest->addressRequest->countryIdRequest->getId());

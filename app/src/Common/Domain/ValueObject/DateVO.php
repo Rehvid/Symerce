@@ -1,48 +1,38 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Common\Domain\ValueObject;
 
-use DateTime;
-use DateTimeImmutable;
-use DateTimeInterface;
-use DateTimeZone;
-use InvalidArgumentException;
-
 final readonly class DateVO
 {
-    private DateTimeInterface $date;
-    private DateTimeInterface $rawDate;
+    private \DateTimeInterface $date;
+    private \DateTimeInterface $rawDate;
 
-
-    public function __construct(string|DateTimeInterface $value)
+    public function __construct(string|\DateTimeInterface $value)
     {
-        if ($value instanceof DateTimeInterface) {
-            $this->rawDate = $value instanceof DateTimeImmutable
+        if ($value instanceof \DateTimeInterface) {
+            $this->rawDate = $value instanceof \DateTimeImmutable
                 ? $value
-                : DateTimeImmutable::createFromMutable($value);
+                : \DateTimeImmutable::createFromMutable($value);
+            dd($this->rawDate);
         } else {
             try {
-                $this->rawDate = new DateTime($value, new DateTimeZone('UTC'));
+                $this->rawDate = new \DateTime($value, new \DateTimeZone('UTC'));
             } catch (\Exception $e) {
-                throw new InvalidArgumentException(
-                    sprintf('Incorrect format date: "%s"', $value),
-                    0,
-                    $e
-                );
+                throw new \InvalidArgumentException(sprintf('Incorrect format date: "%s"', $value), 0, $e);
             }
         }
 
-        $this->date = (clone $this->rawDate)->setTimezone(new DateTimeZone('Europe/Warsaw'));
+        $this->date = (clone $this->rawDate)->setTimezone(new \DateTimeZone('Europe/Warsaw'));
     }
 
-    public function get(): DateTimeInterface
+    public function get(): \DateTimeInterface
     {
         return $this->date;
     }
 
-    public function getRaw(): DateTimeInterface
+    public function getRaw(): \DateTimeInterface
     {
         return $this->rawDate;
     }
@@ -64,7 +54,9 @@ final readonly class DateVO
 
     public function modify(string $modifier): self
     {
-        $modifiedRaw = $this->rawDate->modify($modifier);
+        $modifiedRaw = ($this->rawDate instanceof \DateTimeImmutable)
+            ? $this->rawDate->modify($modifier)
+            : \DateTimeImmutable::createFromMutable($this->rawDate)->modify($modifier);
 
         return new self($modifiedRaw);
     }

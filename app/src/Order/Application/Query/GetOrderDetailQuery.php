@@ -10,5 +10,6 @@ final readonly class GetOrderDetailQuery implements QueryInterface
 {
     public function __construct(
         public int $orderId,
-    ) {}
+    ) {
+    }
 }

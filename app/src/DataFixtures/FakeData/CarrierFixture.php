@@ -38,7 +38,7 @@ class CarrierFixture extends Fixture implements FixtureGroupInterface
             [
                 'name' => 'UPS',
                 'fee' => '8.75',
-            ]
+            ],
         ];
     }
 

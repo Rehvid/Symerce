@@ -17,7 +17,8 @@ final readonly class UpdateCarrierCommandHandler implements CommandHandlerInterf
     public function __construct(
         public CarrierRepositoryInterface $repository,
         public CarrierHydrator $hydrator,
-    ){}
+    ) {
+    }
 
     public function __invoke(UpdateCarrierCommand $command): IdResponse
     {

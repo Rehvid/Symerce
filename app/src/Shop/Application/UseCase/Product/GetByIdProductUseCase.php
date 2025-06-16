@@ -11,8 +11,8 @@ final readonly class GetByIdProductUseCase
 {
     public function __construct(
         private ProductAssembler $assembler,
-    ) {}
-
+    ) {
+    }
 
     public function execute(Product $product): array
     {

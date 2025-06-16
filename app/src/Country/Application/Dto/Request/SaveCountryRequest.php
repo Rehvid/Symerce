@@ -28,7 +28,7 @@ final readonly class SaveCountryRequest
     public bool $isActive;
 
     public function __construct(
-        null|int|string $id,
+        int|string|null $id,
         string $name,
         string $code,
         mixed $isActive,

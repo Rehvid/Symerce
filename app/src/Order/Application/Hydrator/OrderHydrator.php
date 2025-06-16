@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Hydrator;
 
+use App\Common\Application\Dto\AddressData;
 use App\Common\Application\Factory\OrderItemFactory;
 use App\Common\Application\Hydrator\AddressHydrator;
 use App\Common\Application\Hydrator\ContactDetailsHydrator;
@@ -22,10 +23,10 @@ final readonly class OrderHydrator
 {
     public function __construct(
         public ContactDetailsHydrator $contactDetailsHydrator,
-        public AddressHydrator        $addressHydrator,
+        public AddressHydrator $addressHydrator,
         public ProductPriceCalculator $productPriceCalculator,
-        public OrderItemFactory       $orderItemFactory,
-        public OrderPriceCalculator   $orderPriceCalculator,
+        public OrderItemFactory $orderItemFactory,
+        public OrderPriceCalculator $orderPriceCalculator,
     ) {
 
     }
@@ -68,6 +69,7 @@ final readonly class OrderHydrator
 
         if (null === $data->invoiceAddressData) {
             $order->setInvoiceAddress(null);
+
             return;
         }
 
@@ -83,36 +85,47 @@ final readonly class OrderHydrator
         OrderData $data,
         ?DeliveryAddress $deliveryAddress = null
     ): DeliveryAddress {
-        $deliveryAddress = $deliveryAddress ?? new DeliveryAddress();
-        $deliveryAddress->setAddress(
+        $address = $deliveryAddress ?? new DeliveryAddress();
+
+        /** @var AddressData $deliveryAddressData */
+        $deliveryAddressData = $data->deliveryAddressData;
+
+        $address->setAddress(
             $this->addressHydrator->hydrate(
-                data: $data->deliveryAddressData,
-                address: $deliveryAddress === null ? new Address() : $deliveryAddress->getAddress(),
+                data: $deliveryAddressData,
+                address: null === $address->getAddress() ? new Address() : $address->getAddress(),
             )
         );
-        $deliveryAddress->setDeliveryInstructions($data->deliveryInstructions);
+        $address->setDeliveryInstructions($data->deliveryInstructions);
 
-        return $deliveryAddress;
+        return $address;
     }
 
     private function hydrateInvoiceAddress(
         OrderData $data,
         ?InvoiceAddress $invoiceAddress = null
-    ): InvoiceAddress
-    {
-        $invoiceAddress = $invoiceAddress ?? new InvoiceAddress();
-        $invoiceAddress->setAddress(
+    ): InvoiceAddress {
+        /** @var AddressData $invoiceAddressData */
+        $invoiceAddressData = $data->invoiceAddressData;
+
+        /** @var InvoiceAddress $address */
+        $address = $invoiceAddress ?? new InvoiceAddress();
+
+
+        $existing = $address->getAddress();
+        $finalAddress = $existing instanceof Address ? $existing : new Address();
+
+        $address->setAddress(
             $this->addressHydrator->hydrate(
-                data: $data->invoiceAddressData,
-                address: $invoiceAddress === null ? new Address() : $invoiceAddress->getAddress(),
+                data: $invoiceAddressData,
+                address: $finalAddress,
             )
         );
-        $invoiceAddress->setCompanyTaxId($data->invoiceCompanyTaxId);
-        $invoiceAddress->setCompanyName($data->invoiceCompanyName);
+        $address->setCompanyTaxId($data->invoiceCompanyTaxId);
+        $address->setCompanyName($data->invoiceCompanyName);
 
-        return $invoiceAddress;
+        return $address;
     }
-
 
     /** @param OrderItemData[] $orderItems */
     public function addOrderItem(array $orderItems, Order $order): void

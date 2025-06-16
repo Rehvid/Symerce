@@ -9,17 +9,20 @@ use App\Common\Domain\Enums\CookieName;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\InvalidTokenException;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-
 final readonly class CookieTokenProvider implements TokenProviderInterface
 {
-    public function __construct(private RequestStack $requestStack) {}
+    public function __construct(private RequestStack $requestStack)
+    {
+    }
 
     public function getToken(): string
     {
         $token = $this->requestStack->getMainRequest()?->cookies->get(CookieName::ADMIN_BEARER->value);
-        if (!$token) {
+
+        if (!$token || !is_string($token)) {
             throw new InvalidTokenException('Token not found');
         }
+
         return $token;
     }
 }

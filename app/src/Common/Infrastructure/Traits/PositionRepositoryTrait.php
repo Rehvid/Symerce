@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Common\Infrastructure\Traits;
 
+use App\Common\Domain\Contracts\PositionEntityInterface;
+
 trait PositionRepositoryTrait
 {
     /** @return array<int, mixed> */
@@ -20,7 +22,7 @@ trait PositionRepositoryTrait
                 ->orderBy("$alias.position", 'ASC')
                 ->getQuery()
                 ->getResult()
-                ;
+            ;
         }
 
         return $queryBuilder->where("$alias.position >= :newOrder")
@@ -30,7 +32,7 @@ trait PositionRepositoryTrait
             ->orderBy("$alias.position", 'DESC')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function getMaxPosition(): int
@@ -41,5 +43,10 @@ trait PositionRepositoryTrait
             ->select("MAX($alias.position)")
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function findByMovedId(int $movedId): ?PositionEntityInterface
+    {
+        return $this->find($movedId);
     }
 }

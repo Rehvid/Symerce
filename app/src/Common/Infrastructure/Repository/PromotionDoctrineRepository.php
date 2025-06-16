@@ -8,9 +8,11 @@ use App\Common\Domain\Entity\Promotion;
 use App\Common\Domain\Repository\PromotionRepositoryInterface;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 
+/**
+ * @extends AbstractCriteriaRepository<Promotion>
+ */
 final class PromotionDoctrineRepository extends AbstractCriteriaRepository implements PromotionRepositoryInterface
 {
-
     protected function getAlias(): string
     {
         return 'p';

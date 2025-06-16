@@ -18,5 +18,6 @@ final readonly class UserData
         public ?string $password = null,
         public ?string $passwordConfirmation = null,
         public ?FileData $avatar = null
-    ) {}
+    ) {
+    }
 }

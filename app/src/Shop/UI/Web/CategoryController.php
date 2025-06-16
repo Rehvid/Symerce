@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CategoryController extends AbstractController
 {
-
     #[Route('/kategorie', name: 'shop.categories', methods: ['GET'])]
     public function list(ListCategoryUseCase $useCase): Response
     {

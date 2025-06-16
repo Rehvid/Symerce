@@ -6,7 +6,7 @@ namespace App\AdminEntry\Application\Contract;
 
 interface ReactDataProviderInterface
 {
-    /** @return array<int, mixed> */
+    /** @return array<mixed, mixed> */
     public function getData(): array;
 
     public function getName(): string;

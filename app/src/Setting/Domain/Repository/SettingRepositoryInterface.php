@@ -23,7 +23,8 @@ interface SettingRepositoryInterface extends QueryRepositoryInterface, ReadWrite
      */
     public function findAllExcludingKeys(array $excludedKeys): array;
 
-
     public function findByKey(SettingKey $type): ?Setting;
-    public function findByType(SettingType $type): ?Setting;
+
+    /** @return Setting[] */
+    public function findByType(SettingType $type): ?array;
 }

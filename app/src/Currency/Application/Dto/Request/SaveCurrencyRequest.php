@@ -6,12 +6,9 @@ namespace App\Currency\Application\Dto\Request;
 
 use App\Common\Application\Dto\Request\IdRequest;
 use App\Common\Domain\Entity\Currency;
-use App\Common\Domain\Entity\Customer;
 use App\Common\Domain\Enums\DecimalPrecision;
 use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueField;
 use Symfony\Component\Validator\Constraints as Assert;
-
-
 
 final readonly class SaveCurrencyRequest
 {
@@ -41,7 +38,7 @@ final readonly class SaveCurrencyRequest
         string $name,
         string $code,
         string $symbol,
-        null|string|int $id,
+        string|int|null $id,
         string|int|null $roundingPrecision = null,
     ) {
         $this->name = $name;

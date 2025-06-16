@@ -12,12 +12,8 @@ use App\Common\Domain\ValueObject\DateVO;
 use App\Common\Infrastructure\Utils\BoolHelper;
 use App\Common\Infrastructure\Validator\CurrencyPrecision as CustomAssertCurrencyPrecision;
 use App\Common\Infrastructure\Validator\UniqueEntityField as CustomAssertUniqueSlug;
-use Symfony\Component\Serializer\Annotation\Context;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Type;
-
 
 final class SaveProductRequest
 {
@@ -29,7 +25,7 @@ final class SaveProductRequest
     public string $name;
 
     #[Assert\GreaterThanOrEqual(0)]
-    #[Assert\Type('numeric')]
+    #[Type('numeric')]
     #[CustomAssertCurrencyPrecision]
     public string $regularPrice;
 
@@ -95,9 +91,9 @@ final class SaveProductRequest
     public ?string $metaDescription;
 
     /**
-     * @param array<int, mixed> $categories
-     * @param array<int, mixed> $tags
-     * @param array<int,mixed> $images
+     * @param array<int, mixed>    $categories
+     * @param array<int, mixed>    $tags
+     * @param array<int,mixed>     $images
      * @param array<string, mixed> $attributes
      */
     public function __construct(
@@ -110,7 +106,7 @@ final class SaveProductRequest
         mixed $promotionIsActive,
         ?string $promotionReductionType,
         ?string $promotionReduction,
-        ?array $promotionDateRange,
+        array $promotionDateRange,
         ?string $promotionSource,
         array $categories = [],
         array $tags = [],
@@ -164,59 +160,59 @@ final class SaveProductRequest
         );
     }
 
-//    public static function fromArray(array $data): ArrayHydratableInterface
-//    {
-////        $promotionIsActive = $data['promotionIsActive'] ?? false;
-////        $productPromotionRequest = null;
-////        if ($promotionIsActive) {
-////            $promotionDateRange = $data['promotionDateRange'] ?? null;
-////            $productPromotionRequest = new SaveProductPromotionRequest(
-////                isActive: $promotionIsActive,
-////                reductionType: $data['promotionReductionType'],
-////                reduction: $data['promotionReduction'],
-////                startDate: new DateVO($promotionDateRange ? $promotionDateRange[0] : ''),
-////                endDate: new DateVO($promotionDateRange ? $promotionDateRange[1] : ''),
-////                source: $data['promotionSource'] ?? null,
-////            );
-////        }
-////
-////        $images = $data['images'] ?? [];
-////        if (!empty($images)) {
-////            $saveProductImageCollection = [];
-////            foreach ($images as $image) {
-////                $id = $image['id'] ?? null;
-////                if (null === $id) {
-////                    $saveProductImageCollection[] = new SaveProductImageRequest(
-////                        isThumbnail: $image['isThumbnail'] ?? false,
-////                        uploadData: FileData::fromArray($image),
-////                    );
-////                } else {
-////                    $saveProductImageCollection[] = new SaveProductImageRequest(
-////                        fileId: $id,
-////                        isThumbnail: $image['isThumbnail'] ?? false,
-////                    );
-////                }
-////            }
-////            $images = $saveProductImageCollection;
-////        }
-////
-////        return new self(
-////            id: $data['id'] ?? null,
-////            name: $data['name'],
-////            regularPrice: $data['regularPrice'],
-////            stocks: $data['stocks'],
-////            mainCategory: $data['mainCategoryId'],
-////            isActive: $data['isActive'],
-////            categories: $data['categories'],
-////            tags: $data['tags'],
-////            images: $images,
-////            attributes: $data['attributes'],
-////            brand: $data['brandId'],
-////            slug: $data['slug'],
-////            description: $data['description'],
-////            productPromotionRequest: $productPromotionRequest,
-////            metaTitle: $data['metaTitle'] ?? null,
-////            metaDescription: $data['metaDescription'] ?? null,
-////        );
-//    }
+    //    public static function fromArray(array $data): ArrayHydratableInterface
+    //    {
+    // //        $promotionIsActive = $data['promotionIsActive'] ?? false;
+    // //        $productPromotionRequest = null;
+    // //        if ($promotionIsActive) {
+    // //            $promotionDateRange = $data['promotionDateRange'] ?? null;
+    // //            $productPromotionRequest = new SaveProductPromotionRequest(
+    // //                isActive: $promotionIsActive,
+    // //                reductionType: $data['promotionReductionType'],
+    // //                reduction: $data['promotionReduction'],
+    // //                startDate: new DateVO($promotionDateRange ? $promotionDateRange[0] : ''),
+    // //                endDate: new DateVO($promotionDateRange ? $promotionDateRange[1] : ''),
+    // //                source: $data['promotionSource'] ?? null,
+    // //            );
+    // //        }
+    // //
+    // //        $images = $data['images'] ?? [];
+    // //        if (!empty($images)) {
+    // //            $saveProductImageCollection = [];
+    // //            foreach ($images as $image) {
+    // //                $id = $image['id'] ?? null;
+    // //                if (null === $id) {
+    // //                    $saveProductImageCollection[] = new SaveProductImageRequest(
+    // //                        isThumbnail: $image['isThumbnail'] ?? false,
+    // //                        uploadData: FileData::fromArray($image),
+    // //                    );
+    // //                } else {
+    // //                    $saveProductImageCollection[] = new SaveProductImageRequest(
+    // //                        fileId: $id,
+    // //                        isThumbnail: $image['isThumbnail'] ?? false,
+    // //                    );
+    // //                }
+    // //            }
+    // //            $images = $saveProductImageCollection;
+    // //        }
+    // //
+    // //        return new self(
+    // //            id: $data['id'] ?? null,
+    // //            name: $data['name'],
+    // //            regularPrice: $data['regularPrice'],
+    // //            stocks: $data['stocks'],
+    // //            mainCategory: $data['mainCategoryId'],
+    // //            isActive: $data['isActive'],
+    // //            categories: $data['categories'],
+    // //            tags: $data['tags'],
+    // //            images: $images,
+    // //            attributes: $data['attributes'],
+    // //            brand: $data['brandId'],
+    // //            slug: $data['slug'],
+    // //            description: $data['description'],
+    // //            productPromotionRequest: $productPromotionRequest,
+    // //            metaTitle: $data['metaTitle'] ?? null,
+    // //            metaDescription: $data['metaDescription'] ?? null,
+    // //        );
+    //    }
 }

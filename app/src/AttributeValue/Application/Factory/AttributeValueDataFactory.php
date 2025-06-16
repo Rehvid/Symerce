@@ -15,7 +15,8 @@ final readonly class AttributeValueDataFactory
 {
     public function __construct(
         private AttributeRepositoryInterface $attributeRepository,
-    ) {}
+    ) {
+    }
 
     public function fromRequest(SaveAttributeValueRequest $attributeValueRequest): AttributeValueData
     {

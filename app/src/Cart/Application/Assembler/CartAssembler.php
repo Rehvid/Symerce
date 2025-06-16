@@ -19,32 +19,32 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final readonly class CartAssembler
 {
-     public function __construct(
-         private SettingsService $settingManager,
-         private UrlGeneratorInterface $urlGenerator,
-         private FileService $fileService,
-         private ResponseHelperAssembler $responseHelperAssembler,
-         private OrderRepositoryInterface $orderRepository,
-         private CartDetailResponseFactory $cartDetailResponseFactory,
-     ) {
-     }
+    public function __construct(
+        private SettingsService $settingManager,
+        private UrlGeneratorInterface $urlGenerator,
+        private FileService $fileService,
+        private ResponseHelperAssembler $responseHelperAssembler,
+        private OrderRepositoryInterface $orderRepository,
+        private CartDetailResponseFactory $cartDetailResponseFactory,
+    ) {
+    }
 
-     public function toListResponse(array $paginatedData): array
-     {
-         return $this->responseHelperAssembler->wrapListWithAdditionalData(
-             dataList: array_map(fn (Cart $cart) => $this->createCartListResponse($cart), $paginatedData)
-         );
-     }
+    public function toListResponse(array $paginatedData): array
+    {
+        return $this->responseHelperAssembler->wrapListWithAdditionalData(
+            dataList: array_map(fn (Cart $cart) => $this->createCartListResponse($cart), $paginatedData)
+        );
+    }
 
-     private function createCartListResponse(Cart $cart): CartListResponse
-     {
-         /** @var ?Order $order */
-         $order = $this->orderRepository->findByToken($cart->getToken());
-         $customer = null;
+    private function createCartListResponse(Cart $cart): CartListResponse
+    {
+        /** @var ?Order $order */
+        $order = $this->orderRepository->findByToken($cart->getToken());
+        $customer = null;
 
-         if (null !== $cart->getCustomer()) {
-             $customer = $cart->getCustomer()->getContactDetails()?->getFullName();
-         }
+        if (null !== $cart->getCustomer()) {
+            $customer = $cart->getCustomer()->getContactDetails()?->getFullName();
+        }
 
         return new CartListResponse(
             id: $cart->getId(),
@@ -55,17 +55,16 @@ final readonly class CartAssembler
             createdAt: (new DateVO($cart->getCreatedAt()))->formatRaw(),
             updatedAt: (new DateVO($cart->getUpdatedAt()))->formatRaw(),
         );
-     }
+    }
 
-     public function toDetailResponse(Cart $cart): array
-     {
+    public function toDetailResponse(Cart $cart): array
+    {
         return [
-            'data' => $this->cartDetailResponseFactory->fromCart($cart)
+            'data' => $this->cartDetailResponseFactory->fromCart($cart),
         ];
-     }
+    }
 
-
-     /* @deprecated  */
+    /* @deprecated */
     public function transformCartItemToOrderItem(Order $order, CartItem $cartItem): OrderItem
     {
         $orderItem = new OrderItem();
@@ -77,8 +76,7 @@ final readonly class CartAssembler
         return $orderItem;
     }
 
-
-    /* @deprecated  */
+    /* @deprecated */
     public function calculateTotalPrice(Cart $cart): string
     {
         $currency = $this->settingManager->findDefaultCurrency();
@@ -97,11 +95,11 @@ final readonly class CartAssembler
         return $total;
     }
 
-    /* @deprecated  */
+    /* @deprecated */
     public function mapCartToResponse(Cart $cart): CartResponse
     {
         $cartItemResponses = array_map(
-            fn(CartItem $item) => $this->mapCartItemToResponse($item),
+            fn (CartItem $item) => $this->mapCartItemToResponse($item),
             $cart->getItems()->toArray()
         );
 
@@ -111,10 +109,11 @@ final readonly class CartAssembler
         );
     }
 
-    /* @deprecated  */
+    /* @deprecated */
     public function mapCartItemToResponse(CartItem $cartItem): CartItemResponse
     {
         $product = $cartItem->getProduct();
+
         return new CartItemResponse(
             id: $cartItem->getId(),
             quantity: $cartItem->getQuantity(),
@@ -125,7 +124,7 @@ final readonly class CartAssembler
                 'shop.product_show',
                 [
                     'slug' => $product->getSlug(),
-                    'slugCategory' => $product->getCategories()->first()->getSlug()
+                    'slugCategory' => $product->getCategories()->first()->getSlug(),
                 ],
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),

@@ -11,5 +11,6 @@ final class SaveContactDetailsRequest
         public readonly string $surname,
         public readonly string $email,
         public readonly ?string $phone,
-    ) {}
+    ) {
+    }
 }

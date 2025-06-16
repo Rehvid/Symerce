@@ -8,7 +8,6 @@ final readonly class DashboardList
 {
     /**
      * @param DashboardOrderItem[] $orders
-     *
      */
     public function __construct(
         public int $customersCount,

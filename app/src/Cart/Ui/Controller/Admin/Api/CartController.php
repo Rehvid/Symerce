@@ -10,7 +10,6 @@ use App\Cart\Application\Search\CartSearchDefinition;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Search\Factory\SearchDataFactory;
 use App\Common\Ui\Controller\Api\AbstractApiController;
-use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,8 +22,7 @@ final class CartController extends AbstractApiController
         Request $request,
         CartSearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetCartListQuery(

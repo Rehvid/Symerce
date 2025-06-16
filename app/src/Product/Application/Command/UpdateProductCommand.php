@@ -12,5 +12,6 @@ final readonly class UpdateProductCommand implements CommandInterface
     public function __construct(
         public int $productId,
         public ProductData $data,
-    ) {}
+    ) {
+    }
 }

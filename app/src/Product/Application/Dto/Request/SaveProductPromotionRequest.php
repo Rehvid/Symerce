@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Product\Application\Dto\Request;
+
 use App\Common\Domain\Enums\PromotionSource;
 use App\Common\Domain\Enums\ReductionType;
 use App\Common\Domain\ValueObject\DateVO;
@@ -11,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveProductPromotionRequest
 {
-
     public bool $isActive;
 
     #[Assert\NotBlank]

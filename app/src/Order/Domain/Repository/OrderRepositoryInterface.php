@@ -17,5 +17,4 @@ interface OrderRepositoryInterface extends QueryRepositoryInterface, ReadWriteRe
     public function findByToken(?string $token): ?Order;
 
     public function findLatestOrders(int $limit): array;
-
 }

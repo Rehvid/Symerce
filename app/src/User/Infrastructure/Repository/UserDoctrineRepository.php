@@ -15,7 +15,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 final class UserDoctrineRepository extends AbstractCriteriaRepository implements UserLoaderInterface, UserRepositoryInterface
 {
-
     public function loadUserByIdentifier(string $identifier): ?UserInterface
     {
         /** @var User|null $entity */

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Setting\Application\Handler\Query;
 
@@ -16,7 +16,8 @@ final readonly class SettingForEditQueryHandler implements QueryHandlerInterface
     public function __construct(
         private SettingAssembler $assembler,
         private SettingRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetSettingForEditQuery $query): array
     {

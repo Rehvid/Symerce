@@ -10,5 +10,6 @@ final readonly class GetPaymentMethodForEditQuery implements QueryInterface
 {
     public function __construct(
         public int $paymentMethodId
-    ) {}
+    ) {
+    }
 }

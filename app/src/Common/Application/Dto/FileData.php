@@ -20,12 +20,11 @@ final readonly class FileData
     #[Assert\NotBlank]
     public string $content;
 
-
     public function __construct(
-       int $size,
-       string $name,
-       FileMimeType $type,
-       string $content,
+        int $size,
+        string $name,
+        FileMimeType $type,
+        string $content,
     ) {
         $this->size = $size;
         $this->name = $name;

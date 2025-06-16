@@ -12,5 +12,6 @@ final readonly class UpdateSettingCommand implements CommandInterface
     public function __construct(
         public SettingData $data,
         public int $settingId,
-    ) {}
+    ) {
+    }
 }

@@ -21,7 +21,8 @@ final readonly class CategoryAssembler
         private UrlGeneratorInterface $urlGenerator,
         private FileService $fileService,
         private MoneyFactory $moneyFactory,
-    ) {}
+    ) {
+    }
 
     public function toListResponse(): array
     {
@@ -29,8 +30,9 @@ final readonly class CategoryAssembler
 
         return [
             'categories' => array_map(
-                fn (Category $category) => $this->createCategoryListResponse($category), $categories
-            )
+                fn (Category $category) => $this->createCategoryListResponse($category),
+                $categories
+            ),
         ];
     }
 
@@ -73,17 +75,17 @@ final readonly class CategoryAssembler
 
     private function createProductListResponse(Product $product, string $slugCategory): ProductListResponse
     {
-        $discountPrice = $product->getDiscountPrice() === null
+        $discountPrice = null === $product->getDiscountPrice()
             ? null
             : ($this->moneyFactory->create($product->getDiscountPrice()))->getFormattedAmountWithSymbol();
 
         return new ProductListResponse(
-          name: $product->getName(),
-          url: $this->urlGenerator->generate('shop.product_show', ['slugCategory' => $slugCategory,'slug' => $product->getSlug()]),
-          thumbnail: $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile()),
-          discountPrice: $discountPrice,
-          regularPrice: ($this->moneyFactory->create($product->getRegularPrice()))->getFormattedAmountWithSymbol(),
-          hasPromotion: $discountPrice !== null,
+            name: $product->getName(),
+            url: $this->urlGenerator->generate('shop.product_show', ['slugCategory' => $slugCategory, 'slug' => $product->getSlug()]),
+            thumbnail: $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile()),
+            discountPrice: $discountPrice,
+            regularPrice: ($this->moneyFactory->create($product->getRegularPrice()))->getFormattedAmountWithSymbol(),
+            hasPromotion: null !== $discountPrice,
         );
     }
 }

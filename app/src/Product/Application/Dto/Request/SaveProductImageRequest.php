@@ -30,7 +30,7 @@ final readonly class SaveProductImageRequest
     ) {
         $this->fileId = new IdRequest($id);
         $this->isThumbnail = BoolHelper::castOrFail($isThumbnail, 'isThumbnail');
-        $this->uploadData = $id === null ? new FileData(
+        $this->uploadData = null === $id ? new FileData(
             (int) $size,
             (string) $name,
             FileMimeType::from((string) $type),

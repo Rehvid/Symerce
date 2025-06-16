@@ -16,11 +16,11 @@ final readonly class ProductHistoryQueryHandler implements QueryHandlerInterface
     public function __construct(
         private ProductRepositoryInterface $repository,
         private ProductAssembler $assembler,
-    ) {}
+    ) {
+    }
 
-    public function __invoke(GetProductHistoryQuery $query)
+    public function __invoke(GetProductHistoryQuery $query): array
     {
-        /** @var Product $product */
         $product = $this->repository->findById($query->productId);
         if (null === $product) {
             throw EntityNotFoundException::for(Product::class, $query->productId);

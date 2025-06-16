@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Order\Application\Factory;
 
@@ -10,7 +10,6 @@ use App\Order\Application\Dto\Response\OrderFormResponse;
 
 final readonly class OrderFormResponseFactory
 {
-
     public function fromOrder(Order $order): OrderFormResponse
     {
         $contactDetails = $order->getOrderContactDetailsToUse();
@@ -24,7 +23,7 @@ final readonly class OrderFormResponseFactory
             uuid: $order->getUuid(),
             carrierId: $order->getCarrier()?->getId(),
             paymentMethodId: $order->getPaymentMethod()?->getId(),
-            isInvoice: $invoiceAddress !== null,
+            isInvoice: null !== $invoiceAddress,
             firstname: $contactDetails?->getFirstname(),
             surname: $contactDetails?->getSurname(),
             email: $order->getEmail(),
@@ -45,13 +44,12 @@ final readonly class OrderFormResponseFactory
         );
     }
 
-
     private function getProducts(Order $order): array
     {
         return array_map(function (OrderItem $orderItem) {
             return [
-                'productId' => $orderItem->getProduct()->getId(),
-                'quantity' => $orderItem->getQuantity()
+                'productId' => $orderItem->getProduct()?->getId(),
+                'quantity' => $orderItem->getQuantity(),
             ];
         }, $order->getOrderItems()->toArray());
     }

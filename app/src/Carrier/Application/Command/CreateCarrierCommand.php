@@ -11,5 +11,6 @@ final readonly class CreateCarrierCommand implements CommandInterface
 {
     public function __construct(
         public CarrierData $data,
-    ) {}
+    ) {
+    }
 }

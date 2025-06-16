@@ -13,5 +13,6 @@ final readonly class WarehouseData
         public string $name,
         public bool $isActive,
         public ?string $description
-    ) {}
+    ) {
+    }
 }

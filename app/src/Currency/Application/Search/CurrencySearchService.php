@@ -8,7 +8,6 @@ use App\Common\Application\Search\AbstractSearchService;
 use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
 use App\Currency\Domain\Repository\CurrencyRepositoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 final class CurrencySearchService extends AbstractSearchService
 {
@@ -18,7 +17,6 @@ final class CurrencySearchService extends AbstractSearchService
     ) {
         parent::__construct($repository, $parserFactory);
     }
-
 
     public function buildSearchCriteria(SearchData $searchData): SearchCriteria
     {

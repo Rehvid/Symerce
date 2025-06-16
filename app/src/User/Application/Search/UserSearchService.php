@@ -8,7 +8,6 @@ use App\Common\Application\Search\AbstractSearchService;
 use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
 use App\User\Domain\Repository\UserRepositoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 final class UserSearchService extends AbstractSearchService
 {

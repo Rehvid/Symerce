@@ -11,8 +11,7 @@ final class ConfirmationOrderUseCase
 {
     public function __construct(
         private readonly OrderCheckoutService $orderManager,
-    )
-    {
+    ) {
     }
 
     public function execute(Order $order): void

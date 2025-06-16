@@ -13,7 +13,6 @@ use App\Warehouse\Domain\Repository\WarehouseRepositoryInterface;
  */
 final class WarehouseDoctrineRepository extends AbstractCriteriaRepository implements WarehouseRepositoryInterface
 {
-
     protected function getAlias(): string
     {
         return 'warehouse';

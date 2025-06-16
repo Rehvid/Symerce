@@ -22,7 +22,7 @@ final readonly class UserHydrator
         if (null !== $data->password) {
             $user->setPassword($this->passwordHasher->hashPassword($user, $data->password));
         }
-        
+
         $user->setEmail($data->email);
         $user->setFirstname($data->firstname);
         $user->setSurname($data->surname);

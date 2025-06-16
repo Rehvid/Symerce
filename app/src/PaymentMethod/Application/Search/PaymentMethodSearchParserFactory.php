@@ -16,7 +16,7 @@ final readonly class PaymentMethodSearchParserFactory implements SearchParserFac
     public function create(): SearchRequestParser
     {
         return new SearchRequestParser([
-            new SearchOrderByParser( DirectionType::ASC, 'id'),
+            new SearchOrderByParser(DirectionType::ASC, 'id'),
             new SearchFilterParser(),
             new SearchPaginationParser(),
         ]);

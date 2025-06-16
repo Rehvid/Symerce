@@ -14,14 +14,15 @@ final readonly class CustomerDataFactory
 {
     public function __construct(
         private CountryRepositoryInterface $countryRepository
-    ) {}
+    ) {
+    }
 
     public function fromRequest(SaveCustomerRequest $customerRequest): CustomerData
     {
         $contactDetails = $customerRequest->saveContactDetailsRequest;
         $deliveryAddress = $customerRequest->saveAddressDeliveryRequest;
         $invoiceAddress = $customerRequest->saveAddressInvoiceRequest;
-        $password = $customerRequest->savePasswordRequest->password === '' ? null : $customerRequest->savePasswordRequest->password;
+        $password = '' === $customerRequest->savePasswordRequest->password ? null : $customerRequest->savePasswordRequest->password;
 
         $deliveryAddressData = null;
         if ($deliveryAddress) {
@@ -43,7 +44,7 @@ final readonly class CustomerDataFactory
             );
         }
 
-        return new CustomerData (
+        return new CustomerData(
             contactDetailsData: new ContactDetailsData(
                 firstname: $contactDetails->firstname,
                 surname: $contactDetails->surname,

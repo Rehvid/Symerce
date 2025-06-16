@@ -16,11 +16,11 @@ final readonly class ProductForEditQueryHandler implements QueryHandlerInterface
     public function __construct(
         private ProductAssembler $assembler,
         private ProductRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetProductForEditQuery $query): array
     {
-        /** @var Product $product */
         $product = $this->repository->findById($query->productId);
         if (null === $product) {
             throw EntityNotFoundException::for(Product::class, $query->productId);

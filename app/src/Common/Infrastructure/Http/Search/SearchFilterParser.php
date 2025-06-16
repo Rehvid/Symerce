@@ -11,7 +11,6 @@ use App\Common\Domain\Filter\FilterValue;
 
 final readonly class SearchFilterParser implements SearchParserInterface
 {
-
     public function parse(SearchData $data, SearchCriteriaBuilder $builder): void
     {
         foreach ($data->filters as $filter) {

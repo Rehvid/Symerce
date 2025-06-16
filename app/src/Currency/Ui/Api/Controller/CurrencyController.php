@@ -43,8 +43,7 @@ final class CurrencyController extends AbstractApiController
         Request $request,
         CurrencySearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetCurrencyListQuery(

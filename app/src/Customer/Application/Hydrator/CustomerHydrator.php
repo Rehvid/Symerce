@@ -1,15 +1,16 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Customer\Application\Hydrator;
 
+use App\Common\Application\Dto\AddressData;
 use App\Common\Application\Hydrator\AddressHydrator;
+use App\Common\Domain\Entity\Address;
 use App\Common\Domain\Entity\Customer;
 use App\Common\Domain\Entity\DeliveryAddress;
 use App\Common\Domain\Entity\InvoiceAddress;
 use App\Customer\Application\Dto\CustomerData;
-use App\Order\Application\Dto\OrderData;
 use App\Shop\Application\Hydrator\ContactDetailsHydrator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -19,7 +20,8 @@ final readonly class CustomerHydrator
         private UserPasswordHasherInterface $passwordHasher,
         private AddressHydrator $addressHydrator,
         private ContactDetailsHydrator $contactDetailsHydrator,
-    ) {}
+    ) {
+    }
 
     public function hydrate(CustomerData $data, Customer $customer): Customer
     {
@@ -39,21 +41,23 @@ final readonly class CustomerHydrator
         return $customer;
     }
 
-
-
     private function hydrateDeliveryAddress(CustomerData $data, Customer $customer): void
     {
         if (!$data->isDelivery) {
             $customer->setDeliveryAddress(null);
+
             return;
         }
 
+        /** @var AddressData $deliveryAddressData */
+        $deliveryAddressData = $data->deliveryAddressData;
         $deliveryAddress = $customer->getDeliveryAddress() ?? new DeliveryAddress();
+        $address = $deliveryAddress->getAddress() ?? new Address();
 
         $deliveryAddress->setAddress(
-            $this->addressHydrator->hydrate($data->deliveryAddressData,  $deliveryAddress?->getAddress())
+            $this->addressHydrator->hydrate($deliveryAddressData, $address)
         );
-        $deliveryAddress->setDeliveryInstructions($data?->deliveryInstructions);
+        $deliveryAddress->setDeliveryInstructions($data->deliveryInstructions);
 
         $customer->setDeliveryAddress($deliveryAddress);
     }
@@ -62,16 +66,23 @@ final readonly class CustomerHydrator
     {
         if (!$data->isInvoice) {
             $customer->setInvoiceAddress(null);
+
             return;
         }
 
         $invoiceAddress = $customer->getInvoiceAddress() ?? new InvoiceAddress();
 
+        /** @var AddressData $invoiceAddressData */
+        $invoiceAddressData = $data->invoiceAddressData;
+
         $invoiceAddress->setAddress(
-            $this->addressHydrator->hydrate($data->invoiceAddressData, $invoiceAddress?->getAddress())
+            $this->addressHydrator->hydrate(
+                $invoiceAddressData,
+                $invoiceAddress->getAddress() ?? new Address()
+            )
         );
-        $invoiceAddress->setCompanyTaxId($data?->companyTaxId);
-        $invoiceAddress->setCompanyName($data?->companyName);
+        $invoiceAddress->setCompanyTaxId($data->companyTaxId);
+        $invoiceAddress->setCompanyName($data->companyName);
 
         $customer->setInvoiceAddress($invoiceAddress);
     }

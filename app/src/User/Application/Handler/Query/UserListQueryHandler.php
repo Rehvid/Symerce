@@ -15,7 +15,8 @@ final readonly class UserListQueryHandler implements QueryHandlerInterface
     public function __construct(
         private UserSearchService $searchService,
         private UserAssembler $assembler
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetUserListQuery $query): ApiResponse
     {

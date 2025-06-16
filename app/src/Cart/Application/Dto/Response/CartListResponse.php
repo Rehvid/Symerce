@@ -14,5 +14,6 @@ final readonly class CartListResponse
         public string $expiresAt,
         public string $createdAt,
         public string $updatedAt,
-    ) {}
+    ) {
+    }
 }

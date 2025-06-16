@@ -79,7 +79,7 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 }
             }
 
-            if ($category !== null) {
+            if (null !== $category) {
                 $product->addCategory($category);
             }
 
@@ -92,7 +92,7 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 }
             }
 
-            if ($deliveryTime !== null) {
+            if (null !== $deliveryTime) {
                 $product->setDeliveryTime($deliveryTime);
             }
 
@@ -105,17 +105,18 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                     }
                 }
 
-                if ($tag !== null) {
+                if (null !== $tag) {
                     $product->addTag($tag);
                 }
             }
 
             $manager->persist($product);
-            $this->addReference('product_' . $i, $product);
+            $this->addReference('product_'.$i, $product);
         }
 
         $manager->flush();
     }
+
     private function getData(): array
     {
         return [
@@ -127,11 +128,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 15,
                 'isActive' => true,
                 'order' => 0,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'elektronika',
                 'tagSlugs' => ['Premium', 'Nowość'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Słuchawki bezprzewodowe',
@@ -142,8 +143,8 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 30,
                 'isActive' => true,
                 'order' => 1,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'smartfony',
                 'tagSlugs' => ['Super Oferta'],
                 'deliveryTimeSlug' => 'express'],
@@ -156,11 +157,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 5,
                 'isActive' => true,
                 'order' => 2,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'categorySlug' => 'laptopy', 
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'categorySlug' => 'laptopy',
                 'tagSlugs' => ['Limitowana Edycja'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Smartfon OLED',
@@ -170,8 +171,8 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'discountPrice' => null,
                 'quantity' => 20,
                 'isActive' => true, 'order' => 3,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'smartfony',
                 'tagSlugs' => ['najlepszy_sprzedawca'],
                 'deliveryTimeSlug' => 'standard',
@@ -185,8 +186,8 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 8,
                 'isActive' => true,
                 'order' => 4,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'narzedzia',
                 'tagSlugs' => ['Premium'],
                 'deliveryTimeSlug' => 'economy',
@@ -200,11 +201,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 40,
                 'isActive' => true,
                 'order' => 5,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'laptopy',
                 'tagSlugs' => ['Nowość'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Aparat fotograficzny',
@@ -215,11 +216,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 12,
                 'isActive' => true,
                 'order' => 6,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'telewizory',
                 'tagSlugs' => ['Super Oferta', 'Limitowana Edycja'],
-                'deliveryTimeSlug' => 'express'
+                'deliveryTimeSlug' => 'express',
             ],
             [
                 'name' => 'Książka kucharska',
@@ -230,11 +231,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 100,
                 'isActive' => true,
                 'order' => 7,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'ksiazki',
                 'tagSlugs' => ['Nowość'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Stolik nocny',
@@ -245,11 +246,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 22,
                 'isActive' => true,
                 'order' => 8,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'meble',
                 'tagSlugs' => ['Premium'],
-                'deliveryTimeSlug' => 'economy'
+                'deliveryTimeSlug' => 'economy',
             ],
             [
                 'name' => 'Zestaw garnków',
@@ -260,11 +261,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 18,
                 'isActive' => true,
                 'order' => 9,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'meble',
                 'tagSlugs' => ['Limitowana Edycja'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Monitor 4K 27"',
@@ -275,8 +276,8 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 25,
                 'isActive' => true,
                 'order' => 10,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'telewizory',
                 'tagSlugs' => ['Super Oferta'],
                 'deliveryTimeSlug' => 'express',
@@ -290,11 +291,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 45,
                 'isActive' => true,
                 'order' => 11,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'narzedzia',
                 'tagSlugs' => ['Nowość'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Mysz gamingowa',
@@ -305,11 +306,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 60,
                 'isActive' => true,
                 'order' => 12,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'narzedzia',
                 'tagSlugs' => ['Premium'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Głośnik Bluetooth',
@@ -320,11 +321,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 35,
                 'isActive' => true,
                 'order' => 13,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'muzyka',
                 'tagSlugs' => ['Super Oferta'],
-                'deliveryTimeSlug' => 'economy'
+                'deliveryTimeSlug' => 'economy',
             ],
             [
                 'name' => 'Kamera sportowa',
@@ -335,11 +336,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 14,
                 'isActive' => true,
                 'order' => 14,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'telewizory',
                 'tagSlugs' => ['Nowość'],
-                'deliveryTimeSlug' => 'express'
+                'deliveryTimeSlug' => 'express',
             ],
             [
                 'name' => 'Torebka skórzana',
@@ -348,11 +349,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 22,
                 'isActive' => true,
                 'order' => 15,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'odziez-damska',
                 'tagSlugs' => ['Limitowana Edycja'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Buty trekkingowe',
@@ -363,11 +364,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 30,
                 'isActive' => true,
                 'order' => 16,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'odziez-meska',
                 'tagSlugs' => ['Premium'],
-                'deliveryTimeSlug' => 'economy'
+                'deliveryTimeSlug' => 'economy',
             ],
             [
                 'name' => 'Paleta farb akwarelowych',
@@ -378,11 +379,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 75,
                 'isActive' => true,
                 'order' => 17,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'narzedzia',
                 'tagSlugs' => ['Nowość'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
             [
                 'name' => 'Stojak na wino',
@@ -393,11 +394,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 27,
                 'isActive' => true,
                 'order' => 18, '
-                created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'meble',
                 'tagSlugs' => ['Super Oferta'],
-                'deliveryTimeSlug' => 'express'
+                'deliveryTimeSlug' => 'express',
             ],
             [
                 'name' => 'Puzzle 1000 elementów',
@@ -408,11 +409,11 @@ class ProductFixture extends Fixture implements FixtureGroupInterface, Dependent
                 'quantity' => 120,
                 'isActive' => true,
                 'order' => 19,
-                'created_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
-                'updated_at' => new \DateTime('-' . random_int(0, 365) . ' days'),
+                'created_at' => new \DateTime('-'.random_int(0, 365).' days'),
+                'updated_at' => new \DateTime('-'.random_int(0, 365).' days'),
                 'categorySlug' => 'ksiazki',
                 'tagSlugs' => ['Limitowana Edycja'],
-                'deliveryTimeSlug' => 'standard'
+                'deliveryTimeSlug' => 'standard',
             ],
         ];
     }

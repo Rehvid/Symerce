@@ -11,5 +11,6 @@ final readonly class ResetPasswordCommand implements CommandInterface
     public function __construct(
         public string $token,
         public string $newPassword,
-    ) {}
+    ) {
+    }
 }

@@ -11,5 +11,6 @@ final readonly class FilterValue
     public function __construct(
         public FilterDefinitionInterface $definition,
         public mixed $value
-    ) {}
+    ) {
+    }
 }

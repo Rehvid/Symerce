@@ -10,5 +10,6 @@ final readonly class GetProductForEditQuery implements QueryInterface
 {
     public function __construct(
         public int $productId,
-    ) {}
+    ) {
+    }
 }

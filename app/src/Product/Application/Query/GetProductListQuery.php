@@ -9,5 +9,7 @@ use App\Common\Application\Search\Dto\SearchData;
 
 final readonly class GetProductListQuery implements QueryInterface
 {
-    public function __construct(public SearchData $searchData) {}
+    public function __construct(public SearchData $searchData)
+    {
+    }
 }

@@ -10,7 +10,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class UserFixture extends Fixture implements FixtureGroupInterface
 {
-
     public function load(ObjectManager $manager): void
     {
         $user = new User();

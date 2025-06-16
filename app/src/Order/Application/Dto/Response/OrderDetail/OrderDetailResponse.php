@@ -8,13 +8,13 @@ final readonly class OrderDetailResponse
 {
     public function __construct(
         public OrderDetailInformationResponse $information,
+        public OrderDetailSummaryResponse $summary,
         public ?OrderDetailContactResponse $contactDetails = null,
         public ?OrderDetailDeliveryAddressResponse $deliveryAddress = null,
         public ?OrderDetailInvoiceAddressResponse $invoiceAddress = null,
         public ?OrderDetailShippingResponse $shipping = null,
         public ?OrderDetailPaymentResponse $payment = null,
         public ?OrderDetailItemsResponse $items = null,
-        public OrderDetailSummaryResponse $summary,
     ) {
     }
 }

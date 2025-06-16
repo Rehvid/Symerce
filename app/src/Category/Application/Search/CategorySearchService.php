@@ -8,11 +8,9 @@ use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Application\Search\AbstractSearchService;
 use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
-use Symfony\Component\HttpFoundation\Request;
 
 final class CategorySearchService extends AbstractSearchService
 {
-
     public function __construct(
         CategoryRepositoryInterface $repository,
         CategorySearchParserFactory $parserFactory,

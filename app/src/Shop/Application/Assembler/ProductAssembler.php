@@ -28,50 +28,50 @@ final readonly class ProductAssembler
     {
         $data = null;
 
-//        $discountPrice = $product->getDiscountPrice() === null ? null : (new Money($product->getDiscountPrice(), $currency))->getFormattedAmountWithSymbol();
-//        $hasPromotion = $discountPrice !== null;
-//
-//        $attributes = [];
-//
-//        foreach ($product->getAttributeValues() as $attributeValue) {
-//            $attribute = $attributeValue->getAttribute();
-//            $attributes[$attribute->getName()][] =  $attributeValue->getValue();
-//        }
-//
-//        $productRefund = $this->settingManager->get(SettingType::PRODUCT_REFUND)?->getValue();
-//        $deliveryFeeData = $this->carrierRepository->findLowestAndHighestFee();
-//
-//        $minFee = isset($deliveryFeeData['minFee']) ? (new Money((string) $deliveryFeeData['minFee'], $currency))->getFormattedAmountWithSymbol() : null;
-//        $maxFee = isset($deliveryFeeData['maxFee']) ? (new Money((string) $deliveryFeeData['maxFee'], $currency))->getFormattedAmountWithSymbol(): null;
-//
-//        $deliveryFee = match (true) {
-//            $minFee !== null && $maxFee !== null => "od $minFee do $maxFee",
-//            $minFee !== null => $minFee,
-//            $maxFee !== null => $maxFee,
-//            default => null,
-//        };
-//
-//
-//
-//        //TODO: Make responser and DTO
-//        $data = [
-//            'id' => $product->getId(),
-//            'name' => $product->getName(),
-//            'tags' => $product->getTags(),
-//            'vendor' => $product->getVendor(),
-//            'description' => $product->getDescription(),
-//            'regularPrice' => (new Money($product->getRegularPrice(), $currency))->getFormattedAmountWithSymbol(),
-//            'discountPrice' => $discountPrice,
-//            'hasPromotion' => $hasPromotion,
-//            'attributes' => $attributes,
-//            'thumbnail' => $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile()?->getPath()),
-//            'images' => $product->getImages()->map(fn (ProductImage $image) => $this->fileService->preparePublicPathToFile($image->getFile()->getPath())),
-//            'quantity' => $product->getQuantity(),
-//            'isOutOfStock' => $product->getQuantity() === 0,
-//            'deliveryTime' => $product->getDeliveryTime()->getLabel(),
-//            'refund' => null === $productRefund ? 14 : (int) $productRefund,
-//            'deliveryFee' => $deliveryFee,
-//        ];
+        //        $discountPrice = $product->getDiscountPrice() === null ? null : (new Money($product->getDiscountPrice(), $currency))->getFormattedAmountWithSymbol();
+        //        $hasPromotion = $discountPrice !== null;
+        //
+        //        $attributes = [];
+        //
+        //        foreach ($product->getAttributeValues() as $attributeValue) {
+        //            $attribute = $attributeValue->getAttribute();
+        //            $attributes[$attribute->getName()][] =  $attributeValue->getValue();
+        //        }
+        //
+        //        $productRefund = $this->settingManager->get(SettingType::PRODUCT_REFUND)?->getValue();
+        //        $deliveryFeeData = $this->carrierRepository->findLowestAndHighestFee();
+        //
+        //        $minFee = isset($deliveryFeeData['minFee']) ? (new Money((string) $deliveryFeeData['minFee'], $currency))->getFormattedAmountWithSymbol() : null;
+        //        $maxFee = isset($deliveryFeeData['maxFee']) ? (new Money((string) $deliveryFeeData['maxFee'], $currency))->getFormattedAmountWithSymbol(): null;
+        //
+        //        $deliveryFee = match (true) {
+        //            $minFee !== null && $maxFee !== null => "od $minFee do $maxFee",
+        //            $minFee !== null => $minFee,
+        //            $maxFee !== null => $maxFee,
+        //            default => null,
+        //        };
+        //
+        //
+        //
+        //        //TODO: Make responser and DTO
+        //        $data = [
+        //            'id' => $product->getId(),
+        //            'name' => $product->getName(),
+        //            'tags' => $product->getTags(),
+        //            'vendor' => $product->getVendor(),
+        //            'description' => $product->getDescription(),
+        //            'regularPrice' => (new Money($product->getRegularPrice(), $currency))->getFormattedAmountWithSymbol(),
+        //            'discountPrice' => $discountPrice,
+        //            'hasPromotion' => $hasPromotion,
+        //            'attributes' => $attributes,
+        //            'thumbnail' => $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile()?->getPath()),
+        //            'images' => $product->getImages()->map(fn (ProductImage $image) => $this->fileService->preparePublicPathToFile($image->getFile()->getPath())),
+        //            'quantity' => $product->getQuantity(),
+        //            'isOutOfStock' => $product->getQuantity() === 0,
+        //            'deliveryTime' => $product->getDeliveryTime()->getLabel(),
+        //            'refund' => null === $productRefund ? 14 : (int) $productRefund,
+        //            'deliveryFee' => $deliveryFee,
+        //        ];
 
 
         return [
@@ -81,10 +81,10 @@ final readonly class ProductAssembler
 
     public function createProductShowResponse(Product $product): ProductShowResponse
     {
-        $discountPrice = $product->getDiscountPrice() === null
+        $discountPrice = null === $product->getDiscountPrice()
             ? null
             : ($this->moneyFactory->create($product->getDiscountPrice()))->getFormattedAmountWithSymbol();
-        $hasPromotion = $discountPrice !== null;
+        $hasPromotion = null !== $discountPrice;
         $quantity = $product->getQuantity();
 
         $productRefund = $this->settingsService->getByKey(SettingKey::PRODUCT_REFUND_POLICY)?->getValue();
@@ -97,7 +97,7 @@ final readonly class ProductAssembler
             regularPrice: ($this->moneyFactory->create($product->getRegularPrice()))->getFormattedAmountWithSymbol(),
             discountPrice: $discountPrice,
             quantity: $quantity,
-            isOutOfStock: $quantity === 0,
+            isOutOfStock: 0 === $quantity,
             hasPromotion: $hasPromotion,
             refund: null === $productRefund ? 14 : (int) $productRefund,
             deliveryTime: $product->getDeliveryTime()->getLabel(),
@@ -121,9 +121,9 @@ final readonly class ProductAssembler
             : null;
 
         return match (true) {
-            $minFee !== null && $maxFee !== null => "od $minFee do $maxFee",
-            $minFee !== null => $minFee,
-            $maxFee !== null => $maxFee,
+            null !== $minFee && null !== $maxFee => "od $minFee do $maxFee",
+            null !== $minFee => $minFee,
+            null !== $maxFee => $maxFee,
             default => null,
         };
     }

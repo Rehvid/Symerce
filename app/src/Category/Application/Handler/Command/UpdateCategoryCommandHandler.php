@@ -12,7 +12,6 @@ use App\Common\Application\Dto\Response\IdResponse;
 use App\Common\Application\Service\SlugService;
 use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class UpdateCategoryCommandHandler implements CommandHandlerInterface
 {
@@ -20,7 +19,8 @@ final readonly class UpdateCategoryCommandHandler implements CommandHandlerInter
         private CategoryRepositoryInterface $repository,
         private CategoryHydrator $hydrator,
         private SlugService $slugService
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateCategoryCommand $command): IdResponse
     {

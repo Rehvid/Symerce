@@ -19,15 +19,17 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final readonly class ProductAssembler
 {
     public function __construct(
-        private MoneyFactory                    $moneyFactory,
-        private UrlGeneratorInterface           $urlGenerator,
-        private ResponseHelperAssembler         $responseHelperAssembler,
-        private ProductFormResponseFactory      $productFormResponseFactory,
-        private ProductFormContextFactory        $productFormContextFactory,
-    ) {}
+        private MoneyFactory $moneyFactory,
+        private UrlGeneratorInterface $urlGenerator,
+        private ResponseHelperAssembler $responseHelperAssembler,
+        private ProductFormResponseFactory $productFormResponseFactory,
+        private ProductFormContextFactory $productFormContextFactory,
+    ) {
+    }
 
     /**
      * @param array<int, mixed> $paginatedData
+     *
      * @return array<string, mixed>
      */
     public function toListResponse(array $paginatedData): array
@@ -52,10 +54,10 @@ final readonly class ProductAssembler
      */
     public function toFormDataResponse(Product $product): array
     {
-         return $this->responseHelperAssembler->wrapFormResponse(
-             data: $this->productFormResponseFactory->fromProduct($product),
-             context: $this->productFormContextFactory->create()
-         );
+        return $this->responseHelperAssembler->wrapFormResponse(
+            data: $this->productFormResponseFactory->fromProduct($product),
+            context: $this->productFormContextFactory->create()
+        );
     }
 
     public function toProductHistoryResponse(Product $product): array
@@ -64,7 +66,7 @@ final readonly class ProductAssembler
             'data' => array_map(
                 fn (ProductPriceHistory $history) => $this->createProductHistoryResponse($history, $product),
                 $product->getPriceHistory()->toArray()
-            )
+            ),
 
         ];
     }
@@ -95,8 +97,8 @@ final readonly class ProductAssembler
 
         $discountPrice = null;
         $promotion = $product->getPromotionForProductTab();
-        if ($promotion !== null) {
-            $discountPrice = $promotion->getType() === ReductionType::PERCENT
+        if (null !== $promotion) {
+            $discountPrice = ReductionType::PERCENT === $promotion->getType()
                 ? $regularPrice->subtractPercentage($promotion->getReduction())
                 : $regularPrice->subtract($promotion->getReduction());
         }
@@ -111,9 +113,8 @@ final readonly class ProductAssembler
             quantity: 0,
             showUrl: $this->urlGenerator->generate('shop.product_show', [
                 'slug' => $product->getSlug(),
-                'slugCategory' => $product->getCategories()->first()->getSlug(),
+                'slugCategory' => $product->getMainCategory()?->getSlug(),
             ]),
         );
     }
-
 }

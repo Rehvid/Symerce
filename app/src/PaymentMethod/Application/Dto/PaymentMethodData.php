@@ -17,5 +17,6 @@ final readonly class PaymentMethodData
         public array $config = [],
         public ?FileData $fileData = null,
         public ?int $id = null,
-    ) {}
+    ) {
+    }
 }

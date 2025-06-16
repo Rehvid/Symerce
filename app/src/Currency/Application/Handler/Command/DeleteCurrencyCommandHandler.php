@@ -14,7 +14,8 @@ final readonly class DeleteCurrencyCommandHandler implements CommandHandlerInter
 {
     public function __construct(
         private CurrencyRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteCurrencyCommand $command): void
     {

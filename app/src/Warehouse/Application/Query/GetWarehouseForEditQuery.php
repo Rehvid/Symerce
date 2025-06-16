@@ -10,5 +10,6 @@ final readonly class GetWarehouseForEditQuery implements QueryInterface
 {
     public function __construct(
         public int $warehouseId,
-    ) {}
+    ) {
+    }
 }

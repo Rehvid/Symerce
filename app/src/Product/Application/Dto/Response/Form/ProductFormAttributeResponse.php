@@ -11,5 +11,6 @@ final readonly class ProductFormAttributeResponse
     public function __construct(
         public string|OptionItem $value,
         public bool $isCustom,
-    ) {}
+    ) {
+    }
 }

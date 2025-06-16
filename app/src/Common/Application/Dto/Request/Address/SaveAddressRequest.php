@@ -16,7 +16,7 @@ final readonly class SaveAddressRequest
     #[Assert\NotBlank]
     #[Assert\Regex(
         pattern: '/^[A-Za-z]?[0-9A-Za-z\s-]{3,9}$/',
-        message: "Postal code must be 4 to 10 characters long and may contain letters, digits, spaces or hyphens. It can optionally start with a letter."
+        message: 'Postal code must be 4 to 10 characters long and may contain letters, digits, spaces or hyphens. It can optionally start with a letter.'
     )]
     public string $postalCode;
 
@@ -27,7 +27,6 @@ final readonly class SaveAddressRequest
 
     #[Assert\Valid]
     public IdRequest $countryIdRequest;
-
 
     public function __construct(
         string $street,

@@ -13,7 +13,6 @@ use App\Customer\Domain\Repository\CustomerRepositoryInterface;
  */
 final class CustomerDoctrineRepository extends AbstractCriteriaRepository implements CustomerRepositoryInterface
 {
-
     protected function getEntityClass(): string
     {
         return Customer::class;

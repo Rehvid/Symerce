@@ -13,8 +13,6 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 /**
  * @extends QueryRepositoryInterface<Tag>
  */
-interface TagRepositoryInterface
-    extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
+interface TagRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {
-
 }

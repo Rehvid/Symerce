@@ -13,8 +13,9 @@ use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
 final readonly class DeletePaymentMethodCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private  PaymentMethodRepositoryInterface $repository,
-    ) {}
+        private PaymentMethodRepositoryInterface $repository,
+    ) {
+    }
 
     public function __invoke(DeletePaymentMethodCommand $command): void
     {

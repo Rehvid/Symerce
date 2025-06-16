@@ -10,8 +10,6 @@ use App\Common\Domain\Repository\QueryRepositoryInterface;
 use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 
 /** @extends QueryRepositoryInterface<Country> */
-interface CountryRepositoryInterface
-    extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface
+interface CountryRepositoryInterface extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface
 {
-
 }

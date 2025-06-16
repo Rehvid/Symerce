@@ -30,11 +30,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class CheckoutController extends AbstractController
 {
     public function __construct(
-        private readonly RequestDtoResolver      $requestDtoResolver,
-        private readonly CartDoctrineRepository  $cartRepository,
+        private readonly RequestDtoResolver $requestDtoResolver,
+        private readonly CartDoctrineRepository $cartRepository,
         private readonly OrderDoctrineRepository $orderRepository,
-        private readonly EntityManagerInterface  $entityManager,
-    ){
+        private readonly EntityManagerInterface $entityManager,
+    ) {
     }
 
     #[Route('/save-address', name: 'save_address', methods: ['POST'])]
@@ -57,8 +57,7 @@ class CheckoutController extends AbstractController
         #[MapEntity(mapping: ['carrierId' => 'id'])] Carrier $carrier,
         Request $request,
         SaveCarrierUseCase $useCase
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $order = $this->getOrderByRequest($request);
         if (null === $order) {
             throw $this->createNotFoundException();
@@ -74,8 +73,7 @@ class CheckoutController extends AbstractController
         #[MapEntity(mapping: ['paymentMethodId' => 'id'])] PaymentMethod $paymentMethod,
         Request $request,
         SavePaymentMethodUseCase $useCase
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $order = $this->getOrderByRequest($request);
         if (null === $order) {
             throw $this->createNotFoundException();
@@ -107,7 +105,7 @@ class CheckoutController extends AbstractController
 
         return $this->json(
             data: new ApiResponse([
-                'paymentMethods' => $data
+                'paymentMethods' => $data,
             ])
         );
     }
@@ -140,14 +138,14 @@ class CheckoutController extends AbstractController
     }
 
     #[Route('/confirmation/data', name: 'confirmation_data', methods: ['GET'])]
-    public function getOrderForConfirmationStep(Request $request,  MoneyFactory $factory, FileService $service): JsonResponse
+    public function getOrderForConfirmationStep(Request $request, MoneyFactory $factory, FileService $service): JsonResponse
     {
         $order = $this->getOrderByRequest($request);
         if (null === $order) {
             throw $this->createNotFoundException();
         }
 
-        $isInvoice = $order->getInvoiceAddress() !== null;
+        $isInvoice = null !== $order->getInvoiceAddress();
 
         $data = [
             'addressStep' => [
@@ -167,8 +165,8 @@ class CheckoutController extends AbstractController
                     'postalCode' => $order->getInvoiceAddress()->getAddress()->getPostalCode(),
                     'city' => $order->getInvoiceAddress()->getAddress()->getCity(),
                     'companyName' => $order->getInvoiceAddress()->getCompanyName(),
-                    'companyTaxId' => $order->getInvoiceAddress()->getCompanyTaxId()
-                ] : []
+                    'companyTaxId' => $order->getInvoiceAddress()->getCompanyTaxId(),
+                ] : [],
             ],
             'carrierStep' => [
                 'name' => $order->getCarrier()->getName(),
@@ -185,7 +183,7 @@ class CheckoutController extends AbstractController
 
         return $this->json(
             data: new ApiResponse([
-                'data' => $data
+                'data' => $data,
             ])
         );
     }
@@ -206,6 +204,7 @@ class CheckoutController extends AbstractController
     private function getOrderByRequest(Request $request): ?Order
     {
         $order = $this->orderRepository->findByToken($request->cookies->get(CookieName::SHOP_CART->value));
+
         return $order ?? null;
     }
 }

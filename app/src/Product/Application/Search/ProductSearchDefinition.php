@@ -8,19 +8,18 @@ use App\Common\Application\Search\Contracts\SearchDefinitionInterface;
 use App\Common\Application\Search\Filter\BasicFilterDefinition;
 use App\Common\Application\Search\Filter\BoolFilterDefinition;
 use App\Common\Application\Search\Filter\RangeFilterDefinition;
-use App\Common\Domain\Enums\DirectionType;
 use App\Common\Domain\Enums\QueryOperator;
 
 final class ProductSearchDefinition implements SearchDefinitionInterface
 {
     public function allowedFilters(): array
     {
-       return [
+        return [
             new BoolFilterDefinition('isActive', QueryOperator::EQ),
             new BasicFilterDefinition('quantity', QueryOperator::EQ),
-            new RangeFilterDefinition('regularPrice', 'regularPriceFrom','regularPriceTo'),
-            new RangeFilterDefinition('discountPrice', 'discountPriceFrom','discountPriceTo'),
-            new BasicFilterDefinition('name',  QueryOperator::LIKE, 'search')
+            new RangeFilterDefinition('regularPrice', 'regularPriceFrom', 'regularPriceTo'),
+            new RangeFilterDefinition('discountPrice', 'discountPriceFrom', 'discountPriceTo'),
+            new BasicFilterDefinition('name', QueryOperator::LIKE, 'search'),
         ];
     }
 

@@ -15,7 +15,7 @@ use Twig\TwigFunction;
 class AppExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly SettingsService        $settingManager,
+        private readonly SettingsService $settingManager,
         private readonly  RequestStack $requestStack,
         private readonly CartRepositoryInterface $cartRepository,
     ) {

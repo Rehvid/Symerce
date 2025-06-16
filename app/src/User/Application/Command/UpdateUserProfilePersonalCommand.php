@@ -12,5 +12,6 @@ final readonly class UpdateUserProfilePersonalCommand implements CommandInterfac
     public function __construct(
         public int $userId,
         public ProfilePersonalData $data,
-    ) {}
+    ) {
+    }
 }

@@ -12,5 +12,6 @@ final readonly class UpdateCarrierCommand implements CommandInterface
     public function __construct(
         public CarrierData $data,
         public int $carrierId,
-    ) {}
+    ) {
+    }
 }

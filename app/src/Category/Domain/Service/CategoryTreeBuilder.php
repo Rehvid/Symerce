@@ -7,7 +7,6 @@ namespace App\Category\Domain\Service;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Domain\Entity\Category;
 
-
 final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
 {
     /**

@@ -14,17 +14,19 @@ use Doctrine\ORM\QueryBuilder;
 
 /**
  * @template T of object
+ *
  * @extends DoctrineRepository<T>
  */
 abstract class AbstractCriteriaRepository extends DoctrineRepository implements CriteriaRepositoryInterface
 {
     abstract protected function getAlias(): string;
+
     abstract protected function getEntityClass(): string;
 
     public function findByCriteria(SearchCriteria $criteria): PaginationResult
     {
         $alias = $this->getAlias();
-        
+
         $qb = $this->createQueryBuilder($alias);
 
         foreach ($criteria->filters as $filterCondition) {
@@ -32,7 +34,7 @@ abstract class AbstractCriteriaRepository extends DoctrineRepository implements 
         }
 
         if ($criteria->sortField) {
-            $qb->orderBy("$alias.". $criteria->sortField, $criteria->sortDirection->value);
+            $qb->orderBy("$alias.".$criteria->sortField, $criteria->sortDirection->value);
         }
 
         $countQueryBuilder = clone $qb;
@@ -74,8 +76,8 @@ abstract class AbstractCriteriaRepository extends DoctrineRepository implements 
                 $qb->andWhere("$field IN (:$param)")->setParameter($param, $filterCondition->value);
                 break;
             case QueryOperator::BETWEEN:
-                if (!is_array($filterCondition->value) || count($filterCondition->value) !== 2 ) {
-                    throw new \InvalidArgumentException("BETWEEN requires [from,to]");
+                if (!is_array($filterCondition->value) || 2 !== count($filterCondition->value)) {
+                    throw new \InvalidArgumentException('BETWEEN requires [from,to]');
                 }
                 $from = $filterCondition->value['from'] ?? null;
                 $to = $filterCondition->value['to'] ?? null;
@@ -105,7 +107,7 @@ abstract class AbstractCriteriaRepository extends DoctrineRepository implements 
                 $qb->andWhere("$field < :$param")->setParameter($param, $filterCondition->value);
                 break;
             default:
-                throw new \InvalidArgumentException("Query Operator not supported");
+                throw new \InvalidArgumentException('Query Operator not supported');
         }
     }
 }

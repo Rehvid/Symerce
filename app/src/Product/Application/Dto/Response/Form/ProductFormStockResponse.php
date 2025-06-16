@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Dto\Response\Form;
 
-use App\Common\Application\Dto\OptionItem;
-use DateTimeInterface;
-
 final readonly class ProductFormStockResponse
 {
     public function __construct(
@@ -15,7 +12,8 @@ final readonly class ProductFormStockResponse
         public ?string $sku,
         public ?int $lowStockThreshold,
         public ?int $maximumStockLevel,
-        public ?OptionItem $warehouseId,
-        public ?DateTimeInterface $restockDate,
-    ) {}
+        public ?int $warehouseId,
+        public ?\DateTimeInterface $restockDate,
+    ) {
+    }
 }

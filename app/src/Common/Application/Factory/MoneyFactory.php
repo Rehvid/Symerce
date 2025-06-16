@@ -10,7 +10,7 @@ use App\Common\Domain\ValueObject\MoneyVO;
 final readonly class MoneyFactory
 {
     public function __construct(
-        private  SettingsService $settingManager
+        private SettingsService $settingManager
     ) {
     }
 

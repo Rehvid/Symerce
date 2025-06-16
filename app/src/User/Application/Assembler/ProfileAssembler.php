@@ -18,7 +18,7 @@ final readonly class ProfileAssembler
     public function toPersonalResponse(User $user): array
     {
         return [
-            'user' => $this->createPersonalResponse($user)
+            'user' => $this->createPersonalResponse($user),
         ];
     }
 

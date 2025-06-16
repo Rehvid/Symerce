@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\Brand\Application\Handler\Query;
 
@@ -15,7 +15,8 @@ final readonly class BrandListQueryHandler implements QueryHandlerInterface
     public function __construct(
         private BrandSearchService $searchService,
         private BrandAssembler $assembler,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetBrandListQuery $query): ApiResponse
     {

@@ -18,5 +18,6 @@ final readonly class CategoryData
         public ?string $slug,
         public ?string $description,
         public ?FileData $fileData,
-    ) {}
+    ) {
+    }
 }

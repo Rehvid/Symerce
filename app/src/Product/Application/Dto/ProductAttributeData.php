@@ -9,10 +9,10 @@ use App\Common\Domain\Entity\AttributeValue;
 
 final readonly class ProductAttributeData
 {
-
     public function __construct(
         public Attribute $attribute,
         public string|AttributeValue $value,
         public bool $isCustom
-    ) {}
+    ) {
+    }
 }

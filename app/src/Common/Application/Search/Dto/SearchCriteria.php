@@ -10,11 +10,12 @@ final readonly class SearchCriteria
 {
     /** @param FilterCondition[] $filters */
     public function __construct(
-        public array   $filters,
+        public array $filters,
         public ?string $sortField     = null,
-        public DirectionType  $sortDirection = DirectionType::ASC,
-        public int     $limit         = 0,
-        public int     $offset        = 0,
-        public int  $page          = 1,
-    ) {}
+        public DirectionType $sortDirection = DirectionType::ASC,
+        public int $limit         = 0,
+        public int $offset        = 0,
+        public int $page          = 1,
+    ) {
+    }
 }

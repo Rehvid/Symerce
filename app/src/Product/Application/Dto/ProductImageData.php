@@ -14,5 +14,6 @@ final readonly class ProductImageData
         public bool $isThumbnail,
         public ?FileData $fileData,
         public int $position,
-    ) {}
+    ) {
+    }
 }

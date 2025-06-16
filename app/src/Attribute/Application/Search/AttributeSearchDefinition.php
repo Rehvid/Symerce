@@ -11,12 +11,11 @@ use App\Common\Domain\Enums\QueryOperator;
 
 final class AttributeSearchDefinition implements SearchDefinitionInterface
 {
-
     public function allowedFilters(): array
     {
         return [
             new BoolFilterDefinition('isActive', QueryOperator::EQ),
-            new BasicFilterDefinition('name',  QueryOperator::LIKE, 'search'),
+            new BasicFilterDefinition('name', QueryOperator::LIKE, 'search'),
         ];
     }
 

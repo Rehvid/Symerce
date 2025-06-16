@@ -12,8 +12,8 @@ final readonly class OrderCreationContextQueryHandler implements QueryHandlerInt
 {
     public function __construct(
         private OrderAssembler $assembler,
-    ) {}
-
+    ) {
+    }
 
     public function __invoke(GetOrderCreationContextQuery $query): array
     {

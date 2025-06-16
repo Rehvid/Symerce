@@ -11,5 +11,6 @@ final readonly class CreateOrderCommand implements CommandInterface
 {
     public function __construct(
         public OrderData $data
-    ) {}
+    ) {
+    }
 }

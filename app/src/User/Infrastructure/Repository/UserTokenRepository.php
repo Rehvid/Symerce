@@ -23,7 +23,6 @@ final class UserTokenRepository extends DoctrineRepository implements UserTokenR
         return 'user_token';
     }
 
-
     public function findByToken(string $token): ?UserToken
     {
         return $this->findOneBy(['token' => $token]);

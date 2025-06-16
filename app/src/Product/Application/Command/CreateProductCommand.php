@@ -11,5 +11,6 @@ final readonly class CreateProductCommand implements CommandInterface
 {
     public function __construct(
         public ProductData $data
-    ){}
+    ) {
+    }
 }

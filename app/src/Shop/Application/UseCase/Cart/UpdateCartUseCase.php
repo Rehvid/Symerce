@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Shop\Application\UseCase\Cart;
 
 use App\Common\Domain\Entity\Cart;
-use App\DTO\Admin\Response\ResponseInterfaceData;
 use App\Shop\Application\DTO\Request\Cart\SaveCartRequest;
 use App\Shop\Application\DTO\Response\Cart\CartSaveResponse;
 use App\Shop\Application\Service\CartService;

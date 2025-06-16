@@ -14,5 +14,6 @@ final readonly class SettingField
         public SettingInputType $inputType,
         public mixed $value,
         public array $availableOptions = [],
-    ) {}
+    ) {
+    }
 }

@@ -14,7 +14,8 @@ final readonly class DeleteProductCommandHandler implements CommandHandlerInterf
 {
     public function __construct(
         private ProductRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteProductCommand $command): void
     {

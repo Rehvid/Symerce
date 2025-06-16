@@ -11,7 +11,6 @@ use App\PaymentMethod\Application\Assembler\PaymentMethodAssembler;
 use App\PaymentMethod\Application\Query\GetPaymentMethodForEditQuery;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
 
-
 final readonly class PaymentMethodForEditQueryHandler implements QueryHandlerInterface
 {
     public function __construct(

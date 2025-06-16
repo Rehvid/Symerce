@@ -16,7 +16,8 @@ final readonly class CreateTagCommandHandler implements CommandHandlerInterface
     public function __construct(
         private TagHydrator $hydrator,
         private TagRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     public function __invoke(CreateTagCommand $command): IdResponse
     {

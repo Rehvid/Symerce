@@ -10,5 +10,6 @@ final readonly class OrderDetailInvoiceAddressResponse
         public OrderDetailAddressResponse $address,
         public ?string $companyTaxId = null,
         public ?string $companyName = null,
-    ) {}
+    ) {
+    }
 }

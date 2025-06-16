@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Common\Application\Dto\Request\Address;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class SaveAddressDeliveryRequest
@@ -13,7 +14,7 @@ final readonly class SaveAddressDeliveryRequest
     #[Assert\When(
         expression: 'this.deliveryInstructions !== null',
         constraints: [
-            new Assert\Length(min: 2)
+            new Assert\Length(min: 2),
         ]
     )]
     public ?string $deliveryInstructions;

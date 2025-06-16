@@ -11,7 +11,6 @@ use App\Order\Domain\Enums\PaymentStatus;
 
 final readonly class CreatePaymentUseCase
 {
-
     public function execute(Order $order, PaymentMethod $paymentMethod): Payment
     {
         $payment = new Payment();

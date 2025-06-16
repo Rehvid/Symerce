@@ -14,7 +14,8 @@ final readonly class DeleteCustomerCommandHandler implements CommandHandlerInter
 {
     public function __construct(
         private CustomerRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteCustomerCommand $command): void
     {

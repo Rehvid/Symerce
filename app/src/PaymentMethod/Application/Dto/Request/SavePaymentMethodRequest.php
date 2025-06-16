@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\PaymentMethod\Application\Dto\Request;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
 use App\Common\Application\Dto\Request\IdRequest;
 use App\Common\Domain\Entity\PaymentMethod;
@@ -36,13 +35,13 @@ final readonly class SavePaymentMethodRequest
 
     public bool $isRequireWebhook;
 
-    /** @var array<mixed, mixed>  */
-    public ?array $config;
+    /** @var array<mixed, mixed> */
+    public array $config;
 
     public ?FileData $fileData;
 
     /**
-     * @param array<mixed, mixed> $config
+     * @param array<mixed, mixed>  $config
      * @param array<string, mixed> $thumbnail
      */
     public function __construct(
@@ -51,7 +50,7 @@ final readonly class SavePaymentMethodRequest
         string $code,
         mixed $isActive,
         mixed $isRequireWebhook,
-        null|string|int $id,
+        string|int|null $id,
         array $config,
         ?array $thumbnail
     ) {
@@ -64,5 +63,4 @@ final readonly class SavePaymentMethodRequest
         $this->fileData = $thumbnail ? FileData::fromArray($thumbnail) : null;
         $this->idRequest = new IdRequest($id);
     }
-
 }

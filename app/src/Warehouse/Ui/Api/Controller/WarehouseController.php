@@ -78,7 +78,6 @@ final class WarehouseController extends AbstractApiController
         );
     }
 
-
     #[Route('', name: 'store', methods: ['POST'], format: 'json')]
     public function store(Request $request): JsonResponse
     {

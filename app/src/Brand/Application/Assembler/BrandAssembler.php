@@ -15,10 +15,12 @@ final readonly class BrandAssembler
     public function __construct(
         private ResponseHelperAssembler $responseHelperAssembler,
         private ProductRepositoryInterface $productRepository,
-    ) {}
+    ) {
+    }
 
     /**
-     * @param array<integer,mixed> $paginatedData
+     * @param array<int,mixed> $paginatedData
+     *
      * @return BrandListResponse[]
      */
     public function toListResponse(array $paginatedData): array
@@ -51,7 +53,7 @@ final readonly class BrandAssembler
     private function createVendorListResponse(Brand $brand): BrandListResponse
     {
         $brandId = $brand->getId();
-        
+
         return new BrandListResponse(
             id: $brandId,
             name: $brand->getName(),

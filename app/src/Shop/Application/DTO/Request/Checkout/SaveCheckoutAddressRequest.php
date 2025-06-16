@@ -11,14 +11,14 @@ use App\Shop\Application\DTO\Request\ContactDetails\SaveContactDetailsRequest;
 
 final readonly class SaveCheckoutAddressRequest implements ArrayHydratableInterface
 {
-     public function __construct(
-         public SaveContactDetailsRequest $saveContactDetailsRequest,
-         public SaveAddressDeliveryRequest $saveAddressDeliveryRequest,
-         public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest = null,
-         public bool $useInvoiceAddress = false,
-     ) {
+    public function __construct(
+        public SaveContactDetailsRequest $saveContactDetailsRequest,
+        public SaveAddressDeliveryRequest $saveAddressDeliveryRequest,
+        public ?SaveAddressInvoiceRequest $saveAddressInvoiceRequest = null,
+        public bool $useInvoiceAddress = false,
+    ) {
 
-     }
+    }
 
     public static function fromArray(array $data): ArrayHydratableInterface
     {

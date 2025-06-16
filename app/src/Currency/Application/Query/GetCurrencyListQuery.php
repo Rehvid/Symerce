@@ -6,9 +6,10 @@ namespace App\Currency\Application\Query;
 
 use App\Common\Application\Query\Interfaces\QueryInterface;
 use App\Common\Application\Search\Dto\SearchData;
-use Symfony\Component\HttpFoundation\Request;
 
 final readonly class GetCurrencyListQuery implements QueryInterface
 {
-    public function __construct(public SearchData $searchData) {}
+    public function __construct(public SearchData $searchData)
+    {
+    }
 }

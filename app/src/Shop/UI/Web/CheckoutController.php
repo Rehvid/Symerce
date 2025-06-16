@@ -10,14 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-
 final class CheckoutController extends AbstractController
 {
-
     #[Route('/checkout/{step}', name: 'shop.checkout_step', requirements: ['step' => 'address|shipping|payment|confirmation'], methods: ['GET'])]
     public function renderStep(CheckoutStep $step): Response
     {
-        //TODO: Check if customer accomplished previous step and can view next step
+        // TODO: Check if customer accomplished previous step and can view next step
         return $this->render('shop/checkout/checkout.html.twig', [
             'step' => $step,
         ]);
@@ -28,5 +26,4 @@ final class CheckoutController extends AbstractController
     {
         return $this->render('shop/checkout/thank-you.html.twig');
     }
-
 }

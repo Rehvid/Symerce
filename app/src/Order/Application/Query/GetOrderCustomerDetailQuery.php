@@ -8,5 +8,7 @@ use App\Common\Application\Query\Interfaces\QueryInterface;
 
 final readonly class GetOrderCustomerDetailQuery implements QueryInterface
 {
-    public function __construct(public int $customerId) {}
+    public function __construct(public int $customerId)
+    {
+    }
 }

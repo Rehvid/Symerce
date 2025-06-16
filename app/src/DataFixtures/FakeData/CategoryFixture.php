@@ -50,7 +50,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
 
         $manager->flush();
     }
-    
+
     private function getCategoriesData(): array
     {
         return [
@@ -66,7 +66,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                     ['name' => 'Smartfony', 'slug' => 'smartfony', 'description' => 'Telefony komórkowe i akcesoria', 'createdAt' => '2025-05-01 08:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 1],
                     ['name' => 'Laptopy', 'slug' => 'laptopy', 'description' => 'Laptopy i komputery przenośne', 'createdAt' => '2025-05-01 08:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 2],
                     ['name' => 'Telewizory', 'slug' => 'telewizory', 'description' => 'Telewizory LED, OLED, 4K i więcej', 'createdAt' => '2025-05-01 08:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 3],
-                ]
+                ],
             ],
             [
                 'name' => 'Odzież',
@@ -80,7 +80,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                     ['name' => 'Odzież męska', 'slug' => 'odziez-meska', 'description' => 'Koszule, spodnie, kurtki i akcesoria dla mężczyzn', 'createdAt' => '2025-05-02 09:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 1],
                     ['name' => 'Odzież damska', 'slug' => 'odziez-damska', 'description' => 'Sukienki, bluzki, spodnie i dodatki dla kobiet', 'createdAt' => '2025-05-02 09:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 2],
                     ['name' => 'Odzież dziecięca', 'slug' => 'odziez-dziecieca', 'description' => 'Odzież dla dzieci w każdym wieku', 'createdAt' => '2025-05-02 09:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 3],
-                ]
+                ],
             ],
             [
                 'name' => 'Dom i ogród',
@@ -94,7 +94,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                     ['name' => 'Meble', 'slug' => 'meble', 'description' => 'Meble do salonu, sypialni, biura i ogrodu', 'createdAt' => '2025-05-03 10:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 1],
                     ['name' => 'Oświetlenie', 'slug' => 'oswietlenie', 'description' => 'Lampy, żarówki, oświetlenie dekoracyjne', 'createdAt' => '2025-05-03 10:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 2],
                     ['name' => 'Narzędzia', 'slug' => 'narzedzia', 'description' => 'Narzędzia do prac domowych i ogrodowych', 'createdAt' => '2025-05-03 10:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 3],
-                ]
+                ],
             ],
             [
                 'name' => 'Zdrowie i uroda',
@@ -108,7 +108,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                     ['name' => 'Kosmetyki', 'slug' => 'kosmetyki', 'description' => 'Kosmetyki do pielęgnacji skóry, włosów, twarzy', 'createdAt' => '2025-05-04 11:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 1],
                     ['name' => 'Suplementy diety', 'slug' => 'suplementy-diety', 'description' => 'Suplementy na zdrowie, witalność i urodę', 'createdAt' => '2025-05-04 11:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 2],
                     ['name' => 'Pielęgnacja ciała', 'slug' => 'pielegnacja-ciala', 'description' => 'Kremy, balsamy, olejki do pielęgnacji skóry', 'createdAt' => '2025-05-04 11:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 3],
-                ]
+                ],
             ],
             [
                 'name' => 'Sport i rekreacja',
@@ -122,7 +122,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                     ['name' => 'Odzież sportowa', 'slug' => 'odziez-sportowa', 'description' => 'Odzież i akcesoria do ćwiczeń i aktywności fizycznej', 'createdAt' => '2025-05-05 12:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 1],
                     ['name' => 'Sprzęt fitness', 'slug' => 'sprzet-fitness', 'description' => 'Sprzęt do ćwiczeń w domu i na siłowni', 'createdAt' => '2025-05-05 12:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 2],
                     ['name' => 'Turystyka', 'slug' => 'turystyka', 'description' => 'Sprzęt i akcesoria turystyczne', 'createdAt' => '2025-05-05 12:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 3],
-                ]
+                ],
             ],
             [
                 'name' => 'Kultura i rozrywka',
@@ -136,7 +136,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                     ['name' => 'Książki', 'slug' => 'ksiazki', 'description' => 'Literatura, książki edukacyjne, powieści', 'createdAt' => '2025-05-06 13:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 1],
                     ['name' => 'Filmy i seriale', 'slug' => 'filmy-i-seriale', 'description' => 'Filmy DVD, Blu-Ray, subskrypcje cyfrowe', 'createdAt' => '2025-05-06 13:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 2],
                     ['name' => 'Muzyka', 'slug' => 'muzyka', 'description' => 'Płyty CD, winyle, subskrypcje muzyczne', 'createdAt' => '2025-05-06 13:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 3],
-                ]
+                ],
             ],
             [
                 'name' => 'Motoryzacja',
@@ -150,7 +150,7 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                     ['name' => 'Części samochodowe', 'slug' => 'czesci-samochodowe', 'description' => 'Części i akcesoria samochodowe', 'createdAt' => '2025-05-07 14:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 1],
                     ['name' => 'Opony i felgi', 'slug' => 'opony-i-felgi', 'description' => 'Opony, felgi i akcesoria do kół', 'createdAt' => '2025-05-07 14:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 2],
                     ['name' => 'Akcesoria samochodowe', 'slug' => 'akcesoria-samochodowe', 'description' => 'Pokrowce, gadżety i akcesoria samochodowe', 'createdAt' => '2025-05-07 14:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 3],
-                ]
+                ],
             ],
             [
                 'name' => 'Artykuły biurowe',
@@ -164,8 +164,8 @@ class CategoryFixture extends Fixture implements FixtureGroupInterface
                     ['name' => 'Papier', 'slug' => 'papier', 'description' => 'Papier do drukarek, notesy, karteczki', 'createdAt' => '2025-05-08 15:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 1],
                     ['name' => 'Narzędzia biurowe', 'slug' => 'narzedzia-biurowe', 'description' => 'Długopisy, zszywacze, tusze, kalkulatory', 'createdAt' => '2025-05-08 15:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 2],
                     ['name' => 'Meble biurowe', 'slug' => 'meble-biurowe', 'description' => 'Biurka, krzesła, regały i akcesoria', 'createdAt' => '2025-05-08 15:00:00', 'updatedAt' => '2025-05-10 12:00:00', 'order' => 3],
-                ]
-            ]
+                ],
+            ],
         ];
 
     }

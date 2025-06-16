@@ -13,4 +13,5 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
  * @extends QueryRepositoryInterface<Brand>
  */
 interface BrandRepositoryInterface extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface
-{}
+{
+}

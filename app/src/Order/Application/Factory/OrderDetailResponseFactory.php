@@ -82,26 +82,32 @@ final readonly class OrderDetailResponseFactory
 
     private function createOrderDetailDeliveryAddressResponse(Order $order): ?OrderDetailDeliveryAddressResponse
     {
-        $deliveryAddress = $order->getDeliveryAddress();
+        $deliveryAddress = $order->getDeliveryAddressToUse();
         if (null === $deliveryAddress) {
             return null;
         }
 
+        /** @var Address $address */
+        $address = $deliveryAddress->getAddress();
+
         return new OrderDetailDeliveryAddressResponse(
-            address: $this->createAddress($deliveryAddress->getAddress()),
+            address: $this->createAddress($address),
             deliveryInstructions: $deliveryAddress->getDeliveryInstructions(),
         );
     }
 
     private function createOrderDetailInvoiceAddressResponse(Order $order): ?OrderDetailInvoiceAddressResponse
     {
-        $invoiceAddress = $order->getInvoiceAddress();
+        $invoiceAddress = $order->getInvoiceAddressToUse();
         if (null === $invoiceAddress) {
             return null;
         }
 
+        /** @var Address $address */
+        $address = $invoiceAddress->getAddress();
+
         return new OrderDetailInvoiceAddressResponse(
-            address: $this->createAddress($invoiceAddress->getAddress()),
+            address: $this->createAddress($address),
             companyTaxId: $invoiceAddress->getCompanyTaxId(),
             companyName: $invoiceAddress->getCompanyName(),
         );
@@ -126,13 +132,12 @@ final readonly class OrderDetailResponseFactory
 
         return new OrderDetailShippingResponse(
             name: $carrier->getName(),
-            fee: $this->moneyFactory->create($carrier->getFee())->getFormattedAmountWithSymbol()
+            fee: $this->moneyFactory->create((string) $carrier->getFee())->getFormattedAmountWithSymbol()
         );
     }
 
-    private function createOrderDetailPaymentResponse(Order $order): ?OrderDetailPaymentResponse
+    private function createOrderDetailPaymentResponse(Order $order): OrderDetailPaymentResponse
     {
-
         return new OrderDetailPaymentResponse(
             paymentsCollection: array_map(
                 fn (Payment $payment) => $this->createOrderDetailPaymentItemResponse($payment),
@@ -143,8 +148,8 @@ final readonly class OrderDetailResponseFactory
 
     private function createOrderDetailPaymentItemResponse(Payment $payment): OrderDetailPaymentItemResponse
     {
-        $paidAt = $payment->getPaidAt() === null ? null : (new DateVO($payment->getPaidAt()))->formatRaw();
-        $amount = $payment->getAmount() === null ? null : $this->moneyFactory->create($payment->getAmount())->getFormattedAmountWithSymbol();
+        $paidAt = null === $payment->getPaidAt() ? null : (new DateVO($payment->getPaidAt()))->formatRaw();
+        $amount = null === $payment->getAmount() ? null : $this->moneyFactory->create($payment->getAmount())->getFormattedAmountWithSymbol();
 
         return new OrderDetailPaymentItemResponse(
             id: $payment->getId(),
@@ -156,7 +161,7 @@ final readonly class OrderDetailResponseFactory
         );
     }
 
-    private function createOrderDetailItemsResponse(Order $order): ?OrderDetailItemsResponse
+    private function createOrderDetailItemsResponse(Order $order): OrderDetailItemsResponse
     {
         return new OrderDetailItemsResponse(
             itemCollection: array_map(
@@ -177,10 +182,12 @@ final readonly class OrderDetailResponseFactory
             $editUrl = $this->urlGenerator->generate(
                 'app_admin_react',
                 [
-                    'reactRoute' => "products/{$product->getId()}/edit"
+                    'reactRoute' => "products/{$product->getId()}/edit",
                 ]
             );
-            $imageUrl = $this->fileService->preparePublicPathToFile($product->getThumbnailImage()?->getFile());
+            $imageUrl = $this->fileService->preparePublicPathToFile(
+                $product->getThumbnailImage()?->getFile()->getPath()
+            );
         }
 
 
@@ -196,7 +203,7 @@ final readonly class OrderDetailResponseFactory
 
     private function createOrderDetailSummaryResponse(Order $order): OrderDetailSummaryResponse
     {
-       $orderPriceSummary = $this->orderPriceCalculator->calculatePriceSummary($order);
+        $orderPriceSummary = $this->orderPriceCalculator->calculatePriceSummary($order);
 
         return new OrderDetailSummaryResponse(
             summaryProductPrice: $orderPriceSummary?->totalProductPrice?->getFormattedAmountWithSymbol(),

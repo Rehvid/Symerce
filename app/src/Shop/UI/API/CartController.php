@@ -10,8 +10,6 @@ use App\Common\Domain\Entity\CartItem;
 use App\Common\Domain\Enums\CookieName;
 use App\Common\Infrastructure\Http\CookieFactory;
 use App\Common\Infrastructure\Http\RequestDtoResolver;
-use App\Service\CookieManager;
-use App\Service\Response\ResponseService;
 use App\Shop\Application\DTO\Request\Cart\ChangeQuantityProductRequest;
 use App\Shop\Application\DTO\Request\Cart\SaveCartRequest;
 use App\Shop\Application\DTO\Response\Cart\CartSaveResponse;
@@ -32,13 +30,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class CartController extends AbstractController
 {
     public function __construct(
-        private readonly RequestDtoResolver     $requestDtoResolver,
+        private readonly RequestDtoResolver $requestDtoResolver,
         private readonly CartDoctrineRepository $cartRepository,
-        private readonly CreateCartUseCase      $createCartUseCase,
-        private readonly UpdateCartUseCase      $updateCartUseCase,
-        private readonly ParameterBagInterface  $parameterBag,
-    )
-    {
+        private readonly CreateCartUseCase $createCartUseCase,
+        private readonly UpdateCartUseCase $updateCartUseCase,
+        private readonly ParameterBagInterface $parameterBag,
+    ) {
     }
 
     #[Route('', name: 'list', methods: ['GET'])]
@@ -58,8 +55,7 @@ class CartController extends AbstractController
     public function changeQuantityProduct(
         Request $request,
         ChangeProductQuantityUseCase $useCase
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $cart = $this->cartRepository->findByToken($request->cookies->get(CookieName::SHOP_CART->value));
 
         if (!$cart) {
@@ -85,7 +81,6 @@ class CartController extends AbstractController
         return $this->json(new ApiResponse([$useCase->execute($cart, $cartItem)]));
     }
 
-
     #[Route('', name: 'add_or_update_cart', methods: ['POST'])]
     public function addOrUpdateCart(Request $request, CookieFactory $cookieFactory): JsonResponse
     {
@@ -94,23 +89,25 @@ class CartController extends AbstractController
 
         if ($cart) {
             $data = $this->updateCartUseCase->execute($cartRequest, $cart);
+
             return $this->json(new ApiResponse(['cart' => $data]));
         }
 
         $newCart = $this->createCartUseCase->execute($cartRequest);
         $expiresAt = new \DateTime();
-        $expiresAt->add(new \DateInterval('PT' . $this->parameterBag->get('app.cart_token_expires'). 'S'));
+        $expiresAt->add(new \DateInterval('PT'.$this->parameterBag->get('app.cart_token_expires').'S'));
         $cookie = $cookieFactory->create(CookieName::SHOP_CART, $newCart->getToken(), $expiresAt);
 
         $response = $this->json(
             new ApiResponse(
                 data: [
-                    'cart' => new CartSaveResponse(totalQuantity: $newCart->getTotalQuantity())
+                    'cart' => new CartSaveResponse(totalQuantity: $newCart->getTotalQuantity()),
                 ]
             )
         );
 
         $response->headers->setCookie($cookie);
+
         return $response;
     }
 }

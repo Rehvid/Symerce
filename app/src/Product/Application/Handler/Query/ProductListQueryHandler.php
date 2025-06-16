@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\Product\Application\Handler\Query;
 
@@ -15,7 +15,8 @@ final readonly class ProductListQueryHandler implements QueryHandlerInterface
     public function __construct(
         private ProductAssembler $assembler,
         private ProductSearchService $searchService
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetProductListQuery $query): ApiResponse
     {

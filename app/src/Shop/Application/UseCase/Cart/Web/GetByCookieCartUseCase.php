@@ -13,9 +13,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final readonly class GetByCookieCartUseCase
 {
     public function __construct(
-        private TranslatorInterface   $translator,
+        private TranslatorInterface $translator,
         private CartRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function execute(Request $request): array
     {
@@ -25,7 +26,7 @@ final readonly class GetByCookieCartUseCase
         }
 
         return [
-            'cart' => $cart
+            'cart' => $cart,
         ];
     }
 }

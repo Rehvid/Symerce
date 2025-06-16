@@ -16,7 +16,8 @@ final readonly class CategoryForEditQueryHandler implements QueryHandlerInterfac
     public function __construct(
         private CategoryAssembler $assembler,
         private CategoryRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetCategoryForEditQuery $query): array
     {

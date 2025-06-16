@@ -10,5 +10,6 @@ final readonly class GetAttributeValueForEditQuery implements QueryInterface
 {
     public function __construct(
         public int $attributeValueId,
-    ) {}
+    ) {
+    }
 }

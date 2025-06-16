@@ -14,5 +14,6 @@ final readonly class WarehouseFormResponse
         public string $postalCode,
         public string $city,
         public int $countryId,
-    ) {}
+    ) {
+    }
 }

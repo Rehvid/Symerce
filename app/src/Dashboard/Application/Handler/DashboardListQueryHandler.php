@@ -11,12 +11,14 @@ use App\Dashboard\Assembler\DashboardAssembler;
 
 final readonly class DashboardListQueryHandler implements QueryHandlerInterface
 {
-    public function __construct(private DashboardAssembler $dashboardAssembler) {}
+    public function __construct(private DashboardAssembler $dashboardAssembler)
+    {
+    }
 
     public function __invoke(GetDashboardListQuery $query): ApiResponse
     {
         return new ApiResponse(data: [
-            'data' => $this->dashboardAssembler->toListResponse()
+            'data' => $this->dashboardAssembler->toListResponse(),
         ]);
     }
 }

@@ -11,7 +11,6 @@ use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
  */
 class CarrierDoctrineRepository extends AbstractCriteriaRepository implements CarrierRepositoryInterface
 {
-
     /** @return array<int, mixed> */
     public function findLowestAndHighestFee(): array
     {
@@ -20,7 +19,7 @@ class CarrierDoctrineRepository extends AbstractCriteriaRepository implements Ca
         return $this->createQueryBuilder($alias)
             ->select("MAX($alias.fee) as maxFee, MIN($alias.fee) as minFee")
             ->andWhere("$alias.isActive = :active")
-            ->setParameter("active", true)
+            ->setParameter('active', true)
             ->getQuery()
             ->getSingleResult();
     }

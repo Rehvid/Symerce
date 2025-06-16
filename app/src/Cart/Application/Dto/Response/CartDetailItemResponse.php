@@ -13,5 +13,6 @@ final readonly class CartDetailItemResponse
         public int $quantity,
         public string $totalPrice,
         public ?string $editUrl
-    ) {}
+    ) {
+    }
 }

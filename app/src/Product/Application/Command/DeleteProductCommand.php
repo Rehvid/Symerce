@@ -10,5 +10,6 @@ final readonly class DeleteProductCommand implements CommandInterface
 {
     public function __construct(
         public int $productId
-    ) {}
+    ) {
+    }
 }

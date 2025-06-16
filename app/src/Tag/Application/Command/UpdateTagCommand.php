@@ -12,5 +12,6 @@ final readonly class UpdateTagCommand implements CommandInterface
     public function __construct(
         public TagData $data,
         public int $tagId,
-    ) {}
+    ) {
+    }
 }

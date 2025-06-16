@@ -38,8 +38,8 @@ final readonly class AttributeValueAssembler
     private function createAttributeValueListResponse(AttributeValue $attributeValue): AttributeValueListResponse
     {
         return new AttributeValueListResponse(
-          id: $attributeValue->getId(),
-          value: $attributeValue->getValue(),
+            id: $attributeValue->getId(),
+            value: $attributeValue->getValue(),
         );
     }
 }

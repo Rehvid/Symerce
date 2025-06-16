@@ -10,7 +10,7 @@ use App\Common\Domain\Contracts\PositionEntityInterface;
 use App\Common\Domain\Repository\PositionRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-readonly final class PositionEntityService implements ReorderEntityServiceInterface
+final readonly class PositionEntityService implements ReorderEntityServiceInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -30,9 +30,10 @@ readonly final class PositionEntityService implements ReorderEntityServiceInterf
         $this->entityManager->flush();
     }
 
+    /** @return class-string<object> */
     private function resolveEntityClass(string $name): string
     {
-        $class = 'App\\Admin\\Domain\\Entity\\' . ucfirst($name);
+        $class = 'App\\Common\\Domain\\Entity\\'.ucfirst($name);
         if (!class_exists($class)) {
             throw new \InvalidArgumentException("Entity class {$class} does not exist.");
         }
@@ -54,10 +55,10 @@ readonly final class PositionEntityService implements ReorderEntityServiceInterf
         }
     }
 
-    private function updateMovedEntityOrder(PositionRepositoryInterface $repository, $movedId, int $newOrder): void
+    private function updateMovedEntityOrder(PositionRepositoryInterface $repository, int $movedId, int $newOrder): void
     {
         /** @var PositionEntityInterface|null $movedEntity */
-        $movedEntity = $repository->find($movedId);
+        $movedEntity = $repository->findByMovedId($movedId);
         if (!$movedEntity) {
             throw new \RuntimeException("Not found movedId $movedId");
         }

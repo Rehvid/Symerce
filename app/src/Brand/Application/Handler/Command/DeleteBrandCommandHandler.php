@@ -14,7 +14,8 @@ final readonly class DeleteBrandCommandHandler implements CommandHandlerInterfac
 {
     public function __construct(
         private BrandRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteBrandCommand $command): void
     {

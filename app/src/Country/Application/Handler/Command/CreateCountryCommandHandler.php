@@ -14,7 +14,8 @@ final readonly class CreateCountryCommandHandler implements CommandHandlerInterf
     public function __construct(
         private CountryRepositoryInterface $repository,
         private CountryHydrator $hydrator,
-    ) {}
+    ) {
+    }
 
     public function __invoke(CreateCountryCommand $command): IdResponse
     {

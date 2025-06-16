@@ -43,8 +43,7 @@ final class TagController extends AbstractApiController
         Request $request,
         TagSearchDefinition $definition,
         SearchDataFactory $factory
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetTagListQuery(

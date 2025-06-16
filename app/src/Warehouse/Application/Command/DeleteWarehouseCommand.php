@@ -8,5 +8,7 @@ use App\Common\Application\Command\Interfaces\CommandInterface;
 
 final readonly class DeleteWarehouseCommand implements CommandInterface
 {
-    public function __construct(public int $warehouseId) {}
+    public function __construct(public int $warehouseId)
+    {
+    }
 }

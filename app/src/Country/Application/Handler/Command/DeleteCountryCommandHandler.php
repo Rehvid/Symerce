@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Country\Application\Handler\Command;
 
-
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Domain\Entity\Country;
 use App\Common\Domain\Exception\EntityNotFoundException;
@@ -15,7 +14,8 @@ final readonly class DeleteCountryCommandHandler implements CommandHandlerInterf
 {
     public function __construct(
         private CountryRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteCountryCommand $command): void
     {

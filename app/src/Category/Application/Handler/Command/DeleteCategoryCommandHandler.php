@@ -9,13 +9,13 @@ use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Application\Command\Interfaces\CommandHandlerInterface;
 use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Exception\EntityNotFoundException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class DeleteCategoryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private CategoryRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteCategoryCommand $command): void
     {

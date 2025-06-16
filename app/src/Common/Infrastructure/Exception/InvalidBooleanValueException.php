@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Infrastructure\Exception;
 
-use InvalidArgumentException;
-
-final class InvalidBooleanValueException extends InvalidArgumentException
+final class InvalidBooleanValueException extends \InvalidArgumentException
 {
     private string $fieldName;
     private mixed $value;

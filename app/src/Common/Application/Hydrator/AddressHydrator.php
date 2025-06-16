@@ -11,11 +11,10 @@ use App\Common\Domain\Exception\EntityNotFoundException;
 
 final readonly class AddressHydrator
 {
-    public function hydrate(AddressData $data, ?Address $address = null): Address
+    public function hydrate(AddressData $data, Address $address): Address
     {
-        $address = $address ?? new Address();
         if (null === $data->country) {
-            throw EntityNotFoundException::for(Country::class, $data->country?->getId());
+            throw EntityNotFoundException::for(Country::class, null);
         }
 
         $address->setCountry($data->country);

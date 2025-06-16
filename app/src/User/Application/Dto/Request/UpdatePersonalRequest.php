@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\User\Application\Dto\Request;
 
-use App\Common\Application\Contracts\ArrayHydratableInterface;
 use App\Common\Application\Dto\FileData;
 use App\Common\Application\Dto\Request\IdRequest;
 use App\Common\Domain\Entity\User;
@@ -34,7 +33,7 @@ final class UpdatePersonalRequest
         string $firstname,
         string $surname,
         string $email,
-        null|string|int $id,
+        string|int|null $id,
         ?array $avatar,
     ) {
         $this->firstname = $firstname;

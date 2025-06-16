@@ -21,13 +21,12 @@ use App\Shop\Application\UseCase\ContactDetails\CreateContactDetailsUseCase;
 use App\Shop\Application\UseCase\ContactDetails\UpdateContactDetailsUseCase;
 use App\Shop\Application\UseCase\Payment\CreatePaymentUseCase;
 
-
-//TODO: Split to small usecases
+// TODO: Split to small usecases
 final readonly class OrderCheckoutService
 {
     public function __construct(
-        private CartAssembler         $cartService,
-        private OrderRepositoryInterface       $orderRepository,
+        private CartAssembler $cartService,
+        private OrderRepositoryInterface $orderRepository,
         private CreateDeliveryAddressUseCase $createDeliveryAddressUseCase,
         private UpdateDeliveryAddressUseCase $updateDeliveryAddressUseCase,
         private CreateInvoiceAddressUseCase $createInvoiceAddressUseCase,
@@ -86,11 +85,12 @@ final readonly class OrderCheckoutService
         );
 
         if (!$request->useInvoiceAddress) {
-            //TODO: Jezeli byl ale teraz nie to trzebau sunac
+            // TODO: Jezeli byl ale teraz nie to trzebau sunac
             return $order;
         }
 
-        $order->setInvoiceAddress(null === $order->getInvoiceAddress()
+        $order->setInvoiceAddress(
+            null === $order->getInvoiceAddress()
             ? $this->createInvoiceAddressUseCase->execute($request->saveAddressInvoiceRequest)
             : $this->updateInvoiceAddressUseCase->execute(
                 $request->saveAddressInvoiceRequest,
@@ -133,7 +133,7 @@ final readonly class OrderCheckoutService
         $this->orderRepository->save($order);
 
 
-        //TODO: SendEmail
+        // TODO: SendEmail
         return $order;
     }
 }

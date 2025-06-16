@@ -19,7 +19,6 @@ use App\Country\Application\Query\GetCountryListQuery;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
 use App\Country\Application\Search\CountrySearchDefinition;
-use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,8 +43,7 @@ final class CountryController extends AbstractApiController
         Request $request,
         CountrySearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetCountryListQuery(

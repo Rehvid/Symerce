@@ -17,7 +17,8 @@ final readonly class UpdateBrandCommandHandler implements CommandHandlerInterfac
     public function __construct(
         private BrandRepositoryInterface $repository,
         private BrandHydrator $hydrator,
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateBrandCommand $command): IdResponse
     {

@@ -13,8 +13,8 @@ use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 final readonly class CartListQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private CartAssembler          $assembler,
-        private CartSearchService     $searchService,
+        private CartAssembler $assembler,
+        private CartSearchService $searchService,
     ) {
     }
 

@@ -15,10 +15,11 @@ use App\Common\Domain\Entity\Category;
 final readonly class CreateCategoryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-       private CategoryHydrator $hydrator,
-       private CategoryRepositoryInterface $repository,
-       private SlugService $slugService,
-    ) {}
+        private CategoryHydrator $hydrator,
+        private CategoryRepositoryInterface $repository,
+        private SlugService $slugService,
+    ) {
+    }
 
     public function __invoke(CreateCategoryCommand $command): IdResponse
     {

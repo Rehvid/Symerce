@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Customer\Application\Command;
 
@@ -11,5 +11,6 @@ final readonly class CreateCustomerCommand implements CommandInterface
 {
     public function __construct(
         public CustomerData $data,
-    ) {}
+    ) {
+    }
 }

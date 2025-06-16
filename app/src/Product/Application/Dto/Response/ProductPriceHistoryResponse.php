@@ -8,7 +8,8 @@ final readonly class ProductPriceHistoryResponse
         public int $id,
         public string $basePrice,
         public ?string $discountPrice,
-        public int $productId,
+        public ?int $productId,
         public string $createdAt
-    ) {}
+    ) {
+    }
 }

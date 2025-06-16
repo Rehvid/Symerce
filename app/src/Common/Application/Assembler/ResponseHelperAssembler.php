@@ -10,19 +10,22 @@ use App\Common\Application\Service\FileService;
 final readonly class ResponseHelperAssembler
 {
     public function __construct(private FileService $fileService)
-    {}
+    {
+    }
 
     /**
      * @return array<string, mixed>
      */
     public function wrapFormResponse(mixed $data = null, mixed $context = null): array
     {
-        if ($data !== null) {
+        $response = [];
+
+        if (null !== $data) {
             $response['formData'] = $data;
         }
 
 
-        if ($context !== null) {
+        if (null !== $context) {
             $response['formContext'] = $context;
         }
 
@@ -44,7 +47,7 @@ final readonly class ResponseHelperAssembler
     }
 
     /**
-     * @param array<int, mixed>  $dataList
+     * @param array<int, mixed>    $dataList
      * @param array<string, mixed> $additionalData
      *
      * @return array<mixed, mixed>

@@ -14,7 +14,8 @@ final readonly class DeleteTagCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private TagRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteTagCommand $command): void
     {

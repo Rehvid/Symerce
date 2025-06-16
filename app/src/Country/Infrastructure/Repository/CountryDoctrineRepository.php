@@ -13,7 +13,6 @@ use App\Country\Domain\Repository\CountryRepositoryInterface;
  */
 class CountryDoctrineRepository extends AbstractCriteriaRepository implements CountryRepositoryInterface
 {
-
     protected function getAlias(): string
     {
         return 'country';

@@ -150,5 +150,4 @@ final class ProductController extends AbstractApiController
             ),
         );
     }
-
 }

@@ -10,8 +10,9 @@ use App\Shop\Application\Assembler\CategoryAssembler;
 final readonly class GetByIdCategoryUseCase
 {
     public function __construct(
-       private CategoryAssembler $assembler
-    ) {}
+        private CategoryAssembler $assembler
+    ) {
+    }
 
     public function execute(Category $category): array
     {

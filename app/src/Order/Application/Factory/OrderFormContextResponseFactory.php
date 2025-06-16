@@ -29,7 +29,7 @@ final readonly class OrderFormContextResponseFactory
         private CarrierRepositoryInterface $carrierRepository,
         private CountryRepositoryInterface $countryRepository,
         private CustomerRepositoryInterface $customerRepository,
-    ){
+    ) {
 
     }
 
@@ -52,7 +52,7 @@ final readonly class OrderFormContextResponseFactory
 
         return ArrayUtils::buildSelectedOptions(
             items: $items,
-            labelCallback: fn(Product $product) =>sprintf('Id: %s, Nazwa: %s', $product->getId(), $product->getName()),
+            labelCallback: fn (Product $product) => sprintf('Id: %s, Nazwa: %s', $product->getId(), $product->getName()),
             valueCallback: fn (Product $product) => $product->getId(),
         );
     }
@@ -113,7 +113,7 @@ final readonly class OrderFormContextResponseFactory
 
         return ArrayUtils::buildSelectedOptions(
             items: $this->customerRepository->findAll(),
-            labelCallback: fn (Customer $customer) => $customer->getContactDetails()?->getFullName() . ' - ' . $customer->getEmail()   ?? '-',
+            labelCallback: fn (Customer $customer) => $customer->getContactDetails()?->getFullName().' - '.$customer->getEmail(),
             valueCallback: fn (Customer $customer) => $customer->getId(),
         );
     }

@@ -9,8 +9,5 @@ use App\Common\Application\Search\Dto\SearchCriteria;
 
 interface SearchServiceInterface
 {
-    /**
-     * @param SearchCriteria $criteria
-     */
     public function search(SearchCriteria $criteria): PaginationResult;
 }

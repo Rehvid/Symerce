@@ -8,9 +8,8 @@ use App\Cart\Domain\Repository\CartRepositoryInterface;
 use App\Common\Application\Search\AbstractSearchService;
 use App\Common\Application\Search\Dto\SearchCriteria;
 use App\Common\Application\Search\Dto\SearchData;
-use Symfony\Component\HttpFoundation\Request;
 
-final class CartSearchService  extends AbstractSearchService
+final class CartSearchService extends AbstractSearchService
 {
     public function __construct(
         CartRepositoryInterface $repository,

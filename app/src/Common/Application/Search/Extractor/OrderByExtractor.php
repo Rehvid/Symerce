@@ -18,8 +18,13 @@ final readonly class OrderByExtractor
             return null;
         }
 
-        $orderByField = explode(self::ORDER_BY_FIELD_SEPARATOR, $orderBy);
-        $field = $orderByField[0] ?? null;
+        $orderByField = explode(self::ORDER_BY_FIELD_SEPARATOR, (string) $orderBy);
+
+        if ('' === (string) $orderBy || '' === $orderByField[0]) {
+            return null;
+        }
+
+        $field = $orderByField[0];
 
         if (!in_array($field, $allowedSortFields, true)) {
             return null;

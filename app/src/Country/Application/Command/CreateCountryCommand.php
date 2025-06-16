@@ -11,5 +11,6 @@ final readonly class CreateCountryCommand implements CommandInterface
 {
     public function __construct(
         public CountryData $data,
-    ) {}
+    ) {
+    }
 }

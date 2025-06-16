@@ -16,8 +16,8 @@ final readonly class CreateUserCommandHandler implements CommandHandlerInterface
     public function __construct(
         private UserHydrator $hydrator,
         private UserRepositoryInterface $repository
-    ) {}
-
+    ) {
+    }
 
     public function __invoke(CreateUserCommand $command): IdResponse
     {

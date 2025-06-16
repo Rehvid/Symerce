@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Authentication\Application\Ui\Controller\Api\Admin;
 
-use App\Admin\Application\UseCase\Auth\LogoutUserUseCase;
-use App\Admin\Application\UseCase\Auth\ResetUserPasswordUseCase;
 use App\Authentication\Application\Command\LogoutUserCommand;
 use App\Authentication\Application\Command\RequestPasswordResetCommand;
 use App\Authentication\Application\Command\ResetPasswordCommand;
@@ -18,7 +16,6 @@ use App\User\Application\Dto\Request\UpdateSecurityRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
-
 
 #[Route('/api/admin/auth', name: 'api_admin_auth_')]
 final class AuthController extends AbstractApiController
@@ -47,7 +44,7 @@ final class AuthController extends AbstractApiController
     #[Route('/remind-password', name: 'remind_password', methods: ['POST'], format: 'json')]
     public function remindPassword(Request $request): JsonResponse
     {
-        //TODO: Refactor names
+        // TODO: Refactor names
         $resetPasswordRequest = $this->requestDtoResolver->mapAndValidate(
             $request,
             ResetPasswordRequest::class

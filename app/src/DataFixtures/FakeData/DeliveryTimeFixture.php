@@ -32,9 +32,9 @@ class DeliveryTimeFixture extends Fixture implements FixtureGroupInterface, Depe
             $deliveryTime->setMaxDays($data['maxDays']);
             $deliveryTime->setType($data['type']);
 
-//            $carriersCollection = $deliveryTime->getCarriers();
-//            $carriersCollection->add($carriers[array_rand($carriers)]);
-//            $carriersCollection->add($carriers[array_rand($carriers)]);
+            //            $carriersCollection = $deliveryTime->getCarriers();
+            //            $carriersCollection->add($carriers[array_rand($carriers)]);
+            //            $carriersCollection->add($carriers[array_rand($carriers)]);
 
             $manager->persist($deliveryTime);
         }
@@ -70,5 +70,4 @@ class DeliveryTimeFixture extends Fixture implements FixtureGroupInterface, Depe
     {
         return ['fakeData'];
     }
-
 }

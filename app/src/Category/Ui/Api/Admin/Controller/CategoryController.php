@@ -20,7 +20,6 @@ use App\Common\Infrastructure\Http\RequestDtoResolver;
 use App\Common\Ui\Controller\Api\AbstractApiController;
 use App\Common\Infrastructure\Bus\Command\CommandBusInterface;
 use App\Common\Infrastructure\Bus\Query\QueryBusInterface;
-use App\Order\Application\Search\OrderSearchDefinition;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,10 +30,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class CategoryController extends AbstractApiController
 {
     public function __construct(
-        RequestDtoResolver                   $requestDtoResolver,
-        TranslatorInterface                  $translator,
-        CommandBusInterface                  $commandBus,
-        QueryBusInterface                    $queryBus,
+        RequestDtoResolver $requestDtoResolver,
+        TranslatorInterface $translator,
+        CommandBusInterface $commandBus,
+        QueryBusInterface $queryBus,
         private readonly CategoryDataFactory $categoryDataFactory,
     ) {
         parent::__construct($requestDtoResolver, $translator, $commandBus, $queryBus);
@@ -45,7 +44,7 @@ final class CategoryController extends AbstractApiController
         Request $request,
         CategorySearchDefinition $definition,
         SearchDataFactory $factory,
-    ): JsonResponse{
+    ): JsonResponse {
         return $this->json(
             data: $this->queryBus->ask(
                 new GetCategoryListQuery(

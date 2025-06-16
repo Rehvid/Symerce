@@ -17,7 +17,8 @@ final readonly class SearchDataFactory
         private OrderByExtractor $orderByExtractor,
         private DirectionExtractor $directionExtractor,
         private FilterExtractor $filterExtractor,
-    ) {}
+    ) {
+    }
 
     public function fromRequest(Request $request, SearchDefinitionInterface $searchDefinition): SearchData
     {

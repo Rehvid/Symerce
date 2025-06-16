@@ -277,8 +277,11 @@ class Order
 
     public function getFullNameCustomer(): string
     {
-        $fullName = $this->getContactDetails()->getFullName();
+        $fallbackFullName = '';
+        if (($contactDetails = $this->getContactDetails()) !== null) {
+            $fallbackFullName = $contactDetails->getFullName();
+        }
 
-        return $this->customer?->getContactDetails()?->getFullName() ?? $fullName;
+        return $this->customer?->getContactDetails()?->getFullName() ?? $fallbackFullName;
     }
 }

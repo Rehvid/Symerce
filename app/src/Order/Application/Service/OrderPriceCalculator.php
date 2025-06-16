@@ -22,7 +22,7 @@ final readonly class OrderPriceCalculator
         /** @var MoneyVO|null $productTotalPrice */
         $productTotalPrice = $this->calculateOrderItemsTotal($order);
 
-        if ($productTotalPrice === null) {
+        if (null === $productTotalPrice) {
             return null;
         }
 
@@ -30,13 +30,13 @@ final readonly class OrderPriceCalculator
         $totalPrice = $productTotalPrice;
 
         $carrier = $order->getCarrier();
-        if ($carrier !== null) {
-            $carrierFee = $this->moneyFactory->create($carrier->getFee());
+        if (null !== $carrier) {
+            $carrierFee = $this->moneyFactory->create((string) $carrier->getFee());
             $totalPrice = $totalPrice->add($carrierFee);
         }
 
         $paymentMethod = $order->getPaymentMethod();
-        if ($paymentMethod !== null) {
+        if (null !== $paymentMethod) {
             $paymentMethodFee = $this->moneyFactory->create($paymentMethod->getFee());
             $totalPrice = $totalPrice->add($paymentMethodFee);
         }
@@ -59,7 +59,7 @@ final readonly class OrderPriceCalculator
             $unitPrice = $this->moneyFactory->create($orderItem->getUnitPrice());
             $totalPrice = $unitPrice->multiply($orderItem->getQuantity());
 
-            if ($productTotalPrice === null) {
+            if (null === $productTotalPrice) {
                 $productTotalPrice = $totalPrice;
             } else {
                 $productTotalPrice = $productTotalPrice->add($totalPrice);

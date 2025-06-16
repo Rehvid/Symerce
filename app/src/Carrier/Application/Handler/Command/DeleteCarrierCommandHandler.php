@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Carrier\Application\Handler\Command;
 
@@ -14,7 +14,8 @@ final readonly class DeleteCarrierCommandHandler implements CommandHandlerInterf
 {
     public function __construct(
         private CarrierRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(DeleteCarrierCommand $command): void
     {

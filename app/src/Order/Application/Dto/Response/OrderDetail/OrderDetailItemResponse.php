@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace App\Order\Application\Dto\Response\OrderDetail;
 
@@ -13,5 +13,6 @@ final readonly class OrderDetailItemResponse
         public int $quantity,
         public string $totalPrice,
         public ?string $editUrl
-    ) {}
+    ) {
+    }
 }

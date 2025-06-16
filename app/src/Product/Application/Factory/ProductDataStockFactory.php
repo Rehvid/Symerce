@@ -17,10 +17,12 @@ final readonly class ProductDataStockFactory
     public function __construct(
         private WarehouseRepositoryInterface $warehouseRepository,
         private EntityManagerInterface $entityManager,
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<int, array<string, mixed>> $stocks
+     *
      * @return ProductDataStock[]
      */
     public function createFromArray(array $stocks): array
@@ -29,26 +31,28 @@ final readonly class ProductDataStockFactory
         $warehousesById = $this->fetchWarehousesById($warehouseIds);
 
         return array_map(
-            fn(array $stock) => $this->createProductDataStock($stock, $warehousesById),
+            fn (array $stock) => $this->createProductDataStock($stock, $warehousesById),
             $stocks
         );
     }
 
     /**
      * @param array<int, array<string, mixed>> $stocks
+     *
      * @return int[]
      */
     private function extractWarehouseIds(array $stocks): array
     {
         return array_map(
-            fn(array $stock) => (int) $stock['warehouseId'],
+            fn (array $stock) => (int) $stock['warehouseId'],
             $stocks
         );
     }
 
     /**
      * @param int[] $warehouseIds
-     * @return array<int, Warehouse>
+     *
+     * @return array<int|string, Warehouse>
      */
     private function fetchWarehousesById(array $warehouseIds): array
     {
@@ -63,9 +67,8 @@ final readonly class ProductDataStockFactory
     }
 
     /**
-     * @param array<string, mixed> $stock
-     * @param array<int, Warehouse> $warehousesById
-     * @return ProductDataStock
+     * @param array<string, mixed>         $stock
+     * @param array<int|string, Warehouse> $warehousesById
      */
     private function createProductDataStock(array $stock, array $warehousesById): ProductDataStock
     {
@@ -91,10 +94,10 @@ final readonly class ProductDataStockFactory
 
     private function castNullableInt(string|int|null $value): ?int
     {
-        return $value === '' || $value === null ? null : (int) $value;
+        return '' === $value || null === $value ? null : (int) $value;
     }
 
-    private function castNullableDateVO(string|null $value): ?DateVO
+    private function castNullableDateVO(?string $value): ?DateVO
     {
         return $value ? new DateVO($value) : null;
     }

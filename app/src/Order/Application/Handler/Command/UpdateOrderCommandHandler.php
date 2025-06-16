@@ -23,7 +23,8 @@ final readonly class UpdateOrderCommandHandler implements CommandHandlerInterfac
         private CustomerRepositoryInterface $customerRepository,
         private CustomerHydrator $customerHydrator,
         private OrderDataToCustomerDataMapper $customerDataMapper,
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateOrderCommand $command): IdResponse
     {

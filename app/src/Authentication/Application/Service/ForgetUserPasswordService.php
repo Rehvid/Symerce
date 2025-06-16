@@ -16,21 +16,20 @@ use App\User\Domain\Repository\UserTokenRepositoryInterface;
 use Ramsey\Uuid\Guid\Guid;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 final readonly class ForgetUserPasswordService
 {
     public function __construct(
-        private MailService  $mailService,
+        private MailService $mailService,
         private UserRepositoryInterface $userRepository,
-        private UrlGeneratorInterface  $urlGenerator,
+        private UrlGeneratorInterface $urlGenerator,
         private UserTokenRepositoryInterface $userTokenRepository,
     ) {
     }
 
     public function execute(string $email): ApiResponse
     {
-        /** @var user|UserInterface $user */
+        /** @var User|null $user */
         $user = $this->userRepository->loadUserByIdentifier($email);
         if (null === $user) {
             return new ApiResponse(
@@ -38,9 +37,9 @@ final readonly class ForgetUserPasswordService
             );
         }
 
-
         $this->deleteOldUserTokens($user);
-        
+
+
         $userToken = $this->createUserToken($user);
 
         $link = $this->generateLink($userToken->getToken());
@@ -60,7 +59,7 @@ final readonly class ForgetUserPasswordService
         $this->userTokenRepository->removeCollection($forgetPasswordTokens->toArray());
     }
 
-    private function createUserToken(User $user): object
+    private function createUserToken(User $user): UserToken
     {
         $userToken = new UserToken();
         $userToken->setUser($user);

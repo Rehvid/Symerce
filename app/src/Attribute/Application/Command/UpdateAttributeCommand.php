@@ -12,5 +12,6 @@ final readonly class UpdateAttributeCommand implements CommandInterface
     public function __construct(
         public int $attributeId,
         public AttributeData $data
-    ) {}
+    ) {
+    }
 }

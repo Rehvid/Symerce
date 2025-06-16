@@ -9,5 +9,6 @@ final readonly class OrderDetailItemsResponse
     /** @param OrderDetailItemResponse[] $itemCollection */
     public function __construct(
         public array $itemCollection,
-    ) {}
+    ) {
+    }
 }

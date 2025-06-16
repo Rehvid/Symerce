@@ -11,7 +11,6 @@ use App\Common\Domain\Entity\Attribute;
 use App\Common\Domain\Entity\AttributeValue;
 use App\Common\Domain\Entity\Brand;
 use App\Common\Domain\Entity\Category;
-use App\Common\Domain\Entity\DeliveryTime;
 use App\Common\Domain\Entity\Tag;
 use App\Common\Domain\Entity\Warehouse;
 use App\Common\Domain\Enums\ReductionType;
@@ -30,7 +29,8 @@ final readonly class ProductFormContextFactory
         private TagRepositoryInterface $tagRepository,
         private AttributeRepositoryInterface $attributeRepository,
         private WarehouseRepositoryInterface $warehouseRepository,
-    ) {}
+    ) {
+    }
 
     public function create(): ProductFormContext
     {
@@ -94,22 +94,6 @@ final readonly class ProductFormContextFactory
     /**
      * @return array<int, mixed>
      */
-    private function getDeliveryTimes(): array
-    {
-        /** @var DeliveryTime[] $deliveryTimes */
-        $deliveryTimes = $this->deliveryTimeRepository->findAll();
-        $workDay = $this->translator->trans('base.common.workday');
-
-        return ArrayUtils::buildSelectedOptions(
-            $deliveryTimes,
-            fn (DeliveryTime $deliveryTime) => $deliveryTime->getLabel() . " ( {$deliveryTime->getMinDays()} - {$deliveryTime->getMaxDays()}  $workDay )",
-            fn (DeliveryTime $deliveryTime) => (string) $deliveryTime->getId(),
-        );
-    }
-
-    /**
-     * @return array<int, mixed>
-     */
     private function getAttributes(): array
     {
         /** @var Attribute[] $attributes */
@@ -134,7 +118,7 @@ final readonly class ProductFormContextFactory
     {
         return ArrayUtils::buildSelectedOptions(
             ReductionType::cases(),
-            fn (ReductionType $reductionType) => $this->translator->trans('base.reduction_type.' . $reductionType->value),
+            fn (ReductionType $reductionType) => $this->translator->trans('base.reduction_type.'.$reductionType->value),
             fn (ReductionType $reductionType) => $reductionType->value,
         );
     }

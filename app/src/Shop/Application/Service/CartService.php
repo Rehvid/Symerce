@@ -15,17 +15,16 @@ use App\Shop\Application\DTO\Request\Cart\SaveCartRequest;
 use App\Shop\Domain\Enums\QuantityChangeType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-
-//TODO: Refactor
+// TODO: Refactor
 final readonly class CartService
 {
-   public function __construct(
-       private readonly CartDoctrineRepository    $repository,
-       private readonly ProductDoctrineRepository $productRepository,
-       private readonly CartTokenGenerator        $cartTokenGenerator,
-       private readonly ParameterBagInterface     $parameterBag,
-   )
-   {}
+    public function __construct(
+        private readonly CartDoctrineRepository $repository,
+        private readonly ProductDoctrineRepository $productRepository,
+        private readonly CartTokenGenerator $cartTokenGenerator,
+        private readonly ParameterBagInterface $parameterBag,
+    ) {
+    }
 
     public function changeQuantityCartItem(ChangeQuantityProductRequest $request, Cart $cart): int
     {
@@ -54,7 +53,7 @@ final readonly class CartService
         int $modifier,
         ?QuantityChangeType $changeType = null
     ): void {
-        if ($modifier === 0) {
+        if (0 === $modifier) {
             return;
         }
 
@@ -62,7 +61,7 @@ final readonly class CartService
             ? QuantityChangeType::Increase
             : QuantityChangeType::Decrease;
 
-        if ($changeType === QuantityChangeType::Increase) {
+        if (QuantityChangeType::Increase === $changeType) {
             $this->increaseCartItemQuantity($cartItem, $product, abs($modifier));
         } else {
             $this->decreaseCartItemQuantity($cartItem, abs($modifier));
@@ -74,10 +73,7 @@ final readonly class CartService
         $newQuantity = $cartItem->getQuantity() + $amount;
 
         if ($newQuantity > $product->getQuantity()) {
-            throw new \LogicException(sprintf(
-                'Cannot increase quantity beyond available product stock (%d).',
-                $product->getQuantity()
-            ));
+            throw new \LogicException(sprintf('Cannot increase quantity beyond available product stock (%d).', $product->getQuantity()));
         }
 
         $cartItem->setQuantity($newQuantity);
@@ -100,7 +96,7 @@ final readonly class CartService
         $cart->setToken($this->cartTokenGenerator->generate());
 
         $expiresAt = new \DateTime();
-        $expiresAt->add(new \DateInterval('PT' . $this->parameterBag->get('app.cart_token_expires'). 'S'));
+        $expiresAt->add(new \DateInterval('PT'.$this->parameterBag->get('app.cart_token_expires').'S'));
         $cart->setExpiresAt($expiresAt);
 
         $this->setCommonFields($request, $cart);
@@ -128,7 +124,7 @@ final readonly class CartService
     private function setCommonFields(SaveCartRequest $request, Cart $cart): void
     {
         $product = $this->findProductById((int) $request->productId);
-        if ($product === null) {
+        if (null === $product) {
             throw new \LogicException(sprintf('Cannot find product with id %d', $request->productId));
         }
 
@@ -136,7 +132,7 @@ final readonly class CartService
             fn (CartItem $cartItem) => $cartItem->getProduct()->getId() === $product->getId() ?? false
         )->first();
 
-        if (!$cartItem)  {
+        if (!$cartItem) {
             $this->addCartItem($request, $product, $cart);
         } else {
             $this->updateCartItem($request, $product, $cartItem);
@@ -168,7 +164,3 @@ final readonly class CartService
         return $this->productRepository->find($productId);
     }
 }
-
-
-
-

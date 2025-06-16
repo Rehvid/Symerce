@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Order\Application\Dto;
 
@@ -14,7 +14,6 @@ use App\Order\Domain\Enums\OrderStatus;
 
 final readonly class OrderData
 {
-
     /** @param OrderItemData[] $orderItems */
     public function __construct(
         public ContactDetailsData $contactDetailsData,
@@ -24,7 +23,7 @@ final readonly class OrderData
         public CheckoutStep $checkoutStep,
         public OrderStatus $orderStatus,
         public array $orderItems,
-        public AddressData $deliveryAddressData,
+        public ?AddressData $deliveryAddressData,
         public ?string $deliveryInstructions,
         public ?AddressData $invoiceAddressData,
         public ?string $invoiceCompanyTaxId,

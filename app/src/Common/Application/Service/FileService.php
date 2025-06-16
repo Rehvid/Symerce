@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Common\Application\Service;
 
@@ -13,7 +13,7 @@ use App\Common\Infrastructure\Service\FileStorageService;
 final readonly class FileService
 {
     public function __construct(
-        private FileStorageService     $fileStorageService,
+        private FileStorageService $fileStorageService,
         private FileRepositoryInterface $repository,
     ) {
     }
@@ -28,7 +28,7 @@ final readonly class FileService
     public function replaceFile(FileEntityInterface $entity, FileData $fileData): void
     {
         $currentFile = $entity->getFile();
-        if ($currentFile !== null) {
+        if (null !== $currentFile) {
             $this->fileStorageService->removeFile($currentFile->getPath());
         } else {
             $currentFile = new File();
@@ -48,7 +48,7 @@ final readonly class FileService
         return $this->fileStorageService->preparePublicPathToFile($filePath);
     }
 
-    public function getLogoPublicPath(): ?string
+    public function getLogoPublicPath(): string
     {
         return $this->fileStorageService->getLogoPublicPath();
     }
@@ -57,7 +57,7 @@ final readonly class FileService
     {
         $path = $this->fileStorageService->saveFile($fileData->content, $fileData->type);
 
-        //TODO: Create Hydrator
+        // TODO: Create Hydrator
         $currentFile->setPath($path);
         $currentFile->setName(basename($path));
         $currentFile->setOriginalName($fileData->name);

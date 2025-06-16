@@ -13,8 +13,6 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 /**
  * @extends QueryRepositoryInterface<AttributeValue>
  */
-interface AttributeValueRepositoryInterface
-    extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
+interface AttributeValueRepositoryInterface extends ReadWriteRepositoryInterface, QueryRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {
-
 }
