@@ -8,6 +8,9 @@ use App\Common\Domain\Entity\UserToken;
 use App\Common\Infrastructure\Repository\Abstract\DoctrineRepository;
 use App\User\Domain\Repository\UserTokenRepositoryInterface;
 
+/**
+ * @extends DoctrineRepository<UserToken>
+ */
 final class UserTokenRepository extends DoctrineRepository implements UserTokenRepositoryInterface
 {
     protected function getEntityClass(): string
@@ -19,6 +22,7 @@ final class UserTokenRepository extends DoctrineRepository implements UserTokenR
     {
         return 'user_token';
     }
+
 
     public function findByToken(string $token): ?UserToken
     {

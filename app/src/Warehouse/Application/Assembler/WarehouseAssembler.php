@@ -49,7 +49,7 @@ final readonly class WarehouseAssembler
     private function createWarehouseListResponse(Warehouse $warehouse): WarehouseListResponse
     {
         return new WarehouseListResponse(
-            id: $warehouse->getId(),
+            id: (int) $warehouse->getId(),
             name: $warehouse->getName(),
             fullAddress: $warehouse->getAddress()->getFullAddress(),
             isActive: $warehouse->isActive(),
@@ -68,7 +68,7 @@ final readonly class WarehouseAssembler
                 street: $address->getStreet(),
                 postalCode: $address->getPostalCode(),
                 city: $address->getCity(),
-                country: $address->getCountry()->getId()
+                countryId: (int) $address->getCountry()->getId()
             ),
             context: $this->createWarehouseFormContextResponse()
         );

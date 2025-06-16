@@ -10,6 +10,9 @@ use App\User\Domain\Repository\UserRepositoryInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @extends AbstractCriteriaRepository<User>
+ */
 final class UserDoctrineRepository extends AbstractCriteriaRepository implements UserLoaderInterface, UserRepositoryInterface
 {
 

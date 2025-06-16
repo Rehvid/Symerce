@@ -14,7 +14,7 @@ final readonly class WarehouseHydrator
 
     public function hydrate(WarehouseData $data, Warehouse $warehouse): Warehouse
     {
-        $address = $warehouse?->getAddress();
+        $address = $warehouse->getAddress();
 
         $warehouse->setDescription($data->description);
         $warehouse->setName($data->name);

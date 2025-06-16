@@ -7,9 +7,9 @@ namespace App\Common\Infrastructure\Utils;
 final readonly class ArrayUtils
 {
     /**
-     * @param array <string, mixed> $items
+     * @param array<mixed, mixed> $items
      *
-     * @return array<int, mixed>
+     * @return array<mixed, mixed>
      */
     public static function buildSelectedOptions(
         array $items,

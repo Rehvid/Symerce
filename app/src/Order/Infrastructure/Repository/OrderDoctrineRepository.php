@@ -8,7 +8,9 @@ use App\Common\Domain\Entity\Order;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
 
-
+/**
+ * @extends AbstractCriteriaRepository<Order>
+ */
 final class OrderDoctrineRepository extends AbstractCriteriaRepository implements OrderRepositoryInterface
 {
 

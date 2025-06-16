@@ -10,6 +10,9 @@ use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;
 use App\Setting\Domain\Repository\SettingRepositoryInterface;
 
+/**
+ * @extends AbstractCriteriaRepository<Setting>
+ */
 class SettingDoctrineRepository extends AbstractCriteriaRepository implements SettingRepositoryInterface
 {
     protected function getEntityClass(): string

@@ -8,7 +8,9 @@ use App\Cart\Domain\Repository\CartRepositoryInterface;
 use App\Common\Domain\Entity\Cart;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 
-
+/**
+ * @extends AbstractCriteriaRepository<Cart>
+ */
 final class CartDoctrineRepository extends AbstractCriteriaRepository implements CartRepositoryInterface
 {
     public function findByToken(?string $token): ?Cart

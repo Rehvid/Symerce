@@ -36,7 +36,6 @@ final readonly class SaveWarehouseRequest
         string $postalCode,
         string $city,
         int|string|null $countryId,
-        SaveAddressRequest $addressRequest,
         ?string $description,
     ) {
         $this->name = $name;

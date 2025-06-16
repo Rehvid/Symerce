@@ -9,6 +9,9 @@ use App\Common\Domain\Entity\AttributeValue;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Common\Infrastructure\Traits\PositionRepositoryTrait;
 
+/**
+ * @extends AbstractCriteriaRepository<AttributeValue>
+ */
 final class AttributeValueDoctrineRepository extends AbstractCriteriaRepository implements AttributeValueRepositoryInterface
 {
     use PositionRepositoryTrait;

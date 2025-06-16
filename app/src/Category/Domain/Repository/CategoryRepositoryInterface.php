@@ -10,6 +10,9 @@ use App\Common\Domain\Repository\PositionRepositoryInterface;
 use App\Common\Domain\Repository\QueryRepositoryInterface;
 use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 
+/**
+ * @extends QueryRepositoryInterface<Category>
+ */
 interface CategoryRepositoryInterface
     extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface, PositionRepositoryInterface
 {

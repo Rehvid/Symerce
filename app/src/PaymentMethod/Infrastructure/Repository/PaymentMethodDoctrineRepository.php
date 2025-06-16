@@ -9,6 +9,9 @@ use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Common\Infrastructure\Traits\PositionRepositoryTrait;
 use App\PaymentMethod\Domain\Repository\PaymentMethodRepositoryInterface;
 
+/**
+ * @extends AbstractCriteriaRepository<PaymentMethod>
+ */
 final class PaymentMethodDoctrineRepository extends AbstractCriteriaRepository implements PaymentMethodRepositoryInterface
 {
     use PositionRepositoryTrait;

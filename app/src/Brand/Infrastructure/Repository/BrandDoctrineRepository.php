@@ -8,6 +8,9 @@ use App\Brand\Domain\Repository\BrandRepositoryInterface;
 use App\Common\Domain\Entity\Brand;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 
+/**
+ * @extends AbstractCriteriaRepository<Brand>
+ */
 class BrandDoctrineRepository extends AbstractCriteriaRepository implements BrandRepositoryInterface
 {
 

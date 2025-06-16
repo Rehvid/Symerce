@@ -19,6 +19,7 @@ final readonly class WarehouseDataFactory
 
     public function fromRequest(SaveWarehouseRequest $warehouseRequest): WarehouseData
     {
+//        /** @var ?Country $country */
         $country = $this->countryRepository->findById($warehouseRequest->addressRequest->countryIdRequest->getId());
         if (null === $country) {
             throw EntityNotFoundException::for(Country::class, $warehouseRequest->addressRequest->countryIdRequest->getId());

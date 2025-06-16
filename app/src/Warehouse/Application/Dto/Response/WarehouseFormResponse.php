@@ -13,6 +13,6 @@ final readonly class WarehouseFormResponse
         public string $street,
         public string $postalCode,
         public string $city,
-        public int $country,
+        public int $countryId,
     ) {}
 }

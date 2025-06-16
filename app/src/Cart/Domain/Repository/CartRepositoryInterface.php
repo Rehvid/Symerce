@@ -9,6 +9,9 @@ use App\Common\Domain\Repository\CriteriaRepositoryInterface;
 use App\Common\Domain\Repository\QueryRepositoryInterface;
 use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 
+/**
+ * @extends QueryRepositoryInterface<Cart>
+ */
 interface CartRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
 {
     public function findByToken(?string $token): ?Cart;

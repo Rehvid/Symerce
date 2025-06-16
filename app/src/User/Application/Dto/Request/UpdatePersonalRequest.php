@@ -26,7 +26,7 @@ final class UpdatePersonalRequest
     #[CustomAssertUniqueEmail(options: ['field' => 'email', 'className' => User::class])]
     public string $email;
 
-    public IdRequest $id;
+    public IdRequest $idRequest;
 
     public ?FileData $fileData;
 
@@ -40,7 +40,7 @@ final class UpdatePersonalRequest
         $this->firstname = $firstname;
         $this->surname = $surname;
         $this->email = $email;
-        $this->id = new IdRequest($id);
+        $this->idRequest = new IdRequest($id);
         $this->fileData = $avatar ? FileData::fromArray($avatar) : null;
     }
 }

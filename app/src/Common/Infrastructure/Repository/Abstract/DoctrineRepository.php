@@ -9,6 +9,11 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * @template T of object
+ * @extends ServiceEntityRepository<T>
+ * @implements QueryRepositoryInterface<T>
+ */
 abstract class DoctrineRepository
     extends ServiceEntityRepository
     implements ReadWriteRepositoryInterface, QueryRepositoryInterface

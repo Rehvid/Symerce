@@ -12,6 +12,10 @@ use App\Common\Domain\Enums\QueryOperator;
 use App\Common\Domain\Repository\CriteriaRepositoryInterface;
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * @template T of object
+ * @extends DoctrineRepository<T>
+ */
 abstract class AbstractCriteriaRepository extends DoctrineRepository implements CriteriaRepositoryInterface
 {
     abstract protected function getAlias(): string;

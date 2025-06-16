@@ -18,6 +18,7 @@ final readonly class AdminEntryListQueryHandler implements QueryHandlerInterface
     ) {
     }
 
+    /** @return array <string, mixed> */
     public function __invoke(GetAdminEntryListQuery $query): array
     {
         return [

@@ -15,7 +15,7 @@ final readonly class ProfilePersonalDataFactory
             firstname: $request->firstname,
             surname: $request->surname,
             email: $request->email,
-            id: $request->id,
+            id: (int) $request->idRequest->getId(),
             fileData: $request->fileData,
         );
     }

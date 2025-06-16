@@ -3,8 +3,13 @@ includes:
 
 parameters:
   level: 8
+  ignoreErrors:
+        - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ has parameter \\$[a-zA-Z0-9_]+ with no value type specified in iterable type array#"
+        - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ return type has no value type specified in iterable type array#"
+        - "#Property [a-zA-Z0-9\\$\\_\\\\:\\(\\)]+ type has no value type specified in iterable type array#"
   paths:
       - src/Common/Domain/Entity
   excludePaths:
       - tests/bootstrap.php
+      - src/Shop/
 

@@ -11,6 +11,9 @@ use App\Common\Domain\Repository\ReadWriteRepositoryInterface;
 use App\Setting\Domain\Enums\SettingKey;
 use App\Setting\Domain\Enums\SettingType;
 
+/**
+ * @extends QueryRepositoryInterface<Setting>
+ */
 interface SettingRepositoryInterface extends QueryRepositoryInterface, ReadWriteRepositoryInterface, CriteriaRepositoryInterface
 {
     /**

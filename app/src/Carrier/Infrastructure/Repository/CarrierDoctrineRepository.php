@@ -6,6 +6,9 @@ use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 
+/**
+ * @extends AbstractCriteriaRepository<Carrier>
+ */
 class CarrierDoctrineRepository extends AbstractCriteriaRepository implements CarrierRepositoryInterface
 {
 

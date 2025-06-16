@@ -7,7 +7,7 @@ namespace App\Common\Application\Dto\Response;
 final readonly class IdResponse
 {
     public function __construct(
-        private int|string $id
+        private int|string|null $id
     ) {}
 
     /** @return array<string, int> */

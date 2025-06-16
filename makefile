@@ -89,7 +89,7 @@ npm-watch-shop:
 
 # PHP Tools
 phpstan:
-	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "vendor/bin/phpstan analyse"
+	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "vendor/bin/phpstan analyse src/"
 
 phpmd:
 	cd docker && docker exec -it $(PHP_CONTAINER_NAME) bash -c "vendor/bin/phpmd src/ text phpmd.ruleset.xml"

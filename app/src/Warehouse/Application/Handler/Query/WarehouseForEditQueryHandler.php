@@ -18,6 +18,7 @@ final readonly class WarehouseForEditQueryHandler implements QueryHandlerInterfa
         private WarehouseAssembler $assembler
     ){}
 
+
     public function __invoke(GetWarehouseForEditQuery $query): array
     {
         /** @var Warehouse|null $warehouse */

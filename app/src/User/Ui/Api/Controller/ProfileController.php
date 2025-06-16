@@ -36,7 +36,7 @@ final class ProfileController extends AbstractApiController
     }
 
     #[Route('/{id}/security', name: 'update_security', requirements: ['id' => '\d+'], methods: ['PUT'])]
-    public function updateSecurity(int $id, Request $request, UpdateSecurityUseCase $useCase): JsonResponse
+    public function updateSecurity(int $id, Request $request): JsonResponse
     {
         $securityRequest = $this->requestDtoResolver->mapAndValidate($request, UpdateSecurityRequest::class);
         $this->commandBus->dispatch(new UpdateUserProfileSecurityCommand(

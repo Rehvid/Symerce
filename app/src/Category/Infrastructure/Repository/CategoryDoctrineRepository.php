@@ -9,6 +9,9 @@ use App\Common\Domain\Entity\Category;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
 use App\Common\Infrastructure\Traits\PositionRepositoryTrait;
 
+/**
+ * @extends AbstractCriteriaRepository<Category>
+ */
 class CategoryDoctrineRepository extends AbstractCriteriaRepository implements CategoryRepositoryInterface
 {
     use PositionRepositoryTrait;

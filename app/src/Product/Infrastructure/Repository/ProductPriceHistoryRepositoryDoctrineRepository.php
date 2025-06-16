@@ -8,7 +8,9 @@ use App\Common\Domain\Entity\ProductPriceHistory;
 use App\Common\Infrastructure\Repository\Abstract\DoctrineRepository;
 use App\Product\Domain\Repository\ProductPriceHistoryRepositoryInterface;
 
-
+/**
+ * @extends DoctrineRepository<ProductPriceHistory>
+ */
 class ProductPriceHistoryRepositoryDoctrineRepository extends DoctrineRepository implements ProductPriceHistoryRepositoryInterface
 {
     protected function getEntityClass(): string
@@ -26,7 +28,7 @@ class ProductPriceHistoryRepositoryDoctrineRepository extends DoctrineRepository
         $alias = $this->getAlias();
         $since = new \DateTimeImmutable('-30 days');
 
-        return $this->createQueryBuilder($this->getAlias())
+        $result = $this->createQueryBuilder($this->getAlias())
             ->select("MIN($alias.price) as min_price")
             ->andWhere("$alias.productId = :id")
             ->andWhere("$alias.createdAt >= :since")
@@ -34,5 +36,7 @@ class ProductPriceHistoryRepositoryDoctrineRepository extends DoctrineRepository
             ->setParameter('since', $since)
             ->getQuery()
             ->getSingleScalarResult();
+
+        return (string) ($result ?? '0');
     }
 }
