@@ -7,7 +7,7 @@ namespace App\Customer\Application\Dto;
 use App\Common\Application\Dto\AddressData;
 use App\Common\Application\Dto\ContactDetailsData;
 
-final readonly class CustomerData
+readonly class CustomerData
 {
     public function __construct(
         public ContactDetailsData $contactDetailsData,

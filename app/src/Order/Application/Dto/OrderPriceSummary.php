@@ -6,7 +6,7 @@ namespace App\Order\Application\Dto;
 
 use App\Common\Domain\ValueObject\MoneyVO;
 
-final readonly class OrderPriceSummary
+readonly class OrderPriceSummary
 {
     public function __construct(
         public ?MoneyVO $totalProductPrice,

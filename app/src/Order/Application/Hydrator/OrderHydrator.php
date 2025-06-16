@@ -19,7 +19,7 @@ use App\Order\Application\Dto\OrderData;
 use App\Order\Application\Dto\OrderItemData;
 use App\Order\Application\Service\OrderPriceCalculator;
 
-final readonly class OrderHydrator
+readonly class OrderHydrator
 {
     public function __construct(
         public ContactDetailsHydrator $contactDetailsHydrator,

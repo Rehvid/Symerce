@@ -7,7 +7,7 @@ namespace App\Order\Application\Mapper;
 use App\Customer\Application\Dto\CustomerData;
 use App\Order\Application\Dto\OrderData;
 
-final readonly class OrderDataToCustomerDataMapper
+readonly class OrderDataToCustomerDataMapper
 {
     public function map(OrderData $data): CustomerData
     {

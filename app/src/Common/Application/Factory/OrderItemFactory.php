@@ -9,7 +9,7 @@ use App\Common\Domain\Entity\OrderItem;
 use App\Common\Domain\Entity\Product;
 use App\Common\Domain\Service\ProductPriceCalculator;
 
-final readonly class OrderItemFactory
+readonly class OrderItemFactory
 {
     public function __construct(
         private ProductPriceCalculator $productPriceCalculator,

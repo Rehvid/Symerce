@@ -30,7 +30,7 @@ final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
             $excludedIds = $this->collectDescendantIds($currentCategory);
 
             $currentId = $currentCategory->getId();
-            if ($currentId !== null) {
+            if (null !== $currentId) {
                 $excludedIds[] = (int) $currentId;
             }
         }
@@ -38,7 +38,7 @@ final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
         $categories = $this->categoryRepository->findAllSortedByPosition();
         foreach ($categories as $category) {
             $id = $category->getId();
-            if ($id === null) {
+            if (null === $id) {
                 continue;
             }
             $id = (int) $id;
@@ -65,7 +65,7 @@ final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
     {
         $categoryId = $category->getId();
 
-        if ($categoryId === null) {
+        if (null === $categoryId) {
             return [];
         }
 
@@ -106,7 +106,7 @@ final class CategoryTreeBuilder implements CategoryTreeBuilderInterface
 
         foreach ($category->getChildren() as $child) {
             $childId = $child->getId();
-            if ($childId === null) {
+            if (null === $childId) {
                 continue;
             }
             $ids[] = $childId;

@@ -10,7 +10,7 @@ use App\Common\Domain\Entity\OrderItem;
 use App\Common\Domain\ValueObject\MoneyVO;
 use App\Order\Application\Dto\OrderPriceSummary;
 
-final readonly class OrderPriceCalculator
+readonly class OrderPriceCalculator
 {
     public function __construct(
         private MoneyFactory $moneyFactory,

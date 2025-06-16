@@ -10,7 +10,7 @@ use App\Common\Domain\Entity\Promotion;
 use App\Common\Domain\Enums\ReductionType;
 use App\Common\Domain\ValueObject\MoneyVO;
 
-final readonly class ProductPriceCalculator
+readonly class ProductPriceCalculator
 {
     public function __construct(
         private MoneyFactory $moneyFactory
