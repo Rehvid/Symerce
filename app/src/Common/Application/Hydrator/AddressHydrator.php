@@ -9,7 +9,7 @@ use App\Common\Domain\Entity\Address;
 use App\Common\Domain\Entity\Country;
 use App\Common\Domain\Exception\EntityNotFoundException;
 
-final readonly class AddressHydrator
+readonly class AddressHydrator
 {
     public function hydrate(AddressData $data, Address $address): Address
     {

@@ -6,15 +6,15 @@ namespace App\Customer\Application\Hydrator;
 
 use App\Common\Application\Dto\AddressData;
 use App\Common\Application\Hydrator\AddressHydrator;
+use App\Common\Application\Hydrator\ContactDetailsHydrator;
 use App\Common\Domain\Entity\Address;
 use App\Common\Domain\Entity\Customer;
 use App\Common\Domain\Entity\DeliveryAddress;
 use App\Common\Domain\Entity\InvoiceAddress;
 use App\Customer\Application\Dto\CustomerData;
-use App\Shop\Application\Hydrator\ContactDetailsHydrator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final readonly class CustomerHydrator
+readonly class CustomerHydrator
 {
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,

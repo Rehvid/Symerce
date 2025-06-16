@@ -18,4 +18,9 @@ final readonly class IdResponse
             'id' => (int) $this->id,
         ];
     }
+
+    public function getId(): int
+    {
+        return (int) $this->id;
+    }
 }

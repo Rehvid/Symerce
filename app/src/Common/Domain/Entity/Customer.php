@@ -31,7 +31,7 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface, Ide
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private string $password;
+    private ?string $password = null;
 
     /** @var array<int|string> */
     #[ORM\Column(type: 'json')]

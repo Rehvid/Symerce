@@ -7,7 +7,7 @@ namespace App\Common\Application\Hydrator;
 use App\Common\Application\Dto\ContactDetailsData;
 use App\Common\Domain\Entity\ContactDetails;
 
-final readonly class ContactDetailsHydrator
+readonly class ContactDetailsHydrator
 {
     public function hydrate(ContactDetailsData $data, ContactDetails $contactDetails): ContactDetails
     {
