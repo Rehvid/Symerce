@@ -24,7 +24,7 @@ final readonly class ProductStockHydrator
         if ($restockDate) {
             $productStock->setRestockDate(\DateTimeImmutable::createFromInterface($restockDate));
         } else {
-            $productStock->setRestockDate(new \DateTime());
+            $productStock->setRestockDate(null);
         }
 
 
