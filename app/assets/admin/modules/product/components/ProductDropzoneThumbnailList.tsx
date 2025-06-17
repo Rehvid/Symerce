@@ -29,7 +29,6 @@ const ProductDropzoneThumbnailList = ({ files, setFiles, setMainThumbnail, remov
             onDragEnd={handleDragEnd}
         >
             <SortableContext items={files.map((f) => f.uuid)} strategy={verticalListSortingStrategy}>
-                <div className="flex flex-wrap gap-4">
                     {files.map((file) => (
                         <ProductSortableThumbnail
                             key={file.uuid}
@@ -39,7 +38,6 @@ const ProductDropzoneThumbnailList = ({ files, setFiles, setMainThumbnail, remov
                             isMainThumbnail={file.isThumbnail}
                         />
                     ))}
-                </div>
             </SortableContext>
 
             <DragOverlay>

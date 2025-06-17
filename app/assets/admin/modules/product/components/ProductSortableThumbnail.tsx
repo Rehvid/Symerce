@@ -43,11 +43,11 @@ const ProductSortableThumbnail: FC<ProductSortableThumbnailProps> = ({
                 isMainThumbnail={isMainThumbnail}
                 variant={DropzoneVariant.Multiple}
             >
-                <div {...listeners} className="cursor-grab">
-                    <SortableIcon className="text-white w-[30px] h-[30px] mx-auto" />
+                <div {...listeners} className="flex items-center w-12 h-12 cursor-grab  bg-green-300 hover:bg-green-500 text-gray-500 hover:text-white transition-colors rounded-full p-2 duration-300">
+                    <SortableIcon className="text-white w-8 h-8 mx-auto" />
                 </div>
-                <span className="block cursor-pointer" onClick={() => setMainThumbnail(file)}>
-                    <PhotoIcon className="text-white w-[30px] h-[30px] mx-auto" />
+                <span className="flex items-center w-12 h-12 cursor-pointer bg-blue-300 hover:bg-blue-500 text-gray-500 hover:text-white transition-colors rounded-full p-2 duration-300" onClick={() => setMainThumbnail(file)}>
+                    <PhotoIcon className="text-white w-8 h-8 mx-auto" />
                 </span>
             </DropzoneThumbnail>
         </div>

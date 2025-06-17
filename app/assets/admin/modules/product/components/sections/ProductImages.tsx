@@ -54,7 +54,7 @@ const ProductImages: React.FC<ProductImagesProps> = ({ formData, setValue }) => 
                 <Dropzone
                     onDrop={onDrop}
                     errors={errors}
-                    containerClasses=" flex gap-5 p-5"
+                    containerClasses="flex flex-wrap gap-4"
                     variant={DropzoneVariant.Multiple}
                 >
                     {productImages.length > 0 && (

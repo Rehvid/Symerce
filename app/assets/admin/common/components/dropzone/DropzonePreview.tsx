@@ -16,7 +16,7 @@ const DropzonePreview: React.FC<DropzonePreviewProps> = ({ removeFile, file, add
     const toggleActions = () => setShowActions((prev) => !prev);
 
     const containerClasses = clsx(
-        'absolute inset-0 w-full h-full flex items-center justify-center gap-5 cursor-pointer transition-all',
+        'absolute inset-0 w-full h-full flex flex-wrap gap-2 p-2 items-center cursor-pointer transition-all',
         showActions ? 'bg-black/80 opacity-100' : 'opacity-0',
         additionalClasses,
     );

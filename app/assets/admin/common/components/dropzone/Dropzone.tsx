@@ -12,7 +12,7 @@ export enum DropzoneVariant {
 const variantClasses: Record<DropzoneVariant, string> = {
     [DropzoneVariant.Single]: 'max-w-lg min-h-[200px]',
     [DropzoneVariant.Avatar]: 'rounded-full h-40 w-40',
-    [DropzoneVariant.Multiple]: 'max-w-[200px] rounded-lg',
+    [DropzoneVariant.Multiple]: 'w-60 h-60 rounded-lg',
 };
 
 interface Errors {

@@ -17,7 +17,7 @@ const variantClasses: Record<DropzoneVariant, string> = {
     [DropzoneVariant.Avatar]: 'absolute flex top-0 h-40 w-40 rounded-full',
     [DropzoneVariant.Single]: 'absolute flex top-0 rounded-lg w-full h-full border border-gray-200',
     [DropzoneVariant.Multiple]:
-        'relative flex sm:h-48 sm:w-48 max-w-lg w-full h-auto rounded-lg border border-gray-100',
+        'relative flex sm:h-60 sm:w-60 max-w-lg  h-full rounded-lg border border-gray-100',
 };
 
 const DropzoneThumbnail: React.FC<DropzoneThumbnailProps> = ({
@@ -33,14 +33,14 @@ const DropzoneThumbnail: React.FC<DropzoneThumbnailProps> = ({
     return (
         <div key={index ?? 0} className={clsx(variantClasses[variant])}>
             {variant === DropzoneVariant.Multiple ? (
-                <div className="relative">
+                <div className="relative border border-gray-100 rounded-lg shadow-lg">
                     <img
                         className={clsx(baseRounded, 'mx-auto object-cover w-full h-full')}
                         src={file.preview}
                         alt={file.name}
                     />
                     {isMainThumbnail && (
-                        <div className="absolute bg-black/40 inset-x-0 bottom-0 p-4 text-white text-center font-medium tracking-wide uppercase">
+                        <div className="absolute bg-black/90 inset-x-0 bottom-0 p-4 text-white text-center font-medium tracking-wide uppercase">
                             Miniaturka
                         </div>
                     )}
