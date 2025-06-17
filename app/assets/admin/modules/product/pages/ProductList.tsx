@@ -44,7 +44,7 @@ const ProductList = () => {
         }) as ProductTableFilters,
     );
 
-    const { draggableCallback } = useDraggable('admin/reorder/product');
+    const { draggableCallback } = useDraggable('admin/position/product');
 
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
         ProductListItem,

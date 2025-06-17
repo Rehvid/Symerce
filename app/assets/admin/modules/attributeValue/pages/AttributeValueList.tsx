@@ -19,6 +19,7 @@ import TablePagination from '@admin/common/components/tableList/TablePagination'
 import { AttributeValueListItem } from '@admin/modules/attributeValue/interfaces/AttributeValueListItem';
 import { AttributeValueTableFilters } from '@admin/modules/attributeValue/interfaces/AttributeValueTableFilters';
 import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
+import useDraggable from '@admin/common/hooks/list/useDraggable';
 
 const AttributeValueList = () => {
     const params = useParams();
@@ -30,7 +31,7 @@ const AttributeValueList = () => {
             search: getCurrentParam('search', (value) => String(value)),
         }) as AttributeValueTableFilters,
     );
-
+    const { draggableCallback } = useDraggable('admin/position/attributeValue');
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
         AttributeValueListItem,
         AttributeValueTableFilters
@@ -72,7 +73,13 @@ const AttributeValueList = () => {
             </TableToolbar>
             <TableWrapper isLoading={isLoading}>
                 <TableHead sort={sort} setSort={setSort} columns={columns} />
-                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                    useDraggable={true}
+                    draggableCallback={draggableCallback}
+                />
             </TableWrapper>
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
         </TableWithLoadingSkeleton>

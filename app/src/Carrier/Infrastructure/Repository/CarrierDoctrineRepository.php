@@ -5,12 +5,15 @@ namespace App\Carrier\Infrastructure\Repository;
 use App\Carrier\Domain\Repository\CarrierRepositoryInterface;
 use App\Common\Domain\Entity\Carrier;
 use App\Common\Infrastructure\Repository\Abstract\AbstractCriteriaRepository;
+use App\Common\Infrastructure\Traits\PositionRepositoryTrait;
 
 /**
  * @extends AbstractCriteriaRepository<Carrier>
  */
 class CarrierDoctrineRepository extends AbstractCriteriaRepository implements CarrierRepositoryInterface
 {
+    use PositionRepositoryTrait;
+
     /** @return array<int, mixed> */
     public function findLowestAndHighestFee(): array
     {

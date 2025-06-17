@@ -20,6 +20,7 @@ import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 import { AttributeListItem } from '@admin/modules/attribute/interfaces/AttributeListItem';
 import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
+import useDraggable from '@admin/common/hooks/list/useDraggable';
 
 const AttributeList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -30,7 +31,7 @@ const AttributeList = () => {
             search: getCurrentParam('search', (value) => String(value)),
         }) as AttributeTableFilters,
     );
-
+    const { draggableCallback } = useDraggable('admin/position/attribute');
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
         AttributeListItem,
         AttributeTableFilters
@@ -82,7 +83,13 @@ const AttributeList = () => {
             </TableToolbar>
             <TableWrapper isLoading={isLoading}>
                 <TableHead sort={sort} setSort={setSort} columns={columns} />
-                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                    useDraggable={true}
+                    draggableCallback={draggableCallback}
+                />
             </TableWrapper>
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
         </TableWithLoadingSkeleton>

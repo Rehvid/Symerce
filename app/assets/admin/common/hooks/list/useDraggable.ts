@@ -12,8 +12,8 @@ const useDraggable = (endpoint: string) => {
     const draggableCallback = async (item: DraggableItem) => {
         await handleApiRequest(HttpMethod.PUT, endpoint, {
             body: prepareDraggableDataToUpdateOrder(item),
-            onSuccess: ({ message }) => {
-                addNotification(message, NotificationType.SUCCESS);
+            onSuccess: (data, meta, message) => {
+                addNotification(message ?? '', NotificationType.SUCCESS);
             },
             onError: () => {
                 addNotification(

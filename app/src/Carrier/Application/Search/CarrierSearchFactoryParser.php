@@ -16,7 +16,7 @@ final readonly class CarrierSearchFactoryParser implements SearchParserFactoryIn
     public function create(): SearchRequestParser
     {
         return new SearchRequestParser([
-            new SearchOrderByParser(DirectionType::ASC, 'id'),
+            new SearchOrderByParser(DirectionType::ASC, 'position'),
             new SearchFilterParser(),
             new SearchPaginationParser(),
         ]);

@@ -18,6 +18,7 @@ import TableHead from '@admin/common/components/tableList/TableHead';
 import TableBody from '@admin/common/components/tableList/TableBody';
 import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
+import useDraggable from '@admin/common/hooks/list/useDraggable';
 
 const TagList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -28,6 +29,7 @@ const TagList = () => {
             search: getCurrentParam('search', (value) => String(value)),
         }) as TagListFiltersInterface,
     );
+    const { draggableCallback } = useDraggable('admin/position/tag');
 
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
         TagListItem,
@@ -69,7 +71,13 @@ const TagList = () => {
             </TableToolbar>
             <TableWrapper isLoading={isLoading}>
                 <TableHead sort={sort} setSort={setSort} columns={columns} />
-                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                    useDraggable={true}
+                    draggableCallback={draggableCallback}
+                />
             </TableWrapper>
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
         </TableWithLoadingSkeleton>

@@ -6,19 +6,22 @@ namespace App\Common\Domain\Entity;
 
 use App\Carrier\Infrastructure\Repository\CarrierDoctrineRepository;
 use App\Common\Domain\Contracts\FileEntityInterface;
+use App\Common\Domain\Contracts\PositionEntityInterface;
 use App\Common\Domain\Enums\DecimalPrecision;
 use App\Common\Domain\Traits\ActiveTrait;
 use App\Common\Domain\Traits\CreatedAtTrait;
+use App\Common\Domain\Traits\PositionTrait;
 use App\Common\Domain\Traits\UpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CarrierDoctrineRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Carrier implements FileEntityInterface
+class Carrier implements FileEntityInterface, PositionEntityInterface
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
     use ActiveTrait;
+    use PositionTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

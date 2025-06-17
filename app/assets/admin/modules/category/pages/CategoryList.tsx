@@ -20,6 +20,7 @@ import TableBody from '@admin/common/components/tableList/TableBody';
 import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
+import useDraggable from '@admin/common/hooks/list/useDraggable';
 
 const CategoryList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -30,6 +31,7 @@ const CategoryList = () => {
             isActive: getCurrentParam('isActive', (value) => Boolean(value)),
         }) as CategoryTableFilters,
     );
+    const { draggableCallback } = useDraggable('admin/position/category');
 
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
         CategoryListItem,
@@ -77,7 +79,13 @@ const CategoryList = () => {
             </TableToolbar>
             <TableWrapper isLoading={isLoading}>
                 <TableHead sort={sort} setSort={setSort} columns={columns} />
-                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                    useDraggable={true}
+                    draggableCallback={draggableCallback}
+                />
             </TableWrapper>
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
         </TableWithLoadingSkeleton>

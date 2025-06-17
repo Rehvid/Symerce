@@ -21,7 +21,7 @@ final readonly class PositionEntityService implements ReorderEntityServiceInterf
     {
         $repository = $this->entityManager->getRepository($this->resolveEntityClass($entityName));
         if (!$repository instanceof PositionRepositoryInterface) {
-            throw new \LogicException('Repository must implement ReorderableRepositoryInterface to use ReorderEntityService');
+            throw new \LogicException('Repository must implement PositionRepositoryInterface to use ReorderEntityService');
         }
 
         $this->adjustOrderPositions($repository, $request->oldPosition, $request->newPosition);

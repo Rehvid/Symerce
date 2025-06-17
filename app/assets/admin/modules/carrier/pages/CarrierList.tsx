@@ -22,6 +22,7 @@ import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
 import RangeFilter from '@admin/common/components/tableList/filters/RangeFilter';
 import TableWithLoadingSkeleton from '@admin/common/components/tableList/TableWithLoadingSkeleton';
+import useDraggable from '@admin/common/hooks/list/useDraggable';
 
 const CarrierList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -34,6 +35,7 @@ const CarrierList = () => {
             feeTo: getCurrentParam('feeTo', (value) => Number(value)),
         }) as CarrierTableFilters,
     );
+    const { draggableCallback } = useDraggable('admin/position/carrier');
 
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
         CarrierListItem,
@@ -83,7 +85,13 @@ const CarrierList = () => {
             </TableToolbar>
             <TableWrapper isLoading={isLoading}>
                 <TableHead sort={sort} setSort={setSort} columns={columns} />
-                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                    useDraggable={true}
+                    draggableCallback={draggableCallback}
+                />
             </TableWrapper>
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
         </TableWithLoadingSkeleton>

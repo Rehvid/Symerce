@@ -22,6 +22,7 @@ import TableHead from '@admin/common/components/tableList/TableHead';
 import TableBody from '@admin/common/components/tableList/TableBody';
 import { Pagination } from '@admin/common/interfaces/Pagination';
 import TablePagination from '@admin/common/components/tableList/TablePagination';
+import useDraggable from '@admin/common/hooks/list/useDraggable';
 
 const PaymentMethodList = () => {
     const { defaultFilters, defaultSort, getCurrentParam } = useListDefaultQueryParams();
@@ -34,7 +35,7 @@ const PaymentMethodList = () => {
             search: getCurrentParam('search', (value) => String(value)),
         }) as PaymentMethodTableFilters,
     );
-
+    const { draggableCallback } = useDraggable('admin/position/paymentMethod');
     const { items, pagination, isLoading, sort, setSort, removeItem } = useListData<
         PaymentMethodListItem,
         PaymentMethodTableFilters
@@ -84,7 +85,13 @@ const PaymentMethodList = () => {
             </TableToolbar>
             <TableWrapper isLoading={isLoading}>
                 <TableHead sort={sort} setSort={setSort} columns={columns} />
-                <TableBody data={rowData} filters={filters} pagination={pagination as Pagination} />
+                <TableBody
+                    data={rowData}
+                    filters={filters}
+                    pagination={pagination as Pagination}
+                    useDraggable={true}
+                    draggableCallback={draggableCallback}
+                />
             </TableWrapper>
             <TablePagination filters={filters} setFilters={setFilters} pagination={pagination as Pagination} />
         </TableWithLoadingSkeleton>
