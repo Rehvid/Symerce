@@ -10,7 +10,7 @@ export enum DropzoneVariant {
 }
 
 const variantClasses: Record<DropzoneVariant, string> = {
-    [DropzoneVariant.Single]: 'max-w-lg min-h-[200px]',
+    [DropzoneVariant.Single]: 'max-w-lg min-h-[200px] rounded-lg',
     [DropzoneVariant.Avatar]: 'rounded-full h-40 w-40',
     [DropzoneVariant.Multiple]: 'w-60 h-60 rounded-lg',
 };
@@ -41,7 +41,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
             <div
                 {...getRootProps()}
                 className={clsx(
-                    'flex flex-col gap-2 px-4 py-2 justify-center items-center border border-dashed transition-all cursor-pointer rounded-lg',
+                    'flex flex-col gap-2 px-4 py-2 justify-center items-center border border-dashed transition-all cursor-pointer',
                     variantClasses[variant],
                     errors?.message
                         ? 'border-red-500 hover:border-red-700 hover:border-2'
