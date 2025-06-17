@@ -44,7 +44,6 @@ final class AuthController extends AbstractApiController
     #[Route('/remind-password', name: 'remind_password', methods: ['POST'], format: 'json')]
     public function remindPassword(Request $request): JsonResponse
     {
-        // TODO: Refactor names
         $resetPasswordRequest = $this->requestDtoResolver->mapAndValidate(
             $request,
             ResetPasswordRequest::class

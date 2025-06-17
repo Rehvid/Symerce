@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Order\Application\Dto\Request;
 
 use App\Common\Application\Dto\Request\IdRequest;
+use App\Common\Domain\Validation\ValidationErrorConfig;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -32,7 +33,9 @@ final readonly class SaveOrderProductRequest
     {
         if (!is_numeric($this->quantity) || (int) $this->quantity <= 0) {
             $context->buildViolation('Quantity must be greater than 0.')
-                ->atPath("products.{$this->index}.quantity")
+                ->setCause([
+                    ValidationErrorConfig::CUSTOM_PATH => "products.{$this->index}.quantity"
+                ])
                 ->addViolation();
         }
     }

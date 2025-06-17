@@ -57,7 +57,6 @@ final readonly class FileService
     {
         $path = $this->fileStorageService->saveFile($fileData->content, $fileData->type);
 
-        // TODO: Create Hydrator
         $currentFile->setPath($path);
         $currentFile->setName(basename($path));
         $currentFile->setOriginalName($fileData->name);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Common\Infrastructure\Http;
 
+use App\Common\Domain\Validation\ValidationErrorConfig;
 use App\Common\Infrastructure\Http\Exception\RequestValidationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -62,10 +63,19 @@ final readonly class RequestDtoResolver
             $errors = [];
             foreach ($violations as $violation) {
                 $path = $violation->getPropertyPath();
-                $propertyPath = str_contains($path, '.')
-                    ? array_slice(explode('.', $path), -1)[0]
-                    : $path;
-                $errors[$propertyPath] = ['message' => $violation->getMessage()];
+                $cause = $violation->getCause();
+
+                $customPath = (is_array($cause) && isset($cause[ValidationErrorConfig::CUSTOM_PATH]))
+                    ? $cause[ValidationErrorConfig::CUSTOM_PATH]
+                    : null;
+
+                $path = $customPath ?? (
+                str_contains($violation->getPropertyPath(), '.')
+                    ? array_slice(explode('.', $violation->getPropertyPath()), -1)[0]
+                    : $violation->getPropertyPath()
+                );
+
+                $errors[$path] = ['message' => $violation->getMessage()];
             }
 
             throw new RequestValidationException($errors);

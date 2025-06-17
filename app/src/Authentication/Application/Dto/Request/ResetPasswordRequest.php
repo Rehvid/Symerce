@@ -10,10 +10,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class ResetPasswordRequest
 {
-    // TODO: Add custom message
     #[Assert\NotBlank]
     #[Assert\Email]
-    #[CustomAssertExistField(options: ['field' => 'email', 'className' => User::class])]
+    #[CustomAssertExistField(options: [
+        'field' => 'email',
+        'className' => User::class,
+        'message' => 'base.validation.forgot_password_email_no_found',
+    ])]
     public string $email;
 
     public function __construct(

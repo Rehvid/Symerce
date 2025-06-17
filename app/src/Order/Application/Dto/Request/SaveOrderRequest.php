@@ -122,7 +122,7 @@ final readonly class SaveOrderRequest
         foreach ($products as $index => $product) {
             $saveOrderProductRequestCollection[] = new SaveOrderProductRequest(
                 productId: $product['productId'] ?? null,
-                quantity: $product['quantity'] ?? null, // TODO: Resolve problem with not showing error,
+                quantity: $product['quantity'] ?? null,
                 index: $index
             );
         }

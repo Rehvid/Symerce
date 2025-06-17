@@ -160,7 +160,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, FileEnt
 
     public function getAvatar(): ?File
     {
-        return $this->getFile(); // TODO: Change it later
+        return $this->getFile();
     }
 
     public function setAvatar(?File $avatar): void
