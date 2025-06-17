@@ -31,6 +31,7 @@ const DashboardOrder: FC<DashboardOrderProps> = ({ orders }) => {
                                         {order.products?.map((product, key) => (
                                             <a
                                                 href={product.showUrl}
+                                                key={key}
                                                 className="hover:text-black transition-colors text-gray-500 text-sm"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
