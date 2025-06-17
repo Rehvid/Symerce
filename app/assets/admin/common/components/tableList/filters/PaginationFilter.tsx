@@ -29,7 +29,6 @@ const PaginationFilter = <T extends TableFilters>({
     const activeOptions = overrideDefaultOptions ? options : defaultOptions;
 
     const getCurrentValue = () => {
-        console.log('Filters', filters);
         const currentLimit = Number(filters.limit) || PAGINATION_FILTER_DEFAULT_OPTION;
         return activeOptions.find((option) => option.value === currentLimit) || null;
     };

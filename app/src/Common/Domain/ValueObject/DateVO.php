@@ -15,7 +15,6 @@ final readonly class DateVO
             $this->rawDate = $value instanceof \DateTimeImmutable
                 ? $value
                 : \DateTimeImmutable::createFromMutable($value);
-            dd($this->rawDate);
         } else {
             try {
                 $this->rawDate = new \DateTime($value, new \DateTimeZone('UTC'));

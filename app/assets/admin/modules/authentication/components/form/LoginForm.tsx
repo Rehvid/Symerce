@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import FormWrapper from '@admin/common/components/form/FormWrapper';
 import { useForm } from 'react-hook-form';
 import { FormDataInterface } from '@admin/common/interfaces/FormDataInterface';
@@ -12,7 +12,7 @@ import InputLabel from '@admin/common/components/form/input/InputLabel';
 import InputPassword from '@admin/common/components/form/input/InputPassword';
 import Button, { ButtonVariant } from '@admin/common/components/Button';
 import Link from '@admin/common/components/Link';
-import { User } from '@admin/common/context/UserContext';
+import { User, useUser } from '@admin/common/context/UserContext';
 import { useAuth } from '@admin/common/context/AuthroizationContext';
 
 interface LoginFormData extends FormDataInterface {
@@ -30,13 +30,21 @@ const LoginForm: FC = () => {
         mode: 'onBlur',
     });
 
+    const [shouldNavigate, setShouldNavigate] = useState<boolean>(false);
     const { login } = useAuth();
+    const { user } = useUser();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user && shouldNavigate) {
+            navigate('/admin/dashboard', { replace: true });
+        }
+    }, [user, shouldNavigate]);
 
     const apiRequestCallbacks = {
         onSuccess: (data: User) => {
-            login(data.user);
-            navigate('/admin/dashboard', { replace: true });
+            login(data.data.user);
+            setShouldNavigate(true);
         },
     };
 

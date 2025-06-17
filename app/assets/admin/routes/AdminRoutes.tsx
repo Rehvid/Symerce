@@ -19,6 +19,7 @@ import { cartRoutes } from '@admin/modules/cart/cart.routes';
 import { dashboardRoutes } from '@admin/modules/dashboard/dashboard.routes';
 import { profileRoutes } from '@admin/modules/profile/profile.routes';
 import { AdminRouteInterface } from '@admin/common/interfaces/AdminRouteInterface';
+import { AdminRole } from '@admin/common/enums/adminRole';
 
 const routesConfig: AdminRouteInterface[] = [
     ...profileRoutes,
@@ -41,7 +42,7 @@ const routesConfig: AdminRouteInterface[] = [
     ...customerRoutes,
 ];
 
-const withProtection = (requiredRoles: string[], Component: AdminRouteInterface['component']) => (
+const withProtection = (requiredRoles: AdminRole[], Component: AdminRouteInterface['component']) => (
     <ProtectedRoute requiredRoles={requiredRoles}>
         <Component />
     </ProtectedRoute>
