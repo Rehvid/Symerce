@@ -6,6 +6,7 @@ namespace App\Cart\Application\Factory;
 
 use App\Cart\Application\Dto\Response\CartDetailItemResponse;
 use App\Cart\Application\Dto\Response\CartDetailResponse;
+use App\Common\Application\Dto\Response\OrderableItemResponse;
 use App\Common\Application\Factory\MoneyFactory;
 use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\Cart;
@@ -31,14 +32,13 @@ final readonly class CartDetailResponseFactory
             expiresAt: (new DateVO($cart->getExpiresAt()))->formatRaw(),
             customer: $cart?->getCustomer()?->getContactDetails()?->getFullName(),
             items: array_map(
-                fn (CartItem $cartItem) => $this->createCartDetailItemResponse($cartItem),
+                fn (CartItem $cartItem) => $this->createOrderableItemResponse($cartItem),
                 $cart->getItems()->toArray()
             ),
         );
     }
 
-    // TODO: It's duplicated from orderResponse, create one DTO instaed of two
-    private function createCartDetailItemResponse(CartItem $cartItem): CartDetailItemResponse
+    private function createOrderableItemResponse(CartItem $cartItem): OrderableItemResponse
     {
         $product = $cartItem->getProduct();
         $unitPrice = $this->moneyFactory->create($cartItem->getPrice());
@@ -56,7 +56,7 @@ final readonly class CartDetailResponseFactory
         }
 
 
-        return new CartDetailItemResponse(
+        return new OrderableItemResponse(
             name: $product?->getName(),
             imageUrl: $imageUrl ?? null,
             unitPrice: $unitPrice->getFormattedAmountWithSymbol(),

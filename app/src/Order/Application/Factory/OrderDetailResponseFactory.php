@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Factory;
 
+use App\Common\Application\Dto\Response\OrderableItemResponse;
 use App\Common\Application\Factory\MoneyFactory;
 use App\Common\Application\Service\FileService;
 use App\Common\Domain\Entity\Address;
@@ -43,13 +44,13 @@ final readonly class OrderDetailResponseFactory
     {
         return new OrderDetailResponse(
             information: $this->createOrderDetailInformationResponse($order),
+            summary: $this->createOrderDetailSummaryResponse($order),
             contactDetails: $this->createOrderDetailContactResponse($order),
             deliveryAddress: $this->createOrderDetailDeliveryAddressResponse($order),
             invoiceAddress: $this->createOrderDetailInvoiceAddressResponse($order),
             shipping: $this->createOrderDetailShippingResponse($order),
             payment: $this->createOrderDetailPaymentResponse($order),
-            items : $this->createOrderDetailItemsResponse($order),
-            summary: $this->createOrderDetailSummaryResponse($order),
+            items: $this->createOrderDetailItemsResponse($order),
         );
     }
 
@@ -165,13 +166,13 @@ final readonly class OrderDetailResponseFactory
     {
         return new OrderDetailItemsResponse(
             itemCollection: array_map(
-                fn (OrderItem $orderItem) => $this->createOrderDetailItemResponse($orderItem),
+                fn (OrderItem $orderItem) => $this->createOrderableItemResponse($orderItem),
                 $order->getOrderItems()->toArray()
             ),
         );
     }
 
-    private function createOrderDetailItemResponse(OrderItem $orderItem): OrderDetailItemResponse
+    private function createOrderableItemResponse(OrderItem $orderItem): OrderableItemResponse
     {
         $product = $orderItem->getProduct();
         $unitPrice = $this->moneyFactory->create($orderItem->getUnitPrice());
@@ -191,7 +192,7 @@ final readonly class OrderDetailResponseFactory
         }
 
 
-        return new OrderDetailItemResponse(
+        return new OrderableItemResponse(
             name: $product?->getName(),
             imageUrl: $imageUrl ?? null,
             unitPrice: $unitPrice->getFormattedAmountWithSymbol(),

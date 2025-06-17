@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Order\Application\Dto\Response\OrderDetail;
+namespace App\Common\Application\Dto\Response;
 
-final readonly class OrderDetailItemResponse
+final readonly class OrderableItemResponse
 {
     public function __construct(
         public ?string $name,
@@ -13,6 +13,5 @@ final readonly class OrderDetailItemResponse
         public int $quantity,
         public string $totalPrice,
         public ?string $editUrl
-    ) {
-    }
+    ) {}
 }
