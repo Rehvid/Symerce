@@ -54,9 +54,10 @@ final readonly class SettingsService
     {
         $metaSettings = $this->settingRepository->findByType(SettingType::SEO);
 
+
         $settings = [];
         foreach ($metaSettings ?? [] as $setting) {
-            $settings[$setting->getType()->name] = $setting->getValue();
+            $settings[$setting->getKey()->value] = $setting->getValue();
         }
 
         return $settings;
@@ -75,12 +76,8 @@ final readonly class SettingsService
         $jsonData = new JsonDataVO($menuSettings->getValue());
         $idCategories = [];
 
-        foreach ($jsonData->getArray() as $value) {
-            $idCategories[] = $value['id'];
-        }
-
         /** @var Category[] $categories */
-        $categories = $this->categoryRepository->findBy(['id' => $idCategories, 'isActive' => true]);
+        $categories = $this->categoryRepository->findBy(['id' => $jsonData->getArray(), 'isActive' => true]);
 
         if (empty($categories)) {
             return [];
