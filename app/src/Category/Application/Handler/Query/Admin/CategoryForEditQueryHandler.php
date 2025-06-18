@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Category\Application\Handler\Query;
+namespace App\Category\Application\Handler\Query\Admin;
 
-use App\Category\Application\Assembler\CategoryAssembler;
-use App\Category\Application\Query\GetCategoryForEditQuery;
+use App\Category\Application\Assembler\Admin\CategoryAssembler;
+use App\Category\Application\Query\Admin\GetCategoryForEditQuery;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Application\Query\Interfaces\QueryHandlerInterface;
 use App\Common\Domain\Entity\Category;

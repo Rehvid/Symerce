@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Category\Application\Dto\Response;
+namespace App\Category\Application\Dto\Admin\Response;
 
 readonly class CategoryTreeResponse
 {

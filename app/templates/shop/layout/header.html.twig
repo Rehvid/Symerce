@@ -21,9 +21,9 @@
                         </div>
                     </div>
 
-                    <span class="lg:hidden block  react-menu-modal-toggle" data-menu="{{ shopCategories|json_encode }}">
-                        {{ getSvgInline('build/images/menu.svg', 'w-10 h-auto text-primary')|raw }}
-                    </span>
+{#                    <span class="lg:hidden block  react-menu-modal-toggle" data-menu="{{ shopCategories|json_encode }}">#}
+{#                        {{ getSvgInline('build/images/menu.svg', 'w-10 h-auto text-primary')|raw }}#}
+{#                    </span>#}
                 </div>
                 <div class="relative order-last lg:order-2 w-full lg:max-w-2xl xl:max-w-4xl">
                     <input
@@ -42,7 +42,7 @@
     <nav class="lg:block hidden border-t border-b border-gray-200">
         {% embed 'shop/partials/_content_wrapper.html.twig' with {classes: 'lg:container px-4 lg:mx-auto lg:px-auto'} %}
             {% block content %}
-                <ul class="flex justify-between gap-4 py-1">
+                <ul class="flex gap-[2rem] py-1">
                     <li>
                         <a href="{{ path('shop.categories') }}" class="flex items-center h-[46px] w-full transition-all duration-300 hover:text-primary">
                             {{ 'shop.common.categories'|trans }}

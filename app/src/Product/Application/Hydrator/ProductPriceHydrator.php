@@ -38,6 +38,7 @@ final readonly class ProductPriceHydrator
         $productPriceHistory->setBasePrice($product->getRegularPrice());
 
         if (null !== $promotion) {
+            //TODO: Use ProductPromotionCalculator
             $regularPrice = $this->moneyFactory->create($product->getRegularPrice());
             if (ReductionType::AMOUNT === $promotion->getType()) {
                 $discountPrice = $regularPrice->subtract($promotion->getReduction());

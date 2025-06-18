@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Category\Application\Dto;
+namespace App\Category\Application\Dto\Admin;
 
 use App\Common\Application\Dto\FileData;
 use App\Common\Domain\Entity\Category;

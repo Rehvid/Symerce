@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Category\Application\Dto\Request;
+namespace App\Category\Application\Dto\Admin\Request;
 
 use App\Common\Application\Dto\FileData;
 use App\Common\Application\Dto\Request\IdRequest;

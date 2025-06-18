@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Category\Application\Assembler;
+namespace App\Category\Application\Assembler\Admin;
 
-use App\Category\Application\Dto\Response\CategoryFormResponse;
-use App\Category\Application\Dto\Response\CategoryListResponse;
-use App\Category\Application\Dto\Response\CategoryTreeResponse;
+use App\Category\Application\Dto\Admin\Response\CategoryFormResponse;
+use App\Category\Application\Dto\Admin\Response\CategoryListResponse;
+use App\Category\Application\Dto\Admin\Response\CategoryTreeResponse;
 use App\Category\Application\Provider\CategoryTreeProvider;
 use App\Common\Application\Assembler\ResponseHelperAssembler;
 use App\Common\Domain\Entity\Category;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shop\Application\DTO\Response\Product;
+namespace App\Product\Application\Dto\Shop\Response;
 
 final readonly class ProductListResponse
 {

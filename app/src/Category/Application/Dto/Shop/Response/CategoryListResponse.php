@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Category\Application\Dto\Response;
+namespace App\Category\Application\Dto\Shop\Response;
 
 final readonly class CategoryListResponse
 {
     public function __construct(
-        public ?int $id,
         public string $name,
         public string $slug,
-        public bool $isActive,
-        public ?string $imagePath = null,
+        public int $productCount,
+        public ?string $imagePath = null
     ) {
     }
 }

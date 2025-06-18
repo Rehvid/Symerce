@@ -17,4 +17,9 @@ interface CategoryRepositoryInterface extends QueryRepositoryInterface, ReadWrit
 {
     /** @return Category[] */
     public function findAllSortedByPosition(): array;
+
+    public function findActiveSortedByPosition(): array;
+
+
+    public function findBySlug(string $slug): ?Category;
 }

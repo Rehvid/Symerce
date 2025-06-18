@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shop\Application\DTO\Response\Category;
+namespace App\Category\Application\Dto\Shop\Response;
 
 final readonly class CategorySubcategoryListResponse
 {

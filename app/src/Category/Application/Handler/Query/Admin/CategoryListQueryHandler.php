@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Category\Application\Handler\Query;
+namespace App\Category\Application\Handler\Query\Admin;
 
-use App\Category\Application\Assembler\CategoryAssembler;
-use App\Category\Application\Query\GetCategoryListQuery;
+use App\Category\Application\Assembler\Admin\CategoryAssembler;
+use App\Category\Application\Query\Admin\GetCategoryListQuery;
 use App\Category\Application\Search\CategorySearchService;
 use App\Common\Application\Dto\Response\ApiResponse;
 use App\Common\Application\Query\Interfaces\QueryHandlerInterface;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Category\Application\Factory;
 
-use App\Category\Application\Dto\CategoryData;
-use App\Category\Application\Dto\Request\SaveCategoryRequest;
+use App\Category\Application\Dto\Admin\CategoryData;
+use App\Category\Application\Dto\Admin\Request\SaveCategoryRequest;
 use App\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Common\Domain\Entity\Category;
 use App\Common\Domain\Exception\EntityNotFoundException;

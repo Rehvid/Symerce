@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Category\Application\Query;
+namespace App\Category\Application\Query\Admin;
 
 use App\Common\Application\Query\Interfaces\QueryInterface;
 

@@ -6,24 +6,19 @@
     <meta name="robots" content="index, follow">
     <meta property="og:type" content="website" />
 
-    {% set meta = meta|default({}) %}
     {% set metaSettings = getMeta() %}
 
+
+    {% set metaSettings = getMeta() %}
     {% set metaTitle = metaSettings['shop_title']|default('shop.meta.title'|trans) %}
+    {% set metaDescription = metaSettings['shop_description']|default('shop.meta.description'|trans) %}
+    {% set metaOgTitle = metaSettings['shop_og_title']|default(metaTitle) %}
+    {% set metaOgDescription = metaSettings['shop_og_description']|default(metaDescription) %}
 
-    {% block meta %}
-        {% set metaDescription = metaSettings['shop_description']|default('shop.meta.description'|trans) %}
-        {% set metaOgTitle = metaSettings['shop_og_title']|default(metaTitle) %}
-        {% set metaOgDescription = metaSettings['shop_og_description']|default(metaDescription) %}
-
-        <meta name="description" content="{{ metaDescription }}">
-        <meta property="og:title" content="{{ metaOgTitle }}" />
-        <meta property="og:description" content="{{ metaOgDescription }}" />
-    {% endblock %}
-
-    {% block title %}
-        <title>{{ metaTitle }}</title>
-    {% endblock %}
+    <title>{% block title %}{{ metaTitle }}{% endblock %}</title>
+    <meta name="description" {% block meta_description %} content="{{ metaDescription }}"{% endblock %}>
+    <meta property="og:title" {% block meta_og_title %} content="{{ metaOgTitle }}" {% endblock %}/>
+    <meta property="og:description" {% block meta_og_description %}content="{{ metaOgDescription }}"{% endblock %} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

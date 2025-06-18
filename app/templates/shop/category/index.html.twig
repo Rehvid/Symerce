@@ -6,8 +6,9 @@
     {% embed 'shop/partials/_content_wrapper.html.twig' with {tag: 'section', id: 'category-list'} %}
         {% import 'shop/macros/heading.html.twig' as ui %}
 
+
         {% block content %}
-            {% if categories is defined and categories is not empty %}
+            {% if data is defined %}
                 <div class="flex flex-col gap-[32px] mb-[3rem]">
 
                     <div class="w-full flex gap-2 flex-wrap items-center justify-between text-primary-content pb-5 mb-4 border-b border-gray-200">
@@ -32,7 +33,7 @@
                     </div>
 
                     <div class="grid gap-[40px] xl:grid-cols-4 lg:grid-cols-3 w-full sm:grid-cols-2 grid-cols-1">
-                        {% for category in categories %}
+                        {% for category in data.categories|default([]) %}
                             {% include 'shop/category/partials/category-item.html.twig' %}
                         {% endfor %}
                     </div>
@@ -46,6 +47,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('shop/filter') }}
-    {{ encore_entry_script_tags('shop/dropdown') }}
+{#    {{ encore_entry_script_tags('shop/filter') }}#}
+{#    {{ encore_entry_script_tags('shop/dropdown') }}#}
 {% endblock %}

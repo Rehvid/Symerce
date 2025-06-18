@@ -178,4 +178,19 @@ class Promotion
     {
         $this->source = $source;
     }
+
+    public function isActiveNow(): bool
+    {
+        return $this->isActive() && $this->hasStarted() && !$this->hasExpired();
+    }
+
+    public function hasStarted(): bool
+    {
+        return $this->startsAt < new \DateTimeImmutable();
+    }
+
+    public function hasExpired(): bool
+    {
+        return $this->endsAt < new \DateTimeImmutable();
+    }
 }

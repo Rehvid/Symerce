@@ -31,4 +31,14 @@ class CategoryDoctrineRepository extends AbstractCriteriaRepository implements C
     {
         return $this->findBy([], ['position' => 'ASC']);
     }
+
+    public function findActiveSortedByPosition(): array
+    {
+        return $this->findBy(['isActive' => true], ['position' => 'ASC']);
+    }
+
+    public function findBySlug(string $slug): ?Category
+    {
+        return $this->findOneBy(['slug' => $slug, 'isActive' => true]);
+    }
 }

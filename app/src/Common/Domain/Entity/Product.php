@@ -73,6 +73,7 @@ class Product implements PositionEntityInterface, IdentifiableInterface
 
     /** @var Collection<int, Promotion> */
     #[ORM\OneToMany(targetEntity: Promotion::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['priority' => 'ASC'])]
     private Collection $promotions;
 
     /** @var Collection<int, ProductPriceHistory> */
@@ -149,7 +150,7 @@ class Product implements PositionEntityInterface, IdentifiableInterface
 
     public function getDiscountPrice(): ?string
     {
-        return $this->regularPrice;
+        return $this->hasActivePromotion() ? $this->promotions->first()->getDiscountPrice() : null;
     }
 
     /** @return Collection<int, Tag> */
@@ -346,5 +347,21 @@ class Product implements PositionEntityInterface, IdentifiableInterface
         }
 
         return $totalQuantity > 0;
+    }
+
+    public function hasActivePromotion(): bool
+    {
+        foreach ($this->promotions as $promotion) {
+            if ($promotion->isActiveNow()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function getActiveNowPromotions(): Collection
+    {
+        return $this->promotions->filter(fn (Promotion $promotion) => $promotion->isActiveNow());
     }
 }
